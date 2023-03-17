@@ -4,6 +4,10 @@ import Layout from '@/components/layout/';
 
 import LoginPage from '@/pages/login';
 
+import { NotFoundPage } from '../pages/404';
+import { lazy } from 'react';
+import ZoneIdPage from '../pages/zoneId';
+
 // import Layout from '@/components/layout';
 
 // 错误页面不要预加载，首屏就要有
@@ -13,15 +17,17 @@ import LoginPage from '@/pages/login';
 // 使用 React.lazy 做代码分割
 // 注意用 import(/* webpackPrefetch: true */ '@/oages/') 为所有路由都做预加载
 
+const SSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/ssl'));
+
 // 自定义 ErrorBoundary
 const ErrorBoundary = () => {
   const error = useRouteError();
   if (isRouteErrorResponse(error)) {
-    if (error.status === 403) {
-      // return <ForbiddenPage />;
-    }
+    // if (error.status === 403) {
+    //   return <ForbiddenPage />;
+    // }
     if (error.status === 404) {
-      // return <NotFoundPage />;
+      return <NotFoundPage />;
     }
     // TODO: 返回 50X？
   }
@@ -39,57 +45,25 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />
+      },
+      {
+        path: ':zoneId',
+        element: <ZoneIdPage />,
+        children: [
+          {
+            path: 'ssl',
+            element: <SSLPage />
+          }
+        ]
       }
     ]
-    // children: [
-    //   {
-    //     path: 'datacenter',
-    //     element: <DataCenterPage />,
-    //     children: [
-    //       {
-    //         path: ':datacenterId',
-    //         element: <DataCenterInnerPage />
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     path: 'cabinet'
-    //   },
-    //   {
-    //     path: 'router'
-    //   },
-    //   {
-    //     path: 'server'
-    //   },
-    //   {
-    //     path: 'switch'
-    //   },
-    //   {
-    //     path: 'ip-transit'
-    //   },
-    //   {
-    //     path: 'cross-connect'
-    //   },
-    //   {
-    //     path: 'ip'
-    //   },
-    //   {
-    //     path: 'fiber-and-connect'
-    //   },
-    //   {
-    //     path: 'storage'
-    //   },
-    //   {
-    //     path: 'pdu'
-    //   }
-    // ]
-  }
+  },
   // {
   //   path: '/403',
   //   element: <ForbiddenPage />
   // },
-  // {
-  //   path: '/404',
-  //   element: <NotFoundPage />
-  // }
+  {
+    path: '/404',
+    element: <NotFoundPage />
+  }
 ]);

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { Suspense, useCallback, useState } from 'react';
 import {
   AppShell,
   Navbar,
@@ -8,10 +8,14 @@ import {
   Burger,
   useMantineTheme,
   useCss,
-  Flex
+  Flex,
+  UnstyledButton,
+  Group,
+  Loader,
+  Center
 } from '@mantine/core';
 import { IconCloudflare } from '../icons/cloudflare';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import SidebarContent from './sidebar';
 import { TokenProvider } from '../../provider/token';
 import HeaderContent from './header';
@@ -43,16 +47,27 @@ export default function Layout() {
                 />
               </MediaQuery>
 
-              <IconCloudflare className={css({ width: 24, height: 24, color: theme.colors.orange[6] })} />
-
-              <Text ml={8} fw={600} size="xl">Dashflare</Text>
+              <UnstyledButton component={Link} to="/">
+                <Group spacing="xs">
+                  <IconCloudflare className={css({ width: 24, height: 24, color: theme.colors.orange[6] })} />
+                  <Text fw={600} size="xl">Dashflare</Text>
+                </Group>
+              </UnstyledButton>
 
               <HeaderContent ml="md" />
             </Flex>
           </Header>
         }
       >
-        <Outlet />
+        <Suspense
+          fallback={
+            <Center h="100%" w="100%">
+              <Loader size="xl" />
+            </Center>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </AppShell>
     </TokenProvider>
   );
