@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="数据中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产管理/机房" transform="translate(-13.000000, -12.000000)">
+            <g id="Group" transform="translate(13.000000, 12.000000)">
+                <ellipse id="Oval" fill="#007AFF" cx="12.4698795" cy="12.5" rx="12.0481928" ry="12.0192308"></ellipse>
+                <polygon id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero" points="12.9518072 0 12.9517539 11.3547545 20.9969771 3.32893019 21.635929 3.96634615 13.5034406 12.0792737 25 12.0793269 25 12.9807692 13.5907298 12.980716 21.635929 21.0065997 20.9969771 21.6440157 12.9517539 13.6181559 12.9518072 25 12.0481928 25 12.0481394 13.5310766 3.91566265 21.6440157 3.27671074 21.0065997 11.3218744 12.980716 0 12.9807692 0 12.0793269 11.4091635 12.0792737 3.27671074 3.96634615 3.91566265 3.32893019 12.0481394 11.4418338 12.0481928 0"></polygon>
+                <ellipse id="Oval" fill="#FFFFFF" cx="12.5301205" cy="12.5" rx="1.5060241" ry="1.50240385"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>
