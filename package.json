@@ -54,6 +54,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jotai": "^2.0.3",
     "lightningcss": "^1.19.0",
+    "mantine-datatable": "^2.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",

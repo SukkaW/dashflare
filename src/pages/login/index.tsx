@@ -1,13 +1,13 @@
-import { Alert, Anchor, Box, Button, Container, Stack, Text, TextInput, Title, rem } from '@mantine/core';
+import { Alert, Box, Button, Container, Stack, TextInput, Title, rem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconAlertCircle } from '@tabler/icons-react';
-import { HTTPError, fetcherWithAuthorization } from '@/lib/fetcher';
+import { fetcherWithAuthorization, handleFetchError } from '@/lib/fetcher';
 import { mutate } from 'swr';
 import { useState } from 'react';
-import { isCloudflareAPIResponse } from '@/lib/cloudflare/types';
 import { notifications } from '@mantine/notifications';
 import { useSetToken } from '@/provider/token';
 import { useNavigate } from 'react-router-dom';
+import Disclaimer from '@/components/disclaimer';
 
 const LoginForm = () => {
   const form = useForm({
@@ -42,16 +42,7 @@ const LoginForm = () => {
           });
           navigate('/');
         } catch (e) {
-          if (e instanceof HTTPError && isCloudflareAPIResponse(e.data)) {
-            e.data.errors.forEach((error) => {
-              notifications.show({
-                color: 'red',
-                id: `${error.code}-${error.message}`,
-                title: 'Failed to Login',
-                message: error.message
-              });
-            });
-          }
+          handleFetchError(e, 'Failed to Login');
         } finally {
           setIsLoading(false);
         }
@@ -82,14 +73,7 @@ export default function LoginPage() {
           <Alert icon={<IconAlertCircle size={rem(24)} />} title="Note" color="yellow">
             Your API token will only be stored in your browser locally.
           </Alert>
-          <Alert icon={<IconAlertCircle size={rem(24)} />} title="Note" color="gray">
-            <p>
-              This website is an <Text component="span" fw={700}>Unofficial</Text> control panel for Cloudflare&trade; and is not associated Cloudflare, Inc. in anyway. The source code of the website can be found on the <Anchor href="https://github.com/sukkaw/dashflare" target="_blank">GitHub</Anchor>.
-            </p>
-            <p>
-              Cloudflare and the Cloudflare logo are trademarks and/or registered trademarks of Cloudflare, Inc. in the United States and other jurisdictions.
-            </p>
-          </Alert>
+          <Disclaimer />
         </Stack>
       </Box>
     </Container>

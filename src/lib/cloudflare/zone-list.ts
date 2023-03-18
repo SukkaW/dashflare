@@ -1,5 +1,5 @@
 import { useToken } from '@/provider/token';
-import { fetcherWithAuthorization } from '../fetcher';
+import { fetcherWithAuthorizationAndPagination } from '../fetcher';
 import useSWR from 'swr';
 
 declare global {
@@ -18,11 +18,14 @@ declare global {
   }
 }
 
-export const useCloudflareZoneList = () => {
+export const useCloudflareZoneList = (pageIndex: number, search = '') => {
   const token = useToken();
-
+  const path = search ? `client/v4/zones?name=contains:${search}` : 'client/v4/zones';
   return useSWR<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
-    token ? ['client/v4/zones', token] : null,
-    fetcherWithAuthorization
+    token ? [path, token, pageIndex] : null,
+    fetcherWithAuthorizationAndPagination,
+    {
+      keepPreviousData: true
+    }
   );
 };

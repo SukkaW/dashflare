@@ -6,7 +6,7 @@ import LoginPage from '@/pages/login';
 
 import { NotFoundPage } from '../pages/404';
 import { lazy } from 'react';
-import ZoneIdPage from '../pages/zoneId';
+import ZoneIdPage from '../pages/zone-id';
 
 // import Layout from '@/components/layout';
 
@@ -17,6 +17,7 @@ import ZoneIdPage from '../pages/zoneId';
 // 使用 React.lazy 做代码分割
 // 注意用 import(/* webpackPrefetch: true */ '@/oages/') 为所有路由都做预加载
 
+const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
 const SSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/ssl'));
 
 // 自定义 ErrorBoundary
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorBoundary />,
     children: [
+      {
+        path: '/',
+        element: <Homepage />
+      },
       {
         path: 'login',
         element: <LoginPage />

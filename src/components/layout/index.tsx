@@ -12,7 +12,8 @@ import {
   UnstyledButton,
   Group,
   Loader,
-  Center
+  Center,
+  Container
 } from '@mantine/core';
 import { IconCloudflare } from '../icons/cloudflare';
 import { Link, Outlet } from 'react-router-dom';
@@ -22,7 +23,7 @@ import HeaderContent from './header';
 
 export default function Layout() {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
+  const [navbarMobileOpened, setNavbarMobileOpened] = useState(false);
   const { css } = useCss();
 
   return (
@@ -30,7 +31,7 @@ export default function Layout() {
       <AppShell
         navbarOffsetBreakpoint="sm"
         navbar={
-          <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 300 }}>
+          <Navbar p="md" hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
             <SidebarContent />
           </Navbar>
         }
@@ -39,8 +40,8 @@ export default function Layout() {
             <Flex h="100%" align="center">
               <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                 <Burger
-                  opened={opened}
-                  onClick={useCallback(() => setOpened((o) => !o), [])}
+                  opened={navbarMobileOpened}
+                  onClick={useCallback(() => setNavbarMobileOpened((o) => !o), [])}
                   size="sm"
                   color={theme.colors.gray[6]}
                   mr="xl"
@@ -59,15 +60,17 @@ export default function Layout() {
           </Header>
         }
       >
-        <Suspense
-          fallback={
-            <Center h="100%" w="100%">
-              <Loader size="xl" />
-            </Center>
-          }
-        >
-          <Outlet />
-        </Suspense>
+        <Container size="xl">
+          <Suspense
+            fallback={
+              <Center h="100%" w="100%">
+                <Loader size="xl" />
+              </Center>
+            }
+          >
+            <Outlet />
+          </Suspense>
+        </Container>
       </AppShell>
     </TokenProvider>
   );
