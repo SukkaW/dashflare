@@ -1,10 +1,10 @@
 import { memo, useMemo } from 'react';
 import { useCloudflareApiTokenStatus } from '@/lib/cloudflare/token-status';
 import { useToken } from '@/provider/token';
-import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text } from '@mantine/core';
-import { NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
-import type { Icon } from '@tabler/icons-react';
-import { IconLock } from '@tabler/icons-react';
+import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Divider, Button } from '@mantine/core';
+import { Link, NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
+import type { Icon} from '@tabler/icons-react';
+import { IconArrowLeft, IconLock } from '@tabler/icons-react';
 
 interface NavLinkProps {
   to: string;
@@ -22,12 +22,12 @@ const NavLink = ({
   icon: Icon
 }: NavLinkProps) => {
   const { classes } = useStyles();
-  const { zoneId } = useParams();
+  const { zoneId, zoneName } = useParams();
 
-  if (!zoneId) return null;
+  if (!zoneId || !zoneName) return null;
 
   return (
-    <ReactRouterNavLink className={classes.a} to={`/${zoneId}/${to}`}>
+    <ReactRouterNavLink className={classes.a} to={`/${zoneId}/${zoneName}/${to}`}>
       {({ isActive }) => (
         <MantineNavLink
           label={<Text fw={isActive ? 600 : 400}>{label}</Text>}
@@ -59,20 +59,32 @@ function SidebarContent() {
     return data.success && data.result.status === 'active';
   }, [data, isLoading]);
 
-  const { zoneId } = useParams();
-  if (!isTokenActive || !zoneId) return null;
+  const { zoneId, zoneName } = useParams();
+  if (!isTokenActive || !zoneId || !zoneName) return null;
 
   return (
-    <Navbar.Section grow mt="md">
-      {navLinks.map((link) => (
-        <NavLink
-          key={link.to}
-          to={link.to}
-          label={link.label}
-          icon={link.icon}
-        />
-      ))}
-    </Navbar.Section>
+    <>
+      <Navbar.Section p="md">
+        <Group spacing="sm">
+          <Button component={Link} to="/" variant="subtle" p={8}>
+            <IconArrowLeft size={rem(24)} />
+          </Button>
+
+          <Text fw={600} size="lg">{zoneName}</Text>
+        </Group>
+      </Navbar.Section>
+      <Divider />
+      <Navbar.Section p="md" grow>
+        {navLinks.map((link) => (
+          <NavLink
+            key={link.to}
+            to={link.to}
+            label={link.label}
+            icon={link.icon}
+          />
+        ))}
+      </Navbar.Section>
+    </>
   );
 }
 

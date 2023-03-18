@@ -5,10 +5,12 @@ import { useCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 import { IconAlertCircle, IconSearch } from '@tabler/icons-react';
 import { createArray } from '@/lib/create-array';
 import { useUncontrolled } from '@/hooks/use-uncontrolled';
+import { Link } from 'react-router-dom';
 
 const ZoneListLoading = memo(() => (
   <>
     <Skeleton h={18} my={4} width={160} />
+    <Skeleton h={36} width={240} />
     <SimpleGrid cols={2}>
       {createArray(4).map(i => (
         <Skeleton h={40} key={i} />
@@ -21,8 +23,6 @@ const ZoneList = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [searchQuery, handleCommitSearchQuery, searchInputRef] = useUncontrolled('');
   const { data, error, isLoading } = useCloudflareZoneList(pageIndex, searchQuery);
-
-  console.log(data);
 
   if (isLoading && !data) return <ZoneListLoading />;
   if (error) {
@@ -56,7 +56,7 @@ const ZoneList = () => {
 
       <SimpleGrid cols={2}>
         {data?.result?.map((zone) => (
-          <Button size="md" key={zone.id} variant="default">
+          <Button component={Link} to={`/${zone.id}/${zone.name}`} size="md" key={zone.id} variant="default">
             <Stack>
               <Text size="sm">
                 {zone.name}
@@ -65,7 +65,7 @@ const ZoneList = () => {
           </Button>
         ))}
       </SimpleGrid>
-      {totalPage && <Pagination value={pageIndex} onChange={setPageIndex} total={totalPage} />}
+      {totalPage && totalPage > 1 && <Pagination value={pageIndex} onChange={setPageIndex} total={totalPage} />}
       <Alert icon={<IconAlertCircle size="1rem" />} title="Don't see your zone here?" color="yellow">
         Dashflare can only access zones you have selected when you created your API token.
       </Alert>

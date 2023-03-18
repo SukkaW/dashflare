@@ -31,7 +31,7 @@ export default function Layout() {
       <AppShell
         navbarOffsetBreakpoint="sm"
         navbar={
-          <Navbar p="md" hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
+          <Navbar p={0} hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
             <SidebarContent />
           </Navbar>
         }

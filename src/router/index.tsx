@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
         element: <LoginPage />
       },
       {
-        path: ':zoneId',
+        path: ':zoneId/:zoneName',
         element: <ZoneIdPage />,
         children: [
           {

@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const path = require('path');
+// const path = require('path');
 
 const { DefinePlugin, ProvidePlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -48,9 +48,9 @@ const config = {
     hot: true,
     historyApiFallback: true,
     compress: false,
-    static: {
-      directory: path.join(__dirname, 'public')
-    },
+    // static: {
+    //   directory: path.join(__dirname, 'public')
+    // },
     proxy: {
       '/api': {
         target: 'https://api.cloudflare.com',
