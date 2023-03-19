@@ -16,6 +16,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/title": "^3.4.1",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "browserslist": "^4.21.5",
@@ -58,6 +59,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
-    "swr": "^2.1.0"
+    "swr": "^2.1.0",
+    "title": "^3.5.3"
   }
 }

@@ -4,41 +4,37 @@ import { fetcherWithAuthorization } from '../fetcher';
 import useSWR from 'swr';
 import { useZoneId } from '../../hooks/use-zone-id';
 
-interface CertificateStatusBase {
-  brand_check: boolean,
-  cert_pack_uuid: string,
-  certificate_status: 'initializing' | 'authorizing' | 'active' | 'expired' | 'issuing' | 'timing_out' | 'pending_deployment',
-  signature: 'ECDSAWithSHA256' | 'SHA1WithRSA' | 'SHA256WithRSA',
-  verification_status: boolean
+interface VerificationInfoHttp {
+  http_url: string,
+  http_body: string
 }
 
-interface CertificateStatusHttp extends CertificateStatusBase {
-  validation_method: 'http',
-  verification_info: {
-    http_url: string,
-    http_body: string
-  }
+interface VerificationInfoCname {
+  cname_target: string,
+  cname: string
 }
 
-interface CertificateStatusCname extends CertificateStatusBase {
-  validation_method: 'cname',
-  verification_info: {
-    cname_target: string,
-    cname: string
-  }
-}
-
-interface CertificateStatusTxt extends CertificateStatusBase {
-  validation_method: 'txt',
-  verification_info: {
-    txt_name: string,
-    txt_value: string
-  }
+interface VerificationInfoTxt {
+  txt_name: string,
+  txt_value: string
 }
 
 declare global {
   namespace Cloudflare {
-    export type CertificateStatus = CertificateStatusHttp | CertificateStatusCname | CertificateStatusTxt;
+    export interface CertificateStatus {
+      brand_check: boolean,
+      hostname: string,
+      cert_pack_uuid: string,
+      certificate_status: 'initializing' | 'authorizing' | 'active' | 'expired' | 'issuing' | 'timing_out' | 'pending_deployment' | 'pending_validation',
+      signature: 'ECDSAWithSHA256' | 'SHA1WithRSA' | 'SHA256WithRSA',
+      verification_status: boolean,
+      validation_method: 'http' | 'cname' | 'txt',
+      validation_type?: string,
+      verification_info: VerificationInfoHttp |
+      VerificationInfoCname |
+      VerificationInfoTxt |
+      (VerificationInfoHttp | VerificationInfoCname | VerificationInfoTxt)[],
+    }
   }
 }
 
@@ -46,5 +42,17 @@ export const useCloudflareSSLVerificationLists = () => {
   return useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>>(
     [`client/v4/zones/${useZoneId()}/ssl/verification`, useToken()],
     fetcherWithAuthorization
+  );
+};
+
+export const updateCloudflareSSLVerification = async (token: string, zoneId: string, uuid: string, validation_method: string) => {
+  return fetcherWithAuthorization<Cloudflare.APIResponse<{ validation_method: string }>>(
+    [`client/v4/zones/${zoneId}/ssl/verification/${uuid}`, token],
+    {
+      method: 'PATCH',
+      body: JSON.stringify({
+        validation_method
+      })
+    }
   );
 };

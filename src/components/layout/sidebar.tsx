@@ -1,10 +1,12 @@
 import { memo, useMemo } from 'react';
 import { useCloudflareApiTokenStatus } from '@/lib/cloudflare/token-status';
 import { useToken } from '@/provider/token';
-import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Divider, Button } from '@mantine/core';
+import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Button } from '@mantine/core';
 import { Link, NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
 import type { Icon} from '@tabler/icons-react';
-import { IconArrowLeft, IconLock } from '@tabler/icons-react';
+import { IconArrowLeft } from '@tabler/icons-react';
+
+import { navLinks } from '@/router';
 
 interface NavLinkProps {
   to: string;
@@ -42,14 +44,6 @@ const NavLink = ({
   );
 };
 
-const navLinks = [
-  {
-    label: 'SSL Certificates',
-    icon: IconLock,
-    to: 'ssl'
-  }
-];
-
 function SidebarContent() {
   const token = useToken();
   const { isLoading, data } = useCloudflareApiTokenStatus(token);
@@ -64,7 +58,7 @@ function SidebarContent() {
 
   return (
     <>
-      <Navbar.Section p="md">
+      <Navbar.Section p="md" sx={theme => ({ borderBottom: `${rem(1)} solid ${theme.colors.gray[2]}` })}>
         <Group spacing="sm">
           <Button component={Link} to="/" variant="subtle" p={8}>
             <IconArrowLeft size={rem(24)} />
@@ -73,12 +67,11 @@ function SidebarContent() {
           <Text fw={600} size="lg">{zoneName}</Text>
         </Group>
       </Navbar.Section>
-      <Divider />
       <Navbar.Section p="md" grow>
         {navLinks.map((link) => (
           <NavLink
-            key={link.to}
-            to={link.to}
+            key={link.path}
+            to={link.path}
             label={link.label}
             icon={link.icon}
           />

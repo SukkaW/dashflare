@@ -1,4 +1,4 @@
-import { Box, createEmotionCache, MantineProvider } from '@mantine/core';
+import { createEmotionCache, MantineProvider } from '@mantine/core';
 import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { Notifications } from '@mantine/notifications';
@@ -32,9 +32,7 @@ export default function App() {
         withNormalizeCSS
         withGlobalStyles
       >
-        <Box id="app-root" w="100vw" h="100vh" sx={{ overflow: 'hidden', position: 'relative' }} m={0} p={0}>
-          <RouterProvider router={router} />
-        </Box>
+        <RouterProvider router={router} />
         <Notifications />
       </MantineProvider>
     </StrictMode>
