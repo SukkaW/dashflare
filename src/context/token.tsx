@@ -1,6 +1,6 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import { useRetimer } from '../hooks/use-retimer';
-import { useMatch, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 
 const TokenContext = createContext<string | null>(null);
@@ -19,6 +19,21 @@ export const useSetToken = () => {
 
 const TOKEN_NAME = 'cloudflare-api-token';
 
+export const useLogout = () => {
+  const setToken = useSetToken();
+  const navigate = useNavigate();
+
+  return useCallback(() => {
+    setToken(null);
+    notifications.show({
+      id: 'logged-out', // dedupe notifications
+      title: 'You have successfully logged out',
+      message: 'You will be redirected to the login page shortly'
+    });
+    navigate('/login');
+  }, [navigate, setToken]);
+};
+
 export const TokenProvider = ({ children }: React.PropsWithChildren<unknown>) => {
   const [token, _setToken] = useState(() => {
     try {
@@ -27,9 +42,6 @@ export const TokenProvider = ({ children }: React.PropsWithChildren<unknown>) =>
       return null;
     }
   });
-
-  const isMatchLogin = useMatch('/login');
-  const navigate = useNavigate();
 
   // dedupe requestIdleCallback calls
   const retimer = useRetimer();
@@ -44,24 +56,6 @@ export const TokenProvider = ({ children }: React.PropsWithChildren<unknown>) =>
       }
     }));
   }, [retimer]);
-
-  // redirect to login if there is no token
-  useEffect(() => {
-    if (token) {
-      if (isMatchLogin) {
-        navigate('/');
-      }
-    } else if (!isMatchLogin) {
-      navigate('/login');
-
-      notifications.show({
-        id: 'not-logged-in', // dedupe notifications
-        color: 'red',
-        message: 'You have not logged in yet!',
-        withCloseButton: true
-      });
-    }
-  }, [isMatchLogin, navigate, token]);
 
   return (
     <SetTokenContext.Provider value={setToken}>

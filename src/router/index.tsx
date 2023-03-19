@@ -1,11 +1,13 @@
 import { lazy, memo } from 'react';
-import { Outlet, createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import Layout from '@/components/layout/';
 
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
 import { IconCertificate, IconLock } from '@tabler/icons-react';
+import IsLoggedIn from '../components/is-logged-in';
+import ZoneIndexPage from '../pages/zone';
 
 // import Layout from '@/components/layout';
 
@@ -17,8 +19,8 @@ import { IconCertificate, IconLock } from '@tabler/icons-react';
 // 注意用 import(/* webpackPrefetch: true */ '@/oages/') 为所有路由都做预加载
 
 const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
-const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/universal-ssl'));
-const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/ssl-verifications'));
+const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/universal-ssl'));
+const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -54,25 +56,29 @@ export const navLinks = [
 
 export const router = createBrowserRouter([
   {
-    path: '/',
     element: <Layout />,
     errorElement: <ErrorBoundary />,
     children: [
-      {
-        path: '/',
-        element: <Homepage />
-      },
       {
         path: 'login',
         element: <LoginPage />
       },
       {
-        path: ':zoneId/:zoneName',
-        element: <Outlet />,
-        children: navLinks.map(route => ({
-          path: route.path,
-          element: route.element
-        }))
+        element: <IsLoggedIn />,
+        children: [
+          {
+            index: true,
+            element: <Homepage />
+          },
+          {
+            path: ':zoneId/:zoneName',
+            element: <ZoneIndexPage />,
+            children: navLinks.map(route => ({
+              path: route.path,
+              element: route.element
+            }))
+          }
+        ]
       }
     ]
   },

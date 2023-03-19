@@ -55,11 +55,14 @@
     "html-webpack-plugin": "^5.5.0",
     "jotai": "^2.0.3",
     "lightningcss": "^1.19.0",
-    "mantine-datatable": "^2.2.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.2",
+    "react": "^18.3.0-next-47cf4e578-20230315",
+    "react-dom": "^18.3.0-next-47cf4e578-20230315",
+    "react-router-dom": "^6.9.0",
     "swr": "^2.1.0",
     "title": "^3.5.3"
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
   }
 }

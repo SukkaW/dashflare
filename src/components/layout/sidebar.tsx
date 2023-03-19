@@ -1,6 +1,6 @@
 import { memo, useMemo } from 'react';
 import { useCloudflareApiTokenStatus } from '@/lib/cloudflare/token-status';
-import { useToken } from '@/provider/token';
+import { useToken } from '@/context/token';
 import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Button } from '@mantine/core';
 import { Link, NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
 import type { Icon} from '@tabler/icons-react';
@@ -18,7 +18,7 @@ const useStyles = createStyles({
   a: { textDecoration: 'none' }
 });
 
-const NavLink = ({
+const NavLink = memo(({
   to,
   label,
   icon: Icon
@@ -42,18 +42,18 @@ const NavLink = ({
       )}
     </ReactRouterNavLink>
   );
-};
+});
 
 function SidebarContent() {
   const token = useToken();
-  const { isLoading, data } = useCloudflareApiTokenStatus(token);
+  const { data } = useCloudflareApiTokenStatus(token);
   const isTokenActive = useMemo(() => {
-    if (isLoading) return false;
     if (!data) return false;
     return data.success && data.result.status === 'active';
-  }, [data, isLoading]);
+  }, [data]);
 
   const { zoneId, zoneName } = useParams();
+
   if (!isTokenActive || !zoneId || !zoneName) return null;
 
   return (

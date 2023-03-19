@@ -1,4 +1,4 @@
-import { useToken } from '@/provider/token';
+import { useToken } from '@/context/token';
 import { fetcherWithAuthorization } from '../fetcher';
 
 import useSWR from 'swr';

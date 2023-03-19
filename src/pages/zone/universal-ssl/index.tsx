@@ -3,9 +3,9 @@ import { Anchor, Button, Card, Group, NativeSelect, Stack, Switch, Text, Title }
 import { useForm } from '@mantine/form';
 
 import useSWRMutation from 'swr/mutation';
-import { useZoneId } from '../../hooks/use-zone-id';
-import { useToken } from '../../provider/token';
-import { handleFetchError } from '../../lib/fetcher';
+import { useZoneId } from '@/hooks/use-zone-id';
+import { useToken } from '@/context/token';
+import { handleFetchError } from '@/lib/fetcher';
 
 export default function UniversalSSLPage() {
   const { data, isLoading } = useCloudflareUniversalSSLSettings();

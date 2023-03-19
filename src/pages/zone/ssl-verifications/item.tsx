@@ -3,9 +3,9 @@ import { useForm } from '@mantine/form';
 import { memo, useMemo, useState } from 'react';
 import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
 import { handleFetchError } from '@/lib/fetcher';
-import { useToken } from '@/provider/token';
-import { useZoneId } from '../../hooks/use-zone-id';
-import CodeBlock from '../../components/code-block';
+import { useToken } from '@/context/token';
+import { useZoneId } from '@/hooks/use-zone-id';
+import CodeBlock from '@/components/code-block';
 import title from 'title';
 
 interface ControlProps {

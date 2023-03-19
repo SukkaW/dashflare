@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { handleFetchError } from '@/lib/fetcher';
 import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
 import { notifications } from '@mantine/notifications';
-import { useToken } from '@/provider/token';
+import { useToken } from '@/context/token';
 import { useZoneId } from '@/hooks/use-zone-id';
 import { wait } from '@/lib/wait';
 
