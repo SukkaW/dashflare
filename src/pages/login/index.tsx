@@ -8,6 +8,7 @@ import { notifications } from '@mantine/notifications';
 import { useSetToken } from '@/context/token';
 import Disclaimer from '@/components/disclaimer';
 import { useNavigate } from 'react-router-dom';
+import { preloadCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 // import { useRetimer } from '../../hooks/use-retimer';
 
 const LoginForm = memo(() => {
@@ -30,9 +31,12 @@ const LoginForm = memo(() => {
     <form
       onSubmit={form.onSubmit(async ({ token }) => {
         setIsLoading(true);
+        const key = ['client/v4/user/tokens/verify', token] as [string, string];
         try {
-          const r = await fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(['client/v4/user/tokens/verify', token]);
-          mutate(['client/v4/user/tokens/verify', token], r.result);
+          const r = await fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(key);
+
+          mutate(key, r);
+          preloadCloudflareZoneList(token);
 
           notifications.show({
             id: 'login-success',
@@ -41,7 +45,12 @@ const LoginForm = memo(() => {
           });
 
           setToken(token);
-          navigate('/');
+
+          navigate('/', {
+            // TODO: this is a hack to solve a race condition
+            // see is-logged-in.tsx for more information
+            state: { token }
+          });
         } catch (e) {
           handleFetchError(e, 'Failed to Login');
         } finally {

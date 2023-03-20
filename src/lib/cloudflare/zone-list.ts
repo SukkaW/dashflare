@@ -1,6 +1,6 @@
 import { useToken } from '@/context/token';
 import { fetcherWithAuthorizationAndPagination } from '../fetcher';
-import useSWR from 'swr';
+import useSWR, { preload } from 'swr';
 
 declare global {
   namespace Cloudflare {
@@ -27,5 +27,12 @@ export const useCloudflareZoneList = (pageIndex: number, search = '') => {
     {
       keepPreviousData: true
     }
+  );
+};
+
+export const preloadCloudflareZoneList = (token: string) => {
+  preload<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
+    ['client/v4/zones', token, 1],
+    fetcherWithAuthorizationAndPagination
   );
 };

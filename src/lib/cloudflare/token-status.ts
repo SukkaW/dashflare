@@ -24,6 +24,10 @@ export const useCloudflareApiTokenStatus = (token: string | null) => useSWR<Clou
   fetcherWithAuthorization
 );
 
+export const updateCloudflareApiTokenStatus = (token: string) => {
+  fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(['client/v4/user/tokens/verify', token]);
+};
+
 export const useIsCloudflareApiTokenValid = () => {
   const token = useToken();
   const { isLoading, data } = useCloudflareApiTokenStatus(token);

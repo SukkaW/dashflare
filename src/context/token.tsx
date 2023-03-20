@@ -30,7 +30,11 @@ export const useLogout = () => {
       title: 'You have successfully logged out',
       message: 'You will be redirected to the login page shortly'
     });
-    navigate('/login');
+    navigate('/login', {
+      // FIXME: this is a hack to solve a race condition
+      // see the source code of login page for more information
+      state: { logout: true }
+    });
   }, [navigate, setToken]);
 };
 

@@ -6,7 +6,7 @@ import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
 import { IconCertificate, IconLock } from '@tabler/icons-react';
-import IsLoggedIn from '../components/is-logged-in';
+import { ProtectRoute, RedirectAlreadyLoggedIn } from '../components/checked-logged-in';
 import ZoneIndexPage from '../pages/zone';
 
 // import Layout from '@/components/layout';
@@ -60,11 +60,16 @@ export const router = createBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       {
-        path: 'login',
-        element: <LoginPage />
+        element: <RedirectAlreadyLoggedIn />,
+        children: [
+          {
+            path: 'login',
+            element: <LoginPage />
+          }
+        ]
       },
       {
-        element: <IsLoggedIn />,
+        element: <ProtectRoute />,
         children: [
           {
             index: true,
