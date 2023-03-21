@@ -215,7 +215,8 @@ const config = {
           : 'safari'))(navigator.userAgent)`,
       'process.env.NODE_ENV': JSON.stringify(isDevelopment ? 'development' : 'production'),
       'process.browser': JSON.stringify(true),
-      'global.GENTLY': JSON.stringify(false)
+      'global.GENTLY': JSON.stringify(false),
+      'process.env.CLOUDFLARE_API_ENDPOINT': JSON.stringify(process.env.CLOUDFLARE_API_ENDPOINT || null)
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     isAnalyze && new BundleAnalyzerPlugin({
@@ -228,6 +229,10 @@ const config = {
 module.exports = config;
 
 /** Utility */
+/**
+ * @param {string} module
+ * @returns {boolean}
+ */
 function isModuleCSS(module) {
   return (
     // mini-css-extract-plugin
