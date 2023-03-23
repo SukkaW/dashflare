@@ -12,7 +12,7 @@ export class HTTPError extends Error {
 }
 
 export const buildApiEndpoint = (key: string) => {
-  return new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/api/', window.location.href));
+  return new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/_sukka/api/', window.location.href));
 };
 
 export const buildRequestInitWithToken = (token: string, init?: RequestInit): RequestInit => {

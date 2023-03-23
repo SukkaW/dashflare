@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-// const path = require('path');
+const path = require('path');
 
 const { DefinePlugin, ProvidePlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -23,7 +23,7 @@ const config = {
   output: {
     library: '_SKK',
     publicPath: '/', // Make it easy to configure CDN's cache-control
-    filename: isDevelopment ? '_sukka/static/[name].js' : '_sukka/static/[contenthash].js',
+    filename: isDevelopment ? '_sukka/static/[name].js' : '_sukka/static/[name]-[contenthash].js',
     crossOriginLoading: 'anonymous',
     hashFunction: 'xxhash64',
     hashDigestLength: 16,
@@ -52,7 +52,7 @@ const config = {
     //   directory: path.join(__dirname, 'public')
     // },
     proxy: {
-      '/api': {
+      '/_sukka/api': {
         target: 'https://api.cloudflare.com',
         pathRewrite: { '^/api': '' },
         secure: false,
@@ -122,7 +122,6 @@ const config = {
             test(module) {
               const resource = module.nameForCondition?.();
               /* A list of packages that are used in the top level of the application. */
-
               return resource
                 ? topLevelFrameworkPaths.some((pkgPath) => resource.startsWith(pkgPath))
                 : false;
@@ -242,4 +241,51 @@ function isModuleCSS(module) {
     // extract-css-chunks-webpack-plugin (new)
     || module.type === 'css/extract-css-chunks'
   );
+}
+
+// Packages which will be split into the 'framework' chunk.
+// Only top-level packages are included, e.g. nested copies like
+// 'node_modules/meow/node_modules/object-assign' are not included.=
+/** @type {Set<string>} */
+const visitedFrameworkPackages = new Set();
+
+/**
+ * Adds package-paths of dependencies recursively
+ *
+ * @param {string} packageName
+ * @param {string} relativeToPath
+ * @returns {void}
+ */
+const addPackagePath = (packageName, relativeToPath) => {
+  try {
+    if (visitedFrameworkPackages.has(packageName)) {
+      return;
+    }
+    visitedFrameworkPackages.add(packageName);
+
+    const packageJsonPath = require.resolve(`${packageName}/package.json`, {
+      paths: [relativeToPath]
+    });
+
+    // Include a trailing slash so that a `.startsWith(packagePath)` check avoids false positives
+    // when one package name starts with the full name of a different package.
+    // For example:
+    //   "node_modules/react-slider".startsWith("node_modules/react")  // true
+    //   "node_modules/react-slider".startsWith("node_modules/react/") // false
+    const directory = path.join(packageJsonPath, '../');
+
+    // Returning from the function in case the directory has already been added and traversed
+    if (topLevelFrameworkPaths.includes(directory)) return;
+    topLevelFrameworkPaths.push(directory);
+    const dependencies = require(packageJsonPath).dependencies || {};
+    for (const name of Object.keys(dependencies)) {
+      addPackagePath(name, directory);
+    }
+  } catch (_) {
+    // don't error on failing to resolve framework packages
+  }
+};
+
+for (const packageName of ['react', 'react-dom']) {
+  addPackagePath(packageName, __dirname);
 }
