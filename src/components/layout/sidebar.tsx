@@ -1,6 +1,4 @@
-import { memo, useMemo } from 'react';
-import { useCloudflareApiTokenStatus } from '@/lib/cloudflare/token-status';
-import { useToken } from '@/context/token';
+import { memo } from 'react';
 import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Button } from '@mantine/core';
 import { Link, NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
 import type { Icon} from '@tabler/icons-react';
@@ -45,16 +43,9 @@ const NavLink = memo(({
 });
 
 function SidebarContent() {
-  const token = useToken();
-  const { data } = useCloudflareApiTokenStatus(token);
-  const isTokenActive = useMemo(() => {
-    if (!data) return false;
-    return data.success && data.result.status === 'active';
-  }, [data]);
-
-  const { zoneId, zoneName } = useParams();
-
-  if (!isTokenActive || !zoneId || !zoneName) return null;
+  // const isTokenActive = useIsCloudflareApiTokenValid();
+  const { zoneName } = useParams();
+  // if (!isTokenActive || !zoneId || !zoneName) return null;
 
   return (
     <>

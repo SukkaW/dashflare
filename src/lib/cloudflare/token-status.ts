@@ -30,12 +30,12 @@ export const updateCloudflareApiTokenStatus = (token: string) => {
 
 export const useIsCloudflareApiTokenValid = () => {
   const token = useToken();
-  const { isLoading, data } = useCloudflareApiTokenStatus(token);
+  const { data } = useCloudflareApiTokenStatus(token);
+
   return useMemo(() => {
     if (!token) return false;
-    if (isLoading) return false;
     if (!data) return false;
 
     return data.success && data.result.status === 'active';
-  }, [data, isLoading, token]);
+  }, [data, token]);
 };
