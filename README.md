@@ -3,6 +3,7 @@
 An **unofficial** [Cloudflare](https://www.cloudflare.com/) dashboard built on top of [Cloudflare API](https://api.cloudflare.com).
 
 > This website is an Unofficial control panel for Cloudflare™ and is not associated Cloudflare, Inc. in anyway.
+>
 > Cloudflare and the Cloudflare logo are trademarks and/or registered trademarks of Cloudflare, Inc. in the United States and other jurisdictions.
 
 ## Demo
@@ -25,8 +26,8 @@ https://dashflare.skk.moe
 
 - [React](https://react.dev)
 - [React Router](https://reactrouter.com)
-- [SWR](https://swr.vercel.app)
-- [Mantine](https://mantine.dev)
+- [SWR](https://swr.vercel.app) - React Hooks for Data Fetching
+- [Mantine](https://mantine.dev) - A fully featured React components library
 
 ## Build
 
