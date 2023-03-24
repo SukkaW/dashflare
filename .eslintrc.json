@@ -23,8 +23,8 @@
     },
     {
       "files": [
-        "**/*.ts",
-        "**/*.tsx"
+        "src/**/*.ts",
+        "src/**/*.tsx"
       ],
       "extends": [
         "sukka/react",
@@ -33,6 +33,23 @@
       "parserOptions": {
         "project": [
           "./tsconfig.json"
+        ]
+      },
+      "rules": {
+        "@fluffyfox/prefer-timer-id": "off",
+        "@fluffyfox/no-default-error": "off"
+      }
+    },
+    {
+      "files": [
+        "functions/**/*.ts"
+      ],
+      "extends": [
+        "sukka/typescript"
+      ],
+      "parserOptions": {
+        "project": [
+          "./functions/tsconfig.json"
         ]
       },
       "rules": {
