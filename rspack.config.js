@@ -36,6 +36,19 @@ const config = {
         changeOrigin: true
       }
     }
+  },
+  resolve: {
+    extensions: ['.mjs', '.js', '.cjs', '.tsx', '.mts', '.ts', '.cts', '.jsx', '.json'],
+    fallback: {
+      https: false,
+      http: false
+      // crypto: require.resolve('crypto-browserify'),
+      // stream: require.resolve('stream-browserify'),
+    },
+    // plugins: [new TsconfigPathsPlugin()]
+    // Replace webpack's TsconfigPathsPlugin with rspack's built-in option
+    // This path only accept absolute path: https://github.com/web-infra-dev/rspack/issues/2312
+    tsConfigPath: path.resolve(__dirname, 'tsconfig.json')
   }
 };
 
