@@ -1,7 +1,9 @@
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const path = require('path');
 
-/** @type {import('@rspack/core').Configuration} */
+const context = __dirname;
+
+/** @type {import('@rspack/cli').Configuration} */
 const config = {
   mode: isDevelopment ? 'development' : 'production',
   output: {
@@ -16,7 +18,12 @@ const config = {
     // hashFunction: 'xxhash64',
     // hashDigestLength: 16,
     // clean: true
-  }
+  },
+  context,
+  name: 'dashflare',
+  devtool: isDevelopment ? 'eval-source-map' : false
+  /** Those webpack options are not support by rspack */
+  // performance: false
 };
 
 module.exports = config;
