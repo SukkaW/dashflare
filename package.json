@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "NODE_ENV=development rspack serve -c ./rspack.config.js --mode development",
-    "build": "NODE_ENV=production rspack build -c ./rspack.config.js --mode production"
+    "build": "NODE_ENV=production rspack build -c ./rspack.config.js --mode production",
+    "build:analyze": "NODE_ENV=production rspack build -c ./rspack.config.js --mode production --analyze"
   },
   "repository": {
     "type": "git",
