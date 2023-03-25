@@ -21,9 +21,22 @@ const config = {
   },
   context,
   name: 'dashflare',
-  devtool: isDevelopment ? 'eval-source-map' : false
+  devtool: isDevelopment ? 'eval-source-map' : false,
   /** Those webpack options are not support by rspack */
   // performance: false
+  devServer: {
+    port: 3000,
+    historyApiFallback: true,
+    compress: false,
+    proxy: {
+      '/_sukka/api': {
+        target: 'https://api.cloudflare.com',
+        pathRewrite: { '^/api': '' },
+        secure: false,
+        changeOrigin: true
+      }
+    }
+  }
 };
 
 module.exports = config;
