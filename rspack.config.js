@@ -74,10 +74,44 @@ const config = {
       }
     ]
   },
+  // rspack doesn't support ProvidePlugin, https://github.com/web-infra-dev/rspack/issues/2464
+  // plugins: [
+  //   new ProvidePlugin({
+  //     // Polyfill for Node global "Buffer" variable
+  //     Buffer: [require.resolve('buffer'), 'Buffer']
+  //   })
+  // ],
   optimization: {
     runtimeChunk: {
       name: 'rspack'
     },
+    // One thing I don't like about rspack is that it doesn't use swc for minification. The only available minifiers are terser/esbuild.
+    // minimizer: [
+    //   new TerserPlugin({
+    //     minify: TerserPlugin.swcMinify,
+    //     parallel: cpuCount,
+    //     terserOptions: {
+    //       compress: {
+    //         ecma: 5,
+    //         // The following two options are known to break valid JavaScript code
+    //         comparisons: false,
+    //         inline: 2 // https://github.com/vercel/next.js/issues/7178#issuecomment-493048965
+    //       },
+    //       mangle: { safari10: true },
+    //       format: {
+    //         // use ecma 2015 to enable minify like shorthand objec
+    //         ecma: 2015,
+    //         safari10: true,
+    //         comments: false,
+    //         // Fixes usage of Emoji and certain Regex
+    //         ascii_only: true
+    //       }
+    //     }
+    //   }),
+    //   new CssMinimizerPlugin({
+    //     minify: CssMinimizerPlugin.lightningCssMinify
+    //   })
+    // ],
     splitChunks: isDevelopment
       ? undefined
       : {
