@@ -1,9 +1,9 @@
-const isDevelopment = process.env.NODE_ENV !== 'production';
 const path = require('path');
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
 const context = __dirname;
-
-const chunkName = isDevelopment ? '_sukka/static/[name][ext]' : '_sukka/static/[contenthash][ext]';
+const chunkName = isDevelopment ? '_sukka/static/[ext]' : '_sukka/static/[contenthash][ext]';
+const topLevelFrameworkPaths = isDevelopment ? [] : getTopLevelFrameworkPaths(__dirname);
 
 /** @type {import('@rspack/cli').Configuration} */
 const config = {
@@ -74,6 +74,30 @@ const config = {
       }
     ]
   },
+  optimization: {
+    runtimeChunk: {
+      name: 'rspack'
+    },
+    splitChunks: isDevelopment
+      ? undefined
+      : {
+        cacheGroups: {
+          framework: {
+            chunks: 'all',
+            name: 'framework',
+            priority: 40,
+            // test(module) {
+            //   const resource = module.nameForCondition?.();
+            //   /* A list of packages that are used in the top level of the application. */
+            //   return resource
+            //     ? topLevelFrameworkPaths.some((pkgPath) => resource.startsWith(pkgPath))
+            //     : false;
+            // },
+            test: new RegExp(`(${topLevelFrameworkPaths.join('|')})`)
+          }
+        }
+      }
+  },
   builtins: {
     react: {
       runtime: 'automatic' // use React 17 new JSX transform
@@ -92,3 +116,62 @@ const config = {
 };
 
 module.exports = config;
+
+/**
+ * Packages which will be split into the 'framework' chunk.
+ * Only top-level packages are included, e.g. nested copies like
+ * 'node_modules/meow/node_modules/object-assign' are not included
+ *
+ * @param {string} dir
+ * @returns {string[]}
+ */
+function getTopLevelFrameworkPaths(dir) {
+  /** @type {Set<string>} */
+  const visitedFrameworkPackages = new Set();
+  /** @type {string[]} */
+  const topLevelFrameworkPaths = [];
+
+  /**
+   * Adds package-paths of dependencies recursively
+   *
+   * @param {string} packageName
+   * @param {string} relativeToPath
+   * @returns {void}
+   */
+
+  // Adds package-paths of dependencies recursively
+  const addPackagePath = (packageName, relativeToPath) => {
+    try {
+      if (visitedFrameworkPackages.has(packageName)) return;
+      visitedFrameworkPackages.add(packageName);
+
+      const packageJsonPath = require.resolve(`${packageName}/package.json`, {
+        paths: [relativeToPath]
+      });
+
+      // Include a trailing slash so that a `.startsWith(packagePath)` check avoids false positives
+      // when one package name starts with the full name of a different package.
+      // For example:
+      //   "node_modules/react-slider".startsWith("node_modules/react")  // true
+      //   "node_modules/react-slider".startsWith("node_modules/react/") // false
+      const directory = path.join(packageJsonPath, '../');
+
+      // Returning from the function in case the directory has already been added and traversed
+      if (topLevelFrameworkPaths.includes(directory)) return;
+      topLevelFrameworkPaths.push(directory);
+
+      const dependencies = require(packageJsonPath).dependencies || {};
+      for (const name of Object.keys(dependencies)) {
+        addPackagePath(name, directory);
+      }
+    } catch (_) {
+      // don't error on failing to resolve framework packages
+    }
+  };
+
+  for (const packageName of ['react', 'react-dom']) {
+    addPackagePath(packageName, dir);
+  }
+
+  return topLevelFrameworkPaths;
+}
