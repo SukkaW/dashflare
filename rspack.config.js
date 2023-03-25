@@ -3,6 +3,8 @@ const path = require('path');
 
 const context = __dirname;
 
+const chunkName = isDevelopment ? '_sukka/static/[name][ext]' : '_sukka/static/[contenthash][ext]';
+
 /** @type {import('@rspack/cli').Configuration} */
 const config = {
   mode: isDevelopment ? 'development' : 'production',
@@ -11,7 +13,8 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     // Make it easy to configure CDN's cache-control
-    filename: isDevelopment ? '_sukka/static/[name].js' : '_sukka/static/[name].[contenthash][ext][query]',
+    filename: chunkName,
+    chunkFilename: chunkName,
     assetModuleFilename: isDevelopment ? '_sukka/static/[name][ext][query]' : '_sukka/static/[hash][ext][query]'
 
     /** Those webpack options are not support by rspack */
@@ -60,8 +63,31 @@ const config = {
         // generator: {
         //   filename: isDevelopment ? '_sukka/static/[name][ext][query]' : '_sukka/static/[hash][ext][query]'
         // }
+      },
+      {
+        test: /\.[cm]?tsx?$/,
+        type: 'tsx'
+      },
+      {
+        test: /\.[cm]?jsx?$/,
+        type: 'jsx'
       }
     ]
+  },
+  builtins: {
+    react: {
+      runtime: 'automatic' // use React 17 new JSX transform
+    },
+    presetEnv: {
+      // Rspack will try to use browserslist config on context directory when value is undefined.
+      // targets: ['defaults, chrome > 70, edge >= 79, firefox esr, safari >= 11, not dead, not ie > 0, not ie_mob > 0, not OperaMini all'],
+      mode: 'usage',
+      // Must specify full core-js version, check swc
+      coreJs: '3.29'
+      // rspack doesn't support loose and shippedProposals
+      // loose: false,
+      // shippedProposals: false
+    }
   }
 };
 
