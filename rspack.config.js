@@ -101,6 +101,30 @@ const config = {
       }
   },
   builtins: {
+    // This replaces webpack's CopyWebpackPlugin
+    copy: {
+      patterns: [
+        { from: 'public', to: '' }
+      ]
+    },
+    // This replaces webpack's HtmlWebpackPlugin
+    html: [{
+      template: './src/index.html',
+      minify: !isDevelopment
+    }],
+    // This replaces webpack's DefinePlugin
+    define: {
+      'process.env.NODE_DEBUG': 'undefined',
+      'process.env.engine': `((ua) => (ua.includes('Chrome') || ua.includes('Chromium')
+        ? 'chromium'
+        : ua.includes('Firefox')
+          ? 'firefox'
+          : 'safari'))(navigator.userAgent)`,
+      'process.env.NODE_ENV': JSON.stringify(isDevelopment ? 'development' : 'production'),
+      'process.browser': JSON.stringify(true),
+      'global.GENTLY': JSON.stringify(false),
+      'process.env.CLOUDFLARE_API_ENDPOINT': JSON.stringify(process.env.CLOUDFLARE_API_ENDPOINT || null)
+    },
     react: {
       runtime: 'automatic' // use React 17 new JSX transform
     },
@@ -114,6 +138,10 @@ const config = {
       // loose: false,
       // shippedProposals: false
     }
+  },
+  experiments: {
+    incrementalRebuild: true,
+    lazyCompilation: isDevelopment
   }
 };
 
