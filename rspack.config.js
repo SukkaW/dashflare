@@ -11,7 +11,8 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     // Make it easy to configure CDN's cache-control
-    filename: isDevelopment ? '_sukka/static/[name].js' : '_sukka/static/[name].[contenthash][ext][query]'
+    filename: isDevelopment ? '_sukka/static/[name].js' : '_sukka/static/[name].[contenthash][ext][query]',
+    assetModuleFilename: isDevelopment ? '_sukka/static/[name][ext][query]' : '_sukka/static/[hash][ext][query]'
 
     /** Those webpack options are not support by rspack */
     // crossOriginLoading: 'anonymous',
@@ -49,6 +50,18 @@ const config = {
     // Replace webpack's TsconfigPathsPlugin with rspack's built-in option
     // This path only accept absolute path: https://github.com/web-infra-dev/rspack/issues/2312
     tsConfigPath: path.resolve(__dirname, 'tsconfig.json')
+  },
+  module: {
+    rules: [
+      {
+        test: /assets\//,
+        type: 'asset'
+        // Replaced by rspack's output.assetModuleFilename
+        // generator: {
+        //   filename: isDevelopment ? '_sukka/static/[name][ext][query]' : '_sukka/static/[hash][ext][query]'
+        // }
+      }
+    ]
   }
 };
 
