@@ -1,9 +1,11 @@
 const path = require('path');
+const browserslist = require('browserslist');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const context = __dirname;
 const chunkName = isDevelopment ? '_sukka/static/[name][ext]' : '_sukka/static/[contenthash][ext]';
 const topLevelFrameworkPaths = isDevelopment ? [] : getTopLevelFrameworkPaths(__dirname);
+const targets = browserslist.loadConfig({ path: context });
 
 /** @type {import('@rspack/cli').Configuration} */
 const config = {
@@ -165,7 +167,7 @@ const config = {
     },
     presetEnv: {
       // Rspack will try to use browserslist config on context directory when value is undefined.
-      // targets: ['defaults, chrome > 70, edge >= 79, firefox esr, safari >= 11, not dead, not ie > 0, not ie_mob > 0, not OperaMini all'],
+      targets,
       mode: 'usage',
       // Must specify full core-js version, check swc
       coreJs: '3.29'
