@@ -95,7 +95,9 @@ const config = {
             // },
             test: new RegExp(`(${topLevelFrameworkPaths.join('|')})`)
           }
-        }
+        },
+        minSize: 20000,
+        maxInitialRequests: 25
       }
   },
   builtins: {
