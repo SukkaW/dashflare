@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useState } from 'react';
+import { Suspense, useCallback, useState, lazy } from 'react';
 import {
   AppShell,
   Navbar,
@@ -13,13 +13,15 @@ import {
   Group,
   Loader,
   Center,
-  Container
+  Container,
+  Skeleton
 } from '@mantine/core';
 import { IconCloudflare } from '../icons/cloudflare';
 import { Link, Outlet } from 'react-router-dom';
-import SidebarContent from './sidebar';
-import HeaderContent from './header';
 import { useIsMatch } from '@/hooks/use-is-match';
+
+const HeaderContent = lazy(() => import('./header'));
+const SidebarContent = lazy(() => import('./sidebar'));
 
 export default function Layout() {
   const theme = useMantineTheme();
@@ -36,7 +38,9 @@ export default function Layout() {
           ? undefined
           : (
             <Navbar p={0} hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
-              <SidebarContent />
+              <Suspense fallback={null}>
+                <SidebarContent />
+              </Suspense>
             </Navbar>
           )
       }
@@ -64,7 +68,13 @@ export default function Layout() {
               </Group>
             </UnstyledButton>
 
-            <HeaderContent isMatchLogin={isMatchLogin} />
+            <Suspense fallback={
+              <Center w={66} px="sm">
+                <Skeleton radius="md" height={18} width={66} />
+              </Center>
+            }>
+              <HeaderContent isMatchLogin={isMatchLogin} />
+            </Suspense>
           </Flex>
         </Header>
       }
