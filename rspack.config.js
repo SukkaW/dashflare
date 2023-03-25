@@ -2,7 +2,7 @@ const path = require('path');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const context = __dirname;
-const chunkName = isDevelopment ? '_sukka/static/[ext]' : '_sukka/static/[contenthash][ext]';
+const chunkName = isDevelopment ? '_sukka/static/[name][ext]' : '_sukka/static/[contenthash][ext]';
 const topLevelFrameworkPaths = isDevelopment ? [] : getTopLevelFrameworkPaths(__dirname);
 
 /** @type {import('@rspack/cli').Configuration} */
@@ -130,7 +130,8 @@ const config = {
             test: new RegExp(`(${topLevelFrameworkPaths.join('|')})`)
           }
         },
-        minSize: 20000,
+        chunks: 'all',
+        minSize: 25000,
         maxInitialRequests: 25
       }
   },
