@@ -5,9 +5,9 @@ import Layout from '@/components/layout/';
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconLock } from '@tabler/icons-react';
-import { ProtectRoute, RedirectAlreadyLoggedIn } from '../components/checked-logged-in';
-import ZoneIndexPage from '../pages/zone';
+import { IconCertificate, IconGps, IconLock } from '@tabler/icons-react';
+import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
+import ZoneIndexPage from '@/pages/zone';
 
 // import Layout from '@/components/layout';
 
@@ -21,6 +21,7 @@ import ZoneIndexPage from '../pages/zone';
 const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
 const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/universal-ssl'));
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
+const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -40,6 +41,12 @@ const ErrorBoundary = memo(() => {
 });
 
 export const navLinks = [
+  {
+    path: 'dns',
+    element: <DNSPage />,
+    label: 'DNS',
+    icon: IconGps
+  },
   {
     path: 'universal-ssl',
     element: <UniversalSSLPage />,
