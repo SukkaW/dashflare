@@ -1,121 +1,309 @@
-import { DataTable } from 'mantine-datatable';
-import { useCallback, useState } from 'react';
-import { useCloudflareListDNSRecords } from '@/lib/cloudflare/dns';
-import { Box, Flex, Text, Tooltip, rem, useCss, useMantineTheme } from '@mantine/core';
+import { Box, Button, Card, Group, NativeSelect, Pagination, ScrollArea, Table, Text, createStyles, rem } from '@mantine/core';
 import { IconCloudflare } from '@/components/icons/cloudflare';
-// import { IconChevronDown } from '@tabler/icons-react';
-// import { IconEdit, IconTrash } from '@tabler/icons-react';
+import type { PaginationState } from '@tanstack/react-table';
+import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
+import { useCloudflareListDNSRecords } from '@/lib/cloudflare/dns';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
-interface ExpandTableRowProps {
-  record: Cloudflare.DNSRecord;
-  recordIndex: number;
-  collapse: () => void;
-}
+const columnHelper = createColumnHelper<Cloudflare.DNSRecord>();
+const EMPTY_ARRAY: Cloudflare.DNSRecord[] = [];
 
-const ExpandTableRow = ({
-  record
-}: ExpandTableRowProps) => {
+const useStyles = createStyles(theme => ({
+  proxiedIcon: {
+    width: 20,
+    height: 20
+  },
+  proxiedIconActive: {
+    color: theme.colors.orange[6]
+  },
+  proxiedIconInactive: {
+    color: theme.colors.gray[6]
+  },
+  cellBg: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white
+  },
+  fixedRightColumn: {
+    right: 0,
+    // marginLeft: 2,
+    position: 'sticky',
+    zIndex: 100,
+    '::before': {
+      content: '""',
+      overflow: 'hidden',
+      pointerEvents: 'none',
+      touchAction: 'none',
+      userSelect: 'none',
+      position: 'absolute',
+      width: 10,
+      left: -10,
+      top: 0,
+      height: '100%'
+    }
+  },
+  fixedRightColumnActive: {
+    borderLeftWidth: rem(1),
+    borderLeftStyle: 'solid',
+    borderLeftColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : 'transparent',
+    '::before': {
+      boxShadow: 'inset -10px 0 12px -10px rgba(0, 0, 0, .15)'
+    }
+  }
+}));
+
+const ProxiedCell = memo(({ proxied }: Pick<Cloudflare.DNSRecord, 'proxied'>) => {
+  const { cx, classes } = useStyles();
   return (
-    <Box p="sm">
-      <Text sx={{ wordBreak: 'break-all' }}>
-        {JSON.stringify(record)}
-      </Text>
-    </Box>
-  );
-};
-
-// eslint-disable-next-line @fluffyfox/jsx/no-unneeded-nested, react/jsx-no-useless-fragment -- JSX.Element typescript issue
-const TTL = ({ ttl }: Cloudflare.DNSRecord) => <>{ttl === 1 ? 'Auto' : ttl}</>;
-const Proxied = ({ proxied }: Cloudflare.DNSRecord) => {
-  const { css } = useCss();
-  const theme = useMantineTheme();
-  return (
-    <Flex align="center">
+    <Group noWrap align="center" spacing="xs" sx={{ userSelect: 'none' }}>
       <IconCloudflare
-        className={
-          css({
-            width: 20, height: 20,
-            color: proxied ? theme.colors.orange[6] : theme.colors.gray[6]
-          })
-        }
+        width={20}
+        height={20}
+        className={cx(classes.proxiedIcon, proxied ? classes.proxiedIconActive : classes.proxiedIconInactive)}
       />
-    </Flex>
+      {proxied ? 'Proxied' : 'DNS Only'}
+    </Group>
   );
-};
+});
+
+const ActionCell = memo(() => {
+  return (
+    <Group align="center" spacing={0} noWrap>
+      <Button compact variant="subtle">
+        Edit
+      </Button>
+      <Button compact variant="subtle" color="red">
+        Delete
+      </Button>
+    </Group>
+  );
+});
+
+const columns = [
+  columnHelper.accessor('name', {
+    header: 'Name',
+    cell(props) {
+      return <Text truncate>{props.getValue()}</Text>;
+    }
+  }),
+  columnHelper.accessor('type', {
+    header: 'Type',
+    cell(props) {
+      return props.getValue();
+    },
+    size: 48,
+    minSize: 48,
+    maxSize: 56
+  }),
+  columnHelper.accessor('content', {
+    header: 'Value',
+    cell(props) {
+      return <Text truncate>{props.getValue()}</Text>;
+    }
+  }),
+  columnHelper.accessor('ttl', {
+    header: 'TTL',
+    cell(props) {
+      const ttl = props.renderValue();
+      return ttl === 1 ? 'Auto' : ttl;
+    },
+    size: 48,
+    minSize: 48,
+    maxSize: 56
+  }),
+  columnHelper.accessor('proxied', {
+    header: 'CDN',
+    cell(props) {
+      const proxied = props.getValue();
+      return (
+        <ProxiedCell proxied={proxied} />
+      );
+    },
+    // size: 32,
+    minSize: 32,
+    maxSize: 36
+  }),
+  columnHelper.display({
+    id: 'actions',
+    // size: 128,
+    minSize: 128,
+    maxSize: 160,
+    meta: {
+      isFixed: true
+    },
+    cell() {
+      return (
+        <ActionCell />
+      );
+    }
+  })
+];
 
 export default function DNSDataTable() {
-  const [page, setPage] = useState(1);
-  const handlePageChange = useCallback((p: number) => setPage(p), []);
+  const { cx, classes } = useStyles();
 
-  const [perPage, setPerPage] = useState(20);
-  const handlePerPageChange = useCallback((p: number) => setPerPage(p), []);
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 1,
+    pageSize: 20
+  });
 
-  const { data, isLoading } = useCloudflareListDNSRecords(page, perPage);
+  const tableElementRef = useRef<HTMLTableElement>(null);
+  const containerElementRef = useRef<HTMLDivElement>(null);
+  const containerViewportRef = useRef<HTMLDivElement>(null);
+
+  const [isRightColumnFixed, setIsRightColumnFixed] = useState(false);
+  const [isReachRightEndOfScrollArea, setReachRightEndOfScrollArea] = useState(false);
+  useEffect(() => {
+    const containerElement = containerElementRef.current;
+    const tableElement = tableElementRef.current;
+    const observer = new ResizeObserver((entries) => {
+      if (tableElement && containerElement) {
+        const containerWidth = entries[0].contentRect.width;
+        const tableElementWidth = tableElement.getBoundingClientRect().width;
+        const isRightColumnFixed = containerWidth < tableElementWidth;
+
+        setIsRightColumnFixed(isRightColumnFixed);
+      }
+    });
+
+    if (containerElement) {
+      observer.observe(containerElement);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const { data } = useCloudflareListDNSRecords(pagination.pageIndex, pagination.pageSize);
+
+  const handleScrollAreaPositionChange = useCallback((position: {
+    x: number;
+    y: number;
+  }) => {
+    const containerElement = containerViewportRef.current;
+    if (containerElement) {
+      setReachRightEndOfScrollArea(
+        containerElement.getBoundingClientRect().width + position.x + 1 >= containerElement.scrollWidth
+      );
+    }
+  }, []);
+
+  const table = useReactTable({
+    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3631326
+    defaultColumn: {
+      minSize: 0,
+      size: 0
+    },
+    data: data?.result || EMPTY_ARRAY,
+    pageCount: data?.result_info?.total_pages ?? -1,
+    state: { pagination },
+    manualPagination: true,
+    onPaginationChange: setPagination,
+    columns,
+    getCoreRowModel: getCoreRowModel()
+  });
+
+  // const handlePageIndexChange = useCallback((pageIndex: number) => {
+  //   table.setPageIndex(pageIndex);
+  // }, [table]);
 
   return (
-    <DataTable
-      withBorder
-      shadow="sm"
-      fetching={isLoading}
-      verticalSpacing="xs"
-      sx={{
-        padding: `${rem(8)} ${rem(16)}`
-      }}
-      records={data?.success ? data.result : []}
-      columns={[
-        {
-          accessor: 'name', title: 'Name', width: 100,
-          render({ name }) {
-            return (
-              <Tooltip label={name} position="bottom-start" closeDelay={50}>
-                <Text truncate>{name}</Text>
-              </Tooltip>
-            );
+    <Card withBorder shadow="lg" p={0}>
+      <ScrollArea
+        sx={{
+          maxWidth: '100%',
+          overflowX: 'scroll',
+          overflowY: 'hidden'
+        }}
+        styles={{
+          scrollbar: {
+            zIndex: 300
           }
-        },
-        { accessor: 'type', title: 'Type', width: 56, noWrap: true },
-        {
-          accessor: 'content', title: 'Value', width: 100,
-          render({ content }) {
-            return (
-              <Tooltip label={content} position="bottom-start" closeDelay={50}>
-                <Text truncate>{content}</Text>
-              </Tooltip>
-            );
-          }
-        },
-        {
-          accessor: 'ttl', title: 'TTL', width: 44, noWrap: true,
-          render(props) {
-            return <TTL {...props} />;
-          }
-        },
-        { accessor: 'proxied', title: 'CDN', width: 32, noWrap: true, render(props) { return <Proxied {...props} />; } }
-      ]}
-      rowExpansion={{
-        allowMultiple: false,
-        // trigger: 'never',
-        content: ExpandTableRow,
-        collapseProps: {
-          transitionDuration: 250
-        }
-      }}
-      totalRecords={data?.result_info?.total_count || 0}
-      recordsPerPage={perPage}
-      recordsPerPageOptions={[20, 50, 100]}
-      onRecordsPerPageChange={handlePerPageChange}
-      page={page}
-      onPageChange={handlePageChange}
-    // uncomment the next line to use a custom loading text
-    // loadingText="Loading..."
-    // uncomment the next line to display a custom text when no records were found
-    // noRecordsText="No records found"
-    // uncomment the next line to use a custom pagination text
-    // paginationText={({ from, to, totalRecords }) => `Records ${from} - ${to} of ${totalRecords}`}
-    // uncomment the next line to use a custom pagination color (see https://mantine.dev/theming/colors/)
-    // paginationColor="grape"
-    // uncomment the next line to use a custom pagination size
-    // paginationSize="md"
-    />
+        }}
+        ref={containerElementRef}
+        viewportRef={containerViewportRef}
+        onScrollPositionChange={handleScrollAreaPositionChange}
+      // offsetScrollbars
+      // type="always"
+      >
+        <Table
+          // withBorder
+          w="100%"
+          sx={{ position: 'relative' }}
+          ref={tableElementRef}
+        >
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id} className={classes.cellBg}>
+                {headerGroup.headers.map(header => {
+                  const headerWidth = header.getSize();
+                  return (
+                    <th
+                      key={header.id}
+                      style={{ width: headerWidth !== 0 ? headerWidth : undefined, userSelect: 'none' }}
+                      colSpan={header.colSpan}
+                      className={cx(
+                        classes.cellBg,
+                        header.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
+                        isRightColumnFixed && header.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
+                      )}
+                    >
+                      {header.isPlaceholder ? null : (
+                        <Box sx={{ whiteSpace: 'nowrap' }}>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </Box>
+                      )}
+                    </th>
+                  );
+                })}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => {
+              return (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map(cell => {
+                    const cellWidth = cell.column.getSize();
+
+                    return (
+                      <td
+                        key={cell.id}
+                        style={{ width: cellWidth !== 0 ? cellWidth : undefined }}
+                        className={cx(
+                          classes.cellBg,
+                          cell.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
+                          isRightColumnFixed && cell.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
+                        )}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </ScrollArea>
+      <Group p={16}>
+        <Pagination
+          total={table.getPageCount()}
+          value={pagination.pageIndex}
+          onChange={table.setPageIndex}
+          onNextPage={table.nextPage}
+          onPreviousPage={table.previousPage}
+        />
+        <NativeSelect
+          size="sm"
+          data={['React', 'Vue', 'Angular', 'Svelte']}
+        />
+      </Group>
+    </Card>
   );
 }

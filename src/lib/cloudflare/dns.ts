@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { useToken } from '@/context/token';
-import { useZoneId } from '../../hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-zone-id';
 import { fetcherWithAuthorizationAndPagination, handleFetchError } from '../fetcher';
 
 declare global {
@@ -50,6 +50,7 @@ export const useCloudflareListDNSRecords = (pageIndex: number, perPage = 20) => 
   [`client/v4/zones/${useZoneId()}/dns_records`, useToken(), pageIndex, perPage],
   fetcherWithAuthorizationAndPagination,
   {
+    keepPreviousData: true,
     onError(error) {
       handleFetchError(error, 'Failed to fetch DNS records.');
     }
