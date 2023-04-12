@@ -1,5 +1,6 @@
 import { useLocalStorage } from '@mantine/hooks';
 import type { ColorScheme } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { MantineProvider, ColorSchemeProvider, createEmotionCache } from '@mantine/core';
 import { useCallback } from 'react';
 
@@ -38,7 +39,9 @@ export const MantineProviderWithDarkMode = ({ children }: React.PropsWithChildre
         emotionCache={emotionCache}
         withNormalizeCSS
         withGlobalStyles>
-        {children}
+        <ModalsProvider>
+          {children}
+        </ModalsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );

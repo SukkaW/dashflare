@@ -1,12 +1,23 @@
-import { Box, Button, Group, Table, Text } from '@mantine/core';
+import { Box, Button, Group, Table, Text, Tooltip } from '@mantine/core';
 import { IconCloudflare } from '@/components/icons/cloudflare';
 import type { PaginationState } from '@tanstack/react-table';
 import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, useCallback } from 'react';
 import { useStyles } from './table.styles';
+import { openDNSRecordModal } from './modal';
 
 const columnHelper = createColumnHelper<Cloudflare.DNSRecord>();
 const EMPTY_ARRAY: Cloudflare.DNSRecord[] = [];
+
+const ValueCell = memo(({ value }: { value: string }) => {
+  const { classes } = useStyles();
+
+  return (
+    <Tooltip label={value} position="bottom-start">
+      <Text className={classes.valueCell} truncate title={value}>{value}</Text>
+    </Tooltip>
+  );
+});
 
 const ProxiedCell = memo(({ proxied }: Pick<Cloudflare.DNSRecord, 'proxied'>) => {
   const { cx, classes } = useStyles();
@@ -24,10 +35,17 @@ const ProxiedCell = memo(({ proxied }: Pick<Cloudflare.DNSRecord, 'proxied'>) =>
   );
 });
 
-const ActionCell = memo(() => {
+interface ActionCellProps {
+  record: Cloudflare.DNSRecord
+}
+
+const ActionCell = memo(({ record }: ActionCellProps) => {
   return (
     <Group align="center" spacing={0} noWrap>
-      <Button compact variant="subtle">
+      <Button
+        compact
+        variant="subtle"
+        onClick={useCallback(() => openDNSRecordModal(record), [record])}>
         Edit
       </Button>
       <Button compact variant="subtle" color="red">
@@ -41,8 +59,11 @@ const columns = [
   columnHelper.accessor('name', {
     header: 'Name',
     cell(props) {
-      return <Text truncate>{props.getValue()}</Text>;
-    }
+      return <ValueCell value={props.getValue()} />;
+    },
+    size: 128,
+    minSize: 128,
+    maxSize: 256
   }),
   columnHelper.accessor('type', {
     header: 'Type',
@@ -56,7 +77,7 @@ const columns = [
   columnHelper.accessor('content', {
     header: 'Value',
     cell(props) {
-      return <Text truncate>{props.getValue()}</Text>;
+      return <ValueCell value={props.getValue()} />;
     }
   }),
   columnHelper.accessor('ttl', {
@@ -89,9 +110,9 @@ const columns = [
     meta: {
       isFixed: true
     },
-    cell() {
+    cell(props) {
       return (
-        <ActionCell />
+        <ActionCell record={props.row.original} />
       );
     }
   })

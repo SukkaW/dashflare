@@ -1,10 +1,12 @@
 import type { SelectItem } from '@mantine/core';
-import { Card, Group, Select, Pagination, ScrollArea } from '@mantine/core';
+import { Card, Group, Select, Pagination, ScrollArea, rem, Loader, Button, TextInput } from '@mantine/core';
 import type { PaginationState } from '@tanstack/react-table';
 import { useCloudflareListDNSRecords } from '@/lib/cloudflare/dns';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import DNSDataTable from './table';
+import { IconSearch } from '@tabler/icons-react';
+import { useUncontrolled } from '@/hooks/use-uncontrolled';
 
 const PAGE_SIZE_ARRAY: SelectItem[] = [
   { label: '20 / page', value: '20' },
@@ -14,11 +16,15 @@ const PAGE_SIZE_ARRAY: SelectItem[] = [
 ];
 
 export default function DNSDataTableEntry() {
+  // DNS Record Search
+  const [searchQuery, handleCommitSearchQuery, searchInputRef] = useUncontrolled('');
+
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 1,
     pageSize: 20
   });
-  const { data } = useCloudflareListDNSRecords(pagination.pageIndex, pagination.pageSize);
+  const { data, isLoading } = useCloudflareListDNSRecords(pagination.pageIndex, pagination.pageSize, searchQuery);
+  const searchQueryInputShowLoading = isLoading && searchQuery;
   const pageCount = data?.result_info?.total_pages ?? -1;
 
   const tableElementRef = useRef<HTMLTableElement>(null);
@@ -72,6 +78,26 @@ export default function DNSDataTableEntry() {
 
   return (
     <Card withBorder shadow="lg" p={0}>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        handleCommitSearchQuery();
+      }}>
+        {useMemo(() => (
+          <Group p={16}>
+            <TextInput
+              ref={searchInputRef}
+              placeholder="Search records..."
+              icon={
+                searchQueryInputShowLoading
+                  ? <Loader size="xs" />
+                  : <IconSearch size={rem(16)} />
+              }
+            />
+            <Button type="submit">Search</Button>
+          </Group>
+        ), [searchInputRef, searchQueryInputShowLoading])}
+      </form>
+
       <ScrollArea
         sx={{
           maxWidth: '100%',
