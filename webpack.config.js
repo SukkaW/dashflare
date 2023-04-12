@@ -108,7 +108,7 @@ const config = {
               targets,
               mode: 'usage',
               loose: false,
-              coreJs: '3.29',
+              coreJs: '3.30',
               shippedProposals: false,
               exclude: ['es.error.cause']
             }
