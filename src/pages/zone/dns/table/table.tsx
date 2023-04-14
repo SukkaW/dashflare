@@ -1,4 +1,4 @@
-import { Box, Button, Group, Table, Text, Tooltip } from '@mantine/core';
+import { Box, Button, Group, Loader, Center, Table, Text, Tooltip } from '@mantine/core';
 import { IconCloudflare } from '@/components/icons/cloudflare';
 import type { PaginationState } from '@tanstack/react-table';
 import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
@@ -19,8 +19,17 @@ const ValueCell = memo(({ value }: { value: string }) => {
   );
 });
 
-const ProxiedCell = memo(({ proxied }: Pick<Cloudflare.DNSRecord, 'proxied'>) => {
+const ProxiedCell = memo(({ proxied, proxiable }: Pick<Cloudflare.DNSRecord, 'proxied' | 'proxiable'>) => {
   const { cx, classes } = useStyles();
+
+  if (!proxiable) {
+    return (
+      <Text className={classes.noWrap}>
+        Not Proxiable
+      </Text>
+    );
+  }
+
   return (
     <Group noWrap align="center" spacing="xs" sx={{ userSelect: 'none' }}>
       <IconCloudflare
@@ -28,7 +37,7 @@ const ProxiedCell = memo(({ proxied }: Pick<Cloudflare.DNSRecord, 'proxied'>) =>
         height={20}
         className={cx(classes.proxiedIcon, proxied ? classes.proxiedIconActive : classes.proxiedIconInactive)}
       />
-      <Text sx={{ whiteSpace: 'nowrap' }}>
+      <Text className={classes.noWrap}>
         {proxied ? 'Proxied' : 'DNS Only'}
       </Text>
     </Group>
@@ -86,21 +95,22 @@ const columns = [
       const ttl = props.renderValue();
       return ttl === 1 ? 'Auto' : ttl;
     },
-    size: 48,
-    minSize: 48,
-    maxSize: 56
+    size: 64,
+    minSize: 64,
+    maxSize: 72
   }),
   columnHelper.accessor('proxied', {
     header: 'CDN',
     cell(props) {
       const proxied = props.getValue();
+      const proxiable = props.row.original.proxiable;
       return (
-        <ProxiedCell proxied={proxied} />
+        <ProxiedCell proxied={proxied} proxiable={proxiable} />
       );
     },
-    size: 48,
-    minSize: 48,
-    maxSize: 64
+    size: 144,
+    minSize: 144,
+    maxSize: 168
   }),
   columnHelper.display({
     id: 'actions',
@@ -119,7 +129,7 @@ const columns = [
 ];
 
 interface DNSDataTableProps {
-  data: Cloudflare.DNSRecord[] | undefined
+  data: Cloudflare.DNSRecord[] | undefined,
   pageCount: number,
   pagination: PaginationState,
   isRightColumnFixed: boolean,
@@ -149,6 +159,22 @@ const DNSDataTable = forwardRef<HTMLTableElement, DNSDataTableProps>(({
     columns,
     getCoreRowModel: getCoreRowModel()
   });
+
+  if (!data) {
+    return (
+      <Center h={288}>
+        <Loader />
+      </Center>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Center h={288}>
+        <Text>There is no DNS records</Text>
+      </Center>
+    );
+  }
 
   return (
     <Table

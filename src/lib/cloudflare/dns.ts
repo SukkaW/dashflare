@@ -1,9 +1,13 @@
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
+
 import { useToken } from '@/context/token';
 import { useZoneId } from '@/hooks/use-zone-id';
-import { fetcherWithAuthorizationAndPagination, handleFetchError } from '../fetcher';
+import { fetcherWithAuthorization, fetcherWithAuthorizationAndPagination, handleFetchError } from '../fetcher';
+import { useCallback, useState } from 'react';
 
 export const cloudflareValidDNSRecordTypes = ['A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF', 'CERT', 'DNSKEY', 'DS', 'NAPTR', 'SMIMEA', 'SSHFP', 'TLSA', 'URI'] as const;
+
+export const currentlySupportedCloudflareDNSRecordTypes: Set<Cloudflare.ValidDNSRecordType> = new Set(['A', 'AAAA', 'CNAME', 'TXT', 'NS', 'SPF']);
 
 declare global {
   namespace Cloudflare {
@@ -45,6 +49,8 @@ declare global {
       priority?: number,
       data?: Extension
     }
+
+    export type CreateDNSRecord = Pick<Cloudflare.DNSRecord, 'name' | 'type' | 'content' | 'ttl' | 'proxied'>;
   }
 }
 
@@ -63,3 +69,61 @@ export const useCloudflareListDNSRecords = (pageIndex: number, perPage = 20, sea
     }
   }
 );
+
+export const useUpdateCloudflareDNSRecord = () => {
+  const [isMutating, setIsMutating] = useState(false);
+  const zoneId = useZoneId();
+  const token = useToken();
+
+  const trigger = useCallback(async (record: Cloudflare.CreateDNSRecord, isCreate: boolean, id?: string) => {
+    setIsMutating(true);
+
+    try {
+      if (!token) throw new Error('There is no token.');
+
+      if (isCreate) {
+        await fetcherWithAuthorization(
+          [`client/v4/zones/${zoneId}/dns_records`, token],
+          {
+            method: 'POST',
+            body: JSON.stringify(record)
+          }
+        );
+      } else if (id) {
+        await fetcherWithAuthorization(
+          [`client/v4/zones/${zoneId}/dns_records/${id}`, token],
+          {
+            method: 'PATCH',
+            body: JSON.stringify(record)
+          }
+        );
+      }
+
+      mutate(
+        (key) => {
+          return Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`);
+        },
+        undefined,
+        { populateCache: false, revalidate: true, rollbackOnError: true }
+      );
+      setIsMutating(false);
+
+      return true;
+    } catch (e) {
+      handleFetchError(
+        e,
+        isCreate
+          ? 'Failed to create DNS record.'
+          : 'Failed to update DNS record.'
+      );
+
+      return false;
+    }
+
+  }, [token, zoneId]);
+
+  return {
+    trigger,
+    isMutating
+  };
+};

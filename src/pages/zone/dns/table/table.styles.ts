@@ -10,6 +10,9 @@ export const useStyles = createStyles(theme => ({
     borderTopColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3],
     position: 'relative'
   },
+  noWrap: {
+    whiteSpace: 'nowrap'
+  },
   valueCell: {
     maxWidth: rem(128),
     '@media screen and (min-width: 640px)': {
@@ -18,7 +21,7 @@ export const useStyles = createStyles(theme => ({
     '@media screen and (min-width: 960px)': {
       maxWidth: rem(384)
     },
-    '@media screen and (min-width: 1240px)': {
+    '@media screen and (min-width: 1440px)': {
       maxWidth: rem(512)
     }
   },
@@ -31,6 +34,9 @@ export const useStyles = createStyles(theme => ({
   },
   proxiedIconInactive: {
     color: theme.colors.gray[6]
+  },
+  proxiedIconWhite: {
+    color: theme.white
   },
   cellBg: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white

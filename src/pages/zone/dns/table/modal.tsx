@@ -1,20 +1,32 @@
 import { modals } from '@mantine/modals';
-import { Box, Button, Group, Input, NativeSelect, NumberInput, Stack, Switch, TextInput } from '@mantine/core';
+import { Box, Button, Group, Input, NativeSelect, NumberInput, Stack, Switch, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { cloudflareValidDNSRecordTypes } from '@/lib/cloudflare/dns';
-import { memo, useCallback, useState } from 'react';
+import { currentlySupportedCloudflareDNSRecordTypes, useUpdateCloudflareDNSRecord } from '@/lib/cloudflare/dns';
+import { memo, useCallback, useMemo, useState } from 'react';
+
+import { useStyles } from './table.styles';
+import { IconCloudflare } from '@/components/icons/cloudflare';
 
 interface DNSEditFormProps {
-  record?: Cloudflare.DNSRecord
+  record?: Cloudflare.DNSRecord | undefined | null,
+  modalId: string
 }
 
-const DNSEditForm = memo(({ record }: DNSEditFormProps) => {
-  const form = useForm<Partial<Cloudflare.DNSRecord>>({
+const SUPPORTED_DNS_RECORD_TYPES = Array.from(currentlySupportedCloudflareDNSRecordTypes);
+
+const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
+  const isCreate = !record;
+  const { trigger, isMutating } = useUpdateCloudflareDNSRecord();
+
+  const { cx, classes } = useStyles();
+
+  const form = useForm<Cloudflare.CreateDNSRecord>({
     initialValues: {
       type: record?.type ?? 'A',
       name: record?.name ?? '',
       content: record?.content ?? '',
-      ttl: record?.ttl ?? 1
+      ttl: record?.ttl ?? 1,
+      proxied: record?.proxied ?? false
     }
   });
   const [autoTtl, setAutoTtl] = useState(record?.ttl === 1);
@@ -26,16 +38,28 @@ const DNSEditForm = memo(({ record }: DNSEditFormProps) => {
     setAutoTtl(isAutoTtl);
   }, [form]);
 
+  const handleReset: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
+    form.onReset(e);
+    modals.close(modalId);
+  }, [form, modalId]);
+
   return (
     <Box w="100%">
-      <form onSubmit={form.onSubmit(values => {
-        console.log(values);
-      })}>
+      <form
+        onSubmit={form.onSubmit(values => {
+          trigger(values, isCreate, record?.id).then((result) => {
+            if (result) {
+              modals.close(modalId);
+            }
+          });
+        })}
+        onReset={handleReset}
+      >
         <Stack>
           <NativeSelect
             label="Type"
             withAsterisk
-            data={cloudflareValidDNSRecordTypes as unknown as string[]}
+            data={SUPPORTED_DNS_RECORD_TYPES}
             {...form.getInputProps('type')}
           />
           <TextInput
@@ -62,22 +86,68 @@ const DNSEditForm = memo(({ record }: DNSEditFormProps) => {
               />
             </Input.Wrapper>
           </Group>
-          <Button type="submit">
-            Submit
-          </Button>
+          <Input.Wrapper required label="Cloudflare CDN Proxy" withAsterisk>
+            <Switch
+              {...form.getInputProps('proxied', { type: 'checkbox' })}
+              onLabel={<IconCloudflare
+                width={20}
+                height={20}
+                className={cx(classes.proxiedIcon, classes.proxiedIconWhite)}
+              />}
+              offLabel={<IconCloudflare
+                width={20}
+                height={20}
+                className={cx(classes.proxiedIcon, classes.proxiedIconInactive)}
+              />}
+              color="orange"
+            />
+          </Input.Wrapper>
+          {
+            useMemo(() => (
+              <Group spacing="xs">
+                <Button type="submit" loading={isMutating}>
+                  Save
+                </Button>
+                <Button type="reset" variant="outline">
+                  Cancel
+                </Button>
+              </Group>
+            ), [isMutating])
+          }
         </Stack>
       </form>
-
     </Box>
   );
 });
 
+const DNSModal = memo(({ record, modalId }: DNSEditFormProps) => {
+  if (record && record.type && !currentlySupportedCloudflareDNSRecordTypes.has(record.type)) {
+    return (
+      <Stack>
+        <Text>
+          Dashflare does not currently support creating or editing DNS records of type {record.type} yet!
+        </Text>
+        <Button onClick={() => modals.close(modalId)}>
+          Close
+        </Button>
+      </Stack>
+    );
+  }
+
+  return (
+    <DNSEditForm record={record} modalId={modalId} />
+  );
+});
+
 export const openDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
+  const modalId = `dns-record-modal-${record?.id ?? 'create'}`;
+
   return modals.open({
     centered: true,
+    modalId,
     title: record ? 'Edit DNS Record' : 'Add DNS Record',
     children: (
-      <DNSEditForm record={record} />
+      <DNSModal record={record} modalId={modalId} />
     )
   });
 };

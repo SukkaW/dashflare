@@ -19,6 +19,7 @@ import {
 import { IconCloudflare } from '../icons/cloudflare';
 import { Link, Outlet } from 'react-router-dom';
 import { useIsMatch } from '@/hooks/use-is-match';
+import { ModalsProvider } from '@mantine/modals';
 
 const HeaderContent = lazy(() => import('./header'));
 const SidebarContent = lazy(() => import('./sidebar'));
@@ -31,65 +32,67 @@ export default function Layout() {
   const isMatchLogin = useIsMatch('/login');
 
   return (
-    <AppShell
-      navbarOffsetBreakpoint="sm"
-      navbar={
-        isMatchLogin
-          ? undefined
-          : (
-            <Navbar p={0} hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
-              <Suspense fallback={null}>
-                <SidebarContent />
+    <ModalsProvider>
+      <AppShell
+        navbarOffsetBreakpoint="sm"
+        navbar={
+          isMatchLogin
+            ? undefined
+            : (
+              <Navbar p={0} hiddenBreakpoint="sm" hidden={!navbarMobileOpened} width={{ sm: 300 }}>
+                <Suspense fallback={null}>
+                  <SidebarContent />
+                </Suspense>
+              </Navbar>
+            )
+        }
+        header={
+          <Header height={{ base: 50 }} p="md" zIndex={101}>
+            <Flex h="100%" align="center" justify="space-between">
+              {
+                !isMatchLogin && (
+                  <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                    <Burger
+                      opened={navbarMobileOpened}
+                      onClick={toggleNavbarMobile}
+                      size="sm"
+                      color={theme.colors.gray[6]}
+                      mr="xl"
+                    />
+                  </MediaQuery>
+                )
+              }
+
+              <UnstyledButton component={Link} to="/">
+                <Group spacing="xs">
+                  <IconCloudflare className={css({ width: 24, height: 24, color: theme.colors.orange[6] })} />
+                  <Text fw={600} size="xl">Dashflare</Text>
+                </Group>
+              </UnstyledButton>
+
+              <Suspense fallback={
+                <Center w={66} px="sm">
+                  <Skeleton radius="md" height={18} width={66} />
+                </Center>
+              }>
+                <HeaderContent isMatchLogin={isMatchLogin} />
               </Suspense>
-            </Navbar>
-          )
-      }
-      header={
-        <Header height={{ base: 50 }} p="md" zIndex={101}>
-          <Flex h="100%" align="center" justify="space-between">
-            {
-              !isMatchLogin && (
-                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                  <Burger
-                    opened={navbarMobileOpened}
-                    onClick={toggleNavbarMobile}
-                    size="sm"
-                    color={theme.colors.gray[6]}
-                    mr="xl"
-                  />
-                </MediaQuery>
-              )
-            }
-
-            <UnstyledButton component={Link} to="/">
-              <Group spacing="xs">
-                <IconCloudflare className={css({ width: 24, height: 24, color: theme.colors.orange[6] })} />
-                <Text fw={600} size="xl">Dashflare</Text>
-              </Group>
-            </UnstyledButton>
-
-            <Suspense fallback={
-              <Center w={66} px="sm">
-                <Skeleton radius="md" height={18} width={66} />
+            </Flex>
+          </Header>
+        }
+      >
+        <Container size="xl">
+          <Suspense
+            fallback={
+              <Center h="100%" w="100%">
+                <Loader size="xl" />
               </Center>
-            }>
-              <HeaderContent isMatchLogin={isMatchLogin} />
-            </Suspense>
-          </Flex>
-        </Header>
-      }
-    >
-      <Container size="xl">
-        <Suspense
-          fallback={
-            <Center h="100%" w="100%">
-              <Loader size="xl" />
-            </Center>
-          }
-        >
-          <Outlet />
-        </Suspense>
-      </Container>
-    </AppShell>
+            }
+          >
+            <Outlet />
+          </Suspense>
+        </Container>
+      </AppShell>
+    </ModalsProvider>
   );
 }
