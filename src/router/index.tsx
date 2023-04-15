@@ -1,5 +1,5 @@
 import { lazy, memo } from 'react';
-import { createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { Outlet, createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import Layout from '@/components/layout/';
 
 import LoginPage from '@/pages/login';
@@ -7,7 +7,6 @@ import NotFoundPage from '@/pages/404';
 
 import { IconCertificate, IconGps, IconLock } from '@tabler/icons-react';
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
-import ZoneIndexPage from '@/pages/zone';
 
 // import Layout from '@/components/layout';
 
@@ -84,7 +83,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ':zoneId/:zoneName',
-            element: <ZoneIndexPage />,
+            element: <Outlet />,
             children: navLinks.map(route => ({
               path: route.path,
               element: route.element

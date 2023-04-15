@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { Stack } from '@mantine/core';
 
 export default function ZoneIndexPage() {
   return (
-    <Outlet />
+    <Stack />
   );
 }
