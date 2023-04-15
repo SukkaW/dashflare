@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import DNSDataTable from './table';
 import { IconSearch } from '@tabler/icons-react';
 import { useUncontrolled } from '@/hooks/use-uncontrolled';
-import { openDNSRecordModal } from './modal';
+import { openEditDNSRecordModal } from './modal';
 
 const PAGE_SIZE_ARRAY: SelectItem[] = [
   { label: '20 / page', value: '20' },
@@ -99,7 +99,7 @@ export default function DNSDataTableEntry() {
               <Button type="submit">Search</Button>
             </Group>
           </form>
-          <Button onClick={() => openDNSRecordModal()}>Create DNS Record</Button>
+          <Button onClick={() => openEditDNSRecordModal()}>Create DNS Record</Button>
         </Flex>
       ), [handleCommitSearchQuery, searchInputRef, searchQueryInputShowLoading])}
 

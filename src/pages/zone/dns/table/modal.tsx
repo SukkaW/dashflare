@@ -1,7 +1,7 @@
 import { modals } from '@mantine/modals';
 import { Box, Button, Group, Input, NativeSelect, NumberInput, Stack, Switch, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { currentlySupportedCloudflareDNSRecordTypes, useUpdateCloudflareDNSRecord } from '@/lib/cloudflare/dns';
+import { currentlySupportedCloudflareDNSRecordTypes, useUpdateCloudflareDNSRecord, useDeleteCloudflareDNSRecord } from '@/lib/cloudflare/dns';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import { useStyles } from './table.styles';
@@ -139,7 +139,7 @@ const DNSModal = memo(({ record, modalId }: DNSEditFormProps) => {
   );
 });
 
-export const openDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
+export const openEditDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
   const modalId = `dns-record-modal-${record?.id ?? 'create'}`;
 
   return modals.open({
@@ -148,6 +148,51 @@ export const openDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
     title: record ? 'Edit DNS Record' : 'Add DNS Record',
     children: (
       <DNSModal record={record} modalId={modalId} />
+    )
+  });
+};
+
+const DeleteDNSRecordModal = memo(({ recordId, recordName, modalId }: { recordId: string, recordName: string, modalId: string }) => {
+  const { trigger, isMutating } = useDeleteCloudflareDNSRecord();
+
+  const handleCancel = () => {
+    modals.close(modalId);
+  };
+
+  const handleConfirm = async () => {
+    trigger(recordId);
+    modals.close(modalId);
+  };
+
+  return (
+    <Stack>
+      <Text size="sm">
+        Are you sure you want to delete your DNS record of {recordName}? This action is destructive and you will have
+        to contact support to restore your data.
+      </Text>
+
+      <Group position="right">
+        <Button loading={isMutating} variant="default" onClick={handleCancel}>
+          Cancel
+        </Button>
+
+        <Button loading={isMutating} color="red" onClick={handleConfirm}>
+          Confirm and Delete
+        </Button>
+      </Group>
+    </Stack>
+  );
+});
+
+export const openDeleteDNSRecordModal = (recordId: string, recordName: string) => {
+  const modalId = `dns-delete-record-modal-${recordId}`;
+
+  return modals.open({
+    modalId,
+    title: 'Delete DNS Record',
+    centered: true,
+    children: (
+      <DeleteDNSRecordModal recordId={recordId} recordName={recordName} modalId={modalId} />
     )
   });
 };

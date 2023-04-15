@@ -70,6 +70,16 @@ export const useCloudflareListDNSRecords = (pageIndex: number, perPage = 20, sea
   }
 );
 
+const mutateCloudflareDNSRecord = (zoneId: string) => {
+  return mutate(
+    (key) => {
+      return Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`);
+    },
+    undefined,
+    { populateCache: false, revalidate: true, rollbackOnError: true }
+  );
+};
+
 export const useUpdateCloudflareDNSRecord = () => {
   const [isMutating, setIsMutating] = useState(false);
   const zoneId = useZoneId();
@@ -99,13 +109,7 @@ export const useUpdateCloudflareDNSRecord = () => {
         );
       }
 
-      mutate(
-        (key) => {
-          return Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`);
-        },
-        undefined,
-        { populateCache: false, revalidate: true, rollbackOnError: true }
-      );
+      await mutateCloudflareDNSRecord(zoneId);
       setIsMutating(false);
 
       return true;
@@ -120,6 +124,44 @@ export const useUpdateCloudflareDNSRecord = () => {
       return false;
     }
 
+  }, [token, zoneId]);
+
+  return {
+    trigger,
+    isMutating
+  };
+};
+
+export const useDeleteCloudflareDNSRecord = () => {
+  const [isMutating, setIsMutating] = useState(false);
+  const zoneId = useZoneId();
+  const token = useToken();
+
+  const trigger = useCallback(async (id: string) => {
+    setIsMutating(true);
+
+    try {
+      if (!token) throw new Error('There is no token.');
+
+      await fetcherWithAuthorization(
+        [`client/v4/zones/${zoneId}/dns_records/${id}`, token],
+        {
+          method: 'DELETE'
+        }
+      );
+
+      await mutateCloudflareDNSRecord(zoneId);
+      setIsMutating(false);
+
+      return true;
+    } catch (e) {
+      handleFetchError(
+        e,
+        'Failed to delete DNS record.'
+      );
+
+      return false;
+    }
   }, [token, zoneId]);
 
   return {

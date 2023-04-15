@@ -4,7 +4,7 @@ import type { PaginationState } from '@tanstack/react-table';
 import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
 import { forwardRef, memo, useCallback } from 'react';
 import { useStyles } from './table.styles';
-import { openDNSRecordModal } from './modal';
+import { openDeleteDNSRecordModal, openEditDNSRecordModal } from './modal';
 
 const columnHelper = createColumnHelper<Cloudflare.DNSRecord>();
 const EMPTY_ARRAY: Cloudflare.DNSRecord[] = [];
@@ -54,10 +54,16 @@ const ActionCell = memo(({ record }: ActionCellProps) => {
       <Button
         compact
         variant="subtle"
-        onClick={useCallback(() => openDNSRecordModal(record), [record])}>
+        onClick={useCallback(() => openEditDNSRecordModal(record), [record])}
+      >
         Edit
       </Button>
-      <Button compact variant="subtle" color="red">
+      <Button
+        compact
+        variant="subtle"
+        color="red"
+        onClick={useCallback(() => openDeleteDNSRecordModal(record.id, record.name), [record])}
+      >
         Delete
       </Button>
     </Group>
