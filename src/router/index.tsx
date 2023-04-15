@@ -5,8 +5,9 @@ import Layout from '@/components/layout/';
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconGps, IconLock } from '@tabler/icons-react';
+import { IconCertificate, IconFileDescription, IconGps, IconLock } from '@tabler/icons-react';
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
+import ZoneIndexPage from '../pages/zone/index';
 
 // import Layout from '@/components/layout';
 
@@ -40,6 +41,12 @@ const ErrorBoundary = memo(() => {
 });
 
 export const navLinks = [
+  {
+    path: '/',
+    element: <ZoneIndexPage />,
+    label: 'Overview',
+    icon: <IconFileDescription />
+  },
   {
     path: 'dns',
     element: <DNSPage />,
