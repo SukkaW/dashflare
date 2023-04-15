@@ -17,10 +17,17 @@ https://dashflare.skk.moe
   - [x] Modify Universal SSL CA
   - [x] Update SSL verification methods (CNAME, HTTP, TXT)
 - [ ] DNS
-  - [ ] List DNS records
+  - [x] List DNS records
   - [ ] Edit DNS records
-  - [ ] Delete DNS records
-  - [ ] Search / Filter DNS records
+    - [x] Support simple records (A, AAAA, TXT, CNAME)
+    - [ ] Support LOC records
+    - [ ] Support HTTPS records
+    - [ ] Support MX records
+    - [ ] Support SRV records
+    - [ ] Support other records
+  - [x] Delete DNS records
+  - [x] Search / Filter DNS records
+  - [ ] Purge Cache with extra settings (Country, Vary, CORS Origin)
 
 ## Techstack
 
