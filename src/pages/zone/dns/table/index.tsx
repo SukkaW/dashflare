@@ -1,8 +1,8 @@
 import type { SelectItem } from '@mantine/core';
-import { Card, Group, Select, Pagination, ScrollArea, rem, Loader, Button, TextInput, Flex } from '@mantine/core';
+import { Card, Group, Select, Pagination, rem, Loader, Button, TextInput, Flex, Center, Text } from '@mantine/core';
 import type { PaginationState } from '@tanstack/react-table';
 import { useCloudflareListDNSRecords } from '@/lib/cloudflare/dns';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import DNSDataTable from './table';
 import { IconSearch } from '@tabler/icons-react';
@@ -28,46 +28,6 @@ export default function DNSDataTableEntry() {
   const searchQueryInputShowLoading = isLoading && searchQuery;
   const pageCount = data?.result_info?.total_pages ?? -1;
 
-  const tableElementRef = useRef<HTMLTableElement>(null);
-  const containerElementRef = useRef<HTMLDivElement>(null);
-  const containerViewportRef = useRef<HTMLDivElement>(null);
-
-  const [isRightColumnFixed, setIsRightColumnFixed] = useState(false);
-  const [isReachRightEndOfScrollArea, setReachRightEndOfScrollArea] = useState(false);
-  useEffect(() => {
-    const containerElement = containerElementRef.current;
-    const tableElement = tableElementRef.current;
-    const observer = new ResizeObserver((entries) => {
-      if (tableElement && containerElement) {
-        const containerWidth = entries[0].contentRect.width;
-        const tableElementWidth = tableElement.getBoundingClientRect().width;
-        const isRightColumnFixed = containerWidth < tableElementWidth;
-
-        setIsRightColumnFixed(isRightColumnFixed);
-      }
-    });
-
-    if (containerElement) {
-      observer.observe(containerElement);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  const handleScrollAreaPositionChange = useCallback((position: {
-    x: number;
-    y: number;
-  }) => {
-    const containerElement = containerViewportRef.current;
-    if (containerElement) {
-      setReachRightEndOfScrollArea(
-        containerElement.getBoundingClientRect().width + position.x + 1 >= containerElement.scrollWidth
-      );
-    }
-  }, []);
-
   const handlePageIndexChange = useCallback((pageIndex: number) => setPagination(p => ({
     ...p,
     pageIndex
@@ -79,7 +39,6 @@ export default function DNSDataTableEntry() {
 
   return (
     <Card withBorder shadow="lg" p={0}>
-
       {useMemo(() => (
         <Flex p={16} justify="space-between">
           <form onSubmit={(e) => {
@@ -102,33 +61,33 @@ export default function DNSDataTableEntry() {
           <Button onClick={() => openEditDNSRecordModal()}>Create DNS Record</Button>
         </Flex>
       ), [handleCommitSearchQuery, searchInputRef, searchQueryInputShowLoading])}
-
-      <ScrollArea
-        sx={{
-          maxWidth: '100%',
-          overflowX: 'scroll',
-          overflowY: 'hidden'
-        }}
-        styles={{
-          scrollbar: {
-            zIndex: 100
+      {
+        useMemo(() => {
+          if (!data) {
+            return (
+              <Center h={288}>
+                <Loader />
+              </Center>
+            );
           }
-        }}
-        ref={containerElementRef}
-        viewportRef={containerViewportRef}
-        onScrollPositionChange={handleScrollAreaPositionChange}
-      // offsetScrollbars
-      // type="always"
-      >
-        <DNSDataTable
-          ref={tableElementRef}
-          data={data?.result}
-          pageCount={pageCount}
-          pagination={pagination}
-          isRightColumnFixed={isRightColumnFixed}
-          isReachRightEndOfScrollArea={isReachRightEndOfScrollArea}
-        />
-      </ScrollArea>
+
+          if (data.result?.length === 0) {
+            return (
+              <Center h={288}>
+                <Text>There is no DNS records</Text>
+              </Center>
+            );
+          }
+
+          return (
+            <DNSDataTable
+              data={data.result}
+              pageCount={pageCount}
+              pagination={pagination}
+            />
+          );
+        }, [data, pageCount, pagination])
+      }
       <Group p={16}>
         <Pagination
           total={pageCount}

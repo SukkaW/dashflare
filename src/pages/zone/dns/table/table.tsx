@@ -1,8 +1,8 @@
-import { Box, Button, Group, Loader, Center, Table, Text, Tooltip } from '@mantine/core';
+import { Box, Button, Group, ScrollArea, Table, Text, Tooltip } from '@mantine/core';
 import { IconCloudflare } from '@/components/icons/cloudflare';
 import type { PaginationState } from '@tanstack/react-table';
 import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
-import { forwardRef, memo, useCallback } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useStyles } from './table.styles';
 import { openDeleteDNSRecordModal, openEditDNSRecordModal } from './modal';
 
@@ -135,20 +135,44 @@ const columns = [
 ];
 
 interface DNSDataTableProps {
-  data: Cloudflare.DNSRecord[] | undefined,
+  data: Cloudflare.DNSRecord[],
   pageCount: number,
-  pagination: PaginationState,
-  isRightColumnFixed: boolean,
-  isReachRightEndOfScrollArea: boolean
+  pagination: PaginationState
 }
 
-const DNSDataTable = forwardRef<HTMLTableElement, DNSDataTableProps>(({
+const DNSDataTable = memo(({
   data,
   pageCount,
-  pagination,
-  isRightColumnFixed,
-  isReachRightEndOfScrollArea
-}, ref) => {
+  pagination
+}: DNSDataTableProps) => {
+  const tableElementRef = useRef<HTMLTableElement>(null);
+  const containerElementRef = useRef<HTMLDivElement>(null);
+  const containerViewportRef = useRef<HTMLDivElement>(null);
+
+  const [isRightColumnFixed, setIsRightColumnFixed] = useState(false);
+  const [isReachRightEndOfScrollArea, setReachRightEndOfScrollArea] = useState(false);
+  useEffect(() => {
+    const containerElement = containerElementRef.current;
+    const tableElement = tableElementRef.current;
+    const observer = new ResizeObserver((entries) => {
+      if (tableElement && containerElement) {
+        const containerWidth = entries[0].contentRect.width;
+        const tableElementWidth = tableElement.getBoundingClientRect().width;
+        const isRightColumnFixed = containerWidth < tableElementWidth;
+
+        setIsRightColumnFixed(isRightColumnFixed);
+      }
+    });
+
+    if (containerElement) {
+      observer.observe(containerElement);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const { cx, classes } = useStyles();
 
   const table = useReactTable({
@@ -166,88 +190,102 @@ const DNSDataTable = forwardRef<HTMLTableElement, DNSDataTableProps>(({
     getCoreRowModel: getCoreRowModel()
   });
 
-  if (!data) {
-    return (
-      <Center h={288}>
-        <Loader />
-      </Center>
-    );
-  }
-
-  if (data.length === 0) {
-    return (
-      <Center h={288}>
-        <Text>There is no DNS records</Text>
-      </Center>
-    );
-  }
+  const handleScrollAreaPositionChange = useCallback((position: {
+    x: number;
+    y: number;
+  }) => {
+    const containerElement = containerViewportRef.current;
+    if (containerElement) {
+      setReachRightEndOfScrollArea(
+        containerElement.getBoundingClientRect().width + position.x + 1 >= containerElement.scrollWidth
+      );
+    }
+  }, []);
 
   return (
-    <Table
-      // withBorder
-      w="100%"
-      ref={ref}
-      className={classes.table}
+    <ScrollArea
+      sx={{
+        maxWidth: '100%',
+        overflowX: 'scroll',
+        overflowY: 'hidden'
+      }}
+      styles={{
+        scrollbar: {
+          zIndex: 100
+        }
+      }}
+      ref={containerElementRef}
+      viewportRef={containerViewportRef}
+      onScrollPositionChange={handleScrollAreaPositionChange}
+      // offsetScrollbars
+      // type="always"
     >
-      <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id} className={classes.cellBg}>
-            {headerGroup.headers.map(header => {
-              const headerWidth = header.getSize();
-              return (
-                <th
-                  key={header.id}
-                  style={{ width: headerWidth !== 0 ? headerWidth : undefined, userSelect: 'none' }}
-                  colSpan={header.colSpan}
-                  className={cx(
-                    classes.cellBg,
-                    header.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
-                    isRightColumnFixed && header.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
-                  )}
-                >
-                  {header.isPlaceholder ? null : (
-                    <Box sx={{ whiteSpace: 'nowrap' }}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </Box>
-                  )}
-                </th>
-              );
-            })}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => {
-          return (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                const cellWidth = cell.column.getSize();
-
+      <Table
+      // withBorder
+        w="100%"
+        ref={tableElementRef}
+        className={classes.table}
+      >
+        <thead>
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id} className={classes.cellBg}>
+              {headerGroup.headers.map(header => {
+                const headerWidth = header.getSize();
                 return (
-                  <td
-                    key={cell.id}
-                    style={{ width: cellWidth !== 0 ? cellWidth : undefined }}
+                  <th
+                    key={header.id}
+                    style={{ width: headerWidth !== 0 ? headerWidth : undefined, userSelect: 'none' }}
+                    colSpan={header.colSpan}
                     className={cx(
                       classes.cellBg,
-                      cell.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
-                      isRightColumnFixed && cell.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
+                      header.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
+                      isRightColumnFixed && header.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
                     )}
                   >
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext()
+                    {header.isPlaceholder ? null : (
+                      <Box sx={{ whiteSpace: 'nowrap' }}>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </Box>
                     )}
-                  </td>
+                  </th>
                 );
               })}
             </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => {
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  const cellWidth = cell.column.getSize();
+
+                  return (
+                    <td
+                      key={cell.id}
+                      style={{ width: cellWidth !== 0 ? cellWidth : undefined }}
+                      className={cx(
+                        classes.cellBg,
+                        cell.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
+                        isRightColumnFixed && cell.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
+                      )}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </ScrollArea>
   );
 });
 
