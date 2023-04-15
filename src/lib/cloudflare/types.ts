@@ -41,7 +41,7 @@ export const isCloudflareAPIResponseError = (input: unknown): input is Cloudflar
     && 'success' in input
     && input.success === false
     && 'errors' in input
-    && 'messages' in input
-    && 'result' in input
+    // && 'messages' in input
+    // && 'result' in input
   );
 };

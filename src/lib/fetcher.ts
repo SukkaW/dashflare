@@ -49,10 +49,13 @@ export const fetcherWithAuthorization = async <T>([key, token]: [string, string]
   return data;
 };
 
-export const fetcherWithAuthorizationAndPagination = async <T>([key, token, pageIndex]: [string, string, number], options?: RequestInit): Promise<T> => {
+export const fetcherWithAuthorizationAndPagination = async <T>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> => {
   const url = buildApiEndpoint(key);
   if (typeof pageIndex === 'number' && pageIndex >= 1) {
     url.searchParams.set('page', String(pageIndex));
+  }
+  if (typeof perPage === 'number' && perPage >= 1) {
+    url.searchParams.set('per_page', String(perPage));
   }
 
   const res = await fetch(

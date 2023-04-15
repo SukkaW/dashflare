@@ -37,7 +37,8 @@ export const MantineProviderWithDarkMode = ({ children }: React.PropsWithChildre
         }}
         emotionCache={emotionCache}
         withNormalizeCSS
-        withGlobalStyles>
+        withGlobalStyles
+      >
         {children}
       </MantineProvider>
     </ColorSchemeProvider>
