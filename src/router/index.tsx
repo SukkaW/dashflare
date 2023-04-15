@@ -42,10 +42,11 @@ const ErrorBoundary = memo(() => {
 
 export const navLinks = [
   {
-    path: '/',
+    index: true,
+    path: '',
     element: <ZoneIndexPage />,
     label: 'Overview',
-    icon: <IconFileDescription />
+    icon: IconFileDescription
   },
   {
     path: 'dns',
@@ -92,6 +93,7 @@ export const router = createBrowserRouter([
             path: ':zoneId/:zoneName',
             element: <Outlet />,
             children: navLinks.map(route => ({
+              index: route.index,
               path: route.path,
               element: route.element
             }))

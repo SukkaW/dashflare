@@ -1,5 +1,36 @@
 import { notifications } from '@mantine/notifications';
 import { isCloudflareAPIResponseError } from './cloudflare/types';
+import { useSyncExternalStore } from 'react';
+
+let cloudflareApiRequestTimestamps: number[] = [];
+const cloudflareApiRateLimitListener = new Set<() => void>();
+const subscribeToCloudflareApiRateLimit = (lisener: () => void) => {
+  cloudflareApiRateLimitListener.add(lisener);
+  return () => cloudflareApiRateLimitListener.delete(lisener);
+};
+const addOneToCloudflareApiRateLimit = () => {
+  const now = Date.now();
+  const fiveMinutesAgo = now - 5 * 60 * 1000;
+
+  const currentCallTimesCount = cloudflareApiRequestTimestamps.push(now);
+  cloudflareApiRequestTimestamps = cloudflareApiRequestTimestamps.filter((t) => t >= fiveMinutesAgo);
+  const newCallTimesCount = cloudflareApiRequestTimestamps.length;
+
+  if (currentCallTimesCount !== newCallTimesCount) {
+    cloudflareApiRateLimitListener.forEach((lisener) => lisener());
+  }
+};
+
+const getRemainingCloudflareApiRateLimit = () => {
+  return cloudflareApiRequestTimestamps.length;
+};
+
+export const useCloudflareApiRateLimit = () => {
+  return useSyncExternalStore(
+    subscribeToCloudflareApiRateLimit,
+    getRemainingCloudflareApiRateLimit
+  );
+};
 
 export class HTTPError extends Error {
   data: unknown;
@@ -30,6 +61,8 @@ export const buildRequestInitWithToken = (token: string, init?: RequestInit): Re
 };
 
 export const fetcherWithAuthorization = async <T>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
+  addOneToCloudflareApiRateLimit();
+
   const res = await fetch(
     buildApiEndpoint(key),
     buildRequestInitWithToken(token, options)
@@ -50,6 +83,8 @@ export const fetcherWithAuthorization = async <T>([key, token]: [string, string]
 };
 
 export const fetcherWithAuthorizationAndPagination = async <T>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> => {
+  addOneToCloudflareApiRateLimit();
+
   const url = buildApiEndpoint(key);
   if (typeof pageIndex === 'number' && pageIndex >= 1) {
     url.searchParams.set('page', String(pageIndex));
