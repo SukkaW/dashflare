@@ -1,21 +1,19 @@
-import { SimpleGrid, Stack, Title, Text, Skeleton, Button, Alert, Pagination, TextInput, Loader, Group, rem } from '@mantine/core';
+import { Stack, Title, Text, Skeleton, Button, Alert, Pagination, TextInput, Loader, Group, rem, Anchor, Table } from '@mantine/core';
 import Disclaimer from '@/components/disclaimer';
 import { memo, useState } from 'react';
 import { useCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 import { IconAlertCircle, IconSearch } from '@tabler/icons-react';
-import { createArray } from '@/lib/create-array';
 import { useUncontrolled } from '@/hooks/use-uncontrolled';
 import { Link } from 'react-router-dom';
+
+import title from 'title';
+import { generateAbsoluteURL } from '@/lib/url';
 
 const ZoneListLoading = memo(() => (
   <>
     <Skeleton h={18} my={4} width={160} />
     <Skeleton h={36} width={240} />
-    <SimpleGrid cols={2}>
-      {createArray(4).map(i => (
-        <Skeleton h={40} key={i} />
-      ))}
-    </SimpleGrid>
+    <Skeleton h={240} />
   </>
 ));
 
@@ -54,17 +52,37 @@ const ZoneList = () => {
         </Group>
       </form>
 
-      <SimpleGrid cols={2}>
-        {data?.result?.map((zone) => (
-          <Button component={Link} to={`/${zone.id}/${zone.name}`} size="md" key={zone.id} variant="default">
-            <Stack>
-              <Text size="sm">
-                {zone.name}
-              </Text>
-            </Stack>
-          </Button>
-        ))}
-      </SimpleGrid>
+      <Table verticalSpacing={8}>
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Status</th>
+            <th>Provider</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {data?.result?.map((zone) => (
+            <tr key={zone.id}>
+              <td>{zone.name}</td>
+              <td>{title(zone.status)}</td>
+              <td>
+                <Text truncate maw={256} title={zone.host?.name || 'Cloudflare'}>
+                  {
+                    zone.host?.website
+                      ? <Anchor target="_blank" href={generateAbsoluteURL(zone.host.website)}>{zone.host.name}</Anchor>
+                      : (zone.host?.name || 'Cloudflare')
+                  }
+                </Text>
+              </td>
+              <td>
+                <Button compact variant="default" component={Link} to={`/${zone.id}/${zone.name}`}>Enter</Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
       {totalPage && totalPage > 1 && <Pagination value={pageIndex} onChange={setPageIndex} total={totalPage} />}
       <Alert icon={<IconAlertCircle size="1rem" />} title="Don't see your zone here?" color="yellow">
         Dashflare can only access zones you have selected when you created your API token.

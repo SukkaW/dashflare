@@ -7,13 +7,21 @@ declare global {
     export interface ZoneStatus {
       activated_on: string,
       created_on: string,
+      /** The interval (in seconds) from when development mode expires (positive integer) or last expired (negative integer) for the domain. If development mode has never been enabled, this value is 0. */
       development_mode: number,
       id: string,
       modified_on: string,
       name: string,
       original_dnshost: string,
       original_name_servers: string[],
-      original_registrar: string
+      original_registrar: string,
+      /** @private */
+      status: string,
+      /** @private */
+      host?: {
+        name: string,
+        website: string,
+      }
     }
   }
 }
