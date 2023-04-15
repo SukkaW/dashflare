@@ -1,5 +1,5 @@
-import { useToken } from '@/context/token';
-import { fetcherWithAuthorization } from '../fetcher';
+import { useLogout, useToken } from '@/context/token';
+import { HTTPError, fetcherWithAuthorization, handleFetchError } from '../fetcher';
 
 import useSWR from 'swr';
 import { useMemo } from 'react';
@@ -19,10 +19,21 @@ declare global {
   }
 }
 
-export const useCloudflareApiTokenStatus = (token: string | null) => useSWR<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(
-  token ? ['client/v4/user/tokens/verify', token] : null,
-  fetcherWithAuthorization
-);
+export const useCloudflareApiTokenStatus = (token: string | null) => {
+  const logout = useLogout();
+  return useSWR<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(
+    token ? ['client/v4/user/tokens/verify', token] : null,
+    fetcherWithAuthorization,
+    {
+      onError(e) {
+        handleFetchError(e);
+        if (e instanceof HTTPError && e.status === 401) {
+          logout();
+        }
+      }
+    }
+  );
+};
 
 export const updateCloudflareApiTokenStatus = (token: string) => {
   fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(['client/v4/user/tokens/verify', token]);
