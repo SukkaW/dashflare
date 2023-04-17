@@ -153,3 +153,19 @@ export const handleFetchError = (error: unknown, title?: string) => {
   });
   console.error(error);
 };
+
+export const extractErrorMessage = (error: unknown) => {
+  if (error instanceof HTTPError) {
+    if (isCloudflareAPIResponseError(error.data)) {
+      return error.data.errors.map((error) => error.message).join('\n');
+    }
+
+    return `HTTP Error ${error.status}, response: ${typeof error.data === 'string' ? error.data : JSON.stringify(error.data, null, 2)}`;
+  }
+  if (error instanceof Error) {
+    return `${error.name}: ${error.message}${error.stack ? `\n${error.stack}` : ''}`;
+  }
+
+  console.error(error);
+  return 'Unknown Error, please check the console for more information';
+};
