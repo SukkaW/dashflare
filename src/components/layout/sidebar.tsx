@@ -27,7 +27,15 @@ const NavLink = memo(({
   if (!zoneId || !zoneName) return null;
 
   return (
-    <ReactRouterNavLink className={classes.a} to={`/${zoneId}/${zoneName}/${to}`}>
+    <ReactRouterNavLink
+      className={classes.a}
+      to={
+        to === ''
+          ? `/${zoneId}/${zoneName}`
+          : `/${zoneId}/${zoneName}/${to}`
+      }
+      end
+    >
       {({ isActive }) => (
         <MantineNavLink
           label={<Text fw={isActive ? 600 : 400}>{label}</Text>}

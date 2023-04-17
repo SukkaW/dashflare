@@ -51,11 +51,13 @@ const config = {
   devServer: {
     port: 3000,
     hot: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true
+    },
     compress: false,
-    // static: {
-    //   directory: path.join(__dirname, 'public')
-    // },
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
     proxy: {
       '/_sukka/api': {
         target: 'https://api.cloudflare.com',

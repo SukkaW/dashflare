@@ -26,11 +26,11 @@ declare global {
   }
 }
 
-export const useCloudflareZoneList = (pageIndex: number, search = '') => {
+export const useCloudflareZoneList = (pageIndex: number, perPage = 20, search = '') => {
   const token = useToken();
   const path = search ? `client/v4/zones?name=contains:${search}` : 'client/v4/zones';
   return useSWR<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
-    token ? [path, token, pageIndex] : null,
+    token ? [path, token, pageIndex, perPage] : null,
     fetcherWithAuthorizationAndPagination,
     {
       keepPreviousData: true

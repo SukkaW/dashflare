@@ -1,41 +1,26 @@
-import type { SelectItem } from '@mantine/core';
 import { Card, Group, Select, Pagination, rem, Loader, Button, TextInput, Flex, Center, Text } from '@mantine/core';
-import type { PaginationState } from '@tanstack/react-table';
 import { useCloudflareListDNSRecords } from '@/lib/cloudflare/dns';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import DNSDataTable from './table';
 import { IconSearch } from '@tabler/icons-react';
 import { useUncontrolled } from '@/hooks/use-uncontrolled';
 import { openEditDNSRecordModal } from './modal';
-
-const PAGE_SIZE_ARRAY: SelectItem[] = [
-  { label: '20 / page', value: '20' },
-  { label: '30 / page', value: '30' },
-  { label: '50 / page', value: '50' },
-  { label: '100 / page', value: '100' }
-];
+import { PAGE_SIZE_ARRAY } from '@/lib/constants';
+import { usePagination } from '@/hooks/use-pagination';
 
 export default function DNSDataTableEntry() {
   // DNS Record Search
   const [searchQuery, handleCommitSearchQuery, searchInputRef] = useUncontrolled('');
 
-  const [pagination, setPagination] = useState<PaginationState>({
+  const { pagination, handlePageIndexChange, handlePageSizeChange } = usePagination({
     pageIndex: 1,
     pageSize: 20
   });
+
   const { data, isLoading } = useCloudflareListDNSRecords(pagination.pageIndex, pagination.pageSize, searchQuery);
   const searchQueryInputShowLoading = isLoading && searchQuery;
   const pageCount = data?.result_info?.total_pages ?? -1;
-
-  const handlePageIndexChange = useCallback((pageIndex: number) => setPagination(p => ({
-    ...p,
-    pageIndex
-  })), []);
-  const handlePageSizeChange = useCallback((pageSize: string | null) => setPagination(p => ({
-    ...p,
-    pageSize: Number(pageSize)
-  })), []);
 
   return (
     <Card withBorder shadow="lg" p={0}>

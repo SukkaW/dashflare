@@ -1,6 +1,6 @@
-import { Stack, Title, Text, Skeleton, Button, Alert, Pagination, TextInput, Loader, Group, rem, Anchor, Table } from '@mantine/core';
+import { Stack, Title, Text, Skeleton, Button, Alert, Pagination, TextInput, Loader, Group, rem, Anchor, Table, Select } from '@mantine/core';
 import Disclaimer from '@/components/disclaimer';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { useCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 import { IconAlertCircle, IconSearch } from '@tabler/icons-react';
 import { useUncontrolled } from '@/hooks/use-uncontrolled';
@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 import title from 'title';
 import { generateAbsoluteURL } from '@/lib/url';
+import { usePagination } from '@/hooks/use-pagination';
+import { PAGE_SIZE_ARRAY } from '@/lib/constants';
 
 const ZoneListLoading = memo(() => (
   <>
@@ -18,9 +20,13 @@ const ZoneListLoading = memo(() => (
 ));
 
 const ZoneList = () => {
-  const [pageIndex, setPageIndex] = useState(1);
+  const { pagination, handlePageIndexChange, handlePageSizeChange } = usePagination({
+    pageIndex: 1,
+    pageSize: 20
+  });
+
   const [searchQuery, handleCommitSearchQuery, searchInputRef] = useUncontrolled('');
-  const { data, error, isLoading } = useCloudflareZoneList(pageIndex, searchQuery);
+  const { data, error, isLoading } = useCloudflareZoneList(pagination.pageIndex, pagination.pageSize, searchQuery);
 
   if (isLoading && !data) return <ZoneListLoading />;
   if (error) {
@@ -83,7 +89,29 @@ const ZoneList = () => {
         </tbody>
       </Table>
 
-      {totalPage && totalPage > 1 && <Pagination value={pageIndex} onChange={setPageIndex} total={totalPage} />}
+      {totalPage && totalPage > 1 && (
+        <>
+          <Pagination
+            total={totalPage}
+            value={pagination.pageIndex}
+            onChange={handlePageIndexChange}
+          />
+          <Select
+            size="sm"
+            styles={{
+              input: {
+                height: 32,
+                minHeight: 32
+              }
+            }}
+            w={128}
+            data={PAGE_SIZE_ARRAY}
+            value={String(pagination.pageSize)}
+            onChange={handlePageSizeChange}
+          />
+        </>
+      )}
+
       <Alert icon={<IconAlertCircle size="1rem" />} title="Don't see your zone here?" color="yellow">
         Dashflare can only access zones you have selected when you created your API token.
       </Alert>
