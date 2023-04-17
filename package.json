@@ -57,6 +57,7 @@
     "@tabler/icons-react": "^2.16.0",
     "@tanstack/react-table": "^8.8.5",
     "core-js": "^3.30.1",
+    "dayjs": "^1.11.7",
     "react": "^18.3.0-next-47cf4e578-20230315",
     "react-dom": "^18.3.0-next-47cf4e578-20230315",
     "react-router-dom": "^6.10.0",

@@ -5,9 +5,8 @@ import Layout from '@/components/layout/';
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconFileDescription, IconGps, IconLock } from '@tabler/icons-react';
+import { IconCertificate, IconFileDescription, IconGps, IconLock, IconShieldHalfFilled } from '@tabler/icons-react';
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
-import ZoneIndexPage from '../pages/zone/index';
 
 // import Layout from '@/components/layout';
 
@@ -19,9 +18,11 @@ import ZoneIndexPage from '../pages/zone/index';
 // 注意用 import(/* webpackPrefetch: true */ '@/oages/') 为所有路由都做预加载
 
 const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
+const ZoneIndexPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/index'));
 const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/universal-ssl'));
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
 const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
+const RulesetsPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/rulesets'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -65,6 +66,12 @@ export const navLinks = [
     element: <EdgeCertificatesPage />,
     label: 'SSL Verifications',
     icon: IconCertificate
+  },
+  {
+    path: 'rulesets',
+    element: <RulesetsPage />,
+    label: 'Rulesets',
+    icon: IconShieldHalfFilled
   }
 ];
 
