@@ -4,42 +4,42 @@ import useSWR, { mutate } from 'swr';
 import { useZoneId } from '@/hooks/use-zone-id';
 import { useCallback, useState } from 'react';
 
-type CloudflareZoneSettingBooleanType = 'on' | 'off';
-
 declare global {
   namespace Cloudflare {
-    export interface SettingsCommon<Extension = CloudflareZoneSettingBooleanType> {
+    export type ZoneSettingBooleanType = 'on' | 'off';
+
+    export interface SettingsCommon<Extension = Cloudflare.ZoneSettingBooleanType> {
       id?: string,
       editable: boolean,
       value: Extension,
       modified_on?: string,
     }
 
-    export interface UpdateSettings<Extension = CloudflareZoneSettingBooleanType> {
+    export interface UpdateSettings<Extension = Cloudflare.ZoneSettingBooleanType> {
       value: Extension
     }
 
     export interface ZoneSettingsValue {
-      '0rtt': CloudflareZoneSettingBooleanType,
-      advanced_ddos: CloudflareZoneSettingBooleanType,
-      brotli: CloudflareZoneSettingBooleanType,
+      '0rtt': Cloudflare.ZoneSettingBooleanType,
+      advanced_ddos: Cloudflare.ZoneSettingBooleanType,
+      brotli: Cloudflare.ZoneSettingBooleanType,
       ciphers: string[],
-      early_hints: CloudflareZoneSettingBooleanType,
-      h2_prioritization: CloudflareZoneSettingBooleanType,
-      http2: CloudflareZoneSettingBooleanType,
-      http3: CloudflareZoneSettingBooleanType,
-      ipv6: CloudflareZoneSettingBooleanType,
-      orange_to_orange: CloudflareZoneSettingBooleanType,
-      origin_error_page_pass_thru: CloudflareZoneSettingBooleanType,
+      early_hints: Cloudflare.ZoneSettingBooleanType,
+      h2_prioritization: Cloudflare.ZoneSettingBooleanType,
+      http2: Cloudflare.ZoneSettingBooleanType,
+      http3: Cloudflare.ZoneSettingBooleanType,
+      ipv6: Cloudflare.ZoneSettingBooleanType,
+      orange_to_orange: Cloudflare.ZoneSettingBooleanType,
+      origin_error_page_pass_thru: Cloudflare.ZoneSettingBooleanType,
       origin_max_http_version: '1' | '2',
       polish: 'off' | 'lossless' | 'lossy',
-      privacy_pass: CloudflareZoneSettingBooleanType,
-      webp: CloudflareZoneSettingBooleanType,
+      privacy_pass: Cloudflare.ZoneSettingBooleanType,
+      webp: Cloudflare.ZoneSettingBooleanType,
       // eslint-disable-next-line @typescript-eslint/ban-types -- magic
       proxy_read_timeout: string & {};
       security_level: 'off' | 'essentially_off' | 'low' | 'medium' | 'high' | 'under_attack',
       tls_1_3: 'off' | 'on' | 'zrt',
-      waf: CloudflareZoneSettingBooleanType
+      waf: Cloudflare.ZoneSettingBooleanType
     }
   }
 }

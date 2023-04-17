@@ -27,7 +27,9 @@ const useStyles = createStyles((theme) => ({
 interface CloudflareSettingCardProps<T extends keyof Cloudflare.ZoneSettingsValue> {
   title: string;
   description: string | React.ReactNode;
-  type?: 'select' | 'switch' | 'input' | 'readonly_json';
+  type: Cloudflare.ZoneSettingsValue[T] extends Cloudflare.ZoneSettingBooleanType
+    ? 'switch'
+    : 'select' | 'input' | 'readonly_json';
   settingKey: T;
   selections?: { label: string, value: Cloudflare.ZoneSettingsValue[T] }[]
 }
@@ -35,7 +37,7 @@ interface CloudflareSettingCardProps<T extends keyof Cloudflare.ZoneSettingsValu
 function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
   title,
   description,
-  type = 'switch',
+  type,
   settingKey,
   selections
 }: CloudflareSettingCardProps<T>) {
@@ -47,8 +49,10 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
 
   const handleInputChange = useCallback((evt: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if ('checked' in evt.currentTarget) {
-      const value = evt.currentTarget.checked ? 'on' : 'off';
-      trigger(value as any);
+      if (type === 'switch') {
+        const value = evt.currentTarget.checked ? 'on' : 'off';
+        trigger(value as Cloudflare.ZoneSettingsValue[T]);
+      }
     } else if (type === 'select') {
       trigger(evt.currentTarget.value as Cloudflare.ZoneSettingsValue[T]);
     }
@@ -59,10 +63,10 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
     if (type === 'input') {
       const value = textInputRef.current?.value;
       if (value) {
-        trigger(value as any);
+        trigger(value as Cloudflare.ZoneSettingsValue[T]);
       }
     }
-  }, []);
+  }, [trigger, type]);
 
   return (
     <Card withBorder>
