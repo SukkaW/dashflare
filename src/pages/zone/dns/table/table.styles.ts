@@ -45,7 +45,7 @@ export const useStyles = createStyles(theme => ({
     right: 0,
     // marginLeft: 2,
     position: 'sticky',
-    zIndex: 100,
+    zIndex: 50,
     '::before': {
       content: '""',
       overflow: 'hidden',

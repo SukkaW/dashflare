@@ -3,6 +3,8 @@ const path = require('path');
 
 const browserslist = require('browserslist');
 
+const { defineForgettiLoaderOptions } = require('forgetti-loader');
+
 const { DefinePlugin, ProvidePlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -115,6 +117,16 @@ const config = {
               exclude: ['es.error.cause']
             }
           }
+        }
+      },
+      {
+        test: /\.[cm]?[jt]sx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'forgetti-loader',
+          options: defineForgettiLoaderOptions({
+            preset: 'react'
+          })
         }
       }
     ]

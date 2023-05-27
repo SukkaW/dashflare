@@ -68,20 +68,27 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
     }
   }, [trigger, type]);
 
+  const editable = useMemo(() => {
+    if (data) {
+      return data.result.editable;
+    }
+    return true;
+  }, [data]);
+
   return (
     <Card withBorder>
-      <Grid gutter={0}>
+      <Grid>
         {useMemo(() => (
           <Grid.Col xs={12} md={9} lg={9} px={16}>
             <Title order={4}>{title}</Title>
             <Text color="gray">{description}</Text>
-            {(data?.result.editable === false) && (
+            {!editable && (
               <Text color="red" size="xs">
                 This Setting can not be modified. It is most likely that your plan doesn&apos;t allow you to do so.
               </Text>
             )}
           </Grid.Col>
-        ), [data?.result.editable, description, title])}
+        ), [editable, description, title])}
         <Grid.Col xs={12} md={3} lg={3} className={classes.cardActionCol}>
           {useMemo(() => (
             <Center h="100%" pl={16} w="100%">

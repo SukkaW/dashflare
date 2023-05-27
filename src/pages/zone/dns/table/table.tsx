@@ -140,6 +140,41 @@ interface DNSDataTableProps {
   pagination: PaginationState
 }
 
+/**
+ * tanstack-table/react works by using useSES to trigger update.
+ * Then during update table.getHeaderGroups() and table.getRowModel() will return different data.
+ *
+ * In short, getHeaderGroups() and getRowModel() are not pure at all, thus violates the most fundamental rule of React...
+ *
+ * So I wrap them in a custom hook and let forgetti to skip it.
+ */
+/* @forgetti skip */
+const useTable = (
+  data: Cloudflare.DNSRecord<Record<string, string>>[],
+  pageCount: number,
+  pagination: PaginationState
+) => {
+  const table = useReactTable({
+    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3631326
+    defaultColumn: {
+      minSize: 0,
+      size: 0
+    },
+    data: data || EMPTY_ARRAY,
+    pageCount,
+    state: { pagination },
+    manualPagination: true,
+    // onPaginationChange: setPagination,
+    columns,
+    getCoreRowModel: getCoreRowModel()
+  });
+
+  return {
+    tableHeaderGroups: table.getHeaderGroups(),
+    tableRowModel: table.getRowModel()
+  } as const;
+};
+
 const DNSDataTable = memo(({
   data,
   pageCount,
@@ -175,20 +210,7 @@ const DNSDataTable = memo(({
 
   const { cx, classes } = useStyles();
 
-  const table = useReactTable({
-    // https://github.com/TanStack/table/discussions/4179#discussioncomment-3631326
-    defaultColumn: {
-      minSize: 0,
-      size: 0
-    },
-    data: data || EMPTY_ARRAY,
-    pageCount,
-    state: { pagination },
-    manualPagination: true,
-    // onPaginationChange: setPagination,
-    columns,
-    getCoreRowModel: getCoreRowModel()
-  });
+  const { tableHeaderGroups, tableRowModel } = useTable(data, pageCount, pagination);
 
   const handleScrollAreaPositionChange = useCallback((position: {
     x: number;
@@ -227,7 +249,7 @@ const DNSDataTable = memo(({
         className={classes.table}
       >
         <thead>
-          {table.getHeaderGroups().map(headerGroup => (
+          {tableHeaderGroups.map(headerGroup => (
             <tr key={headerGroup.id} className={classes.cellBg}>
               {headerGroup.headers.map(header => {
                 const headerWidth = header.getSize();
@@ -257,7 +279,7 @@ const DNSDataTable = memo(({
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => {
+          {tableRowModel.rows.map(row => {
             return (
               <tr key={row.id}>
                 {row.getVisibleCells().map(cell => {
