@@ -1,5 +1,5 @@
 import { Button, Card, Code, Stack, Text } from '@mantine/core';
-import { useArray } from '@/hooks/use-array';
+import { useArray } from 'foxact/use-array';
 import { useCallback, useMemo, useState } from 'react';
 import { handleFetchError } from '@/lib/fetcher';
 import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';

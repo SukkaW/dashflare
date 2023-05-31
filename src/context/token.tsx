@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-import { useRetimer } from '../hooks/use-retimer';
+import { useRetimer } from 'foxact/use-retimer';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 

@@ -9,7 +9,6 @@ import { useSetToken } from '@/context/token';
 import Disclaimer from '@/components/disclaimer';
 import { useNavigate } from 'react-router-dom';
 import { preloadCloudflareZoneList } from '@/lib/cloudflare/zone-list';
-// import { useRetimer } from '../../hooks/use-retimer';
 
 const LoginForm = memo(() => {
   const form = useForm({
@@ -23,7 +22,6 @@ const LoginForm = memo(() => {
   });
 
   const setToken = useSetToken();
-  // const retimer = useRetimer();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 

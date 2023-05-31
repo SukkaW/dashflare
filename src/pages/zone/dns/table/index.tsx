@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import DNSDataTable from './table';
 import { IconSearch } from '@tabler/icons-react';
-import { useUncontrolled } from '@/hooks/use-uncontrolled';
+import { useUncontrolled } from 'foxact/use-uncontrolled';
 import { openEditDNSRecordModal } from './modal';
 import { PAGE_SIZE_ARRAY } from '@/lib/constants';
 import { usePagination } from '@/hooks/use-pagination';

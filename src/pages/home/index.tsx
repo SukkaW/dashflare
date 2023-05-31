@@ -3,7 +3,7 @@ import Disclaimer from '@/components/disclaimer';
 import { memo } from 'react';
 import { useCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 import { IconAlertCircle, IconSearch } from '@tabler/icons-react';
-import { useUncontrolled } from '@/hooks/use-uncontrolled';
+import { useUncontrolled } from 'foxact/use-uncontrolled';
 import { Link } from 'react-router-dom';
 
 import title from 'title';
