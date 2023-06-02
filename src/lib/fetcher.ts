@@ -74,7 +74,7 @@ export const fetcherWithAuthorization = async <T>([key, token]: [string, string]
       : res.text()
   );
 
-  if (!res.ok || ('success' in data && data.success !== true)) {
+  if (!res.ok || (typeof data === 'object' && data && 'success' in data && data.success !== true)) {
     // Attach extra info to the error object.
     throw new HTTPError('An error occurred while fetching the data.', data, res.status);
   }
@@ -104,7 +104,7 @@ export const fetcherWithAuthorizationAndPagination = async <T>([key, token, page
       : res.text()
   );
 
-  if (!res.ok || ('success' in data && data.success !== true)) {
+  if (!res.ok || (typeof data === 'object' && data && 'success' in data && data.success !== true)) {
     // Attach extra info to the error object.
     throw new HTTPError('An error occurred while fetching the data.', data, res.status);
   }
