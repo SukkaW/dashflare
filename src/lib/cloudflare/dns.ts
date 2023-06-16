@@ -120,6 +120,7 @@ export const useUpdateCloudflareDNSRecord = () => {
           ? 'Failed to create DNS record.'
           : 'Failed to update DNS record.'
       );
+      setIsMutating(false);
 
       return false;
     }
@@ -159,6 +160,7 @@ export const useDeleteCloudflareDNSRecord = () => {
         e,
         'Failed to delete DNS record.'
       );
+      setIsMutating(false);
 
       return false;
     }
