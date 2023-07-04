@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 
 export const cloudflareValidDNSRecordTypes = ['A', 'AAAA', 'CNAME', 'TXT', 'SRV', 'LOC', 'MX', 'NS', 'SPF', 'CERT', 'DNSKEY', 'DS', 'NAPTR', 'SMIMEA', 'SSHFP', 'TLSA', 'URI'] as const;
 
-export const currentlySupportedCloudflareDNSRecordTypes: Set<Cloudflare.ValidDNSRecordType> = new Set(['A', 'AAAA', 'CNAME', 'TXT', 'NS', 'SPF']);
+export const currentlySupportedCloudflareDNSRecordTypes = new Set<Cloudflare.ValidDNSRecordType>(['A', 'AAAA', 'CNAME', 'TXT', 'NS', 'SPF']);
 
 declare global {
   namespace Cloudflare {
@@ -15,28 +15,28 @@ declare global {
 
     export interface DNSRecord<Extension = Record<string, string>> {
       // DNS record identifier tag
-      id: string
+      id: string,
       // Record type
-      type: Cloudflare.ValidDNSRecordType
+      type: Cloudflare.ValidDNSRecordType,
       // DNS record name
-      name: string
+      name: string,
       // A valid IPv4 address
-      content: string
+      content: string,
       // Whether the record can be proxied by Cloudflare or not
-      proxiable: boolean
+      proxiable: boolean,
       // Whether the record is receiving the performance and security benefits of Cloudflare
-      proxied: boolean
+      proxied: boolean,
       // Time to live for DNS record. Value of 1 is 'automatic'
-      ttl: number
+      ttl: number,
       // Whether this record can be modified/deleted (true means it's managed by Cloudflare)
-      locked: boolean
+      locked: boolean,
       // Zone identifier tag
-      zone_id: string
+      zone_id: string,
       // The domain of the record
-      zone_name: string
+      zone_name: string,
       // When the record was last modified
       /** @example '2018-03-01T14:47:53.403547Z' */
-      modified_on: string
+      modified_on: string,
       // When the record was created
       /** @example '2018-03-01T14:47:53.403547Z' */
       created_on: string,
