@@ -57,7 +57,7 @@
     "@tabler/icons-react": "^2.23.0",
     "@tanstack/react-table": "^8.9.3",
     "core-js": "^3.31.0",
-    "foxact": "^0.2.10",
+    "foxact": "^0.2.14",
     "react": "^18.3.0-canary-a1c62b8a7-20230627",
     "react-dom": "^18.3.0-canary-a1c62b8a7-20230627",
     "react-router-dom": "^6.10.0",

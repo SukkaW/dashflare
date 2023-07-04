@@ -18,8 +18,9 @@ import {
 } from '@mantine/core';
 import { IconCloudflare } from '../icons/cloudflare';
 import { Link, Outlet } from 'react-router-dom';
-import { useIsMatch } from '@/hooks/use-is-match';
 import { ModalsProvider } from '@mantine/modals';
+import { useReactRouterIsMatch } from 'foxact/use-react-router-is-match';
+import { useReactRouterEnableConcurrentNavigation } from 'foxact/use-react-router-enable-concurrent-navigation';
 
 const HeaderContent = lazy(() => import('./header'));
 const SidebarContent = lazy(() => import('./sidebar'));
@@ -29,7 +30,9 @@ export default function Layout() {
   const [navbarMobileOpened, setNavbarMobileOpened] = useState(false);
   const { css } = useCss();
   const toggleNavbarMobile = useCallback(() => setNavbarMobileOpened((o) => !o), []);
-  const isMatchLogin = useIsMatch('/login');
+  const isMatchLogin = useReactRouterIsMatch('/login');
+
+  useReactRouterEnableConcurrentNavigation();
 
   return (
     <ModalsProvider>
