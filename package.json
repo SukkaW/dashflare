@@ -67,6 +67,15 @@
   },
   "overrides": {
     "react": "$react",
-    "react-dom": "$react-dom"
+    "react-dom": "$react-dom",
+    "array-includes": "npm:@nolyfill/array-includes@latest",
+    "array.prototype.flat": "npm:@nolyfill/array.prototype.flat@latest",
+    "array.prototype.flatmap": "npm:@nolyfill/array.prototype.flatmap@latest",
+    "array.prototype.tosorted": "npm:@nolyfill/array.prototype.tosorted@latest",
+    "string.prototype.matchall": "npm:@nolyfill/string.prototype.matchall@latest",
+    "object.fromentries": "npm:@nolyfill/object.fromentries@latest",
+    "object.entries": "npm:@nolyfill/object.entries@latest",
+    "object.values": "npm:@nolyfill/object.values@latest",
+    "object.hasown": "npm:@nolyfill/object.hasown@latest"
   }
 }
