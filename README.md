@@ -27,7 +27,9 @@ https://dashflare.skk.moe
     - [ ] Support other records
   - [x] Delete DNS records
   - [x] Search / Filter DNS records
-  - [ ] Purge Cache with extra settings (Country, Vary, CORS Origin)
+- [ ] Purge Cache with extra settings (Country, Vary, CORS Origin)
+- [x] ETag
+- [ ] Per Hostname TLS Settings (https://blog.cloudflare.com/introducing-per-hostname-tls-settings/)
 
 ## Techstack
 

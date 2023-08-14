@@ -1,7 +1,7 @@
 import { Anchor, Code, Stack, Title } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 
-import CloudflareSettingCard from './card';
+import CloudflareSettingCard from '@/components/cloudflare-settings-card';
 
 export default function ZoneIndexPage() {
   const { zoneName } = useParams();

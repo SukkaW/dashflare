@@ -89,7 +89,7 @@ const config = {
               },
               externalHelpers: true,
               loose: false,
-              target: 'es2018',
+              target: undefined,
               transform: {
                 react: {
                   runtime: 'automatic',

@@ -39,7 +39,15 @@ declare global {
       proxy_read_timeout: string & {},
       security_level: 'off' | 'essentially_off' | 'low' | 'medium' | 'high' | 'under_attack',
       tls_1_3: 'off' | 'on' | 'zrt',
-      waf: ZoneSettingBooleanType
+      waf: ZoneSettingBooleanType,
+      email_obfuscation: ZoneSettingBooleanType,
+      automatic_https_rewrites: ZoneSettingBooleanType,
+      rocket_loader: ZoneSettingBooleanType,
+      minify: {
+        css: ZoneSettingBooleanType,
+        html: ZoneSettingBooleanType,
+        js: ZoneSettingBooleanType
+      }
     }
   }
 }

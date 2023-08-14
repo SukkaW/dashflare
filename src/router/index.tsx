@@ -5,7 +5,7 @@ import Layout from '@/components/layout/';
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconFileDescription, IconGps, IconLock } from '@tabler/icons-react';
+import { IconCertificate, IconFileDescription, IconGps, IconLock, IconServer } from '@tabler/icons-react';
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
 import ZoneIndexPage from '../pages/zone/index';
 
@@ -22,6 +22,7 @@ const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
 const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/universal-ssl'));
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
 const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
+const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/etag'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -65,6 +66,12 @@ export const navLinks = [
     element: <EdgeCertificatesPage />,
     label: 'SSL Verifications',
     icon: IconCertificate
+  },
+  {
+    path: 'etag',
+    element: <ETagPage />,
+    label: 'ETag',
+    icon: IconServer
   }
 ];
 
