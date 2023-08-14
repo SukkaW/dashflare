@@ -7,7 +7,7 @@ const emotionCache = createEmotionCache({
   key: 'sukka'
 });
 
-export const MantineProviderWithDarkMode = ({ children }: React.PropsWithChildren<unknown>) => {
+export const MantineProviderWithDarkMode = ({ children }: React.PropsWithChildren) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'user-color-scheme',
     defaultValue: 'light',

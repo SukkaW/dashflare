@@ -12,7 +12,7 @@ declare global {
       /** Token identifier tag. */
       id: string, // ed17574386854bf78a67040be0a770b0,
       /** The time before which the token MUST NOT be accepted for processing. */
-      not_before?: string // '2018-07-01T05:20:00Z',
+      not_before?: string, // '2018-07-01T05:20:00Z',
       /** Status of the token. */
       status: 'active' | 'disabled' | 'expired' // 'active'
     }

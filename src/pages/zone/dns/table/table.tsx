@@ -191,8 +191,8 @@ const DNSDataTable = memo(({
   });
 
   const handleScrollAreaPositionChange = useCallback((position: {
-    x: number;
-    y: number;
+    x: number,
+    y: number
   }) => {
     const containerElement = containerViewportRef.current;
     if (containerElement) {

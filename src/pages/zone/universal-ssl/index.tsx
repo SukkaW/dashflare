@@ -24,13 +24,13 @@ export default function UniversalSSLPage() {
 
   const form = useForm<Cloudflare.UniversalSSLSettings>({
     initialValues: {
-      enabled: data?.result?.enabled ?? true,
-      certificate_authority: data?.result?.certificate_authority || 'lets_encrypt'
+      enabled: data?.result.enabled ?? true,
+      certificate_authority: data?.result.certificate_authority || 'lets_encrypt'
     },
     validateInputOnBlur: true
   });
 
-  if (data && data.result) {
+  if (data?.result) {
     if (!form.isTouched('enabled')) {
       form.setFieldValue('enabled', data.result.enabled);
     }

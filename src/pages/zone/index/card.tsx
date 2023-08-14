@@ -25,13 +25,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface CloudflareSettingCardProps<T extends keyof Cloudflare.ZoneSettingsValue> {
-  title: string;
-  description: string | React.ReactNode;
+  title: string,
+  description: string | React.ReactNode,
   type: Cloudflare.ZoneSettingsValue[T] extends Cloudflare.ZoneSettingBooleanType
     ? 'switch'
-    : 'select' | 'input' | 'readonly_json';
-  settingKey: T;
-  selections?: { label: string, value: Cloudflare.ZoneSettingsValue[T] }[]
+    : 'select' | 'input' | 'readonly_json',
+  settingKey: T,
+  selections?: Array<{ label: string, value: Cloudflare.ZoneSettingsValue[T] }>
 }
 
 function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
@@ -101,7 +101,7 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue>({
               {type === 'readonly_json' && (
                 <TextInput
                   disabled
-                  value={data?.result.value ? JSON.stringify(data?.result.value) : ''}
+                  value={data?.result.value ? JSON.stringify(data.result.value) : ''}
                 />
               )}
               {type === 'input' && (

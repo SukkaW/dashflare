@@ -60,7 +60,7 @@ export const buildRequestInitWithToken = (token: string, init?: RequestInit): Re
   return { ...init, headers };
 };
 
-export const fetcherWithAuthorization = async <T>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
+export const fetcherWithAuthorization = async <T = any>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
   addOneToCloudflareApiRateLimit();
 
   const res = await fetch(
@@ -79,10 +79,10 @@ export const fetcherWithAuthorization = async <T>([key, token]: [string, string]
     throw new HTTPError('An error occurred while fetching the data.', data, res.status);
   }
 
-  return data;
+  return data as T;
 };
 
-export const fetcherWithAuthorizationAndPagination = async <T>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> => {
+export const fetcherWithAuthorizationAndPagination = async <T = any>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> => {
   addOneToCloudflareApiRateLimit();
 
   const url = buildApiEndpoint(key);
@@ -109,7 +109,7 @@ export const fetcherWithAuthorizationAndPagination = async <T>([key, token, page
     throw new HTTPError('An error occurred while fetching the data.', data, res.status);
   }
 
-  return data;
+  return data as T;
 };
 
 export const handleFetchError = (error: unknown, title?: string) => {

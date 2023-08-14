@@ -8,38 +8,38 @@ declare global {
   namespace Cloudflare {
     export type ZoneSettingBooleanType = 'on' | 'off';
 
-    export interface SettingsCommon<Extension = Cloudflare.ZoneSettingBooleanType> {
+    export interface SettingsCommon<Extension = ZoneSettingBooleanType> {
       id?: string,
       editable: boolean,
       value: Extension,
-      modified_on?: string,
+      modified_on?: string
     }
 
-    export interface UpdateSettings<Extension = Cloudflare.ZoneSettingBooleanType> {
+    export interface UpdateSettings<Extension = ZoneSettingBooleanType> {
       value: Extension
     }
 
     export interface ZoneSettingsValue {
-      '0rtt': Cloudflare.ZoneSettingBooleanType,
-      advanced_ddos: Cloudflare.ZoneSettingBooleanType,
-      brotli: Cloudflare.ZoneSettingBooleanType,
+      '0rtt': ZoneSettingBooleanType,
+      advanced_ddos: ZoneSettingBooleanType,
+      brotli: ZoneSettingBooleanType,
       ciphers: string[],
-      early_hints: Cloudflare.ZoneSettingBooleanType,
-      h2_prioritization: Cloudflare.ZoneSettingBooleanType,
-      http2: Cloudflare.ZoneSettingBooleanType,
-      http3: Cloudflare.ZoneSettingBooleanType,
-      ipv6: Cloudflare.ZoneSettingBooleanType,
-      orange_to_orange: Cloudflare.ZoneSettingBooleanType,
-      origin_error_page_pass_thru: Cloudflare.ZoneSettingBooleanType,
+      early_hints: ZoneSettingBooleanType,
+      h2_prioritization: ZoneSettingBooleanType,
+      http2: ZoneSettingBooleanType,
+      http3: ZoneSettingBooleanType,
+      ipv6: ZoneSettingBooleanType,
+      orange_to_orange: ZoneSettingBooleanType,
+      origin_error_page_pass_thru: ZoneSettingBooleanType,
       origin_max_http_version: '1' | '2',
       polish: 'off' | 'lossless' | 'lossy',
-      privacy_pass: Cloudflare.ZoneSettingBooleanType,
-      webp: Cloudflare.ZoneSettingBooleanType,
+      privacy_pass: ZoneSettingBooleanType,
+      webp: ZoneSettingBooleanType,
       // eslint-disable-next-line @typescript-eslint/ban-types -- magic
-      proxy_read_timeout: string & {};
+      proxy_read_timeout: string & {},
       security_level: 'off' | 'essentially_off' | 'low' | 'medium' | 'high' | 'under_attack',
       tls_1_3: 'off' | 'on' | 'zrt',
-      waf: Cloudflare.ZoneSettingBooleanType
+      waf: ZoneSettingBooleanType
     }
   }
 }

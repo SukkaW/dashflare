@@ -38,7 +38,7 @@ export const useLogout = () => {
   }, [navigate, setToken]);
 };
 
-export const TokenProvider = ({ children }: React.PropsWithChildren<unknown>) => {
+export const TokenProvider = ({ children }: React.PropsWithChildren) => {
   const [token, _setToken] = useState(() => {
     try {
       return localStorage.getItem(TOKEN_NAME) || null;

@@ -7,8 +7,8 @@ import { useZoneId } from '../../hooks/use-zone-id';
 declare global {
   namespace Cloudflare {
     export interface UniversalSSLSettings {
-      enabled: boolean;
-      certificate_authority: 'lets_encrypt' | 'google' | 'digicert';
+      enabled: boolean,
+      certificate_authority: 'lets_encrypt' | 'google' | 'digicert'
     }
   }
 }

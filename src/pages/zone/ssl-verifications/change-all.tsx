@@ -10,7 +10,7 @@ import { wait } from '@/lib/wait';
 
 export const ChangeAllToHttp = () => {
   const { data, isLoading, mutate } = useCloudflareSSLVerificationLists();
-  const nonHttpPendingCertificates = useMemo(() => data?.result?.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
+  const nonHttpPendingCertificates = useMemo(() => data?.result.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
   const [logs, pushLog, clearLog] = useArray<string>(() => {
     return nonHttpPendingCertificates.length === 0
       ? ['This is where log outpus', 'There is no pending certificates, or all pending certificates are already using HTTP as validation method!']

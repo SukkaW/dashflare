@@ -5,8 +5,8 @@ import CodeBlock from './code-block';
 import { useCloudflareApiTokenStatus } from '../lib/cloudflare/token-status';
 
 interface TokenModalProps {
-  opened: boolean;
-  onClose: () => void;
+  opened: boolean,
+  onClose: () => void
 }
 
 const TokenViewer = memo(({ opened, onClose }: TokenModalProps) => {
@@ -15,7 +15,7 @@ const TokenViewer = memo(({ opened, onClose }: TokenModalProps) => {
   const logout = useLogout();
 
   const badgeColor = useMemo(() => {
-    if (!tokenStatusData || !tokenStatusData.result) {
+    if (!tokenStatusData?.result) {
       return 'gray';
     }
     if (tokenStatusData.result.status === 'active') {
@@ -24,7 +24,7 @@ const TokenViewer = memo(({ opened, onClose }: TokenModalProps) => {
     return 'red';
   }, [tokenStatusData]);
 
-  const showNotBefore = useMemo(() => tokenStatusData && tokenStatusData.result && 'not_before' in tokenStatusData.result, [tokenStatusData]);
+  const showNotBefore = useMemo(() => tokenStatusData?.result && 'not_before' in tokenStatusData.result, [tokenStatusData]);
 
   return (
     <Modal opened={opened} onClose={onClose} title="Cloudflare API Token" centered>
@@ -37,14 +37,14 @@ const TokenViewer = memo(({ opened, onClose }: TokenModalProps) => {
               <td><Text fw={600}>Status</Text></td>
               <td>
                 <Badge color={badgeColor}>
-                  {tokenStatusData?.result?.status}
+                  {tokenStatusData?.result.status}
                 </Badge>
               </td>
             </tr>
             <tr>
               <td><Text fw={600}>{showNotBefore ? 'Not Before' : 'Expires On'}</Text></td>
               <td>
-                {showNotBefore ? tokenStatusData?.result?.not_before : tokenStatusData?.result?.expires_on}
+                {showNotBefore ? tokenStatusData?.result.not_before : tokenStatusData?.result.expires_on}
               </td>
             </tr>
           </tbody>

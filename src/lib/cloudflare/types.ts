@@ -7,29 +7,29 @@ declare global {
 
     export interface PaginationInfo {
       /** Total number of results for the requested service */
-      count: number
+      count: number,
       /** Current page within paginated list of results */
-      page: number
+      page: number,
       /** Number of results per page of results */
-      per_page: number
+      per_page: number,
       /** Total results available without any search parameters */
-      total_count: number
+      total_count: number,
       total_pages: number
     }
 
     export interface APIResponse<Result = any> {
       errors: never[],
-      messages: Cloudflare.MessageObject[],
+      messages: MessageObject[],
       result: Result,
       success: true,
-      result_info?: Cloudflare.PaginationInfo
+      result_info?: PaginationInfo
     }
 
     export interface APIResponseError {
-      errors: Cloudflare.MessageObject[],
-      messages: Cloudflare.MessageObject[],
+      errors: MessageObject[],
+      messages: MessageObject[],
       result: null,
-      success: false,
+      success: false
     }
   }
 }

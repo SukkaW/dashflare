@@ -17,7 +17,7 @@ import useSWR from 'swr';
 //   }
 // }
 
-export const useCloudflareApiTokenDetails = (token: string | null, tokenId: string | undefined | null) => useSWR<Cloudflare.APIResponse<any>>(
+export const useCloudflareApiTokenDetails = (token: string | null, tokenId: string | undefined | null) => useSWR<Cloudflare.APIResponse>(
   (token && tokenId) ? [`client/v4/user/tokens/${tokenId}`, token] : null,
   fetcherWithAuthorization
 );

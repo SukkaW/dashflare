@@ -8,7 +8,7 @@ import { memo } from 'react';
 import { useCloudflareApiRateLimit } from '@/lib/fetcher';
 
 interface HeaderContentProps {
-  isMatchLogin: boolean;
+  isMatchLogin: boolean
 }
 
 const CloudflareRateLimit = () => {

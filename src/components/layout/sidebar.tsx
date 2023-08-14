@@ -7,8 +7,8 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { navLinks } from '@/router';
 
 interface NavLinkProps {
-  to: string;
-  label: string;
+  to: string,
+  label: string,
   icon: Icon
 }
 

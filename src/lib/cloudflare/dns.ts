@@ -17,7 +17,7 @@ declare global {
       // DNS record identifier tag
       id: string,
       // Record type
-      type: Cloudflare.ValidDNSRecordType,
+      type: ValidDNSRecordType,
       // DNS record name
       name: string,
       // A valid IPv4 address
@@ -50,7 +50,7 @@ declare global {
       data?: Extension
     }
 
-    export type CreateDNSRecord = Pick<Cloudflare.DNSRecord, 'name' | 'type' | 'content' | 'ttl' | 'proxied'>;
+    export type CreateDNSRecord = Pick<DNSRecord, 'name' | 'type' | 'content' | 'ttl' | 'proxied'>;
   }
 }
 

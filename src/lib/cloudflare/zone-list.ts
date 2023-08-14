@@ -20,7 +20,7 @@ declare global {
       /** @private */
       host?: {
         name: string,
-        website: string,
+        website: string
       }
     }
   }
@@ -40,7 +40,7 @@ export const useCloudflareZoneList = (pageIndex: number, perPage = 20, search = 
 
 export const preloadCloudflareZoneList = (token: string) => {
   preload<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
-    ['client/v4/zones', token, 1],
+    token ? ['client/v4/zones', token, 1, 20] : null,
     fetcherWithAuthorizationAndPagination
   );
 };

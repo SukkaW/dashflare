@@ -9,7 +9,7 @@ import CodeBlock from '@/components/code-block';
 import title from 'title';
 
 interface ControlProps {
-  hostname: string;
+  hostname: string,
   certificate_status: Cloudflare.CertificateStatus['certificate_status'],
   validation_method: Cloudflare.CertificateStatus['validation_method']
 }
@@ -107,9 +107,9 @@ const Form = ({
 
 interface VerificationInfoProps {
   http_url?: string,
-  http_body?: string
+  http_body?: string,
   cname_target?: string,
-  cname?: string
+  cname?: string,
   txt_name?: string,
   txt_value?: string,
   status?: string

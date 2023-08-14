@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 
 export interface PaginationState {
-  pageIndex: number;
-  pageSize: number;
+  pageIndex: number,
+  pageSize: number
 }
 
 export const usePagination = (initialState: PaginationState = { pageIndex: 0, pageSize: 20 }) => {

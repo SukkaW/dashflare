@@ -121,7 +121,7 @@ const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
 });
 
 const DNSModal = memo(({ record, modalId }: DNSEditFormProps) => {
-  if (record && record.type && !currentlySupportedCloudflareDNSRecordTypes.has(record.type)) {
+  if (record?.type && !currentlySupportedCloudflareDNSRecordTypes.has(record.type)) {
     return (
       <Stack>
         <Text>
