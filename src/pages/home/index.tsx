@@ -68,7 +68,7 @@ const ZoneList = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.result?.map((zone) => (
+          {data?.result.map((zone) => (
             <tr key={zone.id}>
               <td>{zone.name}</td>
               <td>{title(zone.status)}</td>

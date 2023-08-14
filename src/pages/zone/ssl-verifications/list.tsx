@@ -1,6 +1,6 @@
 import { Stack, Skeleton, Accordion, Text, Code } from '@mantine/core';
 import { useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
-import { createArray } from '@/lib/create-array';
+import { createFixedArray } from 'foxact/create-fixed-array';
 import { SSLVerificationItem } from './item';
 import { HTTPError } from '@/lib/fetcher';
 import { isCloudflareAPIResponseError } from '@/lib/cloudflare/types';
@@ -31,7 +31,7 @@ export const SSLVerificationsList = () => {
   if (isLoading) {
     return (
       <Stack>
-        {createArray(6).map(i => (
+        {createFixedArray(6).map(i => (
           <Skeleton key={i} h={48} w="100%" />
         ))}
       </Stack>
