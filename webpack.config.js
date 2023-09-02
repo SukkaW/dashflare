@@ -100,7 +100,7 @@ const config = {
                   simplify: true
                 }
               },
-              baseUrl: './',
+              baseUrl: __dirname,
               paths: {
                 '@/*': ['src/*']
               }
