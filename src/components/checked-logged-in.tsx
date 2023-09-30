@@ -1,6 +1,12 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useToken } from '../context/token';
 
+declare const process: {
+  env: {
+    NODE_ENV: 'development' | 'production' | 'test'
+  }
+};
+
 export function ProtectRoute() {
   const token = useToken();
   const { state, pathname } = useLocation();

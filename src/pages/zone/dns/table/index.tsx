@@ -56,7 +56,7 @@ export default function DNSDataTableEntry() {
             );
           }
 
-          if (data.result?.length === 0) {
+          if (data.result.length === 0) {
             return (
               <Center h={288}>
                 <Text>There is no DNS records</Text>

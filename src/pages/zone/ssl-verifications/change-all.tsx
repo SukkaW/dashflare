@@ -80,7 +80,6 @@ export const ChangeAllToHttp = () => {
 
         pushLog('Done!');
       }
-
     } catch (e) {
       pushLog('Failed to change all certificates\' validation method to HTTP!');
       handleFetchError(e);

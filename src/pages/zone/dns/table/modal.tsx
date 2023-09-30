@@ -159,7 +159,7 @@ const DeleteDNSRecordModal = memo(({ recordId, recordName, modalId }: { recordId
     modals.close(modalId);
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = () => {
     trigger(recordId);
     modals.close(modalId);
   };

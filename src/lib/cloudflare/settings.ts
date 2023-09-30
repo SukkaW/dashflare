@@ -35,7 +35,6 @@ declare global {
       polish: 'off' | 'lossless' | 'lossy',
       privacy_pass: ZoneSettingBooleanType,
       webp: ZoneSettingBooleanType,
-      // eslint-disable-next-line @typescript-eslint/ban-types -- magic
       proxy_read_timeout: string & {},
       security_level: 'off' | 'essentially_off' | 'low' | 'medium' | 'high' | 'under_attack',
       tls_1_3: 'off' | 'on' | 'zrt',

@@ -1,4 +1,4 @@
-import type { BoxProps} from '@mantine/core';
+import type { BoxProps } from '@mantine/core';
 import { Code, CopyButton, ActionIcon, Box, createStyles, rem } from '@mantine/core';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 

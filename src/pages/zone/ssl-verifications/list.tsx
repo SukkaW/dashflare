@@ -15,14 +15,14 @@ export const SSLVerificationsList = () => {
           Failed to load the SSL verifications list:
         </Text>
         <Code block>
-          {// eslint-disable-next-line no-nested-ternary -- this is fine
+          {
             error instanceof HTTPError
-              ? isCloudflareAPIResponseError(error.data)
+              ? (isCloudflareAPIResponseError(error.data)
                 ? error.data.errors.map(e => e.message).join('\n')
-                : JSON.stringify(error.data, null, 2)
-              : 'message' in error
+                : JSON.stringify(error.data, null, 2))
+              : ('message' in error
                 ? error.message
-                : JSON.stringify(error, null, 2)
+                : JSON.stringify(error, null, 2))
           }
         </Code>
       </>

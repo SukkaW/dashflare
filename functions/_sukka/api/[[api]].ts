@@ -43,7 +43,7 @@ export const onRequest: PagesFunction = ({ request }) => {
   );
 };
 
-type StaticOrigin = string | RegExp | (string | RegExp)[];
+type StaticOrigin = string | RegExp | Array<string | RegExp>;
 
 interface CorsOptions {
   origin?: StaticOrigin

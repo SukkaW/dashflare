@@ -124,7 +124,6 @@ export const useUpdateCloudflareDNSRecord = () => {
 
       return false;
     }
-
   }, [token, zoneId]);
 
   return {

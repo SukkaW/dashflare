@@ -1,3 +1,5 @@
+'use strict';
+
 const crypto = require('crypto');
 const path = require('path');
 
@@ -20,7 +22,7 @@ const isAnalyze = !!process.env.ANALYZE;
 const cpuCount = require('os').cpus().length;
 const context = __dirname;
 
-const targets = browserslist.loadConfig({ path: context});
+const targets = browserslist.loadConfig({ path: context });
 
 /** @type {import('webpack').Configuration} */
 const config = {
@@ -159,7 +161,7 @@ const config = {
                 hash.update(module.libIdent({ context }));
               }
 
-              return hash.digest('hex').substring(0, 8);
+              return hash.digest('hex').slice(0, 8);
             },
             priority: 30,
             minChunks: 1,
@@ -297,7 +299,7 @@ function getTopLevelFrameworkPaths(dir) {
       for (const name of Object.keys(dependencies)) {
         addPackagePath(name, directory);
       }
-    } catch (_) {
+    } catch {
       // don't error on failing to resolve framework packages
     }
   };
