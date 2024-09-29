@@ -26,10 +26,10 @@ const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
       name: record?.name ?? '',
       content: record?.content ?? '',
       ttl: record?.ttl ?? 1,
-      proxied: record?.proxied ?? false
+      proxied: record?.proxied ?? true
     }
   });
-  const [autoTtl, setAutoTtl] = useState(record?.ttl === 1);
+  const [autoTtl, setAutoTtl] = useState(record ? record.ttl === 1 : true);
   const handleAutoTtlChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     const isAutoTtl = event.currentTarget.checked;
     if (isAutoTtl) {
