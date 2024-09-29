@@ -27,15 +27,13 @@ const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/eta
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
   const error = useRouteError();
-  if (isRouteErrorResponse(error)) {
-    // if (error.status === 403) {
+  if (isRouteErrorResponse(error) // if (error.status === 403) {
     //   return <ForbiddenPage />;
     // }
-    if (error.status === 404) {
-      return <NotFoundPage />;
-    }
-    // TODO: 返回 50X？
+    && error.status === 404) {
+    return <NotFoundPage />;
   }
+  // TODO: 返回 50X？
   // TODO: 换一个全局的错误处理页面
   // return <NotFoundPage />;
   return <div />;

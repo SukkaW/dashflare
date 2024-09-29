@@ -5,7 +5,9 @@ export interface PaginationState {
   pageSize: number
 }
 
-export const usePagination = (initialState: PaginationState = { pageIndex: 0, pageSize: 20 }) => {
+const DEFAULT_PAGINATION_STATE: PaginationState = { pageIndex: 0, pageSize: 20 };
+
+export const usePagination = (initialState: PaginationState = DEFAULT_PAGINATION_STATE) => {
   const [pagination, setPagination] = useState<PaginationState>(initialState);
 
   const handlePageIndexChange = useCallback((pageIndex: number) => setPagination(p => ({

@@ -13,12 +13,10 @@ declare global {
   }
 }
 
-export const useCloudflareUniversalSSLSettings = () => {
-  return useSWR<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>(
-    [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
-    fetcherWithAuthorization
-  );
-};
+export const useCloudflareUniversalSSLSettings = () => useSWR<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>(
+  [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
+  fetcherWithAuthorization
+);
 
 export const updateCloudflareUniversalSSLSettings = (key: [key: string, token: string | null], { arg }: { arg: Cloudflare.UniversalSSLSettings }) => {
   const [url, token] = key;

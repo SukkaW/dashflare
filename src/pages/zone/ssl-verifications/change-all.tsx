@@ -11,19 +11,17 @@ import { wait } from '@/lib/wait';
 export const ChangeAllToHttp = () => {
   const { data, isLoading, mutate } = useCloudflareSSLVerificationLists();
   const nonHttpPendingCertificates = useMemo(() => data?.result.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
-  const [logs, pushLog, clearLog] = useArray<string>(() => {
-    return nonHttpPendingCertificates.length === 0
-      ? ['This is where log outpus', 'There is no pending certificates, or all pending certificates are already using HTTP as validation method!']
-      : ['This is where log outpus'];
-  });
+  const [logs, pushLog, clearLog] = useArray<string>(() => (nonHttpPendingCertificates.length === 0
+    ? ['This is where log outpus', 'There is no pending certificates, or all pending certificates are already using HTTP as validation method!']
+    : ['This is where log outpus']));
 
   const token = useToken();
   const zoneId = useZoneId();
 
-  const [isMutating, setMutating] = useState(false);
+  const [isMutating, setIsMutating] = useState(false);
   const handleChange = useCallback(async () => {
     const tasks = nonHttpPendingCertificates.slice();
-    setMutating(true);
+    setIsMutating(true);
     try {
       if (!token) {
         pushLog('Missing API Token!');
@@ -67,15 +65,15 @@ export const ChangeAllToHttp = () => {
         );
         i--;
         pushLog(`Validation method for [${task.hostname}] is changed to [${resp.result.validation_method}]!`);
-        if (i !== 0) {
+        if (i === 0) {
+          mutate();
+        } else {
           pushLog(`Wait 30 seconds before continue. Remaining: ${i}/${tasks.length}`);
           // eslint-disable-next-line no-await-in-loop -- do this one by one
           await wait(5 * 1000);
           mutate();
           // eslint-disable-next-line no-await-in-loop -- do this one by one
           await wait(25 * 1000);
-        } else {
-          mutate();
         }
 
         pushLog('Done!');
@@ -84,7 +82,7 @@ export const ChangeAllToHttp = () => {
       pushLog('Failed to change all certificates\' validation method to HTTP!');
       handleFetchError(e);
     } finally {
-      setMutating(false);
+      setIsMutating(false);
     }
   }, [clearLog, mutate, nonHttpPendingCertificates, pushLog, token, zoneId]);
 

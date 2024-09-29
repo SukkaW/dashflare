@@ -3,20 +3,19 @@
     "incremental": true,
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
-    "allowJs": false,
     "noEmit": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictNullChecks": true,
     "skipLibCheck": true
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],

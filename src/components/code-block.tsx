@@ -55,6 +55,7 @@ export default function CodeBlock({
   return (
     <Box className={cx(classes.root, className)} {...others} translate="no">
       <CopyButton value={children} timeout={2000}>
+        {/* eslint-disable-next-line @typescript-eslint/unbound-method -- safe */}
         {({ copied, copy }) => (
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy} className={classes.copy} mih={16}>
             {copied ? <IconCheck size={rem(16)} /> : <IconCopy size={rem(16)} />}

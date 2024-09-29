@@ -1,5 +1,5 @@
 import { memo } from 'react';
 
-export const IconCloudflare = memo((props: JSX.IntrinsicElements['svg']) => (
+export const IconCloudflare = memo((props: React.JSX.IntrinsicElements['svg']) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" strokeWidth="0" viewBox="0 0 24 24" {...props}><path stroke="none" d="M16.5 16.84c.16-.5.1-.97-.15-1.31-.22-.32-.6-.5-1.06-.52l-8.66-.11a.16.16 0 0 1-.13-.07.2.2 0 0 1-.02-.16.24.24 0 0 1 .2-.16l8.74-.1a3.13 3.13 0 0 0 2.55-1.92l.5-1.3a.27.27 0 0 0 .02-.17 5.68 5.68 0 0 0-10.94-.59 2.56 2.56 0 0 0-4.02 2.68 3.63 3.63 0 0 0-3.5 4.17c.02.08.09.15.17.15H16.2c.09 0 .17-.07.2-.16l.12-.43zm2.77-5.56-.24.01c-.06 0-.1.04-.13.1l-.34 1.17c-.14.51-.09.98.16 1.32.22.32.6.5 1.06.52l1.84.11c.06 0 .1.03.14.07.02.05.03.11.02.16a.24.24 0 0 1-.2.16l-1.93.1a3.12 3.12 0 0 0-2.55 1.92l-.14.36c-.03.07.02.14.1.14h6.6c.07 0 .14-.05.16-.12a4.74 4.74 0 0 0-4.56-6" /></svg>
 ));

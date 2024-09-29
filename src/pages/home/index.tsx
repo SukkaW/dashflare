@@ -89,7 +89,7 @@ const ZoneList = () => {
         </tbody>
       </Table>
 
-      {totalPage && totalPage > 1 && (
+      {totalPage != null && totalPage > 1 && (
         <>
           <Pagination
             total={totalPage}

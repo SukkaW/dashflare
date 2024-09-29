@@ -39,7 +39,7 @@ export const useLogout = () => {
 };
 
 export const TokenProvider = ({ children }: React.PropsWithChildren) => {
-  const [token, _setToken] = useState(() => {
+  const [token, setToken] = useState(() => {
     try {
       return localStorage.getItem(TOKEN_NAME) || null;
     } catch {
@@ -49,20 +49,20 @@ export const TokenProvider = ({ children }: React.PropsWithChildren) => {
 
   // dedupe requestIdleCallback calls
   const retimer = useRetimer();
-  const setToken = useCallback((input: string | null) => {
-    _setToken(input);
+  const $setToken = useCallback((input: string | null) => {
+    setToken(input);
 
     retimer(requestIdleCallback(() => {
-      if (!input) {
-        localStorage.removeItem(TOKEN_NAME);
-      } else {
+      if (input) {
         localStorage.setItem(TOKEN_NAME, input);
+      } else {
+        localStorage.removeItem(TOKEN_NAME);
       }
     }));
   }, [retimer]);
 
   return (
-    <SetTokenContext.Provider value={setToken}>
+    <SetTokenContext.Provider value={$setToken}>
       <TokenContext.Provider value={token}>
         {children}
       </TokenContext.Provider>

@@ -52,7 +52,7 @@ const Form = ({
   initial_validation_method
 }: FormProps) => {
   const { mutate } = useCloudflareSSLVerificationLists();
-  const [isMutating, setMutating] = useState(false);
+  const [isMutating, setIsMutating] = useState(false);
   const token = useToken();
   const zoneId = useZoneId();
 
@@ -67,7 +67,7 @@ const Form = ({
   return (
     <form
       onSubmit={form.onSubmit(async values => {
-        setMutating(true);
+        setIsMutating(true);
         try {
           if (!token) {
             throw new TypeError('Missing API token');
@@ -82,7 +82,7 @@ const Form = ({
         } catch (e) {
           handleFetchError(e);
         } finally {
-          setMutating(false);
+          setIsMutating(false);
         }
       })}
     >
@@ -123,71 +123,67 @@ const VerificationInfo = memo(({
   txt_name,
   txt_value,
   status
-}: VerificationInfoProps) => {
-  return (
-    <Stack>
-      {txt_name && (
+}: VerificationInfoProps) => (
+  <Stack>
+    {txt_name && (
+      <>
+        <Text fz={14} fw={600}>Certificate validation TXT Record</Text>
+        <CodeBlock>{txt_name}</CodeBlock>
+      </>
+    )}
+    {txt_value && (
+      <>
+        <Text fz={14} fw={600}>Certificate validation TXT Value</Text>
+        <CodeBlock>{txt_value}</CodeBlock>
+      </>
+    )}
+    {
+      http_url && (
         <>
-          <Text fz={14} fw={600}>Certificate validation TXT Record</Text>
-          <CodeBlock>{txt_name}</CodeBlock>
+          <Text fz={14} fw={600}>Certificate validation HTTP Request</Text>
+          <CodeBlock>{http_url}</CodeBlock>
         </>
-      )}
-      {txt_value && (
+      )
+    }
+    {
+      http_body && (
         <>
-          <Text fz={14} fw={600}>Certificate validation TXT Value</Text>
-          <CodeBlock>{txt_value}</CodeBlock>
+          <Text fz={14} fw={600}>Certificate validation HTTP Response</Text>
+          <CodeBlock>{http_body}</CodeBlock>
         </>
-      )}
-      {
-        http_url && (
-          <>
-            <Text fz={14} fw={600}>Certificate validation HTTP Request</Text>
-            <CodeBlock>{http_url}</CodeBlock>
-          </>
-        )
-      }
-      {
-        http_body && (
-          <>
-            <Text fz={14} fw={600}>Certificate validation HTTP Response</Text>
-            <CodeBlock>{http_body}</CodeBlock>
-          </>
-        )
-      }
-      {
-        cname && (
-          <>
-            <Text fz={14} fw={600}>Certificate validation CNAME Record</Text>
-            <CodeBlock>{cname}</CodeBlock>
-          </>
-        )
-      }
-      {
-        cname_target && (
-          <>
-            <Text fz={14} fw={600}>Certificate validation CNAME Target</Text>
-            <CodeBlock>{cname_target}</CodeBlock>
-          </>
-        )
-      }
-      {
-        status && (
-          <Group>
-            <Text fz={14} fw={600}>Certificate validation Status</Text>
-            <Text>{title(status)}</Text>
-          </Group>
-        )
-      }
-    </Stack>
-  );
-});
+      )
+    }
+    {
+      cname && (
+        <>
+          <Text fz={14} fw={600}>Certificate validation CNAME Record</Text>
+          <CodeBlock>{cname}</CodeBlock>
+        </>
+      )
+    }
+    {
+      cname_target && (
+        <>
+          <Text fz={14} fw={600}>Certificate validation CNAME Target</Text>
+          <CodeBlock>{cname_target}</CodeBlock>
+        </>
+      )
+    }
+    {
+      status && (
+        <Group>
+          <Text fz={14} fw={600}>Certificate validation Status</Text>
+          <Text>{title(status)}</Text>
+        </Group>
+      )
+    }
+  </Stack>
+));
 
-const createKeyFromVerificationInfo = (verification_info: VerificationInfoProps, index: number) => {
-  return (Object.entries(verification_info)
-    .filter(v => v[1] !== undefined)
-    .map(([key, value]) => `${key}=${value}`)
-    .join('&') + index);
-};
+const createKeyFromVerificationInfo = (verification_info: VerificationInfoProps, index: number) => (Object.entries(verification_info)
+  .filter(v => v[1] !== undefined)
+  .map(([key, value]) => `${key}=${value}`)
+  .join('&') + index);
 
 export const SSLVerificationItem = memo(({
   cert_pack_uuid,
@@ -196,45 +192,43 @@ export const SSLVerificationItem = memo(({
   validation_method,
   verification_info,
   validation_type
-}: Cloudflare.CertificateStatus) => {
-  return (
-    <Accordion.Item value={cert_pack_uuid || hostname}>
-      <Accordion.Control py="xs">
-        <Control hostname={hostname} certificate_status={certificate_status} validation_method={validation_method} />
-      </Accordion.Control>
-      <Accordion.Panel>
-        {
-          certificate_status === 'active'
-            ? (
-              <Stack>
+}: Cloudflare.CertificateStatus) => (
+  <Accordion.Item value={cert_pack_uuid || hostname}>
+    <Accordion.Control py="xs">
+      <Control hostname={hostname} certificate_status={certificate_status} validation_method={validation_method} />
+    </Accordion.Control>
+    <Accordion.Panel>
+      {
+        certificate_status === 'active'
+          ? (
+            <Stack>
+              <Group>
+                <Text fw={600}>Validation Method</Text>
+                <Text>{validation_method.toUpperCase()}</Text>
+              </Group>
+              {validation_type && (
                 <Group>
-                  <Text fw={600}>Validation Method</Text>
-                  <Text>{validation_method.toUpperCase()}</Text>
+                  <Text fw={600}>Validation Type</Text>
+                  <Text>{validation_type.toUpperCase()}</Text>
                 </Group>
-                {validation_type && (
-                  <Group>
-                    <Text fw={600}>Validation Type</Text>
-                    <Text>{validation_type.toUpperCase()}</Text>
-                  </Group>
-                )}
-              </Stack>
-            )
-            : (
-              <Form
-                cert_pack_uuid={cert_pack_uuid}
-                initial_validation_method={validation_method}
-              />
-            )
-        }
-        {verification_info && <Divider label="Verification Details" labelPosition="center" />}
-        {verification_info && (
-          Array.isArray(verification_info)
-            ? verification_info.map((info, i) => (
-              <VerificationInfo key={createKeyFromVerificationInfo(info, i)} {...info} />
-            ))
-            : <VerificationInfo {...verification_info} />
-        )}
-      </Accordion.Panel>
-    </Accordion.Item>
-  );
-});
+              )}
+            </Stack>
+          )
+          : (
+            <Form
+              cert_pack_uuid={cert_pack_uuid}
+              initial_validation_method={validation_method}
+            />
+          )
+      }
+      {verification_info && <Divider label="Verification Details" labelPosition="center" />}
+      {verification_info && (
+        Array.isArray(verification_info)
+          ? verification_info.map((info, i) => (
+            <VerificationInfo key={createKeyFromVerificationInfo(info, i)} {...info} />
+          ))
+          : <VerificationInfo {...verification_info} />
+      )}
+    </Accordion.Panel>
+  </Accordion.Item>
+));

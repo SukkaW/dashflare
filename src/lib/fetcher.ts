@@ -21,20 +21,17 @@ const addOneToCloudflareApiRateLimit = () => {
   }
 };
 
-const getRemainingCloudflareApiRateLimit = () => {
-  return cloudflareApiRequestTimestamps.length;
-};
+const getRemainingCloudflareApiRateLimit = () => cloudflareApiRequestTimestamps.length;
 
-export const useCloudflareApiRateLimit = () => {
-  return useSyncExternalStore(
-    subscribeToCloudflareApiRateLimit,
-    getRemainingCloudflareApiRateLimit
-  );
-};
+export const useCloudflareApiRateLimit = () => useSyncExternalStore(
+  subscribeToCloudflareApiRateLimit,
+  getRemainingCloudflareApiRateLimit
+);
 
 export class HTTPError extends Error {
   data: unknown;
   status: number;
+  name = 'HTTPError';
   constructor(message: string, data: unknown, status: number) {
     super(message);
     this.data = data;
@@ -42,9 +39,7 @@ export class HTTPError extends Error {
   }
 }
 
-export const buildApiEndpoint = (key: string) => {
-  return new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/_sukka/api/', window.location.href));
-};
+export const buildApiEndpoint = (key: string) => new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/_sukka/api/', window.location.href));
 
 export const buildRequestInitWithToken = (token: string, init?: RequestInit): RequestInit => {
   const headers = new Headers({

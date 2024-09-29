@@ -48,27 +48,25 @@ interface ActionCellProps {
   record: Cloudflare.DNSRecord
 }
 
-const ActionCell = memo(({ record }: ActionCellProps) => {
-  return (
-    <Group align="center" spacing={0} noWrap>
-      <Button
-        compact
-        variant="subtle"
-        onClick={useCallback(() => openEditDNSRecordModal(record), [record])}
-      >
-        Edit
-      </Button>
-      <Button
-        compact
-        variant="subtle"
-        color="red"
-        onClick={useCallback(() => openDeleteDNSRecordModal(record.id, record.name), [record])}
-      >
-        Delete
-      </Button>
-    </Group>
-  );
-});
+const ActionCell = memo(({ record }: ActionCellProps) => (
+  <Group align="center" spacing={0} noWrap>
+    <Button
+      compact
+      variant="subtle"
+      onClick={useCallback(() => openEditDNSRecordModal(record), [record])}
+    >
+      Edit
+    </Button>
+    <Button
+      compact
+      variant="subtle"
+      color="red"
+      onClick={useCallback(() => openDeleteDNSRecordModal(record.id, record.name), [record])}
+    >
+      Delete
+    </Button>
+  </Group>
+));
 
 const columns = [
   columnHelper.accessor('name', {
@@ -150,7 +148,7 @@ const DNSDataTable = memo(({
   const containerViewportRef = useRef<HTMLDivElement>(null);
 
   const [isRightColumnFixed, setIsRightColumnFixed] = useState(false);
-  const [isReachRightEndOfScrollArea, setReachRightEndOfScrollArea] = useState(false);
+  const [isReachRightEndOfScrollArea, setIsReachRightEndOfScrollArea] = useState(false);
   useEffect(() => {
     const containerElement = containerElementRef.current;
     const tableElement = tableElementRef.current;
@@ -196,7 +194,7 @@ const DNSDataTable = memo(({
   }) => {
     const containerElement = containerViewportRef.current;
     if (containerElement) {
-      setReachRightEndOfScrollArea(
+      setIsReachRightEndOfScrollArea(
         containerElement.getBoundingClientRect().width + position.x + 1 >= containerElement.scrollWidth
       );
     }
@@ -234,7 +232,7 @@ const DNSDataTable = memo(({
                 return (
                   <th
                     key={header.id}
-                    style={{ width: headerWidth !== 0 ? headerWidth : undefined, userSelect: 'none' }}
+                    style={{ width: headerWidth === 0 ? undefined : headerWidth, userSelect: 'none' }}
                     colSpan={header.colSpan}
                     className={cx(
                       classes.cellBg,
@@ -257,32 +255,30 @@ const DNSDataTable = memo(({
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => {
-                  const cellWidth = cell.column.getSize();
+          {table.getRowModel().rows.map(row => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map(cell => {
+                const cellWidth = cell.column.getSize();
 
-                  return (
-                    <td
-                      key={cell.id}
-                      style={{ width: cellWidth !== 0 ? cellWidth : undefined }}
-                      className={cx(
-                        classes.cellBg,
-                        cell.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
-                        isRightColumnFixed && cell.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
-                      )}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+                return (
+                  <td
+                    key={cell.id}
+                    style={{ width: cellWidth === 0 ? undefined : cellWidth }}
+                    className={cx(
+                      classes.cellBg,
+                      cell.column.columnDef.meta?.isFixed && classes.fixedRightColumn,
+                      isRightColumnFixed && cell.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
+                    )}
+                  >
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext()
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
         </tbody>
       </Table>
     </ScrollArea>

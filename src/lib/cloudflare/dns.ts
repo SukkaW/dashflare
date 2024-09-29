@@ -70,15 +70,11 @@ export const useCloudflareListDNSRecords = (pageIndex: number, perPage = 20, sea
   }
 );
 
-const mutateCloudflareDNSRecord = (zoneId: string) => {
-  return mutate(
-    (key) => {
-      return Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`);
-    },
-    undefined,
-    { populateCache: false, revalidate: true, rollbackOnError: true }
-  );
-};
+const mutateCloudflareDNSRecord = (zoneId: string) => mutate(
+  (key) => Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`),
+  undefined,
+  { populateCache: false, revalidate: true, rollbackOnError: true }
+);
 
 export const useUpdateCloudflareDNSRecord = () => {
   const [isMutating, setIsMutating] = useState(false);

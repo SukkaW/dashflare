@@ -70,15 +70,13 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K e
     }
   }, [trigger, type]);
 
-  const handleCheckboxChange = useCallback((key: K) => {
-    return (evt: React.ChangeEvent<HTMLInputElement>) => {
-      if (type === 'multiple_checkbox') {
-        trigger({
-          // ...(data.result.value as Record<string, any>),
-          [key]: evt.currentTarget.checked ? 'on' : 'off'
-        } as Cloudflare.ZoneSettingsValue[T]);
-      }
-    };
+  const handleCheckboxChange = useCallback((key: K) => (evt: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === 'multiple_checkbox') {
+      trigger({
+        // ...(data.result.value as Record<string, any>),
+        [key]: evt.currentTarget.checked ? 'on' : 'off'
+      } as Cloudflare.ZoneSettingsValue[T]);
+    }
   }, [trigger, type]);
 
   return (

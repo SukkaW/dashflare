@@ -51,6 +51,8 @@ const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
             if (result) {
               modals.close(modalId);
             }
+          }).catch((err) => {
+            console.error(err);
           });
         })}
         onReset={handleReset}
