@@ -1,7 +1,7 @@
 'use strict';
 
-const crypto = require('crypto');
-const path = require('path');
+const crypto = require('node:crypto');
+const path = require('node:path');
 
 const browserslist = require('browserslist');
 
@@ -19,7 +19,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const topLevelFrameworkPaths = isDevelopment ? [] : getTopLevelFrameworkPaths(__dirname);
 const isAnalyze = !!process.env.ANALYZE;
-const cpuCount = require('os').cpus().length;
+const cpuCount = require('node:os').cpus().length;
+
 const context = __dirname;
 
 const targets = browserslist.loadConfig({ path: context });
