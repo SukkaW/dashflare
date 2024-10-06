@@ -39,7 +39,7 @@ declare global {
   }
 }
 
-export const useCloudflareSSLVerificationLists = () => useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>>(
+export const useCloudflareSSLVerificationLists = () => useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>, unknown, [string, string]>(
   [`client/v4/zones/${useZoneId()}/ssl/verification`, useToken()],
   fetcherWithAuthorization
 );

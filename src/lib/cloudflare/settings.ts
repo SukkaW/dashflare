@@ -51,12 +51,12 @@ declare global {
   }
 }
 
-export const useCloudflareZoneAllSettingsAsFallback = () => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon[]>>(
+export const useCloudflareZoneAllSettingsAsFallback = () => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon[]>, any, [string, string]>(
   [`client/v4/zones/${useZoneId()}/settings`, useToken()],
   fetcherWithAuthorization
 );
 
-export const useCloudflareZoneSetting = <K extends keyof Cloudflare.ZoneSettingsValue>(key: K) => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>>(
+export const useCloudflareZoneSetting = <K extends keyof Cloudflare.ZoneSettingsValue>(key: K) => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>, any, [string, string]>(
   [`client/v4/zones/${useZoneId()}/settings/${key}`, useToken()],
   fetcherWithAuthorization
 );

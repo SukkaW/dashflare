@@ -39,7 +39,7 @@ export const useCloudflareZoneList = (pageIndex: number, perPage = 20, search = 
 };
 
 export const preloadCloudflareZoneList = (token: string) => {
-  preload<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
+  preload<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>, [string, string, number, number] | null>(
     token ? ['client/v4/zones', token, 1, 20] : null,
     fetcherWithAuthorizationAndPagination
   );

@@ -1,11 +1,14 @@
 import { lazy, memo } from 'react';
 import { Outlet, createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 import Layout from '@/components/layout/';
 
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconFileDescription, IconGps, IconLock, IconServer } from '@tabler/icons-react';
+import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer, IconServerBolt } from '@tabler/icons-react';
+import type { Icon } from '@tabler/icons-react';
+
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
 import ZoneIndexPage from '../pages/zone/index';
 
@@ -23,6 +26,7 @@ const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
 const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
 const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/etag'));
+const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/delete-old-pages'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -39,7 +43,37 @@ const ErrorBoundary = memo(() => {
   return <div />;
 });
 
-export const navLinks = [
+export const homeNavLinks: Array<RouteObject & {
+  label: string,
+  icon: Icon
+}> = [
+  {
+    index: true,
+    element: <Homepage />,
+    label: 'Home',
+    icon: IconHome
+  },
+  {
+    path: 'account/delete-old-pages/',
+    element: <DeleteOldPages />,
+    label: 'Delete Old Pages',
+    icon: IconServerBolt,
+    children: [
+      {
+        index: false,
+        path: ':accountId'
+      }
+    ]
+  }
+];
+
+export const zoneNavLinks: Array<{
+  index?: true,
+  path: string,
+  element: React.ReactNode,
+  label: string,
+  icon: Icon
+}> = [
   {
     index: true,
     path: '',
@@ -90,14 +124,11 @@ export const router = createBrowserRouter([
       {
         element: <ProtectRoute />,
         children: [
-          {
-            index: true,
-            element: <Homepage />
-          },
+          ...homeNavLinks,
           {
             path: ':zoneId/:zoneName',
             element: <Outlet />,
-            children: navLinks.map(route => ({
+            children: zoneNavLinks.map(route => ({
               index: route.index,
               path: route.path,
               element: route.element

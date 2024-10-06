@@ -42,6 +42,7 @@ const config = {
   experiments: { asyncWebAssembly: true, topLevelAwait: true, css: true },
   resolve: {
     extensions: ['.mjs', '.js', '.cjs', '.tsx', '.mts', '.ts', '.cts', '.jsx', '.json'],
+    importsFields: ['import', 'module', 'browser', 'default', 'require'],
     fallback: {
       https: false,
       http: false

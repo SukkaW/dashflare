@@ -5,7 +5,11 @@ import { notifications } from '@mantine/notifications';
 import { requestIdleCallback } from 'foxact/request-idle-callback';
 
 const TokenContext = createContext<string | null>(null);
-export const useToken = () => useContext(TokenContext);
+export const useToken = () => {
+  const token = useContext(TokenContext);
+
+  return token!;
+};
 
 const SetTokenContext = createContext<((input: string | null) => void) | null>(null);
 export const useSetToken = () => {

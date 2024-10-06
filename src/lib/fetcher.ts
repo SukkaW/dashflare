@@ -55,7 +55,7 @@ export const buildRequestInitWithToken = (token: string, init?: RequestInit): Re
   return { ...init, headers };
 };
 
-export const fetcherWithAuthorization = async <T = any>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
+export const fetcherWithAuthorization = async <T = unknown>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
   addOneToCloudflareApiRateLimit();
 
   const res = await fetch(
