@@ -1,4 +1,4 @@
-import useSWRInfinite from 'swr/dist/infinite';
+import useSWRInfinite from 'swr/infinite';
 import { useToken } from '@/context/token';
 import { fetcherWithAuthorizationAndPagination } from '../fetcher';
 
