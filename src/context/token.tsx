@@ -51,14 +51,16 @@ export const TokenProvider = ({ children }: React.PropsWithChildren) => {
   const retimer = useRetimer();
   const $setToken = useCallback((input: string | null) => {
     setToken(input);
-
-    retimer(requestIdleCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Safari is not supported
+    const requestIdleCallback = window.requestIdleCallback || window.setTimeout;
+    const timerId = requestIdleCallback(() => {
       if (input) {
         localStorage.setItem(TOKEN_NAME, input);
       } else {
         localStorage.removeItem(TOKEN_NAME);
       }
-    }));
+    });
+    retimer(timerId);
   }, [retimer]);
 
   return (
