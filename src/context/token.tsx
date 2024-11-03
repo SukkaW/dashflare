@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useState } from 'react';
 import { useRetimer } from 'foxact/use-retimer';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
+import { requestIdleCallback } from 'foxact/request-idle-callback';
 
 const TokenContext = createContext<string | null>(null);
 export const useToken = () => useContext(TokenContext);
@@ -51,8 +52,6 @@ export const TokenProvider = ({ children }: React.PropsWithChildren) => {
   const retimer = useRetimer();
   const $setToken = useCallback((input: string | null) => {
     setToken(input);
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Safari is not supported
-    const requestIdleCallback = window.requestIdleCallback || window.setTimeout;
     const timerId = requestIdleCallback(() => {
       if (input) {
         localStorage.setItem(TOKEN_NAME, input);
