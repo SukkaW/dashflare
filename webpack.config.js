@@ -61,14 +61,15 @@ const config = {
     static: {
       directory: path.join(__dirname, 'public')
     },
-    proxy: {
-      '/_sukka/api': {
+    proxy: [
+      {
+        context: ['/_sukka/api'],
         target: 'https://api.cloudflare.com',
         pathRewrite: { '^/_sukka/api': '' },
         secure: false,
         changeOrigin: true
       }
-    }
+    ]
   },
   module: {
     rules: [
