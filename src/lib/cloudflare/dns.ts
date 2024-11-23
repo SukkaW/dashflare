@@ -1,7 +1,7 @@
 import useSWR, { mutate } from 'swr';
 
 import { useToken } from '@/context/token';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { fetcherWithAuthorization, fetcherWithAuthorizationAndPagination, handleFetchError } from '../fetcher';
 import { useCallback, useState } from 'react';
 

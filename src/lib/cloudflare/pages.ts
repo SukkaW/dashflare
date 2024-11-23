@@ -1,9 +1,16 @@
 import { useToken } from '@/context/token';
 import { fetcherWithAuthorizationAndPagination } from '../fetcher';
 import useSWRInfinite from 'swr/infinite';
+import useSWR from 'swr';
 
 declare global {
   namespace Cloudflare {
+    export interface Page {
+      id: string,
+      name: string,
+      domains: string[]
+    }
+
     export interface PagesDeploymentInfo {
       alias: string[],
       build_config: {
@@ -23,6 +30,15 @@ declare global {
   }
 }
 
+export const useCloudflarePagesProjects = (accountId: string, pageIndex: number, perPage = 50) => {
+  const token = useToken();
+
+  return useSWR<Cloudflare.APIResponse<Cloudflare.Page[]>, unknown, [string, string, number, number]>(
+    [`client/v4/accounts/${accountId}/pages/projects`, token, pageIndex, perPage],
+    fetcherWithAuthorizationAndPagination
+  );
+};
+
 export const useCloudflarePagesDeployments = (accountId: string, projectName: string) => {
   const token = useToken();
 
@@ -34,7 +50,7 @@ export const useCloudflarePagesDeployments = (accountId: string, projectName: st
       ) {
         return null;
       }
-      return [`client/v4/pages/projects/${projectName}/deployments`, token, pageIndex, 100];
+      return [`client/v4/accounts/${accountId}/pages/projects/${projectName}/deployments`, token, pageIndex, 100];
     },
     fetcherWithAuthorizationAndPagination,
     {

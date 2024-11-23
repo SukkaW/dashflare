@@ -3,7 +3,7 @@ import { Anchor, Button, Card, Group, NativeSelect, Stack, Switch, Text, Title }
 import { useForm } from '@mantine/form';
 
 import useSWRMutation from 'swr/mutation';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { useToken } from '@/context/token';
 import { handleFetchError } from '@/lib/fetcher';
 

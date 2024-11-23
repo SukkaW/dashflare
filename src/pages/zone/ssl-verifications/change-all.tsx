@@ -5,7 +5,7 @@ import { handleFetchError } from '@/lib/fetcher';
 import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
 import { notifications } from '@mantine/notifications';
 import { useToken } from '@/context/token';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { wait } from '@/lib/wait';
 
 export const ChangeAllToHttp = () => {

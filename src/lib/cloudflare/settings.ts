@@ -1,7 +1,7 @@
 import { useToken } from '@/context/token';
 import { fetcherWithAuthorization, handleFetchError } from '../fetcher';
 import useSWR, { mutate } from 'swr';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { useCallback, useState } from 'react';
 
 declare global {

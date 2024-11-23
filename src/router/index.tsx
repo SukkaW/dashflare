@@ -26,7 +26,9 @@ const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
 const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
 const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/etag'));
+
 const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/delete-old-pages'));
+const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/cloudflare-pages-project'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -54,14 +56,15 @@ export const homeNavLinks: Array<RouteObject & {
     icon: IconHome
   },
   {
-    path: 'account/delete-old-pages/',
+    path: 'account/delete-old-pages',
     element: <DeleteOldPages />,
     label: 'Delete Old Pages',
     icon: IconServerBolt,
     children: [
       {
         index: false,
-        path: ':accountId'
+        path: ':accountId',
+        element: <CloudflarePagesProject />
       }
     ]
   }

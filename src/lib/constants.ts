@@ -6,3 +6,8 @@ export const PAGE_SIZE_ARRAY: SelectItem[] = [
   { label: '50 / page', value: '50' },
   { label: '100 / page', value: '100' }
 ];
+
+export const SMALL_PAGE_SIZE_ARRAY: SelectItem[] = [
+  { label: '10 / page', value: '10' },
+  { label: '20 / page', value: '20' }
+];
