@@ -47,10 +47,10 @@ interface FormProps {
   initial_validation_method: Cloudflare.CertificateStatus['validation_method']
 }
 
-const Form = ({
+function Form({
   cert_pack_uuid,
   initial_validation_method
-}: FormProps) => {
+}: FormProps) {
   const { mutate } = useCloudflareSSLVerificationLists();
   const [isMutating, setIsMutating] = useState(false);
   const token = useToken();
@@ -103,7 +103,7 @@ const Form = ({
       </Group>
     </form>
   );
-};
+}
 
 interface VerificationInfoProps {
   http_url?: string,
@@ -180,10 +180,10 @@ const VerificationInfo = memo(({
   </Stack>
 ));
 
-const createKeyFromVerificationInfo = (verification_info: VerificationInfoProps, index: number) => (Object.entries(verification_info)
-  .filter(v => v[1] !== undefined)
-  .map(([key, value]) => `${key}=${value}`)
-  .join('&') + index);
+function createKeyFromVerificationInfo(verification_info: VerificationInfoProps, index: number) {
+  return Object.entries(verification_info)
+    .reduce<string>((acc, [key, value]) => `${acc}|${key}=${value}|${index}`, '');
+}
 
 export const SSLVerificationItem = memo(({
   cert_pack_uuid,

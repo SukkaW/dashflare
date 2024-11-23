@@ -32,7 +32,8 @@ export const onRequest: PagesFunction = ({ request }) => {
           newRes.headers.delete('set-cookie');
 
           return newRes;
-        }).catch(e => Response.json({
+        })
+        .catch(e => Response.json({
           name: e.name,
           message: e.message,
           stack: e.stack

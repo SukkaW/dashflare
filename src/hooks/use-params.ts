@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-export const createUseParams = (key: string) => {
+export function createUseParams(key: string) {
   function useParamsValue(nullable?: false): string;
   function useParamsValue(nullable: true): string | undefined;
   function useParamsValue(nullable = false): string | undefined {
@@ -12,7 +12,7 @@ export const createUseParams = (key: string) => {
   }
 
   return useParamsValue;
-};
+}
 
 export const useZoneId = createUseParams('zoneId');
 export const useAccountId = createUseParams('accountId');

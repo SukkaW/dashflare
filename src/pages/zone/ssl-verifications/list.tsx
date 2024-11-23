@@ -5,7 +5,7 @@ import { SSLVerificationItem } from './item';
 import { HTTPError } from '@/lib/fetcher';
 import { isCloudflareAPIResponseError } from '@/lib/cloudflare/types';
 
-export const SSLVerificationsList = () => {
+export function SSLVerificationsList() {
   const { data, error, isLoading } = useCloudflareSSLVerificationLists();
 
   if (error) {
@@ -48,4 +48,4 @@ export const SSLVerificationsList = () => {
       ))}
     </Accordion>
   );
-};
+}

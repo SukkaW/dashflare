@@ -29,7 +29,8 @@ export default function DNSDataTableEntry() {
           <form onSubmit={(e) => {
             e.preventDefault();
             handleCommitSearchQuery();
-          }}>
+          }}
+          >
             <Group>
               <TextInput
                 ref={searchInputRef}

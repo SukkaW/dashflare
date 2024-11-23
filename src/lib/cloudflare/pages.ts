@@ -30,16 +30,16 @@ declare global {
   }
 }
 
-export const useCloudflarePagesProjects = (accountId: string, pageIndex: number, perPage = 50) => {
+export function useCloudflarePagesProjects(accountId: string, pageIndex: number, perPage = 50) {
   const token = useToken();
 
   return useSWR<Cloudflare.APIResponse<Cloudflare.Page[]>, unknown, [string, string, number, number]>(
     [`client/v4/accounts/${accountId}/pages/projects`, token, pageIndex, perPage],
     fetcherWithAuthorizationAndPagination
   );
-};
+}
 
-export const useCloudflarePagesDeployments = (accountId: string, projectName: string) => {
+export function useCloudflarePagesDeployments(accountId: string, projectName: string) {
   const token = useToken();
 
   return useSWRInfinite<Cloudflare.APIResponse<Cloudflare.PagesDeploymentInfo[]>>(
@@ -59,4 +59,4 @@ export const useCloudflarePagesDeployments = (accountId: string, projectName: st
       initialSize: 1_919_810_114_514
     }
   );
-};
+}

@@ -54,29 +54,33 @@ declare global {
   }
 }
 
-export const useCloudflareListDNSRecords = (pageIndex: number, perPage = 20, search = '') => useSWR<Cloudflare.APIResponse<Cloudflare.DNSRecord[]>>(
-  [
-    `client/v4/zones/${useZoneId()}/dns_records${search ? `?search=${search}` : ''}`,
-    useToken(),
-    pageIndex,
-    perPage
-  ],
-  fetcherWithAuthorizationAndPagination,
-  {
-    keepPreviousData: true,
-    onError(error) {
-      handleFetchError(error, 'Failed to fetch DNS records.');
+export function useCloudflareListDNSRecords(pageIndex: number, perPage = 20, search = '') {
+  return useSWR<Cloudflare.APIResponse<Cloudflare.DNSRecord[]>>(
+    [
+      `client/v4/zones/${useZoneId()}/dns_records${search ? `?search=${search}` : ''}`,
+      useToken(),
+      pageIndex,
+      perPage
+    ],
+    fetcherWithAuthorizationAndPagination,
+    {
+      keepPreviousData: true,
+      onError(error) {
+        handleFetchError(error, 'Failed to fetch DNS records.');
+      }
     }
-  }
-);
+  );
+}
 
-const mutateCloudflareDNSRecord = (zoneId: string) => mutate(
-  (key) => Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`),
-  undefined,
-  { populateCache: false, revalidate: true, rollbackOnError: true }
-);
+function mutateCloudflareDNSRecord(zoneId: string) {
+  return mutate(
+    (key) => Array.isArray(key) && typeof key[0] === 'string' && key[0].startsWith(`client/v4/zones/${zoneId}/dns_records`),
+    undefined,
+    { populateCache: false, revalidate: true, rollbackOnError: true }
+  );
+}
 
-export const useUpdateCloudflareDNSRecord = () => {
+export function useUpdateCloudflareDNSRecord() {
   const [isMutating, setIsMutating] = useState(false);
   const zoneId = useZoneId();
   const token = useToken();
@@ -126,9 +130,9 @@ export const useUpdateCloudflareDNSRecord = () => {
     trigger,
     isMutating
   };
-};
+}
 
-export const useDeleteCloudflareDNSRecord = () => {
+export function useDeleteCloudflareDNSRecord() {
   const [isMutating, setIsMutating] = useState(false);
   const zoneId = useZoneId();
   const token = useToken();
@@ -165,4 +169,4 @@ export const useDeleteCloudflareDNSRecord = () => {
     trigger,
     isMutating
   };
-};
+}

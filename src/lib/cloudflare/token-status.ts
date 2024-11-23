@@ -19,7 +19,7 @@ declare global {
   }
 }
 
-export const useCloudflareApiTokenStatus = (token: string | null) => {
+export function useCloudflareApiTokenStatus(token: string | null) {
   const logout = useLogout();
   return useSWR<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(
     token ? ['client/v4/user/tokens/verify', token] : null,
@@ -33,13 +33,13 @@ export const useCloudflareApiTokenStatus = (token: string | null) => {
       }
     }
   );
-};
+}
 
-export const updateCloudflareApiTokenStatus = (token: string) => {
+export function updateCloudflareApiTokenStatus(token: string) {
   fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(['client/v4/user/tokens/verify', token]);
-};
+}
 
-export const useIsCloudflareApiTokenValid = () => {
+export function useIsCloudflareApiTokenValid() {
   const token = useToken();
   const { data } = useCloudflareApiTokenStatus(token);
 
@@ -49,4 +49,4 @@ export const useIsCloudflareApiTokenValid = () => {
 
     return data.success && data.result.status === 'active';
   }, [data, token]);
-};
+}

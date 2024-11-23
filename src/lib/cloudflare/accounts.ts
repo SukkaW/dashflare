@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-export const useCloudflareAccounts = () => {
+export function useCloudflareAccounts() {
   const token = useToken();
 
   return useSWRInfinite<Cloudflare.APIResponse<Cloudflare.AccountInfo[]>>(
@@ -37,4 +37,4 @@ export const useCloudflareAccounts = () => {
       initialSize: 1_919_810_114_514
     }
   );
-};
+}

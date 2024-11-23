@@ -34,12 +34,10 @@ declare global {
   }
 }
 
-export const isCloudflareAPIResponseError = (input: unknown): input is Cloudflare.APIResponseError => (
-  typeof input === 'object'
-  && input !== null
-  && 'success' in input
-  && input.success === false
-  && 'errors' in input
-  // && 'messages' in input
-  // && 'result' in input
-);
+export function isCloudflareAPIResponseError(input: unknown): input is Cloudflare.APIResponseError {
+  return typeof input === 'object'
+    && input !== null
+    && 'success' in input
+    && input.success === false
+    && 'errors' in input;
+}

@@ -26,7 +26,7 @@ declare global {
   }
 }
 
-export const useCloudflareZoneList = (pageIndex: number, perPage = 20, search = '') => {
+export function useCloudflareZoneList(pageIndex: number, perPage = 20, search = '') {
   const token = useToken();
   const path = search ? `client/v4/zones?name=contains:${search}` : 'client/v4/zones';
   return useSWR<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>>(
@@ -36,11 +36,11 @@ export const useCloudflareZoneList = (pageIndex: number, perPage = 20, search = 
       keepPreviousData: true
     }
   );
-};
+}
 
-export const preloadCloudflareZoneList = (token: string) => {
+export function preloadCloudflareZoneList(token: string) {
   preload<Cloudflare.APIResponse<Cloudflare.ZoneStatus[]>, [string, string, number, number] | null>(
     token ? ['client/v4/zones', token, 1, 20] : null,
     fetcherWithAuthorizationAndPagination
   );
-};
+}

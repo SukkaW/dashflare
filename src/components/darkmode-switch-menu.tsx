@@ -15,7 +15,7 @@ const DarkModeSwitchItem = forwardRef<HTMLDivElement, DarkModeSwitchItemProps>((
   </Group>
 ));
 
-export const DarkModeSwitch = () => {
+export function DarkModeSwitch() {
   // eslint-disable-next-line @typescript-eslint/unbound-method -- stupid ts
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
@@ -35,4 +35,4 @@ export const DarkModeSwitch = () => {
       ]}
     />
   );
-};
+}

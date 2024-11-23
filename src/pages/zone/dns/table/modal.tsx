@@ -141,7 +141,7 @@ const DNSModal = memo(({ record, modalId }: DNSEditFormProps) => {
   );
 });
 
-export const openEditDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
+export function openEditDNSRecordModal(record?: Cloudflare.DNSRecord) {
   const modalId = `dns-record-modal-${record?.id ?? 'create'}`;
 
   return modals.open({
@@ -152,7 +152,7 @@ export const openEditDNSRecordModal = (record?: Cloudflare.DNSRecord) => {
       <DNSModal record={record} modalId={modalId} />
     )
   });
-};
+}
 
 const DeleteDNSRecordModal = memo(({ recordId, recordName, modalId }: { recordId: string, recordName: string, modalId: string }) => {
   const { trigger, isMutating } = useDeleteCloudflareDNSRecord();
@@ -186,7 +186,7 @@ const DeleteDNSRecordModal = memo(({ recordId, recordName, modalId }: { recordId
   );
 });
 
-export const openDeleteDNSRecordModal = (recordId: string, recordName: string) => {
+export function openDeleteDNSRecordModal(recordId: string, recordName: string) {
   const modalId = `dns-delete-record-modal-${recordId}`;
 
   return modals.open({
@@ -197,4 +197,4 @@ export const openDeleteDNSRecordModal = (recordId: string, recordName: string) =
       <DeleteDNSRecordModal recordId={recordId} recordName={recordName} modalId={modalId} />
     )
   });
-};
+}

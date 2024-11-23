@@ -11,12 +11,12 @@ interface HeaderContentProps {
   isMatchLogin: boolean
 }
 
-const CloudflareRateLimit = () => {
+function CloudflareRateLimit() {
   const count = useCloudflareApiRateLimit();
   return (
     <span>{count} / 1200</span>
   );
-};
+}
 
 function HeaderContent({ isMatchLogin }: HeaderContentProps) {
   const [opened, { open, close }] = useDisclosure();
@@ -40,7 +40,8 @@ function HeaderContent({ isMatchLogin }: HeaderContentProps) {
               '&:hover': {
                 backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0]
               }
-            })}>
+            })}
+          >
             <Group spacing="xs">
               <IconUserCircle size={rem(18)} />
               <IconChevronDown size={rem(14)} />

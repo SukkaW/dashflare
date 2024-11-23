@@ -19,7 +19,7 @@ const ZoneListLoading = memo(() => (
   </>
 ));
 
-const ZoneList = () => {
+function ZoneList() {
   const { pagination, handlePageIndexChange, handlePageSizeChange } = usePagination({
     pageIndex: 1,
     pageSize: 20
@@ -43,7 +43,8 @@ const ZoneList = () => {
       <form onSubmit={(e) => {
         e.preventDefault();
         handleCommitSearchQuery();
-      }}>
+      }}
+      >
         <Group>
           <TextInput
             ref={searchInputRef}
@@ -117,7 +118,7 @@ const ZoneList = () => {
       </Alert>
     </>
   );
-};
+}
 
 export default function Homepage() {
   return (

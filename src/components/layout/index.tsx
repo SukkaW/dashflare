@@ -77,7 +77,8 @@ export default function Layout() {
                 <Center w={66} px="sm">
                   <Skeleton radius="md" height={18} width={66} />
                 </Center>
-              }>
+              }
+              >
                 <HeaderContent isMatchLogin={isMatchLogin} />
               </Suspense>
             </Flex>
