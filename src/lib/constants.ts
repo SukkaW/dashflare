@@ -9,5 +9,5 @@ export const PAGE_SIZE_ARRAY: SelectItem[] = [
 
 export const SMALL_PAGE_SIZE_ARRAY: SelectItem[] = [
   { label: '10 / page', value: '10' },
-  { label: '20 / page', value: '20' }
+  { label: '15 / page', value: '15' }
 ];

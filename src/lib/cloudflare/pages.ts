@@ -11,8 +11,15 @@ declare global {
       domains: string[]
     }
 
+    export interface PagesDeploymentStagesInfo {
+      ended_on: null | string,
+      name: string,
+      started_on: null | string,
+      status: 'success' | (string & {})
+    }
+
     export interface PagesDeploymentInfo {
-      alias: string[],
+      aliases: string[] | null,
       build_config: {
         build_caching: boolean,
         build_command: string,
@@ -25,7 +32,9 @@ declare global {
       url: string,
       project_id: string,
       project_name: string,
-      is_skipped: boolean
+      is_skipped: boolean,
+      latest_stage: PagesDeploymentStagesInfo,
+      stages: PagesDeploymentStagesInfo[]
     }
   }
 }

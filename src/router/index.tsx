@@ -11,6 +11,7 @@ import type { Icon } from '@tabler/icons-react';
 
 import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
 import ZoneIndexPage from '../pages/zone/index';
+import CloudflarePagesDeleteDeployments from '../pages/zone/delete-old-pages/delete-projects';
 
 // import Layout from '@/components/layout';
 
@@ -28,7 +29,7 @@ const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'
 const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/etag'));
 
 const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/delete-old-pages'));
-const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/cloudflare-pages-project'));
+// const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/__cloudflare-pages-project'));
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {
@@ -57,15 +58,24 @@ export const homeNavLinks: Array<RouteObject & {
   },
   {
     path: 'account/delete-old-pages',
-    element: <DeleteOldPages />,
     label: 'Delete Old Pages',
     icon: IconServerBolt,
     children: [
       {
-        index: false,
-        path: ':accountId',
-        element: <CloudflarePagesProject />
+        path: '',
+        element: <DeleteOldPages />,
+        children: [
+          {
+            path: ':accountId',
+            element: <CloudflarePagesDeleteDeployments />
+          }
+        ]
       }
+      // {
+      //   index: false,
+      //   path: ':accountId/:projectName',
+      //   element: <CloudflarePagesProjectDeployments />
+      // }
     ]
   }
 ];

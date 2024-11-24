@@ -19,7 +19,7 @@ export default function DeleteOldPages() {
     <Stack>
       <Title>Delete Old Pages</Title>
       <Text c="gray">
-        Delete old Cloudflare Pages deployments.
+        Delete Stale Cloudflare Pages deployments (older than 45 days, keep least 20 rencent deployments).
       </Text>
       <Select
         disabled={isLoading}
