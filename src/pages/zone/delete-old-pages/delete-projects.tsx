@@ -45,6 +45,8 @@ export default function CloudflarePagesDeleteDeployments() {
         appendLog(`[${project.name}] Fetching deployments for project (${project.domains.join(', ')})`);
 
         let page = 1;
+        let successDeployments = 0;
+        let failedDeployments = 0;
         while (true) {
         // eslint-disable-next-line no-await-in-loop -- one request at a time
           const resp = await fetcherWithAuthorizationAndPagination<Cloudflare.APIResponse<Cloudflare.PagesDeploymentInfo[]>>(
@@ -59,19 +61,29 @@ export default function CloudflarePagesDeleteDeployments() {
 
             const key = `${dateStr} ${deployment.environment} ${deployment.url} (skipped: ${deployment.is_skipped}, success ${success})`;
 
+            if (success) {
+              successDeployments++;
+            } else {
+              failedDeployments++;
+            }
+
             if (!deployment.is_skipped || success) {
               if (deployment.aliases !== null && deployment.aliases.length > 0) {
                 appendLog(`[${deployment.project_name}] (skip active deployments ${deployment.aliases.join(', ')}) ${key}`);
                 continue;
               }
-              if (page <= 2) {
-                appendLog(`[${deployment.project_name}] (skip first 20) ${key}`);
+              if (successDeployments <= 20) {
+                appendLog(`[${deployment.project_name}] (skip first 20 succeed) ${key}`);
                 continue;
               }
-              if ((startTimtstamp - date.getTime()) <= 1000 * 60 * 60 * 24 * 45) {
-                appendLog(`[${deployment.project_name}] (skip recent 45 days) ${key}`);
+              if ((startTimtstamp - date.getTime()) <= 1000 * 60 * 60 * 24 * 30) {
+                appendLog(`[${deployment.project_name}] (skip recent 30d) ${key}`);
                 continue;
               }
+            }
+            if (!success && failedDeployments <= 7) {
+              appendLog(`[${deployment.project_name}] (skip first 7 failed) ${key}`);
+              continue;
             }
 
             appendLog(`[${deployment.project_name}] (delete) ${dateStr} ${deployment.environment} ${deployment.url}`);
