@@ -2,7 +2,7 @@ import { useToken } from '@/context/token';
 import { fetcherWithAuthorization } from '../fetcher';
 
 import useSWR from 'swr';
-import { useZoneId } from '../../hooks/use-zone-id';
+import { useZoneId } from '../../hooks/use-params';
 
 interface VerificationInfoHttp {
   http_url: string,
@@ -39,17 +39,21 @@ declare global {
   }
 }
 
-export const useCloudflareSSLVerificationLists = () => useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>>(
-  [`client/v4/zones/${useZoneId()}/ssl/verification`, useToken()],
-  fetcherWithAuthorization
-);
+export function useCloudflareSSLVerificationLists() {
+  return useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>, unknown, [string, string]>(
+    [`client/v4/zones/${useZoneId()}/ssl/verification`, useToken()],
+    fetcherWithAuthorization
+  );
+}
 
-export const updateCloudflareSSLVerification = async (token: string, zoneId: string, uuid: string, validation_method: string) => fetcherWithAuthorization<Cloudflare.APIResponse<{ validation_method: string }>>(
-  [`client/v4/zones/${zoneId}/ssl/verification/${uuid}`, token],
-  {
-    method: 'PATCH',
-    body: JSON.stringify({
-      validation_method
-    })
-  }
-);
+export async function updateCloudflareSSLVerification(token: string, zoneId: string, uuid: string, validation_method: string) {
+  return fetcherWithAuthorization<Cloudflare.APIResponse<{ validation_method: string }>>(
+    [`client/v4/zones/${zoneId}/ssl/verification/${uuid}`, token],
+    {
+      method: 'PATCH',
+      body: JSON.stringify({
+        validation_method
+      })
+    }
+  );
+}

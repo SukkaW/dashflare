@@ -4,11 +4,11 @@ import { useSyncExternalStore } from 'react';
 
 let cloudflareApiRequestTimestamps: number[] = [];
 const cloudflareApiRateLimitListener = new Set<() => void>();
-const subscribeToCloudflareApiRateLimit = (lisener: () => void) => {
+function subscribeToCloudflareApiRateLimit(lisener: () => void) {
   cloudflareApiRateLimitListener.add(lisener);
   return () => cloudflareApiRateLimitListener.delete(lisener);
-};
-const addOneToCloudflareApiRateLimit = () => {
+}
+function addOneToCloudflareApiRateLimit() {
   const now = Date.now();
   const fiveMinutesAgo = now - 5 * 60 * 1000;
 
@@ -19,14 +19,16 @@ const addOneToCloudflareApiRateLimit = () => {
   if (currentCallTimesCount !== newCallTimesCount) {
     cloudflareApiRateLimitListener.forEach((lisener) => lisener());
   }
-};
+}
 
 const getRemainingCloudflareApiRateLimit = () => cloudflareApiRequestTimestamps.length;
 
-export const useCloudflareApiRateLimit = () => useSyncExternalStore(
-  subscribeToCloudflareApiRateLimit,
-  getRemainingCloudflareApiRateLimit
-);
+export function useCloudflareApiRateLimit() {
+  return useSyncExternalStore(
+    subscribeToCloudflareApiRateLimit,
+    getRemainingCloudflareApiRateLimit
+  );
+}
 
 export class HTTPError extends Error {
   data: unknown;
@@ -41,7 +43,7 @@ export class HTTPError extends Error {
 
 export const buildApiEndpoint = (key: string) => new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/_sukka/api/', window.location.href));
 
-export const buildRequestInitWithToken = (token: string, init?: RequestInit): RequestInit => {
+export function buildRequestInitWithToken(token: string, init?: RequestInit): RequestInit {
   const headers = new Headers({
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json'
@@ -53,9 +55,9 @@ export const buildRequestInitWithToken = (token: string, init?: RequestInit): Re
   }
 
   return { ...init, headers };
-};
+}
 
-export const fetcherWithAuthorization = async <T = any>([key, token]: [string, string], options?: RequestInit): Promise<T> => {
+export async function fetcherWithAuthorization<T = unknown>([key, token]: [string, string], options?: RequestInit): Promise<T> {
   addOneToCloudflareApiRateLimit();
 
   const res = await fetch(
@@ -75,9 +77,9 @@ export const fetcherWithAuthorization = async <T = any>([key, token]: [string, s
   }
 
   return data as T;
-};
+}
 
-export const fetcherWithAuthorizationAndPagination = async <T = any>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> => {
+export async function fetcherWithAuthorizationAndPagination<T = any>([key, token, pageIndex, perPage]: [string, string, number?, number?], options?: RequestInit): Promise<T> {
   addOneToCloudflareApiRateLimit();
 
   const url = buildApiEndpoint(key);
@@ -105,9 +107,9 @@ export const fetcherWithAuthorizationAndPagination = async <T = any>([key, token
   }
 
   return data as T;
-};
+}
 
-export const handleFetchError = (error: unknown, title?: string) => {
+export function handleFetchError(error: unknown, title?: string) {
   if (error instanceof HTTPError) {
     if (isCloudflareAPIResponseError(error.data)) {
       error.data.errors.forEach((error) => {
@@ -147,9 +149,9 @@ export const handleFetchError = (error: unknown, title?: string) => {
     message: 'Unknown Error, please check the console for more information'
   });
   console.error(error);
-};
+}
 
-export const extractErrorMessage = (error: unknown) => {
+export function extractErrorMessage(error: unknown) {
   if (error instanceof HTTPError) {
     if (isCloudflareAPIResponseError(error.data)) {
       return error.data.errors.map((error) => error.message).join('\n');
@@ -163,4 +165,4 @@ export const extractErrorMessage = (error: unknown) => {
 
   console.error(error);
   return 'Unknown Error, please check the console for more information';
-};
+}

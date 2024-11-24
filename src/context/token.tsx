@@ -5,10 +5,14 @@ import { notifications } from '@mantine/notifications';
 import { requestIdleCallback } from 'foxact/request-idle-callback';
 
 const TokenContext = createContext<string | null>(null);
-export const useToken = () => useContext(TokenContext);
+export function useToken() {
+  const token = useContext(TokenContext);
+
+  return token!;
+}
 
 const SetTokenContext = createContext<((input: string | null) => void) | null>(null);
-export const useSetToken = () => {
+export function useSetToken() {
   const setToken = useContext(SetTokenContext);
 
   if (!setToken) {
@@ -16,11 +20,11 @@ export const useSetToken = () => {
   }
 
   return setToken;
-};
+}
 
 const TOKEN_NAME = 'cloudflare-api-token';
 
-export const useLogout = () => {
+export function useLogout() {
   const setToken = useSetToken();
   const navigate = useNavigate();
 
@@ -37,9 +41,9 @@ export const useLogout = () => {
       state: { logout: true }
     });
   }, [navigate, setToken]);
-};
+}
 
-export const TokenProvider = ({ children }: React.PropsWithChildren) => {
+export function TokenProvider({ children }: React.PropsWithChildren) {
   const [token, setToken] = useState(() => {
     try {
       return localStorage.getItem(TOKEN_NAME) || null;
@@ -69,4 +73,4 @@ export const TokenProvider = ({ children }: React.PropsWithChildren) => {
       </TokenContext.Provider>
     </SetTokenContext.Provider>
   );
-};
+}

@@ -1,7 +1,7 @@
 import { useToken } from '@/context/token';
 import { fetcherWithAuthorization, handleFetchError } from '../fetcher';
 import useSWR, { mutate } from 'swr';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { useCallback, useState } from 'react';
 
 declare global {
@@ -51,17 +51,21 @@ declare global {
   }
 }
 
-export const useCloudflareZoneAllSettingsAsFallback = () => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon[]>>(
-  [`client/v4/zones/${useZoneId()}/settings`, useToken()],
-  fetcherWithAuthorization
-);
+export function useCloudflareZoneAllSettingsAsFallback() {
+  return useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon[]>, any, [string, string]>(
+    [`client/v4/zones/${useZoneId()}/settings`, useToken()],
+    fetcherWithAuthorization
+  );
+}
 
-export const useCloudflareZoneSetting = <K extends keyof Cloudflare.ZoneSettingsValue>(key: K) => useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>>(
-  [`client/v4/zones/${useZoneId()}/settings/${key}`, useToken()],
-  fetcherWithAuthorization
-);
+export function useCloudflareZoneSetting<K extends keyof Cloudflare.ZoneSettingsValue>(key: K) {
+  return useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>, any, [string, string]>(
+    [`client/v4/zones/${useZoneId()}/settings/${key}`, useToken()],
+    fetcherWithAuthorization
+  );
+}
 
-export const useUpdateCloudflareZoneSetting = <K extends keyof Cloudflare.ZoneSettingsValue>(settingKey: K, title: string) => {
+export function useUpdateCloudflareZoneSetting<K extends keyof Cloudflare.ZoneSettingsValue>(settingKey: K, title: string) {
   const [isMutating, setIsMutating] = useState(false);
   const zoneId = useZoneId();
   const token = useToken();
@@ -98,4 +102,4 @@ export const useUpdateCloudflareZoneSetting = <K extends keyof Cloudflare.ZoneSe
     trigger,
     isMutating
   };
-};
+}

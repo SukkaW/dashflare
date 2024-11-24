@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Navbar, NavLink as MantineNavLink, rem, createStyles, Text, Group, Button } from '@mantine/core';
-import { Link, NavLink as ReactRouterNavLink, useParams } from 'react-router-dom';
+import { Link, NavLink as ReactRouterNavLink, useLocation, useParams } from 'react-router-dom';
 import type { Icon } from '@tabler/icons-react';
 import { IconArrowLeft } from '@tabler/icons-react';
 
-import { navLinks } from '@/router';
+import { homeNavLinks, zoneNavLinks } from '@/router';
 
 interface NavLinkProps {
   to: string,
@@ -22,18 +22,11 @@ const NavLink = memo(({
   icon: Icon
 }: NavLinkProps) => {
   const { classes } = useStyles();
-  const { zoneId, zoneName } = useParams();
-
-  if (!zoneId || !zoneName) return null;
 
   return (
     <ReactRouterNavLink
       className={classes.a}
-      to={
-        to === ''
-          ? `/${zoneId}/${zoneName}`
-          : `/${zoneId}/${zoneName}/${to}`
-      }
+      to={to}
       end
     >
       {({ isActive }) => (
@@ -52,8 +45,9 @@ const NavLink = memo(({
 
 function SidebarContent() {
   // const isTokenActive = useIsCloudflareApiTokenValid();
-  const { zoneName } = useParams();
+  const { zoneId, zoneName } = useParams();
   // if (!isTokenActive || !zoneId || !zoneName) return null;
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -71,14 +65,39 @@ function SidebarContent() {
         )
       }
       <Navbar.Section p="md" grow>
-        {navLinks.map((link) => (
-          <NavLink
-            key={link.path}
-            to={link.path}
-            label={link.label}
-            icon={link.icon}
-          />
-        ))}
+        {useMemo(() => {
+          if (pathname === '/' || zoneId == null) {
+            return (
+              <>
+                {homeNavLinks.map((link) => (
+                  <NavLink
+                    key={link.index ? '/' : link.path!}
+                    to={link.index ? '/' : link.path!}
+                    label={link.label}
+                    icon={link.icon}
+                  />
+                ))}
+              </>
+            );
+          }
+
+          return (
+            <>
+              {zoneNavLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={
+                    link.path === ''
+                      ? `/${zoneId}/${zoneName}`
+                      : `/${zoneId}/${zoneName}/${link.path}`
+                  }
+                  label={link.label}
+                  icon={link.icon}
+                />
+              ))}
+            </>
+          );
+        }, [pathname, zoneId, zoneName])}
       </Navbar.Section>
     </>
   );

@@ -5,10 +5,10 @@ import { handleFetchError } from '@/lib/fetcher';
 import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
 import { notifications } from '@mantine/notifications';
 import { useToken } from '@/context/token';
-import { useZoneId } from '@/hooks/use-zone-id';
+import { useZoneId } from '@/hooks/use-params';
 import { wait } from '@/lib/wait';
 
-export const ChangeAllToHttp = () => {
+export function ChangeAllToHttp() {
   const { data, isLoading, mutate } = useCloudflareSSLVerificationLists();
   const nonHttpPendingCertificates = useMemo(() => data?.result.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
   const [logs, pushLog, clearLog] = useArray<string>(() => (nonHttpPendingCertificates.length === 0
@@ -120,4 +120,4 @@ export const ChangeAllToHttp = () => {
       </Stack>
     </Card>
   );
-};
+}

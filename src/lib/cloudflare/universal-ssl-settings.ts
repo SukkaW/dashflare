@@ -2,7 +2,7 @@ import { useToken } from '@/context/token';
 import { fetcherWithAuthorization } from '../fetcher';
 
 import useSWR from 'swr';
-import { useZoneId } from '../../hooks/use-zone-id';
+import { useZoneId } from '../../hooks/use-params';
 
 declare global {
   namespace Cloudflare {
@@ -13,12 +13,14 @@ declare global {
   }
 }
 
-export const useCloudflareUniversalSSLSettings = () => useSWR<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>(
-  [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
-  fetcherWithAuthorization
-);
+export function useCloudflareUniversalSSLSettings() {
+  return useSWR<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>(
+    [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
+    fetcherWithAuthorization
+  );
+}
 
-export const updateCloudflareUniversalSSLSettings = (key: [key: string, token: string | null], { arg }: { arg: Cloudflare.UniversalSSLSettings }) => {
+export function updateCloudflareUniversalSSLSettings(key: [key: string, token: string | null], { arg }: { arg: Cloudflare.UniversalSSLSettings }) {
   const [url, token] = key;
   if (!token) {
     throw new TypeError('Missing Token!');
@@ -28,4 +30,4 @@ export const updateCloudflareUniversalSSLSettings = (key: [key: string, token: s
     method: 'PATCH',
     body: JSON.stringify(arg)
   });
-};
+}
