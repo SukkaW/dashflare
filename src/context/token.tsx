@@ -1,8 +1,6 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-import { useRetimer } from 'foxact/use-retimer';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { requestIdleCallback } from 'foxact/request-idle-callback';
 
 const TokenContext = createContext<string | null>(null);
 export function useToken() {
@@ -53,18 +51,14 @@ export function TokenProvider({ children }: React.PropsWithChildren) {
   });
 
   // dedupe requestIdleCallback calls
-  const retimer = useRetimer();
   const $setToken = useCallback((input: string | null) => {
     setToken(input);
-    const timerId = requestIdleCallback(() => {
-      if (input) {
-        localStorage.setItem(TOKEN_NAME, input);
-      } else {
-        localStorage.removeItem(TOKEN_NAME);
-      }
-    });
-    retimer(timerId);
-  }, [retimer]);
+    if (input) {
+      localStorage.setItem(TOKEN_NAME, input);
+    } else {
+      localStorage.removeItem(TOKEN_NAME);
+    }
+  }, []);
 
   return (
     <SetTokenContext.Provider value={$setToken}>

@@ -20,7 +20,7 @@ const app = (
   <StrictMode>
     <MantineProviderWithDarkMode>
       <TokenProvider>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} future={{ v7_startTransition: true }} />
       </TokenProvider>
       <Notifications />
     </MantineProviderWithDarkMode>
