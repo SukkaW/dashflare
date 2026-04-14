@@ -3,7 +3,7 @@
 const path = require('node:path');
 const { ProvidePlugin } = require('webpack');
 
-module.exports = require('@corespeed/webpack').createWebpack({
+module.exports = require('tailpack').reactSpa({
   cwd: __filename,
   dotenv: false,
   output: {
@@ -34,7 +34,8 @@ module.exports = require('@corespeed/webpack').createWebpack({
       http: false
       // crypto: require.resolve('crypto-browserify'),
       // stream: require.resolve('stream-browserify'),
-    }
+    },
+    tsconfig: path.resolve(__dirname, 'tsconfig.json')
   },
   devServer: {
     proxy: [
