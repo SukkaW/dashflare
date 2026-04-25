@@ -18,8 +18,12 @@ export default defineConfig({
     {
       name: "@hey-api/sdk",
       validator: "zod",
-      operations: { strategy: "flat" },
+      operations: {
+        strategy: 'byTags',
+        containerName: (name) => `${name}Service`,
+      },
       includeInEntry: true,
+      paramsStructure: 'flat',
     },
     {
       name: "@hey-api/client-ky",
@@ -38,4 +42,19 @@ export default defineConfig({
       includeInEntry: true,
     },
   ],
+  parser: {
+    hooks: {
+      symbols: {
+        getFilePath: (symbol) => {
+          if (
+            symbol.kind === 'class' &&
+            symbol.name?.endsWith('Service')
+          ) {
+            return `services/${symbol.name}`
+          }
+          return;
+        },
+      },
+    },
+  },
 });

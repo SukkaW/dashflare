@@ -39,7 +39,7 @@
     "@cloudflare/workers-types": "^4.20260425.1",
     "@eslint-sukka/node": "^8.9.3",
     "@eslint-sukka/react": "^8.9.3",
-    "@hey-api/openapi-ts": "^0.96.1",
+    "@hey-api/openapi-ts": "link:../openapi-ts/packages/openapi-ts",
     "@swc/core": "^1.15.30",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
