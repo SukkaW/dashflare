@@ -11,7 +11,7 @@ interface TokenModalProps {
 
 const TokenViewer = memo(({ opened, onClose }: TokenModalProps) => {
   const token = useToken();
-  const { data: tokenStatusData, isLoading } = useCloudflareApiTokenStatus(token);
+  const { data: tokenStatusData, isLoading } = useCloudflareApiTokenStatus();
   const logout = useLogout();
 
   const badgeColor = useMemo(() => {

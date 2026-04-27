@@ -1,40 +1,25 @@
-import { updateCloudflareUniversalSSLSettings, useCloudflareUniversalSSLSettings } from '@/lib/cloudflare/universal-ssl-settings';
+import { useCloudflareUniversalSSLSettings, useUpdateCloudflareUniversalSSLSettings } from '@/lib/cloudflare/universal-ssl-settings';
 import { Anchor, Button, Card, Group, NativeSelect, Stack, Switch, Text, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import useSWRMutation from 'swr/mutation';
-import { useZoneId } from '@/hooks/use-params';
-import { useToken } from '@/context/token';
-import { handleFetchError } from '@/lib/fetcher';
-
 export default function UniversalSSLPage() {
   const { data, isLoading } = useCloudflareUniversalSSLSettings();
-  const { trigger, isMutating } = useSWRMutation(
-    [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
-    updateCloudflareUniversalSSLSettings,
-    {
-      throwOnError: false,
-      revalidate: false,
-      onError(e) {
-        handleFetchError(e, 'Failed to update Universal SSL settings');
-      }
-    }
-  );
+  const { trigger, isMutating } = useUpdateCloudflareUniversalSSLSettings();
   const shouldDisableInput = isLoading || isMutating;
 
   const form = useForm<Cloudflare.UniversalSSLSettings>({
     initialValues: {
-      enabled: data?.result.enabled ?? true,
-      certificate_authority: data?.result.certificate_authority || 'lets_encrypt'
+      enabled: data?.result?.enabled ?? true,
+      certificate_authority: data?.result?.certificate_authority || 'lets_encrypt'
     },
     validateInputOnBlur: true
   });
 
   if (data?.result) {
     if (!form.isTouched('enabled')) {
-      form.setFieldValue('enabled', data.result.enabled);
+      form.setFieldValue('enabled', data.result.enabled ?? true);
     }
-    if (!form.isTouched('certificate_authority')) {
+    if (!form.isTouched('certificate_authority') && data.result.certificate_authority) {
       form.setFieldValue('certificate_authority', data.result.certificate_authority);
     }
   }

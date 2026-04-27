@@ -1,4 +1,9 @@
 module.exports = require('eslint-config-sukka').sukka({
+  ignores: {
+    customGlobs: [
+      './src/sdk/**/*'
+    ]
+  },
   node: {
     enable: true,
     files: ['webpack.config.js']
@@ -6,5 +11,12 @@ module.exports = require('eslint-config-sukka').sukka({
   react: true,
   ts: {
     tsconfigPath: ['./tsconfig.json', './functions/tsconfig.json']
+  }
+}, {
+  files: [
+    './src/lib/cloudflare/**/*'
+  ],
+  rules: {
+    '@typescript-eslint/unbound-method': 'off'
   }
 });

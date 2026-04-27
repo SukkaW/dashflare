@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
-import { isCloudflareAPIResponseError } from './cloudflare/types';
 import { useSyncExternalStore } from 'react';
+import { isHTTPError } from 'ky';
 
 let cloudflareApiRequestTimestamps: number[] = [];
 const cloudflareApiRateLimitListener = new Set<() => void>();
@@ -29,18 +29,6 @@ export function useCloudflareApiRateLimit() {
     getRemainingCloudflareApiRateLimit
   );
 }
-
-export class HTTPError extends Error {
-  data: unknown;
-  status: number;
-  name = 'HTTPError';
-  constructor(message: string, data: unknown, status: number) {
-    super(message);
-    this.data = data;
-    this.status = status;
-  }
-}
-
 export const buildApiEndpoint = (key: string) => new URL(key, process.env.CLOUDFLARE_API_ENDPOINT || new URL('/_sukka/api/', window.location.href));
 
 export function buildRequestInitWithToken(token: string, init?: RequestInit): RequestInit {
@@ -110,27 +98,27 @@ export async function fetcherWithAuthorizationAndPagination<T = any>([key, token
 }
 
 export function handleFetchError(error: unknown, title?: string) {
-  if (error instanceof HTTPError) {
-    if (isCloudflareAPIResponseError(error.data)) {
-      error.data.errors.forEach((error) => {
-        notifications.show({
-          color: 'red',
-          id: `${error.code}-${error.message}`,
-          title,
-          message: error.message
-        });
-      });
+  if (isHTTPError(error)) {
+    // if (isCloudflareAPIResponseError(error.data)) {
+    //   error.data.errors.forEach((error) => {
+    //     notifications.show({
+    //       color: 'red',
+    //       id: `${error.code}-${error.message}`,
+    //       title,
+    //       message: error.message
+    //     });
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
     notifications.show({
       color: 'red',
       title,
-      message: `HTTP Error ${error.status}, please check the console for more information.`
+      message: `HTTP Error ${error.response.status}, please check the console for more information.`
     });
 
-    console.error('[HTTP Error]', error.status, error.data);
+    console.error('[HTTP Error]', error.response.status, error.response.url);
     return;
   }
   if (error instanceof Error) {
@@ -151,18 +139,18 @@ export function handleFetchError(error: unknown, title?: string) {
   console.error(error);
 }
 
-export function extractErrorMessage(error: unknown) {
-  if (error instanceof HTTPError) {
-    if (isCloudflareAPIResponseError(error.data)) {
-      return error.data.errors.map((error) => error.message).join('\n');
-    }
+// export function extractErrorMessage(error: unknown) {
+//   if (error instanceof HTTPError) {
+//     if (isCloudflareAPIResponseError(error.data)) {
+//       return error.data.errors.map((error) => error.message).join('\n');
+//     }
 
-    return `HTTP Error ${error.status}, response: ${typeof error.data === 'string' ? error.data : JSON.stringify(error.data, null, 2)}`;
-  }
-  if (error instanceof Error) {
-    return `${error.name}: ${error.message}${error.stack ? `\n${error.stack}` : ''}`;
-  }
+//     return `HTTP Error ${error.status}, response: ${typeof error.data === 'string' ? error.data : JSON.stringify(error.data, null, 2)}`;
+//   }
+//   if (error instanceof Error) {
+//     return `${error.name}: ${error.message}${error.stack ? `\n${error.stack}` : ''}`;
+//   }
 
-  console.error(error);
-  return 'Unknown Error, please check the console for more information';
-}
+//   console.error(error);
+//   return 'Unknown Error, please check the console for more information';
+// }

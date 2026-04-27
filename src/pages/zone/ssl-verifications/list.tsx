@@ -40,9 +40,12 @@ export function SSLVerificationsList() {
 
   return (
     <Accordion variant="separated">
-      {data?.result.map(item => (
+      {data?.result?.map(item => (
         <SSLVerificationItem
-          key={item.cert_pack_uuid || item.hostname}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped cloudflare certpack hostname
+          key={item.cert_pack_uuid || (item as any).hostname}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped cloudflare certpack hostname
+          hostname={(item as any).hostname}
           {...item}
         />
       ))}

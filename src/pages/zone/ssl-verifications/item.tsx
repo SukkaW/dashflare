@@ -1,12 +1,10 @@
 import { Badge, Accordion, Group, NativeSelect, Text, Divider, Button, Stack } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { memo, useMemo, useState } from 'react';
-import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
-import { handleFetchError } from '@/lib/fetcher';
-import { useToken } from '@/context/token';
-import { useZoneId } from '@/hooks/use-params';
+import { memo, useMemo } from 'react';
+import { useCloudflareSSLVerificationLists, useUpdateCloudflareSSLVerification } from '@/lib/cloudflare/ssl-verification';
 import CodeBlock from '@/components/code-block';
 import title from 'title';
+import type { TlsCertificatesAndHostnamesVerification } from '../../../sdk';
 
 interface ControlProps {
   hostname: string,
@@ -52,9 +50,7 @@ function Form({
   initial_validation_method
 }: FormProps) {
   const { mutate } = useCloudflareSSLVerificationLists();
-  const [isMutating, setIsMutating] = useState(false);
-  const token = useToken();
-  const zoneId = useZoneId();
+  const { trigger, isMutating } = useUpdateCloudflareSSLVerification();
 
   const form = useForm<{
     validation_method: Cloudflare.CertificateStatus['validation_method']
@@ -67,23 +63,8 @@ function Form({
   return (
     <form
       onSubmit={form.onSubmit(async values => {
-        setIsMutating(true);
-        try {
-          if (!token) {
-            throw new TypeError('Missing API token');
-          }
-          await updateCloudflareSSLVerification(
-            token,
-            zoneId,
-            cert_pack_uuid,
-            values.validation_method
-          );
-          mutate();
-        } catch (e) {
-          handleFetchError(e);
-        } finally {
-          setIsMutating(false);
-        }
+        await trigger(cert_pack_uuid, values.validation_method);
+        mutate();
       })}
     >
       <Group align="flex-start">
@@ -192,7 +173,7 @@ export const SSLVerificationItem = memo(({
   validation_method,
   verification_info,
   validation_type
-}: Cloudflare.CertificateStatus) => (
+}: TlsCertificatesAndHostnamesVerification) => (
   <Accordion.Item value={cert_pack_uuid || hostname}>
     <Accordion.Control py="xs">
       <Control hostname={hostname} certificate_status={certificate_status} validation_method={validation_method} />

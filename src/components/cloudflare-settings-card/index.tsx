@@ -35,7 +35,7 @@ interface CloudflareSettingCardProps<T extends keyof Cloudflare.ZoneSettingsValu
   checkboxes?: Array<{ label: string, key: K extends string ? K : never }>
 }
 
-function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K extends keyof Cloudflare.ZoneSettingsValue[T]>({
+export default memo(function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K extends keyof Cloudflare.ZoneSettingsValue[T]>({
   title,
   description,
   type,
@@ -60,7 +60,7 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K e
     }
   }, [trigger, type]);
 
-  const handleTextInputFormSubmit = useCallback((evt: React.FormEvent<HTMLFormElement>) => {
+  const handleTextInputFormSubmit = useCallback<React.SubmitEventHandler<HTMLFormElement>>((evt) => {
     evt.preventDefault();
     if (type === 'input') {
       const value = textInputRef.current?.value;
@@ -158,6 +158,4 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K e
       </Grid>
     </Card>
   );
-}
-
-export default memo(CloudflareSettingCard) as any as typeof CloudflareSettingCard;
+});
