@@ -5,13 +5,9 @@ import { createLocalStorageState } from 'foxact/create-local-storage-state';
 
 const TOKEN_NAME = 'cloudflare-api-token';
 
-const [_useRawToken, useRawTokenValue, useSetRawToken] = createLocalStorageState<string | null>(TOKEN_NAME, null, { raw: true });
+const [_useTokenState, useToken, useSetRawToken] = createLocalStorageState<string | null>(TOKEN_NAME, null, { raw: true });
 
-const TokenContext = createContext<string | null>(null);
-export function useToken() {
-  const token = useRawTokenValue();
-  return token!;
-}
+export { useToken };
 export const useSetToken = useSetRawToken;
 export function useLogout() {
   const setToken = useSetToken();
