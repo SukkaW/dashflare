@@ -22,6 +22,7 @@ import CloudflarePagesDeleteDeployments from '../pages/zone/delete-old-pages/del
 // 使用 React.lazy 做代码分割
 // 注意用 import(/* webpackPrefetch: true */ '@/oages/') 为所有路由都做预加载
 
+/* eslint-disable react-refresh/only-export-components -- lazy */
 const Homepage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/home'));
 const UniversalSSLPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/universal-ssl'));
 const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/ssl-verifications'));
@@ -30,6 +31,7 @@ const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/eta
 
 const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/delete-old-pages'));
 // const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/__cloudflare-pages-project'));
+/* eslint-enable react-refresh/only-export-components */
 
 // 自定义 ErrorBoundary
 const ErrorBoundary = memo(() => {

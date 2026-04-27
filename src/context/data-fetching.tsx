@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { SWRConfig } from 'swr';
 import type { Middleware } from 'swr';
-import { type HTTPError, isHTTPError } from 'ky';
+import { isHTTPError } from 'ky';
+import type { HTTPError } from 'ky';
 import { needLogin, isNeedLoginError } from 'sekisho';
 import { TayoriProvider } from '@/lib/tayori';
 import { createClient } from '@/sdk/client';
 import { useToken } from './token';
+import { useLayoutEffect } from 'foxact/use-isomorphic-layout-effect';
 
 function isHTTP401Error(error: unknown): error is HTTPError {
   return isHTTPError(error) && error.response.status === 401;
@@ -47,7 +49,10 @@ const chainErrorHandlingMiddleware: Middleware = (useSWRNext) => (key, customFet
 export function DataFetchingProvider({ children }: React.PropsWithChildren) {
   const token = useToken();
   const tokenRef = useRef(token);
-  tokenRef.current = token;
+
+  useLayoutEffect(() => {
+    tokenRef.current = token;
+  }, [token]);
 
   return (
     <TayoriProvider

@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-react/component-hook-factories -- re-usable utility */
 import { useParams } from 'react-router-dom';
 
 export function createUseParams(key: string) {

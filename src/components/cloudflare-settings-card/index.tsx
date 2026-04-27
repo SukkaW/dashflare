@@ -35,7 +35,7 @@ interface CloudflareSettingCardProps<T extends keyof Cloudflare.ZoneSettingsValu
   checkboxes?: Array<{ label: string, key: K extends string ? K : never }>
 }
 
-function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K extends keyof Cloudflare.ZoneSettingsValue[T]>({
+export default memo(function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K extends keyof Cloudflare.ZoneSettingsValue[T]>({
   title,
   description,
   type,
@@ -158,6 +158,4 @@ function CloudflareSettingCard<T extends keyof Cloudflare.ZoneSettingsValue, K e
       </Grid>
     </Card>
   );
-}
-
-export default memo(CloudflareSettingCard) as any as typeof CloudflareSettingCard;
+});
