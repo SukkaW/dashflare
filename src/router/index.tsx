@@ -9,7 +9,7 @@ import NotFoundPage from '@/pages/404';
 import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer, IconServerBolt } from '@tabler/icons-react';
 import type { Icon } from '@tabler/icons-react';
 
-import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
+import { SekishoRouteGuard, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
 import ZoneIndexPage from '../pages/zone/index';
 import CloudflarePagesDeleteDeployments from '../pages/zone/delete-old-pages/delete-projects';
 
@@ -135,7 +135,7 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        element: <ProtectRoute />,
+        element: <SekishoRouteGuard />,
         children: [
           ...homeNavLinks,
           {

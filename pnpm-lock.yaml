@@ -85,6 +85,9 @@ importers:
       react-router-dom:
         specifier: '6'
         version: 6.30.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      sekisho:
+        specifier: ^0.1.1
+        version: 0.1.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       swr:
         specifier: ^2.4.1
         version: 2.4.1(react@19.2.5)
@@ -3195,6 +3198,11 @@ packages:
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
     engines: {node: ^14.0.0 || >=16.0.0}
+
+  sekisho@0.1.1:
+    resolution: {integrity: sha512-aC3krvDiiVkVe3vB3++hlTvjQbd+zwAPEswv0rD9okpyjqPIObBEYCQmb9EprbQ/gX43mo5nn8OK3GFyzgJbPQ==}
+    peerDependencies:
+      react: '>=17.0.0'
 
   select-hose@2.0.0:
     resolution: {integrity: sha512-mEugaLK+YfkijB4fx0e6kImuJdCIt2LxCRcbEYPqRGCs4F2ogyfZU5IAZRdjCP8JPq2AtdNoC/Dux63d9Kiryg==}
@@ -7019,6 +7027,13 @@ snapshots:
       '@eslint-community/regexpp': 4.12.2
       refa: 0.12.1
       regexp-ast-analysis: 0.7.1
+
+  sekisho@0.1.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+    dependencies:
+      foxact: 0.3.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react: 19.2.5
+    transitivePeerDependencies:
+      - react-dom
 
   select-hose@2.0.0: {}
 
