@@ -1,27 +1,18 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-
-const TokenContext = createContext<string | null>(null);
-export function useToken() {
-  const token = useContext(TokenContext);
-
-  return token!;
-}
-
-const SetTokenContext = createContext<((input: string | null) => void) | null>(null);
-export function useSetToken() {
-  const setToken = useContext(SetTokenContext);
-
-  if (!setToken) {
-    throw new Error('You must wrap your app with <TokenProvider />');
-  }
-
-  return setToken;
-}
+import { createLocalStorageState } from 'foxact/create-local-storage-state';
 
 const TOKEN_NAME = 'cloudflare-api-token';
 
+const [_useRawToken, useRawTokenValue, useSetRawToken] = createLocalStorageState<string | null>(TOKEN_NAME, null, { raw: true });
+
+const TokenContext = createContext<string | null>(null);
+export function useToken() {
+  const token = useRawTokenValue();
+  return token!;
+}
+export const useSetToken = useSetRawToken;
 export function useLogout() {
   const setToken = useSetToken();
   const navigate = useNavigate();
@@ -39,32 +30,4 @@ export function useLogout() {
       state: { logout: true }
     });
   }, [navigate, setToken]);
-}
-
-export function TokenProvider({ children }: React.PropsWithChildren) {
-  const [token, setToken] = useState(() => {
-    try {
-      return localStorage.getItem(TOKEN_NAME) || null;
-    } catch {
-      return null;
-    }
-  });
-
-  // dedupe requestIdleCallback calls
-  const $setToken = useCallback((input: string | null) => {
-    setToken(input);
-    if (input) {
-      localStorage.setItem(TOKEN_NAME, input);
-    } else {
-      localStorage.removeItem(TOKEN_NAME);
-    }
-  }, []);
-
-  return (
-    <SetTokenContext.Provider value={$setToken}>
-      <TokenContext.Provider value={token}>
-        {children}
-      </TokenContext.Provider>
-    </SetTokenContext.Provider>
-  );
 }
