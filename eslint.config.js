@@ -12,4 +12,11 @@ module.exports = require('eslint-config-sukka').sukka({
   ts: {
     tsconfigPath: ['./tsconfig.json', './functions/tsconfig.json']
   }
+}, {
+  files: [
+    './src/lib/cloudflare/**/*'
+  ],
+  rules: {
+    '@typescript-eslint/unbound-method': 'off'
+  }
 });

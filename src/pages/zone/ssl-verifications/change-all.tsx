@@ -1,37 +1,24 @@
 import { Button, Card, Code, Stack, Text } from '@mantine/core';
 import { useArray } from 'foxact/use-array';
 import { useCallback, useMemo, useState } from 'react';
-import { handleFetchError } from '@/lib/fetcher';
-import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } from '@/lib/cloudflare/ssl-verification';
+import { useCloudflareSSLVerificationLists, useUpdateCloudflareSSLVerification } from '@/lib/cloudflare/ssl-verification';
 import { notifications } from '@mantine/notifications';
-import { useToken } from '@/context/token';
-import { useZoneId } from '@/hooks/use-params';
 import { wait } from '@/lib/wait';
 
 export function ChangeAllToHttp() {
   const { data, isLoading, mutate } = useCloudflareSSLVerificationLists();
-  const nonHttpPendingCertificates = useMemo(() => data?.result.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
+  const nonHttpPendingCertificates = useMemo(() => data?.result?.filter((cert) => cert.validation_method !== 'http' && cert.certificate_status === 'pending_validation') ?? [], [data]);
   const [logs, pushLog, clearLog] = useArray<string>(() => (nonHttpPendingCertificates.length === 0
     ? ['This is where log outpus', 'There is no pending certificates, or all pending certificates are already using HTTP as validation method!']
     : ['This is where log outpus']));
 
-  const token = useToken();
-  const zoneId = useZoneId();
+  const { trigger: updateSSLVerification } = useUpdateCloudflareSSLVerification();
 
   const [isMutating, setIsMutating] = useState(false);
   const handleChange = useCallback(async () => {
     const tasks = nonHttpPendingCertificates.slice();
     setIsMutating(true);
     try {
-      if (!token) {
-        pushLog('Missing API Token!');
-        notifications.show({
-          color: 'red',
-          message: 'Missing API Token!'
-        });
-        return;
-      }
-
       if (tasks.length === 0) {
         pushLog('All pending certificates are already using HTTP as validation method!');
         notifications.show({
@@ -50,21 +37,23 @@ export function ChangeAllToHttp() {
           i--;
           continue;
         }
+        // @ts-expect-error -- cloudflare incorrect typing
         if (task.certificate_status !== 'pending_validation') {
           i--;
           continue;
         }
 
         pushLog(`Changing validation method for [${task.hostname}] (${i}/${tasks.length})...`);
-        // eslint-disable-next-line no-await-in-loop -- do this one by one
-        const resp = await updateCloudflareSSLVerification(
-          token,
-          zoneId,
-          task.cert_pack_uuid,
-          'http'
-        );
-        i--;
-        pushLog(`Validation method for [${task.hostname}] is changed to [${resp.result.validation_method}]!`);
+
+        if (task.cert_pack_uuid) {
+          const resp = await updateSSLVerification(task.cert_pack_uuid, 'http');
+          i--;
+          pushLog(`Validation method for [${task.hostname}] is changed to [${resp.result?.validation_method}]!`);
+        } else {
+          i--;
+          pushLog(`Certificate [${task.hostname}] does not have cert_pack_uuid, skipping...`);
+        }
+
         if (i === 0) {
           mutate();
         } else {
@@ -78,13 +67,12 @@ export function ChangeAllToHttp() {
 
         pushLog('Done!');
       }
-    } catch (e) {
+    } catch {
       pushLog('Failed to change all certificates\' validation method to HTTP!');
-      handleFetchError(e);
     } finally {
       setIsMutating(false);
     }
-  }, [clearLog, mutate, nonHttpPendingCertificates, pushLog, token, zoneId]);
+  }, [clearLog, mutate, nonHttpPendingCertificates, pushLog, updateSSLVerification]);
 
   return (
     <Card withBorder shadow="sm">

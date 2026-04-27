@@ -1,33 +1,27 @@
-import { useToken } from '@/context/token';
-import { fetcherWithAuthorization } from '../fetcher';
-
-import useSWR from 'swr';
-import { useZoneId } from '../../hooks/use-params';
-
-declare global {
-  namespace Cloudflare {
-    export interface UniversalSSLSettings {
-      enabled: boolean,
-      certificate_authority: 'lets_encrypt' | 'google' | 'digicert' | 'ssl_com'
-    }
-  }
-}
+import { useData, useMutation } from '@/lib/tayori';
+import { UniversalSslSettingsForAZoneService } from '@/sdk';
+import type { TlsCertificatesAndHostnamesUniversal } from '@/sdk';
+import { useZoneId } from '@/hooks/use-params';
 
 export function useCloudflareUniversalSSLSettings() {
-  return useSWR<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>(
-    [`client/v4/zones/${useZoneId()}/ssl/universal/settings`, useToken()],
-    fetcherWithAuthorization
+  const zoneId = useZoneId();
+  return useData(
+    UniversalSslSettingsForAZoneService.universalSslSettingsForAZoneUniversalSslSettingsDetails,
+    { zone_id: zoneId }
   );
 }
 
-export function updateCloudflareUniversalSSLSettings(key: [key: string, token: string | null], { arg }: { arg: Cloudflare.UniversalSSLSettings }) {
-  const [url, token] = key;
-  if (!token) {
-    throw new TypeError('Missing Token!');
-  }
+export function useUpdateCloudflareUniversalSSLSettings() {
+  const zoneId = useZoneId();
+  const { trigger: sdkTrigger, ...rest } = useMutation(
+    UniversalSslSettingsForAZoneService.universalSslSettingsForAZoneEditUniversalSslSettings
+  );
 
-  return fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.UniversalSSLSettings>>([url, token], {
-    method: 'PATCH',
-    body: JSON.stringify(arg)
-  });
+  return {
+    ...rest,
+    trigger: (value: TlsCertificatesAndHostnamesUniversal) => sdkTrigger({
+      zone_id: zoneId,
+      tlsCertificatesAndHostnamesUniversal: value
+    })
+  };
 }

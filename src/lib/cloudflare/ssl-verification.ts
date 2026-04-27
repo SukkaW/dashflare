@@ -1,8 +1,6 @@
-import { useToken } from '@/context/token';
-import { fetcherWithAuthorization } from '../fetcher';
-
-import useSWR from 'swr';
-import { useZoneId } from '../../hooks/use-params';
+import { useData, useMutation } from '@/lib/tayori';
+import { SslVerificationService } from '@/sdk';
+import { useZoneId } from '@/hooks/use-params';
 
 interface VerificationInfoHttp {
   http_url: string,
@@ -40,20 +38,25 @@ declare global {
 }
 
 export function useCloudflareSSLVerificationLists() {
-  return useSWR<Cloudflare.APIResponse<Cloudflare.CertificateStatus[]>, unknown, [string, string]>(
-    [`client/v4/zones/${useZoneId()}/ssl/verification`, useToken()],
-    fetcherWithAuthorization
+  const zoneId = useZoneId();
+  return useData(
+    SslVerificationService.sslVerificationSslVerificationDetails,
+    { zone_id: zoneId }
   );
 }
 
-export async function updateCloudflareSSLVerification(token: string, zoneId: string, uuid: string, validation_method: string) {
-  return fetcherWithAuthorization<Cloudflare.APIResponse<{ validation_method: string }>>(
-    [`client/v4/zones/${zoneId}/ssl/verification/${uuid}`, token],
-    {
-      method: 'PATCH',
-      body: JSON.stringify({
-        validation_method
-      })
-    }
+export function useUpdateCloudflareSSLVerification() {
+  const zoneId = useZoneId();
+  const { trigger: sdkTrigger, ...rest } = useMutation(
+    SslVerificationService.sslVerificationEditSslCertificatePackValidationMethod
   );
+
+  return {
+    ...rest,
+    trigger: (certPackUuid: string, validationMethod: string) => sdkTrigger({
+      zone_id: zoneId,
+      certificate_pack_id: certPackUuid,
+      tlsCertificatesAndHostnamesComponentsSchemasValidationMethod: { validation_method: validationMethod as any }
+    })
+  };
 }

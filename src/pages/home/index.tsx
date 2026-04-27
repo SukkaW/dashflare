@@ -69,16 +69,20 @@ function ZoneList() {
           </tr>
         </thead>
         <tbody>
-          {data?.result.map((zone) => (
+          {data?.result?.map((zone) => (
             <tr key={zone.id}>
               <td>{zone.name}</td>
-              <td>{title(zone.status)}</td>
+              <td>{title(zone.status || 'unknown')}</td>
               <td>
-                <Text truncate maw={256} title={zone.host?.name || 'Cloudflare'}>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped Cloudflare legacy partner data */}
+                <Text truncate maw={256} title={(zone as any).host?.name || 'Cloudflare'}>
                   {
-                    zone.host?.website
-                      ? <Anchor target="_blank" href={generateAbsoluteURL(zone.host.website)}>{zone.host.name}</Anchor>
-                      : (zone.host?.name || 'Cloudflare')
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped Cloudflare legacy partner data
+                    (zone as any).host?.website
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped Cloudflare legacy partner data
+                      ? <Anchor target="_blank" href={generateAbsoluteURL((zone as any).host.website)}>{(zone as any).host.name}</Anchor>
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- untyped Cloudflare legacy partner data
+                      : ((zone as any).host?.name || 'Cloudflare')
                   }
                 </Text>
               </td>

@@ -5,11 +5,12 @@ import { createColumnHelper, useReactTable, getCoreRowModel, flexRender } from '
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useStyles } from './table.styles';
 import { openDeleteDNSRecordModal, openEditDNSRecordModal } from './modal';
+import type { DnsRecordsDnsRecordResponse } from '../../../../sdk';
 
-const columnHelper = createColumnHelper<Cloudflare.DNSRecord>();
-const EMPTY_ARRAY: Cloudflare.DNSRecord[] = [];
+const columnHelper = createColumnHelper<DnsRecordsDnsRecordResponse>();
+const EMPTY_ARRAY: DnsRecordsDnsRecordResponse[] = [];
 
-const ValueCell = memo(({ value }: { value: string }) => {
+const ValueCell = memo(({ value }: { value: string | undefined }) => {
   const { classes } = useStyles();
 
   return (
@@ -19,7 +20,7 @@ const ValueCell = memo(({ value }: { value: string }) => {
   );
 });
 
-const ProxiedCell = memo(({ proxied, proxiable }: Pick<Cloudflare.DNSRecord, 'proxied' | 'proxiable'>) => {
+const ProxiedCell = memo(({ proxied, proxiable }: Pick<DnsRecordsDnsRecordResponse, 'proxied' | 'proxiable'>) => {
   const { cx, classes } = useStyles();
 
   if (!proxiable) {
@@ -45,7 +46,7 @@ const ProxiedCell = memo(({ proxied, proxiable }: Pick<Cloudflare.DNSRecord, 'pr
 });
 
 interface ActionCellProps {
-  record: Cloudflare.DNSRecord
+  record: DnsRecordsDnsRecordResponse
 }
 
 const ActionCell = memo(({ record }: ActionCellProps) => (
@@ -133,7 +134,7 @@ const columns = [
 ];
 
 interface DNSDataTableProps {
-  data: Cloudflare.DNSRecord[],
+  data: DnsRecordsDnsRecordResponse[],
   pageCount: number,
   pagination: PaginationState
 }

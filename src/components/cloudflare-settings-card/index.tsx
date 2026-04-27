@@ -60,7 +60,7 @@ export default memo(function CloudflareSettingCard<T extends keyof Cloudflare.Zo
     }
   }, [trigger, type]);
 
-  const handleTextInputFormSubmit = useCallback((evt: React.FormEvent<HTMLFormElement>) => {
+  const handleTextInputFormSubmit = useCallback<React.SubmitEventHandler<HTMLFormElement>>((evt) => {
     evt.preventDefault();
     if (type === 'input') {
       const value = textInputRef.current?.value;

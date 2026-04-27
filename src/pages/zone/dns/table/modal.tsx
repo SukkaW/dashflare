@@ -6,9 +6,10 @@ import { memo, useCallback, useMemo, useState } from 'react';
 
 import { useStyles } from './table.styles';
 import { IconCloudflare } from '@/components/icons/cloudflare';
+import type { DnsRecordsDnsRecordResponse } from '../../../../sdk';
 
 interface DNSEditFormProps {
-  record?: Cloudflare.DNSRecord | undefined | null,
+  record?: DnsRecordsDnsRecordResponse | undefined | null,
   modalId: string
 }
 
@@ -20,7 +21,7 @@ const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
 
   const { cx, classes } = useStyles();
 
-  const form = useForm<Cloudflare.CreateDNSRecord>({
+  const form = useForm<DnsRecordsDnsRecordPostWritable>({
     initialValues: {
       type: record?.type ?? 'A',
       name: record?.name ?? '',
@@ -38,7 +39,7 @@ const DNSEditForm = memo(({ record, modalId }: DNSEditFormProps) => {
     setAutoTtl(isAutoTtl);
   }, [form]);
 
-  const handleReset: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
+  const handleReset: React.ReactEventHandler<HTMLFormElement> = useCallback((e) => {
     form.onReset(e);
     modals.close(modalId);
   }, [form, modalId]);
@@ -141,7 +142,7 @@ const DNSModal = memo(({ record, modalId }: DNSEditFormProps) => {
   );
 });
 
-export function openEditDNSRecordModal(record?: Cloudflare.DNSRecord) {
+export function openEditDNSRecordModal(record?: DnsRecordsDnsRecordResponse) {
   const modalId = `dns-record-modal-${record?.id ?? 'create'}`;
 
   return modals.open({

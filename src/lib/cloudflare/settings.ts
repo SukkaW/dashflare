@@ -1,8 +1,8 @@
-import { useToken } from '@/context/token';
-import { fetcherWithAuthorization, handleFetchError } from '../fetcher';
-import useSWR, { mutate } from 'swr';
+import { useData, useMutation } from '@/lib/tayori';
+import { unstable_mutateWithTags } from 'tayori';
+import { ZoneSettingsService } from '@/sdk';
 import { useZoneId } from '@/hooks/use-params';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
 declare global {
   namespace Cloudflare {
@@ -52,54 +52,40 @@ declare global {
 }
 
 export function useCloudflareZoneAllSettingsAsFallback() {
-  return useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon[]>, any, [string, string]>(
-    [`client/v4/zones/${useZoneId()}/settings`, useToken()],
-    fetcherWithAuthorization
+  const zoneId = useZoneId();
+  return useData(
+    ZoneSettingsService.zoneSettingsGetAllZoneSettings,
+    { zone_id: zoneId }
   );
 }
 
 export function useCloudflareZoneSetting<K extends keyof Cloudflare.ZoneSettingsValue>(key: K) {
-  return useSWR<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>, any, [string, string]>(
-    [`client/v4/zones/${useZoneId()}/settings/${key}`, useToken()],
-    fetcherWithAuthorization
+  const zoneId = useZoneId();
+  return useData(
+    ZoneSettingsService.zoneSettingsGetSingleSetting,
+    { zone_id: zoneId, setting_id: key, cacheTags: [`#zone-setting-${key}` as const] }
   );
 }
 
-export function useUpdateCloudflareZoneSetting<K extends keyof Cloudflare.ZoneSettingsValue>(settingKey: K, title: string) {
-  const [isMutating, setIsMutating] = useState(false);
+export function useUpdateCloudflareZoneSetting<K extends keyof Cloudflare.ZoneSettingsValue>(settingKey: K, _title: string) {
   const zoneId = useZoneId();
-  const token = useToken();
+  const { trigger: sdkTrigger, isMutating } = useMutation(
+    ZoneSettingsService.zoneSettingsEditSingleSetting
+  );
 
-  const trigger = useCallback(async (value: Cloudflare.ZoneSettingsValue[K]) => {
-    setIsMutating(true);
-
+  const trigger = useCallback(async (value: ZonesZoneSettingsSingleRequestWritable) => {
     try {
-      if (!token) throw new Error('There is no token.');
-
-      const url = `client/v4/zones/${zoneId}/settings/${settingKey}`;
-      const swrKey = [url, token] as [string, string];
-      const resp = await fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.SettingsCommon<Cloudflare.ZoneSettingsValue[K]>>>(
-        swrKey,
-        { method: 'PATCH', body: JSON.stringify({ value }) }
-      );
-
-      await mutate(swrKey, resp, { populateCache: true, revalidate: false });
-      setIsMutating(false);
-
+      await sdkTrigger({
+        zone_id: zoneId,
+        setting_id: settingKey,
+        zonesZoneSettingsSingleRequestWritable: value
+      });
+      await unstable_mutateWithTags([`#zone-setting-${settingKey}`]);
       return true;
-    } catch (e) {
-      handleFetchError(
-        e,
-        `Failed to update settings for ${title}.`
-      );
-      setIsMutating(false);
-
+    } catch {
       return false;
     }
-  }, [settingKey, title, token, zoneId]);
+  }, [zoneId, settingKey, sdkTrigger]);
 
-  return {
-    trigger,
-    isMutating
-  };
+  return { trigger, isMutating };
 }

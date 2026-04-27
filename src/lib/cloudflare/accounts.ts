@@ -1,40 +1,18 @@
-import useSWRInfinite from 'swr/infinite';
-import { useToken } from '@/context/token';
-import { fetcherWithAuthorizationAndPagination } from '../fetcher';
-
-declare global {
-  namespace Cloudflare {
-    export interface AccountInfo {
-      created_on: string,
-      id: string,
-      name: string,
-      settings: {
-        abuse_contact_email: string,
-        enforce_twofactor: boolean,
-        use_account_custom_ns_by_default: boolean
-      }
-    }
-  }
-}
+import { useInfinite } from '@/lib/tayori';
+import { AccountsService } from '@/sdk';
 
 export function useCloudflareAccounts() {
-  const token = useToken();
-
-  return useSWRInfinite<Cloudflare.APIResponse<Cloudflare.AccountInfo[]>>(
-    (pageIndex, previousData: Cloudflare.APIResponse<Cloudflare.AccountInfo[]> | undefined) => {
-      if (
-        previousData?.result_info
-        && pageIndex >= previousData.result_info.total_pages
-      ) {
-        return null;
+  return useInfinite(
+    AccountsService.accountsListAccounts,
+    (pageIndex, previousData) => {
+      if (previousData?.result_info) {
+        const { total_count = 0, per_page = 100 } = previousData.result_info;
+        if (pageIndex >= Math.ceil(total_count / per_page)) {
+          return null;
+        }
       }
-      return ['client/v4/accounts', token, pageIndex, 100];
+      return { page: pageIndex + 1, per_page: 100 };
     },
-    fetcherWithAuthorizationAndPagination,
-    {
-      // Make sure we will fetch all records at once
-      // SWR hook will break early if getKey return null so there is no performance impact
-      initialSize: 1_919_810_114_514
-    }
+    { initialSize: 1_919_810_114_514 }
   );
 }
