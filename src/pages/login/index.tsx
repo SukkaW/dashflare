@@ -8,7 +8,6 @@ import { notifications } from '@mantine/notifications';
 import { useSetToken } from '@/context/token';
 import Disclaimer from '@/components/disclaimer';
 import { useNavigate } from 'react-router-dom';
-import { preloadCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 
 const LoginForm = memo(() => {
   const form = useForm({
@@ -34,7 +33,6 @@ const LoginForm = memo(() => {
           const r = await fetcherWithAuthorization<Cloudflare.APIResponse<Cloudflare.TokenStatus>>(key);
 
           mutate(key, r);
-          preloadCloudflareZoneList(token);
 
           notifications.show({
             id: 'login-success',

@@ -35,7 +35,8 @@
     "react-router-dom": "^6.30.3",
     "sekisho": "^0.4.0",
     "swr": "^2.4.1",
-    "title": "^3.5.3"
+    "title": "^3.5.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260504.1",
