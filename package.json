@@ -53,7 +53,7 @@
     "eslint-formatter-sukka": "^8.10.2",
     "react-refresh": "^0.18.0",
     "tailpack": "0.1.0-beta.3",
-    "tayori": "^0.3.1",
+    "tayori": "^0.3.2",
     "typescript": "^6.0.3",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2",

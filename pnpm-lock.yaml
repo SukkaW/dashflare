@@ -141,8 +141,8 @@ importers:
         specifier: 0.1.0-beta.3
         version: 0.1.0-beta.3(@swc/helpers@0.5.21)(babel-plugin-react-compiler@1.0.0)(react-refresh@0.18.0)(type-fest@0.20.2)(webpack-cli@7.0.2)(webpack-dev-server@5.2.3)(webpack@5.106.2)
       tayori:
-        specifier: ^0.3.1
-        version: 0.3.1(ky@1.14.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(swr@2.4.1(react@19.2.5))(zod@4.4.3)
+        specifier: ^0.3.2
+        version: 0.3.2(ky@1.14.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(swr@2.4.1(react@19.2.5))(zod@4.4.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -3559,8 +3559,8 @@ packages:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
 
-  tayori@0.3.1:
-    resolution: {integrity: sha512-9d15FwfJGUNYRh5eFjtlMQB8enJ+ehil8oqBMo4EjohLwRHYZ2ceJMaA+t7sAeOSfN0ZQvL4Hp5LS4z0roSVIw==}
+  tayori@0.3.2:
+    resolution: {integrity: sha512-BCwpP3iPUfsvZuaLjUcE0BVJvrG28rj338ZvzzlyDd95J4wo1R7KjsEx58wfsa2Ivu5zApN8kPueoNNUfZIfVA==}
     peerDependencies:
       ky: ^1.14.3
       react: '>=19.2.0'
@@ -7535,7 +7535,7 @@ snapshots:
 
   tapable@2.3.0: {}
 
-  tayori@0.3.1(ky@1.14.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(swr@2.4.1(react@19.2.5))(zod@4.4.3):
+  tayori@0.3.2(ky@1.14.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(swr@2.4.1(react@19.2.5))(zod@4.4.3):
     dependencies:
       foxact: 0.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       ky: 1.14.3
