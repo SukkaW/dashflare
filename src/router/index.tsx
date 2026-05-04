@@ -10,7 +10,7 @@ import NotFoundPage from '@/pages/404';
 import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer } from '@tabler/icons-react';
 import type { Icon } from '@tabler/icons-react';
 
-import { needLogin, NotAuthenticatedContainer } from 'sekisho';
+import { NotAuthenticatedContainer } from 'sekisho';
 import { useLogout, useToken } from '@/context/token';
 import ZoneIndexPage from '../pages/zone/index';
 
@@ -145,7 +145,6 @@ function Protected() {
   return (
     <NotAuthenticatedContainer fallback={<LoginRedirect />}>
       <Outlet />
-      <TokenGuard />
     </NotAuthenticatedContainer>
   );
 }
@@ -157,27 +156,6 @@ function LoginRedirect() {
   }, [logout]);
 
   return null;
-}
-
-function TokenGuard() {
-  const token = useToken();
-  const { state, pathname } = useLocation();
-
-  // FIXME: this is a hack to solve a race condition
-  // https://github.com/remix-run/react-router/issues/10232
-  // It is possible that the React Router flushes before the token state
-  // (which is a React state) is set
-  const tokenFromState = state?.token;
-
-  if (process.env.NODE_ENV === 'development') {
-    console.log({ _info: '<ProtectRoute />', token, pathname, state, hasNoToken: !token && !tokenFromState });
-  }
-
-  if (tokenFromState || token) {
-    return null;
-  }
-
-  return needLogin('Missing API token');
 }
 
 function RedirectAlreadyLoggedIn() {
