@@ -1,5 +1,6 @@
-import { lazy, memo } from 'react';
-import { Outlet, createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-router-dom';
+/* eslint-disable react-refresh/only-export-components -- This is core router, we don't care */
+import { lazy, memo, useEffect } from 'react';
+import { Navigate, Outlet, createBrowserRouter, isRouteErrorResponse, useLocation, useRouteError } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import Layout from '@/components/layout/';
 
@@ -9,7 +10,8 @@ import NotFoundPage from '@/pages/404';
 import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer, IconServerBolt } from '@tabler/icons-react';
 import type { Icon } from '@tabler/icons-react';
 
-import { ProtectRoute, RedirectAlreadyLoggedIn } from '@/components/checked-logged-in';
+import { needLogin, NotAuthenticatedContainer } from 'sekisho';
+import { useLogout, useToken } from '@/context/token';
 import ZoneIndexPage from '../pages/zone/index';
 import CloudflarePagesDeleteDeployments from '../pages/zone/delete-old-pages/delete-projects';
 
@@ -32,14 +34,16 @@ const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zo
 // const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/__cloudflare-pages-project'));
 
 // 自定义 ErrorBoundary
-const ErrorBoundary = memo(() => {
+const GlobalErrorBoundary = memo(() => {
   const error = useRouteError();
+
   if (isRouteErrorResponse(error) // if (error.status === 403) {
     //   return <ForbiddenPage />;
     // }
     && error.status === 404) {
     return <NotFoundPage />;
   }
+
   // TODO: 返回 50X？
   // TODO: 换一个全局的错误处理页面
   // return <NotFoundPage />;
@@ -123,7 +127,7 @@ export const zoneNavLinks: Array<{
 export const router = createBrowserRouter([
   {
     element: <Layout />,
-    errorElement: <ErrorBoundary />,
+    errorElement: <GlobalErrorBoundary />,
     children: [
       {
         element: <RedirectAlreadyLoggedIn />,
@@ -135,7 +139,7 @@ export const router = createBrowserRouter([
         ]
       },
       {
-        element: <ProtectRoute />,
+        element: <Protected />,
         children: [
           ...homeNavLinks,
           {
@@ -160,3 +164,61 @@ export const router = createBrowserRouter([
     element: <NotFoundPage />
   }
 ]);
+
+function Protected() {
+  return (
+    <NotAuthenticatedContainer fallback={<LoginRedirect />}>
+      <Outlet />
+      <TokenGuard />
+    </NotAuthenticatedContainer>
+  );
+}
+
+function LoginRedirect() {
+  const logout = useLogout();
+  useEffect(() => {
+    logout(false);
+  }, [logout]);
+
+  return null;
+}
+
+function TokenGuard() {
+  const token = useToken();
+  const { state, pathname } = useLocation();
+
+  // FIXME: this is a hack to solve a race condition
+  // https://github.com/remix-run/react-router/issues/10232
+  // It is possible that the React Router flushes before the token state
+  // (which is a React state) is set
+  const tokenFromState = state?.token;
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log({ _info: '<ProtectRoute />', token, pathname, state, hasNoToken: !token && !tokenFromState });
+  }
+
+  if (tokenFromState || token) {
+    return null;
+  }
+
+  return needLogin('Missing API token');
+}
+
+function RedirectAlreadyLoggedIn() {
+  const { state } = useLocation();
+  const token = useToken();
+
+  if (state?.logout) {
+    // FIXME: this is a hack to solve a race condition
+    // https://github.com/remix-run/react-router/issues/10232
+    // It is possible that the React Router flushes before the token state
+    // (which is a React state) has been set to null
+    return <Outlet />;
+  }
+
+  if (token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+}
