@@ -7,13 +7,12 @@ import Layout from '@/components/layout/';
 import LoginPage from '@/pages/login';
 import NotFoundPage from '@/pages/404';
 
-import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer, IconServerBolt } from '@tabler/icons-react';
+import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer } from '@tabler/icons-react';
 import type { Icon } from '@tabler/icons-react';
 
 import { needLogin, NotAuthenticatedContainer } from 'sekisho';
 import { useLogout, useToken } from '@/context/token';
 import ZoneIndexPage from '../pages/zone/index';
-import CloudflarePagesDeleteDeployments from '../pages/zone/delete-old-pages/delete-projects';
 
 // import Layout from '@/components/layout';
 
@@ -30,7 +29,6 @@ const EdgeCertificatesPage = lazy(() => import(/* webpackPrefetch: true */ '@/pa
 const DNSPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/dns'));
 const ETagPage = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/etag'));
 
-const DeleteOldPages = lazy(() => import(/* webpackPrefetch: true */ '@/pages/zone/delete-old-pages'));
 // const CloudflarePagesProject = lazy(() => import('@/pages/zone/delete-old-pages/__cloudflare-pages-project'));
 
 // 自定义 ErrorBoundary
@@ -59,28 +57,6 @@ export const homeNavLinks: Array<RouteObject & {
     element: <Homepage />,
     label: 'Home',
     icon: IconHome
-  },
-  {
-    path: 'account/delete-old-pages',
-    label: 'Delete Old Pages',
-    icon: IconServerBolt,
-    children: [
-      {
-        path: '',
-        element: <DeleteOldPages />,
-        children: [
-          {
-            path: ':accountId',
-            element: <CloudflarePagesDeleteDeployments />
-          }
-        ]
-      }
-      // {
-      //   index: false,
-      //   path: ':accountId/:projectName',
-      //   element: <CloudflarePagesProjectDeployments />
-      // }
-    ]
   }
 ];
 
