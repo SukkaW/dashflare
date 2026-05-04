@@ -27,13 +27,15 @@ export function useLogout() {
   const setToken = useSetToken();
   const navigate = useNavigate();
 
-  return useCallback(() => {
+  return useCallback((showMessage = true) => {
     setToken(null);
-    notifications.show({
-      id: 'logged-out', // dedupe notifications
-      title: 'You have successfully logged out',
-      message: 'You will be redirected to the login page shortly'
-    });
+    if (showMessage) {
+      notifications.show({
+        id: 'logged-out', // dedupe notifications
+        title: 'You have successfully logged out',
+        message: 'You will be redirected to the login page shortly'
+      });
+    }
     navigate('/login', {
       // FIXME: this is a hack to solve a race condition
       // see the source code of login page for more information
