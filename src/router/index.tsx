@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- This is core router, we don't care */
-import { lazy, memo, useEffect } from 'react';
+import { lazy, memo, Suspense, useEffect } from 'react';
 import { Navigate, Outlet, createBrowserRouter, isRouteErrorResponse, useLocation, useRouteError } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import Layout from '@/components/layout/';
@@ -11,8 +11,11 @@ import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, Icon
 import type { Icon } from '@tabler/icons-react';
 
 import { NotAuthenticatedContainer } from 'sekisho';
-import { useLogout, useToken } from '@/context/token';
+import { useLogout, useOptionalToken } from '@/context/token';
+import { DataFetchingProvider } from '@/context/data-fetching';
 import ZoneIndexPage from '../pages/zone/index';
+
+const DashboardHeader = lazy(() => import('@/components/layout/header'));
 
 // import Layout from '@/components/layout';
 
@@ -144,7 +147,12 @@ export const router = createBrowserRouter([
 function Protected() {
   return (
     <NotAuthenticatedContainer fallback={<LoginRedirect />}>
-      <Outlet />
+      <DataFetchingProvider>
+        <Suspense fallback={null}>
+          <DashboardHeader />
+        </Suspense>
+        <Outlet />
+      </DataFetchingProvider>
     </NotAuthenticatedContainer>
   );
 }
@@ -160,7 +168,7 @@ function LoginRedirect() {
 
 function RedirectAlreadyLoggedIn() {
   const { state } = useLocation();
-  const token = useToken();
+  const token = useOptionalToken();
 
   if (state?.logout) {
     // FIXME: this is a hack to solve a race condition
