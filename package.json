@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "NODE_ENV=development webpack serve --mode development",
+    "generate": "openapi-ts",
     "build": "NODE_ENV=production webpack --mode production",
     "build:analyze": "ANALYZE=true NODE_ENV=production webpack --mode production",
     "lint": "eslint --format=sukka ."
@@ -29,6 +30,7 @@
     "date-fns": "^4.4.0",
     "foxact": "^0.3.8",
     "foxts": "^5.6.0",
+    "ky": "^1.14.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "6",
@@ -40,6 +42,7 @@
     "@cloudflare/workers-types": "^4.20260702.1",
     "@eslint-sukka/node": "^8.13.4",
     "@eslint-sukka/react": "^8.13.4",
+    "@hey-api/openapi-ts": "^0.97.1",
     "@swc/core": "^1.15.43",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -50,6 +53,7 @@
     "eslint-formatter-sukka": "^8.13.4",
     "react-refresh": "^0.18.0",
     "tailpack": "0.1.0-beta.3",
+    "tayori": "^0.3.1",
     "typescript": "^6.0.3",
     "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1",
