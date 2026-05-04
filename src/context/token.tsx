@@ -5,13 +5,16 @@ import { notifications } from '@mantine/notifications';
 import { needLogin } from 'sekisho';
 
 const TokenContext = createContext<string | null>(null);
-export function useToken() {
-  const token = useContext(TokenContext);
 
+export function useOptionalToken() {
+  return useContext(TokenContext);
+}
+
+export function useToken() {
+  const token = useOptionalToken();
   if (!token) {
     return needLogin('No token found in context');
   }
-
   return token;
 }
 
