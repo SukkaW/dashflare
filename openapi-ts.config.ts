@@ -23,7 +23,8 @@ export default defineConfig({
         containerName: (name) => `${name}Service`
       },
       includeInEntry: true,
-      paramsStructure: 'flat'
+      paramsStructure: 'flat',
+      responseStyle: 'fields'
     },
     {
       name: '@hey-api/client-ky',
