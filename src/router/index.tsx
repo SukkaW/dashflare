@@ -15,7 +15,7 @@ import { useLogout, useOptionalToken } from '@/context/token';
 import { DataFetchingProvider } from '@/context/data-fetching';
 import ZoneIndexPage from '../pages/zone/index';
 
-const DashboardHeader = lazy(() => import('@/components/layout/header'));
+const DashboardHeader = lazy(() => import('@/components/menu-content-for-logged-in'));
 
 // import Layout from '@/components/layout';
 
@@ -151,6 +151,7 @@ function Protected() {
         <Suspense fallback={null}>
           <DashboardHeader />
         </Suspense>
+
         <Outlet />
       </DataFetchingProvider>
     </NotAuthenticatedContainer>
