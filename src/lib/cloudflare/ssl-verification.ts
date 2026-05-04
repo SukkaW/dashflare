@@ -30,11 +30,11 @@ declare global {
       verification_status: boolean,
       validation_method: 'http' | 'cname' | 'txt',
       validation_type?: string,
-      verification_info?: VerificationInfoHttp |
-        VerificationInfoCname |
-        VerificationInfoTxt |
-        Array<VerificationInfoHttp | VerificationInfoCname | VerificationInfoTxt> |
-        undefined
+      verification_info?: VerificationInfoHttp
+        | VerificationInfoCname
+        | VerificationInfoTxt
+        | Array<VerificationInfoHttp | VerificationInfoCname | VerificationInfoTxt>
+        | undefined
     }
   }
 }

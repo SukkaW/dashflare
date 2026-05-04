@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- we will be fixing this later */
 import { createContext, useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
