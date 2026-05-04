@@ -2,12 +2,17 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
+import { needLogin } from 'sekisho';
 
 const TokenContext = createContext<string | null>(null);
 export function useToken() {
   const token = useContext(TokenContext);
 
-  return token!;
+  if (!token) {
+    return needLogin('No token found in context');
+  }
+
+  return token;
 }
 
 const SetTokenContext = createContext<((input: string | null) => void) | null>(null);

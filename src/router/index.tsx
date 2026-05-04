@@ -10,7 +10,7 @@ import NotFoundPage from '@/pages/404';
 import { IconCertificate, IconFileDescription, IconGps, IconHome, IconLock, IconServer } from '@tabler/icons-react';
 import type { Icon } from '@tabler/icons-react';
 
-import { needLogin, NotAuthenticatedContainer } from 'sekisho';
+import { NotAuthenticatedContainer } from 'sekisho';
 import { useLogout, useToken } from '@/context/token';
 import ZoneIndexPage from '../pages/zone/index';
 
@@ -144,6 +144,7 @@ export const router = createBrowserRouter([
 function Protected() {
   return (
     <NotAuthenticatedContainer fallback={<LoginRedirect />}>
+      <Outlet />
       <TokenGuard />
     </NotAuthenticatedContainer>
   );
@@ -161,20 +162,6 @@ function LoginRedirect() {
   }, [logout]);
 
   return null;
-}
-
-function TokenGuard() {
-  const token = useToken();
-
-  if (process.env.NODE_ENV === 'development') {
-    console.log({ _info: '<TokenGuard />', token, hasNoToken: !token });
-  }
-
-  if (token) {
-    return <Outlet />;
-  }
-
-  return needLogin('Missing API token');
 }
 
 function RedirectAlreadyLoggedIn() {
