@@ -28,12 +28,14 @@ function ZoneList() {
   const [searchQuery, handleCommitSearchQuery, searchInputRef] = useUncontrolled('');
   const { data, error, isLoading } = useCloudflareZoneList(pagination.pageIndex, pagination.pageSize, searchQuery);
 
-  if (isLoading && !data) return <ZoneListLoading />;
   if (error) {
     return (
       <Text>Failed to load avaliable zones!</Text>
     );
   }
+  if (isLoading && data === undefined) return <ZoneListLoading />;
+
+  console.log({ data });
 
   const totalPage = data?.result_info?.total_pages;
 
