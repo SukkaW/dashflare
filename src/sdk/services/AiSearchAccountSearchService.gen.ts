@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AiSearchNamespaceMultiInstanceChatCompletionErrors, AiSearchNamespaceMultiInstanceChatCompletionResponses, AiSearchNamespaceMultiInstanceSearchErrors, AiSearchNamespaceMultiInstanceSearchResponses } from '../types.gen';
@@ -41,11 +41,11 @@ export class AiSearchAccountSearchService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -55,7 +55,7 @@ export class AiSearchAccountSearchService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -65,13 +65,28 @@ export class AiSearchAccountSearchService {
             };
         };
         messages: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         model?: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' | '@cf/zai-org/glm-4.7-flash' | '@cf/meta/llama-3.1-8b-instruct-fast' | '@cf/meta/llama-3.1-8b-instruct-fp8' | '@cf/meta/llama-4-scout-17b-16e-instruct' | '@cf/qwen/qwen3-30b-a3b-fp8' | '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b' | '@cf/moonshotai/kimi-k2-instruct' | '@cf/google/gemma-3-12b-it' | '@cf/google/gemma-4-26b-a4b-it' | '@cf/moonshotai/kimi-k2.5' | 'anthropic/claude-3-7-sonnet' | 'anthropic/claude-sonnet-4' | 'anthropic/claude-opus-4' | 'anthropic/claude-3-5-haiku' | 'cerebras/qwen-3-235b-a22b-instruct' | 'cerebras/qwen-3-235b-a22b-thinking' | 'cerebras/llama-3.3-70b' | 'cerebras/llama-4-maverick-17b-128e-instruct' | 'cerebras/llama-4-scout-17b-16e-instruct' | 'cerebras/gpt-oss-120b' | 'google-ai-studio/gemini-2.5-flash' | 'google-ai-studio/gemini-2.5-pro' | 'grok/grok-4' | 'groq/llama-3.3-70b-versatile' | 'groq/llama-3.1-8b-instant' | 'openai/gpt-5' | 'openai/gpt-5-mini' | 'openai/gpt-5-nano' | '';
         stream?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceMultiInstanceChatCompletionResponses, AiSearchNamespaceMultiInstanceChatCompletionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },
@@ -105,6 +120,8 @@ export class AiSearchAccountSearchService {
     
     /**
      * Multi-Instance Search
+     *
+     * Performs a semantic search query against multiple AI Search instances in parallel, merging the retrieved results into a single ranked response.
      */
     public static aiSearchNamespaceMultiInstanceSearch<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -131,11 +148,11 @@ export class AiSearchAccountSearchService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -145,7 +162,7 @@ export class AiSearchAccountSearchService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -155,12 +172,27 @@ export class AiSearchAccountSearchService {
             };
         };
         messages?: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         query?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceMultiInstanceSearchResponses, AiSearchNamespaceMultiInstanceSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },

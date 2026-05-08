@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SecondaryDnsIdentifier, SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationErrors, SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationErrors, SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersErrors, SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersErrors, SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneForceDnsNotifyErrors, SecondaryDnsPrimaryZoneForceDnsNotifyResponses, SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusErrors, SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusResponses, SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsErrors, SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsResponses, SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationErrors, SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationResponses, SecondaryDnsSingleRequestOutgoingWritable } from '../types.gen';
@@ -19,7 +19,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneDeletePrimaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneDeletePrimaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class SecondaryDnsPrimaryZoneService {
      */
     public static secondaryDnsPrimaryZonePrimaryZoneConfigurationDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsResponses, SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsResponses, SecondaryDnsPrimaryZonePrimaryZoneConfigurationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneCreatePrimaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         secondaryDnsSingleRequestOutgoingWritable: SecondaryDnsSingleRequestOutgoingWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'secondaryDnsSingleRequestOutgoingWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneCreatePrimaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,7 +112,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneUpdatePrimaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         secondaryDnsSingleRequestOutgoingWritable: SecondaryDnsSingleRequestOutgoingWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'secondaryDnsSingleRequestOutgoingWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationResponses, SecondaryDnsPrimaryZoneUpdatePrimaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -145,7 +145,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneDisableOutgoingZoneTransfers<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneDisableOutgoingZoneTransfersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -178,7 +178,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneEnableOutgoingZoneTransfers<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersResponses, SecondaryDnsPrimaryZoneEnableOutgoingZoneTransfersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -211,7 +211,7 @@ export class SecondaryDnsPrimaryZoneService {
     public static secondaryDnsPrimaryZoneForceDnsNotify<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneForceDnsNotifyResponses, SecondaryDnsPrimaryZoneForceDnsNotifyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsPrimaryZoneForceDnsNotifyResponses, SecondaryDnsPrimaryZoneForceDnsNotifyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -243,7 +243,7 @@ export class SecondaryDnsPrimaryZoneService {
      */
     public static secondaryDnsPrimaryZoneGetOutgoingZoneTransferStatus<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusResponses, SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusResponses, SecondaryDnsPrimaryZoneGetOutgoingZoneTransferStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

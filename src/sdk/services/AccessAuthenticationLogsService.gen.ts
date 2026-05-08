@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessAuthenticationLogsGetAccessAuthenticationLogsErrors, AccessAuthenticationLogsGetAccessAuthenticationLogsResponses, AccessComponentsSchemasEmail, AccessIdentifier, AccessUserId } from '../types.gen';
+import type { AccessAuthenticationLogsGetAccessAuthenticationLogsErrors, AccessAuthenticationLogsGetAccessAuthenticationLogsResponses, AccessEmail3, AccessIdentifier, AccessUserId } from '../types.gen';
 import { zAccessAuthenticationLogsGetAccessAuthenticationLogsPath, zAccessAuthenticationLogsGetAccessAuthenticationLogsQuery, zAccessAuthenticationLogsGetAccessAuthenticationLogsResponse } from '../zod.gen';
 
 export class AccessAuthenticationLogsService {
@@ -24,7 +24,7 @@ export class AccessAuthenticationLogsService {
         until?: string;
         page?: number;
         per_page?: number;
-        email?: AccessComponentsSchemasEmail;
+        email?: AccessEmail3;
         email_exact?: boolean;
         user_id?: AccessUserId;
         allowedOp?: 'eq' | 'neq';
@@ -32,12 +32,12 @@ export class AccessAuthenticationLogsService {
         app_typeOp?: 'eq' | 'neq';
         app_uidOp?: 'eq' | 'neq';
         ray_idOp?: 'eq' | 'neq';
-        emailOp?: 'eq' | 'neq';
+        emailOp?: 'eq' | 'neq' | 'contains';
         idpOp?: 'eq' | 'neq';
         non_identityOp?: 'eq' | 'neq';
         user_idOp?: 'eq' | 'neq';
         fields?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessAuthenticationLogsGetAccessAuthenticationLogsResponses, AccessAuthenticationLogsGetAccessAuthenticationLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },

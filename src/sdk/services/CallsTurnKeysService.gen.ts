@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CallsAccountIdentifier, CallsDeleteTurnKeyErrors, CallsDeleteTurnKeyResponses, CallsIdentifier, CallsRetrieveTurnKeyDetailsErrors, CallsRetrieveTurnKeyDetailsResponses, CallsTurnKeyCreateResponses, CallsTurnKeyEditableFields, CallsTurnKeyListErrors, CallsTurnKeyListResponses, CallsUpdateTurnKeyErrors, CallsUpdateTurnKeyResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class CallsTurnKeysService {
      */
     public static callsTurnKeyList<ThrowOnError extends boolean = true>(parameters: {
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsTurnKeyListResponses, CallsTurnKeyListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CallsTurnKeyListResponses, CallsTurnKeyListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class CallsTurnKeysService {
     public static callsTurnKeyCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: CallsAccountIdentifier;
         callsTurnKeyEditableFields: CallsTurnKeyEditableFields;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsTurnKeyCreateResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'callsTurnKeyEditableFields', map: 'body' }] }]);
         return (options?.client ?? client).post<CallsTurnKeyCreateResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class CallsTurnKeysService {
     public static callsDeleteTurnKey<ThrowOnError extends boolean = true>(parameters: {
         key_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsDeleteTurnKeyResponses, CallsDeleteTurnKeyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'key_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<CallsDeleteTurnKeyResponses, CallsDeleteTurnKeyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -95,7 +95,7 @@ export class CallsTurnKeysService {
     public static callsRetrieveTurnKeyDetails<ThrowOnError extends boolean = true>(parameters: {
         key_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsRetrieveTurnKeyDetailsResponses, CallsRetrieveTurnKeyDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'key_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CallsRetrieveTurnKeyDetailsResponses, CallsRetrieveTurnKeyDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,7 +120,7 @@ export class CallsTurnKeysService {
         key_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
         callsTurnKeyEditableFields: CallsTurnKeyEditableFields;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsUpdateTurnKeyResponses, CallsUpdateTurnKeyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'key_id' },
                     { in: 'path', key: 'account_id' },

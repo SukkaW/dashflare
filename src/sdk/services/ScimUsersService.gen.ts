@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamAccountIdentifierWritable, IamScimPatchOpRequest, IamScimUserCreateRequestWritable, IamScimUserIdentifier, IamScimUserReplaceRequestWritable, ScimUsersCreateErrors, ScimUsersCreateResponses, ScimUsersGetErrors, ScimUsersGetResponses, ScimUsersListErrors, ScimUsersListResponses, ScimUsersPatchErrors, ScimUsersPatchResponses, ScimUsersPutErrors, ScimUsersPutResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class ScimUsersService {
         startIndex?: number;
         count?: number;
         filter?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimUsersListResponses, ScimUsersListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'startIndex' },
@@ -52,7 +52,7 @@ export class ScimUsersService {
     public static scimUsersCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamScimUserCreateRequestWritable: IamScimUserCreateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimUsersCreateResponses, ScimUsersCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamScimUserCreateRequestWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<ScimUsersCreateResponses, ScimUsersCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class ScimUsersService {
     public static scimUsersGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         user_id: IamScimUserIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimUsersGetResponses, ScimUsersGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'user_id' }] }]);
         return (options?.client ?? client).get<ScimUsersGetResponses, ScimUsersGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class ScimUsersService {
         account_id: IamAccountIdentifierWritable;
         user_id: IamScimUserIdentifier;
         iamScimPatchOpRequest: IamScimPatchOpRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimUsersPatchResponses, ScimUsersPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_id' },
@@ -142,7 +142,7 @@ export class ScimUsersService {
         account_id: IamAccountIdentifierWritable;
         user_id: IamScimUserIdentifier;
         iamScimUserReplaceRequestWritable: IamScimUserReplaceRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimUsersPutResponses, ScimUsersPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_id' },

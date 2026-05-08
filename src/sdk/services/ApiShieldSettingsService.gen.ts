@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldConfigUpdate, ApiShieldSchemasIdentifier, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesErrors, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesResponses, ApiShieldSettingsSetConfigurationPropertiesErrors, ApiShieldSettingsSetConfigurationPropertiesResponses } from '../types.gen';
+import type { ApiShieldConfigUpdate, ApiShieldIdentifier2, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesErrors, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesResponses, ApiShieldSettingsSetConfigurationPropertiesErrors, ApiShieldSettingsSetConfigurationPropertiesResponses } from '../types.gen';
 import { zApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesPath, zApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesQuery, zApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesResponse, zApiShieldSettingsSetConfigurationPropertiesBody, zApiShieldSettingsSetConfigurationPropertiesPath, zApiShieldSettingsSetConfigurationPropertiesQuery, zApiShieldSettingsSetConfigurationPropertiesResponse } from '../zod.gen';
 
 export class ApiShieldSettingsService {
@@ -17,9 +17,9 @@ export class ApiShieldSettingsService {
      * Gets the current API Shield configuration settings for a zone, including validation behavior and enforcement mode.
      */
     public static apiShieldSettingsRetrieveInformationAboutSpecificConfigurationProperties<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         normalize?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesResponses, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'normalize' }] }]);
         return (options?.client ?? client).get<ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesResponses, ApiShieldSettingsRetrieveInformationAboutSpecificConfigurationPropertiesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,10 +45,10 @@ export class ApiShieldSettingsService {
      * Updates API Shield configuration settings for a zone. Can modify validation strictness, enforcement mode, and other global settings.
      */
     public static apiShieldSettingsSetConfigurationProperties<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         normalize?: boolean;
         apiShieldConfigUpdate: ApiShieldConfigUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSettingsSetConfigurationPropertiesResponses, ApiShieldSettingsSetConfigurationPropertiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'normalize' },

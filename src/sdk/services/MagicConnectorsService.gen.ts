@@ -4,28 +4,30 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { MconnAccountId, MconnConnectorCreateErrors, MconnConnectorCreateResponses, MconnConnectorDeleteErrors, MconnConnectorDeleteResponses, MconnConnectorFetchErrors, MconnConnectorFetchResponses, MconnConnectorListErrors, MconnConnectorListResponses, MconnConnectorReplaceErrors, MconnConnectorReplaceResponses, MconnConnectorTelemetryEventsGetErrors, MconnConnectorTelemetryEventsGetResponses, MconnConnectorTelemetryEventsListErrors, MconnConnectorTelemetryEventsListLatestErrors, MconnConnectorTelemetryEventsListLatestResponses, MconnConnectorTelemetryEventsListResponses, MconnConnectorTelemetrySnapshotsGetErrors, MconnConnectorTelemetrySnapshotsGetResponses, MconnConnectorTelemetrySnapshotsListErrors, MconnConnectorTelemetrySnapshotsListLatestErrors, MconnConnectorTelemetrySnapshotsListLatestResponses, MconnConnectorTelemetrySnapshotsListResponses, MconnConnectorUpdateErrors, MconnConnectorUpdateResponses, MconnCustomerConnectorCreateRequest, MconnCustomerConnectorUpdateRequest, MconnUuid } from '../types.gen';
-import { zMconnConnectorCreateBody, zMconnConnectorCreatePath, zMconnConnectorCreateResponse, zMconnConnectorDeletePath, zMconnConnectorDeleteResponse, zMconnConnectorFetchPath, zMconnConnectorFetchResponse, zMconnConnectorListPath, zMconnConnectorListQuery, zMconnConnectorListResponse, zMconnConnectorReplaceBody, zMconnConnectorReplacePath, zMconnConnectorReplaceResponse, zMconnConnectorTelemetryEventsGetPath, zMconnConnectorTelemetryEventsGetResponse, zMconnConnectorTelemetryEventsListLatestPath, zMconnConnectorTelemetryEventsListLatestResponse, zMconnConnectorTelemetryEventsListPath, zMconnConnectorTelemetryEventsListQuery, zMconnConnectorTelemetryEventsListResponse, zMconnConnectorTelemetrySnapshotsGetPath, zMconnConnectorTelemetrySnapshotsGetResponse, zMconnConnectorTelemetrySnapshotsListLatestPath, zMconnConnectorTelemetrySnapshotsListLatestResponse, zMconnConnectorTelemetrySnapshotsListPath, zMconnConnectorTelemetrySnapshotsListQuery, zMconnConnectorTelemetrySnapshotsListResponse, zMconnConnectorUpdateBody, zMconnConnectorUpdatePath, zMconnConnectorUpdateResponse } from '../zod.gen';
+import type { MconnAccountId, MconnConnectorInterruptsCreateErrors, MconnConnectorInterruptsCreateResponses, MconnConnectorInterruptsListErrors, MconnConnectorInterruptsListResponses, MconnConnectorsCreateErrors, MconnConnectorsCreateResponses, MconnConnectorsDeleteErrors, MconnConnectorsDeleteResponses, MconnConnectorsEditErrors, MconnConnectorsEditResponses, MconnConnectorsGetErrors, MconnConnectorsGetResponses, MconnConnectorsListErrors, MconnConnectorsListResponses, MconnConnectorsUpdateErrors, MconnConnectorsUpdateResponses, MconnConnectorTelemetryEventsGetErrors, MconnConnectorTelemetryEventsGetResponses, MconnConnectorTelemetryEventsLatestGetErrors, MconnConnectorTelemetryEventsLatestGetResponses, MconnConnectorTelemetryEventsListErrors, MconnConnectorTelemetryEventsListResponses, MconnConnectorTelemetrySnapshotsGetErrors, MconnConnectorTelemetrySnapshotsGetResponses, MconnConnectorTelemetrySnapshotsLatestGetErrors, MconnConnectorTelemetrySnapshotsLatestGetResponses, MconnConnectorTelemetrySnapshotsListErrors, MconnConnectorTelemetrySnapshotsListResponses, MconnCustomerConnectorsCreateRequest, MconnCustomerConnectorsEditRequest, MconnCustomerConnectorsUpdateRequest, MconnInterrupt, MconnUuid } from '../types.gen';
+import { zMconnConnectorInterruptsCreateBody, zMconnConnectorInterruptsCreatePath, zMconnConnectorInterruptsCreateResponse2, zMconnConnectorInterruptsListPath, zMconnConnectorInterruptsListResponse2, zMconnConnectorsCreateBody, zMconnConnectorsCreatePath, zMconnConnectorsCreateResponse, zMconnConnectorsDeletePath, zMconnConnectorsDeleteResponse, zMconnConnectorsEditBody, zMconnConnectorsEditPath, zMconnConnectorsEditResponse, zMconnConnectorsGetPath, zMconnConnectorsGetResponse, zMconnConnectorsListPath, zMconnConnectorsListQuery, zMconnConnectorsListResponse, zMconnConnectorsUpdateBody, zMconnConnectorsUpdatePath, zMconnConnectorsUpdateResponse, zMconnConnectorTelemetryEventsGetPath, zMconnConnectorTelemetryEventsGetResponse, zMconnConnectorTelemetryEventsLatestGetPath, zMconnConnectorTelemetryEventsLatestGetResponse, zMconnConnectorTelemetryEventsListPath, zMconnConnectorTelemetryEventsListQuery, zMconnConnectorTelemetryEventsListResponse, zMconnConnectorTelemetrySnapshotsGetPath, zMconnConnectorTelemetrySnapshotsGetResponse, zMconnConnectorTelemetrySnapshotsLatestGetPath, zMconnConnectorTelemetrySnapshotsLatestGetResponse, zMconnConnectorTelemetrySnapshotsListPath, zMconnConnectorTelemetrySnapshotsListQuery, zMconnConnectorTelemetrySnapshotsListResponse } from '../zod.gen';
 
 export class MagicConnectorsService {
     /**
      * List Connectors
+     *
+     * Lists Magic WAN Connectors.
      */
-    public static mconnConnectorList<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         device_type?: 'MANAGED' | 'LICENSED';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsListResponses, MconnConnectorsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'device_type' }] }]);
-        return (options?.client ?? client).get<MconnConnectorListResponses, MconnConnectorListErrors, ThrowOnError>({
+        return (options?.client ?? client).get<MconnConnectorsListResponses, MconnConnectorsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zMconnConnectorListPath,
-                query: zMconnConnectorListQuery.optional()
+                path: zMconnConnectorsListPath,
+                query: zMconnConnectorsListQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorListResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsListResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -38,20 +40,22 @@ export class MagicConnectorsService {
     }
     
     /**
-     * Add a connector to your account
+     * Create Connector
+     *
+     * Creates a Magic WAN Connector.
      */
-    public static mconnConnectorCreate<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
-        mconnCustomerConnectorCreateRequest: MconnCustomerConnectorCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'mconnCustomerConnectorCreateRequest', map: 'body' }] }]);
-        return (options?.client ?? client).post<MconnConnectorCreateResponses, MconnConnectorCreateErrors, ThrowOnError>({
+        mconnCustomerConnectorsCreateRequest: MconnCustomerConnectorsCreateRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsCreateResponses, MconnConnectorsCreateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'mconnCustomerConnectorsCreateRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<MconnConnectorsCreateResponses, MconnConnectorsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zMconnConnectorCreateBody,
-                path: zMconnConnectorCreatePath,
+                body: zMconnConnectorsCreateBody,
+                path: zMconnConnectorsCreatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorCreateResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsCreateResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -69,20 +73,22 @@ export class MagicConnectorsService {
     }
     
     /**
-     * Remove a connector from your account
+     * Delete Connector
+     *
+     * Deletes a Magic WAN Connector.
      */
-    public static mconnConnectorDelete<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: MconnUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsDeleteResponses, MconnConnectorsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'connector_id' }] }]);
-        return (options?.client ?? client).delete<MconnConnectorDeleteResponses, MconnConnectorDeleteErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<MconnConnectorsDeleteResponses, MconnConnectorsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zMconnConnectorDeletePath,
+                path: zMconnConnectorsDeletePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorDeleteResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsDeleteResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -95,20 +101,22 @@ export class MagicConnectorsService {
     }
     
     /**
-     * Fetch Connector
+     * Get Connector
+     *
+     * Gets a Magic WAN Connector.
      */
-    public static mconnConnectorFetch<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: MconnUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsGetResponses, MconnConnectorsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'connector_id' }] }]);
-        return (options?.client ?? client).get<MconnConnectorFetchResponses, MconnConnectorFetchErrors, ThrowOnError>({
+        return (options?.client ?? client).get<MconnConnectorsGetResponses, MconnConnectorsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zMconnConnectorFetchPath,
+                path: zMconnConnectorsGetPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorFetchResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsGetResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -121,25 +129,27 @@ export class MagicConnectorsService {
     }
     
     /**
-     * Edit Connector to update specific properties or Re-provision License Key
+     * Edit Connector
+     *
+     * Edits properties of a Magic WAN Connector. May be used to re-provision a license key.
      */
-    public static mconnConnectorUpdate<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsEdit<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: MconnUuid;
-        mconnCustomerConnectorUpdateRequest: MconnCustomerConnectorUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+        mconnCustomerConnectorsEditRequest: MconnCustomerConnectorsEditRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsEditResponses, MconnConnectorsEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },
-                    { key: 'mconnCustomerConnectorUpdateRequest', map: 'body' }
+                    { key: 'mconnCustomerConnectorsEditRequest', map: 'body' }
                 ] }]);
-        return (options?.client ?? client).patch<MconnConnectorUpdateResponses, MconnConnectorUpdateErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<MconnConnectorsEditResponses, MconnConnectorsEditErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zMconnConnectorUpdateBody,
-                path: zMconnConnectorUpdatePath,
+                body: zMconnConnectorsEditBody,
+                path: zMconnConnectorsEditPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorUpdateResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsEditResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -157,31 +167,99 @@ export class MagicConnectorsService {
     }
     
     /**
-     * Replace Connector or Re-provision License Key
+     * Update Connector
+     *
+     * Updates properties of a Magic WAN Connector. May be used to re-provision a license key.
      */
-    public static mconnConnectorReplace<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorsUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: MconnUuid;
-        mconnCustomerConnectorUpdateRequest: MconnCustomerConnectorUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+        mconnCustomerConnectorsUpdateRequest: MconnCustomerConnectorsUpdateRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorsUpdateResponses, MconnConnectorsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },
-                    { key: 'mconnCustomerConnectorUpdateRequest', map: 'body' }
+                    { key: 'mconnCustomerConnectorsUpdateRequest', map: 'body' }
                 ] }]);
-        return (options?.client ?? client).put<MconnConnectorReplaceResponses, MconnConnectorReplaceErrors, ThrowOnError>({
+        return (options?.client ?? client).put<MconnConnectorsUpdateResponses, MconnConnectorsUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zMconnConnectorReplaceBody,
-                path: zMconnConnectorReplacePath,
+                body: zMconnConnectorsUpdateBody,
+                path: zMconnConnectorsUpdatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorReplaceResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorsUpdateResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/accounts/{account_id}/magic/connectors/{connector_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List Interrupts
+     *
+     * Lists interrupts for a Magic WAN Connector.
+     */
+    public static mconnConnectorInterruptsList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MconnAccountId;
+        connector_id: MconnUuid;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorInterruptsListResponses, MconnConnectorInterruptsListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'connector_id' }] }]);
+        return (options?.client ?? client).get<MconnConnectorInterruptsListResponses, MconnConnectorInterruptsListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zMconnConnectorInterruptsListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorInterruptsListResponse2.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/magic/connectors/{connector_id}/interrupts',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create Interrupt
+     *
+     * Creates an interrupt for a Magic WAN Connector.
+     */
+    public static mconnConnectorInterruptsCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MconnAccountId;
+        connector_id: MconnUuid;
+        mconnInterrupt: MconnInterrupt;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorInterruptsCreateResponses, MconnConnectorInterruptsCreateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'connector_id' },
+                    { key: 'mconnInterrupt', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<MconnConnectorInterruptsCreateResponses, MconnConnectorInterruptsCreateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMconnConnectorInterruptsCreateBody,
+                path: zMconnConnectorInterruptsCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorInterruptsCreateResponse2.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/magic/connectors/{connector_id}/interrupts',
             ...options,
             ...params,
             headers: {
@@ -194,6 +272,8 @@ export class MagicConnectorsService {
     
     /**
      * List Events
+     *
+     * Lists Magic WAN Connector Telemetry Events
      */
     public static mconnConnectorTelemetryEventsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
@@ -203,7 +283,7 @@ export class MagicConnectorsService {
         limit?: number;
         cursor?: string;
         k?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetryEventsListResponses, MconnConnectorTelemetryEventsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },
@@ -233,19 +313,21 @@ export class MagicConnectorsService {
     
     /**
      * Get latest Events
+     *
+     * Gets latest Magic WAN Connector Telemetry Events
      */
-    public static mconnConnectorTelemetryEventsListLatest<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorTelemetryEventsLatestGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetryEventsLatestGetResponses, MconnConnectorTelemetryEventsLatestGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'connector_id' }] }]);
-        return (options?.client ?? client).get<MconnConnectorTelemetryEventsListLatestResponses, MconnConnectorTelemetryEventsListLatestErrors, ThrowOnError>({
+        return (options?.client ?? client).get<MconnConnectorTelemetryEventsLatestGetResponses, MconnConnectorTelemetryEventsLatestGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zMconnConnectorTelemetryEventsListLatestPath,
+                path: zMconnConnectorTelemetryEventsLatestGetPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorTelemetryEventsListLatestResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorTelemetryEventsLatestGetResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -259,13 +341,15 @@ export class MagicConnectorsService {
     
     /**
      * Get Event
+     *
+     * Gets Magic WAN Connector Telemetry Event
      */
     public static mconnConnectorTelemetryEventsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: string;
         event_t: number;
         event_n: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetryEventsGetResponses, MconnConnectorTelemetryEventsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },
@@ -292,6 +376,8 @@ export class MagicConnectorsService {
     
     /**
      * List Snapshots
+     *
+     * Lists Magic WAN Connector Telemetry Snapshots
      */
     public static mconnConnectorTelemetrySnapshotsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
@@ -300,7 +386,7 @@ export class MagicConnectorsService {
         to: number;
         limit?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetrySnapshotsListResponses, MconnConnectorTelemetrySnapshotsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },
@@ -329,19 +415,21 @@ export class MagicConnectorsService {
     
     /**
      * Get latest Snapshots
+     *
+     * Gets latest Magic WAN Connector Telemetry Snapshots
      */
-    public static mconnConnectorTelemetrySnapshotsListLatest<ThrowOnError extends boolean = true>(parameters: {
+    public static mconnConnectorTelemetrySnapshotsLatestGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetrySnapshotsLatestGetResponses, MconnConnectorTelemetrySnapshotsLatestGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'connector_id' }] }]);
-        return (options?.client ?? client).get<MconnConnectorTelemetrySnapshotsListLatestResponses, MconnConnectorTelemetrySnapshotsListLatestErrors, ThrowOnError>({
+        return (options?.client ?? client).get<MconnConnectorTelemetrySnapshotsLatestGetResponses, MconnConnectorTelemetrySnapshotsLatestGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zMconnConnectorTelemetrySnapshotsListLatestPath,
+                path: zMconnConnectorTelemetrySnapshotsLatestGetPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zMconnConnectorTelemetrySnapshotsListLatestResponse.parseAsync(data),
+            responseValidator: async (data) => await zMconnConnectorTelemetrySnapshotsLatestGetResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -355,12 +443,14 @@ export class MagicConnectorsService {
     
     /**
      * Get Snapshot
+     *
+     * Gets Magic WAN Connector Telemetry Snapshot
      */
     public static mconnConnectorTelemetrySnapshotsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MconnAccountId;
         connector_id: string;
         snapshot_t: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MconnConnectorTelemetrySnapshotsGetResponses, MconnConnectorTelemetrySnapshotsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'connector_id' },

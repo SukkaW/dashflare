@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DevicePostureRulesCreateDevicePostureRuleErrors, DevicePostureRulesCreateDevicePostureRuleResponses, DevicePostureRulesDeleteDevicePostureRuleErrors, DevicePostureRulesDeleteDevicePostureRuleResponses, DevicePostureRulesDevicePostureRulesDetailsErrors, DevicePostureRulesDevicePostureRulesDetailsResponses, DevicePostureRulesListDevicePostureRulesErrors, DevicePostureRulesListDevicePostureRulesResponses, DevicePostureRulesUpdateDevicePostureRuleErrors, DevicePostureRulesUpdateDevicePostureRuleResponses, TeamsDevicesDescription, TeamsDevicesExpiration, TeamsDevicesIdentifier, TeamsDevicesInput, TeamsDevicesMatch, TeamsDevicesName, TeamsDevicesSchedule, TeamsDevicesType, TeamsDevicesUuid } from '../types.gen';
@@ -18,7 +18,7 @@ export class DevicePostureRulesService {
      */
     public static devicePostureRulesListDevicePostureRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureRulesListDevicePostureRulesResponses, DevicePostureRulesListDevicePostureRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicePostureRulesListDevicePostureRulesResponses, DevicePostureRulesListDevicePostureRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class DevicePostureRulesService {
         name: TeamsDevicesName;
         schedule?: TeamsDevicesSchedule;
         type: TeamsDevicesType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureRulesCreateDevicePostureRuleResponses, DevicePostureRulesCreateDevicePostureRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -95,7 +95,7 @@ export class DevicePostureRulesService {
         rule_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureRulesDeleteDevicePostureRuleResponses, DevicePostureRulesDeleteDevicePostureRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -132,7 +132,7 @@ export class DevicePostureRulesService {
     public static devicePostureRulesDevicePostureRulesDetails<ThrowOnError extends boolean = true>(parameters: {
         rule_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureRulesDevicePostureRulesDetailsResponses, DevicePostureRulesDevicePostureRulesDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicePostureRulesDevicePostureRulesDetailsResponses, DevicePostureRulesDevicePostureRulesDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -167,7 +167,7 @@ export class DevicePostureRulesService {
         name: TeamsDevicesName;
         schedule?: TeamsDevicesSchedule;
         type: TeamsDevicesType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureRulesUpdateDevicePostureRuleResponses, DevicePostureRulesUpdateDevicePostureRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },

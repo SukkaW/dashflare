@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayDescription, ZeroTrustGatewayItemsInput, ZeroTrustGatewayName, ZeroTrustGatewaySchemasIdentifier, ZeroTrustGatewaySchemasType, ZeroTrustGatewaySchemasUuid, ZeroTrustGatewayValue, ZeroTrustListsCreateZeroTrustListErrors, ZeroTrustListsCreateZeroTrustListResponses, ZeroTrustListsDeleteZeroTrustListErrors, ZeroTrustListsDeleteZeroTrustListResponses, ZeroTrustListsListZeroTrustListsErrors, ZeroTrustListsListZeroTrustListsResponses, ZeroTrustListsPatchZeroTrustListErrors, ZeroTrustListsPatchZeroTrustListResponses, ZeroTrustListsUpdateZeroTrustListErrors, ZeroTrustListsUpdateZeroTrustListResponses, ZeroTrustListsZeroTrustListDetailsErrors, ZeroTrustListsZeroTrustListDetailsResponses, ZeroTrustListsZeroTrustListItemsErrors, ZeroTrustListsZeroTrustListItemsResponses } from '../types.gen';
-import { zZeroTrustListsCreateZeroTrustListBody, zZeroTrustListsCreateZeroTrustListPath, zZeroTrustListsCreateZeroTrustListResponse, zZeroTrustListsDeleteZeroTrustListBody, zZeroTrustListsDeleteZeroTrustListPath, zZeroTrustListsDeleteZeroTrustListResponse, zZeroTrustListsListZeroTrustListsPath, zZeroTrustListsListZeroTrustListsQuery, zZeroTrustListsListZeroTrustListsResponse, zZeroTrustListsPatchZeroTrustListBody, zZeroTrustListsPatchZeroTrustListPath, zZeroTrustListsPatchZeroTrustListResponse, zZeroTrustListsUpdateZeroTrustListBody, zZeroTrustListsUpdateZeroTrustListPath, zZeroTrustListsUpdateZeroTrustListResponse, zZeroTrustListsZeroTrustListDetailsPath, zZeroTrustListsZeroTrustListDetailsResponse, zZeroTrustListsZeroTrustListItemsPath, zZeroTrustListsZeroTrustListItemsResponse } from '../zod.gen';
+import type { ZeroTrustGatewayDescription, ZeroTrustGatewayIdentifier2, ZeroTrustGatewayItemsInput, ZeroTrustGatewayName, ZeroTrustGatewayType2, ZeroTrustGatewayUuid2, ZeroTrustGatewayValue, ZeroTrustListsCreateZeroTrustListErrors, ZeroTrustListsCreateZeroTrustListFromCsvErrors, ZeroTrustListsCreateZeroTrustListFromCsvResponses, ZeroTrustListsCreateZeroTrustListResponses, ZeroTrustListsDeleteZeroTrustListErrors, ZeroTrustListsDeleteZeroTrustListResponses, ZeroTrustListsListZeroTrustListsErrors, ZeroTrustListsListZeroTrustListsResponses, ZeroTrustListsPatchZeroTrustListErrors, ZeroTrustListsPatchZeroTrustListResponses, ZeroTrustListsUpdateZeroTrustListErrors, ZeroTrustListsUpdateZeroTrustListResponses, ZeroTrustListsZeroTrustListDetailsErrors, ZeroTrustListsZeroTrustListDetailsResponses, ZeroTrustListsZeroTrustListItemsErrors, ZeroTrustListsZeroTrustListItemsResponses } from '../types.gen';
+import { zZeroTrustListsCreateZeroTrustListBody, zZeroTrustListsCreateZeroTrustListFromCsvBody, zZeroTrustListsCreateZeroTrustListFromCsvPath, zZeroTrustListsCreateZeroTrustListFromCsvResponse, zZeroTrustListsCreateZeroTrustListPath, zZeroTrustListsCreateZeroTrustListResponse, zZeroTrustListsDeleteZeroTrustListBody, zZeroTrustListsDeleteZeroTrustListPath, zZeroTrustListsDeleteZeroTrustListResponse, zZeroTrustListsListZeroTrustListsPath, zZeroTrustListsListZeroTrustListsQuery, zZeroTrustListsListZeroTrustListsResponse, zZeroTrustListsPatchZeroTrustListBody, zZeroTrustListsPatchZeroTrustListPath, zZeroTrustListsPatchZeroTrustListResponse, zZeroTrustListsUpdateZeroTrustListBody, zZeroTrustListsUpdateZeroTrustListPath, zZeroTrustListsUpdateZeroTrustListResponse, zZeroTrustListsZeroTrustListDetailsPath, zZeroTrustListsZeroTrustListDetailsResponse, zZeroTrustListsZeroTrustListItemsPath, zZeroTrustListsZeroTrustListItemsResponse } from '../zod.gen';
 
 export class ZeroTrustListsService {
     /**
@@ -17,9 +17,9 @@ export class ZeroTrustListsService {
      * Fetch all Zero Trust lists for an account.
      */
     public static zeroTrustListsListZeroTrustLists<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-        type?: ZeroTrustGatewaySchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+        type?: ZeroTrustGatewayType2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsListZeroTrustListsResponses, ZeroTrustListsListZeroTrustListsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'type' }] }]);
         return (options?.client ?? client).get<ZeroTrustListsListZeroTrustListsResponses, ZeroTrustListsListZeroTrustListsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,12 +45,12 @@ export class ZeroTrustListsService {
      * Creates a new Zero Trust list.
      */
     public static zeroTrustListsCreateZeroTrustList<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         description?: ZeroTrustGatewayDescription;
         items?: ZeroTrustGatewayItemsInput;
         name: ZeroTrustGatewayName;
-        type: ZeroTrustGatewaySchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+        type: ZeroTrustGatewayType2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsCreateZeroTrustListResponses, ZeroTrustListsCreateZeroTrustListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -82,15 +82,49 @@ export class ZeroTrustListsService {
     }
     
     /**
+     * Create Zero Trust list from CSV
+     *
+     * Create a new Zero Trust list by uploading a CSV file. The file must be `text/csv` or `text/plain` and cannot exceed 2 MB. The operation is processed asynchronously. Use the returned operation ID to poll for status.
+     */
+    public static zeroTrustListsCreateZeroTrustListFromCsv<ThrowOnError extends boolean = true>(parameters: {
+        account_id: ZeroTrustGatewayIdentifier2;
+        file: Blob | File;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsCreateZeroTrustListFromCsvResponses, ZeroTrustListsCreateZeroTrustListFromCsvErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'file' }] }]);
+        return (options?.client ?? client).post<ZeroTrustListsCreateZeroTrustListFromCsvResponses, ZeroTrustListsCreateZeroTrustListFromCsvErrors, ThrowOnError>({
+            ...formDataBodySerializer,
+            requestValidator: async (data) => await z.object({
+                body: zZeroTrustListsCreateZeroTrustListFromCsvBody,
+                path: zZeroTrustListsCreateZeroTrustListFromCsvPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustListsCreateZeroTrustListFromCsvResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/gateway/lists/upload',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': null,
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete Zero Trust list
      *
      * Deletes a Zero Trust list.
      */
     public static zeroTrustListsDeleteZeroTrustList<ThrowOnError extends boolean = true>(parameters: {
-        list_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        list_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsDeleteZeroTrustListResponses, ZeroTrustListsDeleteZeroTrustListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -125,9 +159,9 @@ export class ZeroTrustListsService {
      * Fetch a single Zero Trust list.
      */
     public static zeroTrustListsZeroTrustListDetails<ThrowOnError extends boolean = true>(parameters: {
-        list_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        list_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsZeroTrustListDetailsResponses, ZeroTrustListsZeroTrustListDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'list_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustListsZeroTrustListDetailsResponses, ZeroTrustListsZeroTrustListDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -153,11 +187,11 @@ export class ZeroTrustListsService {
      * Appends or removes an item from a configured Zero Trust list.
      */
     public static zeroTrustListsPatchZeroTrustList<ThrowOnError extends boolean = true>(parameters: {
-        list_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        list_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
         append?: ZeroTrustGatewayItemsInput;
         remove?: Array<ZeroTrustGatewayValue>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsPatchZeroTrustListResponses, ZeroTrustListsPatchZeroTrustListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -193,12 +227,12 @@ export class ZeroTrustListsService {
      * Updates a configured Zero Trust list. Skips updating list items if not included in the payload. A non empty list items will overwrite the existing list.
      */
     public static zeroTrustListsUpdateZeroTrustList<ThrowOnError extends boolean = true>(parameters: {
-        list_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        list_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
         description?: ZeroTrustGatewayDescription;
         items?: ZeroTrustGatewayItemsInput;
         name: ZeroTrustGatewayName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsUpdateZeroTrustListResponses, ZeroTrustListsUpdateZeroTrustListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -235,9 +269,9 @@ export class ZeroTrustListsService {
      * Fetch all items in a single Zero Trust list.
      */
     public static zeroTrustListsZeroTrustListItems<ThrowOnError extends boolean = true>(parameters: {
-        list_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        list_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustListsZeroTrustListItemsResponses, ZeroTrustListsZeroTrustListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'list_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustListsZeroTrustListItemsResponses, ZeroTrustListsZeroTrustListItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

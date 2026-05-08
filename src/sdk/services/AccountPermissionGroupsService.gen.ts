@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountPermissionGroupDetailsErrors, AccountPermissionGroupDetailsResponses, AccountPermissionGroupListErrors, AccountPermissionGroupListResponses, IamAccountIdentifierWritable, IamPermissionGroupIdentifierWritable } from '../types.gen';
@@ -23,7 +23,7 @@ export class AccountPermissionGroupsService {
         label?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountPermissionGroupListResponses, AccountPermissionGroupListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -58,7 +58,7 @@ export class AccountPermissionGroupsService {
     public static accountPermissionGroupDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         permission_group_id: IamPermissionGroupIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountPermissionGroupDetailsResponses, AccountPermissionGroupDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'permission_group_id' }] }]);
         return (options?.client ?? client).get<AccountPermissionGroupDetailsResponses, AccountPermissionGroupDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

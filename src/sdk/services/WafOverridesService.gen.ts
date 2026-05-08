@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallIdentifier, FirewallOverridesId, FirewallRewriteAction, FirewallRulesWritable, FirewallUrls, WafOverridesCreateAWafOverrideErrors, WafOverridesCreateAWafOverrideResponses, WafOverridesDeleteAWafOverrideErrors, WafOverridesDeleteAWafOverrideResponses, WafOverridesGetAWafOverrideErrors, WafOverridesGetAWafOverrideResponses, WafOverridesListWafOverridesErrors, WafOverridesListWafOverridesResponses, WafOverridesUpdateWafOverrideErrors, WafOverridesUpdateWafOverrideResponses } from '../types.gen';
@@ -14,9 +14,9 @@ export class WafOverridesService {
     /**
      * List WAF overrides
      *
-     * Fetches the URI-based WAF overrides in a zone.
+     * **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
      *
-     * **Note:** Applies only to the [previous version of WAF managed rules](https://developers.cloudflare.com/support/firewall/managed-rules-web-application-firewall-waf/understanding-waf-managed-rules-web-application-firewall/).
+     * Previously fetched the URI-based WAF overrides in a zone.
      *
      * @deprecated
      */
@@ -24,7 +24,7 @@ export class WafOverridesService {
         zone_id: FirewallIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafOverridesListWafOverridesResponses, WafOverridesListWafOverridesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -51,16 +51,16 @@ export class WafOverridesService {
     /**
      * Create a WAF override
      *
-     * Creates a URI-based WAF override for a zone.
+     * **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
      *
-     * **Note:** Applies only to the [previous version of WAF managed rules](https://developers.cloudflare.com/support/firewall/managed-rules-web-application-firewall-waf/understanding-waf-managed-rules-web-application-firewall/).
+     * Previously created a URI-based WAF override for a zone.
      *
      * @deprecated
      */
     public static wafOverridesCreateAWafOverride<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         urls: FirewallUrls;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafOverridesCreateAWafOverrideResponses, WafOverridesCreateAWafOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'urls' }] }]);
         return (options?.client ?? client).post<WafOverridesCreateAWafOverrideResponses, WafOverridesCreateAWafOverrideErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -88,9 +88,9 @@ export class WafOverridesService {
     /**
      * Delete a WAF override
      *
-     * Deletes an existing URI-based WAF override.
+     * **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
      *
-     * **Note:** Applies only to the [previous version of WAF managed rules](https://developers.cloudflare.com/support/firewall/managed-rules-web-application-firewall-waf/understanding-waf-managed-rules-web-application-firewall/).
+     * Previously deleted an existing URI-based WAF override.
      *
      * @deprecated
      */
@@ -98,7 +98,7 @@ export class WafOverridesService {
         overrides_id: FirewallOverridesId;
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafOverridesDeleteAWafOverrideResponses, WafOverridesDeleteAWafOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'overrides_id' },
                     { in: 'path', key: 'zone_id' },
@@ -130,16 +130,16 @@ export class WafOverridesService {
     /**
      * Get a WAF override
      *
-     * Fetches the details of a URI-based WAF override.
+     * **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
      *
-     * **Note:** Applies only to the [previous version of WAF managed rules](https://developers.cloudflare.com/support/firewall/managed-rules-web-application-firewall-waf/understanding-waf-managed-rules-web-application-firewall/).
+     * Previously fetched the details of a URI-based WAF override.
      *
      * @deprecated
      */
     public static wafOverridesGetAWafOverride<ThrowOnError extends boolean = true>(parameters: {
         overrides_id: FirewallOverridesId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafOverridesGetAWafOverrideResponses, WafOverridesGetAWafOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'overrides_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafOverridesGetAWafOverrideResponses, WafOverridesGetAWafOverrideErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -162,9 +162,9 @@ export class WafOverridesService {
     /**
      * Update WAF override
      *
-     * Updates an existing URI-based WAF override.
+     * **This endpoint has been deprecated and returns 410 Gone. Please use the [Rulesets API](https://developers.cloudflare.com/ruleset-engine/) instead.**
      *
-     * **Note:** Applies only to the [previous version of WAF managed rules](https://developers.cloudflare.com/support/firewall/managed-rules-web-application-firewall-waf/understanding-waf-managed-rules-web-application-firewall/).
+     * Previously updated an existing URI-based WAF override.
      *
      * @deprecated
      */
@@ -175,7 +175,7 @@ export class WafOverridesService {
         rewrite_action: FirewallRewriteAction;
         rules: FirewallRulesWritable;
         urls: FirewallUrls;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafOverridesUpdateWafOverrideResponses, WafOverridesUpdateWafOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'overrides_id' },
                     { in: 'path', key: 'zone_id' },

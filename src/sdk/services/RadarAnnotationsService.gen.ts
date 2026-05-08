@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAnnotationsErrors, RadarGetAnnotationsOutagesErrors, RadarGetAnnotationsOutagesResponses, RadarGetAnnotationsOutagesTopErrors, RadarGetAnnotationsOutagesTopResponses, RadarGetAnnotationsResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarAnnotationsService {
         location?: string;
         origin?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAnnotationsResponses, RadarGetAnnotationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -75,7 +75,7 @@ export class RadarAnnotationsService {
         location?: string;
         origin?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAnnotationsOutagesResponses, RadarGetAnnotationsOutagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -116,7 +116,7 @@ export class RadarAnnotationsService {
         dateStart?: string;
         dateEnd?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAnnotationsOutagesTopResponses, RadarGetAnnotationsOutagesTopErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'dateRange' },

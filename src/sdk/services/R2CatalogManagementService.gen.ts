@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DisableCatalogErrors, DisableCatalogResponses, EnableCatalogErrors, EnableCatalogResponses, GetCatalogDetailsErrors, GetCatalogDetailsResponses, ListCatalogsErrors, ListCatalogsResponses, R2DataCatalogAccountId, R2DataCatalogBucketName } from '../types.gen';
@@ -21,7 +21,7 @@ export class R2CatalogManagementService {
      */
     public static listCatalogs<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2DataCatalogAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListCatalogsResponses, ListCatalogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListCatalogsResponses, ListCatalogsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class R2CatalogManagementService {
     public static getCatalogDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCatalogDetailsResponses, GetCatalogDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'bucket_name' }] }]);
         return (options?.client ?? client).get<GetCatalogDetailsResponses, GetCatalogDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +82,7 @@ export class R2CatalogManagementService {
     public static disableCatalog<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DisableCatalogResponses, DisableCatalogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'bucket_name' }] }]);
         return (options?.client ?? client).post<DisableCatalogResponses, DisableCatalogErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,7 +113,7 @@ export class R2CatalogManagementService {
     public static enableCatalog<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EnableCatalogResponses, EnableCatalogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'bucket_name' }] }]);
         return (options?.client ?? client).post<EnableCatalogResponses, EnableCatalogErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

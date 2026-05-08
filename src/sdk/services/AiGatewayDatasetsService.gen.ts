@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigCreateDatasetErrors, AigConfigCreateDatasetResponses, AigConfigDeleteDatasetErrors, AigConfigDeleteDatasetResponses, AigConfigFetchDatasetErrors, AigConfigFetchDatasetResponses, AigConfigListDatasetErrors, AigConfigListDatasetResponses, AigConfigUpdateDatasetErrors, AigConfigUpdateDatasetResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class AiGatewayDatasetsService {
         name?: string;
         enable?: boolean;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListDatasetResponses, AigConfigListDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -67,7 +67,7 @@ export class AiGatewayDatasetsService {
             value: Array<string | number | boolean>;
         }>;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigCreateDatasetResponses, AigConfigCreateDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'gateway_id' },
                     { in: 'path', key: 'account_id' },
@@ -107,7 +107,7 @@ export class AiGatewayDatasetsService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteDatasetResponses, AigConfigDeleteDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -140,7 +140,7 @@ export class AiGatewayDatasetsService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigFetchDatasetResponses, AigConfigFetchDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -180,7 +180,7 @@ export class AiGatewayDatasetsService {
             value: Array<string | number | boolean>;
         }>;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigUpdateDatasetResponses, AigConfigUpdateDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },

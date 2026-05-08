@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayAction, ZeroTrustGatewayComponentsSchemasName, ZeroTrustGatewayDevicePosture, ZeroTrustGatewayEnabled, ZeroTrustGatewayExpirationWritable, ZeroTrustGatewayFilters, ZeroTrustGatewayIdentity, ZeroTrustGatewayPrecedence, ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleResponses, ZeroTrustGatewayRuleSettings, ZeroTrustGatewayRulesListZeroTrustGatewayRulesErrors, ZeroTrustGatewayRulesListZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantErrors, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponses, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsErrors, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponses, ZeroTrustGatewaySchedule, ZeroTrustGatewaySchemasDescription, ZeroTrustGatewaySchemasIdentifier, ZeroTrustGatewaySchemasUuid, ZeroTrustGatewayTraffic } from '../types.gen';
-import { zZeroTrustGatewayRulesCreateZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesCreateZeroTrustGatewayRulePath, zZeroTrustGatewayRulesCreateZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRulePath, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesListZeroTrustGatewayRulesPath, zZeroTrustGatewayRulesListZeroTrustGatewayRulesResponse, zZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantPath, zZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponse, zZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRulePath, zZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRulePath, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsPath, zZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponse } from '../zod.gen';
+import type { ZeroTrustGatewayAction, ZeroTrustGatewayDescription2, ZeroTrustGatewayDevicePosture, ZeroTrustGatewayEnabled, ZeroTrustGatewayExpirationWritable, ZeroTrustGatewayFilters, ZeroTrustGatewayIdentifier2, ZeroTrustGatewayIdentity, ZeroTrustGatewayName3, ZeroTrustGatewayPrecedence, ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleResponses, ZeroTrustGatewayRuleSettings, ZeroTrustGatewayRulesListZeroTrustGatewayRulesErrors, ZeroTrustGatewayRulesListZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantErrors, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponses, ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesErrors, ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleErrors, ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsErrors, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponses, ZeroTrustGatewaySchedule, ZeroTrustGatewayTraffic, ZeroTrustGatewayUuid2 } from '../types.gen';
+import { zZeroTrustGatewayRulesCreateZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesCreateZeroTrustGatewayRulePath, zZeroTrustGatewayRulesCreateZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRulePath, zZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesListZeroTrustGatewayRulesPath, zZeroTrustGatewayRulesListZeroTrustGatewayRulesResponse, zZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantPath, zZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponse, zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesBody, zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesPath, zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesResponse, zZeroTrustGatewayRulesPatchZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesPatchZeroTrustGatewayRulePath, zZeroTrustGatewayRulesPatchZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRulePath, zZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleBody, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRulePath, zZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleResponse, zZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsPath, zZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayRulesService {
     /**
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayRulesService {
      * List Zero Trust Gateway rules for an account.
      */
     public static zeroTrustGatewayRulesListZeroTrustGatewayRules<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesListZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayRulesListZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -39,25 +39,64 @@ export class ZeroTrustGatewayRulesService {
     }
     
     /**
+     * Patch multiple Zero Trust Gateway rules
+     *
+     * Update select fields of multiple Zero Trust Gateway rules in a single request. This is commonly used to reorder rules by updating their precedence values. Only the fields provided for each rule are updated.
+     */
+    public static zeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRules<ThrowOnError extends boolean = true>(parameters: {
+        account_id: ZeroTrustGatewayIdentifier2;
+        body: Array<{
+            description?: ZeroTrustGatewayDescription2;
+            enabled?: ZeroTrustGatewayEnabled;
+            id: ZeroTrustGatewayUuid2;
+            name?: ZeroTrustGatewayName3;
+            precedence?: ZeroTrustGatewayPrecedence;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
+        return (options?.client ?? client).patch<ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesResponses, ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesBody,
+                path: zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/gateway/rules',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Create a Zero Trust Gateway rule
      *
      * Create a new Zero Trust Gateway rule.
      */
     public static zeroTrustGatewayRulesCreateZeroTrustGatewayRule<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         action: ZeroTrustGatewayAction;
-        description?: ZeroTrustGatewaySchemasDescription;
+        description?: ZeroTrustGatewayDescription2;
         device_posture?: ZeroTrustGatewayDevicePosture;
         enabled?: ZeroTrustGatewayEnabled;
         expiration?: ZeroTrustGatewayExpirationWritable;
         filters?: ZeroTrustGatewayFilters;
         identity?: ZeroTrustGatewayIdentity;
-        name: ZeroTrustGatewayComponentsSchemasName;
+        name: ZeroTrustGatewayName3;
         precedence?: ZeroTrustGatewayPrecedence;
         rule_settings?: ZeroTrustGatewayRuleSettings;
         schedule?: ZeroTrustGatewaySchedule;
         traffic?: ZeroTrustGatewayTraffic;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'action' },
@@ -102,8 +141,8 @@ export class ZeroTrustGatewayRulesService {
      * List Zero Trust Gateway rules for the parent account of an account in the MSP configuration.
      */
     public static zeroTrustGatewayRulesListZeroTrustGatewayRulesTenant<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantResponses, ZeroTrustGatewayRulesListZeroTrustGatewayRulesTenantErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -129,10 +168,10 @@ export class ZeroTrustGatewayRulesService {
      * Delete a Zero Trust Gateway rule.
      */
     public static zeroTrustGatewayRulesDeleteZeroTrustGatewayRule<ThrowOnError extends boolean = true>(parameters: {
-        rule_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        rule_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesDeleteZeroTrustGatewayRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -167,9 +206,9 @@ export class ZeroTrustGatewayRulesService {
      * Get a single Zero Trust Gateway rule.
      */
     public static zeroTrustGatewayRulesZeroTrustGatewayRuleDetails<ThrowOnError extends boolean = true>(parameters: {
-        rule_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        rule_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponses, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsResponses, ZeroTrustGatewayRulesZeroTrustGatewayRuleDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,26 +229,70 @@ export class ZeroTrustGatewayRulesService {
     }
     
     /**
+     * Patch a Zero Trust Gateway rule
+     *
+     * Update select fields of an existing Zero Trust Gateway rule. Only the fields provided in the request body are updated. This endpoint supports a limited subset of fields (`name`, `description`, `precedence`, `enabled`). To update other fields such as `action`, `traffic`, `identity`, `device_posture`, `rule_settings`, `schedule`, or `expiration`, use the PUT endpoint for a full rule replacement.
+     */
+    public static zeroTrustGatewayRulesPatchZeroTrustGatewayRule<ThrowOnError extends boolean = true>(parameters: {
+        rule_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
+        description?: ZeroTrustGatewayDescription2;
+        enabled?: ZeroTrustGatewayEnabled;
+        name?: ZeroTrustGatewayName3;
+        precedence?: ZeroTrustGatewayPrecedence;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'rule_id' },
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'description' },
+                    { in: 'body', key: 'enabled' },
+                    { in: 'body', key: 'name' },
+                    { in: 'body', key: 'precedence' }
+                ] }]);
+        return (options?.client ?? client).patch<ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZeroTrustGatewayRulesPatchZeroTrustGatewayRuleBody,
+                path: zZeroTrustGatewayRulesPatchZeroTrustGatewayRulePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustGatewayRulesPatchZeroTrustGatewayRuleResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/gateway/rules/{rule_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Update a Zero Trust Gateway rule
      *
      * Update a configured Zero Trust Gateway rule.
      */
     public static zeroTrustGatewayRulesUpdateZeroTrustGatewayRule<ThrowOnError extends boolean = true>(parameters: {
-        rule_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        rule_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
         action: ZeroTrustGatewayAction;
-        description?: ZeroTrustGatewaySchemasDescription;
+        description?: ZeroTrustGatewayDescription2;
         device_posture?: ZeroTrustGatewayDevicePosture;
         enabled?: ZeroTrustGatewayEnabled;
         expiration?: ZeroTrustGatewayExpirationWritable;
         filters?: ZeroTrustGatewayFilters;
         identity?: ZeroTrustGatewayIdentity;
-        name: ZeroTrustGatewayComponentsSchemasName;
+        name: ZeroTrustGatewayName3;
         precedence?: ZeroTrustGatewayPrecedence;
         rule_settings?: ZeroTrustGatewayRuleSettings;
         schedule?: ZeroTrustGatewaySchedule;
         traffic?: ZeroTrustGatewayTraffic;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -255,9 +338,9 @@ export class ZeroTrustGatewayRulesService {
      * Resets the expiration of a Zero Trust Gateway Rule if its duration elapsed and it has a default duration. The Zero Trust Gateway Rule must have values  for both `expiration.expires_at` and `expiration.duration`.
      */
     public static zeroTrustGatewayRulesResetExpirationZeroTrustGatewayRule<ThrowOnError extends boolean = true>(parameters: {
-        rule_id: ZeroTrustGatewaySchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        rule_id: ZeroTrustGatewayUuid2;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleResponses, ZeroTrustGatewayRulesResetExpirationZeroTrustGatewayRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

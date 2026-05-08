@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsSettingsDirection, DnsSettingsDnsViewPatchWritable, DnsSettingsDnsViewPostWritable, DnsSettingsIdentifier, DnsSettingsMatch, DnsSettingsOrder, DnsSettingsPage, DnsSettingsPerPage, DnsViewsForAnAccountCreateInternalDnsViewsErrors, DnsViewsForAnAccountCreateInternalDnsViewsResponses, DnsViewsForAnAccountDeleteInternalDnsViewErrors, DnsViewsForAnAccountDeleteInternalDnsViewResponses, DnsViewsForAnAccountGetInternalDnsViewErrors, DnsViewsForAnAccountGetInternalDnsViewResponses, DnsViewsForAnAccountListInternalDnsViewsErrors, DnsViewsForAnAccountListInternalDnsViewsResponses, DnsViewsForAnAccountUpdateInternalDnsViewErrors, DnsViewsForAnAccountUpdateInternalDnsViewResponses } from '../types.gen';
@@ -30,7 +30,7 @@ export class DnsInternalViewsForAnAccountService {
         per_page?: DnsSettingsPerPage;
         order?: DnsSettingsOrder;
         direction?: DnsSettingsDirection;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsViewsForAnAccountListInternalDnsViewsResponses, DnsViewsForAnAccountListInternalDnsViewsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -72,7 +72,7 @@ export class DnsInternalViewsForAnAccountService {
     public static dnsViewsForAnAccountCreateInternalDnsViews<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsSettingsIdentifier;
         dnsSettingsDnsViewPostWritable: DnsSettingsDnsViewPostWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsViewsForAnAccountCreateInternalDnsViewsResponses, DnsViewsForAnAccountCreateInternalDnsViewsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dnsSettingsDnsViewPostWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<DnsViewsForAnAccountCreateInternalDnsViewsResponses, DnsViewsForAnAccountCreateInternalDnsViewsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class DnsInternalViewsForAnAccountService {
         account_id: DnsSettingsIdentifier;
         view_id: DnsSettingsIdentifier;
         body?: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsViewsForAnAccountDeleteInternalDnsViewResponses, DnsViewsForAnAccountDeleteInternalDnsViewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'view_id' },
@@ -143,7 +143,7 @@ export class DnsInternalViewsForAnAccountService {
     public static dnsViewsForAnAccountGetInternalDnsView<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsSettingsIdentifier;
         view_id: DnsSettingsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsViewsForAnAccountGetInternalDnsViewResponses, DnsViewsForAnAccountGetInternalDnsViewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'view_id' }] }]);
         return (options?.client ?? client).get<DnsViewsForAnAccountGetInternalDnsViewResponses, DnsViewsForAnAccountGetInternalDnsViewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +172,7 @@ export class DnsInternalViewsForAnAccountService {
         account_id: DnsSettingsIdentifier;
         view_id: DnsSettingsIdentifier;
         dnsSettingsDnsViewPatchWritable: DnsSettingsDnsViewPatchWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsViewsForAnAccountUpdateInternalDnsViewResponses, DnsViewsForAnAccountUpdateInternalDnsViewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'view_id' },

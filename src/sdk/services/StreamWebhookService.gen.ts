@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { StreamAccountIdentifier, StreamWebhookCreateWebhooksErrors, StreamWebhookCreateWebhooksResponses, StreamWebhookDeleteWebhooksErrors, StreamWebhookDeleteWebhooksResponses, StreamWebhookRequest, StreamWebhookViewWebhooksErrors, StreamWebhookViewWebhooksResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class StreamWebhookService {
      */
     public static streamWebhookDeleteWebhooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWebhookDeleteWebhooksResponses, StreamWebhookDeleteWebhooksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<StreamWebhookDeleteWebhooksResponses, StreamWebhookDeleteWebhooksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class StreamWebhookService {
      */
     public static streamWebhookViewWebhooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWebhookViewWebhooksResponses, StreamWebhookViewWebhooksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamWebhookViewWebhooksResponses, StreamWebhookViewWebhooksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class StreamWebhookService {
     public static streamWebhookCreateWebhooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
         streamWebhookRequest: StreamWebhookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWebhookCreateWebhooksResponses, StreamWebhookCreateWebhooksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'streamWebhookRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<StreamWebhookCreateWebhooksResponses, StreamWebhookCreateWebhooksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

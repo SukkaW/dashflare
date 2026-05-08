@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetZonesZoneIdentifierZarazConfigErrors, GetZonesZoneIdentifierZarazConfigHistoryErrors, GetZonesZoneIdentifierZarazConfigHistoryResponses, GetZonesZoneIdentifierZarazConfigResponses, GetZonesZoneIdentifierZarazDefaultErrors, GetZonesZoneIdentifierZarazDefaultResponses, GetZonesZoneIdentifierZarazExportErrors, GetZonesZoneIdentifierZarazExportResponses, GetZonesZoneIdentifierZarazHistoryErrors, GetZonesZoneIdentifierZarazHistoryResponses, GetZonesZoneIdentifierZarazWorkflowErrors, GetZonesZoneIdentifierZarazWorkflowResponses, PostZonesZoneIdentifierZarazPublishErrors, PostZonesZoneIdentifierZarazPublishResponses, PutZonesZoneIdentifierZarazConfigErrors, PutZonesZoneIdentifierZarazConfigResponses, PutZonesZoneIdentifierZarazHistoryErrors, PutZonesZoneIdentifierZarazHistoryResponses, PutZonesZoneIdentifierZarazWorkflowErrors, PutZonesZoneIdentifierZarazWorkflowResponses, ZarazIdentifier, ZarazZarazConfigBody, ZarazZarazWorkflow } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZarazService {
      */
     public static getZonesZoneIdentifierZarazConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazConfigResponses, GetZonesZoneIdentifierZarazConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdentifierZarazConfigResponses, GetZonesZoneIdentifierZarazConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ZarazService {
     public static putZonesZoneIdentifierZarazConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
         zarazZarazConfigBody: ZarazZarazConfigBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutZonesZoneIdentifierZarazConfigResponses, PutZonesZoneIdentifierZarazConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'zarazZarazConfigBody', map: 'body' }] }]);
         return (options?.client ?? client).put<PutZonesZoneIdentifierZarazConfigResponses, PutZonesZoneIdentifierZarazConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class ZarazService {
      */
     public static getZonesZoneIdentifierZarazDefault<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazDefaultResponses, GetZonesZoneIdentifierZarazDefaultErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdentifierZarazDefaultResponses, GetZonesZoneIdentifierZarazDefaultErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -105,7 +105,7 @@ export class ZarazService {
      */
     public static getZonesZoneIdentifierZarazExport<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazExportResponses, GetZonesZoneIdentifierZarazExportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdentifierZarazExportResponses, GetZonesZoneIdentifierZarazExportErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class ZarazService {
         limit?: number;
         sortField?: 'id' | 'user_id' | 'description' | 'created_at' | 'updated_at';
         sortOrder?: 'DESC' | 'ASC';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazHistoryResponses, GetZonesZoneIdentifierZarazHistoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'offset' },
@@ -170,7 +170,7 @@ export class ZarazService {
     public static putZonesZoneIdentifierZarazHistory<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
         body: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutZonesZoneIdentifierZarazHistoryResponses, PutZonesZoneIdentifierZarazHistoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<PutZonesZoneIdentifierZarazHistoryResponses, PutZonesZoneIdentifierZarazHistoryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -203,7 +203,7 @@ export class ZarazService {
     public static getZonesZoneIdentifierZarazConfigHistory<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
         ids: Array<number>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazConfigHistoryResponses, GetZonesZoneIdentifierZarazConfigHistoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'ids' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdentifierZarazConfigHistoryResponses, GetZonesZoneIdentifierZarazConfigHistoryErrors, ThrowOnError>({
             querySerializer: { parameters: { ids: { array: { explode: false } } } },
@@ -232,7 +232,7 @@ export class ZarazService {
     public static postZonesZoneIdentifierZarazPublish<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
         body?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdentifierZarazPublishResponses, PostZonesZoneIdentifierZarazPublishErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdentifierZarazPublishResponses, PostZonesZoneIdentifierZarazPublishErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -264,7 +264,7 @@ export class ZarazService {
      */
     public static getZonesZoneIdentifierZarazWorkflow<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdentifierZarazWorkflowResponses, GetZonesZoneIdentifierZarazWorkflowErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdentifierZarazWorkflowResponses, GetZonesZoneIdentifierZarazWorkflowErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -292,7 +292,7 @@ export class ZarazService {
     public static putZonesZoneIdentifierZarazWorkflow<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZarazIdentifier;
         zarazZarazWorkflow: ZarazZarazWorkflow;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutZonesZoneIdentifierZarazWorkflowResponses, PutZonesZoneIdentifierZarazWorkflowErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'zarazZarazWorkflow', map: 'body' }] }]);
         return (options?.client ?? client).put<PutZonesZoneIdentifierZarazWorkflowResponses, PutZonesZoneIdentifierZarazWorkflowErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

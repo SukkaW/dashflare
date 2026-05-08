@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { TlsCertificatesAndHostnamesComponentsSchemasCertificateAuthority, TlsCertificatesAndHostnamesComponentsSchemasEnabled, TlsCertificatesAndHostnamesIdentifier, TotalTlsEnableOrDisableTotalTlsErrors, TotalTlsEnableOrDisableTotalTlsResponses, TotalTlsTotalTlsSettingsDetailsErrors, TotalTlsTotalTlsSettingsDetailsResponses } from '../types.gen';
+import type { TlsCertificatesAndHostnamesCertificateAuthority3, TlsCertificatesAndHostnamesEnabled3, TlsCertificatesAndHostnamesIdentifier, TotalTlsEnableOrDisableTotalTlsErrors, TotalTlsEnableOrDisableTotalTlsResponses, TotalTlsTotalTlsSettingsDetailsErrors, TotalTlsTotalTlsSettingsDetailsResponses } from '../types.gen';
 import { zTotalTlsEnableOrDisableTotalTlsBody, zTotalTlsEnableOrDisableTotalTlsPath, zTotalTlsEnableOrDisableTotalTlsResponse, zTotalTlsTotalTlsSettingsDetailsPath, zTotalTlsTotalTlsSettingsDetailsResponse } from '../zod.gen';
 
 export class TotalTlsService {
@@ -18,7 +18,7 @@ export class TotalTlsService {
      */
     public static totalTlsTotalTlsSettingsDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TotalTlsTotalTlsSettingsDetailsResponses, TotalTlsTotalTlsSettingsDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<TotalTlsTotalTlsSettingsDetailsResponses, TotalTlsTotalTlsSettingsDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -28,9 +28,9 @@ export class TotalTlsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zTotalTlsTotalTlsSettingsDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/total_tls',
             ...options,
@@ -45,9 +45,9 @@ export class TotalTlsService {
      */
     public static totalTlsEnableOrDisableTotalTls<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        certificate_authority?: TlsCertificatesAndHostnamesComponentsSchemasCertificateAuthority;
-        enabled: TlsCertificatesAndHostnamesComponentsSchemasEnabled;
-    }, options?: Options<never, ThrowOnError>) {
+        certificate_authority?: TlsCertificatesAndHostnamesCertificateAuthority3;
+        enabled: TlsCertificatesAndHostnamesEnabled3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TotalTlsEnableOrDisableTotalTlsResponses, TotalTlsEnableOrDisableTotalTlsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'certificate_authority' },
@@ -61,9 +61,9 @@ export class TotalTlsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zTotalTlsEnableOrDisableTotalTlsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/total_tls',
             ...options,

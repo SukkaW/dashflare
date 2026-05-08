@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessCfResourceId, AccessEmail, AccessGroupsName, AccessIdentifier, AccessIdentityProvidersAddAnAccessIdentityProviderErrors, AccessIdentityProvidersAddAnAccessIdentityProviderResponses, AccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, AccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, AccessIdentityProvidersGetAnAccessIdentityProviderErrors, AccessIdentityProvidersGetAnAccessIdentityProviderResponses, AccessIdentityProvidersListAccessIdentityProvidersErrors, AccessIdentityProvidersListAccessIdentityProvidersResponses, AccessIdentityProvidersListScimGroupResourcesErrors, AccessIdentityProvidersListScimGroupResourcesResponses, AccessIdentityProvidersListScimUserResourcesErrors, AccessIdentityProvidersListScimUserResourcesResponses, AccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, AccessIdentityProvidersUpdateAnAccessIdentityProviderResponses, AccessIdentityProvidersWritable, AccessIdpResourceId, AccessUsername, AccessUsersCfResourceId, AccessUsersIdpResourceId, AccessUsersName, AccessUuid } from '../types.gen';
-import { zAccessIdentityProvidersAddAnAccessIdentityProviderBody, zAccessIdentityProvidersAddAnAccessIdentityProviderPath, zAccessIdentityProvidersAddAnAccessIdentityProviderResponse, zAccessIdentityProvidersDeleteAnAccessIdentityProviderPath, zAccessIdentityProvidersDeleteAnAccessIdentityProviderResponse, zAccessIdentityProvidersGetAnAccessIdentityProviderPath, zAccessIdentityProvidersGetAnAccessIdentityProviderResponse, zAccessIdentityProvidersListAccessIdentityProvidersPath, zAccessIdentityProvidersListAccessIdentityProvidersQuery, zAccessIdentityProvidersListAccessIdentityProvidersResponse, zAccessIdentityProvidersListScimGroupResourcesPath, zAccessIdentityProvidersListScimGroupResourcesQuery, zAccessIdentityProvidersListScimGroupResourcesResponse, zAccessIdentityProvidersListScimUserResourcesPath, zAccessIdentityProvidersListScimUserResourcesQuery, zAccessIdentityProvidersListScimUserResourcesResponse, zAccessIdentityProvidersUpdateAnAccessIdentityProviderBody, zAccessIdentityProvidersUpdateAnAccessIdentityProviderPath, zAccessIdentityProvidersUpdateAnAccessIdentityProviderResponse } from '../zod.gen';
+import type { AccessCfResourceId, AccessCfResourceId2, AccessEmail, AccessIdentifier, AccessIdentityProvidersAddAnAccessIdentityProviderErrors, AccessIdentityProvidersAddAnAccessIdentityProviderResponses, AccessIdentityProvidersCreateSamlCertificateForIdentityProviderErrors, AccessIdentityProvidersCreateSamlCertificateForIdentityProviderResponses, AccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, AccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, AccessIdentityProvidersGetAnAccessIdentityProviderErrors, AccessIdentityProvidersGetAnAccessIdentityProviderResponses, AccessIdentityProvidersListAccessIdentityProvidersErrors, AccessIdentityProvidersListAccessIdentityProvidersResponses, AccessIdentityProvidersListScimGroupResourcesErrors, AccessIdentityProvidersListScimGroupResourcesResponses, AccessIdentityProvidersListScimUserResourcesErrors, AccessIdentityProvidersListScimUserResourcesResponses, AccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, AccessIdentityProvidersUpdateAnAccessIdentityProviderResponses, AccessIdentityProvidersWritable, AccessIdpResourceId, AccessIdpResourceId2, AccessName4, AccessName5, AccessUsername, AccessUuid } from '../types.gen';
+import { zAccessIdentityProvidersAddAnAccessIdentityProviderBody, zAccessIdentityProvidersAddAnAccessIdentityProviderPath, zAccessIdentityProvidersAddAnAccessIdentityProviderResponse, zAccessIdentityProvidersCreateSamlCertificateForIdentityProviderPath, zAccessIdentityProvidersCreateSamlCertificateForIdentityProviderResponse, zAccessIdentityProvidersDeleteAnAccessIdentityProviderPath, zAccessIdentityProvidersDeleteAnAccessIdentityProviderResponse, zAccessIdentityProvidersGetAnAccessIdentityProviderPath, zAccessIdentityProvidersGetAnAccessIdentityProviderResponse, zAccessIdentityProvidersListAccessIdentityProvidersPath, zAccessIdentityProvidersListAccessIdentityProvidersQuery, zAccessIdentityProvidersListAccessIdentityProvidersResponse, zAccessIdentityProvidersListScimGroupResourcesPath, zAccessIdentityProvidersListScimGroupResourcesQuery, zAccessIdentityProvidersListScimGroupResourcesResponse, zAccessIdentityProvidersListScimUserResourcesPath, zAccessIdentityProvidersListScimUserResourcesQuery, zAccessIdentityProvidersListScimUserResourcesResponse, zAccessIdentityProvidersUpdateAnAccessIdentityProviderBody, zAccessIdentityProvidersUpdateAnAccessIdentityProviderPath, zAccessIdentityProvidersUpdateAnAccessIdentityProviderResponse } from '../zod.gen';
 
 export class AccessIdentityProvidersService {
     /**
@@ -21,7 +21,7 @@ export class AccessIdentityProvidersService {
         scim_enabled?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersListAccessIdentityProvidersResponses, AccessIdentityProvidersListAccessIdentityProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'scim_enabled' },
@@ -54,7 +54,7 @@ export class AccessIdentityProvidersService {
     public static accessIdentityProvidersAddAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         accessIdentityProvidersWritable: AccessIdentityProvidersWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersAddAnAccessIdentityProviderResponses, AccessIdentityProvidersAddAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessIdentityProvidersWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccessIdentityProvidersAddAnAccessIdentityProviderResponses, AccessIdentityProvidersAddAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -87,7 +87,7 @@ export class AccessIdentityProvidersService {
     public static accessIdentityProvidersDeleteAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, AccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identity_provider_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, AccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -115,7 +115,7 @@ export class AccessIdentityProvidersService {
     public static accessIdentityProvidersGetAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersGetAnAccessIdentityProviderResponses, AccessIdentityProvidersGetAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identity_provider_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessIdentityProvidersGetAnAccessIdentityProviderResponses, AccessIdentityProvidersGetAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,7 +144,7 @@ export class AccessIdentityProvidersService {
         identity_provider_id: AccessUuid;
         account_id: AccessIdentifier;
         accessIdentityProvidersWritable: AccessIdentityProvidersWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersUpdateAnAccessIdentityProviderResponses, AccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identity_provider_id' },
                     { in: 'path', key: 'account_id' },
@@ -174,6 +174,44 @@ export class AccessIdentityProvidersService {
     }
     
     /**
+     * Create SAML encryption certificate for Identity Provider
+     *
+     * Creates a new SAML encryption certificate set and assigns it to the specified
+     * SAML Identity Provider. This endpoint is idempotent - if the IdP already has
+     * a certificate set assigned, the existing certificate set is returned with a 200 status.
+     *
+     * **Workflow for enabling SAML encryption:**
+     * 1. Call this endpoint to create and assign a certificate set to the IdP
+     * 2. Update the IdP configuration (PUT `/identity_providers/{id}`) with:
+     * - `config.enable_encryption: true`
+     * - `saml_certificate_set_id: <uid from step 1>`
+     * 3. Configure the certificate's public key in your external SAML Identity Provider
+     *
+     */
+    public static accessIdentityProvidersCreateSamlCertificateForIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
+        account_id: AccessIdentifier;
+        identity_provider_id: AccessUuid;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersCreateSamlCertificateForIdentityProviderResponses, AccessIdentityProvidersCreateSamlCertificateForIdentityProviderErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'identity_provider_id' }] }]);
+        return (options?.client ?? client).post<AccessIdentityProvidersCreateSamlCertificateForIdentityProviderResponses, AccessIdentityProvidersCreateSamlCertificateForIdentityProviderErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAccessIdentityProvidersCreateSamlCertificateForIdentityProviderPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAccessIdentityProvidersCreateSamlCertificateForIdentityProviderResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/access/identity_providers/{identity_provider_id}/saml_certificate',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * List SCIM Group resources
      *
      * Lists SCIM Group resources synced to Cloudflare via the System for Cross-domain Identity Management (SCIM).
@@ -183,10 +221,10 @@ export class AccessIdentityProvidersService {
         account_id: AccessIdentifier;
         cf_resource_id?: AccessCfResourceId;
         idp_resource_id?: AccessIdpResourceId;
-        name?: AccessGroupsName;
+        name?: AccessName4;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersListScimGroupResourcesResponses, AccessIdentityProvidersListScimGroupResourcesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identity_provider_id' },
                     { in: 'path', key: 'account_id' },
@@ -222,14 +260,14 @@ export class AccessIdentityProvidersService {
     public static accessIdentityProvidersListScimUserResources<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         account_id: AccessIdentifier;
-        cf_resource_id?: AccessUsersCfResourceId;
-        idp_resource_id?: AccessUsersIdpResourceId;
+        cf_resource_id?: AccessCfResourceId2;
+        idp_resource_id?: AccessIdpResourceId2;
         username?: AccessUsername;
         email?: AccessEmail;
-        name?: AccessUsersName;
+        name?: AccessName5;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessIdentityProvidersListScimUserResourcesResponses, AccessIdentityProvidersListScimUserResourcesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identity_provider_id' },
                     { in: 'path', key: 'account_id' },

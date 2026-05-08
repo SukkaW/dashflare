@@ -4,21 +4,21 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailIdentifier, EmailSendingAccountSendBuilderErrors, EmailSendingAccountSendBuilderResponses, EmailSendingAccountSendRawMessageErrors, EmailSendingAccountSendRawMessageResponses, EmailSendingEmailBuilder, EmailSendingGetSendingLimitsResponses, EmailSendingSendRawRequest } from '../types.gen';
-import { zEmailSendingAccountSendBuilderBody, zEmailSendingAccountSendBuilderPath, zEmailSendingAccountSendBuilderResponse, zEmailSendingAccountSendRawMessageBody, zEmailSendingAccountSendRawMessagePath, zEmailSendingAccountSendRawMessageResponse, zEmailSendingGetSendingLimitsPath, zEmailSendingGetSendingLimitsResponse } from '../zod.gen';
+import type { EmailIdentifier, EmailSendingAccountSendBuilderErrors, EmailSendingAccountSendBuilderResponses, EmailSendingAccountSendRawMessageErrors, EmailSendingAccountSendRawMessageResponses, EmailSendingEmailBuilder, EmailSendingGetEmailMessageErrors, EmailSendingGetEmailMessageResponses, EmailSendingGetSendingLimitsResponses, EmailSendingSendRawRequest } from '../types.gen';
+import { zEmailSendingAccountSendBuilderBody, zEmailSendingAccountSendBuilderPath, zEmailSendingAccountSendBuilderResponse, zEmailSendingAccountSendRawMessageBody, zEmailSendingAccountSendRawMessagePath, zEmailSendingAccountSendRawMessageResponse, zEmailSendingGetEmailMessagePath, zEmailSendingGetEmailMessageResponse, zEmailSendingGetSendingLimitsPath, zEmailSendingGetSendingLimitsResponse } from '../zod.gen';
 
 export class EmailSendingService {
     /**
      * Get sending limits
      *
-     * Returns the current daily sending quota for the account. Null when the quota is not yet available.
+     * Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.
      */
     public static emailSendingGetSendingLimits<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingGetSendingLimitsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<EmailSendingGetSendingLimitsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,12 +35,42 @@ export class EmailSendingService {
     }
     
     /**
+     * Fetch an email message
+     *
+     * Returns the raw RFC 5322 MIME message for the given account and message id.
+     */
+    public static emailSendingGetEmailMessage<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        message_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingGetEmailMessageResponses, EmailSendingGetEmailMessageErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'message_id' }] }]);
+        return (options?.client ?? client).get<EmailSendingGetEmailMessageResponses, EmailSendingGetEmailMessageErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSendingGetEmailMessagePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSendingGetEmailMessageResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/email/sending/messages/{message_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Send an email
+     *
+     * Send an email for the specified account using the structured builder. Provide the sender, recipients, subject, and at least one of text or html; attachments are optional.
      */
     public static emailSendingAccountSendBuilder<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         emailSendingEmailBuilder: EmailSendingEmailBuilder;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingAccountSendBuilderResponses, EmailSendingAccountSendBuilderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSendingEmailBuilder', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSendingAccountSendBuilderResponses, EmailSendingAccountSendBuilderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -67,11 +97,13 @@ export class EmailSendingService {
     
     /**
      * Send a raw MIME email
+     *
+     * Send a raw RFC 5322 (MIME) email for the specified account. Provide the full MIME message plus the SMTP envelope (from and recipients).
      */
     public static emailSendingAccountSendRawMessage<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         emailSendingSendRawRequest: EmailSendingSendRawRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingAccountSendRawMessageResponses, EmailSendingAccountSendRawMessageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSendingSendRawRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSendingAccountSendRawMessageResponses, EmailSendingAccountSendRawMessageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

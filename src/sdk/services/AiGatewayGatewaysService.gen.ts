@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigCreateGatewayErrors, AigConfigCreateGatewayResponses, AigConfigDeleteGatewayErrors, AigConfigDeleteGatewayResponses, AigConfigFetchGatewayErrors, AigConfigFetchGatewayResponses, AigConfigGetGatewayUrlErrors, AigConfigGetGatewayUrlResponses, AigConfigListGatewayErrors, AigConfigListGatewayResponses, AigConfigUpdateGatewayErrors, AigConfigUpdateGatewayResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class AiGatewayGatewaysService {
         page?: number;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListGatewayResponses, AigConfigListGatewayErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -70,7 +70,7 @@ export class AiGatewayGatewaysService {
         retry_max_attempts?: number | null;
         workers_ai_billing_mode?: 'postpaid';
         zdr?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigCreateGatewayResponses, AigConfigCreateGatewayErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'authentication' },
@@ -123,7 +123,7 @@ export class AiGatewayGatewaysService {
         gateway_id: string;
         account_id: string;
         provider: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayUrlResponses, AigConfigGetGatewayUrlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'gateway_id' },
                     { in: 'path', key: 'account_id' },
@@ -155,7 +155,7 @@ export class AiGatewayGatewaysService {
     public static aigConfigDeleteGateway<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteGatewayResponses, AigConfigDeleteGatewayErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<AigConfigDeleteGatewayResponses, AigConfigDeleteGatewayErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -183,7 +183,7 @@ export class AiGatewayGatewaysService {
     public static aigConfigFetchGateway<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigFetchGatewayResponses, AigConfigFetchGatewayErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<AigConfigFetchGatewayResponses, AigConfigFetchGatewayErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -229,12 +229,46 @@ export class AiGatewayGatewaysService {
                 profiles: Array<string>;
             }>;
         };
+        guardrails?: {
+            prompt: {
+                P1?: 'FLAG' | 'BLOCK';
+                S1?: 'FLAG' | 'BLOCK';
+                S10?: 'FLAG' | 'BLOCK';
+                S11?: 'FLAG' | 'BLOCK';
+                S12?: 'FLAG' | 'BLOCK';
+                S13?: 'FLAG' | 'BLOCK';
+                S2?: 'FLAG' | 'BLOCK';
+                S3?: 'FLAG' | 'BLOCK';
+                S4?: 'FLAG' | 'BLOCK';
+                S5?: 'FLAG' | 'BLOCK';
+                S6?: 'FLAG' | 'BLOCK';
+                S7?: 'FLAG' | 'BLOCK';
+                S8?: 'FLAG' | 'BLOCK';
+                S9?: 'FLAG' | 'BLOCK';
+            };
+            response: {
+                P1?: 'FLAG' | 'BLOCK';
+                S1?: 'FLAG' | 'BLOCK';
+                S10?: 'FLAG' | 'BLOCK';
+                S11?: 'FLAG' | 'BLOCK';
+                S12?: 'FLAG' | 'BLOCK';
+                S13?: 'FLAG' | 'BLOCK';
+                S2?: 'FLAG' | 'BLOCK';
+                S3?: 'FLAG' | 'BLOCK';
+                S4?: 'FLAG' | 'BLOCK';
+                S5?: 'FLAG' | 'BLOCK';
+                S6?: 'FLAG' | 'BLOCK';
+                S7?: 'FLAG' | 'BLOCK';
+                S8?: 'FLAG' | 'BLOCK';
+                S9?: 'FLAG' | 'BLOCK';
+            };
+        } | null;
         log_management?: number | null;
         log_management_strategy?: 'STOP_INSERTING' | 'DELETE_OLDEST';
         logpush?: boolean;
         logpush_public_key?: string | null;
         otel?: Array<{
-            authorization: string;
+            authorization?: string;
             content_type?: 'json' | 'protobuf';
             headers: {
                 [key: string]: string;
@@ -247,6 +281,33 @@ export class AiGatewayGatewaysService {
         retry_backoff?: 'constant' | 'linear' | 'exponential';
         retry_delay?: number | null;
         retry_max_attempts?: number | null;
+        spend_limits?: {
+            enabled?: boolean;
+            rules?: Array<{
+                enabled?: boolean;
+                id?: string;
+                limit: number;
+                limitType: 'cost';
+                metadata?: {
+                    [key: string]: {
+                        mode: 'partition';
+                    } | {
+                        mode: 'filter';
+                        values: Array<string>;
+                    };
+                };
+                model?: {
+                    mode: 'filter';
+                    values: Array<string>;
+                };
+                provider?: {
+                    mode: 'filter';
+                    values: Array<string>;
+                };
+                technique?: 'fixed' | 'sliding';
+                window: number;
+            }>;
+        } | null;
         store_id?: string | null;
         stripe?: {
             authorization: string;
@@ -256,7 +317,7 @@ export class AiGatewayGatewaysService {
         } | null;
         workers_ai_billing_mode?: 'postpaid';
         zdr?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigUpdateGatewayResponses, AigConfigUpdateGatewayErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },
@@ -265,6 +326,7 @@ export class AiGatewayGatewaysService {
                     { in: 'body', key: 'cache_ttl' },
                     { in: 'body', key: 'collect_logs' },
                     { in: 'body', key: 'dlp' },
+                    { in: 'body', key: 'guardrails' },
                     { in: 'body', key: 'log_management' },
                     { in: 'body', key: 'log_management_strategy' },
                     { in: 'body', key: 'logpush' },
@@ -276,6 +338,7 @@ export class AiGatewayGatewaysService {
                     { in: 'body', key: 'retry_backoff' },
                     { in: 'body', key: 'retry_delay' },
                     { in: 'body', key: 'retry_max_attempts' },
+                    { in: 'body', key: 'spend_limits' },
                     { in: 'body', key: 'store_id' },
                     { in: 'body', key: 'stripe' },
                     { in: 'body', key: 'workers_ai_billing_mode' },

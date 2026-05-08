@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AutoragConfigFilesErrors, AutoragConfigFilesResponses, AutoragConfigSyncErrors, AutoragConfigSyncResponses } from '../types.gen';
@@ -13,6 +13,8 @@ import { zAutoragConfigFilesPath, zAutoragConfigFilesQuery, zAutoragConfigFilesR
 export class AutoRagRagService {
     /**
      * Files
+     *
+     * Lists files indexed by an AutoRAG.
      */
     public static autoragConfigFiles<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -21,7 +23,7 @@ export class AutoRagRagService {
         per_page?: number;
         search?: string;
         status?: 'completed' | 'queued' | 'running' | 'error';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigFilesResponses, AutoragConfigFilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -50,11 +52,13 @@ export class AutoRagRagService {
     
     /**
      * Sync
+     *
+     * Starts synchronization for an AutoRAG.
      */
     public static autoragConfigSync<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigSyncResponses, AutoragConfigSyncErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).patch<AutoragConfigSyncResponses, AutoragConfigSyncErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

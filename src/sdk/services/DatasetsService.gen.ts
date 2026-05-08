@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { PostDatasetPopulateErrors, PostDatasetPopulateResponses } from '../types.gen';
@@ -13,10 +13,12 @@ import { zPostDatasetPopulatePath, zPostDatasetPopulateResponse } from '../zod.g
 export class DatasetsService {
     /**
      * Populate dataset-specific lookup tables from existing Events data with batch processing
+     *
+     * Populate dataset-specific lookup tables by scanning existing event data with batch processing.
      */
     public static postDatasetPopulate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostDatasetPopulateResponses, PostDatasetPopulateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PostDatasetPopulateResponses, PostDatasetPopulateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

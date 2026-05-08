@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DlsAccountRegionalHostnamesAccountCreateHostnameErrors, DlsAccountRegionalHostnamesAccountCreateHostnameResponses, DlsAccountRegionalHostnamesAccountDeleteHostnameErrors, DlsAccountRegionalHostnamesAccountDeleteHostnameResponses, DlsAccountRegionalHostnamesAccountFetchHostnameErrors, DlsAccountRegionalHostnamesAccountFetchHostnameResponses, DlsAccountRegionalHostnamesAccountListHostnamesErrors, DlsAccountRegionalHostnamesAccountListHostnamesResponses, DlsAccountRegionalHostnamesAccountListRegionsErrors, DlsAccountRegionalHostnamesAccountListRegionsResponses, DlsAccountRegionalHostnamesAccountPatchHostnameErrors, DlsAccountRegionalHostnamesAccountPatchHostnameResponses, DlsHostname, DlsIdentifier, DlsRegionKey, DlsRouting } from '../types.gen';
-import { zDlsAccountRegionalHostnamesAccountCreateHostnameBody, zDlsAccountRegionalHostnamesAccountCreateHostnamePath, zDlsAccountRegionalHostnamesAccountCreateHostnameResponse, zDlsAccountRegionalHostnamesAccountDeleteHostnamePath, zDlsAccountRegionalHostnamesAccountDeleteHostnameResponse, zDlsAccountRegionalHostnamesAccountFetchHostnamePath, zDlsAccountRegionalHostnamesAccountFetchHostnameResponse, zDlsAccountRegionalHostnamesAccountListHostnamesPath, zDlsAccountRegionalHostnamesAccountListHostnamesResponse, zDlsAccountRegionalHostnamesAccountListRegionsPath, zDlsAccountRegionalHostnamesAccountListRegionsResponse, zDlsAccountRegionalHostnamesAccountPatchHostnameBody, zDlsAccountRegionalHostnamesAccountPatchHostnamePath, zDlsAccountRegionalHostnamesAccountPatchHostnameResponse } from '../zod.gen';
+import type { DlsAccountRegionalHostnamesListRegionsErrors, DlsAccountRegionalHostnamesListRegionsResponses, DlsHostname, DlsIdentifier, DlsRegionKey, DlsRouting, DlsZoneRegionalHostnamesCreateErrors, DlsZoneRegionalHostnamesCreateResponses, DlsZoneRegionalHostnamesDeleteErrors, DlsZoneRegionalHostnamesDeleteResponses, DlsZoneRegionalHostnamesFetchErrors, DlsZoneRegionalHostnamesFetchResponses, DlsZoneRegionalHostnamesListErrors, DlsZoneRegionalHostnamesListResponses, DlsZoneRegionalHostnamesPatchErrors, DlsZoneRegionalHostnamesPatchResponses } from '../types.gen';
+import { zDlsAccountRegionalHostnamesListRegionsPath, zDlsAccountRegionalHostnamesListRegionsResponse, zDlsZoneRegionalHostnamesCreateBody, zDlsZoneRegionalHostnamesCreatePath, zDlsZoneRegionalHostnamesCreateResponse, zDlsZoneRegionalHostnamesDeletePath, zDlsZoneRegionalHostnamesDeleteResponse, zDlsZoneRegionalHostnamesFetchPath, zDlsZoneRegionalHostnamesFetchResponse, zDlsZoneRegionalHostnamesListPath, zDlsZoneRegionalHostnamesListResponse, zDlsZoneRegionalHostnamesPatchBody, zDlsZoneRegionalHostnamesPatchPath, zDlsZoneRegionalHostnamesPatchResponse } from '../zod.gen';
 
 export class DlsRegionalServicesService {
     /**
@@ -16,17 +16,17 @@ export class DlsRegionalServicesService {
      *
      * List all Regional Services regions available for use by this account.
      */
-    public static dlsAccountRegionalHostnamesAccountListRegions<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsAccountRegionalHostnamesListRegions<ThrowOnError extends boolean = true>(parameters: {
         account_id: DlsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsAccountRegionalHostnamesListRegionsResponses, DlsAccountRegionalHostnamesListRegionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<DlsAccountRegionalHostnamesAccountListRegionsResponses, DlsAccountRegionalHostnamesAccountListRegionsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<DlsAccountRegionalHostnamesListRegionsResponses, DlsAccountRegionalHostnamesListRegionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDlsAccountRegionalHostnamesAccountListRegionsPath,
+                path: zDlsAccountRegionalHostnamesListRegionsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountListRegionsResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsAccountRegionalHostnamesListRegionsResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -43,17 +43,17 @@ export class DlsRegionalServicesService {
      *
      * List all Regional Hostnames within a zone.
      */
-    public static dlsAccountRegionalHostnamesAccountListHostnames<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsZoneRegionalHostnamesList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DlsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsZoneRegionalHostnamesListResponses, DlsZoneRegionalHostnamesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
-        return (options?.client ?? client).get<DlsAccountRegionalHostnamesAccountListHostnamesResponses, DlsAccountRegionalHostnamesAccountListHostnamesErrors, ThrowOnError>({
+        return (options?.client ?? client).get<DlsZoneRegionalHostnamesListResponses, DlsZoneRegionalHostnamesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDlsAccountRegionalHostnamesAccountListHostnamesPath,
+                path: zDlsZoneRegionalHostnamesListPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountListHostnamesResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsZoneRegionalHostnamesListResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -70,25 +70,25 @@ export class DlsRegionalServicesService {
      *
      * Create a new Regional Hostname entry. Cloudflare will only use data centers that are physically located within the chosen region to decrypt and service HTTPS traffic. Learn more about [Regional Services](https://developers.cloudflare.com/data-localization/regional-services/get-started/).
      */
-    public static dlsAccountRegionalHostnamesAccountCreateHostname<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsZoneRegionalHostnamesCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DlsIdentifier;
         hostname: DlsHostname;
         region_key: DlsRegionKey;
         routing?: DlsRouting;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsZoneRegionalHostnamesCreateResponses, DlsZoneRegionalHostnamesCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'hostname' },
                     { in: 'body', key: 'region_key' },
                     { in: 'body', key: 'routing' }
                 ] }]);
-        return (options?.client ?? client).post<DlsAccountRegionalHostnamesAccountCreateHostnameResponses, DlsAccountRegionalHostnamesAccountCreateHostnameErrors, ThrowOnError>({
+        return (options?.client ?? client).post<DlsZoneRegionalHostnamesCreateResponses, DlsZoneRegionalHostnamesCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zDlsAccountRegionalHostnamesAccountCreateHostnameBody.optional(),
-                path: zDlsAccountRegionalHostnamesAccountCreateHostnamePath,
+                body: zDlsZoneRegionalHostnamesCreateBody.optional(),
+                path: zDlsZoneRegionalHostnamesCreatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountCreateHostnameResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsZoneRegionalHostnamesCreateResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -110,18 +110,18 @@ export class DlsRegionalServicesService {
      *
      * Delete the region configuration for a specific Regional Hostname.
      */
-    public static dlsAccountRegionalHostnamesAccountDeleteHostname<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsZoneRegionalHostnamesDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DlsIdentifier;
         hostname: DlsHostname;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsZoneRegionalHostnamesDeleteResponses, DlsZoneRegionalHostnamesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'hostname' }] }]);
-        return (options?.client ?? client).delete<DlsAccountRegionalHostnamesAccountDeleteHostnameResponses, DlsAccountRegionalHostnamesAccountDeleteHostnameErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DlsZoneRegionalHostnamesDeleteResponses, DlsZoneRegionalHostnamesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDlsAccountRegionalHostnamesAccountDeleteHostnamePath,
+                path: zDlsZoneRegionalHostnamesDeletePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountDeleteHostnameResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsZoneRegionalHostnamesDeleteResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -138,18 +138,18 @@ export class DlsRegionalServicesService {
      *
      * Fetch the configuration for a specific Regional Hostname, within a zone.
      */
-    public static dlsAccountRegionalHostnamesAccountFetchHostname<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsZoneRegionalHostnamesFetch<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DlsIdentifier;
         hostname: DlsHostname;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsZoneRegionalHostnamesFetchResponses, DlsZoneRegionalHostnamesFetchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'hostname' }] }]);
-        return (options?.client ?? client).get<DlsAccountRegionalHostnamesAccountFetchHostnameResponses, DlsAccountRegionalHostnamesAccountFetchHostnameErrors, ThrowOnError>({
+        return (options?.client ?? client).get<DlsZoneRegionalHostnamesFetchResponses, DlsZoneRegionalHostnamesFetchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDlsAccountRegionalHostnamesAccountFetchHostnamePath,
+                path: zDlsZoneRegionalHostnamesFetchPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountFetchHostnameResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsZoneRegionalHostnamesFetchResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },
@@ -166,23 +166,23 @@ export class DlsRegionalServicesService {
      *
      * Update the configuration for a specific Regional Hostname. Only the region_key of a hostname is mutable.
      */
-    public static dlsAccountRegionalHostnamesAccountPatchHostname<ThrowOnError extends boolean = true>(parameters: {
+    public static dlsZoneRegionalHostnamesPatch<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DlsIdentifier;
         hostname: DlsHostname;
         region_key: DlsRegionKey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlsZoneRegionalHostnamesPatchResponses, DlsZoneRegionalHostnamesPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'hostname' },
                     { in: 'body', key: 'region_key' }
                 ] }]);
-        return (options?.client ?? client).patch<DlsAccountRegionalHostnamesAccountPatchHostnameResponses, DlsAccountRegionalHostnamesAccountPatchHostnameErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<DlsZoneRegionalHostnamesPatchResponses, DlsZoneRegionalHostnamesPatchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zDlsAccountRegionalHostnamesAccountPatchHostnameBody.optional(),
-                path: zDlsAccountRegionalHostnamesAccountPatchHostnamePath,
+                body: zDlsZoneRegionalHostnamesPatchBody.optional(),
+                path: zDlsZoneRegionalHostnamesPatchPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDlsAccountRegionalHostnamesAccountPatchHostnameResponse.parseAsync(data),
+            responseValidator: async (data) => await zDlsZoneRegionalHostnamesPatchResponse.parseAsync(data),
             security: [
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' },

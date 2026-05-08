@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamCreatePayloadWritable, IamTokenBodyWritable, IamTokenIdentifier, PermissionGroupsListPermissionGroupsErrors, PermissionGroupsListPermissionGroupsResponses, UserApiTokensCreateTokenErrors, UserApiTokensCreateTokenResponses, UserApiTokensDeleteTokenErrors, UserApiTokensDeleteTokenResponses, UserApiTokensListTokensErrors, UserApiTokensListTokensResponses, UserApiTokensRollTokenErrors, UserApiTokensRollTokenResponses, UserApiTokensTokenDetailsErrors, UserApiTokensTokenDetailsResponses, UserApiTokensUpdateTokenErrors, UserApiTokensUpdateTokenResponses, UserApiTokensVerifyTokenErrors, UserApiTokensVerifyTokenResponses } from '../types.gen';
@@ -14,17 +14,19 @@ export class UserApiTokensService {
     /**
      * List Tokens
      *
-     * List all access tokens you created.
+     * List all access tokens you created. Results include active, disabled, and recently-expired tokens when include_expired is set to true.
      */
     public static userApiTokensListTokens<ThrowOnError extends boolean = true>(parameters?: {
         page?: number;
         per_page?: number;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+        include_expired?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensListTokensResponses, UserApiTokensListTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
-                    { in: 'query', key: 'direction' }
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'include_expired' }
                 ] }]);
         return (options?.client ?? client).get<UserApiTokensListTokensResponses, UserApiTokensListTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +49,7 @@ export class UserApiTokensService {
      */
     public static userApiTokensCreateToken<ThrowOnError extends boolean = true>(parameters: {
         iamCreatePayloadWritable: IamCreatePayloadWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensCreateTokenResponses, UserApiTokensCreateTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ key: 'iamCreatePayloadWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<UserApiTokensCreateTokenResponses, UserApiTokensCreateTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -76,7 +78,7 @@ export class UserApiTokensService {
     public static permissionGroupsListPermissionGroups<ThrowOnError extends boolean = true>(parameters?: {
         name?: string;
         scope?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PermissionGroupsListPermissionGroupsResponses, PermissionGroupsListPermissionGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'name' }, { in: 'query', key: 'scope' }] }]);
         return (options?.client ?? client).get<PermissionGroupsListPermissionGroupsResponses, PermissionGroupsListPermissionGroupsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -97,7 +99,7 @@ export class UserApiTokensService {
      *
      * Test whether a token works.
      */
-    public static userApiTokensVerifyToken<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static userApiTokensVerifyToken<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensVerifyTokenResponses, UserApiTokensVerifyTokenErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserApiTokensVerifyTokenResponses, UserApiTokensVerifyTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -119,7 +121,7 @@ export class UserApiTokensService {
     public static userApiTokensDeleteToken<ThrowOnError extends boolean = true>(parameters: {
         token_id: IamTokenIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensDeleteTokenResponses, UserApiTokensDeleteTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'token_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<UserApiTokensDeleteTokenResponses, UserApiTokensDeleteTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -147,7 +149,7 @@ export class UserApiTokensService {
      */
     public static userApiTokensTokenDetails<ThrowOnError extends boolean = true>(parameters: {
         token_id: IamTokenIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensTokenDetailsResponses, UserApiTokensTokenDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'token_id' }] }]);
         return (options?.client ?? client).get<UserApiTokensTokenDetailsResponses, UserApiTokensTokenDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -171,7 +173,7 @@ export class UserApiTokensService {
     public static userApiTokensUpdateToken<ThrowOnError extends boolean = true>(parameters: {
         token_id: IamTokenIdentifier;
         iamTokenBodyWritable: IamTokenBodyWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensUpdateTokenResponses, UserApiTokensUpdateTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'token_id' }, { key: 'iamTokenBodyWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<UserApiTokensUpdateTokenResponses, UserApiTokensUpdateTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -202,7 +204,7 @@ export class UserApiTokensService {
         body: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserApiTokensRollTokenResponses, UserApiTokensRollTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'token_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<UserApiTokensRollTokenResponses, UserApiTokensRollTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

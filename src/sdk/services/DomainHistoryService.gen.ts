@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DomainHistoryGetDomainHistoryErrors, DomainHistoryGetDomainHistoryResponses, IntelIdentifier } from '../types.gen';
@@ -19,7 +19,7 @@ export class DomainHistoryService {
     public static domainHistoryGetDomainHistory<ThrowOnError extends boolean = true>(parameters: {
         account_id: IntelIdentifier;
         domain?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DomainHistoryGetDomainHistoryResponses, DomainHistoryGetDomainHistoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'domain' }] }]);
         return (options?.client ?? client).get<DomainHistoryGetDomainHistoryResponses, DomainHistoryGetDomainHistoryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

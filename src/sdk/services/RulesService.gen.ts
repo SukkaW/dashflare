@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CloudforceOneCreateRule, CloudforceOneCreateRuleErrors, CloudforceOneCreateRuleResponses, CloudforceOneDeleteAllRulesErrors, CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteRuleErrors, CloudforceOneDeleteRuleResponses, CloudforceOneGetManagedRulesErrors, CloudforceOneGetManagedRulesResponses, CloudforceOneGetRuleErrors, CloudforceOneGetRuleResponses, CloudforceOneGetRuleStatsErrors, CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleTreeErrors, CloudforceOneGetRuleTreeResponses, CloudforceOneListRulesErrors, CloudforceOneListRulesResponses, CloudforceOneUpdateRule, CloudforceOneUpdateRuleErrors, CloudforceOneUpdateRuleResponses, CloudforceOneValidateRuleErrors, CloudforceOneValidateRuleResponses } from '../types.gen';
-import { zCloudforceOneCreateRuleBody, zCloudforceOneCreateRulePath, zCloudforceOneCreateRuleResponse, zCloudforceOneDeleteAllRulesPath, zCloudforceOneDeleteAllRulesResponse, zCloudforceOneDeleteRulePath, zCloudforceOneDeleteRuleResponse, zCloudforceOneGetManagedRulesPath, zCloudforceOneGetManagedRulesResponse, zCloudforceOneGetRulePath, zCloudforceOneGetRuleResponse, zCloudforceOneGetRuleStatsPath, zCloudforceOneGetRuleStatsResponse, zCloudforceOneGetRuleTreePath, zCloudforceOneGetRuleTreeResponse, zCloudforceOneListRulesPath, zCloudforceOneListRulesQuery, zCloudforceOneListRulesResponse, zCloudforceOneUpdateRuleBody, zCloudforceOneUpdateRulePath, zCloudforceOneUpdateRuleResponse, zCloudforceOneValidateRuleBody, zCloudforceOneValidateRulePath, zCloudforceOneValidateRuleResponse } from '../zod.gen';
+import type { CloudforceOneAddAccountExemptionsErrors, CloudforceOneAddAccountExemptionsResponses, CloudforceOneCreateRule, CloudforceOneCreateRuleErrors, CloudforceOneCreateRuleResponses, CloudforceOneDeleteAllRulesErrors, CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteRuleBody, CloudforceOneDeleteRuleErrors, CloudforceOneDeleteRuleResponses, CloudforceOneGetExemptionsErrors, CloudforceOneGetExemptionsResponses, CloudforceOneGetManagedRulesErrors, CloudforceOneGetManagedRulesResponses, CloudforceOneGetRuleErrors, CloudforceOneGetRuleResponses, CloudforceOneGetRuleStatsErrors, CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleTreeErrors, CloudforceOneGetRuleTreeResponses, CloudforceOneListRulesErrors, CloudforceOneListRulesResponses, CloudforceOnePartialAccountExemptions, CloudforceOneRemoveAccountExemptionsErrors, CloudforceOneRemoveAccountExemptionsResponses, CloudforceOneSearchRulesErrors, CloudforceOneSearchRulesResponses, CloudforceOneUpdateAccountExemptionsBody, CloudforceOneUpdateAccountExemptionsErrors, CloudforceOneUpdateAccountExemptionsResponses, CloudforceOneUpdateRule, CloudforceOneUpdateRuleErrors, CloudforceOneUpdateRuleResponses, CloudforceOneValidateRuleErrors, CloudforceOneValidateRuleResponses } from '../types.gen';
+import { zCloudforceOneAddAccountExemptionsBody, zCloudforceOneAddAccountExemptionsPath, zCloudforceOneAddAccountExemptionsResponse, zCloudforceOneCreateRuleBody, zCloudforceOneCreateRulePath, zCloudforceOneCreateRuleResponse, zCloudforceOneDeleteAllRulesPath, zCloudforceOneDeleteAllRulesResponse, zCloudforceOneDeleteRuleBody2, zCloudforceOneDeleteRulePath, zCloudforceOneDeleteRuleResponse, zCloudforceOneGetExemptionsPath, zCloudforceOneGetExemptionsResponse, zCloudforceOneGetManagedRulesPath, zCloudforceOneGetManagedRulesResponse, zCloudforceOneGetRulePath, zCloudforceOneGetRuleResponse, zCloudforceOneGetRuleStatsPath, zCloudforceOneGetRuleStatsResponse, zCloudforceOneGetRuleTreePath, zCloudforceOneGetRuleTreeResponse, zCloudforceOneListRulesPath, zCloudforceOneListRulesQuery, zCloudforceOneListRulesResponse, zCloudforceOneRemoveAccountExemptionsBody, zCloudforceOneRemoveAccountExemptionsPath, zCloudforceOneRemoveAccountExemptionsResponse, zCloudforceOneSearchRulesPath, zCloudforceOneSearchRulesQuery, zCloudforceOneSearchRulesResponse, zCloudforceOneUpdateAccountExemptionsBody2, zCloudforceOneUpdateAccountExemptionsPath, zCloudforceOneUpdateAccountExemptionsResponse, zCloudforceOneUpdateRuleBody, zCloudforceOneUpdateRulePath, zCloudforceOneUpdateRuleResponse, zCloudforceOneValidateRuleBody, zCloudforceOneValidateRulePath, zCloudforceOneValidateRuleResponse } from '../zod.gen';
 
 export class RulesService {
     /**
@@ -18,7 +18,7 @@ export class RulesService {
      */
     public static cloudforceOneDeleteAllRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteAllRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteAllRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,15 +46,17 @@ export class RulesService {
     public static cloudforceOneListRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         namespace?: string | Array<string>;
+        path?: string | Array<string>;
         recursive?: 'true' | 'false';
         search?: string;
         is_public?: 'true' | 'false';
         limit?: number;
         offset?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneListRulesResponses, CloudforceOneListRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'namespace' },
+                    { in: 'query', key: 'path' },
                     { in: 'query', key: 'recursive' },
                     { in: 'query', key: 'search' },
                     { in: 'query', key: 'is_public' },
@@ -87,7 +89,7 @@ export class RulesService {
     public static cloudforceOneCreateRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cloudforceOneCreateRule?: CloudforceOneCreateRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneCreateRuleResponses, CloudforceOneCreateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneCreateRule', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudforceOneCreateRuleResponses, CloudforceOneCreateRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,13 +115,139 @@ export class RulesService {
     }
     
     /**
+     * Remove patterns from exemption rules
+     *
+     * Remove regex patterns from per-account exemption rules. Missing keys leave that type untouched; non-existent patterns are silently skipped.
+     */
+    public static cloudforceOneRemoveAccountExemptions<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        cloudforceOnePartialAccountExemptions?: CloudforceOnePartialAccountExemptions;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRemoveAccountExemptionsResponses, CloudforceOneRemoveAccountExemptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOnePartialAccountExemptions', map: 'body' }] }]);
+        return (options?.client ?? client).delete<CloudforceOneRemoveAccountExemptionsResponses, CloudforceOneRemoveAccountExemptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCloudforceOneRemoveAccountExemptionsBody.optional(),
+                path: zCloudforceOneRemoveAccountExemptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneRemoveAccountExemptionsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/exemptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get exemption rules for an account
+     *
+     * Get all exemption rule patterns for the account, grouped by type.
+     */
+    public static cloudforceOneGetExemptions<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneGetExemptionsResponses, CloudforceOneGetExemptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<CloudforceOneGetExemptionsResponses, CloudforceOneGetExemptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCloudforceOneGetExemptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneGetExemptionsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/exemptions',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Add patterns to exemption rules
+     *
+     * Add regex patterns to per-account exemption rules (union semantics). Missing keys leave that type untouched; duplicates are silently deduped.
+     */
+    public static cloudforceOneAddAccountExemptions<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        cloudforceOnePartialAccountExemptions?: CloudforceOnePartialAccountExemptions;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneAddAccountExemptionsResponses, CloudforceOneAddAccountExemptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOnePartialAccountExemptions', map: 'body' }] }]);
+        return (options?.client ?? client).post<CloudforceOneAddAccountExemptionsResponses, CloudforceOneAddAccountExemptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCloudforceOneAddAccountExemptionsBody.optional(),
+                path: zCloudforceOneAddAccountExemptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneAddAccountExemptionsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/exemptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Update exemption rule patterns
+     *
+     * Replace existing exemption patterns with new values. Each key maps to an array of {old_pattern, new_pattern} entries. Missing keys leave that type untouched. Fails if any old pattern is not found or any new pattern already exists.
+     */
+    public static cloudforceOneUpdateAccountExemptions<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        cloudforceOneUpdateAccountExemptionsBody?: CloudforceOneUpdateAccountExemptionsBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneUpdateAccountExemptionsResponses, CloudforceOneUpdateAccountExemptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneUpdateAccountExemptionsBody', map: 'body' }] }]);
+        return (options?.client ?? client).put<CloudforceOneUpdateAccountExemptionsResponses, CloudforceOneUpdateAccountExemptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCloudforceOneUpdateAccountExemptionsBody2.optional(),
+                path: zCloudforceOneUpdateAccountExemptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneUpdateAccountExemptionsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/exemptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Get managed rules
      *
      * Get DFP managed rule metadata (name and description) from YARA rules.
      */
     public static cloudforceOneGetManagedRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneGetManagedRulesResponses, CloudforceOneGetManagedRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneGetManagedRulesResponses, CloudforceOneGetManagedRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,13 +268,62 @@ export class RulesService {
     }
     
     /**
+     * Search rules
+     *
+     * Search rules using hybrid, vector, keyword, or exact retrieval, backed by AI Search with a SQL fallback.
+     */
+    public static cloudforceOneSearchRules<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        namespace?: string | Array<string>;
+        path?: string | Array<string>;
+        recursive?: 'true' | 'false';
+        search?: string;
+        is_public?: 'true' | 'false';
+        limit?: number;
+        offset?: number | null;
+        query: string;
+        mode?: 'exact' | 'hybrid' | 'vector' | 'keyword';
+        language?: 'yara' | 'js';
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneSearchRulesResponses, CloudforceOneSearchRulesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'namespace' },
+                    { in: 'query', key: 'path' },
+                    { in: 'query', key: 'recursive' },
+                    { in: 'query', key: 'search' },
+                    { in: 'query', key: 'is_public' },
+                    { in: 'query', key: 'limit' },
+                    { in: 'query', key: 'offset' },
+                    { in: 'query', key: 'query' },
+                    { in: 'query', key: 'mode' },
+                    { in: 'query', key: 'language' }
+                ] }]);
+        return (options?.client ?? client).get<CloudforceOneSearchRulesResponses, CloudforceOneSearchRulesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCloudforceOneSearchRulesPath,
+                query: zCloudforceOneSearchRulesQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneSearchRulesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/search',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get dashboard stats
      *
      * Get statistics about rules for the dashboard.
      */
     public static cloudforceOneGetRuleStats<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleStatsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleStatsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -173,7 +350,7 @@ export class RulesService {
      */
     public static cloudforceOneGetRuleTree<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneGetRuleTreeResponses, CloudforceOneGetRuleTreeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneGetRuleTreeResponses, CloudforceOneGetRuleTreeErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -203,14 +380,16 @@ export class RulesService {
         content: string;
         excludeRuleId?: string;
         name: string;
-        namespaces: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+        namespaces?: Array<string>;
+        path?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneValidateRuleResponses, CloudforceOneValidateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'content' },
                     { in: 'body', key: 'excludeRuleId' },
                     { in: 'body', key: 'name' },
-                    { in: 'body', key: 'namespaces' }
+                    { in: 'body', key: 'namespaces' },
+                    { in: 'body', key: 'path' }
                 ] }]);
         return (options?.client ?? client).post<CloudforceOneValidateRuleResponses, CloudforceOneValidateRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -243,11 +422,16 @@ export class RulesService {
     public static cloudforceOneDeleteRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
+        cloudforceOneDeleteRuleBody?: CloudforceOneDeleteRuleBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneDeleteRuleResponses, CloudforceOneDeleteRuleErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'id' },
+                    { key: 'cloudforceOneDeleteRuleBody', map: 'body' }
+                ] }]);
         return (options?.client ?? client).delete<CloudforceOneDeleteRuleResponses, CloudforceOneDeleteRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
+                body: zCloudforceOneDeleteRuleBody2.optional(),
                 path: zCloudforceOneDeleteRulePath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -259,7 +443,12 @@ export class RulesService {
             ],
             url: '/accounts/{account_id}/cloudforce-one/rules/{id}',
             ...options,
-            ...params
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
     
@@ -271,7 +460,7 @@ export class RulesService {
     public static cloudforceOneGetRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneGetRuleResponses, CloudforceOneGetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<CloudforceOneGetRuleResponses, CloudforceOneGetRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -300,7 +489,7 @@ export class RulesService {
         account_id: string;
         id: string;
         cloudforceOneUpdateRule?: CloudforceOneUpdateRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneUpdateRuleResponses, CloudforceOneUpdateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },

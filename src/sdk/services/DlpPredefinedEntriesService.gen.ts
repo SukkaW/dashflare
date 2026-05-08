@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpEntriesCreatePredefinedEntryErrors, DlpEntriesCreatePredefinedEntryResponses, DlpEntriesDeletePredefinedEntryErrors, DlpEntriesDeletePredefinedEntryResponses, DlpNewPredefinedEntry } from '../types.gen';
@@ -20,7 +20,7 @@ export class DlpPredefinedEntriesService {
     public static dlpEntriesCreatePredefinedEntry<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpNewPredefinedEntry: DlpNewPredefinedEntry;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEntriesCreatePredefinedEntryResponses, DlpEntriesCreatePredefinedEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpNewPredefinedEntry', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpEntriesCreatePredefinedEntryResponses, DlpEntriesCreatePredefinedEntryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -53,7 +53,7 @@ export class DlpPredefinedEntriesService {
     public static dlpEntriesDeletePredefinedEntry<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         entry_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEntriesDeletePredefinedEntryResponses, DlpEntriesDeletePredefinedEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'entry_id' }] }]);
         return (options?.client ?? client).delete<DlpEntriesDeletePredefinedEntryResponses, DlpEntriesDeletePredefinedEntryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

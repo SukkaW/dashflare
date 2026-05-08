@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { McnAccountId, McnCreateProviderRequest, McnProviderId, McnUpdateProviderRequest, ProvidersCreateErrors, ProvidersCreateResponses, ProvidersDeleteErrors, ProvidersDeleteResponses, ProvidersDiscoverAllErrors, ProvidersDiscoverAllResponses, ProvidersDiscoverErrors, ProvidersDiscoverResponses, ProvidersInitialSetupErrors, ProvidersInitialSetupResponses, ProvidersListErrors, ProvidersListResponses, ProvidersPatchErrors, ProvidersPatchResponses, ProvidersReadErrors, ProvidersReadResponses, ProvidersUpdateErrors, ProvidersUpdateResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class CloudIntegrationsService {
         order_by?: string;
         desc?: boolean;
         cloudflare?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersListResponses, ProvidersListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'status' },
@@ -57,7 +57,7 @@ export class CloudIntegrationsService {
         forwarded?: string;
         account_id: McnAccountId;
         mcnCreateProviderRequest: McnCreateProviderRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersCreateResponses, ProvidersCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'forwarded' },
                     { in: 'path', key: 'account_id' },
@@ -94,7 +94,7 @@ export class CloudIntegrationsService {
      */
     public static providersDiscoverAll<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersDiscoverAllResponses, ProvidersDiscoverAllErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<ProvidersDiscoverAllResponses, ProvidersDiscoverAllErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -122,7 +122,7 @@ export class CloudIntegrationsService {
     public static providersDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         provider_id: McnProviderId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersDeleteResponses, ProvidersDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'provider_id' }] }]);
         return (options?.client ?? client).delete<ProvidersDeleteResponses, ProvidersDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -151,7 +151,7 @@ export class CloudIntegrationsService {
         account_id: McnAccountId;
         provider_id: McnProviderId;
         status?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersReadResponses, ProvidersReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'provider_id' },
@@ -184,7 +184,7 @@ export class CloudIntegrationsService {
         account_id: McnAccountId;
         provider_id: McnProviderId;
         mcnUpdateProviderRequest: McnUpdateProviderRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersPatchResponses, ProvidersPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'provider_id' },
@@ -222,7 +222,7 @@ export class CloudIntegrationsService {
         account_id: McnAccountId;
         provider_id: McnProviderId;
         mcnUpdateProviderRequest: McnUpdateProviderRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersUpdateResponses, ProvidersUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'provider_id' },
@@ -260,7 +260,7 @@ export class CloudIntegrationsService {
         account_id: McnAccountId;
         provider_id: McnProviderId;
         v2?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersDiscoverResponses, ProvidersDiscoverErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'provider_id' },
@@ -292,7 +292,7 @@ export class CloudIntegrationsService {
     public static providersInitialSetup<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         provider_id: McnProviderId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ProvidersInitialSetupResponses, ProvidersInitialSetupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'provider_id' }] }]);
         return (options?.client ?? client).get<ProvidersInitialSetupResponses, ProvidersInitialSetupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetSecurityCenterAccountAuditLogErrors, GetSecurityCenterAccountAuditLogResponses, GetSecurityCenterIssueAuditLogErrors, GetSecurityCenterIssueAuditLogResponses, GetZoneSecurityCenterAuditLogErrors, GetZoneSecurityCenterAuditLogResponses, GetZoneSecurityCenterIssueAuditLogErrors, GetZoneSecurityCenterIssueAuditLogResponses, SecurityCenterIdentifier } from '../types.gen';
@@ -25,7 +25,7 @@ export class SecurityCenterAuditLogService {
         since?: string;
         before?: string;
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterAccountAuditLogResponses, GetSecurityCenterAccountAuditLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'per_page' },
@@ -69,7 +69,7 @@ export class SecurityCenterAuditLogService {
         since?: string;
         before?: string;
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssueAuditLogResponses, GetSecurityCenterIssueAuditLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'issue_id' },
@@ -113,7 +113,7 @@ export class SecurityCenterAuditLogService {
         since?: string;
         before?: string;
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterAuditLogResponses, GetZoneSecurityCenterAuditLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'per_page' },
@@ -157,7 +157,7 @@ export class SecurityCenterAuditLogService {
         since?: string;
         before?: string;
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterIssueAuditLogResponses, GetZoneSecurityCenterIssueAuditLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'issue_id' },

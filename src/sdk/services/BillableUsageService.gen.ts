@@ -4,28 +4,26 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BillableUsageApiIdentifier, BillableUsageGetPaygoAccountUsageErrors, BillableUsageGetPaygoAccountUsageResponses } from '../types.gen';
-import { zBillableUsageGetPaygoAccountUsagePath, zBillableUsageGetPaygoAccountUsageQuery, zBillableUsageGetPaygoAccountUsageResponse } from '../zod.gen';
+import type { BillableUsageApiIdentifier, BillableUsageGetPaygoAccountUsageErrors, BillableUsageGetPaygoAccountUsageInfoErrors, BillableUsageGetPaygoAccountUsageInfoResponses, BillableUsageGetPaygoAccountUsageResponses } from '../types.gen';
+import { zBillableUsageGetPaygoAccountUsageInfoPath, zBillableUsageGetPaygoAccountUsageInfoResponse, zBillableUsageGetPaygoAccountUsagePath, zBillableUsageGetPaygoAccountUsageQuery, zBillableUsageGetPaygoAccountUsageResponse } from '../zod.gen';
 
 export class BillableUsageService {
     /**
-     * Get PayGo Account Billable Usage (Alpha)
+     * Get PayGo Account Billable Usage (Version 1, Alpha)
      *
      * Returns billable usage data for PayGo (self-serve) accounts.
      * When no query parameters are provided, returns usage for the current
      * billing period.
-     * This endpoint is currently in alpha and access is restricted to select
-     * accounts. While in alpha, the endpoint may get breaking changes.
      *
      */
     public static billableUsageGetPaygoAccountUsage<ThrowOnError extends boolean = true>(parameters: {
         account_id: BillableUsageApiIdentifier;
         from?: string;
         to?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BillableUsageGetPaygoAccountUsageResponses, BillableUsageGetPaygoAccountUsageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'from' },
@@ -43,7 +41,36 @@ export class BillableUsageService {
                 { name: 'X-Auth-Email', type: 'apiKey' },
                 { name: 'X-Auth-Key', type: 'apiKey' }
             ],
-            url: '/accounts/{account_id}/billing/usage/paygo',
+            url: '/accounts/{account_id}/paygo-usage',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get PayGo Account Billable Usage Info (Version 1, Alpha)
+     *
+     * Returns high-level usage information for the account, including coverage,
+     * and subscription metadata.
+     *
+     */
+    public static billableUsageGetPaygoAccountUsageInfo<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BillableUsageApiIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<BillableUsageGetPaygoAccountUsageInfoResponses, BillableUsageGetPaygoAccountUsageInfoErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<BillableUsageGetPaygoAccountUsageInfoResponses, BillableUsageGetPaygoAccountUsageInfoErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zBillableUsageGetPaygoAccountUsageInfoPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zBillableUsageGetPaygoAccountUsageInfoResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/paygo-usage-info',
             ...options,
             ...params
         });

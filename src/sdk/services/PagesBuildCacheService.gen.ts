@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { PagesIdentifier, PagesProjectName, PagesPurgeBuildCacheErrors, PagesPurgeBuildCacheResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class PagesBuildCacheService {
     public static pagesPurgeBuildCache<ThrowOnError extends boolean = true>(parameters: {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesPurgeBuildCacheResponses, PagesPurgeBuildCacheErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PagesPurgeBuildCacheResponses, PagesPurgeBuildCacheErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

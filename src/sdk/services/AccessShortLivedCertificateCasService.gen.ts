@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessIdentifier, AccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, AccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, AccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasListShortLivedCertificateCasErrors, AccessShortLivedCertificateCasListShortLivedCertificateCasResponses, AccessUuid } from '../types.gen';
@@ -20,7 +20,7 @@ export class AccessShortLivedCertificateCasService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessShortLivedCertificateCasListShortLivedCertificateCasResponses, AccessShortLivedCertificateCasListShortLivedCertificateCasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class AccessShortLivedCertificateCasService {
     public static accessShortLivedCertificateCAsDeleteAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +80,7 @@ export class AccessShortLivedCertificateCasService {
     public static accessShortLivedCertificateCAsGetAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class AccessShortLivedCertificateCasService {
     public static accessShortLivedCertificateCAsCreateAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<AccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, AccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

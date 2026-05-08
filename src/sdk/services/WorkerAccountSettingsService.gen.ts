@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerAccountSettingsCreateWorkerAccountSettingsErrors, WorkerAccountSettingsCreateWorkerAccountSettingsResponses, WorkerAccountSettingsFetchWorkerAccountSettingsErrors, WorkerAccountSettingsFetchWorkerAccountSettingsResponses, WorkersAccountSettings, WorkersIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class WorkerAccountSettingsService {
      */
     public static workerAccountSettingsFetchWorkerAccountSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerAccountSettingsFetchWorkerAccountSettingsResponses, WorkerAccountSettingsFetchWorkerAccountSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkerAccountSettingsFetchWorkerAccountSettingsResponses, WorkerAccountSettingsFetchWorkerAccountSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class WorkerAccountSettingsService {
     public static workerAccountSettingsCreateWorkerAccountSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         workersAccountSettings: WorkersAccountSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerAccountSettingsCreateWorkerAccountSettingsResponses, WorkerAccountSettingsCreateWorkerAccountSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'workersAccountSettings', map: 'body' }] }]);
         return (options?.client ?? client).put<WorkerAccountSettingsCreateWorkerAccountSettingsResponses, WorkerAccountSettingsCreateWorkerAccountSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

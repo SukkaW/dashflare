@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetParticipantDataFromPeerIdResponses, GetParticipantDetailsResponses, GetSessionChatResponses, GetSessionDetailsResponses, GetSessionParticipantsResponses, GetSessionsResponses, GetSessionSummaryResponses, GetSessionTranscriptResponses, PostSessionsSessionIdSummaryResponses, RealtimekitAccountIdentifier, RealtimekitAppId } from '../types.gen';
-import { zGetParticipantDataFromPeerIdPath, zGetParticipantDataFromPeerIdQuery, zGetParticipantDataFromPeerIdResponse, zGetParticipantDetailsPath, zGetParticipantDetailsQuery, zGetParticipantDetailsResponse, zGetSessionChatPath, zGetSessionChatResponse, zGetSessionDetailsPath, zGetSessionDetailsQuery, zGetSessionDetailsResponse, zGetSessionParticipantsPath, zGetSessionParticipantsQuery, zGetSessionParticipantsResponse, zGetSessionsPath, zGetSessionsQuery, zGetSessionsResponse, zGetSessionSummaryPath, zGetSessionSummaryResponse, zGetSessionTranscriptPath, zGetSessionTranscriptResponse, zPostSessionsSessionIdSummaryPath, zPostSessionsSessionIdSummaryResponse } from '../zod.gen';
+import { zGetParticipantDataFromPeerIdPath, zGetParticipantDataFromPeerIdQuery, zGetParticipantDataFromPeerIdResponse, zGetParticipantDetailsPath, zGetParticipantDetailsQuery, zGetParticipantDetailsResponse, zGetSessionChatPath, zGetSessionChatResponse, zGetSessionDetailsPath, zGetSessionDetailsQuery, zGetSessionDetailsResponse, zGetSessionParticipantsPath, zGetSessionParticipantsQuery, zGetSessionParticipantsResponse, zGetSessionsPath, zGetSessionsQuery, zGetSessionsResponse, zGetSessionSummaryPath, zGetSessionSummaryResponse, zGetSessionTranscriptPath, zGetSessionTranscriptQuery, zGetSessionTranscriptResponse, zPostSessionsSessionIdSummaryPath, zPostSessionsSessionIdSummaryResponse } from '../zod.gen';
 
 export class SessionsService {
     /**
@@ -29,7 +29,7 @@ export class SessionsService {
         status?: 'LIVE' | 'ENDED';
         search?: string;
         associated_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -61,19 +61,21 @@ export class SessionsService {
     /**
      * Fetch details of peer
      *
-     * Returns details of the given peer ID along with call statistics for the given session ID.
+     * Returns participant details for the given peer ID along with call statistics.
      */
     public static getParticipantDataFromPeerId<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         peer_id: string;
         filters?: 'device_info' | 'ip_information' | 'precall_network_information' | 'events' | 'quality_stats';
-    }, options?: Options<never, ThrowOnError>) {
+        include_peer_events?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetParticipantDataFromPeerIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'peer_id' },
-                    { in: 'query', key: 'filters' }
+                    { in: 'query', key: 'filters' },
+                    { in: 'query', key: 'include_peer_events' }
                 ] }]);
         return (options?.client ?? client).get<GetParticipantDataFromPeerIdResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -99,7 +101,7 @@ export class SessionsService {
         app_id: RealtimekitAppId;
         session_id: string;
         include_breakout_rooms?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionDetailsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -130,7 +132,7 @@ export class SessionsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionChatResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -166,7 +168,7 @@ export class SessionsService {
         sort_by?: 'joinedAt' | 'duration';
         include_peer_events?: boolean;
         view?: 'raw' | 'consolidated';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionParticipantsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -203,15 +205,13 @@ export class SessionsService {
         app_id: RealtimekitAppId;
         participant_id: string;
         session_id: string;
-        filters?: 'device_info' | 'ip_information' | 'precall_network_information' | 'events' | 'quality_stats';
         include_peer_events?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetParticipantDetailsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'participant_id' },
                     { in: 'path', key: 'session_id' },
-                    { in: 'query', key: 'filters' },
                     { in: 'query', key: 'include_peer_events' }
                 ] }]);
         return (options?.client ?? client).get<GetParticipantDetailsResponses, unknown, ThrowOnError>({
@@ -237,7 +237,7 @@ export class SessionsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionSummaryResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -266,7 +266,7 @@ export class SessionsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostSessionsSessionIdSummaryResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -295,17 +295,19 @@ export class SessionsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+        format?: 'SRT' | 'VTT' | 'JSON' | 'CSV';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSessionTranscriptResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
-                    { in: 'path', key: 'session_id' }
+                    { in: 'path', key: 'session_id' },
+                    { in: 'query', key: 'format' }
                 ] }]);
         return (options?.client ?? client).get<GetSessionTranscriptResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zGetSessionTranscriptPath,
-                query: z.never().optional()
+                query: zGetSessionTranscriptQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetSessionTranscriptResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],

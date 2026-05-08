@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicCreateGreTunnelRequestWritable, MagicGreTunnelsCreateGreTunnelsErrors, MagicGreTunnelsCreateGreTunnelsResponses, MagicGreTunnelsDeleteGreTunnelErrors, MagicGreTunnelsDeleteGreTunnelResponses, MagicGreTunnelsListGreTunnelDetailsErrors, MagicGreTunnelsListGreTunnelDetailsResponses, MagicGreTunnelsListGreTunnelsErrors, MagicGreTunnelsListGreTunnelsResponses, MagicGreTunnelsUpdateGreTunnelErrors, MagicGreTunnelsUpdateGreTunnelResponses, MagicGreTunnelsUpdateMultipleGreTunnelsErrors, MagicGreTunnelsUpdateMultipleGreTunnelsResponses, MagicGreTunnelUpdateRequestWritable, MagicIdentifier } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicGreTunnelsService {
     public static magicGreTunnelsListGreTunnels<ThrowOnError extends boolean = true>(parameters: {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsListGreTunnelsResponses, MagicGreTunnelsListGreTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-magic-new-hc-target' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicGreTunnelsListGreTunnelsResponses, MagicGreTunnelsListGreTunnelsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class MagicGreTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
         magicCreateGreTunnelRequestWritable: MagicCreateGreTunnelRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsCreateGreTunnelsResponses, MagicGreTunnelsCreateGreTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'account_id' },
@@ -88,7 +88,7 @@ export class MagicGreTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsUpdateMultipleGreTunnelsResponses, MagicGreTunnelsUpdateMultipleGreTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'account_id' },
@@ -128,7 +128,7 @@ export class MagicGreTunnelsService {
         gre_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsDeleteGreTunnelResponses, MagicGreTunnelsDeleteGreTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'gre_tunnel_id' },
@@ -168,7 +168,7 @@ export class MagicGreTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         gre_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsListGreTunnelDetailsResponses, MagicGreTunnelsListGreTunnelDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'gre_tunnel_id' },
@@ -203,7 +203,7 @@ export class MagicGreTunnelsService {
         gre_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
         magicGreTunnelUpdateRequestWritable: MagicGreTunnelUpdateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicGreTunnelsUpdateGreTunnelResponses, MagicGreTunnelsUpdateGreTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'gre_tunnel_id' },

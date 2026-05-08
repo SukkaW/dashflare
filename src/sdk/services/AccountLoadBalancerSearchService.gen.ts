@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountLoadBalancerSearchSearchResourcesErrors, AccountLoadBalancerSearchSearchResourcesResponses, LoadBalancingComponentsSchemasIdentifier } from '../types.gen';
@@ -22,7 +22,7 @@ export class AccountLoadBalancerSearchService {
         references?: '' | '*' | 'referral' | 'referrer';
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerSearchSearchResourcesResponses, AccountLoadBalancerSearchSearchResourcesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'query' },

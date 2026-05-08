@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DevicePostureIntegrationsCreateDevicePostureIntegrationErrors, DevicePostureIntegrationsCreateDevicePostureIntegrationResponses, DevicePostureIntegrationsDeleteDevicePostureIntegrationErrors, DevicePostureIntegrationsDeleteDevicePostureIntegrationResponses, DevicePostureIntegrationsDevicePostureIntegrationDetailsErrors, DevicePostureIntegrationsDevicePostureIntegrationDetailsResponses, DevicePostureIntegrationsListDevicePostureIntegrationsErrors, DevicePostureIntegrationsListDevicePostureIntegrationsResponses, DevicePostureIntegrationsUpdateDevicePostureIntegrationErrors, DevicePostureIntegrationsUpdateDevicePostureIntegrationResponses, TeamsDevicesComponentsSchemasName, TeamsDevicesConfigRequest, TeamsDevicesIdentifier, TeamsDevicesInterval, TeamsDevicesSchemasType, TeamsDevicesUuid } from '../types.gen';
@@ -18,7 +18,7 @@ export class DevicePostureIntegrationsService {
      */
     public static devicePostureIntegrationsListDevicePostureIntegrations<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureIntegrationsListDevicePostureIntegrationsResponses, DevicePostureIntegrationsListDevicePostureIntegrationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicePostureIntegrationsListDevicePostureIntegrationsResponses, DevicePostureIntegrationsListDevicePostureIntegrationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class DevicePostureIntegrationsService {
         interval: TeamsDevicesInterval;
         name: TeamsDevicesComponentsSchemasName;
         type: TeamsDevicesSchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureIntegrationsCreateDevicePostureIntegrationResponses, DevicePostureIntegrationsCreateDevicePostureIntegrationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'config' },
@@ -89,7 +89,7 @@ export class DevicePostureIntegrationsService {
         integration_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureIntegrationsDeleteDevicePostureIntegrationResponses, DevicePostureIntegrationsDeleteDevicePostureIntegrationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'integration_id' },
                     { in: 'path', key: 'account_id' },
@@ -126,7 +126,7 @@ export class DevicePostureIntegrationsService {
     public static devicePostureIntegrationsDevicePostureIntegrationDetails<ThrowOnError extends boolean = true>(parameters: {
         integration_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureIntegrationsDevicePostureIntegrationDetailsResponses, DevicePostureIntegrationsDevicePostureIntegrationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'integration_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicePostureIntegrationsDevicePostureIntegrationDetailsResponses, DevicePostureIntegrationsDevicePostureIntegrationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -158,7 +158,7 @@ export class DevicePostureIntegrationsService {
         interval?: TeamsDevicesInterval;
         name?: TeamsDevicesComponentsSchemasName;
         type?: TeamsDevicesSchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicePostureIntegrationsUpdateDevicePostureIntegrationResponses, DevicePostureIntegrationsUpdateDevicePostureIntegrationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'integration_id' },
                     { in: 'path', key: 'account_id' },

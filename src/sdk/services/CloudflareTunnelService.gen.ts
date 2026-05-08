@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudflareTunnelCleanUpCloudflareTunnelConnectionsErrors, CloudflareTunnelCleanUpCloudflareTunnelConnectionsResponses, CloudflareTunnelCreateACloudflareTunnelErrors, CloudflareTunnelCreateACloudflareTunnelResponses, CloudflareTunnelCreateAWarpConnectorTunnelErrors, CloudflareTunnelCreateAWarpConnectorTunnelResponses, CloudflareTunnelDeleteACloudflareTunnelErrors, CloudflareTunnelDeleteACloudflareTunnelResponses, CloudflareTunnelDeleteAWarpConnectorTunnelErrors, CloudflareTunnelDeleteAWarpConnectorTunnelResponses, CloudflareTunnelGetACloudflareTunnelErrors, CloudflareTunnelGetACloudflareTunnelManagementTokenErrors, CloudflareTunnelGetACloudflareTunnelManagementTokenResponses, CloudflareTunnelGetACloudflareTunnelResponses, CloudflareTunnelGetACloudflareTunnelTokenErrors, CloudflareTunnelGetACloudflareTunnelTokenResponses, CloudflareTunnelGetAWarpConnectorTunnelErrors, CloudflareTunnelGetAWarpConnectorTunnelResponses, CloudflareTunnelGetAWarpConnectorTunnelTokenErrors, CloudflareTunnelGetAWarpConnectorTunnelTokenResponses, CloudflareTunnelGetCloudflareTunnelConnectorErrors, CloudflareTunnelGetCloudflareTunnelConnectorResponses, CloudflareTunnelGetWarpConnectorTunnelConnectorErrors, CloudflareTunnelGetWarpConnectorTunnelConnectorResponses, CloudflareTunnelListAllTunnelsErrors, CloudflareTunnelListAllTunnelsResponses, CloudflareTunnelListCloudflareTunnelConnectionsErrors, CloudflareTunnelListCloudflareTunnelConnectionsResponses, CloudflareTunnelListCloudflareTunnelsErrors, CloudflareTunnelListCloudflareTunnelsResponses, CloudflareTunnelListWarpConnectorTunnelConnectionsErrors, CloudflareTunnelListWarpConnectorTunnelConnectionsResponses, CloudflareTunnelListWarpConnectorTunnelsErrors, CloudflareTunnelListWarpConnectorTunnelsResponses, CloudflareTunnelManualFailoverWarpConnectorTunnelErrors, CloudflareTunnelManualFailoverWarpConnectorTunnelResponses, CloudflareTunnelUpdateACloudflareTunnelErrors, CloudflareTunnelUpdateACloudflareTunnelResponses, CloudflareTunnelUpdateAWarpConnectorTunnelErrors, CloudflareTunnelUpdateAWarpConnectorTunnelResponses, TunnelAccountId, TunnelClientId, TunnelClientIdInput, TunnelConfigSrc, TunnelExistedAt, TunnelManagementResources, TunnelPageNumber, TunnelPerPage, TunnelStatus, TunnelTunnelId, TunnelTunnelName, TunnelTunnelSecret, TunnelTunnelTypesWritable } from '../types.gen';
@@ -29,7 +29,7 @@ export class CloudflareTunnelService {
         status?: TunnelStatus;
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelListCloudflareTunnelsResponses, CloudflareTunnelListCloudflareTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -73,7 +73,7 @@ export class CloudflareTunnelService {
         config_src?: TunnelConfigSrc;
         name: TunnelTunnelName;
         tunnel_secret?: TunnelTunnelSecret;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelCreateACloudflareTunnelResponses, CloudflareTunnelCreateACloudflareTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'config_src' },
@@ -115,7 +115,7 @@ export class CloudflareTunnelService {
         body: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelDeleteACloudflareTunnelResponses, CloudflareTunnelDeleteACloudflareTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -153,7 +153,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelGetACloudflareTunnel<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetACloudflareTunnelResponses, CloudflareTunnelGetACloudflareTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelGetACloudflareTunnelResponses, CloudflareTunnelGetACloudflareTunnelErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -184,7 +184,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         name?: TunnelTunnelName;
         tunnel_secret?: TunnelTunnelSecret;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelUpdateACloudflareTunnelResponses, CloudflareTunnelUpdateACloudflareTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'tunnel_id' },
                     { in: 'path', key: 'account_id' },
@@ -227,7 +227,7 @@ export class CloudflareTunnelService {
         body: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelCleanUpCloudflareTunnelConnectionsResponses, CloudflareTunnelCleanUpCloudflareTunnelConnectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -266,7 +266,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelListCloudflareTunnelConnections<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelListCloudflareTunnelConnectionsResponses, CloudflareTunnelListCloudflareTunnelConnectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelListCloudflareTunnelConnectionsResponses, CloudflareTunnelListCloudflareTunnelConnectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -296,7 +296,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
         connector_id: TunnelClientId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetCloudflareTunnelConnectorResponses, CloudflareTunnelGetCloudflareTunnelConnectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -330,7 +330,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
         resources: Array<TunnelManagementResources>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetACloudflareTunnelManagementTokenResponses, CloudflareTunnelGetACloudflareTunnelManagementTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -368,7 +368,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelGetACloudflareTunnelToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetACloudflareTunnelTokenResponses, CloudflareTunnelGetACloudflareTunnelTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelGetACloudflareTunnelTokenResponses, CloudflareTunnelGetACloudflareTunnelTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -408,7 +408,7 @@ export class CloudflareTunnelService {
         status?: TunnelStatus;
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelListAllTunnelsResponses, CloudflareTunnelListAllTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -461,7 +461,7 @@ export class CloudflareTunnelService {
         status?: TunnelStatus;
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelListWarpConnectorTunnelsResponses, CloudflareTunnelListWarpConnectorTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -504,7 +504,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         ha?: boolean;
         name: TunnelTunnelName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelCreateAWarpConnectorTunnelResponses, CloudflareTunnelCreateAWarpConnectorTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'ha' },
@@ -545,7 +545,7 @@ export class CloudflareTunnelService {
         body: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelDeleteAWarpConnectorTunnelResponses, CloudflareTunnelDeleteAWarpConnectorTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -583,7 +583,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelGetAWarpConnectorTunnel<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetAWarpConnectorTunnelResponses, CloudflareTunnelGetAWarpConnectorTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelGetAWarpConnectorTunnelResponses, CloudflareTunnelGetAWarpConnectorTunnelErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -614,7 +614,7 @@ export class CloudflareTunnelService {
         tunnel_id: TunnelTunnelId;
         name?: TunnelTunnelName;
         tunnel_secret?: TunnelTunnelSecret;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelUpdateAWarpConnectorTunnelResponses, CloudflareTunnelUpdateAWarpConnectorTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -653,7 +653,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelListWarpConnectorTunnelConnections<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelListWarpConnectorTunnelConnectionsResponses, CloudflareTunnelListWarpConnectorTunnelConnectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelListWarpConnectorTunnelConnectionsResponses, CloudflareTunnelListWarpConnectorTunnelConnectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -683,7 +683,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
         connector_id: TunnelClientId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetWarpConnectorTunnelConnectorResponses, CloudflareTunnelGetWarpConnectorTunnelConnectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -717,7 +717,7 @@ export class CloudflareTunnelService {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
         client_id: TunnelClientIdInput;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelManualFailoverWarpConnectorTunnelResponses, CloudflareTunnelManualFailoverWarpConnectorTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -755,7 +755,7 @@ export class CloudflareTunnelService {
     public static cloudflareTunnelGetAWarpConnectorTunnelToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         tunnel_id: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelGetAWarpConnectorTunnelTokenResponses, CloudflareTunnelGetAWarpConnectorTunnelTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelGetAWarpConnectorTunnelTokenResponses, CloudflareTunnelGetAWarpConnectorTunnelTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

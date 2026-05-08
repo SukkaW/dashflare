@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudflareIpsCloudflareIpDetailsErrors, CloudflareIpsCloudflareIpDetailsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class CloudflareIpsService {
      */
     public static cloudflareIpsCloudflareIpDetails<ThrowOnError extends boolean = true>(parameters?: {
         networks?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareIpsCloudflareIpDetailsResponses, CloudflareIpsCloudflareIpDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'networks' }] }]);
         return (options?.client ?? client).get<CloudflareIpsCloudflareIpDetailsResponses, CloudflareIpsCloudflareIpDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnssecDeleteDnssecRecordsErrors, DnssecDeleteDnssecRecordsResponses, DnssecDnssecDetailsErrors, DnssecDnssecDetailsResponses, DnssecDnssecMultiSigner, DnssecDnssecPresigned, DnssecDnssecUseNsec3, DnssecEditDnssecStatusErrors, DnssecEditDnssecStatusResponses, DnssecIdentifier, DnssecListDnssecZsksErrors, DnssecListDnssecZsksResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class DnssecService {
     public static dnssecDeleteDnssecRecords<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnssecIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnssecDeleteDnssecRecordsResponses, DnssecDeleteDnssecRecordsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<DnssecDeleteDnssecRecordsResponses, DnssecDeleteDnssecRecordsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class DnssecService {
      */
     public static dnssecDnssecDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnssecIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnssecDnssecDetailsResponses, DnssecDnssecDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DnssecDnssecDetailsResponses, DnssecDnssecDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +82,7 @@ export class DnssecService {
         dnssec_presigned?: DnssecDnssecPresigned;
         dnssec_use_nsec3?: DnssecDnssecUseNsec3;
         status?: 'active' | 'disabled';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnssecEditDnssecStatusResponses, DnssecEditDnssecStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'dnssec_multi_signer' },
@@ -120,7 +120,7 @@ export class DnssecService {
      */
     public static dnssecListDnssecZsks<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnssecIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnssecListDnssecZsksResponses, DnssecListDnssecZsksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DnssecListDnssecZsksResponses, DnssecListDnssecZsksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

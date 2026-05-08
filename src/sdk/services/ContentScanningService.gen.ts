@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WafContentScanningAddCustomScanExpressionsErrors, WafContentScanningAddCustomScanExpressionsResponses, WafContentScanningDeleteCustomScanExpressionsErrors, WafContentScanningDeleteCustomScanExpressionsResponses, WafContentScanningDisableErrors, WafContentScanningDisableResponses, WafContentScanningEnableErrors, WafContentScanningEnableResponses, WafContentScanningGetStatusErrors, WafContentScanningGetStatusResponses, WafContentScanningListCustomScanExpressionsErrors, WafContentScanningListCustomScanExpressionsResponses, WafContentScanningUpdateSettingsErrors, WafContentScanningUpdateSettingsResponses, WafProductApiBundleCustomScanId, WafProductApiBundleCustomScanPayload, WafProductApiBundleIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class ContentScanningService {
      */
     public static wafContentScanningDisable<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningDisableResponses, WafContentScanningDisableErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).post<WafContentScanningDisableResponses, WafContentScanningDisableErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class ContentScanningService {
      */
     public static wafContentScanningEnable<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningEnableResponses, WafContentScanningEnableErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).post<WafContentScanningEnableResponses, WafContentScanningEnableErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,7 +72,7 @@ export class ContentScanningService {
      */
     public static wafContentScanningListCustomScanExpressions<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningListCustomScanExpressionsResponses, WafContentScanningListCustomScanExpressionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafContentScanningListCustomScanExpressionsResponses, WafContentScanningListCustomScanExpressionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -102,7 +102,7 @@ export class ContentScanningService {
         body: Array<{
             payload: WafProductApiBundleCustomScanPayload;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningAddCustomScanExpressionsResponses, WafContentScanningAddCustomScanExpressionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<WafContentScanningAddCustomScanExpressionsResponses, WafContentScanningAddCustomScanExpressionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class ContentScanningService {
     public static wafContentScanningDeleteCustomScanExpressions<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         expression_id: WafProductApiBundleCustomScanId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningDeleteCustomScanExpressionsResponses, WafContentScanningDeleteCustomScanExpressionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'expression_id' }] }]);
         return (options?.client ?? client).delete<WafContentScanningDeleteCustomScanExpressionsResponses, WafContentScanningDeleteCustomScanExpressionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -162,7 +162,7 @@ export class ContentScanningService {
      */
     public static wafContentScanningGetStatus<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningGetStatusResponses, WafContentScanningGetStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafContentScanningGetStatusResponses, WafContentScanningGetStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,7 +190,7 @@ export class ContentScanningService {
     public static wafContentScanningUpdateSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         value: 'enabled' | 'disabled';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafContentScanningUpdateSettingsResponses, WafContentScanningUpdateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).put<WafContentScanningUpdateSettingsResponses, WafContentScanningUpdateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

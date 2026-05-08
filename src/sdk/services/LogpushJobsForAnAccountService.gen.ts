@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteAccountsAccountIdLogpushJobsJobIdErrors, DeleteAccountsAccountIdLogpushJobsJobIdResponses, DeleteAccountsAccountIdLogpushValidateDestinationErrors, DeleteAccountsAccountIdLogpushValidateDestinationExistsErrors, DeleteAccountsAccountIdLogpushValidateDestinationExistsResponses, DeleteAccountsAccountIdLogpushValidateDestinationResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsErrors, GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdJobsErrors, GetAccountsAccountIdLogpushDatasetsDatasetIdJobsResponses, GetAccountsAccountIdLogpushJobsErrors, GetAccountsAccountIdLogpushJobsJobIdErrors, GetAccountsAccountIdLogpushJobsJobIdResponses, GetAccountsAccountIdLogpushJobsResponses, LogpushDataset, LogpushDestinationConf, LogpushEnabled, LogpushFilter, LogpushFrequency, LogpushId, LogpushIdentifier, LogpushKind, LogpushLogpullOptions, LogpushMaxUploadBytes, LogpushMaxUploadIntervalSeconds, LogpushMaxUploadRecords, LogpushName, LogpushOutputOptions, LogpushOwnershipChallenge, PostAccountsAccountIdLogpushJobsErrors, PostAccountsAccountIdLogpushJobsResponses, PostAccountsAccountIdLogpushOwnershipErrors, PostAccountsAccountIdLogpushOwnershipResponses, PostAccountsAccountIdLogpushOwnershipValidateErrors, PostAccountsAccountIdLogpushOwnershipValidateResponses, PostAccountsAccountIdLogpushValidateOriginErrors, PostAccountsAccountIdLogpushValidateOriginResponses, PutAccountsAccountIdLogpushJobsJobIdErrors, PutAccountsAccountIdLogpushJobsJobIdResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class LogpushJobsForAnAccountService {
     public static getAccountsAccountIdLogpushDatasetsDatasetIdFields<ThrowOnError extends boolean = true>(parameters: {
         dataset_id: LogpushDataset;
         account_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dataset_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdFieldsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class LogpushJobsForAnAccountService {
     public static getAccountsAccountIdLogpushDatasetsDatasetIdJobs<ThrowOnError extends boolean = true>(parameters: {
         dataset_id: LogpushDataset;
         account_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdLogpushDatasetsDatasetIdJobsResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dataset_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountsAccountIdLogpushDatasetsDatasetIdJobsResponses, GetAccountsAccountIdLogpushDatasetsDatasetIdJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class LogpushJobsForAnAccountService {
      */
     public static getAccountsAccountIdLogpushJobs<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdLogpushJobsResponses, GetAccountsAccountIdLogpushJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountsAccountIdLogpushJobsResponses, GetAccountsAccountIdLogpushJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class LogpushJobsForAnAccountService {
         name?: LogpushName;
         output_options?: LogpushOutputOptions;
         ownership_challenge?: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdLogpushJobsResponses, PostAccountsAccountIdLogpushJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'dataset' },
@@ -163,7 +163,7 @@ export class LogpushJobsForAnAccountService {
         job_id: LogpushId;
         account_id: LogpushIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdLogpushJobsJobIdResponses, DeleteAccountsAccountIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'job_id' },
                     { in: 'path', key: 'account_id' },
@@ -200,7 +200,7 @@ export class LogpushJobsForAnAccountService {
     public static getAccountsAccountIdLogpushJobsJobId<ThrowOnError extends boolean = true>(parameters: {
         job_id: LogpushId;
         account_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdLogpushJobsJobIdResponses, GetAccountsAccountIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'job_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountsAccountIdLogpushJobsJobIdResponses, GetAccountsAccountIdLogpushJobsJobIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -240,7 +240,7 @@ export class LogpushJobsForAnAccountService {
         name?: LogpushName;
         output_options?: LogpushOutputOptions;
         ownership_challenge?: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutAccountsAccountIdLogpushJobsJobIdResponses, PutAccountsAccountIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'job_id' },
                     { in: 'path', key: 'account_id' },
@@ -288,7 +288,7 @@ export class LogpushJobsForAnAccountService {
     public static postAccountsAccountIdLogpushOwnership<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdLogpushOwnershipResponses, PostAccountsAccountIdLogpushOwnershipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<PostAccountsAccountIdLogpushOwnershipResponses, PostAccountsAccountIdLogpushOwnershipErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -322,7 +322,7 @@ export class LogpushJobsForAnAccountService {
         account_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
         ownership_challenge: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdLogpushOwnershipValidateResponses, PostAccountsAccountIdLogpushOwnershipValidateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'destination_conf' },
@@ -359,7 +359,7 @@ export class LogpushJobsForAnAccountService {
     public static deleteAccountsAccountIdLogpushValidateDestination<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdLogpushValidateDestinationResponses, DeleteAccountsAccountIdLogpushValidateDestinationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<DeleteAccountsAccountIdLogpushValidateDestinationResponses, DeleteAccountsAccountIdLogpushValidateDestinationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -392,7 +392,7 @@ export class LogpushJobsForAnAccountService {
     public static deleteAccountsAccountIdLogpushValidateDestinationExists<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdLogpushValidateDestinationExistsResponses, DeleteAccountsAccountIdLogpushValidateDestinationExistsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<DeleteAccountsAccountIdLogpushValidateDestinationExistsResponses, DeleteAccountsAccountIdLogpushValidateDestinationExistsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -425,7 +425,7 @@ export class LogpushJobsForAnAccountService {
     public static postAccountsAccountIdLogpushValidateOrigin<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogpushIdentifier;
         logpull_options: LogpushLogpullOptions;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdLogpushValidateOriginResponses, PostAccountsAccountIdLogpushValidateOriginErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'logpull_options' }] }]);
         return (options?.client ?? client).post<PostAccountsAccountIdLogpushValidateOriginResponses, PostAccountsAccountIdLogpushValidateOriginErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

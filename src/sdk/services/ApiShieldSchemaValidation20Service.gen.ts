@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldOldKind, ApiShieldOldOperationSchemaValidationSettingsModifyRequest, ApiShieldOldOperationSchemaValidationSettingsMultipleRequest, ApiShieldOldValidationEnabled, ApiShieldOldZoneSchemaValidationSettingsPatch, ApiShieldOldZoneSchemaValidationSettingsPut, ApiShieldSchemaDeleteASchemaErrors, ApiShieldSchemaDeleteASchemaResponses, ApiShieldSchemasIdentifier, ApiShieldSchemaValidationEnableValidationForASchemaErrors, ApiShieldSchemaValidationEnableValidationForASchemaResponses, ApiShieldSchemaValidationExtractOperationsFromSchemaErrors, ApiShieldSchemaValidationExtractOperationsFromSchemaResponses, ApiShieldSchemaValidationPatchZoneLevelSettingsErrors, ApiShieldSchemaValidationPatchZoneLevelSettingsResponses, ApiShieldSchemaValidationPostSchemaErrors, ApiShieldSchemaValidationPostSchemaResponses, ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasErrors, ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasResponses, ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaErrors, ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaResponses, ApiShieldSchemaValidationRetrieveOperationLevelSettingsErrors, ApiShieldSchemaValidationRetrieveOperationLevelSettingsResponses, ApiShieldSchemaValidationRetrieveUserSchemaHostsErrors, ApiShieldSchemaValidationRetrieveUserSchemaHostsResponses, ApiShieldSchemaValidationRetrieveZoneLevelSettingsErrors, ApiShieldSchemaValidationRetrieveZoneLevelSettingsResponses, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsErrors, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateOperationLevelSettingsErrors, ApiShieldSchemaValidationUpdateOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateZoneLevelSettingsErrors, ApiShieldSchemaValidationUpdateZoneLevelSettingsResponses, ApiShieldUuid } from '../types.gen';
+import type { ApiShieldIdentifier2, ApiShieldOldKind, ApiShieldOldOperationSchemaValidationSettingsModifyRequest, ApiShieldOldOperationSchemaValidationSettingsMultipleRequest, ApiShieldOldValidationEnabled, ApiShieldOldZoneSchemaValidationSettingsPatch, ApiShieldOldZoneSchemaValidationSettingsPut, ApiShieldSchemaDeleteASchemaErrors, ApiShieldSchemaDeleteASchemaResponses, ApiShieldSchemaValidationEnableValidationForASchemaErrors, ApiShieldSchemaValidationEnableValidationForASchemaResponses, ApiShieldSchemaValidationExtractOperationsFromSchemaErrors, ApiShieldSchemaValidationExtractOperationsFromSchemaResponses, ApiShieldSchemaValidationPatchZoneLevelSettingsErrors, ApiShieldSchemaValidationPatchZoneLevelSettingsResponses, ApiShieldSchemaValidationPostSchemaErrors, ApiShieldSchemaValidationPostSchemaResponses, ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasErrors, ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasResponses, ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaErrors, ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaResponses, ApiShieldSchemaValidationRetrieveOperationLevelSettingsErrors, ApiShieldSchemaValidationRetrieveOperationLevelSettingsResponses, ApiShieldSchemaValidationRetrieveUserSchemaHostsErrors, ApiShieldSchemaValidationRetrieveUserSchemaHostsResponses, ApiShieldSchemaValidationRetrieveZoneLevelSettingsErrors, ApiShieldSchemaValidationRetrieveZoneLevelSettingsResponses, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsErrors, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateOperationLevelSettingsErrors, ApiShieldSchemaValidationUpdateOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateZoneLevelSettingsErrors, ApiShieldSchemaValidationUpdateZoneLevelSettingsResponses, ApiShieldUuid } from '../types.gen';
 import { zApiShieldSchemaDeleteASchemaPath, zApiShieldSchemaDeleteASchemaResponse, zApiShieldSchemaValidationEnableValidationForASchemaBody, zApiShieldSchemaValidationEnableValidationForASchemaPath, zApiShieldSchemaValidationEnableValidationForASchemaResponse, zApiShieldSchemaValidationExtractOperationsFromSchemaPath, zApiShieldSchemaValidationExtractOperationsFromSchemaQuery, zApiShieldSchemaValidationExtractOperationsFromSchemaResponse, zApiShieldSchemaValidationPatchZoneLevelSettingsBody, zApiShieldSchemaValidationPatchZoneLevelSettingsPath, zApiShieldSchemaValidationPatchZoneLevelSettingsResponse, zApiShieldSchemaValidationPostSchemaBody, zApiShieldSchemaValidationPostSchemaPath, zApiShieldSchemaValidationPostSchemaResponse, zApiShieldSchemaValidationRetrieveInformationAboutAllSchemasPath, zApiShieldSchemaValidationRetrieveInformationAboutAllSchemasQuery, zApiShieldSchemaValidationRetrieveInformationAboutAllSchemasResponse, zApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaPath, zApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaQuery, zApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaResponse, zApiShieldSchemaValidationRetrieveOperationLevelSettingsPath, zApiShieldSchemaValidationRetrieveOperationLevelSettingsResponse, zApiShieldSchemaValidationRetrieveUserSchemaHostsPath, zApiShieldSchemaValidationRetrieveUserSchemaHostsQuery, zApiShieldSchemaValidationRetrieveUserSchemaHostsResponse, zApiShieldSchemaValidationRetrieveZoneLevelSettingsPath, zApiShieldSchemaValidationRetrieveZoneLevelSettingsResponse, zApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsBody, zApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsPath, zApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsResponse, zApiShieldSchemaValidationUpdateOperationLevelSettingsBody, zApiShieldSchemaValidationUpdateOperationLevelSettingsPath, zApiShieldSchemaValidationUpdateOperationLevelSettingsResponse, zApiShieldSchemaValidationUpdateZoneLevelSettingsBody, zApiShieldSchemaValidationUpdateZoneLevelSettingsPath, zApiShieldSchemaValidationUpdateZoneLevelSettingsResponse } from '../zod.gen';
 
 export class ApiShieldSchemaValidation20Service {
@@ -19,9 +19,9 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationUpdateMultipleOperationLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldOldOperationSchemaValidationSettingsMultipleRequest: ApiShieldOldOperationSchemaValidationSettingsMultipleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldOldOperationSchemaValidationSettingsMultipleRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateMultipleOperationLevelSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -54,9 +54,9 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationRetrieveOperationLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationRetrieveOperationLevelSettingsResponses, ApiShieldSchemaValidationRetrieveOperationLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'operation_id' }] }]);
         return (options?.client ?? client).get<ApiShieldSchemaValidationRetrieveOperationLevelSettingsResponses, ApiShieldSchemaValidationRetrieveOperationLevelSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,10 +84,10 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationUpdateOperationLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         apiShieldOldOperationSchemaValidationSettingsModifyRequest: ApiShieldOldOperationSchemaValidationSettingsModifyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationUpdateOperationLevelSettingsResponses, ApiShieldSchemaValidationUpdateOperationLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },
@@ -124,8 +124,8 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationRetrieveZoneLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationRetrieveZoneLevelSettingsResponses, ApiShieldSchemaValidationRetrieveZoneLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ApiShieldSchemaValidationRetrieveZoneLevelSettingsResponses, ApiShieldSchemaValidationRetrieveZoneLevelSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -153,9 +153,9 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationPatchZoneLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldOldZoneSchemaValidationSettingsPatch: ApiShieldOldZoneSchemaValidationSettingsPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationPatchZoneLevelSettingsResponses, ApiShieldSchemaValidationPatchZoneLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldOldZoneSchemaValidationSettingsPatch', map: 'body' }] }]);
         return (options?.client ?? client).patch<ApiShieldSchemaValidationPatchZoneLevelSettingsResponses, ApiShieldSchemaValidationPatchZoneLevelSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -188,9 +188,9 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationUpdateZoneLevelSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldOldZoneSchemaValidationSettingsPut: ApiShieldOldZoneSchemaValidationSettingsPut;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationUpdateZoneLevelSettingsResponses, ApiShieldSchemaValidationUpdateZoneLevelSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldOldZoneSchemaValidationSettingsPut', map: 'body' }] }]);
         return (options?.client ?? client).put<ApiShieldSchemaValidationUpdateZoneLevelSettingsResponses, ApiShieldSchemaValidationUpdateZoneLevelSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -223,12 +223,12 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationRetrieveInformationAboutAllSchemas<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
         omit_source?: boolean;
         validation_enabled?: ApiShieldOldValidationEnabled;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasResponses, ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -257,15 +257,17 @@ export class ApiShieldSchemaValidation20Service {
     /**
      * Upload a schema to a zone
      *
+     * Uploads a new OpenAPI schema for API Shield schema validation. The schema defines expected request/response formats for API endpoints.
+     *
      * @deprecated
      */
     public static apiShieldSchemaValidationPostSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         file: Blob | File;
         kind: ApiShieldOldKind;
         name?: string;
         validation_enabled?: 'true' | 'false';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationPostSchemaResponses, ApiShieldSchemaValidationPostSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'file' },
@@ -305,10 +307,10 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationRetrieveUserSchemaHosts<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationRetrieveUserSchemaHostsResponses, ApiShieldSchemaValidationRetrieveUserSchemaHostsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -340,9 +342,9 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaDeleteASchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         schema_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaDeleteASchemaResponses, ApiShieldSchemaDeleteASchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'schema_id' }] }]);
         return (options?.client ?? client).delete<ApiShieldSchemaDeleteASchemaResponses, ApiShieldSchemaDeleteASchemaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -370,10 +372,10 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationRetrieveInformationAboutSpecificSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         schema_id: string;
         omit_source?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaResponses, ApiShieldSchemaValidationRetrieveInformationAboutSpecificSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'schema_id' },
@@ -405,10 +407,10 @@ export class ApiShieldSchemaValidation20Service {
      * @deprecated
      */
     public static apiShieldSchemaValidationEnableValidationForASchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         schema_id: string;
         validation_enabled?: ApiShieldOldValidationEnabled & (true);
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationEnableValidationForASchemaResponses, ApiShieldSchemaValidationEnableValidationForASchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'schema_id' },
@@ -446,7 +448,7 @@ export class ApiShieldSchemaValidation20Service {
      */
     public static apiShieldSchemaValidationExtractOperationsFromSchema<ThrowOnError extends boolean = true>(parameters: {
         schema_id: string;
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         feature?: Array<'thresholds' | 'parameter_schemas' | 'schema_info'>;
         host?: Array<string>;
         method?: Array<string>;
@@ -454,7 +456,7 @@ export class ApiShieldSchemaValidation20Service {
         page?: number;
         per_page?: number;
         operation_status?: 'new' | 'existing';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldSchemaValidationExtractOperationsFromSchemaResponses, ApiShieldSchemaValidationExtractOperationsFromSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'schema_id' },
                     { in: 'path', key: 'zone_id' },

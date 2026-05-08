@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicPcapCollectionAddBucketsForFullPacketCapturesErrors, MagicPcapCollectionAddBucketsForFullPacketCapturesResponses, MagicPcapCollectionCreatePcapRequestErrors, MagicPcapCollectionCreatePcapRequestResponses, MagicPcapCollectionDeleteBucketsForFullPacketCapturesErrors, MagicPcapCollectionDeleteBucketsForFullPacketCapturesResponses, MagicPcapCollectionDownloadSimplePcapErrors, MagicPcapCollectionDownloadSimplePcapResponses, MagicPcapCollectionGetPcapRequestErrors, MagicPcapCollectionGetPcapRequestResponses, MagicPcapCollectionListPacketCaptureRequestsErrors, MagicPcapCollectionListPacketCaptureRequestsResponses, MagicPcapCollectionListPcaPsBucketOwnershipErrors, MagicPcapCollectionListPcaPsBucketOwnershipResponses, MagicPcapCollectionStopFullPcapErrors, MagicPcapCollectionStopFullPcapResponses, MagicPcapCollectionValidateBucketsForFullPacketCapturesErrors, MagicPcapCollectionValidateBucketsForFullPacketCapturesResponses, MagicVisibilityPcapsIdentifier, MagicVisibilityPcapsPcapsOwnershipRequest, MagicVisibilityPcapsPcapsOwnershipValidateRequest, MagicVisibilityPcapsPcapsRequestPcap } from '../types.gen';
@@ -18,7 +18,7 @@ export class MagicPcapCollectionService {
      */
     public static magicPcapCollectionListPacketCaptureRequests<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionListPacketCaptureRequestsResponses, MagicPcapCollectionListPacketCaptureRequestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicPcapCollectionListPacketCaptureRequestsResponses, MagicPcapCollectionListPacketCaptureRequestsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionCreatePcapRequest<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityPcapsIdentifier;
         magicVisibilityPcapsPcapsRequestPcap: MagicVisibilityPcapsPcapsRequestPcap;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionCreatePcapRequestResponses, MagicPcapCollectionCreatePcapRequestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicVisibilityPcapsPcapsRequestPcap', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicPcapCollectionCreatePcapRequestResponses, MagicPcapCollectionCreatePcapRequestErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class MagicPcapCollectionService {
      */
     public static magicPcapCollectionListPcaPsBucketOwnership<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionListPcaPsBucketOwnershipResponses, MagicPcapCollectionListPcaPsBucketOwnershipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicPcapCollectionListPcaPsBucketOwnershipResponses, MagicPcapCollectionListPcaPsBucketOwnershipErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionAddBucketsForFullPacketCaptures<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityPcapsIdentifier;
         magicVisibilityPcapsPcapsOwnershipRequest: MagicVisibilityPcapsPcapsOwnershipRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionAddBucketsForFullPacketCapturesResponses, MagicPcapCollectionAddBucketsForFullPacketCapturesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicVisibilityPcapsPcapsOwnershipRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicPcapCollectionAddBucketsForFullPacketCapturesResponses, MagicPcapCollectionAddBucketsForFullPacketCapturesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,7 +139,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionValidateBucketsForFullPacketCaptures<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityPcapsIdentifier;
         magicVisibilityPcapsPcapsOwnershipValidateRequest: MagicVisibilityPcapsPcapsOwnershipValidateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionValidateBucketsForFullPacketCapturesResponses, MagicPcapCollectionValidateBucketsForFullPacketCapturesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicVisibilityPcapsPcapsOwnershipValidateRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicPcapCollectionValidateBucketsForFullPacketCapturesResponses, MagicPcapCollectionValidateBucketsForFullPacketCapturesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +172,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionDeleteBucketsForFullPacketCaptures<ThrowOnError extends boolean = true>(parameters: {
         ownership_id: MagicVisibilityPcapsIdentifier;
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionDeleteBucketsForFullPacketCapturesResponses, MagicPcapCollectionDeleteBucketsForFullPacketCapturesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ownership_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<MagicPcapCollectionDeleteBucketsForFullPacketCapturesResponses, MagicPcapCollectionDeleteBucketsForFullPacketCapturesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -200,7 +200,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionGetPcapRequest<ThrowOnError extends boolean = true>(parameters: {
         pcap_id: MagicVisibilityPcapsIdentifier;
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionGetPcapRequestResponses, MagicPcapCollectionGetPcapRequestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pcap_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicPcapCollectionGetPcapRequestResponses, MagicPcapCollectionGetPcapRequestErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -228,7 +228,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionDownloadSimplePcap<ThrowOnError extends boolean = true>(parameters: {
         pcap_id: MagicVisibilityPcapsIdentifier;
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionDownloadSimplePcapResponses, MagicPcapCollectionDownloadSimplePcapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pcap_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicPcapCollectionDownloadSimplePcapResponses, MagicPcapCollectionDownloadSimplePcapErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -255,7 +255,7 @@ export class MagicPcapCollectionService {
     public static magicPcapCollectionStopFullPcap<ThrowOnError extends boolean = true>(parameters: {
         pcap_id: MagicVisibilityPcapsIdentifier;
         account_id: MagicVisibilityPcapsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicPcapCollectionStopFullPcapResponses, MagicPcapCollectionStopFullPcapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pcap_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).put<MagicPcapCollectionStopFullPcapResponses, MagicPcapCollectionStopFullPcapErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

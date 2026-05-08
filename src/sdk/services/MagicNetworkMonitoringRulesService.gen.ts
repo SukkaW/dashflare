@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { MagicNetworkMonitoringRulesCreateRulesErrors, MagicNetworkMonitoringRulesCreateRulesResponses, MagicNetworkMonitoringRulesDeleteRuleErrors, MagicNetworkMonitoringRulesDeleteRuleResponses, MagicNetworkMonitoringRulesGetRuleErrors, MagicNetworkMonitoringRulesGetRuleResponses, MagicNetworkMonitoringRulesListRulesErrors, MagicNetworkMonitoringRulesListRulesResponses, MagicNetworkMonitoringRulesUpdateAdvertisementForRuleErrors, MagicNetworkMonitoringRulesUpdateAdvertisementForRuleResponses, MagicNetworkMonitoringRulesUpdateRuleErrors, MagicNetworkMonitoringRulesUpdateRuleResponses, MagicNetworkMonitoringRulesUpdateRulesErrors, MagicNetworkMonitoringRulesUpdateRulesResponses, MagicVisibilityMnmAccountIdentifier, MagicVisibilityMnmMnmRuleCreate, MagicVisibilityMnmRuleIdentifier } from '../types.gen';
-import { zMagicNetworkMonitoringRulesCreateRulesBody, zMagicNetworkMonitoringRulesCreateRulesPath, zMagicNetworkMonitoringRulesCreateRulesResponse, zMagicNetworkMonitoringRulesDeleteRuleBody, zMagicNetworkMonitoringRulesDeleteRulePath, zMagicNetworkMonitoringRulesDeleteRuleResponse, zMagicNetworkMonitoringRulesGetRulePath, zMagicNetworkMonitoringRulesGetRuleResponse, zMagicNetworkMonitoringRulesListRulesPath, zMagicNetworkMonitoringRulesListRulesResponse, zMagicNetworkMonitoringRulesUpdateAdvertisementForRuleBody, zMagicNetworkMonitoringRulesUpdateAdvertisementForRulePath, zMagicNetworkMonitoringRulesUpdateAdvertisementForRuleResponse, zMagicNetworkMonitoringRulesUpdateRuleBody, zMagicNetworkMonitoringRulesUpdateRulePath, zMagicNetworkMonitoringRulesUpdateRuleResponse, zMagicNetworkMonitoringRulesUpdateRulesBody, zMagicNetworkMonitoringRulesUpdateRulesPath, zMagicNetworkMonitoringRulesUpdateRulesResponse } from '../zod.gen';
+import type { MagicNetworkMonitoringRulesCreateRulesBulkErrors, MagicNetworkMonitoringRulesCreateRulesBulkResponses, MagicNetworkMonitoringRulesCreateRulesErrors, MagicNetworkMonitoringRulesCreateRulesResponses, MagicNetworkMonitoringRulesDeleteRuleErrors, MagicNetworkMonitoringRulesDeleteRuleResponses, MagicNetworkMonitoringRulesGetRuleErrors, MagicNetworkMonitoringRulesGetRuleResponses, MagicNetworkMonitoringRulesListRulesErrors, MagicNetworkMonitoringRulesListRulesResponses, MagicNetworkMonitoringRulesUpdateAdvertisementForRuleErrors, MagicNetworkMonitoringRulesUpdateAdvertisementForRuleResponses, MagicNetworkMonitoringRulesUpdateRuleErrors, MagicNetworkMonitoringRulesUpdateRuleResponses, MagicNetworkMonitoringRulesUpdateRulesBulkErrors, MagicNetworkMonitoringRulesUpdateRulesBulkResponses, MagicNetworkMonitoringRulesUpdateRulesErrors, MagicNetworkMonitoringRulesUpdateRulesResponses, MagicVisibilityMnmAccountIdentifier, MagicVisibilityMnmMnmRuleCreate, MagicVisibilityMnmRuleIdentifier } from '../types.gen';
+import { zMagicNetworkMonitoringRulesCreateRulesBody, zMagicNetworkMonitoringRulesCreateRulesBulkBody, zMagicNetworkMonitoringRulesCreateRulesBulkPath, zMagicNetworkMonitoringRulesCreateRulesBulkResponse, zMagicNetworkMonitoringRulesCreateRulesPath, zMagicNetworkMonitoringRulesCreateRulesResponse, zMagicNetworkMonitoringRulesDeleteRuleBody, zMagicNetworkMonitoringRulesDeleteRulePath, zMagicNetworkMonitoringRulesDeleteRuleResponse, zMagicNetworkMonitoringRulesGetRulePath, zMagicNetworkMonitoringRulesGetRuleResponse, zMagicNetworkMonitoringRulesListRulesPath, zMagicNetworkMonitoringRulesListRulesResponse, zMagicNetworkMonitoringRulesUpdateAdvertisementForRuleBody, zMagicNetworkMonitoringRulesUpdateAdvertisementForRulePath, zMagicNetworkMonitoringRulesUpdateAdvertisementForRuleResponse, zMagicNetworkMonitoringRulesUpdateRuleBody, zMagicNetworkMonitoringRulesUpdateRulePath, zMagicNetworkMonitoringRulesUpdateRuleResponse, zMagicNetworkMonitoringRulesUpdateRulesBody, zMagicNetworkMonitoringRulesUpdateRulesBulkBody, zMagicNetworkMonitoringRulesUpdateRulesBulkPath, zMagicNetworkMonitoringRulesUpdateRulesBulkResponse, zMagicNetworkMonitoringRulesUpdateRulesPath, zMagicNetworkMonitoringRulesUpdateRulesResponse } from '../zod.gen';
 
 export class MagicNetworkMonitoringRulesService {
     /**
@@ -18,7 +18,7 @@ export class MagicNetworkMonitoringRulesService {
      */
     public static magicNetworkMonitoringRulesListRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesListRulesResponses, MagicNetworkMonitoringRulesListRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicNetworkMonitoringRulesListRulesResponses, MagicNetworkMonitoringRulesListRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class MagicNetworkMonitoringRulesService {
     public static magicNetworkMonitoringRulesCreateRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
         magicVisibilityMnmMnmRuleCreate: MagicVisibilityMnmMnmRuleCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesCreateRulesResponses, MagicNetworkMonitoringRulesCreateRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicVisibilityMnmMnmRuleCreate', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicNetworkMonitoringRulesCreateRulesResponses, MagicNetworkMonitoringRulesCreateRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class MagicNetworkMonitoringRulesService {
     public static magicNetworkMonitoringRulesUpdateRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
         magicVisibilityMnmMnmRuleCreate: MagicVisibilityMnmMnmRuleCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesUpdateRulesResponses, MagicNetworkMonitoringRulesUpdateRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicVisibilityMnmMnmRuleCreate', map: 'body' }] }]);
         return (options?.client ?? client).put<MagicNetworkMonitoringRulesUpdateRulesResponses, MagicNetworkMonitoringRulesUpdateRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,6 +93,64 @@ export class MagicNetworkMonitoringRulesService {
     }
     
     /**
+     * Create rules in bulk
+     *
+     * Create multiple network monitoring rules for account in a single request. Supports up to 100 rules per request. All rules in a single request must be of the same type.
+     */
+    public static magicNetworkMonitoringRulesCreateRulesBulk<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MagicVisibilityMnmAccountIdentifier;
+        body: Array<MagicVisibilityMnmMnmRuleCreate>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesCreateRulesBulkResponses, MagicNetworkMonitoringRulesCreateRulesBulkErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
+        return (options?.client ?? client).post<MagicNetworkMonitoringRulesCreateRulesBulkResponses, MagicNetworkMonitoringRulesCreateRulesBulkErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMagicNetworkMonitoringRulesCreateRulesBulkBody,
+                path: zMagicNetworkMonitoringRulesCreateRulesBulkPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMagicNetworkMonitoringRulesCreateRulesBulkResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/mnm/rules/bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Update rules in bulk
+     *
+     * Update multiple network monitoring rules for account in a single request. Supports up to 100 rules per request. All rules in a single request must be of the same type.
+     */
+    public static magicNetworkMonitoringRulesUpdateRulesBulk<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MagicVisibilityMnmAccountIdentifier;
+        body: Array<MagicVisibilityMnmMnmRuleCreate>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesUpdateRulesBulkResponses, MagicNetworkMonitoringRulesUpdateRulesBulkErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
+        return (options?.client ?? client).put<MagicNetworkMonitoringRulesUpdateRulesBulkResponses, MagicNetworkMonitoringRulesUpdateRulesBulkErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMagicNetworkMonitoringRulesUpdateRulesBulkBody,
+                path: zMagicNetworkMonitoringRulesUpdateRulesBulkPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMagicNetworkMonitoringRulesUpdateRulesBulkResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/mnm/rules/bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete rule
      *
      * Delete a network monitoring rule for account.
@@ -101,7 +159,7 @@ export class MagicNetworkMonitoringRulesService {
         rule_id: MagicVisibilityMnmRuleIdentifier;
         account_id: MagicVisibilityMnmAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesDeleteRuleResponses, MagicNetworkMonitoringRulesDeleteRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -134,7 +192,7 @@ export class MagicNetworkMonitoringRulesService {
     public static magicNetworkMonitoringRulesGetRule<ThrowOnError extends boolean = true>(parameters: {
         rule_id: MagicVisibilityMnmRuleIdentifier;
         account_id: MagicVisibilityMnmAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesGetRuleResponses, MagicNetworkMonitoringRulesGetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicNetworkMonitoringRulesGetRuleResponses, MagicNetworkMonitoringRulesGetRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -159,7 +217,7 @@ export class MagicNetworkMonitoringRulesService {
         rule_id: MagicVisibilityMnmRuleIdentifier;
         account_id: MagicVisibilityMnmAccountIdentifier;
         magicVisibilityMnmMnmRuleCreate: MagicVisibilityMnmMnmRuleCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesUpdateRuleResponses, MagicNetworkMonitoringRulesUpdateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -193,7 +251,7 @@ export class MagicNetworkMonitoringRulesService {
         rule_id: MagicVisibilityMnmRuleIdentifier;
         account_id: MagicVisibilityMnmAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringRulesUpdateAdvertisementForRuleResponses, MagicNetworkMonitoringRulesUpdateAdvertisementForRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },

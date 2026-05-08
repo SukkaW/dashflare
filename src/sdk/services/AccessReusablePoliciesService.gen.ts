@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessIdentifier, AccessPoliciesCreateAnAccessReusablePolicyErrors, AccessPoliciesCreateAnAccessReusablePolicyResponses, AccessPoliciesDeleteAnAccessReusablePolicyErrors, AccessPoliciesDeleteAnAccessReusablePolicyResponses, AccessPoliciesGetAnAccessReusablePolicyErrors, AccessPoliciesGetAnAccessReusablePolicyResponses, AccessPoliciesListAccessReusablePoliciesErrors, AccessPoliciesListAccessReusablePoliciesResponses, AccessPoliciesUpdateAnAccessReusablePolicyErrors, AccessPoliciesUpdateAnAccessReusablePolicyResponses, AccessPolicyReq, AccessSchemasUuid } from '../types.gen';
+import type { AccessIdentifier, AccessPoliciesCreateAnAccessReusablePolicyErrors, AccessPoliciesCreateAnAccessReusablePolicyResponses, AccessPoliciesDeleteAnAccessReusablePolicyErrors, AccessPoliciesDeleteAnAccessReusablePolicyResponses, AccessPoliciesGetAnAccessReusablePolicyErrors, AccessPoliciesGetAnAccessReusablePolicyResponses, AccessPoliciesListAccessReusablePoliciesErrors, AccessPoliciesListAccessReusablePoliciesResponses, AccessPoliciesUpdateAnAccessReusablePolicyErrors, AccessPoliciesUpdateAnAccessReusablePolicyResponses, AccessPolicyReq, AccessUuid2 } from '../types.gen';
 import { zAccessPoliciesCreateAnAccessReusablePolicyBody, zAccessPoliciesCreateAnAccessReusablePolicyPath, zAccessPoliciesCreateAnAccessReusablePolicyResponse, zAccessPoliciesDeleteAnAccessReusablePolicyPath, zAccessPoliciesDeleteAnAccessReusablePolicyResponse, zAccessPoliciesGetAnAccessReusablePolicyPath, zAccessPoliciesGetAnAccessReusablePolicyResponse, zAccessPoliciesListAccessReusablePoliciesPath, zAccessPoliciesListAccessReusablePoliciesQuery, zAccessPoliciesListAccessReusablePoliciesResponse, zAccessPoliciesUpdateAnAccessReusablePolicyBody, zAccessPoliciesUpdateAnAccessReusablePolicyPath, zAccessPoliciesUpdateAnAccessReusablePolicyResponse } from '../zod.gen';
 
 export class AccessReusablePoliciesService {
@@ -20,7 +20,7 @@ export class AccessReusablePoliciesService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesListAccessReusablePoliciesResponses, AccessPoliciesListAccessReusablePoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class AccessReusablePoliciesService {
     public static accessPoliciesCreateAnAccessReusablePolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         accessPolicyReq: AccessPolicyReq;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesCreateAnAccessReusablePolicyResponses, AccessPoliciesCreateAnAccessReusablePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessPolicyReq', map: 'body' }] }]);
         return (options?.client ?? client).post<AccessPoliciesCreateAnAccessReusablePolicyResponses, AccessPoliciesCreateAnAccessReusablePolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,8 +84,8 @@ export class AccessReusablePoliciesService {
      */
     public static accessPoliciesDeleteAnAccessReusablePolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        policy_id: AccessSchemasUuid;
-    }, options?: Options<never, ThrowOnError>) {
+        policy_id: AccessUuid2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesDeleteAnAccessReusablePolicyResponses, AccessPoliciesDeleteAnAccessReusablePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).delete<AccessPoliciesDeleteAnAccessReusablePolicyResponses, AccessPoliciesDeleteAnAccessReusablePolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,8 +112,8 @@ export class AccessReusablePoliciesService {
      */
     public static accessPoliciesGetAnAccessReusablePolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        policy_id: AccessSchemasUuid;
-    }, options?: Options<never, ThrowOnError>) {
+        policy_id: AccessUuid2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesGetAnAccessReusablePolicyResponses, AccessPoliciesGetAnAccessReusablePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).get<AccessPoliciesGetAnAccessReusablePolicyResponses, AccessPoliciesGetAnAccessReusablePolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,9 +140,9 @@ export class AccessReusablePoliciesService {
      */
     public static accessPoliciesUpdateAnAccessReusablePolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        policy_id: AccessSchemasUuid;
+        policy_id: AccessUuid2;
         accessPolicyReq: AccessPolicyReq;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesUpdateAnAccessReusablePolicyResponses, AccessPoliciesUpdateAnAccessReusablePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_id' },

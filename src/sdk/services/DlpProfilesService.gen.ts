@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpCustomProfileUpdate, DlpNewCustomProfile, DlpNewPredefinedProfile, DlpPredefinedProfileConfigUpdate, DlpPredefinedProfileUpdate, DlpProfilesCreateCustomProfilesErrors, DlpProfilesCreateCustomProfilesResponses, DlpProfilesCreatePredefinedProfileConfigErrors, DlpProfilesCreatePredefinedProfileConfigResponses, DlpProfilesCreatePredefinedProfileErrors, DlpProfilesCreatePredefinedProfileResponses, DlpProfilesDeleteCustomProfileErrors, DlpProfilesDeleteCustomProfileResponses, DlpProfilesDeletePredefinedProfileErrors, DlpProfilesDeletePredefinedProfileResponses, DlpProfilesGetCustomProfileErrors, DlpProfilesGetCustomProfileResponses, DlpProfilesGetDlpProfileErrors, DlpProfilesGetDlpProfileResponses, DlpProfilesGetPredefinedProfileConfigErrors, DlpProfilesGetPredefinedProfileConfigResponses, DlpProfilesGetPredefinedProfileErrors, DlpProfilesGetPredefinedProfileResponses, DlpProfilesListAllCustomProfilesErrors, DlpProfilesListAllCustomProfilesResponses, DlpProfilesListAllProfilesErrors, DlpProfilesListAllProfilesResponses, DlpProfilesUpdateCustomProfileErrors, DlpProfilesUpdateCustomProfileResponses, DlpProfilesUpdatePredefinedProfileConfigErrors, DlpProfilesUpdatePredefinedProfileConfigResponses, DlpProfilesUpdatePredefinedProfileErrors, DlpProfilesUpdatePredefinedProfileResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class DlpProfilesService {
     public static dlpProfilesListAllProfiles<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         all?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesListAllProfilesResponses, DlpProfilesListAllProfilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'all' }] }]);
         return (options?.client ?? client).get<DlpProfilesListAllProfilesResponses, DlpProfilesListAllProfilesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class DlpProfilesService {
      */
     public static dlpProfilesListAllCustomProfiles<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesListAllCustomProfilesResponses, DlpProfilesListAllCustomProfilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpProfilesListAllCustomProfilesResponses, DlpProfilesListAllCustomProfilesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class DlpProfilesService {
     public static dlpProfilesCreateCustomProfiles<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpNewCustomProfile: DlpNewCustomProfile;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesCreateCustomProfilesResponses, DlpProfilesCreateCustomProfilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpNewCustomProfile', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpProfilesCreateCustomProfilesResponses, DlpProfilesCreateCustomProfilesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class DlpProfilesService {
     public static dlpProfilesDeleteCustomProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesDeleteCustomProfileResponses, DlpProfilesDeleteCustomProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).delete<DlpProfilesDeleteCustomProfileResponses, DlpProfilesDeleteCustomProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class DlpProfilesService {
     public static dlpProfilesGetCustomProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesGetCustomProfileResponses, DlpProfilesGetCustomProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).get<DlpProfilesGetCustomProfileResponses, DlpProfilesGetCustomProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -164,7 +164,7 @@ export class DlpProfilesService {
         account_id: string;
         profile_id: string;
         dlpCustomProfileUpdate: DlpCustomProfileUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesUpdateCustomProfileResponses, DlpProfilesUpdateCustomProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'profile_id' },
@@ -201,7 +201,7 @@ export class DlpProfilesService {
     public static dlpProfilesCreatePredefinedProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpNewPredefinedProfile: DlpNewPredefinedProfile;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesCreatePredefinedProfileResponses, DlpProfilesCreatePredefinedProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpNewPredefinedProfile', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpProfilesCreatePredefinedProfileResponses, DlpProfilesCreatePredefinedProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -234,7 +234,7 @@ export class DlpProfilesService {
     public static dlpProfilesDeletePredefinedProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesDeletePredefinedProfileResponses, DlpProfilesDeletePredefinedProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).delete<DlpProfilesDeletePredefinedProfileResponses, DlpProfilesDeletePredefinedProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -262,7 +262,7 @@ export class DlpProfilesService {
     public static dlpProfilesGetPredefinedProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesGetPredefinedProfileResponses, DlpProfilesGetPredefinedProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).get<DlpProfilesGetPredefinedProfileResponses, DlpProfilesGetPredefinedProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -291,7 +291,7 @@ export class DlpProfilesService {
         account_id: string;
         profile_id: string;
         dlpPredefinedProfileUpdate: DlpPredefinedProfileUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesUpdatePredefinedProfileResponses, DlpProfilesUpdatePredefinedProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'profile_id' },
@@ -330,7 +330,7 @@ export class DlpProfilesService {
     public static dlpProfilesGetPredefinedProfileConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesGetPredefinedProfileConfigResponses, DlpProfilesGetPredefinedProfileConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).get<DlpProfilesGetPredefinedProfileConfigResponses, DlpProfilesGetPredefinedProfileConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -361,7 +361,7 @@ export class DlpProfilesService {
         account_id: string;
         profile_id: string;
         dlpPredefinedProfileConfigUpdate: DlpPredefinedProfileConfigUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesCreatePredefinedProfileConfigResponses, DlpProfilesCreatePredefinedProfileConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'profile_id' },
@@ -401,7 +401,7 @@ export class DlpProfilesService {
         account_id: string;
         profile_id: string;
         dlpPredefinedProfileConfigUpdate: DlpPredefinedProfileConfigUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesUpdatePredefinedProfileConfigResponses, DlpProfilesUpdatePredefinedProfileConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'profile_id' },
@@ -438,7 +438,7 @@ export class DlpProfilesService {
     public static dlpProfilesGetDlpProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpProfilesGetDlpProfileResponses, DlpProfilesGetDlpProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).get<DlpProfilesGetDlpProfileResponses, DlpProfilesGetDlpProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

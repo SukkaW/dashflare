@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpCreateIntegrationBody, DlpUpdateIntegrationBody, DlpZtRiskScoreIntegrationCreateErrors, DlpZtRiskScoreIntegrationCreateResponses, DlpZtRiskScoreIntegrationDeleteErrors, DlpZtRiskScoreIntegrationDeleteResponses, DlpZtRiskScoreIntegrationGetByReferenceIdErrors, DlpZtRiskScoreIntegrationGetByReferenceIdResponses, DlpZtRiskScoreIntegrationGetErrors, DlpZtRiskScoreIntegrationGetResponses, DlpZtRiskScoreIntegrationListErrors, DlpZtRiskScoreIntegrationListResponses, DlpZtRiskScoreIntegrationUpdateErrors, DlpZtRiskScoreIntegrationUpdateResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZeroTrustRiskScoringIntegrationsService {
      */
     public static dlpZtRiskScoreIntegrationList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationListResponses, DlpZtRiskScoreIntegrationListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpZtRiskScoreIntegrationListResponses, DlpZtRiskScoreIntegrationListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ZeroTrustRiskScoringIntegrationsService {
     public static dlpZtRiskScoreIntegrationCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpCreateIntegrationBody: DlpCreateIntegrationBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationCreateResponses, DlpZtRiskScoreIntegrationCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpCreateIntegrationBody', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpZtRiskScoreIntegrationCreateResponses, DlpZtRiskScoreIntegrationCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class ZeroTrustRiskScoringIntegrationsService {
     public static dlpZtRiskScoreIntegrationGetByReferenceId<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         reference_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationGetByReferenceIdResponses, DlpZtRiskScoreIntegrationGetByReferenceIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'reference_id' }] }]);
         return (options?.client ?? client).get<DlpZtRiskScoreIntegrationGetByReferenceIdResponses, DlpZtRiskScoreIntegrationGetByReferenceIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class ZeroTrustRiskScoringIntegrationsService {
     public static dlpZtRiskScoreIntegrationDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         integration_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationDeleteResponses, DlpZtRiskScoreIntegrationDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'integration_id' }] }]);
         return (options?.client ?? client).delete<DlpZtRiskScoreIntegrationDeleteResponses, DlpZtRiskScoreIntegrationDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -129,11 +129,13 @@ export class ZeroTrustRiskScoringIntegrationsService {
     
     /**
      * Get risk score integration by id.
+     *
+     * Gets a Zero Trust risk score integration by ID.
      */
     public static dlpZtRiskScoreIntegrationGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         integration_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationGetResponses, DlpZtRiskScoreIntegrationGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'integration_id' }] }]);
         return (options?.client ?? client).get<DlpZtRiskScoreIntegrationGetResponses, DlpZtRiskScoreIntegrationGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -162,7 +164,7 @@ export class ZeroTrustRiskScoringIntegrationsService {
         account_id: string;
         integration_id: string;
         dlpUpdateIntegrationBody: DlpUpdateIntegrationBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpZtRiskScoreIntegrationUpdateResponses, DlpZtRiskScoreIntegrationUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'integration_id' },

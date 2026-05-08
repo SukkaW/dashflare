@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { SecretsStoreAccountIdentifier, SecretsStoreAccountTag, SecretsStoreCreateErrors, SecretsStoreCreateResponses, SecretsStoreCreateSecretObjectWritable, SecretsStoreCreateStoreObject, SecretsStoreCreateStoreObjectSystem, SecretsStoreDeleteBulkErrors, SecretsStoreDeleteBulkResponses, SecretsStoreDeleteByIdErrors, SecretsStoreDeleteByIdResponses, SecretsStoreDeleteSecretsRequestWritable, SecretsStoreDuplicateByIdErrors, SecretsStoreDuplicateByIdResponses, SecretsStoreDuplicateSecretObject, SecretsStoreGetByIdErrors, SecretsStoreGetByIdResponses, SecretsStoreGetStoreByIdErrors, SecretsStoreGetStoreByIdResponses, SecretsStoreIdentifier, SecretsStoreListErrors, SecretsStoreListResponses, SecretsStorePatchByIdErrors, SecretsStorePatchByIdResponses, SecretsStorePatchSecretObjectWritable, SecretsStoreQuotaErrors, SecretsStoreQuotaResponses, SecretsStoreScopes, SecretsStoreSecretCreateErrors, SecretsStoreSecretCreateResponses, SecretsStoreSecretDeleteByIdErrors, SecretsStoreSecretDeleteByIdResponses, SecretsStoreSecretsListErrors, SecretsStoreSecretsListResponses, SecretsStoreStoreIdentifier, SecretsStoreSystemCreateErrors, SecretsStoreSystemCreateResponses, SecretsStoreSystemDeleteBulkErrors, SecretsStoreSystemDeleteBulkResponses, SecretsStoreSystemDeleteByIdErrors, SecretsStoreSystemDeleteByIdResponses, SecretsStoreSystemDuplicateByIdErrors, SecretsStoreSystemDuplicateByIdResponses, SecretsStoreSystemGetByIdErrors, SecretsStoreSystemGetByIdResponses, SecretsStoreSystemGetStoreByIdErrors, SecretsStoreSystemGetStoreByIdResponses, SecretsStoreSystemListErrors, SecretsStoreSystemListResponses, SecretsStoreSystemPatchByIdErrors, SecretsStoreSystemPatchByIdResponses, SecretsStoreSystemSecretCreateErrors, SecretsStoreSystemSecretCreateResponses, SecretsStoreSystemSecretDeleteByIdErrors, SecretsStoreSystemSecretDeleteByIdResponses, SecretsStoreSystemSecretsListErrors, SecretsStoreSystemSecretsListResponses } from '../types.gen';
-import { zSecretsStoreCreateBody, zSecretsStoreCreatePath, zSecretsStoreCreateResponse, zSecretsStoreDeleteBulkBody, zSecretsStoreDeleteBulkPath, zSecretsStoreDeleteBulkResponse, zSecretsStoreDeleteByIdPath, zSecretsStoreDeleteByIdResponse, zSecretsStoreDuplicateByIdBody, zSecretsStoreDuplicateByIdPath, zSecretsStoreDuplicateByIdResponse, zSecretsStoreGetByIdPath, zSecretsStoreGetByIdResponse, zSecretsStoreGetStoreByIdPath, zSecretsStoreGetStoreByIdResponse, zSecretsStoreListPath, zSecretsStoreListQuery, zSecretsStoreListResponse, zSecretsStorePatchByIdBody, zSecretsStorePatchByIdPath, zSecretsStorePatchByIdResponse, zSecretsStoreQuotaPath, zSecretsStoreQuotaResponse2, zSecretsStoreSecretCreateBody, zSecretsStoreSecretCreatePath, zSecretsStoreSecretCreateResponse, zSecretsStoreSecretDeleteByIdPath, zSecretsStoreSecretDeleteByIdResponse, zSecretsStoreSecretsListPath, zSecretsStoreSecretsListQuery, zSecretsStoreSecretsListResponse, zSecretsStoreSystemCreateBody, zSecretsStoreSystemCreatePath, zSecretsStoreSystemCreateResponse, zSecretsStoreSystemDeleteBulkBody, zSecretsStoreSystemDeleteBulkPath, zSecretsStoreSystemDeleteBulkResponse, zSecretsStoreSystemDeleteByIdPath, zSecretsStoreSystemDeleteByIdResponse, zSecretsStoreSystemDuplicateByIdBody, zSecretsStoreSystemDuplicateByIdPath, zSecretsStoreSystemDuplicateByIdResponse, zSecretsStoreSystemGetByIdPath, zSecretsStoreSystemGetByIdResponse, zSecretsStoreSystemGetStoreByIdPath, zSecretsStoreSystemGetStoreByIdResponse, zSecretsStoreSystemListPath, zSecretsStoreSystemListQuery, zSecretsStoreSystemListResponse, zSecretsStoreSystemPatchByIdBody, zSecretsStoreSystemPatchByIdPath, zSecretsStoreSystemPatchByIdResponse, zSecretsStoreSystemSecretCreateBody, zSecretsStoreSystemSecretCreatePath, zSecretsStoreSystemSecretCreateResponse, zSecretsStoreSystemSecretDeleteByIdPath, zSecretsStoreSystemSecretDeleteByIdResponse, zSecretsStoreSystemSecretsListPath, zSecretsStoreSystemSecretsListQuery, zSecretsStoreSystemSecretsListResponse } from '../zod.gen';
+import type { SecretsStoreCreateErrors, SecretsStoreCreateResponses, SecretsStoreCreateSecretObjectWritable, SecretsStoreCreateStoreObject, SecretsStoreDeleteBulkErrors, SecretsStoreDeleteBulkResponses, SecretsStoreDeleteByIdErrors, SecretsStoreDeleteByIdResponses, SecretsStoreDeleteSecretsRequestWritable, SecretsStoreDuplicateByIdErrors, SecretsStoreDuplicateByIdResponses, SecretsStoreDuplicateSecretObject, SecretsStoreGetByIdErrors, SecretsStoreGetByIdResponses, SecretsStoreGetStoreByIdErrors, SecretsStoreGetStoreByIdResponses, SecretsStoreListErrors, SecretsStoreListResponses, SecretsStorePatchByIdErrors, SecretsStorePatchByIdResponses, SecretsStorePatchSecretObjectWritable, SecretsStoreQuotaErrors, SecretsStoreQuotaResponses, SecretsStoreSecretCreateErrors, SecretsStoreSecretCreateResponses, SecretsStoreSecretDeleteByIdErrors, SecretsStoreSecretDeleteByIdResponses, SecretsStoreSecretsListErrors, SecretsStoreSecretsListResponses } from '../types.gen';
+import { zSecretsStoreCreateBody, zSecretsStoreCreatePath, zSecretsStoreCreateResponse, zSecretsStoreDeleteBulkBody, zSecretsStoreDeleteBulkPath, zSecretsStoreDeleteBulkResponse, zSecretsStoreDeleteByIdPath, zSecretsStoreDeleteByIdQuery, zSecretsStoreDeleteByIdResponse, zSecretsStoreDuplicateByIdBody, zSecretsStoreDuplicateByIdPath, zSecretsStoreDuplicateByIdResponse, zSecretsStoreGetByIdPath, zSecretsStoreGetByIdResponse, zSecretsStoreGetStoreByIdPath, zSecretsStoreGetStoreByIdResponse, zSecretsStoreListPath, zSecretsStoreListQuery, zSecretsStoreListResponse, zSecretsStorePatchByIdBody, zSecretsStorePatchByIdPath, zSecretsStorePatchByIdResponse, zSecretsStoreQuotaPath, zSecretsStoreQuotaResponse2, zSecretsStoreSecretCreateBody, zSecretsStoreSecretCreatePath, zSecretsStoreSecretCreateResponse, zSecretsStoreSecretDeleteByIdPath, zSecretsStoreSecretDeleteByIdResponse, zSecretsStoreSecretsListPath, zSecretsStoreSecretsListQuery, zSecretsStoreSecretsListResponse } from '../zod.gen';
 
 export class SecretsStoreService {
     /**
@@ -17,8 +17,8 @@ export class SecretsStoreService {
      * Lists the number of secrets used in the account.
      */
     public static secretsStoreQuota<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreQuotaResponses, SecretsStoreQuotaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecretsStoreQuotaResponses, SecretsStoreQuotaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -37,15 +37,15 @@ export class SecretsStoreService {
     /**
      * List account stores
      *
-     * Lists all the stores in an account
+     * Lists all the stores in an account.
      */
     public static secretsStoreList<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
+        account_id: string;
         direction?: 'asc' | 'desc';
         page?: number;
         per_page?: number;
-        order?: 'name' | 'comment' | 'created' | 'modified' | 'status';
-    }, options?: Options<never, ThrowOnError>) {
+        order?: 'name' | 'created' | 'modified';
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreListResponses, SecretsStoreListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'direction' },
@@ -70,12 +70,12 @@ export class SecretsStoreService {
     /**
      * Create a store
      *
-     * Creates a store in the account
+     * Creates a store in the account.
      */
     public static secretsStoreCreate<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
+        account_id: string;
         secretsStoreCreateStoreObject: SecretsStoreCreateStoreObject;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreCreateResponses, SecretsStoreCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'secretsStoreCreateStoreObject', map: 'body' }] }]);
         return (options?.client ?? client).post<SecretsStoreCreateResponses, SecretsStoreCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -99,18 +99,27 @@ export class SecretsStoreService {
     /**
      * Delete a store
      *
-     * Deletes a single store
+     * Deletes a single store. By default, a store that still contains secrets
+     * cannot be deleted and returns HTTP 409 (Conflict) with the "store_not_empty"
+     * error. Pass `force=true` to cascade-delete all secrets in the store.
+     * Empty stores are always deleted regardless of the force parameter.
+     *
      */
     public static secretsStoreDeleteById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'store_id' }] }]);
+        account_id: string;
+        store_id: string;
+        force?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreDeleteByIdResponses, SecretsStoreDeleteByIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'store_id' },
+                    { in: 'query', key: 'force' }
+                ] }]);
         return (options?.client ?? client).delete<SecretsStoreDeleteByIdResponses, SecretsStoreDeleteByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zSecretsStoreDeleteByIdPath,
-                query: z.never().optional()
+                query: zSecretsStoreDeleteByIdQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zSecretsStoreDeleteByIdResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
@@ -123,12 +132,12 @@ export class SecretsStoreService {
     /**
      * Get a store by ID
      *
-     * Returns details of a single store
+     * Returns details of a single store.
      */
     public static secretsStoreGetStoreById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: string;
+        store_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreGetStoreByIdResponses, SecretsStoreGetStoreByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'store_id' }] }]);
         return (options?.client ?? client).get<SecretsStoreGetStoreByIdResponses, SecretsStoreGetStoreByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -147,13 +156,13 @@ export class SecretsStoreService {
     /**
      * Delete secrets
      *
-     * Deletes one or more secrets
+     * Deletes one or more secrets.
      */
     public static secretsStoreDeleteBulk<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
+        account_id: string;
+        store_id: string;
         secretsStoreDeleteSecretsRequestWritable: SecretsStoreDeleteSecretsRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreDeleteBulkResponses, SecretsStoreDeleteBulkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -181,18 +190,18 @@ export class SecretsStoreService {
     /**
      * List store secrets
      *
-     * Lists all store secrets
+     * Lists all store secrets.
      */
     public static secretsStoreSecretsList<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
+        account_id: string;
+        store_id: string;
         direction?: 'asc' | 'desc';
         page?: number;
         per_page?: number;
         search?: string;
         order?: 'name' | 'comment' | 'created' | 'modified' | 'status';
-        scopes?: Array<SecretsStoreScopes>;
-    }, options?: Options<never, ThrowOnError>) {
+        scopes?: Array<'workers' | 'ai_gateway' | 'dex' | 'access' | 'containers' | 'websearch'>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreSecretsListResponses, SecretsStoreSecretsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -221,13 +230,13 @@ export class SecretsStoreService {
     /**
      * Create a secret
      *
-     * Creates a secret in the account
+     * Creates a secret in the account.
      */
     public static secretsStoreSecretCreate<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
+        account_id: string;
+        store_id: string;
         body: Array<SecretsStoreCreateSecretObjectWritable>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreSecretCreateResponses, SecretsStoreSecretCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -255,13 +264,13 @@ export class SecretsStoreService {
     /**
      * Delete a secret
      *
-     * Deletes a single secret
+     * Deletes a single secret.
      */
     public static secretsStoreSecretDeleteById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: string;
+        store_id: string;
+        secret_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreSecretDeleteByIdResponses, SecretsStoreSecretDeleteByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -284,13 +293,13 @@ export class SecretsStoreService {
     /**
      * Get a secret by ID
      *
-     * Returns details of a single secret
+     * Returns details of a single secret.
      */
     public static secretsStoreGetById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: string;
+        store_id: string;
+        secret_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreGetByIdResponses, SecretsStoreGetByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -313,14 +322,14 @@ export class SecretsStoreService {
     /**
      * Patch a secret
      *
-     * Updates a single secret
+     * Updates a single secret.
      */
     public static secretsStorePatchById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
+        account_id: string;
+        store_id: string;
+        secret_id: string;
         secretsStorePatchSecretObjectWritable: SecretsStorePatchSecretObjectWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStorePatchByIdResponses, SecretsStorePatchByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -349,14 +358,14 @@ export class SecretsStoreService {
     /**
      * Duplicate Secret
      *
-     * Duplicates the secret, keeping the value
+     * Creates a duplicate of the secret, keeping the value.
      */
     public static secretsStoreDuplicateById<ThrowOnError extends boolean = true>(parameters: {
-        account_id: SecretsStoreAccountIdentifier;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
+        account_id: string;
+        store_id: string;
+        secret_id: string;
         secretsStoreDuplicateSecretObject: SecretsStoreDuplicateSecretObject;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecretsStoreDuplicateByIdResponses, SecretsStoreDuplicateByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'store_id' },
@@ -372,377 +381,6 @@ export class SecretsStoreService {
             responseValidator: async (data) => await zSecretsStoreDuplicateByIdResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
             url: '/accounts/{account_id}/secrets_store/stores/{store_id}/secrets/{secret_id}/duplicate',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-    
-    /**
-     * List account stores (System)
-     *
-     * Lists all stores in an account that are managed by the calling service.
-     * Only returns stores where managed_by matches the authenticated service.
-     *
-     */
-    public static secretsStoreSystemList<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        direction?: 'asc' | 'desc';
-        page?: number;
-        per_page?: number;
-        order?: 'name' | 'comment' | 'created' | 'modified' | 'status';
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'query', key: 'direction' },
-                    { in: 'query', key: 'page' },
-                    { in: 'query', key: 'per_page' },
-                    { in: 'query', key: 'order' }
-                ] }]);
-        return (options?.client ?? client).get<SecretsStoreSystemListResponses, SecretsStoreSystemListErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemListPath,
-                query: zSecretsStoreSystemListQuery.optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemListResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Create a store (System)
-     *
-     * Creates a store in the account on behalf of the calling service.
-     * The store will be marked as managed by the authenticated service.
-     * Requires account_id in the request body.
-     *
-     */
-    public static secretsStoreSystemCreate<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        secretsStoreCreateStoreObjectSystem: SecretsStoreCreateStoreObjectSystem;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_tag' }, { key: 'secretsStoreCreateStoreObjectSystem', map: 'body' }] }]);
-        return (options?.client ?? client).post<SecretsStoreSystemCreateResponses, SecretsStoreSystemCreateErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zSecretsStoreSystemCreateBody,
-                path: zSecretsStoreSystemCreatePath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemCreateResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-    
-    /**
-     * Delete a store (System)
-     *
-     * Deletes a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemDeleteById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_tag' }, { in: 'path', key: 'store_id' }] }]);
-        return (options?.client ?? client).delete<SecretsStoreSystemDeleteByIdResponses, SecretsStoreSystemDeleteByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemDeleteByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemDeleteByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Get a store by ID (System)
-     *
-     * Returns details of a single store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemGetStoreById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_tag' }, { in: 'path', key: 'store_id' }] }]);
-        return (options?.client ?? client).get<SecretsStoreSystemGetStoreByIdResponses, SecretsStoreSystemGetStoreByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemGetStoreByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemGetStoreByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Delete secrets (System)
-     *
-     * Deletes one or more secrets from a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemDeleteBulk<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        secretsStoreDeleteSecretsRequestWritable: SecretsStoreDeleteSecretsRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { key: 'secretsStoreDeleteSecretsRequestWritable', map: 'body' }
-                ] }]);
-        return (options?.client ?? client).delete<SecretsStoreSystemDeleteBulkResponses, SecretsStoreSystemDeleteBulkErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zSecretsStoreSystemDeleteBulkBody,
-                path: zSecretsStoreSystemDeleteBulkPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemDeleteBulkResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-    
-    /**
-     * List store secrets (System)
-     *
-     * Lists all secrets in a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemSecretsList<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        direction?: 'asc' | 'desc';
-        page?: number;
-        per_page?: number;
-        search?: string;
-        order?: 'name' | 'comment' | 'created' | 'modified' | 'status';
-        scopes?: Array<SecretsStoreScopes>;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { in: 'query', key: 'direction' },
-                    { in: 'query', key: 'page' },
-                    { in: 'query', key: 'per_page' },
-                    { in: 'query', key: 'search' },
-                    { in: 'query', key: 'order' },
-                    { in: 'query', key: 'scopes' }
-                ] }]);
-        return (options?.client ?? client).get<SecretsStoreSystemSecretsListResponses, SecretsStoreSystemSecretsListErrors, ThrowOnError>({
-            querySerializer: { parameters: { scopes: { array: { explode: false } } } },
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemSecretsListPath,
-                query: zSecretsStoreSystemSecretsListQuery.optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemSecretsListResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Create secrets (System)
-     *
-     * Creates one or more secrets in a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemSecretCreate<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        body: Array<SecretsStoreCreateSecretObjectWritable>;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { key: 'body', map: 'body' }
-                ] }]);
-        return (options?.client ?? client).post<SecretsStoreSystemSecretCreateResponses, SecretsStoreSystemSecretCreateErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zSecretsStoreSystemSecretCreateBody,
-                path: zSecretsStoreSystemSecretCreatePath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemSecretCreateResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-    
-    /**
-     * Delete a secret (System)
-     *
-     * Deletes a single secret from a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemSecretDeleteById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { in: 'path', key: 'secret_id' }
-                ] }]);
-        return (options?.client ?? client).delete<SecretsStoreSystemSecretDeleteByIdResponses, SecretsStoreSystemSecretDeleteByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemSecretDeleteByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemSecretDeleteByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets/{secret_id}',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Get a secret by ID (System)
-     *
-     * Returns details of a single secret from a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemGetById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { in: 'path', key: 'secret_id' }
-                ] }]);
-        return (options?.client ?? client).get<SecretsStoreSystemGetByIdResponses, SecretsStoreSystemGetByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: z.never().optional(),
-                path: zSecretsStoreSystemGetByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemGetByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets/{secret_id}',
-            ...options,
-            ...params
-        });
-    }
-    
-    /**
-     * Patch a secret (System)
-     *
-     * Updates a single secret in a store managed by the calling service.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemPatchById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-        secretsStorePatchSecretObjectWritable: SecretsStorePatchSecretObjectWritable;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { in: 'path', key: 'secret_id' },
-                    { key: 'secretsStorePatchSecretObjectWritable', map: 'body' }
-                ] }]);
-        return (options?.client ?? client).patch<SecretsStoreSystemPatchByIdResponses, SecretsStoreSystemPatchByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zSecretsStoreSystemPatchByIdBody,
-                path: zSecretsStoreSystemPatchByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemPatchByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets/{secret_id}',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-    
-    /**
-     * Duplicate secret (System)
-     *
-     * Duplicates a secret in a store managed by the calling service, keeping the value.
-     * Returns 404 if the store doesn't exist or is not managed by the authenticated service.
-     *
-     */
-    public static secretsStoreSystemDuplicateById<ThrowOnError extends boolean = true>(parameters: {
-        account_tag: SecretsStoreAccountTag;
-        store_id: SecretsStoreStoreIdentifier;
-        secret_id: SecretsStoreIdentifier;
-        secretsStoreDuplicateSecretObject: SecretsStoreDuplicateSecretObject;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_tag' },
-                    { in: 'path', key: 'store_id' },
-                    { in: 'path', key: 'secret_id' },
-                    { key: 'secretsStoreDuplicateSecretObject', map: 'body' }
-                ] }]);
-        return (options?.client ?? client).post<SecretsStoreSystemDuplicateByIdResponses, SecretsStoreSystemDuplicateByIdErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zSecretsStoreSystemDuplicateByIdBody,
-                path: zSecretsStoreSystemDuplicateByIdPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zSecretsStoreSystemDuplicateByIdResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/system/accounts/{account_tag}/stores/{store_id}/secrets/{secret_id}/duplicate',
             ...options,
             ...params,
             headers: {

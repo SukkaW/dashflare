@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DigitalExperienceMonitoringAccountIdentifier, DigitalExperienceMonitoringCommandId, GetCommandsCommandIdDownloadsFilenameErrors, GetCommandsCommandIdDownloadsFilenameResponses, GetCommandsEligibleDevicesErrors, GetCommandsEligibleDevicesResponses, GetCommandsErrors, GetCommandsQuotaErrors, GetCommandsQuotaResponses, GetCommandsResponses, PostCommandsErrors, PostCommandsResponses } from '../types.gen';
@@ -24,9 +24,9 @@ export class DexRemoteCommandsService {
         to?: string;
         device_id?: string;
         user_email?: string;
-        command_type?: string;
+        command_type?: 'pcap' | 'speed-test' | 'warp-diag';
         status?: 'PENDING_EXEC' | 'PENDING_UPLOAD' | 'SUCCESS' | 'FAILED';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCommandsResponses, GetCommandsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -60,18 +60,22 @@ export class DexRemoteCommandsService {
     /**
      * Create account commands
      *
-     * Initiate commands for up to 10 devices per account
+     * Initiate commands for up to 10 devices per account.
      */
     public static postCommands<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         commands: Array<{
-            command_args?: {
+            /**
+             * Command arguments. Allowed fields depend on `type`.
+             */
+            args?: {
                 /**
-                 * List of interfaces to capture packets on
+                 * Test an IP address from all included or excluded ranges. Essentially the same as running 'route get <ip>' and collecting the results. This option may increase the time taken to collect the warp-diag.
                  */
-                interfaces?: Array<'default' | 'tunnel'>;
+                'test-all-routes'?: boolean;
+            } | {
                 /**
-                 * Maximum file size (in MB) for the capture file. Specifies the maximum file size of the warp-diag zip artifact that can be uploaded. If the zip artifact exceeds the specified max file size, it will NOT be uploaded
+                 * Maximum file size (in MB) for the capture file. If the capture artifact exceeds the specified max file size, it will NOT be uploaded.
                  */
                 'max-file-size-mb'?: number;
                 /**
@@ -79,18 +83,15 @@ export class DexRemoteCommandsService {
                  */
                 'packet-size-bytes'?: number;
                 /**
-                 * Test an IP address from all included or excluded ranges. Tests an IP address from all included or excluded ranges. Essentially the same as running 'route get <ip>'' and collecting the results. This option may increase the time taken to collect the warp-diag
-                 */
-                'test-all-routes'?: boolean;
-                /**
                  * Limit on capture duration (in minutes)
                  */
                 'time-limit-min'?: number;
+            } | {
+                /**
+                 * List of interfaces to run the speed test on
+                 */
+                interfaces?: Array<'default' | 'tunnel'>;
             };
-            /**
-             * Type of command to execute on the device
-             */
-            command_type: 'pcap' | 'warp-diag';
             /**
              * Unique identifier for the physical device
              */
@@ -100,11 +101,15 @@ export class DexRemoteCommandsService {
              */
             registration_id?: string;
             /**
+             * Type of command to execute on the device
+             */
+            type: 'pcap' | 'speed-test' | 'warp-diag';
+            /**
              * Email tied to the device
              */
             user_email: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCommandsResponses, PostCommandsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'commands' }] }]);
         return (options?.client ?? client).post<PostCommandsResponses, PostCommandsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,7 +145,7 @@ export class DexRemoteCommandsService {
         page: number;
         per_page: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCommandsEligibleDevicesResponses, GetCommandsEligibleDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -173,7 +178,7 @@ export class DexRemoteCommandsService {
      */
     public static getCommandsQuota<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCommandsQuotaResponses, GetCommandsQuotaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetCommandsQuotaResponses, GetCommandsQuotaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -203,7 +208,7 @@ export class DexRemoteCommandsService {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         command_id: DigitalExperienceMonitoringCommandId;
         filename: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCommandsCommandIdDownloadsFilenameResponses, GetCommandsCommandIdDownloadsFilenameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'command_id' },

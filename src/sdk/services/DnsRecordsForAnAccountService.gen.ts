@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsRecordsForAnAccountGetUsageErrors, DnsRecordsForAnAccountGetUsageResponses, DnsRecordsIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class DnsRecordsForAnAccountService {
      */
     public static dnsRecordsForAnAccountGetUsage<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsRecordsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAnAccountGetUsageResponses, DnsRecordsForAnAccountGetUsageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DnsRecordsForAnAccountGetUsageResponses, DnsRecordsForAnAccountGetUsageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

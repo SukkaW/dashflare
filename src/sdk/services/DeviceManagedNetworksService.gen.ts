@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeviceManagedNetworksCreateDeviceManagedNetworkErrors, DeviceManagedNetworksCreateDeviceManagedNetworkResponses, DeviceManagedNetworksDeleteDeviceManagedNetworkErrors, DeviceManagedNetworksDeleteDeviceManagedNetworkResponses, DeviceManagedNetworksDeviceManagedNetworkDetailsErrors, DeviceManagedNetworksDeviceManagedNetworkDetailsResponses, DeviceManagedNetworksListDeviceManagedNetworksErrors, DeviceManagedNetworksListDeviceManagedNetworksResponses, DeviceManagedNetworksUpdateDeviceManagedNetworkErrors, DeviceManagedNetworksUpdateDeviceManagedNetworkResponses, TeamsDevicesComponentsSchemasType, TeamsDevicesDeviceManagedNetworksComponentsSchemasName, TeamsDevicesIdentifier, TeamsDevicesSchemasConfigRequest, TeamsDevicesUuid } from '../types.gen';
@@ -18,7 +18,7 @@ export class DeviceManagedNetworksService {
      */
     public static deviceManagedNetworksListDeviceManagedNetworks<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceManagedNetworksListDeviceManagedNetworksResponses, DeviceManagedNetworksListDeviceManagedNetworksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DeviceManagedNetworksListDeviceManagedNetworksResponses, DeviceManagedNetworksListDeviceManagedNetworksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class DeviceManagedNetworksService {
         config: TeamsDevicesSchemasConfigRequest;
         name: TeamsDevicesDeviceManagedNetworksComponentsSchemasName;
         type: TeamsDevicesComponentsSchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceManagedNetworksCreateDeviceManagedNetworkResponses, DeviceManagedNetworksCreateDeviceManagedNetworkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'config' },
@@ -87,7 +87,7 @@ export class DeviceManagedNetworksService {
         network_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceManagedNetworksDeleteDeviceManagedNetworkResponses, DeviceManagedNetworksDeleteDeviceManagedNetworkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'network_id' },
                     { in: 'path', key: 'account_id' },
@@ -124,7 +124,7 @@ export class DeviceManagedNetworksService {
     public static deviceManagedNetworksDeviceManagedNetworkDetails<ThrowOnError extends boolean = true>(parameters: {
         network_id: TeamsDevicesUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceManagedNetworksDeviceManagedNetworkDetailsResponses, DeviceManagedNetworksDeviceManagedNetworkDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'network_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DeviceManagedNetworksDeviceManagedNetworkDetailsResponses, DeviceManagedNetworksDeviceManagedNetworkDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -155,7 +155,7 @@ export class DeviceManagedNetworksService {
         config?: TeamsDevicesSchemasConfigRequest;
         name?: TeamsDevicesDeviceManagedNetworksComponentsSchemasName;
         type?: TeamsDevicesComponentsSchemasType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceManagedNetworksUpdateDeviceManagedNetworkResponses, DeviceManagedNetworksUpdateDeviceManagedNetworkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'network_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeleteAccountsByAccountIdBrandProtectionBrandsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsByAccountIdBrandProtectionBrandsResponses, DeleteDeleteLogoQueryResponses, DeleteLetterTemplateDeleteResponses, GetAccountsByAccountIdBrandProtectionAlertsErrors, GetAccountsByAccountIdBrandProtectionAlertsResponses, GetAccountsByAccountIdBrandProtectionBrandsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsByAccountIdBrandProtectionBrandsResponses, GetAccountsByAccountIdBrandProtectionDomainInfoErrors, GetAccountsByAccountIdBrandProtectionDomainInfoResponses, GetAccountsByAccountIdBrandProtectionRecentSubmissionsErrors, GetAccountsByAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsByAccountIdBrandProtectionSubmissionInfoErrors, GetAccountsByAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsByAccountIdBrandProtectionTrackedDomainsErrors, GetAccountsByAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsByAccountIdBrandProtectionUrlInfoErrors, GetAccountsByAccountIdBrandProtectionUrlInfoResponses, GetDomainMatchListResponses, GetGetDomainQueriesResponses, GetGetLogoQueriesResponses, GetLetterTemplateGetResponses, GetLetterTemplateListResponses, GetLiveErrors, GetLiveResponses, GetLogoMatchListResponses, GetReadyErrors, GetReadyResponses, GetTotalQueriesResponses, PatchAccountsByAccountIdBrandProtectionAlertsClearErrors, PatchAccountsByAccountIdBrandProtectionAlertsClearResponses, PatchAccountsByAccountIdBrandProtectionAlertsErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsByAccountIdBrandProtectionAlertsResponses, PatchAccountsByAccountIdBrandProtectionAlertsVerifyErrors, PatchAccountsByAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsByAccountIdBrandProtectionClearErrors, PatchAccountsByAccountIdBrandProtectionClearResponses, PatchAccountsByAccountIdBrandProtectionRefuteErrors, PatchAccountsByAccountIdBrandProtectionRefuteResponses, PatchAccountsByAccountIdBrandProtectionVerifyErrors, PatchAccountsByAccountIdBrandProtectionVerifyResponses, PostAccountsByAccountIdBrandProtectionBrandsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsByAccountIdBrandProtectionBrandsResponses, PostAccountsByAccountIdBrandProtectionSubmitErrors, PostAccountsByAccountIdBrandProtectionSubmitResponses, PostInsertLogoQueryResponses, PostInternalSubmitErrors, PostInternalSubmitResponses, PostLetterGenerateResponses, PostLetterTemplateCreateResponses, PostSearchLogoSimilarityResponses, PutLetterTemplateUpdateResponses } from '../types.gen';
-import { zDeleteAccountsByAccountIdBrandProtectionBrandsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zDeleteAccountsByAccountIdBrandProtectionBrandsResponse, zDeleteDeleteLogoQueryPath, zDeleteDeleteLogoQueryResponse, zDeleteLetterTemplateDeletePath, zDeleteLetterTemplateDeleteResponse, zGetAccountsByAccountIdBrandProtectionAlertsPath, zGetAccountsByAccountIdBrandProtectionAlertsResponse, zGetAccountsByAccountIdBrandProtectionBrandsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zGetAccountsByAccountIdBrandProtectionBrandsResponse, zGetAccountsByAccountIdBrandProtectionDomainInfoPath, zGetAccountsByAccountIdBrandProtectionDomainInfoResponse, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsPath, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsResponse, zGetAccountsByAccountIdBrandProtectionSubmissionInfoPath, zGetAccountsByAccountIdBrandProtectionSubmissionInfoResponse, zGetAccountsByAccountIdBrandProtectionTrackedDomainsPath, zGetAccountsByAccountIdBrandProtectionTrackedDomainsResponse, zGetAccountsByAccountIdBrandProtectionUrlInfoPath, zGetAccountsByAccountIdBrandProtectionUrlInfoResponse, zGetDomainMatchListPath, zGetDomainMatchListQuery, zGetDomainMatchListResponse, zGetGetDomainQueriesPath, zGetGetDomainQueriesQuery, zGetGetDomainQueriesResponse, zGetGetLogoQueriesPath, zGetGetLogoQueriesQuery, zGetGetLogoQueriesResponse, zGetLetterTemplateGetPath, zGetLetterTemplateGetResponse, zGetLetterTemplateListPath, zGetLetterTemplateListResponse, zGetLiveResponse, zGetLogoMatchListPath, zGetLogoMatchListQuery, zGetLogoMatchListResponse, zGetReadyResponse, zGetTotalQueriesPath, zGetTotalQueriesResponse, zPatchAccountsByAccountIdBrandProtectionAlertsClearPath, zPatchAccountsByAccountIdBrandProtectionAlertsClearResponse, zPatchAccountsByAccountIdBrandProtectionAlertsPath, zPatchAccountsByAccountIdBrandProtectionAlertsRefutePath, zPatchAccountsByAccountIdBrandProtectionAlertsRefuteResponse, zPatchAccountsByAccountIdBrandProtectionAlertsResponse, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyPath, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyResponse, zPatchAccountsByAccountIdBrandProtectionClearPath, zPatchAccountsByAccountIdBrandProtectionClearResponse, zPatchAccountsByAccountIdBrandProtectionRefutePath, zPatchAccountsByAccountIdBrandProtectionRefuteResponse, zPatchAccountsByAccountIdBrandProtectionVerifyPath, zPatchAccountsByAccountIdBrandProtectionVerifyResponse, zPostAccountsByAccountIdBrandProtectionBrandsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zPostAccountsByAccountIdBrandProtectionBrandsResponse, zPostAccountsByAccountIdBrandProtectionSubmitPath, zPostAccountsByAccountIdBrandProtectionSubmitResponse, zPostInsertLogoQueryBody, zPostInsertLogoQueryPath, zPostInsertLogoQueryResponse, zPostInternalSubmitResponse, zPostLetterGenerateBody, zPostLetterGeneratePath, zPostLetterGenerateResponse, zPostLetterTemplateCreateBody, zPostLetterTemplateCreatePath, zPostLetterTemplateCreateResponse, zPostSearchLogoSimilarityBody, zPostSearchLogoSimilarityPath, zPostSearchLogoSimilarityQuery, zPostSearchLogoSimilarityResponse, zPutLetterTemplateUpdateBody, zPutLetterTemplateUpdatePath, zPutLetterTemplateUpdateResponse } from '../zod.gen';
+import type { DeleteAccountsAccountIdBrandProtectionBrandsErrors, DeleteAccountsAccountIdBrandProtectionBrandsPatternsErrors, DeleteAccountsAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsAccountIdBrandProtectionBrandsResponses, DeleteDeleteDomainQueryResponses, DeleteDeleteLogoQueryResponses, DeleteLetterTemplateDeleteResponses, DeleteTakedownLetterDeleteResponses, DeleteTakedownNoticeDeleteResponses, GetAccountsAccountIdBrandProtectionAlertsErrors, GetAccountsAccountIdBrandProtectionAlertsResponses, GetAccountsAccountIdBrandProtectionBrandsErrors, GetAccountsAccountIdBrandProtectionBrandsPatternsErrors, GetAccountsAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsAccountIdBrandProtectionBrandsResponses, GetAccountsAccountIdBrandProtectionDomainInfoErrors, GetAccountsAccountIdBrandProtectionDomainInfoResponses, GetAccountsAccountIdBrandProtectionRecentSubmissionsErrors, GetAccountsAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsAccountIdBrandProtectionSubmissionInfoErrors, GetAccountsAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsAccountIdBrandProtectionTrackedDomainsErrors, GetAccountsAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsAccountIdBrandProtectionUrlInfoErrors, GetAccountsAccountIdBrandProtectionUrlInfoResponses, GetDomainMatchListResponses, GetGetDomainQueriesResponses, GetGetLogoQueriesResponses, GetLetterTemplateExamplesResponses, GetLetterTemplateGetResponses, GetLetterTemplateListResponses, GetLiveErrors, GetLiveResponses, GetLogoMatchListResponses, GetReadyErrors, GetReadyResponses, GetTakedownLetterGetResponses, GetTakedownLetterListResponses, GetTakedownLetterPdfGetResponses, GetTakedownNoticeGetResponses, GetTakedownNoticeListResponses, GetTotalQueriesResponses, PatchAccountsAccountIdBrandProtectionAlertsClearErrors, PatchAccountsAccountIdBrandProtectionAlertsClearResponses, PatchAccountsAccountIdBrandProtectionAlertsErrors, PatchAccountsAccountIdBrandProtectionAlertsRefuteErrors, PatchAccountsAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsAccountIdBrandProtectionAlertsResponses, PatchAccountsAccountIdBrandProtectionAlertsVerifyErrors, PatchAccountsAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsAccountIdBrandProtectionClearErrors, PatchAccountsAccountIdBrandProtectionClearResponses, PatchAccountsAccountIdBrandProtectionRefuteErrors, PatchAccountsAccountIdBrandProtectionRefuteResponses, PatchAccountsAccountIdBrandProtectionVerifyErrors, PatchAccountsAccountIdBrandProtectionVerifyResponses, PatchUpdateDomainQueryResponses, PostAccountsAccountIdBrandProtectionBrandsErrors, PostAccountsAccountIdBrandProtectionBrandsPatternsErrors, PostAccountsAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsAccountIdBrandProtectionBrandsResponses, PostAccountsAccountIdBrandProtectionSubmitErrors, PostAccountsAccountIdBrandProtectionSubmitResponses, PostInsertDomainQueryResponses, PostInsertLogoQueryResponses, PostInternalSubmitErrors, PostInternalSubmitResponses, PostLetterGenerateResponses, PostLetterTemplateCreateResponses, PostSearchLogoSimilarityResponses, PostTakedownLetterCreateResponses, PostTakedownNoticeCreateErrors, PostTakedownNoticeCreateResponses, PostTakedownNoticeLookupResponses, PutLetterTemplateUpdateResponses, PutTakedownNoticeUpdateErrors, PutTakedownNoticeUpdateResponses } from '../types.gen';
+import { zDeleteAccountsAccountIdBrandProtectionBrandsPath, zDeleteAccountsAccountIdBrandProtectionBrandsPatternsPath, zDeleteAccountsAccountIdBrandProtectionBrandsPatternsResponse, zDeleteAccountsAccountIdBrandProtectionBrandsResponse, zDeleteDeleteDomainQueryPath, zDeleteDeleteDomainQueryResponse, zDeleteDeleteLogoQueryPath, zDeleteDeleteLogoQueryResponse, zDeleteLetterTemplateDeletePath, zDeleteLetterTemplateDeleteResponse, zDeleteTakedownLetterDeletePath, zDeleteTakedownLetterDeleteResponse, zDeleteTakedownNoticeDeletePath, zDeleteTakedownNoticeDeleteResponse, zGetAccountsAccountIdBrandProtectionAlertsPath, zGetAccountsAccountIdBrandProtectionAlertsResponse, zGetAccountsAccountIdBrandProtectionBrandsPath, zGetAccountsAccountIdBrandProtectionBrandsPatternsPath, zGetAccountsAccountIdBrandProtectionBrandsPatternsResponse, zGetAccountsAccountIdBrandProtectionBrandsResponse, zGetAccountsAccountIdBrandProtectionDomainInfoPath, zGetAccountsAccountIdBrandProtectionDomainInfoResponse, zGetAccountsAccountIdBrandProtectionRecentSubmissionsPath, zGetAccountsAccountIdBrandProtectionRecentSubmissionsResponse, zGetAccountsAccountIdBrandProtectionSubmissionInfoPath, zGetAccountsAccountIdBrandProtectionSubmissionInfoResponse, zGetAccountsAccountIdBrandProtectionTrackedDomainsPath, zGetAccountsAccountIdBrandProtectionTrackedDomainsResponse, zGetAccountsAccountIdBrandProtectionUrlInfoPath, zGetAccountsAccountIdBrandProtectionUrlInfoResponse, zGetDomainMatchListPath, zGetDomainMatchListQuery, zGetDomainMatchListResponse, zGetGetDomainQueriesPath, zGetGetDomainQueriesQuery, zGetGetDomainQueriesResponse, zGetGetLogoQueriesPath, zGetGetLogoQueriesQuery, zGetGetLogoQueriesResponse, zGetLetterTemplateExamplesPath, zGetLetterTemplateExamplesResponse, zGetLetterTemplateGetPath, zGetLetterTemplateGetResponse, zGetLetterTemplateListPath, zGetLetterTemplateListResponse, zGetLiveResponse, zGetLogoMatchListPath, zGetLogoMatchListQuery, zGetLogoMatchListResponse, zGetReadyResponse, zGetTakedownLetterGetPath, zGetTakedownLetterGetResponse, zGetTakedownLetterListPath, zGetTakedownLetterListResponse, zGetTakedownLetterPdfGetPath, zGetTakedownLetterPdfGetResponse, zGetTakedownNoticeGetPath, zGetTakedownNoticeGetResponse, zGetTakedownNoticeListPath, zGetTakedownNoticeListResponse, zGetTotalQueriesPath, zGetTotalQueriesResponse, zPatchAccountsAccountIdBrandProtectionAlertsClearPath, zPatchAccountsAccountIdBrandProtectionAlertsClearResponse, zPatchAccountsAccountIdBrandProtectionAlertsPath, zPatchAccountsAccountIdBrandProtectionAlertsRefutePath, zPatchAccountsAccountIdBrandProtectionAlertsRefuteResponse, zPatchAccountsAccountIdBrandProtectionAlertsResponse, zPatchAccountsAccountIdBrandProtectionAlertsVerifyPath, zPatchAccountsAccountIdBrandProtectionAlertsVerifyResponse, zPatchAccountsAccountIdBrandProtectionClearPath, zPatchAccountsAccountIdBrandProtectionClearResponse, zPatchAccountsAccountIdBrandProtectionRefutePath, zPatchAccountsAccountIdBrandProtectionRefuteResponse, zPatchAccountsAccountIdBrandProtectionVerifyPath, zPatchAccountsAccountIdBrandProtectionVerifyResponse, zPatchUpdateDomainQueryBody, zPatchUpdateDomainQueryPath, zPatchUpdateDomainQueryResponse, zPostAccountsAccountIdBrandProtectionBrandsPath, zPostAccountsAccountIdBrandProtectionBrandsPatternsPath, zPostAccountsAccountIdBrandProtectionBrandsPatternsResponse, zPostAccountsAccountIdBrandProtectionBrandsResponse, zPostAccountsAccountIdBrandProtectionSubmitPath, zPostAccountsAccountIdBrandProtectionSubmitResponse, zPostInsertDomainQueryBody, zPostInsertDomainQueryPath, zPostInsertDomainQueryResponse, zPostInsertLogoQueryBody, zPostInsertLogoQueryPath, zPostInsertLogoQueryResponse, zPostInternalSubmitResponse, zPostLetterGenerateBody, zPostLetterGeneratePath, zPostLetterGenerateResponse, zPostLetterTemplateCreateBody, zPostLetterTemplateCreatePath, zPostLetterTemplateCreateResponse, zPostSearchLogoSimilarityBody, zPostSearchLogoSimilarityPath, zPostSearchLogoSimilarityQuery, zPostSearchLogoSimilarityResponse, zPostTakedownLetterCreateBody, zPostTakedownLetterCreatePath, zPostTakedownLetterCreateResponse, zPostTakedownNoticeCreateBody, zPostTakedownNoticeCreatePath, zPostTakedownNoticeCreateResponse, zPostTakedownNoticeLookupBody, zPostTakedownNoticeLookupPath, zPostTakedownNoticeLookupResponse, zPutLetterTemplateUpdateBody, zPutLetterTemplateUpdatePath, zPutLetterTemplateUpdateResponse, zPutTakedownNoticeUpdateBody, zPutTakedownNoticeUpdatePath, zPutTakedownNoticeUpdateResponse } from '../zod.gen';
 
 export class BrandProtectionService {
     /**
@@ -16,17 +16,17 @@ export class BrandProtectionService {
      *
      * Return all alerts on submitted domains
      */
-    public static getAccountsByAccountIdBrandProtectionAlerts<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionAlerts<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionAlertsResponses, GetAccountsAccountIdBrandProtectionAlertsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionAlertsResponses, GetAccountsByAccountIdBrandProtectionAlertsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionAlertsResponses, GetAccountsAccountIdBrandProtectionAlertsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionAlertsPath,
+                path: zGetAccountsAccountIdBrandProtectionAlertsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionAlertsResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionAlertsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/alerts',
             ...options,
@@ -39,17 +39,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating alerts on submitted domains by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionAlerts<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionAlerts<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionAlertsResponses, PatchAccountsAccountIdBrandProtectionAlertsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionAlertsResponses, PatchAccountsByAccountIdBrandProtectionAlertsErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionAlertsResponses, PatchAccountsAccountIdBrandProtectionAlertsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionAlertsPath,
+                path: zPatchAccountsAccountIdBrandProtectionAlertsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionAlertsResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionAlertsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/alerts',
             ...options,
@@ -62,17 +62,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of tracked URLs to awaiting by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionAlertsClear<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionAlertsClear<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionAlertsClearResponses, PatchAccountsAccountIdBrandProtectionAlertsClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionAlertsClearResponses, PatchAccountsByAccountIdBrandProtectionAlertsClearErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionAlertsClearResponses, PatchAccountsAccountIdBrandProtectionAlertsClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionAlertsClearPath,
+                path: zPatchAccountsAccountIdBrandProtectionAlertsClearPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionAlertsClearResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionAlertsClearResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/alerts/clear',
             ...options,
@@ -85,17 +85,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of tracked URLs to disproven by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionAlertsRefute<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionAlertsRefute<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsAccountIdBrandProtectionAlertsRefuteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsByAccountIdBrandProtectionAlertsRefuteErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsAccountIdBrandProtectionAlertsRefuteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionAlertsRefutePath,
+                path: zPatchAccountsAccountIdBrandProtectionAlertsRefutePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionAlertsRefuteResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionAlertsRefuteResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/alerts/refute',
             ...options,
@@ -108,17 +108,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of tracked URLs to confirmed by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionAlertsVerify<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionAlertsVerify<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsAccountIdBrandProtectionAlertsVerifyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsByAccountIdBrandProtectionAlertsVerifyErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsAccountIdBrandProtectionAlertsVerifyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionAlertsVerifyPath,
+                path: zPatchAccountsAccountIdBrandProtectionAlertsVerifyPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionAlertsVerifyResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionAlertsVerifyResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/alerts/verify',
             ...options,
@@ -131,17 +131,17 @@ export class BrandProtectionService {
      *
      * Return a success message after deleting brands by ID
      */
-    public static deleteAccountsByAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
+    public static deleteAccountsAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdBrandProtectionBrandsResponses, DeleteAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).delete<DeleteAccountsByAccountIdBrandProtectionBrandsResponses, DeleteAccountsByAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DeleteAccountsAccountIdBrandProtectionBrandsResponses, DeleteAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteAccountsByAccountIdBrandProtectionBrandsPath,
+                path: zDeleteAccountsAccountIdBrandProtectionBrandsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteAccountsByAccountIdBrandProtectionBrandsResponse.parseAsync(data),
+            responseValidator: async (data) => await zDeleteAccountsAccountIdBrandProtectionBrandsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands',
             ...options,
@@ -154,17 +154,17 @@ export class BrandProtectionService {
      *
      * Return all brands
      */
-    public static getAccountsByAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionBrandsResponses, GetAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionBrandsResponses, GetAccountsByAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionBrandsResponses, GetAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionBrandsPath,
+                path: zGetAccountsAccountIdBrandProtectionBrandsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionBrandsResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionBrandsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands',
             ...options,
@@ -177,17 +177,17 @@ export class BrandProtectionService {
      *
      * Return new brands
      */
-    public static postAccountsByAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionBrands<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionBrandsResponses, PostAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionBrandsResponses, PostAccountsByAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionBrandsResponses, PostAccountsAccountIdBrandProtectionBrandsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionBrandsPath,
+                path: zPostAccountsAccountIdBrandProtectionBrandsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionBrandsResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionBrandsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands',
             ...options,
@@ -200,17 +200,17 @@ export class BrandProtectionService {
      *
      * Return a success message after deleting patterns for brands by ID
      */
-    public static deleteAccountsByAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
+    public static deleteAccountsAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).delete<DeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DeleteAccountsAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsPath,
+                path: zDeleteAccountsAccountIdBrandProtectionBrandsPatternsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
+            responseValidator: async (data) => await zDeleteAccountsAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands/patterns',
             ...options,
@@ -223,17 +223,17 @@ export class BrandProtectionService {
      *
      * Return patterns for brands based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsByAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionBrandsPatternsPath,
+                path: zGetAccountsAccountIdBrandProtectionBrandsPatternsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands/patterns',
             ...options,
@@ -246,17 +246,17 @@ export class BrandProtectionService {
      *
      * Return a success message after creating new patterns for brands by ID
      */
-    public static postAccountsByAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionBrandsPatterns<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsByAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsAccountIdBrandProtectionBrandsPatternsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionBrandsPatternsPath,
+                path: zPostAccountsAccountIdBrandProtectionBrandsPatternsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionBrandsPatternsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/brands/patterns',
             ...options,
@@ -269,17 +269,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of submitted URLs to awaiting by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionClear<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionClear<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionClearResponses, PatchAccountsAccountIdBrandProtectionClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionClearResponses, PatchAccountsByAccountIdBrandProtectionClearErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionClearResponses, PatchAccountsAccountIdBrandProtectionClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionClearPath,
+                path: zPatchAccountsAccountIdBrandProtectionClearPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionClearResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionClearResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/clear',
             ...options,
@@ -292,17 +292,17 @@ export class BrandProtectionService {
      *
      * Return submitted domains based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionDomainInfo<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionDomainInfo<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionDomainInfoResponses, GetAccountsAccountIdBrandProtectionDomainInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionDomainInfoResponses, GetAccountsByAccountIdBrandProtectionDomainInfoErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionDomainInfoResponses, GetAccountsAccountIdBrandProtectionDomainInfoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionDomainInfoPath,
+                path: zGetAccountsAccountIdBrandProtectionDomainInfoPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionDomainInfoResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionDomainInfoResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/domain-info',
             ...options,
@@ -315,17 +315,17 @@ export class BrandProtectionService {
      *
      * Return recent URL submissions
      */
-    public static getAccountsByAccountIdBrandProtectionRecentSubmissions<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionRecentSubmissions<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsAccountIdBrandProtectionRecentSubmissionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsByAccountIdBrandProtectionRecentSubmissionsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsAccountIdBrandProtectionRecentSubmissionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionRecentSubmissionsPath,
+                path: zGetAccountsAccountIdBrandProtectionRecentSubmissionsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionRecentSubmissionsResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionRecentSubmissionsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/recent-submissions',
             ...options,
@@ -338,17 +338,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of submitted URLs to disproven by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionRefute<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionRefute<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionRefuteResponses, PatchAccountsAccountIdBrandProtectionRefuteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionRefuteResponses, PatchAccountsByAccountIdBrandProtectionRefuteErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionRefuteResponses, PatchAccountsAccountIdBrandProtectionRefuteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionRefutePath,
+                path: zPatchAccountsAccountIdBrandProtectionRefutePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionRefuteResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionRefuteResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/refute',
             ...options,
@@ -361,17 +361,17 @@ export class BrandProtectionService {
      *
      * Return URL submissions based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionSubmissionInfo<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionSubmissionInfo<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsAccountIdBrandProtectionSubmissionInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsByAccountIdBrandProtectionSubmissionInfoErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsAccountIdBrandProtectionSubmissionInfoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionSubmissionInfoPath,
+                path: zGetAccountsAccountIdBrandProtectionSubmissionInfoPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionSubmissionInfoResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionSubmissionInfoResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/submission-info',
             ...options,
@@ -384,17 +384,17 @@ export class BrandProtectionService {
      *
      * Return new URL submissions
      */
-    public static postAccountsByAccountIdBrandProtectionSubmit<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionSubmit<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionSubmitResponses, PostAccountsAccountIdBrandProtectionSubmitErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionSubmitResponses, PostAccountsByAccountIdBrandProtectionSubmitErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionSubmitResponses, PostAccountsAccountIdBrandProtectionSubmitErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionSubmitPath,
+                path: zPostAccountsAccountIdBrandProtectionSubmitPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionSubmitResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionSubmitResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/submit',
             ...options,
@@ -407,17 +407,17 @@ export class BrandProtectionService {
      *
      * Return submitted domains based on pattern
      */
-    public static getAccountsByAccountIdBrandProtectionTrackedDomains<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionTrackedDomains<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsAccountIdBrandProtectionTrackedDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsByAccountIdBrandProtectionTrackedDomainsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsAccountIdBrandProtectionTrackedDomainsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionTrackedDomainsPath,
+                path: zGetAccountsAccountIdBrandProtectionTrackedDomainsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionTrackedDomainsResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionTrackedDomainsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/tracked-domains',
             ...options,
@@ -430,17 +430,17 @@ export class BrandProtectionService {
      *
      * Return submitted URLs based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionUrlInfo<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionUrlInfo<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionUrlInfoResponses, GetAccountsAccountIdBrandProtectionUrlInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionUrlInfoResponses, GetAccountsByAccountIdBrandProtectionUrlInfoErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionUrlInfoResponses, GetAccountsAccountIdBrandProtectionUrlInfoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionUrlInfoPath,
+                path: zGetAccountsAccountIdBrandProtectionUrlInfoPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionUrlInfoResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionUrlInfoResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/url-info',
             ...options,
@@ -453,17 +453,17 @@ export class BrandProtectionService {
      *
      * Return a success message after updating verification statuses of submitted URLs to confirmed by ID
      */
-    public static patchAccountsByAccountIdBrandProtectionVerify<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionVerify<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionVerifyResponses, PatchAccountsAccountIdBrandProtectionVerifyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionVerifyResponses, PatchAccountsByAccountIdBrandProtectionVerifyErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionVerifyResponses, PatchAccountsAccountIdBrandProtectionVerifyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPatchAccountsByAccountIdBrandProtectionVerifyPath,
+                path: zPatchAccountsAccountIdBrandProtectionVerifyPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionVerifyResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionVerifyResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/verify',
             ...options,
@@ -473,8 +473,10 @@ export class BrandProtectionService {
     
     /**
      * Internal route for testing URL submissions
+     *
+     * Internal route for testing URL submissions.
      */
-    public static postInternalSubmit<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static postInternalSubmit<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<PostInternalSubmitResponses, PostInternalSubmitErrors, ThrowOnError> {
         return (options?.client ?? client).post<PostInternalSubmitResponses, PostInternalSubmitErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -493,7 +495,7 @@ export class BrandProtectionService {
      *
      * Return a success message after running liveness checks
      */
-    public static getLive<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static getLive<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<GetLiveResponses, GetLiveErrors, ThrowOnError> {
         return (options?.client ?? client).get<GetLiveResponses, GetLiveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -512,7 +514,7 @@ export class BrandProtectionService {
      *
      * Return a success message after running readiness checks
      */
-    public static getReady<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static getReady<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<GetReadyResponses, GetReadyErrors, ThrowOnError> {
         return (options?.client ?? client).get<GetReadyResponses, GetReadyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -543,7 +545,7 @@ export class BrandProtectionService2 {
         domain_search?: string;
         orderBy?: 'domain' | 'first_seen' | 'registrar';
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDomainMatchListResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'offset' },
@@ -577,8 +579,15 @@ export class BrandProtectionService2 {
     public static getGetDomainQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'id' }] }]);
+        page?: number;
+        per_page?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGetDomainQueriesResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' }
+                ] }]);
         return (options?.client ?? client).get<GetGetDomainQueriesResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -594,33 +603,162 @@ export class BrandProtectionService2 {
     }
     
     /**
+     * Insert query
+     *
+     * Create a new saved brand protection query with string match patterns
+     */
+    public static postInsertDomainQuery<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        max_time?: string;
+        min_time?: string;
+        scan?: boolean;
+        scan_matches?: boolean;
+        search_lookback?: boolean;
+        string_matches: Array<{
+            pattern: string;
+        }>;
+        tag: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostInsertDomainQueryResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'max_time' },
+                    { in: 'body', key: 'min_time' },
+                    { in: 'body', key: 'scan' },
+                    { in: 'body', key: 'scan_matches' },
+                    { in: 'body', key: 'search_lookback' },
+                    { in: 'body', key: 'string_matches' },
+                    { in: 'body', key: 'tag' }
+                ] }]);
+        return (options?.client ?? client).post<PostInsertDomainQueryResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostInsertDomainQueryBody.optional(),
+                path: zPostInsertDomainQueryPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostInsertDomainQueryResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete domain query
+     *
+     * Delete a saved brand protection domain query from the account_queries table. This operation will remove the query from the durable object database. Returns 404 if the query ID doesn't exist.
+     */
+    public static deleteDeleteDomainQuery<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        query_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeleteDomainQueryResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'query_id' }] }]);
+        return (options?.client ?? client).delete<DeleteDeleteDomainQueryResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteDeleteDomainQueryPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteDeleteDomainQueryResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries/{query_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update domain query
+     *
+     * Update a saved brand protection domain query with string match patterns
+     */
+    public static patchUpdateDomainQuery<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        query_id: string;
+        max_time?: string;
+        min_time?: string;
+        scan?: boolean;
+        scan_matches?: boolean;
+        search_lookback?: boolean;
+        string_matches: Array<{
+            pattern: string;
+        }>;
+        tag: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchUpdateDomainQueryResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'query_id' },
+                    { in: 'body', key: 'max_time' },
+                    { in: 'body', key: 'min_time' },
+                    { in: 'body', key: 'scan' },
+                    { in: 'body', key: 'scan_matches' },
+                    { in: 'body', key: 'search_lookback' },
+                    { in: 'body', key: 'string_matches' },
+                    { in: 'body', key: 'tag' }
+                ] }]);
+        return (options?.client ?? client).patch<PatchUpdateDomainQueryResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPatchUpdateDomainQueryBody.optional(),
+                path: zPatchUpdateDomainQueryPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPatchUpdateDomainQueryResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries/{query_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Generate takedown letter
      *
      * Generate a takedown letter from a template. Returns V4 JSON for text format or a PDF binary for pdf format.
      */
     public static postLetterGenerate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
+        createNotice?: boolean;
         fields: {
             discoveryDate?: string;
             domain?: string;
             generationDate?: string;
+            jurisdiction?: string;
             registrantEmail?: string;
             registrar?: string;
+            registrarEmail?: string;
             resolutionByDate?: string;
             senderCompany?: string;
             senderEmail?: string;
             senderName?: string;
             senderTitle?: string;
             trademarkName?: string;
+            trademarkNumber?: string;
             trademarkOwner?: string;
         };
         format?: 'text' | 'pdf';
+        noticeParams?: {
+            domain: string;
+            queryId?: number;
+            status?: 'draft' | 'sent' | 'resolved' | 'expired';
+        };
         templateId: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostLetterGenerateResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'createNotice' },
                     { in: 'body', key: 'fields' },
                     { in: 'body', key: 'format' },
+                    { in: 'body', key: 'noticeParams' },
                     { in: 'body', key: 'templateId' }
                 ] }]);
         return (options?.client ?? client).post<PostLetterGenerateResponses, unknown, ThrowOnError>({
@@ -645,11 +783,11 @@ export class BrandProtectionService2 {
     /**
      * List letter templates
      *
-     * List all available takedown letter templates (system templates and user-defined templates)
+     * List user-defined takedown letter templates. System example templates are available via the /templates/examples endpoint.
      */
     public static getLetterTemplateList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLetterTemplateListResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetLetterTemplateListResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -676,7 +814,7 @@ export class BrandProtectionService2 {
         category: string;
         description?: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostLetterTemplateCreateResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'body' },
@@ -704,6 +842,29 @@ export class BrandProtectionService2 {
     }
     
     /**
+     * List example letter templates
+     *
+     * List system-provided example templates that can be used as starting points when creating custom templates. These templates cannot be used directly for letter generation.
+     */
+    public static getLetterTemplateExamples<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLetterTemplateExamplesResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<GetLetterTemplateExamplesResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetLetterTemplateExamplesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetLetterTemplateExamplesResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/letter/templates/examples',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Delete letter template
      *
      * Delete a user-defined takedown letter template. System templates cannot be deleted.
@@ -711,7 +872,7 @@ export class BrandProtectionService2 {
     public static deleteLetterTemplateDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         template_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteLetterTemplateDeleteResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'template_id' }] }]);
         return (options?.client ?? client).delete<DeleteLetterTemplateDeleteResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -730,12 +891,12 @@ export class BrandProtectionService2 {
     /**
      * Get letter template
      *
-     * Get a specific takedown letter template by ID
+     * Get a specific user-defined takedown letter template by ID. System example templates are available via the /templates/examples endpoint.
      */
     public static getLetterTemplateGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         template_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLetterTemplateGetResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'template_id' }] }]);
         return (options?.client ?? client).get<GetLetterTemplateGetResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -763,7 +924,7 @@ export class BrandProtectionService2 {
         category?: string;
         description?: string | null;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutLetterTemplateUpdateResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'template_id' },
@@ -804,7 +965,7 @@ export class BrandProtectionService2 {
         download?: string;
         orderBy?: 'matchedAt' | 'domain' | 'similarityScore' | 'registrar';
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLogoMatchListResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'offset' },
@@ -837,7 +998,7 @@ export class BrandProtectionService2 {
         account_id: string;
         id?: string;
         download?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGetLogoQueriesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -868,7 +1029,7 @@ export class BrandProtectionService2 {
         search_lookback?: boolean;
         similarity_threshold: number;
         tag: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostInsertLogoQueryResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'image_data' },
@@ -903,7 +1064,7 @@ export class BrandProtectionService2 {
     public static deleteDeleteLogoQuery<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         query_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeleteLogoQueryResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'query_id' }] }]);
         return (options?.client ?? client).delete<DeleteDeleteLogoQueryResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -931,7 +1092,7 @@ export class BrandProtectionService2 {
         image_data: string;
         score_threshold?: number;
         top_k?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostSearchLogoSimilarityResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'showHistoric' },
@@ -960,13 +1121,365 @@ export class BrandProtectionService2 {
     }
     
     /**
+     * List takedown notices
+     *
+     * List all takedown notices for the account.
+     */
+    public static getTakedownNoticeList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTakedownNoticeListResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownNoticeListResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownNoticeListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownNoticeListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create takedown notice
+     *
+     * Create a new takedown notice for a domain suspected of trademark infringement.
+     */
+    public static postTakedownNoticeCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        domain: string;
+        matchId?: number;
+        matchType?: 'logo' | 'domain';
+        queryId?: number;
+        status?: 'draft' | 'sent' | 'resolved' | 'expired';
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostTakedownNoticeCreateResponses, PostTakedownNoticeCreateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'domain' },
+                    { in: 'body', key: 'matchId' },
+                    { in: 'body', key: 'matchType' },
+                    { in: 'body', key: 'queryId' },
+                    { in: 'body', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).post<PostTakedownNoticeCreateResponses, PostTakedownNoticeCreateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostTakedownNoticeCreateBody.optional(),
+                path: zPostTakedownNoticeCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostTakedownNoticeCreateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Lookup takedown notices by domains
+     *
+     * Bulk lookup of takedown notices by domain names. Returns an array of { domain, queryId, notice } entries (notice is null when no match exists). Supports optional queryId or queryIds to scope lookups per query. Uses POST to avoid URL length limits when looking up many domains. This endpoint is read-only. Domains are normalized (trimmed, lowercased) and deduplicated.
+     */
+    public static postTakedownNoticeLookup<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        domains: Array<string>;
+        queryId?: number;
+        queryIds?: Array<number>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostTakedownNoticeLookupResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'domains' },
+                    { in: 'body', key: 'queryId' },
+                    { in: 'body', key: 'queryIds' }
+                ] }]);
+        return (options?.client ?? client).post<PostTakedownNoticeLookupResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostTakedownNoticeLookupBody.optional(),
+                path: zPostTakedownNoticeLookupPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostTakedownNoticeLookupResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/lookup',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete takedown notice
+     *
+     * Delete a takedown notice and all associated letters. PDFs are also removed from storage.
+     */
+    public static deleteTakedownNoticeDelete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTakedownNoticeDeleteResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).delete<DeleteTakedownNoticeDeleteResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteTakedownNoticeDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteTakedownNoticeDeleteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get takedown notice
+     *
+     * Get a specific takedown notice by ID.
+     */
+    public static getTakedownNoticeGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTakedownNoticeGetResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownNoticeGetResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownNoticeGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownNoticeGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update takedown notice
+     *
+     * Update a takedown notice (e.g. change status to sent, resolved, etc.).
+     */
+    public static putTakedownNoticeUpdate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        domain?: string;
+        matchId?: number | null;
+        matchType?: 'logo' | 'domain';
+        queryId?: number | null;
+        status?: 'draft' | 'sent' | 'resolved' | 'expired';
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutTakedownNoticeUpdateResponses, PutTakedownNoticeUpdateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'body', key: 'domain' },
+                    { in: 'body', key: 'matchId' },
+                    { in: 'body', key: 'matchType' },
+                    { in: 'body', key: 'queryId' },
+                    { in: 'body', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).put<PutTakedownNoticeUpdateResponses, PutTakedownNoticeUpdateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPutTakedownNoticeUpdateBody.optional(),
+                path: zPutTakedownNoticeUpdatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPutTakedownNoticeUpdateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List takedown letters
+     *
+     * List all letters for a specific takedown notice.
+     */
+    public static getTakedownLetterList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTakedownLetterListResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownLetterListResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownLetterListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownLetterListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create takedown letter
+     *
+     * Generate a takedown letter for a notice and persist the rendered text. The PDF is generated lazily on download.
+     */
+    public static postTakedownLetterCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        fields: {
+            discoveryDate?: string;
+            domain?: string;
+            generationDate?: string;
+            jurisdiction?: string;
+            registrantEmail?: string;
+            registrar?: string;
+            registrarEmail?: string;
+            resolutionByDate?: string;
+            senderCompany?: string;
+            senderEmail?: string;
+            senderName?: string;
+            senderTitle?: string;
+            trademarkName?: string;
+            trademarkNumber?: string;
+            trademarkOwner?: string;
+        };
+        templateId: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostTakedownLetterCreateResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'body', key: 'fields' },
+                    { in: 'body', key: 'templateId' }
+                ] }]);
+        return (options?.client ?? client).post<PostTakedownLetterCreateResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostTakedownLetterCreateBody.optional(),
+                path: zPostTakedownLetterCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostTakedownLetterCreateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete takedown letter
+     *
+     * Delete a specific takedown letter and its associated PDF from storage.
+     */
+    public static deleteTakedownLetterDelete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        letter_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTakedownLetterDeleteResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'path', key: 'letter_id' }
+                ] }]);
+        return (options?.client ?? client).delete<DeleteTakedownLetterDeleteResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteTakedownLetterDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteTakedownLetterDeleteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters/{letter_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get takedown letter
+     *
+     * Get a specific takedown letter by ID, including the rendered text.
+     */
+    public static getTakedownLetterGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        letter_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTakedownLetterGetResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'path', key: 'letter_id' }
+                ] }]);
+        return (options?.client ?? client).get<GetTakedownLetterGetResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownLetterGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownLetterGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters/{letter_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Download takedown letter PDF
+     *
+     * Download the PDF for a stored takedown letter. If no PDF exists yet, it is generated from the stored letter text and cached for future downloads.
+     */
+    public static getTakedownLetterPdfGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        letter_id: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTakedownLetterPdfGetResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'path', key: 'letter_id' }
+                ] }]);
+        return (options?.client ?? client).get<GetTakedownLetterPdfGetResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownLetterPdfGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownLetterPdfGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters/{letter_id}/pdf',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get total queries
      *
      * Get the total number of saved brand protection queries (domain + logo) for an account
      */
     public static getTotalQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTotalQueriesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetTotalQueriesResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({

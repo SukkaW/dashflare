@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustApplicationsReviewStatusListErrors, ZeroTrustApplicationsReviewStatusListResponses, ZeroTrustApplicationsReviewStatusUpdateErrors, ZeroTrustApplicationsReviewStatusUpdateResponses, ZeroTrustGatewayApprovedApps, ZeroTrustGatewayComponentsSchemasIdentifier, ZeroTrustGatewayInReviewApps, ZeroTrustGatewayUnapprovedApps } from '../types.gen';
+import type { ZeroTrustApplicationsReviewStatusListErrors, ZeroTrustApplicationsReviewStatusListResponses, ZeroTrustApplicationsReviewStatusUpdateErrors, ZeroTrustApplicationsReviewStatusUpdateResponses, ZeroTrustGatewayApprovedApps, ZeroTrustGatewayIdentifier3, ZeroTrustGatewayInReviewApps, ZeroTrustGatewayUnapprovedApps } from '../types.gen';
 import { zZeroTrustApplicationsReviewStatusListPath, zZeroTrustApplicationsReviewStatusListResponse, zZeroTrustApplicationsReviewStatusUpdateBody, zZeroTrustApplicationsReviewStatusUpdatePath, zZeroTrustApplicationsReviewStatusUpdateResponse } from '../zod.gen';
 
 export class ZeroTrustApplicationsReviewStatusService {
@@ -17,8 +17,8 @@ export class ZeroTrustApplicationsReviewStatusService {
      * Retrieve the statuses of your applications.
      */
     public static zeroTrustApplicationsReviewStatusList<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewayComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustApplicationsReviewStatusListResponses, ZeroTrustApplicationsReviewStatusListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustApplicationsReviewStatusListResponses, ZeroTrustApplicationsReviewStatusListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,11 +44,11 @@ export class ZeroTrustApplicationsReviewStatusService {
      * Update the statuses of your applications.
      */
     public static zeroTrustApplicationsReviewStatusUpdate<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewayComponentsSchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier3;
         approved_apps: ZeroTrustGatewayApprovedApps;
         in_review_apps: ZeroTrustGatewayInReviewApps;
         unapproved_apps: ZeroTrustGatewayUnapprovedApps;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustApplicationsReviewStatusUpdateResponses, ZeroTrustApplicationsReviewStatusUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'approved_apps' },

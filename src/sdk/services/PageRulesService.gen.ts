@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { PageRulesCreateAPageRuleErrors, PageRulesCreateAPageRuleResponses, PageRulesDeleteAPageRuleErrors, PageRulesDeleteAPageRuleResponses, PageRulesEditAPageRuleErrors, PageRulesEditAPageRuleResponses, PageRulesGetAPageRuleErrors, PageRulesGetAPageRuleResponses, PageRulesListPageRulesErrors, PageRulesListPageRulesResponses, PageRulesUpdateAPageRuleErrors, PageRulesUpdateAPageRuleResponses, ZonesActions, ZonesPriority, ZonesSchemasIdentifier, ZonesStatus, ZonesTargets } from '../types.gen';
+import type { PageRulesCreateAPageRuleErrors, PageRulesCreateAPageRuleResponses, PageRulesDeleteAPageRuleErrors, PageRulesDeleteAPageRuleResponses, PageRulesEditAPageRuleErrors, PageRulesEditAPageRuleResponses, PageRulesGetAPageRuleErrors, PageRulesGetAPageRuleResponses, PageRulesListPageRulesErrors, PageRulesListPageRulesResponses, PageRulesUpdateAPageRuleErrors, PageRulesUpdateAPageRuleResponses, ZonesActions, ZonesIdentifier2, ZonesPriority, ZonesStatus, ZonesTargets } from '../types.gen';
 import { zPageRulesCreateAPageRuleBody, zPageRulesCreateAPageRulePath, zPageRulesCreateAPageRuleResponse, zPageRulesDeleteAPageRulePath, zPageRulesDeleteAPageRuleResponse, zPageRulesEditAPageRuleBody, zPageRulesEditAPageRulePath, zPageRulesEditAPageRuleResponse, zPageRulesGetAPageRulePath, zPageRulesGetAPageRuleResponse, zPageRulesListPageRulesPath, zPageRulesListPageRulesQuery, zPageRulesListPageRulesResponse, zPageRulesUpdateAPageRuleBody, zPageRulesUpdateAPageRulePath, zPageRulesUpdateAPageRuleResponse } from '../zod.gen';
 
 export class PageRulesService {
@@ -17,12 +17,12 @@ export class PageRulesService {
      * Fetches Page Rules in a zone.
      */
     public static pageRulesListPageRules<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
+        zone_id: ZonesIdentifier2;
         order?: 'status' | 'priority';
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
         status?: 'active' | 'disabled';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesListPageRulesResponses, PageRulesListPageRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'order' },
@@ -54,12 +54,12 @@ export class PageRulesService {
      * Creates a new Page Rule.
      */
     public static pageRulesCreateAPageRule<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
+        zone_id: ZonesIdentifier2;
         actions: ZonesActions;
         priority?: ZonesPriority;
         status?: ZonesStatus;
         targets: ZonesTargets;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesCreateAPageRuleResponses, PageRulesCreateAPageRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'actions' },
@@ -96,9 +96,9 @@ export class PageRulesService {
      * Deletes an existing Page Rule.
      */
     public static pageRulesDeleteAPageRule<ThrowOnError extends boolean = true>(parameters: {
-        pagerule_id: ZonesSchemasIdentifier;
-        zone_id: ZonesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        pagerule_id: ZonesIdentifier2;
+        zone_id: ZonesIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesDeleteAPageRuleResponses, PageRulesDeleteAPageRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pagerule_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<PageRulesDeleteAPageRuleResponses, PageRulesDeleteAPageRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -124,9 +124,9 @@ export class PageRulesService {
      * Fetches the details of a Page Rule.
      */
     public static pageRulesGetAPageRule<ThrowOnError extends boolean = true>(parameters: {
-        pagerule_id: ZonesSchemasIdentifier;
-        zone_id: ZonesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        pagerule_id: ZonesIdentifier2;
+        zone_id: ZonesIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesGetAPageRuleResponses, PageRulesGetAPageRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pagerule_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PageRulesGetAPageRuleResponses, PageRulesGetAPageRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,13 +152,13 @@ export class PageRulesService {
      * Updates one or more fields of an existing Page Rule.
      */
     public static pageRulesEditAPageRule<ThrowOnError extends boolean = true>(parameters: {
-        pagerule_id: ZonesSchemasIdentifier;
-        zone_id: ZonesSchemasIdentifier;
+        pagerule_id: ZonesIdentifier2;
+        zone_id: ZonesIdentifier2;
         actions?: ZonesActions;
         priority?: ZonesPriority;
         status?: ZonesStatus;
         targets?: ZonesTargets;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesEditAPageRuleResponses, PageRulesEditAPageRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'pagerule_id' },
                     { in: 'path', key: 'zone_id' },
@@ -196,13 +196,13 @@ export class PageRulesService {
      * Replaces the configuration of an existing Page Rule. The configuration of the updated Page Rule will exactly match the data passed in the API request.
      */
     public static pageRulesUpdateAPageRule<ThrowOnError extends boolean = true>(parameters: {
-        pagerule_id: ZonesSchemasIdentifier;
-        zone_id: ZonesSchemasIdentifier;
+        pagerule_id: ZonesIdentifier2;
+        zone_id: ZonesIdentifier2;
         actions: ZonesActions;
         priority?: ZonesPriority;
         status?: ZonesStatus;
         targets: ZonesTargets;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageRulesUpdateAPageRuleResponses, PageRulesUpdateAPageRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'pagerule_id' },
                     { in: 'path', key: 'zone_id' },

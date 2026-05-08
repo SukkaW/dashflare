@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicAccountAppsAddAppErrors, MagicAccountAppsAddAppResponses, MagicAccountAppsDeleteAppErrors, MagicAccountAppsDeleteAppResponses, MagicAccountAppsListAppsErrors, MagicAccountAppsListAppsResponses, MagicAccountAppsPatchAppErrors, MagicAccountAppsPatchAppResponses, MagicAccountAppsUpdateAppErrors, MagicAccountAppsUpdateAppResponses, MagicAppAddSingleRequest, MagicAppUpdateRequest, MagicIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class MagicAccountAppsService {
      */
     public static magicAccountAppsListApps<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicAccountAppsListAppsResponses, MagicAccountAppsListAppsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicAccountAppsListAppsResponses, MagicAccountAppsListAppsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class MagicAccountAppsService {
     public static magicAccountAppsAddApp<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         magicAppAddSingleRequest: MagicAppAddSingleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicAccountAppsAddAppResponses, MagicAccountAppsAddAppErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicAppAddSingleRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicAccountAppsAddAppResponses, MagicAccountAppsAddAppErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class MagicAccountAppsService {
     public static magicAccountAppsDeleteApp<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         account_app_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicAccountAppsDeleteAppResponses, MagicAccountAppsDeleteAppErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'account_app_id' }] }]);
         return (options?.client ?? client).delete<MagicAccountAppsDeleteAppResponses, MagicAccountAppsDeleteAppErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class MagicAccountAppsService {
         account_id: MagicIdentifier;
         account_app_id: MagicIdentifier;
         magicAppUpdateRequest: MagicAppUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicAccountAppsPatchAppResponses, MagicAccountAppsPatchAppErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'account_app_id' },
@@ -146,7 +146,7 @@ export class MagicAccountAppsService {
         account_id: MagicIdentifier;
         account_app_id: MagicIdentifier;
         magicAppUpdateRequest: MagicAppUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicAccountAppsUpdateAppResponses, MagicAccountAppsUpdateAppErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'account_app_id' },

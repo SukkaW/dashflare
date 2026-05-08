@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailEmailSettingDnsRequestBody, EmailEmailSettingName, EmailIdentifier, EmailRoutingSettingsDisableEmailRoutingDnsResponses, EmailRoutingSettingsDisableEmailRoutingResponses, EmailRoutingSettingsEmailRoutingDnsSettingsResponses, EmailRoutingSettingsEnableEmailRoutingDnsResponses, EmailRoutingSettingsEnableEmailRoutingResponses, EmailRoutingSettingsGetEmailRoutingSettingsResponses, EmailRoutingSettingsUnlockEmailRoutingDnsResponses } from '../types.gen';
-import { zEmailRoutingSettingsDisableEmailRoutingBody, zEmailRoutingSettingsDisableEmailRoutingDnsBody, zEmailRoutingSettingsDisableEmailRoutingDnsPath, zEmailRoutingSettingsDisableEmailRoutingDnsResponse, zEmailRoutingSettingsDisableEmailRoutingPath, zEmailRoutingSettingsDisableEmailRoutingResponse, zEmailRoutingSettingsEmailRoutingDnsSettingsPath, zEmailRoutingSettingsEmailRoutingDnsSettingsQuery, zEmailRoutingSettingsEmailRoutingDnsSettingsResponse, zEmailRoutingSettingsEnableEmailRoutingBody, zEmailRoutingSettingsEnableEmailRoutingDnsBody, zEmailRoutingSettingsEnableEmailRoutingDnsPath, zEmailRoutingSettingsEnableEmailRoutingDnsResponse, zEmailRoutingSettingsEnableEmailRoutingPath, zEmailRoutingSettingsEnableEmailRoutingResponse, zEmailRoutingSettingsGetEmailRoutingSettingsPath, zEmailRoutingSettingsGetEmailRoutingSettingsResponse, zEmailRoutingSettingsUnlockEmailRoutingDnsBody, zEmailRoutingSettingsUnlockEmailRoutingDnsPath, zEmailRoutingSettingsUnlockEmailRoutingDnsResponse } from '../zod.gen';
+import type { EmailEmailSettingDnsRequestBody, EmailEmailSettingName, EmailIdentifier, EmailRoutingSettingsDisableEmailRoutingDnsResponses, EmailRoutingSettingsDisableEmailRoutingResponses, EmailRoutingSettingsEmailRoutingDnsSettingsResponses, EmailRoutingSettingsEnableEmailRoutingDnsResponses, EmailRoutingSettingsEnableEmailRoutingResponses, EmailRoutingSettingsGetEmailRoutingSettingsResponses, EmailRoutingSettingsReplaceEmailRoutingSettingsResponses, EmailRoutingSettingsUnlockEmailRoutingDnsResponses, EmailRoutingSettingsUnlockEmailRoutingResponses, EmailRoutingSettingsUpdateEmailRoutingSettingsResponses, EmailUpdateEmailRoutingSettingsProperties } from '../types.gen';
+import { zEmailRoutingSettingsDisableEmailRoutingBody, zEmailRoutingSettingsDisableEmailRoutingDnsBody, zEmailRoutingSettingsDisableEmailRoutingDnsPath, zEmailRoutingSettingsDisableEmailRoutingDnsResponse, zEmailRoutingSettingsDisableEmailRoutingPath, zEmailRoutingSettingsDisableEmailRoutingResponse, zEmailRoutingSettingsEmailRoutingDnsSettingsPath, zEmailRoutingSettingsEmailRoutingDnsSettingsQuery, zEmailRoutingSettingsEmailRoutingDnsSettingsResponse, zEmailRoutingSettingsEnableEmailRoutingBody, zEmailRoutingSettingsEnableEmailRoutingDnsBody, zEmailRoutingSettingsEnableEmailRoutingDnsPath, zEmailRoutingSettingsEnableEmailRoutingDnsResponse, zEmailRoutingSettingsEnableEmailRoutingPath, zEmailRoutingSettingsEnableEmailRoutingResponse, zEmailRoutingSettingsGetEmailRoutingSettingsPath, zEmailRoutingSettingsGetEmailRoutingSettingsResponse, zEmailRoutingSettingsReplaceEmailRoutingSettingsBody, zEmailRoutingSettingsReplaceEmailRoutingSettingsPath, zEmailRoutingSettingsReplaceEmailRoutingSettingsResponse, zEmailRoutingSettingsUnlockEmailRoutingBody, zEmailRoutingSettingsUnlockEmailRoutingDnsBody, zEmailRoutingSettingsUnlockEmailRoutingDnsPath, zEmailRoutingSettingsUnlockEmailRoutingDnsResponse, zEmailRoutingSettingsUnlockEmailRoutingPath, zEmailRoutingSettingsUnlockEmailRoutingResponse, zEmailRoutingSettingsUpdateEmailRoutingSettingsBody, zEmailRoutingSettingsUpdateEmailRoutingSettingsPath, zEmailRoutingSettingsUpdateEmailRoutingSettingsResponse } from '../zod.gen';
 
 export class EmailRoutingSettingsService {
     /**
@@ -18,7 +18,7 @@ export class EmailRoutingSettingsService {
      */
     public static emailRoutingSettingsGetEmailRoutingSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsGetEmailRoutingSettingsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailRoutingSettingsGetEmailRoutingSettingsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,6 +35,64 @@ export class EmailRoutingSettingsService {
     }
     
     /**
+     * Update Email Routing settings
+     *
+     * Update the settings for your Email Routing zone.
+     */
+    public static emailRoutingSettingsUpdateEmailRoutingSettings<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: EmailIdentifier;
+        emailUpdateEmailRoutingSettingsProperties: EmailUpdateEmailRoutingSettingsProperties;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsUpdateEmailRoutingSettingsResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailUpdateEmailRoutingSettingsProperties', map: 'body' }] }]);
+        return (options?.client ?? client).patch<EmailRoutingSettingsUpdateEmailRoutingSettingsResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailRoutingSettingsUpdateEmailRoutingSettingsBody,
+                path: zEmailRoutingSettingsUpdateEmailRoutingSettingsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingSettingsUpdateEmailRoutingSettingsResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/email/routing',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Update Email Routing settings
+     *
+     * Update the settings for your Email Routing zone.
+     */
+    public static emailRoutingSettingsReplaceEmailRoutingSettings<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: EmailIdentifier;
+        emailUpdateEmailRoutingSettingsProperties: EmailUpdateEmailRoutingSettingsProperties;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsReplaceEmailRoutingSettingsResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailUpdateEmailRoutingSettingsProperties', map: 'body' }] }]);
+        return (options?.client ?? client).put<EmailRoutingSettingsReplaceEmailRoutingSettingsResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailRoutingSettingsReplaceEmailRoutingSettingsBody,
+                path: zEmailRoutingSettingsReplaceEmailRoutingSettingsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingSettingsReplaceEmailRoutingSettingsResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/email/routing',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Disable Email Routing
      *
      * Disable your Email Routing zone. Also removes additional MX records previously required for Email Routing to work.
@@ -44,7 +102,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsDisableEmailRouting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsDisableEmailRoutingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailRoutingSettingsDisableEmailRoutingResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +131,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsDisableEmailRoutingDns<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         emailEmailSettingDnsRequestBody?: EmailEmailSettingDnsRequestBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsDisableEmailRoutingDnsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailEmailSettingDnsRequestBody', map: 'body' }] }]);
         return (options?.client ?? client).delete<EmailRoutingSettingsDisableEmailRoutingDnsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -102,7 +160,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsEmailRoutingDnsSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         subdomain?: EmailEmailSettingName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsEmailRoutingDnsSettingsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'subdomain' }] }]);
         return (options?.client ?? client).get<EmailRoutingSettingsEmailRoutingDnsSettingsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -126,7 +184,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsUnlockEmailRoutingDns<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         emailEmailSettingDnsRequestBody?: EmailEmailSettingDnsRequestBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsUnlockEmailRoutingDnsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailEmailSettingDnsRequestBody', map: 'body' }] }]);
         return (options?.client ?? client).patch<EmailRoutingSettingsUnlockEmailRoutingDnsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -155,7 +213,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsEnableEmailRoutingDns<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         emailEmailSettingDnsRequestBody?: EmailEmailSettingDnsRequestBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsEnableEmailRoutingDnsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailEmailSettingDnsRequestBody', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailRoutingSettingsEnableEmailRoutingDnsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -186,7 +244,7 @@ export class EmailRoutingSettingsService {
     public static emailRoutingSettingsEnableEmailRouting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsEnableEmailRoutingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailRoutingSettingsEnableEmailRoutingResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -197,6 +255,37 @@ export class EmailRoutingSettingsService {
             responseValidator: async (data) => await zEmailRoutingSettingsEnableEmailRoutingResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
             url: '/zones/{zone_id}/email/routing/enable',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Unlock Email Routing
+     *
+     * Unlock MX records previously locked by Email Routing. Deprecated - use PATCH /zones/{zone_id}/email/routing/dns instead.
+     *
+     * @deprecated
+     */
+    public static emailRoutingSettingsUnlockEmailRouting<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: EmailIdentifier;
+        emailEmailSettingDnsRequestBody?: EmailEmailSettingDnsRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingSettingsUnlockEmailRoutingResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailEmailSettingDnsRequestBody', map: 'body' }] }]);
+        return (options?.client ?? client).post<EmailRoutingSettingsUnlockEmailRoutingResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailRoutingSettingsUnlockEmailRoutingBody.optional(),
+                path: zEmailRoutingSettingsUnlockEmailRoutingPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingSettingsUnlockEmailRoutingResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/email/routing/unlock',
             ...options,
             ...params,
             headers: {

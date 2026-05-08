@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { GetZonesZoneIdLogpushEdgeJobsErrors, GetZonesZoneIdLogpushEdgeJobsResponses, LogpushFields, LogpushIdentifier, LogpushSample, LogpushSchemasFilter, PostZonesZoneIdLogpushEdgeJobsErrors, PostZonesZoneIdLogpushEdgeJobsResponses } from '../types.gen';
+import type { GetZonesZoneIdLogpushEdgeJobsErrors, GetZonesZoneIdLogpushEdgeJobsResponses, LogpushFields, LogpushFilter2, LogpushIdentifier, LogpushSample, PostZonesZoneIdLogpushEdgeJobsErrors, PostZonesZoneIdLogpushEdgeJobsResponses } from '../types.gen';
 import { zGetZonesZoneIdLogpushEdgeJobsPath, zGetZonesZoneIdLogpushEdgeJobsResponse, zPostZonesZoneIdLogpushEdgeJobsBody, zPostZonesZoneIdLogpushEdgeJobsPath, zPostZonesZoneIdLogpushEdgeJobsResponse } from '../zod.gen';
 
 export class InstantLogsJobsForAZoneService {
@@ -18,7 +18,7 @@ export class InstantLogsJobsForAZoneService {
      */
     public static getZonesZoneIdLogpushEdgeJobs<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogpushEdgeJobsResponses, GetZonesZoneIdLogpushEdgeJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogpushEdgeJobsResponses, GetZonesZoneIdLogpushEdgeJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,9 +46,9 @@ export class InstantLogsJobsForAZoneService {
     public static postZonesZoneIdLogpushEdgeJobs<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
         fields?: LogpushFields;
-        filter?: LogpushSchemasFilter;
+        filter?: LogpushFilter2;
         sample?: LogpushSample;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushEdgeJobsResponses, PostZonesZoneIdLogpushEdgeJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'fields' },

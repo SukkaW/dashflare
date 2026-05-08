@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudConnectorIdentifier, CloudConnectorRule, ZoneCloudConenctorRulesPutErrors, ZoneCloudConenctorRulesPutResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zZoneCloudConenctorRulesPutBody, zZoneCloudConenctorRulesPutPath, zZone
 export class ZoneCloudConnectorRulesPutService {
     /**
      * Put Rules
+     *
+     * Updates Cloud Connector rules for a zone, replacing the existing rule configuration.
      */
     public static zoneCloudConenctorRulesPut<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CloudConnectorIdentifier;
         body?: Array<CloudConnectorRule>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCloudConenctorRulesPutResponses, ZoneCloudConenctorRulesPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<ZoneCloudConenctorRulesPutResponses, ZoneCloudConenctorRulesPutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

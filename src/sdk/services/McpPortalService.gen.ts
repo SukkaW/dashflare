@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { McpPortalsApiCreatePortalsErrors, McpPortalsApiCreatePortalsResponses, McpPortalsApiDeletePortalsErrors, McpPortalsApiDeletePortalsResponses, McpPortalsApiFetchGatewaysErrors, McpPortalsApiFetchGatewaysResponses, McpPortalsApiListPortalsErrors, McpPortalsApiListPortalsResponses, McpPortalsApiUpdatePortalsErrors, McpPortalsApiUpdatePortalsResponses } from '../types.gen';
-import { zMcpPortalsApiCreatePortalsBody, zMcpPortalsApiCreatePortalsPath, zMcpPortalsApiCreatePortalsResponse, zMcpPortalsApiDeletePortalsPath, zMcpPortalsApiDeletePortalsResponse, zMcpPortalsApiFetchGatewaysPath, zMcpPortalsApiFetchGatewaysResponse, zMcpPortalsApiListPortalsPath, zMcpPortalsApiListPortalsQuery, zMcpPortalsApiListPortalsResponse, zMcpPortalsApiUpdatePortalsBody, zMcpPortalsApiUpdatePortalsPath, zMcpPortalsApiUpdatePortalsResponse } from '../zod.gen';
+import type { McpPortalsApiCreatePortalsErrors, McpPortalsApiCreatePortalsResponses, McpPortalsApiDeletePortalsErrors, McpPortalsApiDeletePortalsResponses, McpPortalsApiEffectiveRedirectUriErrors, McpPortalsApiEffectiveRedirectUriResponses, McpPortalsApiFetchGatewaysErrors, McpPortalsApiFetchGatewaysResponses, McpPortalsApiListPortalsErrors, McpPortalsApiListPortalsResponses, McpPortalsApiUpdatePortalsErrors, McpPortalsApiUpdatePortalsResponses } from '../types.gen';
+import { zMcpPortalsApiCreatePortalsBody, zMcpPortalsApiCreatePortalsPath, zMcpPortalsApiCreatePortalsResponse, zMcpPortalsApiDeletePortalsPath, zMcpPortalsApiDeletePortalsResponse, zMcpPortalsApiEffectiveRedirectUriPath, zMcpPortalsApiEffectiveRedirectUriResponse, zMcpPortalsApiFetchGatewaysPath, zMcpPortalsApiFetchGatewaysResponse, zMcpPortalsApiListPortalsPath, zMcpPortalsApiListPortalsQuery, zMcpPortalsApiListPortalsResponse, zMcpPortalsApiUpdatePortalsBody, zMcpPortalsApiUpdatePortalsPath, zMcpPortalsApiUpdatePortalsResponse } from '../zod.gen';
 
 export class McpPortalService {
     /**
@@ -21,7 +21,7 @@ export class McpPortalService {
         page?: number;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiListPortalsResponses, McpPortalsApiListPortalsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -79,7 +79,7 @@ export class McpPortalService {
                 name: string;
             }>;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiCreatePortalsResponses, McpPortalsApiCreatePortalsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'allow_code_mode' },
@@ -121,7 +121,7 @@ export class McpPortalService {
     public static mcpPortalsApiDeletePortals<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiDeletePortalsResponses, McpPortalsApiDeletePortalsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<McpPortalsApiDeletePortalsResponses, McpPortalsApiDeletePortalsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -143,11 +143,13 @@ export class McpPortalService {
     
     /**
      * Read details of an MCP Portal
+     *
+     * Read the details of a single MCP Portal, including its configured servers.
      */
     public static mcpPortalsApiFetchGateways<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiFetchGatewaysResponses, McpPortalsApiFetchGatewaysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<McpPortalsApiFetchGatewaysResponses, McpPortalsApiFetchGatewaysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -200,7 +202,7 @@ export class McpPortalService {
                 name: string;
             }>;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiUpdatePortalsResponses, McpPortalsApiUpdatePortalsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -231,6 +233,39 @@ export class McpPortalService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Resolve the OAuth redirect_uri the admin must register at the upstream
+     *
+     * Returns the redirect URI the gateway will actually send to the upstream OAuth provider for this (portal, server) pair. Stable for the lifetime of the configuration unless MCP-22 rollout state changes. Use this value verbatim when registering the OAuth app at the upstream.
+     */
+    public static mcpPortalsApiEffectiveRedirectUri<ThrowOnError extends boolean = true>(parameters: {
+        portal_id: string;
+        server_id: string;
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiEffectiveRedirectUriResponses, McpPortalsApiEffectiveRedirectUriErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'portal_id' },
+                    { in: 'path', key: 'server_id' },
+                    { in: 'path', key: 'account_id' }
+                ] }]);
+        return (options?.client ?? client).get<McpPortalsApiEffectiveRedirectUriResponses, McpPortalsApiEffectiveRedirectUriErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zMcpPortalsApiEffectiveRedirectUriPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMcpPortalsApiEffectiveRedirectUriResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/access/ai-controls/mcp/portals/{portal_id}/servers/{server_id}/effective-redirect-uri',
+            ...options,
+            ...params
         });
     }
 }

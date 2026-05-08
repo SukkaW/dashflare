@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AiSearchCreateTokensErrors, AiSearchCreateTokensResponses, AiSearchDeleteTokensErrors, AiSearchDeleteTokensResponses, AiSearchFetchTokensErrors, AiSearchFetchTokensResponses, AiSearchListTokensErrors, AiSearchListTokensResponses, AiSearchUpdateTokensErrors, AiSearchUpdateTokensResponses } from '../types.gen';
@@ -12,16 +12,16 @@ import { zAiSearchCreateTokensBody, zAiSearchCreateTokensPath, zAiSearchCreateTo
 
 export class AiSearchTokensService {
     /**
-     * List tokens.
+     * List tokens
      *
-     * List tokens.
+     * List stored AI Search credentials in the account without exposing their secrets.
      */
     public static aiSearchListTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         page?: number;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchListTokensResponses, AiSearchListTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -47,9 +47,9 @@ export class AiSearchTokensService {
     }
     
     /**
-     * Create token.
+     * Create a token
      *
-     * Create a new token.
+     * Create a stored Cloudflare credential for an AI Search instance to access its data source.
      */
     public static aiSearchCreateTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -57,7 +57,7 @@ export class AiSearchTokensService {
         cf_api_key: string;
         legacy?: boolean;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchCreateTokensResponses, AiSearchCreateTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'cf_api_id' },
@@ -89,14 +89,14 @@ export class AiSearchTokensService {
     }
     
     /**
-     * Delete token.
+     * Delete a token
      *
-     * Delete token.
+     * Permanently delete a stored AI Search credential. Credentials in use by an instance cannot be deleted.
      */
     public static aiSearchDeleteTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchDeleteTokensResponses, AiSearchDeleteTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<AiSearchDeleteTokensResponses, AiSearchDeleteTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -117,14 +117,14 @@ export class AiSearchTokensService {
     }
     
     /**
-     * Read token.
+     * Get a token
      *
-     * Read token.
+     * Retrieve a stored AI Search credential without exposing its secret.
      */
     public static aiSearchFetchTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchFetchTokensResponses, AiSearchFetchTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<AiSearchFetchTokensResponses, AiSearchFetchTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -145,9 +145,9 @@ export class AiSearchTokensService {
     }
     
     /**
-     * Update token.
+     * Update a token
      *
-     * Update token.
+     * Replace a stored AI Search credential and invalidate cached credentials for instances that use it.
      */
     public static aiSearchUpdateTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -156,7 +156,7 @@ export class AiSearchTokensService {
         cf_api_key: string;
         legacy?: boolean;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchUpdateTokensResponses, AiSearchUpdateTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },

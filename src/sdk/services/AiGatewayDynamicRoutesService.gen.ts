@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigDeleteGatewayDynamicRouteErrors, AigConfigDeleteGatewayDynamicRouteResponses, AigConfigGetGatewayDynamicRouteErrors, AigConfigGetGatewayDynamicRouteResponses, AigConfigGetGatewayDynamicRouteVersionErrors, AigConfigGetGatewayDynamicRouteVersionResponses, AigConfigListGatewayDynamicRouteDeploymentsErrors, AigConfigListGatewayDynamicRouteDeploymentsResponses, AigConfigListGatewayDynamicRoutesErrors, AigConfigListGatewayDynamicRoutesResponses, AigConfigListGatewayDynamicRouteVersionsErrors, AigConfigListGatewayDynamicRouteVersionsResponses, AigConfigPostGatewayDynamicRouteDeploymentErrors, AigConfigPostGatewayDynamicRouteDeploymentResponses, AigConfigPostGatewayDynamicRouteErrors, AigConfigPostGatewayDynamicRouteResponses, AigConfigPostGatewayDynamicRouteVersionErrors, AigConfigPostGatewayDynamicRouteVersionResponses, AigConfigUpdateGatewayDynamicRouteErrors, AigConfigUpdateGatewayDynamicRouteResponses } from '../types.gen';
-import { zAigConfigDeleteGatewayDynamicRoutePath, zAigConfigDeleteGatewayDynamicRouteResponse, zAigConfigGetGatewayDynamicRoutePath, zAigConfigGetGatewayDynamicRouteResponse, zAigConfigGetGatewayDynamicRouteVersionPath, zAigConfigGetGatewayDynamicRouteVersionResponse, zAigConfigListGatewayDynamicRouteDeploymentsPath, zAigConfigListGatewayDynamicRouteDeploymentsResponse, zAigConfigListGatewayDynamicRoutesPath, zAigConfigListGatewayDynamicRoutesResponse, zAigConfigListGatewayDynamicRouteVersionsPath, zAigConfigListGatewayDynamicRouteVersionsResponse, zAigConfigPostGatewayDynamicRouteBody, zAigConfigPostGatewayDynamicRouteDeploymentBody, zAigConfigPostGatewayDynamicRouteDeploymentPath, zAigConfigPostGatewayDynamicRouteDeploymentResponse, zAigConfigPostGatewayDynamicRoutePath, zAigConfigPostGatewayDynamicRouteResponse, zAigConfigPostGatewayDynamicRouteVersionBody, zAigConfigPostGatewayDynamicRouteVersionPath, zAigConfigPostGatewayDynamicRouteVersionResponse, zAigConfigUpdateGatewayDynamicRouteBody, zAigConfigUpdateGatewayDynamicRoutePath, zAigConfigUpdateGatewayDynamicRouteResponse } from '../zod.gen';
+import { zAigConfigDeleteGatewayDynamicRoutePath, zAigConfigDeleteGatewayDynamicRouteResponse, zAigConfigGetGatewayDynamicRoutePath, zAigConfigGetGatewayDynamicRouteResponse, zAigConfigGetGatewayDynamicRouteVersionPath, zAigConfigGetGatewayDynamicRouteVersionResponse, zAigConfigListGatewayDynamicRouteDeploymentsPath, zAigConfigListGatewayDynamicRouteDeploymentsResponse, zAigConfigListGatewayDynamicRoutesPath, zAigConfigListGatewayDynamicRoutesQuery, zAigConfigListGatewayDynamicRoutesResponse, zAigConfigListGatewayDynamicRouteVersionsPath, zAigConfigListGatewayDynamicRouteVersionsResponse, zAigConfigPostGatewayDynamicRouteBody, zAigConfigPostGatewayDynamicRouteDeploymentBody, zAigConfigPostGatewayDynamicRouteDeploymentPath, zAigConfigPostGatewayDynamicRouteDeploymentResponse, zAigConfigPostGatewayDynamicRoutePath, zAigConfigPostGatewayDynamicRouteResponse, zAigConfigPostGatewayDynamicRouteVersionBody, zAigConfigPostGatewayDynamicRouteVersionPath, zAigConfigPostGatewayDynamicRouteVersionResponse, zAigConfigUpdateGatewayDynamicRouteBody, zAigConfigUpdateGatewayDynamicRoutePath, zAigConfigUpdateGatewayDynamicRouteResponse } from '../zod.gen';
 
 export class AiGatewayDynamicRoutesService {
     /**
@@ -19,13 +19,20 @@ export class AiGatewayDynamicRoutesService {
     public static aigConfigListGatewayDynamicRoutes<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         gateway_id: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'gateway_id' }] }]);
+        page?: number;
+        per_page?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListGatewayDynamicRoutesResponses, AigConfigListGatewayDynamicRoutesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'gateway_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' }
+                ] }]);
         return (options?.client ?? client).get<AigConfigListGatewayDynamicRoutesResponses, AigConfigListGatewayDynamicRoutesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zAigConfigListGatewayDynamicRoutesPath,
-                query: z.never().optional()
+                query: zAigConfigListGatewayDynamicRoutesQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zAigConfigListGatewayDynamicRoutesResponse.parseAsync(data),
             security: [
@@ -123,7 +130,7 @@ export class AiGatewayDynamicRoutesService {
             type: 'end';
         }>;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigPostGatewayDynamicRouteResponses, AigConfigPostGatewayDynamicRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -162,7 +169,7 @@ export class AiGatewayDynamicRoutesService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteGatewayDynamicRouteResponses, AigConfigDeleteGatewayDynamicRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -195,7 +202,7 @@ export class AiGatewayDynamicRoutesService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayDynamicRouteResponses, AigConfigGetGatewayDynamicRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -229,7 +236,7 @@ export class AiGatewayDynamicRoutesService {
         gateway_id: string;
         id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigUpdateGatewayDynamicRouteResponses, AigConfigUpdateGatewayDynamicRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -268,7 +275,7 @@ export class AiGatewayDynamicRoutesService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListGatewayDynamicRouteDeploymentsResponses, AigConfigListGatewayDynamicRouteDeploymentsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -302,7 +309,7 @@ export class AiGatewayDynamicRoutesService {
         gateway_id: string;
         id: string;
         version_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigPostGatewayDynamicRouteDeploymentResponses, AigConfigPostGatewayDynamicRouteDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -341,7 +348,7 @@ export class AiGatewayDynamicRoutesService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListGatewayDynamicRouteVersionsResponses, AigConfigListGatewayDynamicRouteVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -449,7 +456,7 @@ export class AiGatewayDynamicRoutesService {
             };
             type: 'end';
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigPostGatewayDynamicRouteVersionResponses, AigConfigPostGatewayDynamicRouteVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -489,7 +496,7 @@ export class AiGatewayDynamicRoutesService {
         gateway_id: string;
         id: string;
         version_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayDynamicRouteVersionResponses, AigConfigGetGatewayDynamicRouteVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },

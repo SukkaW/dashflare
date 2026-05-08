@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetOriginDetailsErrors, RadarGetOriginDetailsResponses, RadarGetOriginsErrors, RadarGetOriginsResponses, RadarGetOriginsSummaryErrors, RadarGetOriginsSummaryResponses, RadarGetOriginsTimeseriesErrors, RadarGetOriginsTimeseriesGroupErrors, RadarGetOriginsTimeseriesGroupResponses, RadarGetOriginsTimeseriesResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class RadarOriginsService {
         limit?: number;
         offset?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginsResponses, RadarGetOriginsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -60,7 +60,7 @@ export class RadarOriginsService {
         metric: 'CONNECTION_FAILURES' | 'REQUESTS' | 'RESPONSE_HEADER_RECEIVE_DURATION' | 'TCP_HANDSHAKE_DURATION' | 'TCP_RTT' | 'TLS_HANDSHAKE_DURATION';
         region?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginsSummaryResponses, RadarGetOriginsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -106,7 +106,7 @@ export class RadarOriginsService {
         metric: 'CONNECTION_FAILURES' | 'REQUESTS' | 'RESPONSE_HEADER_RECEIVE_DURATION' | 'TCP_HANDSHAKE_DURATION' | 'TCP_RTT' | 'TLS_HANDSHAKE_DURATION';
         region?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginsTimeseriesResponses, RadarGetOriginsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -154,7 +154,7 @@ export class RadarOriginsService {
         region?: Array<string>;
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginsTimeseriesGroupResponses, RadarGetOriginsTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -195,7 +195,7 @@ export class RadarOriginsService {
     public static radarGetOriginDetails<ThrowOnError extends boolean = true>(parameters: {
         slug: 'AMAZON' | 'GOOGLE' | 'MICROSOFT' | 'ORACLE';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginDetailsResponses, RadarGetOriginDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'slug' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetOriginDetailsResponses, RadarGetOriginDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

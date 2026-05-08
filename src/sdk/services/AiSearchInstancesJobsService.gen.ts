@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AiSearchInstanceChangeJobStatusErrors, AiSearchInstanceChangeJobStatusResponses, AiSearchInstanceCreateJobErrors, AiSearchInstanceCreateJobResponses, AiSearchInstanceGetJobErrors, AiSearchInstanceGetJobResponses, AiSearchInstanceListJobLogsErrors, AiSearchInstanceListJobLogsResponses, AiSearchInstanceListJobsErrors, AiSearchInstanceListJobsResponses, AiSearchNamespaceInstanceChangeJobStatusErrors, AiSearchNamespaceInstanceChangeJobStatusResponses, AiSearchNamespaceInstanceCreateJobErrors, AiSearchNamespaceInstanceCreateJobResponses, AiSearchNamespaceInstanceGetJobErrors, AiSearchNamespaceInstanceGetJobResponses, AiSearchNamespaceInstanceListJobLogsErrors, AiSearchNamespaceInstanceListJobLogsResponses, AiSearchNamespaceInstanceListJobsErrors, AiSearchNamespaceInstanceListJobsResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class AiSearchInstancesJobsService {
         account_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceListJobsResponses, AiSearchInstanceListJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -55,7 +55,7 @@ export class AiSearchInstancesJobsService {
         id: string;
         account_id: string;
         description?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceCreateJobResponses, AiSearchInstanceCreateJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -93,7 +93,7 @@ export class AiSearchInstancesJobsService {
         id: string;
         job_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceGetJobResponses, AiSearchInstanceGetJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -118,16 +118,16 @@ export class AiSearchInstancesJobsService {
     }
     
     /**
-     * Change Job Status
+     * Cancel an indexing job.
      *
-     * Updates the status of an AI Search indexing job.
+     * Cancel an in-progress indexing job for an AI Search instance.
      */
     public static aiSearchInstanceChangeJobStatus<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         job_id: string;
         account_id: string;
         action: 'cancel';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceChangeJobStatusResponses, AiSearchInstanceChangeJobStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -168,7 +168,7 @@ export class AiSearchInstancesJobsService {
         account_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceListJobLogsResponses, AiSearchInstanceListJobLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -205,7 +205,7 @@ export class AiSearchInstancesJobsService {
         name: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceListJobsResponses, AiSearchNamespaceInstanceListJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -241,7 +241,7 @@ export class AiSearchInstancesJobsService {
         account_id: string;
         name: string;
         description?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceCreateJobResponses, AiSearchNamespaceInstanceCreateJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -281,7 +281,7 @@ export class AiSearchInstancesJobsService {
         job_id: string;
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceGetJobResponses, AiSearchNamespaceInstanceGetJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -307,9 +307,9 @@ export class AiSearchInstancesJobsService {
     }
     
     /**
-     * Change Job Status
+     * Cancel an indexing job.
      *
-     * Updates the status of an AI Search indexing job.
+     * Cancel an in-progress indexing job for an AI Search instance.
      */
     public static aiSearchNamespaceInstanceChangeJobStatus<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -317,7 +317,7 @@ export class AiSearchInstancesJobsService {
         account_id: string;
         name: string;
         action: 'cancel';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceChangeJobStatusResponses, AiSearchNamespaceInstanceChangeJobStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -360,7 +360,7 @@ export class AiSearchInstancesJobsService {
         name: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceListJobLogsResponses, AiSearchNamespaceInstanceListJobLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },

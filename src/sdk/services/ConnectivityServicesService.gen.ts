@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ConnectivityServicesDeleteErrors, ConnectivityServicesDeleteResponses, ConnectivityServicesGetErrors, ConnectivityServicesGetResponses, ConnectivityServicesListErrors, ConnectivityServicesListResponses, ConnectivityServicesPostErrors, ConnectivityServicesPostResponses, ConnectivityServicesPutErrors, ConnectivityServicesPutResponses, InfraAccountTag, InfraServiceConfigWritable, InfraServiceType } from '../types.gen';
@@ -19,7 +19,7 @@ export class ConnectivityServicesService {
         type?: InfraServiceType | null;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ConnectivityServicesListResponses, ConnectivityServicesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'type' },
@@ -50,7 +50,7 @@ export class ConnectivityServicesService {
     public static connectivityServicesPost<ThrowOnError extends boolean = true>(parameters: {
         account_id: InfraAccountTag;
         infraServiceConfigWritable: InfraServiceConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ConnectivityServicesPostResponses, ConnectivityServicesPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'infraServiceConfigWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<ConnectivityServicesPostResponses, ConnectivityServicesPostErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class ConnectivityServicesService {
     public static connectivityServicesDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         service_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ConnectivityServicesDeleteResponses, ConnectivityServicesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'service_id' }] }]);
         return (options?.client ?? client).delete<ConnectivityServicesDeleteResponses, ConnectivityServicesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ConnectivityServicesService {
     public static connectivityServicesGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         service_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ConnectivityServicesGetResponses, ConnectivityServicesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'service_id' }] }]);
         return (options?.client ?? client).get<ConnectivityServicesGetResponses, ConnectivityServicesGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -133,7 +133,7 @@ export class ConnectivityServicesService {
         account_id: string;
         service_id: string;
         infraServiceConfigWritable: InfraServiceConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ConnectivityServicesPutResponses, ConnectivityServicesPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'service_id' },

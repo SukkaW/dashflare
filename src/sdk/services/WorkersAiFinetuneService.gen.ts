@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkersAiCreateFinetuneErrors, WorkersAiCreateFinetuneResponses, WorkersAiListFinetunesErrors, WorkersAiListFinetunesResponses, WorkersAiListPublicFinetunesErrors, WorkersAiListPublicFinetunesResponses, WorkersAiUploadFinetuneAssetErrors, WorkersAiUploadFinetuneAssetResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class WorkersAiFinetuneService {
      */
     public static workersAiListFinetunes<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiListFinetunesResponses, WorkersAiListFinetunesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkersAiListFinetunesResponses, WorkersAiListFinetunesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class WorkersAiFinetuneService {
         model: string;
         name: string;
         public?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiCreateFinetuneResponses, WorkersAiCreateFinetuneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -90,7 +90,7 @@ export class WorkersAiFinetuneService {
         limit?: number;
         offset?: number;
         orderBy?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiListPublicFinetunesResponses, WorkersAiListPublicFinetunesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },
@@ -125,7 +125,7 @@ export class WorkersAiFinetuneService {
         finetune_id: string;
         file: Blob | File;
         file_name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiUploadFinetuneAssetResponses, WorkersAiUploadFinetuneAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'finetune_id' },

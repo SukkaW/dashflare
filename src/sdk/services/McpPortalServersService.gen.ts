@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { McpPortalsApiCreateServersErrors, McpPortalsApiCreateServersResponses, McpPortalsApiDeleteServersErrors, McpPortalsApiDeleteServersResponses, McpPortalsApiFetchServersErrors, McpPortalsApiFetchServersResponses, McpPortalsApiListServersErrors, McpPortalsApiListServersResponses, McpPortalsApiSyncServerErrors, McpPortalsApiSyncServerResponses, McpPortalsApiUpdateServersErrors, McpPortalsApiUpdateServersResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class McpPortalServersService {
         page?: number;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiListServersResponses, McpPortalsApiListServersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -55,10 +55,13 @@ export class McpPortalServersService {
         account_id: string;
         auth_credentials?: string;
         auth_type: 'oauth' | 'bearer' | 'unauthenticated';
+        client_secret?: string;
         description?: string | null;
         hostname: string;
         id: string;
+        is_shared_oauth_callback_enabled?: boolean;
         name: string;
+        secure_web_gateway?: boolean;
         updated_prompts?: Array<{
             alias?: string;
             description?: string;
@@ -71,15 +74,18 @@ export class McpPortalServersService {
             enabled?: boolean;
             name: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiCreateServersResponses, McpPortalsApiCreateServersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'auth_credentials' },
                     { in: 'body', key: 'auth_type' },
+                    { in: 'body', key: 'client_secret' },
                     { in: 'body', key: 'description' },
                     { in: 'body', key: 'hostname' },
                     { in: 'body', key: 'id' },
+                    { in: 'body', key: 'is_shared_oauth_callback_enabled' },
                     { in: 'body', key: 'name' },
+                    { in: 'body', key: 'secure_web_gateway' },
                     { in: 'body', key: 'updated_prompts' },
                     { in: 'body', key: 'updated_tools' }
                 ] }]);
@@ -114,7 +120,7 @@ export class McpPortalServersService {
     public static mcpPortalsApiDeleteServers<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiDeleteServersResponses, McpPortalsApiDeleteServersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<McpPortalsApiDeleteServersResponses, McpPortalsApiDeleteServersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,7 +148,7 @@ export class McpPortalServersService {
     public static mcpPortalsApiFetchServers<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiFetchServersResponses, McpPortalsApiFetchServersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<McpPortalsApiFetchServersResponses, McpPortalsApiFetchServersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -171,8 +177,11 @@ export class McpPortalServersService {
         id: string;
         account_id: string;
         auth_credentials?: string;
+        client_secret?: string;
         description?: string | null;
+        is_shared_oauth_callback_enabled?: boolean;
         name?: string;
+        secure_web_gateway?: boolean;
         updated_prompts?: Array<{
             alias?: string;
             description?: string;
@@ -185,13 +194,16 @@ export class McpPortalServersService {
             enabled?: boolean;
             name: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiUpdateServersResponses, McpPortalsApiUpdateServersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'auth_credentials' },
+                    { in: 'body', key: 'client_secret' },
                     { in: 'body', key: 'description' },
+                    { in: 'body', key: 'is_shared_oauth_callback_enabled' },
                     { in: 'body', key: 'name' },
+                    { in: 'body', key: 'secure_web_gateway' },
                     { in: 'body', key: 'updated_prompts' },
                     { in: 'body', key: 'updated_tools' }
                 ] }]);
@@ -221,12 +233,12 @@ export class McpPortalServersService {
     /**
      * Sync MCP Server Capabilities
      *
-     * Syncs an MCP server's tool catalog with the portal.
+     * Syncs an MCP server's capabilities and returns the updated server state, including any connection errors.
      */
     public static mcpPortalsApiSyncServer<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<McpPortalsApiSyncServerResponses, McpPortalsApiSyncServerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<McpPortalsApiSyncServerResponses, McpPortalsApiSyncServerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

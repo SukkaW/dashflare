@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayComponentsSchemasUuid, ZeroTrustGatewayIps, ZeroTrustGatewayProxyEndpointIdentityCreate, ZeroTrustGatewayProxyEndpointIpCreate, ZeroTrustGatewayProxyEndpointsComponentsSchemasName, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsListProxyEndpointsErrors, ZeroTrustGatewayProxyEndpointsListProxyEndpointsResponses, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsErrors, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsResponses, ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointResponses, ZeroTrustGatewaySchemasIdentifier } from '../types.gen';
+import type { ZeroTrustGatewayIdentifier2, ZeroTrustGatewayIps, ZeroTrustGatewayName6, ZeroTrustGatewayProxyEndpointIdentityCreate, ZeroTrustGatewayProxyEndpointIpCreate, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsListProxyEndpointsErrors, ZeroTrustGatewayProxyEndpointsListProxyEndpointsResponses, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsErrors, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsResponses, ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointErrors, ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointResponses, ZeroTrustGatewayUuid3 } from '../types.gen';
 import { zZeroTrustGatewayProxyEndpointsCreateProxyEndpointBody, zZeroTrustGatewayProxyEndpointsCreateProxyEndpointPath, zZeroTrustGatewayProxyEndpointsCreateProxyEndpointResponse, zZeroTrustGatewayProxyEndpointsDeleteProxyEndpointBody, zZeroTrustGatewayProxyEndpointsDeleteProxyEndpointPath, zZeroTrustGatewayProxyEndpointsDeleteProxyEndpointResponse, zZeroTrustGatewayProxyEndpointsListProxyEndpointsPath, zZeroTrustGatewayProxyEndpointsListProxyEndpointsResponse, zZeroTrustGatewayProxyEndpointsProxyEndpointDetailsPath, zZeroTrustGatewayProxyEndpointsProxyEndpointDetailsResponse, zZeroTrustGatewayProxyEndpointsUpdateProxyEndpointBody, zZeroTrustGatewayProxyEndpointsUpdateProxyEndpointPath, zZeroTrustGatewayProxyEndpointsUpdateProxyEndpointResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayProxyEndpointsService {
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayProxyEndpointsService {
      * List all Zero Trust Gateway proxy endpoints for an account.
      */
     public static zeroTrustGatewayProxyEndpointsListProxyEndpoints<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayProxyEndpointsListProxyEndpointsResponses, ZeroTrustGatewayProxyEndpointsListProxyEndpointsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayProxyEndpointsListProxyEndpointsResponses, ZeroTrustGatewayProxyEndpointsListProxyEndpointsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,18 +44,14 @@ export class ZeroTrustGatewayProxyEndpointsService {
      * Create a new Zero Trust Gateway proxy endpoint.
      */
     public static zeroTrustGatewayProxyEndpointsCreateProxyEndpoint<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-        body: (({
-            kind: 'ip';
-        } & ZeroTrustGatewayProxyEndpointIpCreate) | ({
-            kind: 'identity';
-        } & ZeroTrustGatewayProxyEndpointIdentityCreate)) & {
+        account_id: ZeroTrustGatewayIdentifier2;
+        body: (ZeroTrustGatewayProxyEndpointIpCreate | ZeroTrustGatewayProxyEndpointIdentityCreate) & {
             /**
              * The proxy endpoint kind.
              */
             kind?: 'ip' | 'identity';
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayProxyEndpointsCreateProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<ZeroTrustGatewayProxyEndpointsCreateProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsCreateProxyEndpointErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -86,10 +82,10 @@ export class ZeroTrustGatewayProxyEndpointsService {
      * Delete a configured Zero Trust Gateway proxy endpoint.
      */
     public static zeroTrustGatewayProxyEndpointsDeleteProxyEndpoint<ThrowOnError extends boolean = true>(parameters: {
-        proxy_endpoint_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        proxy_endpoint_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsDeleteProxyEndpointErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'proxy_endpoint_id' },
                     { in: 'path', key: 'account_id' },
@@ -124,9 +120,9 @@ export class ZeroTrustGatewayProxyEndpointsService {
      * Get a single Zero Trust Gateway proxy endpoint.
      */
     public static zeroTrustGatewayProxyEndpointsProxyEndpointDetails<ThrowOnError extends boolean = true>(parameters: {
-        proxy_endpoint_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        proxy_endpoint_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsResponses, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'proxy_endpoint_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsResponses, ZeroTrustGatewayProxyEndpointsProxyEndpointDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,11 +148,11 @@ export class ZeroTrustGatewayProxyEndpointsService {
      * Update a configured Zero Trust Gateway proxy endpoint.
      */
     public static zeroTrustGatewayProxyEndpointsUpdateProxyEndpoint<ThrowOnError extends boolean = true>(parameters: {
-        proxy_endpoint_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        proxy_endpoint_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
         ips?: ZeroTrustGatewayIps;
-        name?: ZeroTrustGatewayProxyEndpointsComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name?: ZeroTrustGatewayName6;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointResponses, ZeroTrustGatewayProxyEndpointsUpdateProxyEndpointErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'proxy_endpoint_id' },
                     { in: 'path', key: 'account_id' },

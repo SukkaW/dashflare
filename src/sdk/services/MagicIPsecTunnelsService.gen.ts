@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { MagicIdentifier, MagicIpsecTunnelAddRequestWritable, MagicIpsecTunnelAddSingleRequestWritable, MagicIpsecTunnelsCreateIpsecTunnelsErrors, MagicIpsecTunnelsCreateIpsecTunnelsResponses, MagicIpsecTunnelsDeleteIpsecTunnelErrors, MagicIpsecTunnelsDeleteIpsecTunnelResponses, MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsErrors, MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsResponses, MagicIpsecTunnelsListIpsecTunnelDetailsErrors, MagicIpsecTunnelsListIpsecTunnelDetailsResponses, MagicIpsecTunnelsListIpsecTunnelsErrors, MagicIpsecTunnelsListIpsecTunnelsResponses, MagicIpsecTunnelsUpdateIpsecTunnelErrors, MagicIpsecTunnelsUpdateIpsecTunnelResponses, MagicIpsecTunnelsUpdateMultipleIpsecTunnelsErrors, MagicIpsecTunnelsUpdateMultipleIpsecTunnelsResponses } from '../types.gen';
-import { zMagicIpsecTunnelsCreateIpsecTunnelsBody, zMagicIpsecTunnelsCreateIpsecTunnelsHeaders, zMagicIpsecTunnelsCreateIpsecTunnelsPath, zMagicIpsecTunnelsCreateIpsecTunnelsResponse, zMagicIpsecTunnelsDeleteIpsecTunnelBody, zMagicIpsecTunnelsDeleteIpsecTunnelHeaders, zMagicIpsecTunnelsDeleteIpsecTunnelPath, zMagicIpsecTunnelsDeleteIpsecTunnelResponse, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsBody, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsPath, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsResponse, zMagicIpsecTunnelsListIpsecTunnelDetailsHeaders, zMagicIpsecTunnelsListIpsecTunnelDetailsPath, zMagicIpsecTunnelsListIpsecTunnelDetailsResponse, zMagicIpsecTunnelsListIpsecTunnelsHeaders, zMagicIpsecTunnelsListIpsecTunnelsPath, zMagicIpsecTunnelsListIpsecTunnelsResponse, zMagicIpsecTunnelsUpdateIpsecTunnelBody, zMagicIpsecTunnelsUpdateIpsecTunnelHeaders, zMagicIpsecTunnelsUpdateIpsecTunnelPath, zMagicIpsecTunnelsUpdateIpsecTunnelResponse, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsBody, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsHeaders, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsPath, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsResponse } from '../zod.gen';
+import type { MagicIdentifier, MagicIpsecTunnelAddRequestWritable, MagicIpsecTunnelAddSingleRequestWritable, MagicIpsecTunnelsCreateIpsecTunnelsErrors, MagicIpsecTunnelsCreateIpsecTunnelsResponses, MagicIpsecTunnelsDeleteIpsecTunnelErrors, MagicIpsecTunnelsDeleteIpsecTunnelResponses, MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsErrors, MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsResponses, MagicIpsecTunnelsListIpsecTunnelDetailsErrors, MagicIpsecTunnelsListIpsecTunnelDetailsResponses, MagicIpsecTunnelsListIpsecTunnelsErrors, MagicIpsecTunnelsListIpsecTunnelsResponses, MagicIpsecTunnelsPskRequestWritable, MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsErrors, MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsResponses, MagicIpsecTunnelsUpdateIpsecTunnelErrors, MagicIpsecTunnelsUpdateIpsecTunnelResponses, MagicIpsecTunnelsUpdateMultipleIpsecTunnelsErrors, MagicIpsecTunnelsUpdateMultipleIpsecTunnelsResponses } from '../types.gen';
+import { zMagicIpsecTunnelsCreateIpsecTunnelsBody, zMagicIpsecTunnelsCreateIpsecTunnelsHeaders, zMagicIpsecTunnelsCreateIpsecTunnelsPath, zMagicIpsecTunnelsCreateIpsecTunnelsResponse, zMagicIpsecTunnelsDeleteIpsecTunnelBody, zMagicIpsecTunnelsDeleteIpsecTunnelHeaders, zMagicIpsecTunnelsDeleteIpsecTunnelPath, zMagicIpsecTunnelsDeleteIpsecTunnelResponse, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsBody, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsPath, zMagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsResponse, zMagicIpsecTunnelsListIpsecTunnelDetailsHeaders, zMagicIpsecTunnelsListIpsecTunnelDetailsPath, zMagicIpsecTunnelsListIpsecTunnelDetailsResponse, zMagicIpsecTunnelsListIpsecTunnelsHeaders, zMagicIpsecTunnelsListIpsecTunnelsPath, zMagicIpsecTunnelsListIpsecTunnelsResponse, zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsBody, zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsPath, zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsQuery, zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsResponse, zMagicIpsecTunnelsUpdateIpsecTunnelBody, zMagicIpsecTunnelsUpdateIpsecTunnelHeaders, zMagicIpsecTunnelsUpdateIpsecTunnelPath, zMagicIpsecTunnelsUpdateIpsecTunnelResponse, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsBody, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsHeaders, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsPath, zMagicIpsecTunnelsUpdateMultipleIpsecTunnelsResponse } from '../zod.gen';
 
 export class MagicIPsecTunnelsService {
     /**
@@ -19,7 +19,7 @@ export class MagicIPsecTunnelsService {
     public static magicIpsecTunnelsListIpsecTunnels<ThrowOnError extends boolean = true>(parameters: {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsListIpsecTunnelsResponses, MagicIpsecTunnelsListIpsecTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-magic-new-hc-target' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicIpsecTunnelsListIpsecTunnelsResponses, MagicIpsecTunnelsListIpsecTunnelsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class MagicIPsecTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
         magicIpsecTunnelAddRequestWritable: MagicIpsecTunnelAddRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsCreateIpsecTunnelsResponses, MagicIpsecTunnelsCreateIpsecTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'account_id' },
@@ -88,7 +88,7 @@ export class MagicIPsecTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsUpdateMultipleIpsecTunnelsResponses, MagicIpsecTunnelsUpdateMultipleIpsecTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'account_id' },
@@ -119,6 +119,44 @@ export class MagicIPsecTunnelsService {
     }
     
     /**
+     * Set Pre-Shared Keys (PSK) for IPsec tunnels
+     *
+     * Sets Pre-Shared Keys for multiple IPsec tunnels associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes. After PSKs are applied, they are immediately persisted to Cloudflare's edge and cannot be retrieved later. Store the PSKs in a safe place.
+     */
+    public static magicIpsecTunnelsSetPreSharedKeysForIpsecTunnels<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MagicIdentifier;
+        validate_only?: boolean;
+        magicIpsecTunnelsPskRequestWritable: MagicIpsecTunnelsPskRequestWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsResponses, MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'validate_only' },
+                    { key: 'magicIpsecTunnelsPskRequestWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsResponses, MagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsBody,
+                path: zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsPath,
+                query: zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMagicIpsecTunnelsSetPreSharedKeysForIpsecTunnelsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/magic/ipsec_tunnels/psk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete IPsec Tunnel
      *
      * Disables and removes a specific static IPsec Tunnel associated with an account. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes.
@@ -128,7 +166,7 @@ export class MagicIPsecTunnelsService {
         ipsec_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsDeleteIpsecTunnelResponses, MagicIpsecTunnelsDeleteIpsecTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'ipsec_tunnel_id' },
@@ -168,7 +206,7 @@ export class MagicIPsecTunnelsService {
         'x-magic-new-hc-target'?: boolean;
         ipsec_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsListIpsecTunnelDetailsResponses, MagicIpsecTunnelsListIpsecTunnelDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'ipsec_tunnel_id' },
@@ -203,7 +241,7 @@ export class MagicIPsecTunnelsService {
         ipsec_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
         magicIpsecTunnelAddSingleRequestWritable: MagicIpsecTunnelAddSingleRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsUpdateIpsecTunnelResponses, MagicIpsecTunnelsUpdateIpsecTunnelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'ipsec_tunnel_id' },
@@ -235,15 +273,15 @@ export class MagicIPsecTunnelsService {
     }
     
     /**
-     * Generate Pre Shared Key (PSK) for IPsec tunnels
+     * Generate Pre-Shared Key (PSK) for IPsec tunnels
      *
-     * Generates a Pre Shared Key for a specific IPsec tunnel used in the IKE session. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes. After a PSK is generated, the PSK is immediately persisted to Cloudflare's edge and cannot be retrieved later. Note the PSK in a safe place.
+     * Generates a Pre-Shared Key for a specific IPsec tunnel used in the IKE session. Use `?validate_only=true` as an optional query parameter to only run validation without persisting changes. After a PSK is generated, the PSK is immediately persisted to Cloudflare's edge and cannot be retrieved later. Store the PSK in a safe place.
      */
     public static magicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnels<ThrowOnError extends boolean = true>(parameters: {
         ipsec_tunnel_id: MagicIdentifier;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsResponses, MagicIpsecTunnelsGeneratePreSharedKeyPskForIpsecTunnelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ipsec_tunnel_id' },
                     { in: 'path', key: 'account_id' },

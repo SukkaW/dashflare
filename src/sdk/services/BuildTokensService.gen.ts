@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsBuildTokenUuid, BuildsCreateBuildTokenRequest, CreateBuildTokenResponses, DeleteBuildTokenErrors, DeleteBuildTokenResponses, ListBuildTokensResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class BuildTokensService {
         account_id: BuildsAccountId;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListBuildTokensResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class BuildTokensService {
     public static createBuildToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         buildsCreateBuildTokenRequest: BuildsCreateBuildTokenRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateBuildTokenResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'buildsCreateBuildTokenRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateBuildTokenResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class BuildTokensService {
     public static deleteBuildToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         build_token_uuid: BuildsBuildTokenUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteBuildTokenResponses, DeleteBuildTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'build_token_uuid' }] }]);
         return (options?.client ?? client).delete<DeleteBuildTokenResponses, DeleteBuildTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

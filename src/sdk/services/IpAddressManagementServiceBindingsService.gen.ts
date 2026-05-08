@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingCreateBindingRequest, AddressingPrefixIdentifier, AddressingServiceBindingIdentifier, IpAddressManagementServiceBindingsCreateServiceBindingErrors, IpAddressManagementServiceBindingsCreateServiceBindingResponses, IpAddressManagementServiceBindingsDeleteServiceBindingErrors, IpAddressManagementServiceBindingsDeleteServiceBindingResponses, IpAddressManagementServiceBindingsGetServiceBindingErrors, IpAddressManagementServiceBindingsGetServiceBindingResponses, IpAddressManagementServiceBindingsListServiceBindingsErrors, IpAddressManagementServiceBindingsListServiceBindingsResponses, IpAddressManagementServiceBindingsListServicesErrors, IpAddressManagementServiceBindingsListServicesResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class IpAddressManagementServiceBindingsService {
     public static ipAddressManagementServiceBindingsListServiceBindings<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementServiceBindingsListServiceBindingsResponses, IpAddressManagementServiceBindingsListServiceBindingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementServiceBindingsListServiceBindingsResponses, IpAddressManagementServiceBindingsListServiceBindingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class IpAddressManagementServiceBindingsService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         addressingCreateBindingRequest?: AddressingCreateBindingRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementServiceBindingsCreateServiceBindingResponses, IpAddressManagementServiceBindingsCreateServiceBindingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -82,7 +82,7 @@ export class IpAddressManagementServiceBindingsService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         binding_id: AddressingServiceBindingIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementServiceBindingsDeleteServiceBindingResponses, IpAddressManagementServiceBindingsDeleteServiceBindingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -111,7 +111,7 @@ export class IpAddressManagementServiceBindingsService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         binding_id: AddressingServiceBindingIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementServiceBindingsGetServiceBindingResponses, IpAddressManagementServiceBindingsGetServiceBindingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -139,7 +139,7 @@ export class IpAddressManagementServiceBindingsService {
      */
     public static ipAddressManagementServiceBindingsListServices<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementServiceBindingsListServicesResponses, IpAddressManagementServiceBindingsListServicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementServiceBindingsListServicesResponses, IpAddressManagementServiceBindingsListServicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

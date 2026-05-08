@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AaaAccountId, NotificationMechanismEligibilityGetDeliveryMechanismEligibilityErrors, NotificationMechanismEligibilityGetDeliveryMechanismEligibilityResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class NotificationMechanismEligibilityService {
      */
     public static notificationMechanismEligibilityGetDeliveryMechanismEligibility<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationMechanismEligibilityGetDeliveryMechanismEligibilityResponses, NotificationMechanismEligibilityGetDeliveryMechanismEligibilityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NotificationMechanismEligibilityGetDeliveryMechanismEligibilityResponses, NotificationMechanismEligibilityGetDeliveryMechanismEligibilityErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

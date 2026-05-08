@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetZonesZoneIdLogsControlRetentionFlagErrors, GetZonesZoneIdLogsControlRetentionFlagResponses, GetZonesZoneIdLogsRayidsRayIdErrors, GetZonesZoneIdLogsRayidsRayIdResponses, GetZonesZoneIdLogsReceivedErrors, GetZonesZoneIdLogsReceivedFieldsErrors, GetZonesZoneIdLogsReceivedFieldsResponses, GetZonesZoneIdLogsReceivedResponses, LogcontrolIdentifier, LogcontrolRetentionFlag, LogshareCount, LogshareEnd, LogshareFields, LogshareIdentifier, LogshareRayIdentifier, LogshareSample, LogshareStart, LogshareTimestamps, PostZonesZoneIdLogsControlRetentionFlagErrors, PostZonesZoneIdLogsControlRetentionFlagResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class LogsReceivedService {
      */
     public static getZonesZoneIdLogsControlRetentionFlag<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogcontrolIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogsControlRetentionFlagResponses, GetZonesZoneIdLogsControlRetentionFlagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogsControlRetentionFlagResponses, GetZonesZoneIdLogsControlRetentionFlagErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class LogsReceivedService {
     public static postZonesZoneIdLogsControlRetentionFlag<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogcontrolIdentifier;
         logcontrolRetentionFlag: LogcontrolRetentionFlag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogsControlRetentionFlagResponses, PostZonesZoneIdLogsControlRetentionFlagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'logcontrolRetentionFlag', map: 'body' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdLogsControlRetentionFlagResponses, PostZonesZoneIdLogsControlRetentionFlagErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class LogsReceivedService {
         ray_id: LogshareRayIdentifier;
         fields?: LogshareFields;
         timestamps?: LogshareTimestamps;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogsRayidsRayIdResponses, GetZonesZoneIdLogsRayidsRayIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'ray_id' },
@@ -119,7 +119,7 @@ export class LogsReceivedService {
         sample?: LogshareSample;
         count?: LogshareCount;
         timestamps?: LogshareTimestamps;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogsReceivedResponses, GetZonesZoneIdLogsReceivedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'start' },
@@ -154,7 +154,7 @@ export class LogsReceivedService {
      */
     public static getZonesZoneIdLogsReceivedFields<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogshareIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogsReceivedFieldsResponses, GetZonesZoneIdLogsReceivedFieldsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogsReceivedFieldsResponses, GetZonesZoneIdLogsReceivedFieldsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

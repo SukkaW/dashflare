@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WafManagedRulesComponentsSchemasIdentifier, WafManagedRulesIdentifier, WafManagedRulesSchemasIdentifier, WafRulesGetAWafRuleErrors, WafRulesGetAWafRuleResponses, WafRulesListWafRulesErrors, WafRulesListWafRulesResponses, WafRulesUpdateAWafRuleErrors, WafRulesUpdateAWafRuleResponses } from '../types.gen';
@@ -32,7 +32,7 @@ export class WafRulesService {
         match?: 'any' | 'all';
         description?: string;
         priority?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRulesListWafRulesResponses, WafRulesListWafRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'package_id' },
                     { in: 'path', key: 'zone_id' },
@@ -77,7 +77,7 @@ export class WafRulesService {
         rule_id: WafManagedRulesIdentifier;
         package_id: WafManagedRulesIdentifier;
         zone_id: WafManagedRulesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRulesGetAWafRuleResponses, WafRulesGetAWafRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'package_id' },
@@ -115,7 +115,7 @@ export class WafRulesService {
         package_id: WafManagedRulesIdentifier;
         zone_id: WafManagedRulesSchemasIdentifier;
         mode?: 'default' | 'disable' | 'simulate' | 'block' | 'challenge' | 'on' | 'off';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRulesUpdateAWafRuleResponses, WafRulesUpdateAWafRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'package_id' },

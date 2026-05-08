@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { NamespaceWorkerCreateErrors, NamespaceWorkerCreateResponses, NamespaceWorkerDeleteNamespaceErrors, NamespaceWorkerDeleteNamespaceResponses, NamespaceWorkerDeleteScriptSecretErrors, NamespaceWorkerDeleteScriptSecretResponses, NamespaceWorkerDeleteScriptsErrors, NamespaceWorkerDeleteScriptsResponses, NamespaceWorkerDeleteScriptTagErrors, NamespaceWorkerDeleteScriptTagResponses, NamespaceWorkerGetNamespaceErrors, NamespaceWorkerGetNamespaceResponses, NamespaceWorkerGetScriptBindingsErrors, NamespaceWorkerGetScriptBindingsResponses, NamespaceWorkerGetScriptContentErrors, NamespaceWorkerGetScriptContentResponses, NamespaceWorkerGetScriptSecretsErrors, NamespaceWorkerGetScriptSecretsResponses, NamespaceWorkerGetScriptSettingsErrors, NamespaceWorkerGetScriptSettingsResponses, NamespaceWorkerGetScriptTagsErrors, NamespaceWorkerGetScriptTagsResponses, NamespaceWorkerListErrors, NamespaceWorkerListResponses, NamespaceWorkerListScriptSecretsErrors, NamespaceWorkerListScriptSecretsResponses, NamespaceWorkerListScriptsErrors, NamespaceWorkerListScriptsResponses, NamespaceWorkerPatchNamespaceErrors, NamespaceWorkerPatchNamespaceResponses, NamespaceWorkerPatchScriptSettingsErrors, NamespaceWorkerPatchScriptSettingsResponses, NamespaceWorkerPutNamespaceErrors, NamespaceWorkerPutNamespaceResponses, NamespaceWorkerPutScriptContentErrors, NamespaceWorkerPutScriptContentResponses, NamespaceWorkerPutScriptSecretsErrors, NamespaceWorkerPutScriptSecretsResponses, NamespaceWorkerPutScriptTagErrors, NamespaceWorkerPutScriptTagResponses, NamespaceWorkerPutScriptTagsErrors, NamespaceWorkerPutScriptTagsResponses, NamespaceWorkerScriptDeleteWorkerErrors, NamespaceWorkerScriptDeleteWorkerResponses, NamespaceWorkerScriptUpdateCreateAssetsUploadSessionErrors, NamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponses, NamespaceWorkerScriptUploadWorkerModuleErrors, NamespaceWorkerScriptUploadWorkerModuleResponses, NamespaceWorkerScriptWorkerDetailsErrors, NamespaceWorkerScriptWorkerDetailsResponses, WorkersCreateAssetsUploadSessionObject, WorkersDispatchNamespaceName, WorkersIdentifier, WorkersNamespaceScriptAndVersionSettingsItemWritable, WorkersNamespaceUpload, WorkersScriptName, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretWritable, WorkersTag, WorkersTagsWritable, WorkersTrustedWorkers } from '../types.gen';
-import { zNamespaceWorkerCreateBody, zNamespaceWorkerCreatePath, zNamespaceWorkerCreateResponse, zNamespaceWorkerDeleteNamespacePath, zNamespaceWorkerDeleteNamespaceResponse, zNamespaceWorkerDeleteScriptSecretPath, zNamespaceWorkerDeleteScriptSecretQuery, zNamespaceWorkerDeleteScriptSecretResponse, zNamespaceWorkerDeleteScriptsPath, zNamespaceWorkerDeleteScriptsQuery, zNamespaceWorkerDeleteScriptsResponse, zNamespaceWorkerDeleteScriptTagPath, zNamespaceWorkerDeleteScriptTagResponse, zNamespaceWorkerGetNamespacePath, zNamespaceWorkerGetNamespaceResponse, zNamespaceWorkerGetScriptBindingsPath, zNamespaceWorkerGetScriptBindingsResponse, zNamespaceWorkerGetScriptContentPath, zNamespaceWorkerGetScriptContentResponse, zNamespaceWorkerGetScriptSecretsPath, zNamespaceWorkerGetScriptSecretsQuery, zNamespaceWorkerGetScriptSecretsResponse, zNamespaceWorkerGetScriptSettingsPath, zNamespaceWorkerGetScriptSettingsResponse, zNamespaceWorkerGetScriptTagsPath, zNamespaceWorkerGetScriptTagsResponse, zNamespaceWorkerListPath, zNamespaceWorkerListResponse, zNamespaceWorkerListScriptSecretsPath, zNamespaceWorkerListScriptSecretsResponse, zNamespaceWorkerListScriptsPath, zNamespaceWorkerListScriptsQuery, zNamespaceWorkerListScriptsResponse, zNamespaceWorkerPatchNamespaceBody, zNamespaceWorkerPatchNamespacePath, zNamespaceWorkerPatchNamespaceResponse, zNamespaceWorkerPatchScriptSettingsBody, zNamespaceWorkerPatchScriptSettingsPath, zNamespaceWorkerPatchScriptSettingsResponse, zNamespaceWorkerPutNamespaceBody, zNamespaceWorkerPutNamespacePath, zNamespaceWorkerPutNamespaceResponse, zNamespaceWorkerPutScriptContentBody, zNamespaceWorkerPutScriptContentHeaders, zNamespaceWorkerPutScriptContentPath, zNamespaceWorkerPutScriptContentResponse, zNamespaceWorkerPutScriptSecretsBody, zNamespaceWorkerPutScriptSecretsPath, zNamespaceWorkerPutScriptSecretsResponse, zNamespaceWorkerPutScriptTagPath, zNamespaceWorkerPutScriptTagResponse, zNamespaceWorkerPutScriptTagsBody, zNamespaceWorkerPutScriptTagsPath, zNamespaceWorkerPutScriptTagsResponse, zNamespaceWorkerScriptDeleteWorkerBody, zNamespaceWorkerScriptDeleteWorkerPath, zNamespaceWorkerScriptDeleteWorkerQuery, zNamespaceWorkerScriptDeleteWorkerResponse, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionBody, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionPath, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponse, zNamespaceWorkerScriptUploadWorkerModuleBody, zNamespaceWorkerScriptUploadWorkerModulePath, zNamespaceWorkerScriptUploadWorkerModuleQuery, zNamespaceWorkerScriptUploadWorkerModuleResponse, zNamespaceWorkerScriptWorkerDetailsPath, zNamespaceWorkerScriptWorkerDetailsResponse } from '../zod.gen';
+import type { NamespaceWorkerCreateErrors, NamespaceWorkerCreateResponses, NamespaceWorkerDeleteNamespaceErrors, NamespaceWorkerDeleteNamespaceResponses, NamespaceWorkerDeleteScriptSecretErrors, NamespaceWorkerDeleteScriptSecretResponses, NamespaceWorkerDeleteScriptsErrors, NamespaceWorkerDeleteScriptsResponses, NamespaceWorkerDeleteScriptTagErrors, NamespaceWorkerDeleteScriptTagResponses, NamespaceWorkerGetNamespaceErrors, NamespaceWorkerGetNamespaceResponses, NamespaceWorkerGetScriptBindingsErrors, NamespaceWorkerGetScriptBindingsResponses, NamespaceWorkerGetScriptContentErrors, NamespaceWorkerGetScriptContentResponses, NamespaceWorkerGetScriptSecretsErrors, NamespaceWorkerGetScriptSecretsResponses, NamespaceWorkerGetScriptSettingsErrors, NamespaceWorkerGetScriptSettingsResponses, NamespaceWorkerGetScriptTagsErrors, NamespaceWorkerGetScriptTagsResponses, NamespaceWorkerListErrors, NamespaceWorkerListResponses, NamespaceWorkerListScriptSecretsErrors, NamespaceWorkerListScriptSecretsResponses, NamespaceWorkerListScriptsErrors, NamespaceWorkerListScriptsResponses, NamespaceWorkerPatchNamespaceErrors, NamespaceWorkerPatchNamespaceResponses, NamespaceWorkerPatchScriptSecretsBulkErrors, NamespaceWorkerPatchScriptSecretsBulkResponses, NamespaceWorkerPatchScriptSettingsErrors, NamespaceWorkerPatchScriptSettingsResponses, NamespaceWorkerPutNamespaceErrors, NamespaceWorkerPutNamespaceResponses, NamespaceWorkerPutScriptContentErrors, NamespaceWorkerPutScriptContentResponses, NamespaceWorkerPutScriptSecretsErrors, NamespaceWorkerPutScriptSecretsResponses, NamespaceWorkerPutScriptTagErrors, NamespaceWorkerPutScriptTagResponses, NamespaceWorkerPutScriptTagsErrors, NamespaceWorkerPutScriptTagsResponses, NamespaceWorkerScriptDeleteWorkerErrors, NamespaceWorkerScriptDeleteWorkerResponses, NamespaceWorkerScriptUpdateCreateAssetsUploadSessionErrors, NamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponses, NamespaceWorkerScriptUploadWorkerModuleErrors, NamespaceWorkerScriptUploadWorkerModuleResponses, NamespaceWorkerScriptWorkerDetailsErrors, NamespaceWorkerScriptWorkerDetailsResponses, WorkersCreateAssetsUploadSessionObject, WorkersDispatchNamespaceName, WorkersIdentifier, WorkersNamespaceScriptAndVersionSettingsItemWritable, WorkersNamespaceUpload, WorkersScriptName, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretPatchRequestWritable, WorkersSecretWritable, WorkersTag, WorkersTagsWritable, WorkersTrustedWorkers } from '../types.gen';
+import { zNamespaceWorkerCreateBody, zNamespaceWorkerCreatePath, zNamespaceWorkerCreateResponse, zNamespaceWorkerDeleteNamespacePath, zNamespaceWorkerDeleteNamespaceResponse, zNamespaceWorkerDeleteScriptSecretPath, zNamespaceWorkerDeleteScriptSecretQuery, zNamespaceWorkerDeleteScriptSecretResponse, zNamespaceWorkerDeleteScriptsPath, zNamespaceWorkerDeleteScriptsQuery, zNamespaceWorkerDeleteScriptsResponse, zNamespaceWorkerDeleteScriptTagPath, zNamespaceWorkerDeleteScriptTagResponse, zNamespaceWorkerGetNamespacePath, zNamespaceWorkerGetNamespaceResponse, zNamespaceWorkerGetScriptBindingsPath, zNamespaceWorkerGetScriptBindingsResponse, zNamespaceWorkerGetScriptContentPath, zNamespaceWorkerGetScriptContentResponse, zNamespaceWorkerGetScriptSecretsPath, zNamespaceWorkerGetScriptSecretsQuery, zNamespaceWorkerGetScriptSecretsResponse, zNamespaceWorkerGetScriptSettingsPath, zNamespaceWorkerGetScriptSettingsResponse, zNamespaceWorkerGetScriptTagsPath, zNamespaceWorkerGetScriptTagsResponse, zNamespaceWorkerListPath, zNamespaceWorkerListResponse, zNamespaceWorkerListScriptSecretsPath, zNamespaceWorkerListScriptSecretsResponse, zNamespaceWorkerListScriptsPath, zNamespaceWorkerListScriptsQuery, zNamespaceWorkerListScriptsResponse, zNamespaceWorkerPatchNamespaceBody, zNamespaceWorkerPatchNamespacePath, zNamespaceWorkerPatchNamespaceResponse, zNamespaceWorkerPatchScriptSecretsBulkBody, zNamespaceWorkerPatchScriptSecretsBulkPath, zNamespaceWorkerPatchScriptSecretsBulkResponse, zNamespaceWorkerPatchScriptSettingsBody, zNamespaceWorkerPatchScriptSettingsPath, zNamespaceWorkerPatchScriptSettingsResponse, zNamespaceWorkerPutNamespaceBody, zNamespaceWorkerPutNamespacePath, zNamespaceWorkerPutNamespaceResponse, zNamespaceWorkerPutScriptContentBody, zNamespaceWorkerPutScriptContentHeaders, zNamespaceWorkerPutScriptContentPath, zNamespaceWorkerPutScriptContentResponse, zNamespaceWorkerPutScriptSecretsBody, zNamespaceWorkerPutScriptSecretsPath, zNamespaceWorkerPutScriptSecretsResponse, zNamespaceWorkerPutScriptTagPath, zNamespaceWorkerPutScriptTagResponse, zNamespaceWorkerPutScriptTagsBody, zNamespaceWorkerPutScriptTagsPath, zNamespaceWorkerPutScriptTagsResponse, zNamespaceWorkerScriptDeleteWorkerBody, zNamespaceWorkerScriptDeleteWorkerPath, zNamespaceWorkerScriptDeleteWorkerQuery, zNamespaceWorkerScriptDeleteWorkerResponse, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionBody, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionPath, zNamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponse, zNamespaceWorkerScriptUploadWorkerModuleBody, zNamespaceWorkerScriptUploadWorkerModulePath, zNamespaceWorkerScriptUploadWorkerModuleQuery, zNamespaceWorkerScriptUploadWorkerModuleResponse, zNamespaceWorkerScriptWorkerDetailsPath, zNamespaceWorkerScriptWorkerDetailsResponse } from '../zod.gen';
 
 export class WorkersForPlatformsService {
     /**
@@ -18,7 +18,7 @@ export class WorkersForPlatformsService {
      */
     public static namespaceWorkerList<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerListResponses, NamespaceWorkerListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NamespaceWorkerListResponses, NamespaceWorkerListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class WorkersForPlatformsService {
     public static namespaceWorkerCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerCreateResponses, NamespaceWorkerCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'name' }] }]);
         return (options?.client ?? client).post<NamespaceWorkerCreateResponses, NamespaceWorkerCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class WorkersForPlatformsService {
     public static namespaceWorkerDeleteNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerDeleteNamespaceResponses, NamespaceWorkerDeleteNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dispatch_namespace' }] }]);
         return (options?.client ?? client).delete<NamespaceWorkerDeleteNamespaceResponses, NamespaceWorkerDeleteNamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class WorkersForPlatformsService {
     public static namespaceWorkerGetNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetNamespaceResponses, NamespaceWorkerGetNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dispatch_namespace' }] }]);
         return (options?.client ?? client).get<NamespaceWorkerGetNamespaceResponses, NamespaceWorkerGetNamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -137,7 +137,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         name?: string;
         trusted_workers?: WorkersTrustedWorkers;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPatchNamespaceResponses, NamespaceWorkerPatchNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -177,7 +177,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         name?: string;
         trusted_workers?: WorkersTrustedWorkers;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPutNamespaceResponses, NamespaceWorkerPutNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -217,7 +217,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         tags?: string;
         limit?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerDeleteScriptsResponses, NamespaceWorkerDeleteScriptsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -251,7 +251,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         tags?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerListScriptsResponses, NamespaceWorkerListScriptsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -286,7 +286,7 @@ export class WorkersForPlatformsService {
         script_name: WorkersScriptName;
         force?: boolean;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerScriptDeleteWorkerResponses, NamespaceWorkerScriptDeleteWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -326,7 +326,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerScriptWorkerDetailsResponses, NamespaceWorkerScriptWorkerDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -361,7 +361,7 @@ export class WorkersForPlatformsService {
         script_name: WorkersScriptName;
         bindings_inherit?: 'strict';
         workersNamespaceUpload: WorkersNamespaceUpload;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerScriptUploadWorkerModuleResponses, NamespaceWorkerScriptUploadWorkerModuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -402,7 +402,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         workersCreateAssetsUploadSessionObject: WorkersCreateAssetsUploadSessionObject;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponses, NamespaceWorkerScriptUpdateCreateAssetsUploadSessionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -441,7 +441,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetScriptBindingsResponses, NamespaceWorkerGetScriptBindingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -474,7 +474,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetScriptContentResponses, NamespaceWorkerGetScriptContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -520,7 +520,7 @@ export class WorkersForPlatformsService {
              */
             main_module?: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPutScriptContentResponses, NamespaceWorkerPutScriptContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'CF-WORKER-BODY-PART' },
                     { in: 'headers', key: 'CF-WORKER-MAIN-MODULE-PART' },
@@ -564,7 +564,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerListScriptSecretsResponses, NamespaceWorkerListScriptSecretsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -598,7 +598,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         workersSecretWritable: WorkersSecretWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPutScriptSecretsResponses, NamespaceWorkerPutScriptSecretsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -629,6 +629,53 @@ export class WorkersForPlatformsService {
     }
     
     /**
+     * Patch multiple script secrets
+     *
+     * Create, update, or delete multiple secrets on a script in a single operation using JSON Merge Patch (RFC 7396).
+     *
+     * Usage:
+     *
+     * - To create or update a secret, set its value to a secret object.
+     * - To delete a secret, set its value to `null`.
+     * - Secrets not included in the request are left unchanged.
+     *
+     */
+    public static namespaceWorkerPatchScriptSecretsBulk<ThrowOnError extends boolean = true>(parameters: {
+        account_id: WorkersIdentifier;
+        dispatch_namespace: WorkersDispatchNamespaceName;
+        script_name: WorkersScriptName;
+        workersSecretPatchRequestWritable: WorkersSecretPatchRequestWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPatchScriptSecretsBulkResponses, NamespaceWorkerPatchScriptSecretsBulkErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'dispatch_namespace' },
+                    { in: 'path', key: 'script_name' },
+                    { key: 'workersSecretPatchRequestWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<NamespaceWorkerPatchScriptSecretsBulkResponses, NamespaceWorkerPatchScriptSecretsBulkErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zNamespaceWorkerPatchScriptSecretsBulkBody,
+                path: zNamespaceWorkerPatchScriptSecretsBulkPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zNamespaceWorkerPatchScriptSecretsBulkResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/secrets-bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete script secret
      *
      * Remove a secret from a script uploaded to a Workers for Platforms namespace.
@@ -639,7 +686,7 @@ export class WorkersForPlatformsService {
         script_name: WorkersScriptName;
         secret_name: WorkersSecretName;
         url_encoded?: WorkersSecretNameUrlEncoded;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerDeleteScriptSecretResponses, NamespaceWorkerDeleteScriptSecretErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -676,7 +723,7 @@ export class WorkersForPlatformsService {
         script_name: WorkersScriptName;
         secret_name: WorkersSecretName;
         url_encoded?: WorkersSecretNameUrlEncoded;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetScriptSecretsResponses, NamespaceWorkerGetScriptSecretsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -711,7 +758,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetScriptSettingsResponses, NamespaceWorkerGetScriptSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -745,7 +792,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         settings?: WorkersNamespaceScriptAndVersionSettingsItemWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPatchScriptSettingsResponses, NamespaceWorkerPatchScriptSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -785,7 +832,7 @@ export class WorkersForPlatformsService {
         account_id: WorkersIdentifier;
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerGetScriptTagsResponses, NamespaceWorkerGetScriptTagsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -819,7 +866,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         workersTagsWritable: WorkersTagsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPutScriptTagsResponses, NamespaceWorkerPutScriptTagsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -859,7 +906,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         tag: WorkersTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerDeleteScriptTagResponses, NamespaceWorkerDeleteScriptTagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },
@@ -894,7 +941,7 @@ export class WorkersForPlatformsService {
         dispatch_namespace: WorkersDispatchNamespaceName;
         script_name: WorkersScriptName;
         tag: WorkersTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NamespaceWorkerPutScriptTagResponses, NamespaceWorkerPutScriptTagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dispatch_namespace' },

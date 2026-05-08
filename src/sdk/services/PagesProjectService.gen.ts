@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { PagesDeploymentConfigValuesRequest, PagesIdentifier, PagesProjectCreateProjectErrors, PagesProjectCreateProjectResponses, PagesProjectDeleteProjectErrors, PagesProjectDeleteProjectResponses, PagesProjectGetProjectErrors, PagesProjectGetProjectResponses, PagesProjectGetProjectsErrors, PagesProjectGetProjectsResponses, PagesProjectName, PagesProjectUpdateProjectErrors, PagesProjectUpdateProjectResponses } from '../types.gen';
-import { zPagesProjectCreateProjectBody, zPagesProjectCreateProjectPath, zPagesProjectCreateProjectResponse, zPagesProjectDeleteProjectPath, zPagesProjectDeleteProjectResponse, zPagesProjectGetProjectPath, zPagesProjectGetProjectResponse, zPagesProjectGetProjectsPath, zPagesProjectGetProjectsQuery, zPagesProjectGetProjectsResponse, zPagesProjectUpdateProjectBody, zPagesProjectUpdateProjectPath, zPagesProjectUpdateProjectResponse } from '../zod.gen';
+import type { PagesDeploymentConfigValuesRequest, PagesIdentifier, PagesProjectConnectProjectSourceErrors, PagesProjectConnectProjectSourceResponses, PagesProjectCreateProjectErrors, PagesProjectCreateProjectResponses, PagesProjectDeleteProjectErrors, PagesProjectDeleteProjectResponses, PagesProjectDisconnectProjectSourceErrors, PagesProjectDisconnectProjectSourceResponses, PagesProjectGetProjectErrors, PagesProjectGetProjectResponses, PagesProjectGetProjectsErrors, PagesProjectGetProjectsResponses, PagesProjectGetUploadTokenErrors, PagesProjectGetUploadTokenResponses, PagesProjectName, PagesProjectUpdateProjectErrors, PagesProjectUpdateProjectResponses, PagesSource } from '../types.gen';
+import { zPagesProjectConnectProjectSourceBody, zPagesProjectConnectProjectSourcePath, zPagesProjectConnectProjectSourceResponse, zPagesProjectCreateProjectBody, zPagesProjectCreateProjectPath, zPagesProjectCreateProjectResponse, zPagesProjectDeleteProjectPath, zPagesProjectDeleteProjectResponse, zPagesProjectDisconnectProjectSourcePath, zPagesProjectDisconnectProjectSourceResponse, zPagesProjectGetProjectPath, zPagesProjectGetProjectResponse, zPagesProjectGetProjectsPath, zPagesProjectGetProjectsQuery, zPagesProjectGetProjectsResponse, zPagesProjectGetUploadTokenPath, zPagesProjectGetUploadTokenResponse, zPagesProjectUpdateProjectBody, zPagesProjectUpdateProjectPath, zPagesProjectUpdateProjectResponse } from '../zod.gen';
 
 export class PagesProjectService {
     /**
@@ -20,7 +20,7 @@ export class PagesProjectService {
         account_id: PagesIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectGetProjectsResponses, PagesProjectGetProjectsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -153,7 +153,7 @@ export class PagesProjectService {
              */
             type: 'github' | 'gitlab';
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectCreateProjectResponses, PagesProjectCreateProjectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'build_config' },
@@ -193,7 +193,7 @@ export class PagesProjectService {
     public static pagesProjectDeleteProject<ThrowOnError extends boolean = true>(parameters: {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectDeleteProjectResponses, PagesProjectDeleteProjectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<PagesProjectDeleteProjectResponses, PagesProjectDeleteProjectErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -221,7 +221,7 @@ export class PagesProjectService {
     public static pagesProjectGetProject<ThrowOnError extends boolean = true>(parameters: {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectGetProjectResponses, PagesProjectGetProjectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<PagesProjectGetProjectResponses, PagesProjectGetProjectErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -351,7 +351,7 @@ export class PagesProjectService {
              */
             type: 'github' | 'gitlab';
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectUpdateProjectResponses, PagesProjectUpdateProjectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'project_name' },
                     { in: 'path', key: 'account_id' },
@@ -381,6 +381,100 @@ export class PagesProjectService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Disconnect project source
+     *
+     * Disconnect the Git repository source from an existing Pages project.
+     */
+    public static pagesProjectDisconnectProjectSource<ThrowOnError extends boolean = true>(parameters: {
+        project_name: PagesProjectName;
+        account_id: PagesIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectDisconnectProjectSourceResponses, PagesProjectDisconnectProjectSourceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).delete<PagesProjectDisconnectProjectSourceResponses, PagesProjectDisconnectProjectSourceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zPagesProjectDisconnectProjectSourcePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPagesProjectDisconnectProjectSourceResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/pages/projects/{project_name}/source',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Connect project source
+     *
+     * Connect a Git repository source to an existing Pages project.
+     */
+    public static pagesProjectConnectProjectSource<ThrowOnError extends boolean = true>(parameters: {
+        project_name: PagesProjectName;
+        account_id: PagesIdentifier;
+        pagesSource: PagesSource;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectConnectProjectSourceResponses, PagesProjectConnectProjectSourceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'project_name' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'pagesSource', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<PagesProjectConnectProjectSourceResponses, PagesProjectConnectProjectSourceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPagesProjectConnectProjectSourceBody,
+                path: zPagesProjectConnectProjectSourcePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPagesProjectConnectProjectSourceResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/pages/projects/{project_name}/source',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get upload token
+     *
+     * Get a short-lived JWT for Pages Direct Upload asset operations.
+     */
+    public static pagesProjectGetUploadToken<ThrowOnError extends boolean = true>(parameters: {
+        project_name: PagesProjectName;
+        account_id: PagesIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesProjectGetUploadTokenResponses, PagesProjectGetUploadTokenErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<PagesProjectGetUploadTokenResponses, PagesProjectGetUploadTokenErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zPagesProjectGetUploadTokenPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPagesProjectGetUploadTokenResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/pages/projects/{project_name}/upload-token',
+            ...options,
+            ...params
         });
     }
 }

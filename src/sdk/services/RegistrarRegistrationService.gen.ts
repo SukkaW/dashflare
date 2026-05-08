@@ -4,13 +4,325 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { RegistrarApiDomainName, RegistrarApiIdentifier, RegistrarApiRegistrationCreateRequest, RegistrarApiRegistrationUpdateRequest, RegistrarDomainRegistrationCreateErrors, RegistrarDomainRegistrationCreateResponses, RegistrarDomainRegistrationGetErrors, RegistrarDomainRegistrationGetResponses, RegistrarDomainRegistrationGetStatusErrors, RegistrarDomainRegistrationGetStatusResponses, RegistrarDomainRegistrationGetUpdateStatusErrors, RegistrarDomainRegistrationGetUpdateStatusResponses, RegistrarDomainRegistrationListErrors, RegistrarDomainRegistrationListResponses, RegistrarDomainRegistrationUpdateErrors, RegistrarDomainRegistrationUpdateResponses } from '../types.gen';
-import { zRegistrarDomainRegistrationCreateBody, zRegistrarDomainRegistrationCreateHeaders, zRegistrarDomainRegistrationCreatePath, zRegistrarDomainRegistrationCreateResponse, zRegistrarDomainRegistrationGetPath, zRegistrarDomainRegistrationGetResponse, zRegistrarDomainRegistrationGetStatusPath, zRegistrarDomainRegistrationGetStatusResponse, zRegistrarDomainRegistrationGetUpdateStatusPath, zRegistrarDomainRegistrationGetUpdateStatusResponse, zRegistrarDomainRegistrationListPath, zRegistrarDomainRegistrationListQuery, zRegistrarDomainRegistrationListResponse, zRegistrarDomainRegistrationUpdateBody, zRegistrarDomainRegistrationUpdateHeaders, zRegistrarDomainRegistrationUpdatePath, zRegistrarDomainRegistrationUpdateResponse } from '../zod.gen';
+import type { RegistrarApiDomainName, RegistrarApiIdentifier, RegistrarApiRegistrationCreateRequest, RegistrarApiRegistrationUpdateRequest, RegistrarApiSandboxDomainName, RegistrarApiSandboxIdentifier, RegistrarApiSandboxRegistrationCreateRequest, RegistrarApiSandboxRegistrationUpdateRequest, RegistrarDomainRegistrationCreateErrors, RegistrarDomainRegistrationCreateResponses, RegistrarDomainRegistrationGetErrors, RegistrarDomainRegistrationGetResponses, RegistrarDomainRegistrationGetStatusErrors, RegistrarDomainRegistrationGetStatusResponses, RegistrarDomainRegistrationGetUpdateStatusErrors, RegistrarDomainRegistrationGetUpdateStatusResponses, RegistrarDomainRegistrationListErrors, RegistrarDomainRegistrationListResponses, RegistrarDomainRegistrationUpdateErrors, RegistrarDomainRegistrationUpdateResponses, SandboxRegistrarDomainRegistrationCreateErrors, SandboxRegistrarDomainRegistrationCreateResponses, SandboxRegistrarDomainRegistrationGetErrors, SandboxRegistrarDomainRegistrationGetResponses, SandboxRegistrarDomainRegistrationGetStatusErrors, SandboxRegistrarDomainRegistrationGetStatusResponses, SandboxRegistrarDomainRegistrationGetUpdateStatusErrors, SandboxRegistrarDomainRegistrationGetUpdateStatusResponses, SandboxRegistrarDomainRegistrationListErrors, SandboxRegistrarDomainRegistrationListResponses, SandboxRegistrarDomainRegistrationUpdateErrors, SandboxRegistrarDomainRegistrationUpdateResponses } from '../types.gen';
+import { zRegistrarDomainRegistrationCreateBody, zRegistrarDomainRegistrationCreateHeaders, zRegistrarDomainRegistrationCreatePath, zRegistrarDomainRegistrationCreateResponse, zRegistrarDomainRegistrationGetPath, zRegistrarDomainRegistrationGetResponse, zRegistrarDomainRegistrationGetStatusPath, zRegistrarDomainRegistrationGetStatusResponse, zRegistrarDomainRegistrationGetUpdateStatusPath, zRegistrarDomainRegistrationGetUpdateStatusResponse, zRegistrarDomainRegistrationListPath, zRegistrarDomainRegistrationListQuery, zRegistrarDomainRegistrationListResponse, zRegistrarDomainRegistrationUpdateBody, zRegistrarDomainRegistrationUpdateHeaders, zRegistrarDomainRegistrationUpdatePath, zRegistrarDomainRegistrationUpdateResponse, zSandboxRegistrarDomainRegistrationCreateBody, zSandboxRegistrarDomainRegistrationCreateHeaders, zSandboxRegistrarDomainRegistrationCreatePath, zSandboxRegistrarDomainRegistrationCreateResponse, zSandboxRegistrarDomainRegistrationGetPath, zSandboxRegistrarDomainRegistrationGetResponse, zSandboxRegistrarDomainRegistrationGetStatusPath, zSandboxRegistrarDomainRegistrationGetStatusResponse, zSandboxRegistrarDomainRegistrationGetUpdateStatusPath, zSandboxRegistrarDomainRegistrationGetUpdateStatusResponse, zSandboxRegistrarDomainRegistrationListPath, zSandboxRegistrarDomainRegistrationListQuery, zSandboxRegistrarDomainRegistrationListResponse, zSandboxRegistrarDomainRegistrationUpdateBody, zSandboxRegistrarDomainRegistrationUpdateHeaders, zSandboxRegistrarDomainRegistrationUpdatePath, zSandboxRegistrarDomainRegistrationUpdateResponse } from '../zod.gen';
 
 export class RegistrarRegistrationService {
+    /**
+     * List Registrations
+     *
+     * Returns a paginated list of domain registrations owned by the account.
+     *
+     * This endpoint uses cursor-based pagination. Results are ordered by registration
+     * date by default. To fetch the next page, pass the `cursor` value from the
+     * `result_info` object in the response as the `cursor` query parameter in
+     * your next request. An empty `cursor` string indicates there are no more
+     * pages.
+     *
+     */
+    public static sandboxRegistrarDomainRegistrationList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RegistrarApiSandboxIdentifier;
+        cursor?: string;
+        per_page?: number;
+        direction?: 'asc' | 'desc';
+        sort_by?: 'registry_created_at' | 'registry_expires_at' | 'name';
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationListResponses, SandboxRegistrarDomainRegistrationListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'cursor' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'sort_by' }
+                ] }]);
+        return (options?.client ?? client).get<SandboxRegistrarDomainRegistrationListResponses, SandboxRegistrarDomainRegistrationListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSandboxRegistrarDomainRegistrationListPath,
+                query: zSandboxRegistrarDomainRegistrationListQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationListResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create Registration
+     *
+     * Starts a domain registration workflow.
+     *
+     * ### Prerequisites
+     * - The account must not already be at the maximum supported domain limit.
+     * A single account may own up to 100 domains in total across registrations
+     * created through either the dashboard or this API.
+     * - The domain must be on a supported extension for programmatic registration.
+     * - Use `POST /domain-check` immediately before calling this endpoint to confirm
+     * real-time availability and pricing.
+     *
+     * ### Defaults
+     * - `years`: defaults to the extension's minimum registration period (1 year for
+     * most extensions, but varies — for example, `.ai` (if supported) requires a minimum of 2 years).
+     * - `auto_renew`: defaults to `false`. Setting it to `true` is an explicit
+     * opt-in authorizing Cloudflare to charge the account's default payment
+     * method up to 30 days before domain expiry to renew the registration.
+     * Renewal pricing may change over time based on registry pricing.
+     * - `privacy_mode`: defaults to `redaction`.
+     *
+     * ### Premium domains
+     * Premium domain registration is not currently supported by this API.
+     * If `POST /domain-check` returns `tier: premium`, do not call this
+     * endpoint for that domain.
+     *
+     * ### Response behavior
+     * By default, the server holds the connection for a bounded, server-defined
+     * amount of time while the registration completes. Most registrations finish
+     * within this window and return `201 Created` with a completed workflow status.
+     *
+     * If the registration is still processing after this synchronous wait window,
+     * the server returns `202 Accepted`. Poll the URL in `links.self` to track progress.
+     *
+     * To skip the wait and receive an immediate `202`, send `Prefer: respond-async`.
+     */
+    public static sandboxRegistrarDomainRegistrationCreate<ThrowOnError extends boolean = true>(parameters: {
+        Prefer?: string;
+        account_id: RegistrarApiSandboxIdentifier;
+        registrarApiSandboxRegistrationCreateRequest: RegistrarApiSandboxRegistrationCreateRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationCreateResponses, SandboxRegistrarDomainRegistrationCreateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'Prefer' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'registrarApiSandboxRegistrationCreateRequest', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<SandboxRegistrarDomainRegistrationCreateResponses, SandboxRegistrarDomainRegistrationCreateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSandboxRegistrarDomainRegistrationCreateBody,
+                headers: zSandboxRegistrarDomainRegistrationCreateHeaders.optional(),
+                path: zSandboxRegistrarDomainRegistrationCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationCreateResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get Registration
+     *
+     * Returns the current state of a domain registration.
+     *
+     * This is the canonical read endpoint for a domain you own. It returns
+     * the full registration resource including current settings and expiration.
+     * When the registration resource is ready, both `created_at` and `expires_at`
+     * are present in the response.
+     *
+     */
+    public static sandboxRegistrarDomainRegistrationGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RegistrarApiSandboxIdentifier;
+        domain_name: RegistrarApiSandboxDomainName;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationGetResponses, SandboxRegistrarDomainRegistrationGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
+        return (options?.client ?? client).get<SandboxRegistrarDomainRegistrationGetResponses, SandboxRegistrarDomainRegistrationGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSandboxRegistrarDomainRegistrationGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationGetResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update Registration
+     *
+     * Updates an existing domain registration.
+     *
+     * By default, the server holds the connection for a bounded, server-defined
+     * amount of time while the update completes. Most updates finish within this
+     * window and return `200 OK` with a completed workflow status.
+     *
+     * If the update is still processing after this synchronous wait window, the
+     * server returns `202 Accepted`. Poll the URL in `links.self` to track progress.
+     *
+     * To skip the wait and receive an immediate `202`, send `Prefer: respond-async`.
+     *
+     * This endpoint currently supports updating `auto_renew` only.
+     *
+     */
+    public static sandboxRegistrarDomainRegistrationUpdate<ThrowOnError extends boolean = true>(parameters: {
+        Prefer?: 'respond-async';
+        account_id: RegistrarApiSandboxIdentifier;
+        domain_name: RegistrarApiSandboxDomainName;
+        registrarApiSandboxRegistrationUpdateRequest: RegistrarApiSandboxRegistrationUpdateRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationUpdateResponses, SandboxRegistrarDomainRegistrationUpdateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'headers', key: 'Prefer' },
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'domain_name' },
+                    { key: 'registrarApiSandboxRegistrationUpdateRequest', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<SandboxRegistrarDomainRegistrationUpdateResponses, SandboxRegistrarDomainRegistrationUpdateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSandboxRegistrarDomainRegistrationUpdateBody,
+                headers: zSandboxRegistrarDomainRegistrationUpdateHeaders.optional(),
+                path: zSandboxRegistrarDomainRegistrationUpdatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationUpdateResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get Registration Status
+     *
+     * Returns the current status of a domain registration workflow.
+     *
+     * Use this endpoint to poll for completion when the POST response
+     * returned `202 Accepted`. The URL is provided in the `links.self`
+     * field of the workflow status response.
+     *
+     * Poll this endpoint until the workflow reaches a terminal state or a
+     * state that requires user attention.
+     *
+     * **Terminal states:** `succeeded` and `failed` are terminal and always
+     * have `completed: true`.
+     *
+     * **Non-terminal states:**
+     * - `action_required` has `completed: false` and will not resolve on its
+     * own. The workflow is paused pending user intervention.
+     * - `blocked` has `completed: false` and indicates the workflow is waiting
+     * on a third party such as the extension registry or losing registrar.
+     * Continue polling while informing the user of the delay.
+     *
+     * Use increasing backoff between polls. When `state: blocked`, use a
+     * longer polling interval and do not poll indefinitely.
+     *
+     * A naive polling loop that only checks `completed` can run indefinitely
+     * when `state: action_required`. Break explicitly on `action_required`:
+     *
+     * ```js
+     * let status;
+     * do {
+     * await new Promise(r => setTimeout(r, 2000));
+     * status = await cloudflare.request({
+     * method: 'GET',
+     * path: reg.result.links.self,
+     * });
+     * } while (
+     * !status.result.completed &&
+     * status.result.state !== 'action_required'
+     * );
+     *
+     * if (status.result.state === 'action_required') {
+     * // Surface context.action and context.confirmation_sent_to to the user.
+     * // Do not re-submit the registration request.
+     * }
+     * ```
+     *
+     */
+    public static sandboxRegistrarDomainRegistrationGetStatus<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RegistrarApiSandboxIdentifier;
+        domain_name: RegistrarApiSandboxDomainName;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationGetStatusResponses, SandboxRegistrarDomainRegistrationGetStatusErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
+        return (options?.client ?? client).get<SandboxRegistrarDomainRegistrationGetStatusResponses, SandboxRegistrarDomainRegistrationGetStatusErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSandboxRegistrarDomainRegistrationGetStatusPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationGetStatusResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}/registration-status',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get Update Status
+     *
+     * Returns the current status of a domain update workflow.
+     *
+     * Use this endpoint to poll for completion when the PATCH response
+     * returned `202 Accepted`. The URL is provided in the `links.self`
+     * field of the workflow status response.
+     *
+     * Poll this endpoint until the workflow reaches a terminal state or a
+     * state that requires user attention.
+     *
+     * Use increasing backoff between polls. When the workflow remains blocked
+     * on a third party, use a longer polling interval and do not poll indefinitely.
+     *
+     */
+    public static sandboxRegistrarDomainRegistrationGetUpdateStatus<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RegistrarApiSandboxIdentifier;
+        domain_name: RegistrarApiSandboxDomainName;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SandboxRegistrarDomainRegistrationGetUpdateStatusResponses, SandboxRegistrarDomainRegistrationGetUpdateStatusErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
+        return (options?.client ?? client).get<SandboxRegistrarDomainRegistrationGetUpdateStatusResponses, SandboxRegistrarDomainRegistrationGetUpdateStatusErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSandboxRegistrarDomainRegistrationGetUpdateStatusPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSandboxRegistrarDomainRegistrationGetUpdateStatusResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/registrar-sandbox/registrations/{domain_name}/update-status',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * List Registrations
      *
@@ -29,7 +341,7 @@ export class RegistrarRegistrationService {
         per_page?: number;
         direction?: 'asc' | 'desc';
         sort_by?: 'registry_created_at' | 'registry_expires_at' | 'name';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationListResponses, RegistrarDomainRegistrationListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cursor' },
@@ -73,22 +385,6 @@ export class RegistrarRegistrationService {
      * - Use `POST /domain-check` immediately before calling this endpoint to confirm
      * real-time availability and pricing.
      *
-     * ### Supported extensions
-     * In this API, "extension" means the full registrable suffix after the domain
-     * label. For example, in `example.co.uk`, the extension is `co.uk`.
-     *
-     * Programmatic registration is currently supported for:
-     *
-     * `com`, `org`, `net`, `app`, `dev`, `cc`, `xyz`, `info`, `cloud`, `studio`,
-     * `live`, `link`, `pro`, `tech`, `fyi`, `shop`, `online`, `tools`, `run`,
-     * `games`, `build`, `systems`, `world`, `news`, `site`, `network`, `chat`,
-     * `space`, `family`, `page`, `life`, `group`, `email`, `solutions`, `day`,
-     * `blog`, `ing`, `icu`, `academy`, `today`
-     *
-     * Cloudflare Registrar supports 400+ extensions in the dashboard. Extensions
-     * not listed above can still be registered at
-     * `https://dash.cloudflare.com/{account_id}/domains/registrations`.
-     *
      * ### Express mode
      * The only required field is `domain_name`. If `contacts` is omitted, the system
      * uses the account's default address book entry as the registrant. If no default
@@ -125,7 +421,7 @@ export class RegistrarRegistrationService {
         Prefer?: string;
         account_id: RegistrarApiIdentifier;
         registrarApiRegistrationCreateRequest: RegistrarApiRegistrationCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationCreateResponses, RegistrarDomainRegistrationCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'Prefer' },
                     { in: 'path', key: 'account_id' },
@@ -169,7 +465,7 @@ export class RegistrarRegistrationService {
     public static registrarDomainRegistrationGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: RegistrarApiIdentifier;
         domain_name: RegistrarApiDomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationGetResponses, RegistrarDomainRegistrationGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
         return (options?.client ?? client).get<RegistrarDomainRegistrationGetResponses, RegistrarDomainRegistrationGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -211,7 +507,7 @@ export class RegistrarRegistrationService {
         account_id: RegistrarApiIdentifier;
         domain_name: RegistrarApiDomainName;
         registrarApiRegistrationUpdateRequest: RegistrarApiRegistrationUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationUpdateResponses, RegistrarDomainRegistrationUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'Prefer' },
                     { in: 'path', key: 'account_id' },
@@ -293,7 +589,7 @@ export class RegistrarRegistrationService {
     public static registrarDomainRegistrationGetStatus<ThrowOnError extends boolean = true>(parameters: {
         account_id: RegistrarApiIdentifier;
         domain_name: RegistrarApiDomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationGetStatusResponses, RegistrarDomainRegistrationGetStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
         return (options?.client ?? client).get<RegistrarDomainRegistrationGetStatusResponses, RegistrarDomainRegistrationGetStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -332,7 +628,7 @@ export class RegistrarRegistrationService {
     public static registrarDomainRegistrationGetUpdateStatus<ThrowOnError extends boolean = true>(parameters: {
         account_id: RegistrarApiIdentifier;
         domain_name: RegistrarApiDomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainRegistrationGetUpdateStatusResponses, RegistrarDomainRegistrationGetUpdateStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_name' }] }]);
         return (options?.client ?? client).get<RegistrarDomainRegistrationGetUpdateStatusResponses, RegistrarDomainRegistrationGetUpdateStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

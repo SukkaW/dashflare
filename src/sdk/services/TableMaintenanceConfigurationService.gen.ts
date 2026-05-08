@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetTableMaintenanceConfigErrors, GetTableMaintenanceConfigResponses, R2DataCatalogAccountId, R2DataCatalogBucketName, R2DataCatalogTableMaintenanceUpdateRequest, UpdateTableMaintenanceConfigErrors, UpdateTableMaintenanceConfigResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class TableMaintenanceConfigurationService {
         bucket_name: R2DataCatalogBucketName;
         namespace: string;
         table_name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTableMaintenanceConfigResponses, GetTableMaintenanceConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },
@@ -61,7 +61,7 @@ export class TableMaintenanceConfigurationService {
         namespace: string;
         table_name: string;
         r2DataCatalogTableMaintenanceUpdateRequest: R2DataCatalogTableMaintenanceUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateTableMaintenanceConfigResponses, UpdateTableMaintenanceConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteZoneSnippetErrors, DeleteZoneSnippetResponses, DeleteZoneSnippetRulesErrors, DeleteZoneSnippetRulesResponses, GetZoneSnippetContentErrors, GetZoneSnippetContentResponses, GetZoneSnippetErrors, GetZoneSnippetResponses, ListZoneSnippetRulesErrors, ListZoneSnippetRulesResponses, ListZoneSnippetsErrors, ListZoneSnippetsResponses, SnippetsPage, SnippetsPerPage, SnippetsSnippet2, SnippetsSnippetName, SnippetsSnippetRules2, SnippetsZoneId, UpdateZoneSnippetErrors, UpdateZoneSnippetResponses, UpdateZoneSnippetRulesErrors, UpdateZoneSnippetRulesResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class ZoneSnippetsService {
         zone_id: SnippetsZoneId;
         page?: SnippetsPage;
         per_page?: SnippetsPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneSnippetsResponses, ListZoneSnippetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -51,7 +51,7 @@ export class ZoneSnippetsService {
      */
     public static deleteZoneSnippetRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZoneSnippetRulesResponses, DeleteZoneSnippetRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<DeleteZoneSnippetRulesResponses, DeleteZoneSnippetRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class ZoneSnippetsService {
      */
     public static listZoneSnippetRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneSnippetRulesResponses, ListZoneSnippetRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ListZoneSnippetRulesResponses, ListZoneSnippetRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ZoneSnippetsService {
     public static updateZoneSnippetRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
         snippetsSnippetRules: SnippetsSnippetRules2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneSnippetRulesResponses, UpdateZoneSnippetRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'snippetsSnippetRules', map: 'body' }] }]);
         return (options?.client ?? client).put<UpdateZoneSnippetRulesResponses, UpdateZoneSnippetRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,7 +139,7 @@ export class ZoneSnippetsService {
     public static deleteZoneSnippet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
         snippet_name: SnippetsSnippetName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZoneSnippetResponses, DeleteZoneSnippetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'snippet_name' }] }]);
         return (options?.client ?? client).delete<DeleteZoneSnippetResponses, DeleteZoneSnippetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -167,7 +167,7 @@ export class ZoneSnippetsService {
     public static getZoneSnippet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
         snippet_name: SnippetsSnippetName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSnippetResponses, GetZoneSnippetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'snippet_name' }] }]);
         return (options?.client ?? client).get<GetZoneSnippetResponses, GetZoneSnippetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -196,7 +196,7 @@ export class ZoneSnippetsService {
         zone_id: SnippetsZoneId;
         snippet_name: SnippetsSnippetName;
         snippetsSnippet: SnippetsSnippet2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneSnippetResponses, UpdateZoneSnippetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'snippet_name' },
@@ -234,7 +234,7 @@ export class ZoneSnippetsService {
     public static getZoneSnippetContent<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SnippetsZoneId;
         snippet_name: SnippetsSnippetName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSnippetContentResponses, GetZoneSnippetContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'snippet_name' }] }]);
         return (options?.client ?? client).get<GetZoneSnippetContentResponses, GetZoneSnippetContentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

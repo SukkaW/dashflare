@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteGroupDeleteErrors, DeleteGroupDeleteResponses, DeleteGroupMemberDeleteErrors, DeleteGroupMemberDeleteResponses, GetGroupListErrors, GetGroupListResponses, GetGroupMemberListErrors, GetGroupMemberListResponses, GetGroupReadErrors, GetGroupReadResponses, PostGroupCreateErrors, PostGroupCreateResponses, PostGroupMemberCreateErrors, PostGroupMemberCreateResponses, PutGroupUpdateErrors, PutGroupUpdateResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class GroupsService {
      */
     public static getGroupList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGroupListResponses, GetGroupListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetGroupListResponses, GetGroupListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -43,7 +43,7 @@ export class GroupsService {
         account_id: string;
         description: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostGroupCreateResponses, PostGroupCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -76,7 +76,7 @@ export class GroupsService {
     public static deleteGroupDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         group_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteGroupDeleteResponses, DeleteGroupDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).delete<DeleteGroupDeleteResponses, DeleteGroupDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class GroupsService {
     public static getGroupRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         group_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGroupReadResponses, GetGroupReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).get<GetGroupReadResponses, GetGroupReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -126,7 +126,7 @@ export class GroupsService {
         group_id: string;
         description: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutGroupUpdateResponses, PutGroupUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'group_id' },
@@ -160,7 +160,7 @@ export class GroupsService {
     public static getGroupMemberList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         group_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGroupMemberListResponses, GetGroupMemberListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).get<GetGroupMemberListResponses, GetGroupMemberListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -186,7 +186,7 @@ export class GroupsService {
         group_id: string;
         accountId?: string;
         accountTag?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostGroupMemberCreateResponses, PostGroupMemberCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'group_id' },
@@ -221,7 +221,7 @@ export class GroupsService {
         account_id: string;
         group_id: string;
         member_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteGroupMemberDeleteResponses, DeleteGroupMemberDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'group_id' },

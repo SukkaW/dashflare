@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { HealthChecksCreateHealthCheckErrors, HealthChecksCreateHealthCheckResponses, HealthChecksCreatePreviewHealthCheckErrors, HealthChecksCreatePreviewHealthCheckResponses, HealthChecksDeleteHealthCheckErrors, HealthChecksDeleteHealthCheckResponses, HealthChecksDeletePreviewHealthCheckErrors, HealthChecksDeletePreviewHealthCheckResponses, HealthChecksHealthCheckDetailsErrors, HealthChecksHealthCheckDetailsResponses, HealthChecksHealthCheckPreviewDetailsErrors, HealthChecksHealthCheckPreviewDetailsResponses, HealthchecksIdentifier, HealthChecksListHealthChecksErrors, HealthChecksListHealthChecksResponses, HealthChecksPatchHealthCheckErrors, HealthChecksPatchHealthCheckResponses, HealthchecksQueryHealthcheck, HealthChecksUpdateHealthCheckErrors, HealthChecksUpdateHealthCheckResponses, SmartShieldCreateHealthCheckErrors, SmartShieldCreateHealthCheckResponses, SmartShieldDeleteHealthCheckErrors, SmartShieldDeleteHealthCheckResponses, SmartShieldHealthCheckDetailsErrors, SmartShieldHealthCheckDetailsResponses, SmartshieldIdentifier, SmartShieldListHealthChecksErrors, SmartShieldListHealthChecksResponses, SmartShieldPatchHealthCheckErrors, SmartShieldPatchHealthCheckResponses, SmartshieldQueryHealthcheck, SmartshieldSingleHcResponseWritable, SmartShieldUpdateHealthCheckErrors, SmartShieldUpdateHealthCheckResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class HealthChecksService {
         zone_id: HealthchecksIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksListHealthChecksResponses, HealthChecksListHealthChecksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class HealthChecksService {
     public static healthChecksCreateHealthCheck<ThrowOnError extends boolean = true>(parameters: {
         zone_id: HealthchecksIdentifier;
         healthchecksQueryHealthcheck: HealthchecksQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksCreateHealthCheckResponses, HealthChecksCreateHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'healthchecksQueryHealthcheck', map: 'body' }] }]);
         return (options?.client ?? client).post<HealthChecksCreateHealthCheckResponses, HealthChecksCreateHealthCheckErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class HealthChecksService {
     public static healthChecksCreatePreviewHealthCheck<ThrowOnError extends boolean = true>(parameters: {
         zone_id: HealthchecksIdentifier;
         healthchecksQueryHealthcheck: HealthchecksQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksCreatePreviewHealthCheckResponses, HealthChecksCreatePreviewHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'healthchecksQueryHealthcheck', map: 'body' }] }]);
         return (options?.client ?? client).post<HealthChecksCreatePreviewHealthCheckResponses, HealthChecksCreatePreviewHealthCheckErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,7 +119,7 @@ export class HealthChecksService {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksDeletePreviewHealthCheckResponses, HealthChecksDeletePreviewHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -156,7 +156,7 @@ export class HealthChecksService {
     public static healthChecksHealthCheckPreviewDetails<ThrowOnError extends boolean = true>(parameters: {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksHealthCheckPreviewDetailsResponses, HealthChecksHealthCheckPreviewDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'healthcheck_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<HealthChecksHealthCheckPreviewDetailsResponses, HealthChecksHealthCheckPreviewDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -185,7 +185,7 @@ export class HealthChecksService {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksDeleteHealthCheckResponses, HealthChecksDeleteHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -222,7 +222,7 @@ export class HealthChecksService {
     public static healthChecksHealthCheckDetails<ThrowOnError extends boolean = true>(parameters: {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksHealthCheckDetailsResponses, HealthChecksHealthCheckDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'healthcheck_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<HealthChecksHealthCheckDetailsResponses, HealthChecksHealthCheckDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -251,7 +251,7 @@ export class HealthChecksService {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
         healthchecksQueryHealthcheck: HealthchecksQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksPatchHealthCheckResponses, HealthChecksPatchHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -289,7 +289,7 @@ export class HealthChecksService {
         healthcheck_id: HealthchecksIdentifier;
         zone_id: HealthchecksIdentifier;
         healthchecksQueryHealthcheck: HealthchecksQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<HealthChecksUpdateHealthCheckResponses, HealthChecksUpdateHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -327,7 +327,7 @@ export class HealthChecksService {
         zone_id: SmartshieldIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldListHealthChecksResponses, SmartShieldListHealthChecksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -359,7 +359,7 @@ export class HealthChecksService {
     public static smartShieldCreateHealthCheck<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SmartshieldIdentifier;
         smartshieldQueryHealthcheck: SmartshieldQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldCreateHealthCheckResponses, SmartShieldCreateHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'smartshieldQueryHealthcheck', map: 'body' }] }]);
         return (options?.client ?? client).post<SmartShieldCreateHealthCheckResponses, SmartShieldCreateHealthCheckErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -393,7 +393,7 @@ export class HealthChecksService {
         healthcheck_id: SmartshieldIdentifier;
         zone_id: SmartshieldIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldDeleteHealthCheckResponses, SmartShieldDeleteHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -430,7 +430,7 @@ export class HealthChecksService {
     public static smartShieldHealthCheckDetails<ThrowOnError extends boolean = true>(parameters: {
         healthcheck_id: SmartshieldIdentifier;
         zone_id: SmartshieldIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldHealthCheckDetailsResponses, SmartShieldHealthCheckDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'healthcheck_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SmartShieldHealthCheckDetailsResponses, SmartShieldHealthCheckDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -459,7 +459,7 @@ export class HealthChecksService {
         healthcheck_id: SmartshieldIdentifier;
         zone_id: SmartshieldIdentifier;
         smartshieldQueryHealthcheck: SmartshieldQueryHealthcheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldPatchHealthCheckResponses, SmartShieldPatchHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },
@@ -497,7 +497,7 @@ export class HealthChecksService {
         healthcheck_id: SmartshieldIdentifier;
         zone_id: SmartshieldIdentifier;
         smartshieldSingleHcResponseWritable: SmartshieldSingleHcResponseWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldUpdateHealthCheckResponses, SmartShieldUpdateHealthCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'healthcheck_id' },
                     { in: 'path', key: 'zone_id' },

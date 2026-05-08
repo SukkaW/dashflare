@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudforceOnePortScanApiFrequency, CloudforceOnePortScanApiIps, CloudforceOnePortScanApiPorts, CreateScanErrors, CreateScanResponses, DeleteDeleteScansErrors, DeleteDeleteScansResponses, DeleteScanErrors, DeleteScanResponses, GetConfigFetchErrors, GetConfigFetchResponses, GetGetOpenPortsErrors, GetGetOpenPortsResponses, GetScanErrors, GetScanResponses, ListScansErrors, ListScansResponses, PostConfigCreateErrors, PostConfigCreateResponses, PostConfigUpdateErrors, PostConfigUpdateResponses, VulnScannerCreateScanRequest, VulnScannerIdentifier } from '../types.gen';
@@ -16,7 +16,7 @@ export class ScansService {
      */
     public static getConfigFetch<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetConfigFetchResponses, GetConfigFetchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetConfigFetchResponses, GetConfigFetchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class ScansService {
         frequency?: CloudforceOnePortScanApiFrequency;
         ips: CloudforceOnePortScanApiIps;
         ports?: CloudforceOnePortScanApiPorts;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostConfigCreateResponses, PostConfigCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'frequency' },
@@ -80,7 +80,7 @@ export class ScansService {
     public static deleteDeleteScans<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         config_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeleteScansResponses, DeleteDeleteScansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'config_id' }] }]);
         return (options?.client ?? client).delete<DeleteDeleteScansResponses, DeleteDeleteScansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -109,7 +109,7 @@ export class ScansService {
         frequency?: CloudforceOnePortScanApiFrequency;
         ips?: CloudforceOnePortScanApiIps;
         ports?: CloudforceOnePortScanApiPorts;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostConfigUpdateResponses, PostConfigUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'config_id' },
@@ -146,7 +146,7 @@ export class ScansService {
     public static getGetOpenPorts<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         config_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetGetOpenPortsResponses, GetGetOpenPortsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'config_id' }] }]);
         return (options?.client ?? client).get<GetGetOpenPortsResponses, GetGetOpenPortsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -175,7 +175,7 @@ export class ScansService {
         account_id: VulnScannerIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListScansResponses, ListScansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -209,7 +209,7 @@ export class ScansService {
     public static createScan<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         vulnScannerCreateScanRequest: VulnScannerCreateScanRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateScanResponses, CreateScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'vulnScannerCreateScanRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateScanResponses, CreateScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -247,7 +247,7 @@ export class ScansService {
     public static deleteScan<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         scan_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteScanResponses, DeleteScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'scan_id' }] }]);
         return (options?.client ?? client).delete<DeleteScanResponses, DeleteScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -275,7 +275,7 @@ export class ScansService {
     public static getScan<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         scan_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetScanResponses, GetScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'scan_id' }] }]);
         return (options?.client ?? client).get<GetScanResponses, GetScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

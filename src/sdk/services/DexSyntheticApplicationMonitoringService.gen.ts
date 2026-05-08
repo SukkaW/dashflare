@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DevicesLiveStatusErrors, DevicesLiveStatusResponses, DexEndpointsHttpTestDetailsErrors, DexEndpointsHttpTestDetailsResponses, DexEndpointsHttpTestPercentilesErrors, DexEndpointsHttpTestPercentilesResponses, DexEndpointsListColosErrors, DexEndpointsListColosResponses, DexEndpointsListTestsOverviewErrors, DexEndpointsListTestsOverviewResponses, DexEndpointsTestsUniqueDevicesErrors, DexEndpointsTestsUniqueDevicesResponses, DexEndpointsTracerouteTestDetailsErrors, DexEndpointsTracerouteTestDetailsResponses, DexEndpointsTracerouteTestNetworkPathErrors, DexEndpointsTracerouteTestNetworkPathResponses, DexEndpointsTracerouteTestPercentilesErrors, DexEndpointsTracerouteTestPercentilesResponses, DexEndpointsTracerouteTestResultNetworkPathErrors, DexEndpointsTracerouteTestResultNetworkPathResponses, DexFleetStatusDevicesErrors, DexFleetStatusDevicesResponses, DexFleetStatusLiveErrors, DexFleetStatusLiveResponses, DexFleetStatusOverTimeErrors, DexFleetStatusOverTimeResponses, DigitalExperienceMonitoringAccountIdentifier, DigitalExperienceMonitoringColo, DigitalExperienceMonitoringDeviceId, DigitalExperienceMonitoringMode, DigitalExperienceMonitoringPage, DigitalExperienceMonitoringPerPage, DigitalExperienceMonitoringPlatform, DigitalExperienceMonitoringSinceMinutes, DigitalExperienceMonitoringSortBy, DigitalExperienceMonitoringSource, DigitalExperienceMonitoringStatus, DigitalExperienceMonitoringTimeNow, DigitalExperienceMonitoringTimestamp, DigitalExperienceMonitoringUuid, DigitalExperienceMonitoringVersion } from '../types.gen';
-import { zDevicesLiveStatusPath, zDevicesLiveStatusQuery, zDevicesLiveStatusResponse, zDexEndpointsHttpTestDetailsPath, zDexEndpointsHttpTestDetailsQuery, zDexEndpointsHttpTestDetailsResponse, zDexEndpointsHttpTestPercentilesPath, zDexEndpointsHttpTestPercentilesQuery, zDexEndpointsHttpTestPercentilesResponse, zDexEndpointsListColosPath, zDexEndpointsListColosQuery, zDexEndpointsListColosResponse, zDexEndpointsListTestsOverviewPath, zDexEndpointsListTestsOverviewQuery, zDexEndpointsListTestsOverviewResponse, zDexEndpointsTestsUniqueDevicesPath, zDexEndpointsTestsUniqueDevicesQuery, zDexEndpointsTestsUniqueDevicesResponse, zDexEndpointsTracerouteTestDetailsPath, zDexEndpointsTracerouteTestDetailsQuery, zDexEndpointsTracerouteTestDetailsResponse, zDexEndpointsTracerouteTestNetworkPathPath, zDexEndpointsTracerouteTestNetworkPathQuery, zDexEndpointsTracerouteTestNetworkPathResponse, zDexEndpointsTracerouteTestPercentilesPath, zDexEndpointsTracerouteTestPercentilesQuery, zDexEndpointsTracerouteTestPercentilesResponse, zDexEndpointsTracerouteTestResultNetworkPathPath, zDexEndpointsTracerouteTestResultNetworkPathResponse, zDexFleetStatusDevicesPath, zDexFleetStatusDevicesQuery, zDexFleetStatusDevicesResponse, zDexFleetStatusLivePath, zDexFleetStatusLiveQuery, zDexFleetStatusLiveResponse, zDexFleetStatusOverTimePath, zDexFleetStatusOverTimeQuery, zDexFleetStatusOverTimeResponse } from '../zod.gen';
+import type { DeviceDexTestCreateDeviceDexTestErrors, DeviceDexTestCreateDeviceDexTestResponses, DeviceDexTestDeleteDeviceDexTestErrors, DeviceDexTestDeleteDeviceDexTestResponses, DeviceDexTestDetailsErrors, DeviceDexTestDetailsResponses, DeviceDexTestGetDeviceDexTestErrors, DeviceDexTestGetDeviceDexTestResponses, DeviceDexTestUpdateDeviceDexTestErrors, DeviceDexTestUpdateDeviceDexTestResponses, DevicesLiveStatusErrors, DevicesLiveStatusResponses, DexDeviceStatusOverTimeErrors, DexDeviceStatusOverTimeResponses, DexEndpointsHttpTestDetailsErrors, DexEndpointsHttpTestDetailsResponses, DexEndpointsHttpTestPercentilesErrors, DexEndpointsHttpTestPercentilesResponses, DexEndpointsListColosErrors, DexEndpointsListColosResponses, DexEndpointsListDeviceIspsErrors, DexEndpointsListDeviceIspsResponses, DexEndpointsListTestsOverviewErrors, DexEndpointsListTestsOverviewResponses, DexEndpointsTestsUniqueDevicesErrors, DexEndpointsTestsUniqueDevicesResponses, DexEndpointsTracerouteTestDetailsErrors, DexEndpointsTracerouteTestDetailsResponses, DexEndpointsTracerouteTestNetworkPathErrors, DexEndpointsTracerouteTestNetworkPathResponses, DexEndpointsTracerouteTestPercentilesErrors, DexEndpointsTracerouteTestPercentilesResponses, DexEndpointsTracerouteTestResultNetworkPathErrors, DexEndpointsTracerouteTestResultNetworkPathResponses, DexFleetStatusDevicesErrors, DexFleetStatusDevicesResponses, DexFleetStatusLiveErrors, DexFleetStatusLiveResponses, DexFleetStatusOverTimeErrors, DexFleetStatusOverTimeResponses, DigitalExperienceMonitoringAccountIdentifier, DigitalExperienceMonitoringColo, DigitalExperienceMonitoringDeviceDexTestSchemasHttpWritable, DigitalExperienceMonitoringDeviceId, DigitalExperienceMonitoringMode, DigitalExperienceMonitoringPage, DigitalExperienceMonitoringPerPage, DigitalExperienceMonitoringPlatform, DigitalExperienceMonitoringSchemasTestId, DigitalExperienceMonitoringSinceMinutes, DigitalExperienceMonitoringSortBy, DigitalExperienceMonitoringSource, DigitalExperienceMonitoringStatus, DigitalExperienceMonitoringTimeNow, DigitalExperienceMonitoringTimestamp, DigitalExperienceMonitoringUuid, DigitalExperienceMonitoringVersion } from '../types.gen';
+import { zDeviceDexTestCreateDeviceDexTestBody, zDeviceDexTestCreateDeviceDexTestPath, zDeviceDexTestCreateDeviceDexTestResponse, zDeviceDexTestDeleteDeviceDexTestPath, zDeviceDexTestDeleteDeviceDexTestResponse, zDeviceDexTestDetailsPath, zDeviceDexTestDetailsQuery, zDeviceDexTestDetailsResponse, zDeviceDexTestGetDeviceDexTestPath, zDeviceDexTestGetDeviceDexTestResponse, zDeviceDexTestUpdateDeviceDexTestBody, zDeviceDexTestUpdateDeviceDexTestPath, zDeviceDexTestUpdateDeviceDexTestResponse, zDevicesLiveStatusPath, zDevicesLiveStatusQuery, zDevicesLiveStatusResponse, zDexDeviceStatusOverTimePath, zDexDeviceStatusOverTimeQuery, zDexDeviceStatusOverTimeResponse, zDexEndpointsHttpTestDetailsPath, zDexEndpointsHttpTestDetailsQuery, zDexEndpointsHttpTestDetailsResponse, zDexEndpointsHttpTestPercentilesPath, zDexEndpointsHttpTestPercentilesQuery, zDexEndpointsHttpTestPercentilesResponse, zDexEndpointsListColosPath, zDexEndpointsListColosQuery, zDexEndpointsListColosResponse, zDexEndpointsListDeviceIspsPath, zDexEndpointsListDeviceIspsQuery, zDexEndpointsListDeviceIspsResponse, zDexEndpointsListTestsOverviewPath, zDexEndpointsListTestsOverviewQuery, zDexEndpointsListTestsOverviewResponse, zDexEndpointsTestsUniqueDevicesPath, zDexEndpointsTestsUniqueDevicesQuery, zDexEndpointsTestsUniqueDevicesResponse, zDexEndpointsTracerouteTestDetailsPath, zDexEndpointsTracerouteTestDetailsQuery, zDexEndpointsTracerouteTestDetailsResponse, zDexEndpointsTracerouteTestNetworkPathPath, zDexEndpointsTracerouteTestNetworkPathQuery, zDexEndpointsTracerouteTestNetworkPathResponse, zDexEndpointsTracerouteTestPercentilesPath, zDexEndpointsTracerouteTestPercentilesQuery, zDexEndpointsTracerouteTestPercentilesResponse, zDexEndpointsTracerouteTestResultNetworkPathPath, zDexEndpointsTracerouteTestResultNetworkPathResponse, zDexFleetStatusDevicesPath, zDexFleetStatusDevicesQuery, zDexFleetStatusDevicesResponse, zDexFleetStatusLivePath, zDexFleetStatusLiveQuery, zDexFleetStatusLiveResponse, zDexFleetStatusOverTimePath, zDexFleetStatusOverTimeQuery, zDexFleetStatusOverTimeResponse } from '../zod.gen';
 
 export class DexSyntheticApplicationMonitoringService {
     /**
@@ -21,7 +21,7 @@ export class DexSyntheticApplicationMonitoringService {
         from: string;
         to: string;
         sortBy?: 'fleet-status-usage' | 'application-tests-usage';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsListColosResponses, DexEndpointsListColosErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'from' },
@@ -48,9 +48,153 @@ export class DexSyntheticApplicationMonitoringService {
     }
     
     /**
-     * Get the live status of a latest device
+     * List Device DEX tests
      *
-     * Get the live status of a latest device given device_id from the device_state table
+     * Fetch all DEX tests.
+     */
+    public static deviceDexTestDetails<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        page?: number;
+        per_page?: number;
+        testName?: string;
+        kind?: 'http' | 'traceroute';
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceDexTestDetailsResponses, DeviceDexTestDetailsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'testName' },
+                    { in: 'query', key: 'kind' }
+                ] }]);
+        return (options?.client ?? client).get<DeviceDexTestDetailsResponses, DeviceDexTestDetailsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeviceDexTestDetailsPath,
+                query: zDeviceDexTestDetailsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeviceDexTestDetailsResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/dex/devices/dex_tests',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create Device DEX test
+     *
+     * Create a DEX test.
+     */
+    public static deviceDexTestCreateDeviceDexTest<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        digitalExperienceMonitoringDeviceDexTestSchemasHttpWritable: DigitalExperienceMonitoringDeviceDexTestSchemasHttpWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceDexTestCreateDeviceDexTestResponses, DeviceDexTestCreateDeviceDexTestErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'digitalExperienceMonitoringDeviceDexTestSchemasHttpWritable', map: 'body' }] }]);
+        return (options?.client ?? client).post<DeviceDexTestCreateDeviceDexTestResponses, DeviceDexTestCreateDeviceDexTestErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zDeviceDexTestCreateDeviceDexTestBody,
+                path: zDeviceDexTestCreateDeviceDexTestPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeviceDexTestCreateDeviceDexTestResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/dex/devices/dex_tests',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete Device DEX test
+     *
+     * Delete a Device DEX test. Returns the remaining device dex tests for the account.
+     */
+    public static deviceDexTestDeleteDeviceDexTest<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        dex_test_id: DigitalExperienceMonitoringUuid;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceDexTestDeleteDeviceDexTestResponses, DeviceDexTestDeleteDeviceDexTestErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dex_test_id' }] }]);
+        return (options?.client ?? client).delete<DeviceDexTestDeleteDeviceDexTestResponses, DeviceDexTestDeleteDeviceDexTestErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeviceDexTestDeleteDeviceDexTestPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeviceDexTestDeleteDeviceDexTestResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get Device DEX test
+     *
+     * Fetch a single DEX test.
+     */
+    public static deviceDexTestGetDeviceDexTest<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        dex_test_id: DigitalExperienceMonitoringSchemasTestId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceDexTestGetDeviceDexTestResponses, DeviceDexTestGetDeviceDexTestErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dex_test_id' }] }]);
+        return (options?.client ?? client).get<DeviceDexTestGetDeviceDexTestResponses, DeviceDexTestGetDeviceDexTestErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeviceDexTestGetDeviceDexTestPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeviceDexTestGetDeviceDexTestResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update Device DEX test
+     *
+     * Update a DEX test.
+     */
+    public static deviceDexTestUpdateDeviceDexTest<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        dex_test_id: DigitalExperienceMonitoringUuid;
+        digitalExperienceMonitoringDeviceDexTestSchemasHttpWritable: DigitalExperienceMonitoringDeviceDexTestSchemasHttpWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeviceDexTestUpdateDeviceDexTestResponses, DeviceDexTestUpdateDeviceDexTestErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'dex_test_id' },
+                    { key: 'digitalExperienceMonitoringDeviceDexTestSchemasHttpWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<DeviceDexTestUpdateDeviceDexTestResponses, DeviceDexTestUpdateDeviceDexTestErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zDeviceDexTestUpdateDeviceDexTestBody,
+                path: zDeviceDexTestUpdateDeviceDexTestPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeviceDexTestUpdateDeviceDexTestResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/dex/devices/dex_tests/{dex_test_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get the latest status of a device.
+     *
+     * Get the latest status of a device given device_id from the device_state table.
      */
     public static devicesLiveStatus<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -58,7 +202,7 @@ export class DexSyntheticApplicationMonitoringService {
         since_minutes: DigitalExperienceMonitoringSinceMinutes;
         time_now?: DigitalExperienceMonitoringTimeNow;
         colo?: DigitalExperienceMonitoringColo;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesLiveStatusResponses, DevicesLiveStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'device_id' },
@@ -86,9 +230,95 @@ export class DexSyntheticApplicationMonitoringService {
     }
     
     /**
-     * List fleet status devices
+     * Get the status over time for a device
      *
-     * List details for devices using WARP
+     * Get time-bucketed status metrics for a specific device.
+     */
+    public static dexDeviceStatusOverTime<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        device_id: DigitalExperienceMonitoringDeviceId;
+        from: DigitalExperienceMonitoringTimestamp;
+        to: DigitalExperienceMonitoringTimestamp;
+        interval: 'minute' | 'hour';
+        colo?: DigitalExperienceMonitoringColo;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexDeviceStatusOverTimeResponses, DexDeviceStatusOverTimeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'device_id' },
+                    { in: 'query', key: 'from' },
+                    { in: 'query', key: 'to' },
+                    { in: 'query', key: 'interval' },
+                    { in: 'query', key: 'colo' }
+                ] }]);
+        return (options?.client ?? client).get<DexDeviceStatusOverTimeResponses, DexDeviceStatusOverTimeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDexDeviceStatusOverTimePath,
+                query: zDexDeviceStatusOverTimeQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDexDeviceStatusOverTimeResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/dex/devices/{device_id}/fleet-status/over-time',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List device ISPs
+     *
+     * List ISP information observed for a specific device during traceroute tests.
+     */
+    public static dexEndpointsListDeviceIsps<ThrowOnError extends boolean = true>(parameters: {
+        account_id: DigitalExperienceMonitoringAccountIdentifier;
+        device_id: DigitalExperienceMonitoringUuid;
+        page?: number;
+        per_page: number;
+        cursor?: string;
+        sort_by?: 'time_start';
+        sort_order?: 'ASC' | 'DESC';
+        from?: string;
+        to?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsListDeviceIspsResponses, DexEndpointsListDeviceIspsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'device_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'cursor' },
+                    { in: 'query', key: 'sort_by' },
+                    { in: 'query', key: 'sort_order' },
+                    { in: 'query', key: 'from' },
+                    { in: 'query', key: 'to' }
+                ] }]);
+        return (options?.client ?? client).get<DexEndpointsListDeviceIspsResponses, DexEndpointsListDeviceIspsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDexEndpointsListDeviceIspsPath,
+                query: zDexEndpointsListDeviceIspsQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDexEndpointsListDeviceIspsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/dex/devices/{device_id}/isps',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List details of devices using WARP.
+     *
+     * List details of devices using WARP.
      */
     public static dexFleetStatusDevices<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -104,7 +334,7 @@ export class DexSyntheticApplicationMonitoringService {
         platform?: DigitalExperienceMonitoringPlatform;
         version?: DigitalExperienceMonitoringVersion;
         source?: DigitalExperienceMonitoringSource;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexFleetStatusDevicesResponses, DexFleetStatusDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'to' },
@@ -140,14 +370,14 @@ export class DexSyntheticApplicationMonitoringService {
     }
     
     /**
-     * List fleet status details by dimension
+     * Get live aggregate device details by dimension
      *
-     * List details for live (up to 60 minutes) devices using WARP
+     * Get details for live (up to 60 minutes) devices using WARP.
      */
     public static dexFleetStatusLive<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         since_minutes: DigitalExperienceMonitoringSinceMinutes;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexFleetStatusLiveResponses, DexFleetStatusLiveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'since_minutes' }] }]);
         return (options?.client ?? client).get<DexFleetStatusLiveResponses, DexFleetStatusLiveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -169,9 +399,9 @@ export class DexSyntheticApplicationMonitoringService {
     }
     
     /**
-     * List fleet status aggregate details by dimension
+     * Get over time aggregate details for devices by dimension
      *
-     * List details for devices using WARP, up to 7 days
+     * Get aggregate details for devices using WARP, up to 7 days.
      */
     public static dexFleetStatusOverTime<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -179,7 +409,7 @@ export class DexSyntheticApplicationMonitoringService {
         from: DigitalExperienceMonitoringTimestamp;
         colo?: DigitalExperienceMonitoringColo;
         device_id?: DigitalExperienceMonitoringDeviceId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexFleetStatusOverTimeResponses, DexFleetStatusOverTimeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'to' },
@@ -219,7 +449,7 @@ export class DexSyntheticApplicationMonitoringService {
         to: string;
         interval: 'minute' | 'hour';
         colo?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsHttpTestDetailsResponses, DexEndpointsHttpTestDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'test_id' },
@@ -260,7 +490,7 @@ export class DexSyntheticApplicationMonitoringService {
         from: string;
         to: string;
         colo?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsHttpTestPercentilesResponses, DexEndpointsHttpTestPercentilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'test_id' },
@@ -291,7 +521,7 @@ export class DexSyntheticApplicationMonitoringService {
     /**
      * List DEX test analytics
      *
-     * List DEX tests with overview metrics
+     * List DEX tests with overview metrics.
      */
     public static dexEndpointsListTestsOverview<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -302,7 +532,7 @@ export class DexSyntheticApplicationMonitoringService {
         page?: number;
         per_page?: number;
         kind?: 'http' | 'traceroute';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsListTestsOverviewResponses, DexEndpointsListTestsOverviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'colo' },
@@ -341,7 +571,7 @@ export class DexSyntheticApplicationMonitoringService {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         testName?: string;
         deviceId?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsTestsUniqueDevicesResponses, DexEndpointsTestsUniqueDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'testName' },
@@ -374,7 +604,7 @@ export class DexSyntheticApplicationMonitoringService {
     public static dexEndpointsTracerouteTestResultNetworkPath<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         test_result_id: DigitalExperienceMonitoringUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsTracerouteTestResultNetworkPathResponses, DexEndpointsTracerouteTestResultNetworkPathErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'test_result_id' }] }]);
         return (options?.client ?? client).get<DexEndpointsTracerouteTestResultNetworkPathResponses, DexEndpointsTracerouteTestResultNetworkPathErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -398,7 +628,7 @@ export class DexSyntheticApplicationMonitoringService {
     /**
      * Get details and aggregate metrics for a traceroute test
      *
-     * Get test details and aggregate performance metrics for an traceroute test for a given time period between 1 hour and 7 days.
+     * Get test details and aggregate performance metrics for a traceroute test for a given time period between 1 hour and 7 days.
      */
     public static dexEndpointsTracerouteTestDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -408,7 +638,7 @@ export class DexSyntheticApplicationMonitoringService {
         to: string;
         interval: 'minute' | 'hour';
         colo?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsTracerouteTestDetailsResponses, DexEndpointsTracerouteTestDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'test_id' },
@@ -440,7 +670,7 @@ export class DexSyntheticApplicationMonitoringService {
     /**
      * Get network path breakdown for a traceroute test
      *
-     * Get a breakdown of metrics by hop for individual traceroute test runs
+     * Get a breakdown of metrics by hop for individual traceroute test runs.
      */
     public static dexEndpointsTracerouteTestNetworkPath<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -449,7 +679,7 @@ export class DexSyntheticApplicationMonitoringService {
         from: string;
         to: string;
         interval: 'minute' | 'hour';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsTracerouteTestNetworkPathResponses, DexEndpointsTracerouteTestNetworkPathErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'test_id' },
@@ -489,7 +719,7 @@ export class DexSyntheticApplicationMonitoringService {
         from: string;
         to: string;
         colo?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DexEndpointsTracerouteTestPercentilesResponses, DexEndpointsTracerouteTestPercentilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'test_id' },

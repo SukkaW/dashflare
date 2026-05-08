@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetRegistrationOverrideCodesResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class WarpTeamsDeviceApiOtherService {
     public static getRegistrationOverrideCodes<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         registration_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetRegistrationOverrideCodesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'registration_id' }] }]);
         return (options?.client ?? client).get<GetRegistrationOverrideCodesResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({

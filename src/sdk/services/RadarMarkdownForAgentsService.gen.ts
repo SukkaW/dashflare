@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAiMarkdownForAgentsSummaryErrors, RadarGetAiMarkdownForAgentsSummaryResponses, RadarGetAiMarkdownForAgentsTimeseriesErrors, RadarGetAiMarkdownForAgentsTimeseriesResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class RadarMarkdownForAgentsService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiMarkdownForAgentsSummaryResponses, RadarGetAiMarkdownForAgentsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -60,7 +60,7 @@ export class RadarMarkdownForAgentsService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiMarkdownForAgentsTimeseriesResponses, RadarGetAiMarkdownForAgentsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },

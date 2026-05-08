@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddAudioTrackErrors, AddAudioTrackResponses, DeleteAudioTracksErrors, DeleteAudioTracksResponses, EditAudioTracksErrors, EditAudioTracksResponses, ListAudioTracksErrors, ListAudioTracksResponses, StreamAccountIdentifier, StreamAudioIdentifier, StreamCopyAudioTrack, StreamEditAudioTrack, StreamIdentifier } from '../types.gen';
@@ -19,7 +19,7 @@ export class StreamAudioTracksService {
     public static listAudioTracks<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
         identifier: StreamIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAudioTracksResponses, ListAudioTracksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'identifier' }] }]);
         return (options?.client ?? client).get<ListAudioTracksResponses, ListAudioTracksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class StreamAudioTracksService {
         account_id: StreamAccountIdentifier;
         identifier: StreamIdentifier;
         streamCopyAudioTrack: StreamCopyAudioTrack;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AddAudioTrackResponses, AddAudioTrackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'identifier' },
@@ -86,7 +86,7 @@ export class StreamAudioTracksService {
         account_id: StreamAccountIdentifier;
         identifier: StreamIdentifier;
         audio_identifier: StreamAudioIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAudioTracksResponses, DeleteAudioTracksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'identifier' },
@@ -120,7 +120,7 @@ export class StreamAudioTracksService {
         identifier: StreamIdentifier;
         audio_identifier: StreamAudioIdentifier;
         streamEditAudioTrack: StreamEditAudioTrack;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditAudioTracksResponses, EditAudioTracksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'identifier' },

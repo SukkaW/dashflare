@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CachePurgeEverything, CachePurgeFlexPurgeByHostnames, CachePurgeFlexPurgeByPrefixes, CachePurgeFlexPurgeByTags, CachePurgeIdentifier, CachePurgeSingleFile, CachePurgeSingleFileWithUrlAndHeaders, PutZonesZoneIdActivationCheckErrors, PutZonesZoneIdActivationCheckResponses, ZoneActivationIdentifier, ZonePurgeErrors, ZonePurgeResponses, Zones0DeleteErrors, Zones0DeleteResponses, Zones0GetErrors, Zones0GetResponses, Zones0PatchErrors, Zones0PatchResponses, ZonesGetErrors, ZonesGetResponses, ZonesIdentifier, ZonesName, ZonesPaused, ZonesPostErrors, ZonesPostResponses, ZonesType, ZonesVanityNameServers } from '../types.gen';
-import { zPutZonesZoneIdActivationCheckPath, zPutZonesZoneIdActivationCheckResponse, zZonePurgeBody, zZonePurgePath, zZonePurgeResponse, zZones0DeleteBody, zZones0DeletePath, zZones0DeleteResponse, zZones0GetPath, zZones0GetResponse, zZones0PatchBody, zZones0PatchPath, zZones0PatchResponse, zZonesGetQuery, zZonesGetResponse, zZonesPostBody, zZonesPostResponse } from '../zod.gen';
+import type { CachePurgeEverything, CachePurgeFlexPurgeByHostnames, CachePurgeFlexPurgeByPrefixes, CachePurgeFlexPurgeByTags, CachePurgeIdentifier, CachePurgeSingleFile, CachePurgeSingleFileWithUrlAndHeaders, PutZonesZoneIdActivationCheckErrors, PutZonesZoneIdActivationCheckResponses, ZoneActivationIdentifier, ZoneEnvironmentPurgeErrors, ZoneEnvironmentPurgeResponses, ZonePurgeErrors, ZonePurgeResponses, Zones0DeleteErrors, Zones0DeleteResponses, Zones0GetErrors, Zones0GetResponses, Zones0PatchErrors, Zones0PatchResponses, ZonesGetErrors, ZonesGetResponses, ZonesIdentifier, ZonesName, ZonesPaused, ZonesPostErrors, ZonesPostResponses, ZonesType, ZonesVanityNameServers } from '../types.gen';
+import { zPutZonesZoneIdActivationCheckPath, zPutZonesZoneIdActivationCheckResponse, zZoneEnvironmentPurgeBody, zZoneEnvironmentPurgePath, zZoneEnvironmentPurgeResponse, zZonePurgeBody, zZonePurgePath, zZonePurgeResponse, zZones0DeleteBody, zZones0DeletePath, zZones0DeleteResponse, zZones0GetPath, zZones0GetResponse, zZones0PatchBody, zZones0PatchPath, zZones0PatchResponse, zZonesGetQuery, zZonesGetResponse, zZonesPostBody, zZonesPostResponse } from '../zod.gen';
 
 export class ZoneService {
     /**
@@ -29,7 +29,7 @@ export class ZoneService {
         order?: 'name' | 'status' | 'account.id' | 'account.name' | 'plan.id';
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesGetResponses, ZonesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'status' },
@@ -63,6 +63,13 @@ export class ZoneService {
     
     /**
      * Create Zone
+     *
+     * Creates a new zone (domain) in your Cloudflare account.
+     *
+     * The zone is created in a pending state and must be activated by updating your domain's
+     * nameservers to point to Cloudflare, or by completing the verification process for partial
+     * (CNAME) setups.
+     *
      */
     public static zonesPost<ThrowOnError extends boolean = true>(parameters: {
         account: {
@@ -70,7 +77,7 @@ export class ZoneService {
         };
         name: ZonesName;
         type?: ZonesType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesPostResponses, ZonesPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'body', key: 'account' },
                     { in: 'body', key: 'name' },
@@ -107,7 +114,7 @@ export class ZoneService {
     public static zones0Delete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZonesIdentifier;
         body?: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0DeleteResponses, Zones0DeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<Zones0DeleteResponses, Zones0DeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,10 +141,15 @@ export class ZoneService {
     
     /**
      * Zone Details
+     *
+     * Retrieves detailed information about a specific zone identified by its zone ID.
+     *
+     * Returns zone configuration, status, nameservers, and associated metadata.
+     *
      */
     public static zones0Get<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZonesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0GetResponses, Zones0GetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Zones0GetResponses, Zones0GetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -170,7 +182,7 @@ export class ZoneService {
         };
         type?: 'full' | 'partial' | 'secondary' | 'internal';
         vanity_name_servers?: ZonesVanityNameServers;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0PatchResponses, Zones0PatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'paused' },
@@ -210,7 +222,7 @@ export class ZoneService {
      */
     public static putZonesZoneIdActivationCheck<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZoneActivationIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutZonesZoneIdActivationCheckResponses, PutZonesZoneIdActivationCheckErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).put<PutZonesZoneIdActivationCheckResponses, PutZonesZoneIdActivationCheckErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,6 +239,48 @@ export class ZoneService {
             url: '/zones/{zone_id}/activation_check',
             ...options,
             ...params
+        });
+    }
+    
+    /**
+     * Purge Cached Content by Environment
+     *
+     * Purge cached content scoped to a specific environment. Supports the same purge types as the zone-level endpoint (purge everything, by URL, by tag, host, or prefix).
+     *
+     * ### Availability and limits
+     * Please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
+     *
+     */
+    public static zoneEnvironmentPurge<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: CachePurgeIdentifier;
+        environment_id: CachePurgeIdentifier;
+        body: CachePurgeFlexPurgeByTags | CachePurgeFlexPurgeByHostnames | CachePurgeFlexPurgeByPrefixes | CachePurgeEverything | CachePurgeSingleFile | CachePurgeSingleFileWithUrlAndHeaders;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneEnvironmentPurgeResponses, ZoneEnvironmentPurgeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'environment_id' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<ZoneEnvironmentPurgeResponses, ZoneEnvironmentPurgeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZoneEnvironmentPurgeBody,
+                path: zZoneEnvironmentPurgePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneEnvironmentPurgeResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/zones/{zone_id}/environments/{environment_id}/purge_cache',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
     
@@ -252,7 +306,7 @@ export class ZoneService {
      * ```
      * Single file purge example with url and header pairs:
      * ```
-     * {"files": [{url: "http://www.example.com/cat_picture.jpg", headers: { "CF-IPCountry": "US", "CF-Device-Type": "desktop", "Accept-Language": "zh-CN" }}, {url: "http://www.example.com/dog_picture.jpg", headers: { "CF-IPCountry": "EU", "CF-Device-Type": "mobile", "Accept-Language": "en-US" }}]}
+     * {"files": [{"url": "http://www.example.com/cat_picture.jpg", "headers": {"CF-IPCountry": "US", "CF-Device-Type": "desktop", "Accept-Language": "zh-CN"}}, {"url": "http://www.example.com/dog_picture.jpg", "headers": {"CF-IPCountry": "EU", "CF-Device-Type": "mobile", "Accept-Language": "en-US"}}]}
      * ```
      *
      * ### Purge Cached Content by Tag, Host or Prefix
@@ -272,13 +326,13 @@ export class ZoneService {
      * ```
      *
      * ### Availability and limits
-     * please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
+     * Please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
      *
      */
     public static zonePurge<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CachePurgeIdentifier;
         body: CachePurgeFlexPurgeByTags | CachePurgeFlexPurgeByHostnames | CachePurgeFlexPurgeByPrefixes | CachePurgeEverything | CachePurgeSingleFile | CachePurgeSingleFileWithUrlAndHeaders;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonePurgeResponses, ZonePurgeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<ZonePurgeResponses, ZonePurgeErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

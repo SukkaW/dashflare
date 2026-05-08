@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { StreamSchemasIdentifier, StreamSigningKeysCreateSigningKeysErrors, StreamSigningKeysCreateSigningKeysResponses, StreamSigningKeysDeleteSigningKeysErrors, StreamSigningKeysDeleteSigningKeysResponses, StreamSigningKeysListSigningKeysErrors, StreamSigningKeysListSigningKeysResponses } from '../types.gen';
+import type { StreamIdentifier2, StreamSigningKeysCreateSigningKeysErrors, StreamSigningKeysCreateSigningKeysResponses, StreamSigningKeysDeleteSigningKeysErrors, StreamSigningKeysDeleteSigningKeysResponses, StreamSigningKeysListSigningKeysErrors, StreamSigningKeysListSigningKeysResponses } from '../types.gen';
 import { zStreamSigningKeysCreateSigningKeysBody, zStreamSigningKeysCreateSigningKeysPath, zStreamSigningKeysCreateSigningKeysResponse, zStreamSigningKeysDeleteSigningKeysBody, zStreamSigningKeysDeleteSigningKeysPath, zStreamSigningKeysDeleteSigningKeysResponse, zStreamSigningKeysListSigningKeysPath, zStreamSigningKeysListSigningKeysResponse } from '../zod.gen';
 
 export class StreamSigningKeysService {
@@ -17,8 +17,8 @@ export class StreamSigningKeysService {
      * Lists the video ID and creation date and time when a signing key was created.
      */
     public static streamSigningKeysListSigningKeys<ThrowOnError extends boolean = true>(parameters: {
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSigningKeysListSigningKeysResponses, StreamSigningKeysListSigningKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamSigningKeysListSigningKeysResponses, StreamSigningKeysListSigningKeysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,9 +44,9 @@ export class StreamSigningKeysService {
      * Creates an RSA private key in PEM and JWK formats. Key files are only displayed once after creation. Keys are created, used, and deleted independently of videos, and every key can sign any video.
      */
     public static streamSigningKeysCreateSigningKeys<ThrowOnError extends boolean = true>(parameters: {
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSigningKeysCreateSigningKeysResponses, StreamSigningKeysCreateSigningKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<StreamSigningKeysCreateSigningKeysResponses, StreamSigningKeysCreateSigningKeysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,10 +77,10 @@ export class StreamSigningKeysService {
      * Deletes signing keys and revokes all signed URLs generated with the key.
      */
     public static streamSigningKeysDeleteSigningKeys<ThrowOnError extends boolean = true>(parameters: {
-        identifier: StreamSchemasIdentifier;
-        account_id: StreamSchemasIdentifier;
+        identifier: StreamIdentifier2;
+        account_id: StreamIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSigningKeysDeleteSigningKeysResponses, StreamSigningKeysDeleteSigningKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_id' },

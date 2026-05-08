@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountUserGroupMemberCreateErrors, AccountUserGroupMemberCreateResponses, AccountUserGroupMemberDeleteErrors, AccountUserGroupMemberDeleteResponses, AccountUserGroupMemberGetErrors, AccountUserGroupMemberGetResponses, AccountUserGroupMemberListErrors, AccountUserGroupMemberListResponses, AccountUserGroupMembersUpdateErrors, AccountUserGroupMembersUpdateResponses, IamAccountIdentifierWritable, IamUserGroupIdentifierWritable, IamUserGroupMemberIdentifierWritable } from '../types.gen';
@@ -23,7 +23,7 @@ export class AccountUserGroupMembersService {
         per_page?: number;
         fuzzyEmail?: string;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupMemberListResponses, AccountUserGroupMemberListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },
@@ -57,7 +57,7 @@ export class AccountUserGroupMembersService {
         body: Array<{
             id: IamUserGroupMemberIdentifierWritable;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupMemberCreateResponses, AccountUserGroupMemberCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },
@@ -93,7 +93,7 @@ export class AccountUserGroupMembersService {
         body: Array<{
             id: IamUserGroupMemberIdentifierWritable;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupMembersUpdateResponses, AccountUserGroupMembersUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },
@@ -127,7 +127,7 @@ export class AccountUserGroupMembersService {
         account_id: IamAccountIdentifierWritable;
         user_group_id: IamUserGroupIdentifierWritable;
         member_id: IamUserGroupMemberIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupMemberDeleteResponses, AccountUserGroupMemberDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },
@@ -156,7 +156,7 @@ export class AccountUserGroupMembersService {
         account_id: IamAccountIdentifierWritable;
         user_group_id: IamUserGroupIdentifierWritable;
         member_id: IamUserGroupMemberIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupMemberGetResponses, AccountUserGroupMemberGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },

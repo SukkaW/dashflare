@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteCategoryDeleteErrors, DeleteCategoryDeleteResponses, GetCategoriesErrors, GetCategoriesResponses, GetCategoryByIdErrors, GetCategoryByIdResponses, GetCategoryListCompleteErrors, GetCategoryListCompleteResponses, GetCategoryListErrors, GetCategoryListResponses, GetCategoryReadErrors, GetCategoryReadResponses, PatchCategoryUpdateErrors, PatchCategoryUpdateResponses, PostCategoryCreateErrors, PostCategoryCreateResponses, PostCategoryUpdateErrors, PostCategoryUpdateResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zDeleteCategoryDeletePath, zDeleteCategoryDeleteResponse, zGetCategorie
 export class CategoryService {
     /**
      * Lists categories across multiple datasets
+     *
+     * List categories across one or more datasets for the account.
      */
     public static getCategoryList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         datasetIds?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCategoryListResponses, GetCategoryListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'datasetIds' }] }]);
         return (options?.client ?? client).get<GetCategoryListResponses, GetCategoryListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,10 +37,12 @@ export class CategoryService {
     
     /**
      * Lists categories
+     *
+     * List all categories stored in the account catalog.
      */
     public static getCategoryListComplete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCategoryListCompleteResponses, GetCategoryListCompleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetCategoryListCompleteResponses, GetCategoryListCompleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -56,6 +60,8 @@ export class CategoryService {
     
     /**
      * Creates a new category
+     *
+     * Create a new event category for the account.
      */
     public static postCategoryCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -64,7 +70,7 @@ export class CategoryService {
         mitreCapec?: Array<string>;
         name: string;
         shortname?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCategoryCreateResponses, PostCategoryCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'killChain' },
@@ -94,11 +100,13 @@ export class CategoryService {
     
     /**
      * Deletes a category
+     *
+     * Delete a category by its identifier.
      */
     public static deleteCategoryDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         category_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteCategoryDeleteResponses, DeleteCategoryDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'category_id' }] }]);
         return (options?.client ?? client).delete<DeleteCategoryDeleteResponses, DeleteCategoryDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -116,11 +124,13 @@ export class CategoryService {
     
     /**
      * Reads a category
+     *
+     * Retrieve a single category by its identifier.
      */
     public static getCategoryRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         category_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCategoryReadResponses, GetCategoryReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'category_id' }] }]);
         return (options?.client ?? client).get<GetCategoryReadResponses, GetCategoryReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -138,6 +148,8 @@ export class CategoryService {
     
     /**
      * Updates a category
+     *
+     * Update an existing category by its identifier.
      */
     public static patchCategoryUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -147,7 +159,7 @@ export class CategoryService {
         mitreCapec?: Array<string>;
         name?: string;
         shortname?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchCategoryUpdateResponses, PatchCategoryUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'category_id' },
@@ -178,6 +190,8 @@ export class CategoryService {
     
     /**
      * Updates a category
+     *
+     * Update an existing category by its identifier.
      */
     public static postCategoryUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -187,7 +201,7 @@ export class CategoryService {
         mitreCapec?: Array<string>;
         name?: string;
         shortname?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCategoryUpdateResponses, PostCategoryUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'category_id' },
@@ -225,7 +239,7 @@ export class CategoryService {
         account_id: string;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCategoriesResponses, GetCategoriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },
@@ -257,7 +271,7 @@ export class CategoryService {
     public static getCategoryById<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCategoryByIdResponses, GetCategoryByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<GetCategoryByIdResponses, GetCategoryByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

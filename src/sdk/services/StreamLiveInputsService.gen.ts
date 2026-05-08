@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { StreamCreateInputRequest, StreamCreateOutputRequest, StreamIncludeCounts, StreamLiveInputIdentifier, StreamLiveInputsCreateALiveInputErrors, StreamLiveInputsCreateALiveInputResponses, StreamLiveInputsCreateANewOutputConnectedToALiveInputErrors, StreamLiveInputsCreateANewOutputConnectedToALiveInputResponses, StreamLiveInputsDeleteALiveInputErrors, StreamLiveInputsDeleteALiveInputResponses, StreamLiveInputsDeleteAnOutputErrors, StreamLiveInputsDeleteAnOutputResponses, StreamLiveInputsDisableALiveInputErrors, StreamLiveInputsDisableALiveInputResponses, StreamLiveInputsEnableALiveInputErrors, StreamLiveInputsEnableALiveInputResponses, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputErrors, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponses, StreamLiveInputsListLiveInputsErrors, StreamLiveInputsListLiveInputsResponses, StreamLiveInputsRetrieveALiveInputErrors, StreamLiveInputsRetrieveALiveInputResponses, StreamLiveInputsUpdateALiveInputErrors, StreamLiveInputsUpdateALiveInputResponses, StreamLiveInputsUpdateAnOutputErrors, StreamLiveInputsUpdateAnOutputResponses, StreamOutputIdentifier, StreamSchemasIdentifier, StreamUpdateInputRequest, StreamUpdateOutputRequest } from '../types.gen';
-import { zStreamLiveInputsCreateALiveInputBody, zStreamLiveInputsCreateALiveInputPath, zStreamLiveInputsCreateALiveInputResponse, zStreamLiveInputsCreateANewOutputConnectedToALiveInputBody, zStreamLiveInputsCreateANewOutputConnectedToALiveInputPath, zStreamLiveInputsCreateANewOutputConnectedToALiveInputResponse, zStreamLiveInputsDeleteALiveInputBody, zStreamLiveInputsDeleteALiveInputPath, zStreamLiveInputsDeleteAnOutputBody, zStreamLiveInputsDeleteAnOutputPath, zStreamLiveInputsDisableALiveInputPath, zStreamLiveInputsDisableALiveInputResponse, zStreamLiveInputsEnableALiveInputPath, zStreamLiveInputsEnableALiveInputResponse, zStreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputPath, zStreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponse, zStreamLiveInputsListLiveInputsPath, zStreamLiveInputsListLiveInputsQuery, zStreamLiveInputsListLiveInputsResponse, zStreamLiveInputsRetrieveALiveInputPath, zStreamLiveInputsRetrieveALiveInputResponse, zStreamLiveInputsUpdateALiveInputBody, zStreamLiveInputsUpdateALiveInputPath, zStreamLiveInputsUpdateALiveInputResponse, zStreamLiveInputsUpdateAnOutputBody, zStreamLiveInputsUpdateAnOutputPath, zStreamLiveInputsUpdateAnOutputResponse } from '../zod.gen';
+import type { StreamCreateInputRequest, StreamCreateOutputRequest, StreamIdentifier2, StreamIncludeCounts, StreamLiveInputIdentifier, StreamLiveInputsCreateALiveInputErrors, StreamLiveInputsCreateALiveInputResponses, StreamLiveInputsCreateANewOutputConnectedToALiveInputErrors, StreamLiveInputsCreateANewOutputConnectedToALiveInputResponses, StreamLiveInputsDeleteALiveInputErrors, StreamLiveInputsDeleteALiveInputResponses, StreamLiveInputsDeleteAnOutputErrors, StreamLiveInputsDeleteAnOutputResponses, StreamLiveInputsDisableALiveInputErrors, StreamLiveInputsDisableALiveInputResponses, StreamLiveInputsEnableALiveInputErrors, StreamLiveInputsEnableALiveInputResponses, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputErrors, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponses, StreamLiveInputsListLiveInputsErrors, StreamLiveInputsListLiveInputsResponses, StreamLiveInputsRetrieveALiveInputErrors, StreamLiveInputsRetrieveALiveInputResponses, StreamLiveInputsRotateKeysForALiveInputErrors, StreamLiveInputsRotateKeysForALiveInputResponses, StreamLiveInputsUpdateALiveInputErrors, StreamLiveInputsUpdateALiveInputResponses, StreamLiveInputsUpdateAnOutputErrors, StreamLiveInputsUpdateAnOutputResponses, StreamOutputIdentifier, StreamUpdateInputRequest, StreamUpdateOutputRequest } from '../types.gen';
+import { zStreamLiveInputsCreateALiveInputBody, zStreamLiveInputsCreateALiveInputPath, zStreamLiveInputsCreateALiveInputResponse, zStreamLiveInputsCreateANewOutputConnectedToALiveInputBody, zStreamLiveInputsCreateANewOutputConnectedToALiveInputPath, zStreamLiveInputsCreateANewOutputConnectedToALiveInputResponse, zStreamLiveInputsDeleteALiveInputBody, zStreamLiveInputsDeleteALiveInputPath, zStreamLiveInputsDeleteAnOutputBody, zStreamLiveInputsDeleteAnOutputPath, zStreamLiveInputsDisableALiveInputPath, zStreamLiveInputsDisableALiveInputResponse, zStreamLiveInputsEnableALiveInputPath, zStreamLiveInputsEnableALiveInputResponse, zStreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputPath, zStreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponse, zStreamLiveInputsListLiveInputsPath, zStreamLiveInputsListLiveInputsQuery, zStreamLiveInputsListLiveInputsResponse, zStreamLiveInputsRetrieveALiveInputPath, zStreamLiveInputsRetrieveALiveInputResponse, zStreamLiveInputsRotateKeysForALiveInputPath, zStreamLiveInputsRotateKeysForALiveInputResponse, zStreamLiveInputsUpdateALiveInputBody, zStreamLiveInputsUpdateALiveInputPath, zStreamLiveInputsUpdateALiveInputResponse, zStreamLiveInputsUpdateAnOutputBody, zStreamLiveInputsUpdateAnOutputPath, zStreamLiveInputsUpdateAnOutputResponse } from '../zod.gen';
 
 export class StreamLiveInputsService {
     /**
@@ -17,9 +17,9 @@ export class StreamLiveInputsService {
      * Lists the live inputs created for an account. To get the credentials needed to stream to a specific live input, request a single live input.
      */
     public static streamLiveInputsListLiveInputs<ThrowOnError extends boolean = true>(parameters: {
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         include_counts?: StreamIncludeCounts;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsListLiveInputsResponses, StreamLiveInputsListLiveInputsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'include_counts' }] }]);
         return (options?.client ?? client).get<StreamLiveInputsListLiveInputsResponses, StreamLiveInputsListLiveInputsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,9 +45,9 @@ export class StreamLiveInputsService {
      * Creates a live input, and returns credentials that you or your users can use to stream live video to Cloudflare Stream.
      */
     public static streamLiveInputsCreateALiveInput<ThrowOnError extends boolean = true>(parameters: {
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         streamCreateInputRequest: StreamCreateInputRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsCreateALiveInputResponses, StreamLiveInputsCreateALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'streamCreateInputRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<StreamLiveInputsCreateALiveInputResponses, StreamLiveInputsCreateALiveInputErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,9 +79,9 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsDeleteALiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsDeleteALiveInputResponses, StreamLiveInputsDeleteALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'live_input_identifier' },
                     { in: 'path', key: 'account_id' },
@@ -116,8 +116,8 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsRetrieveALiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsRetrieveALiveInputResponses, StreamLiveInputsRetrieveALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'live_input_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamLiveInputsRetrieveALiveInputResponses, StreamLiveInputsRetrieveALiveInputErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,9 +144,9 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsUpdateALiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         streamUpdateInputRequest: StreamUpdateInputRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsUpdateALiveInputResponses, StreamLiveInputsUpdateALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'live_input_identifier' },
                     { in: 'path', key: 'account_id' },
@@ -182,8 +182,8 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsDisableALiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsDisableALiveInputResponses, StreamLiveInputsDisableALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'live_input_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<StreamLiveInputsDisableALiveInputResponses, StreamLiveInputsDisableALiveInputErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -210,8 +210,8 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsEnableALiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsEnableALiveInputResponses, StreamLiveInputsEnableALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'live_input_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<StreamLiveInputsEnableALiveInputResponses, StreamLiveInputsEnableALiveInputErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -238,8 +238,8 @@ export class StreamLiveInputsService {
      */
     public static streamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInput<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponses, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'live_input_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputResponses, StreamLiveInputsListAllOutputsAssociatedWithASpecifiedLiveInputErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -266,9 +266,9 @@ export class StreamLiveInputsService {
      */
     public static 'streamLiveInputsCreateANewOutput,ConnectedToALiveInput'<ThrowOnError extends boolean = true>(parameters: {
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         streamCreateOutputRequest: StreamCreateOutputRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsCreateANewOutputConnectedToALiveInputResponses, StreamLiveInputsCreateANewOutputConnectedToALiveInputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'live_input_identifier' },
                     { in: 'path', key: 'account_id' },
@@ -305,9 +305,9 @@ export class StreamLiveInputsService {
     public static streamLiveInputsDeleteAnOutput<ThrowOnError extends boolean = true>(parameters: {
         output_identifier: StreamOutputIdentifier;
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsDeleteAnOutputResponses, StreamLiveInputsDeleteAnOutputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'output_identifier' },
                     { in: 'path', key: 'live_input_identifier' },
@@ -344,9 +344,9 @@ export class StreamLiveInputsService {
     public static streamLiveInputsUpdateAnOutput<ThrowOnError extends boolean = true>(parameters: {
         output_identifier: StreamOutputIdentifier;
         live_input_identifier: StreamLiveInputIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         streamUpdateOutputRequest: StreamUpdateOutputRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsUpdateAnOutputResponses, StreamLiveInputsUpdateAnOutputErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'output_identifier' },
                     { in: 'path', key: 'live_input_identifier' },
@@ -373,6 +373,34 @@ export class StreamLiveInputsService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Rotate keys for a live input
+     *
+     * Rotates the credentials for a live input without changing its identifier. Old credentials are revoked, broadcasts using stale credentials are automatically disconnected shortly after rotation, and the response returns refreshed credentials.
+     */
+    public static streamLiveInputsRotateKeysForALiveInput<ThrowOnError extends boolean = true>(parameters: {
+        live_input_identifier: StreamLiveInputIdentifier;
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamLiveInputsRotateKeysForALiveInputResponses, StreamLiveInputsRotateKeysForALiveInputErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'live_input_identifier' }, { in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).post<StreamLiveInputsRotateKeysForALiveInputResponses, StreamLiveInputsRotateKeysForALiveInputErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zStreamLiveInputsRotateKeysForALiveInputPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zStreamLiveInputsRotateKeysForALiveInputResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/stream/live_inputs/{live_input_identifier}/rotate_keys',
+            ...options,
+            ...params
         });
     }
 }

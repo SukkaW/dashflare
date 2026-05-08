@@ -4,25 +4,28 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteDatasetDeleteErrors, DeleteDatasetDeleteResponses, GetDatasetListErrors, GetDatasetListResponses, GetDatasetReadErrors, GetDatasetReadResponses, PatchDatasetUpdateErrors, PatchDatasetUpdateResponses, PostDatasetCreateErrors, PostDatasetCreateResponses, PostDatasetUpdateErrors, PostDatasetUpdateResponses } from '../types.gen';
-import { zDeleteDatasetDeletePath, zDeleteDatasetDeleteResponse, zGetDatasetListPath, zGetDatasetListResponse, zGetDatasetReadPath, zGetDatasetReadResponse, zPatchDatasetUpdateBody, zPatchDatasetUpdatePath, zPatchDatasetUpdateResponse, zPostDatasetCreateBody, zPostDatasetCreatePath, zPostDatasetCreateResponse, zPostDatasetUpdateBody, zPostDatasetUpdatePath, zPostDatasetUpdateResponse } from '../zod.gen';
+import { zDeleteDatasetDeletePath, zDeleteDatasetDeleteResponse, zGetDatasetListPath, zGetDatasetListQuery, zGetDatasetListResponse, zGetDatasetReadPath, zGetDatasetReadResponse, zPatchDatasetUpdateBody, zPatchDatasetUpdatePath, zPatchDatasetUpdateResponse, zPostDatasetCreateBody, zPostDatasetCreatePath, zPostDatasetCreateResponse, zPostDatasetUpdateBody, zPostDatasetUpdatePath, zPostDatasetUpdateResponse } from '../zod.gen';
 
 export class DatasetService {
     /**
      * Lists all datasets in an account
+     *
+     * List all datasets accessible to the account.
      */
     public static getDatasetList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        includeDeleted?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDatasetListResponses, GetDatasetListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'includeDeleted' }] }]);
         return (options?.client ?? client).get<GetDatasetListResponses, GetDatasetListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zGetDatasetListPath,
-                query: z.never().optional()
+                query: zGetDatasetListQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetDatasetListResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -34,12 +37,14 @@ export class DatasetService {
     
     /**
      * Creates a dataset
+     *
+     * Create a new dataset in the account.
      */
     public static postDatasetCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         isPublic: boolean;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostDatasetCreateResponses, PostDatasetCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'isPublic' },
@@ -67,12 +72,12 @@ export class DatasetService {
     /**
      * Delete a dataset
      *
-     * Deletes a dataset given a datasetId.
+     * Soft-deletes a dataset given a datasetId.
      */
     public static deleteDatasetDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDatasetDeleteResponses, DeleteDatasetDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).delete<DeleteDatasetDeleteResponses, DeleteDatasetDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,11 +95,13 @@ export class DatasetService {
     
     /**
      * Reads a dataset
+     *
+     * Retrieve metadata for a specific dataset.
      */
     public static getDatasetRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDatasetReadResponses, GetDatasetReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<GetDatasetReadResponses, GetDatasetReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,13 +119,15 @@ export class DatasetService {
     
     /**
      * Updates an existing dataset
+     *
+     * Update an existing dataset by its identifier.
      */
     public static patchDatasetUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
         isPublic: boolean;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchDatasetUpdateResponses, PatchDatasetUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -146,13 +155,15 @@ export class DatasetService {
     
     /**
      * Updates an existing dataset
+     *
+     * Update an existing dataset by its identifier.
      */
     public static postDatasetUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
         isPublic: boolean;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostDatasetUpdateResponses, PostDatasetUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },

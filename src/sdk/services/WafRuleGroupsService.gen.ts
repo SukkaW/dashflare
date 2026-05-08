@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WafManagedRulesIdentifier, WafManagedRulesMode, WafManagedRulesSchemasIdentifier, WafRuleGroupsGetAWafRuleGroupErrors, WafRuleGroupsGetAWafRuleGroupResponses, WafRuleGroupsListWafRuleGroupsErrors, WafRuleGroupsListWafRuleGroupsResponses, WafRuleGroupsUpdateAWafRuleGroupErrors, WafRuleGroupsUpdateAWafRuleGroupResponses } from '../types.gen';
@@ -31,7 +31,7 @@ export class WafRuleGroupsService {
         match?: 'any' | 'all';
         name?: string;
         rules_count?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRuleGroupsListWafRuleGroupsResponses, WafRuleGroupsListWafRuleGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'package_id' },
                     { in: 'path', key: 'zone_id' },
@@ -75,7 +75,7 @@ export class WafRuleGroupsService {
         group_id: WafManagedRulesIdentifier;
         package_id: WafManagedRulesIdentifier;
         zone_id: WafManagedRulesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRuleGroupsGetAWafRuleGroupResponses, WafRuleGroupsGetAWafRuleGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'group_id' },
                     { in: 'path', key: 'package_id' },
@@ -113,7 +113,7 @@ export class WafRuleGroupsService {
         package_id: WafManagedRulesIdentifier;
         zone_id: WafManagedRulesSchemasIdentifier;
         mode?: WafManagedRulesMode;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafRuleGroupsUpdateAWafRuleGroupResponses, WafRuleGroupsUpdateAWafRuleGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'group_id' },
                     { in: 'path', key: 'package_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetHttpSummaryByBotClassErrors, RadarGetHttpSummaryByBotClassResponses, RadarGetHttpSummaryByDeviceTypeErrors, RadarGetHttpSummaryByDeviceTypeResponses, RadarGetHttpSummaryByHttpProtocolErrors, RadarGetHttpSummaryByHttpProtocolResponses, RadarGetHttpSummaryByHttpVersionErrors, RadarGetHttpSummaryByHttpVersionResponses, RadarGetHttpSummaryByIpVersionErrors, RadarGetHttpSummaryByIpVersionResponses, RadarGetHttpSummaryByOperatingSystemErrors, RadarGetHttpSummaryByOperatingSystemResponses, RadarGetHttpSummaryByPostQuantumErrors, RadarGetHttpSummaryByPostQuantumResponses, RadarGetHttpSummaryByTlsVersionErrors, RadarGetHttpSummaryByTlsVersionResponses, RadarGetHttpSummaryErrors, RadarGetHttpSummaryResponses, RadarGetHttpTimeseriesErrors, RadarGetHttpTimeseriesGroupByBotClassErrors, RadarGetHttpTimeseriesGroupByBotClassResponses, RadarGetHttpTimeseriesGroupByBrowserFamiliesErrors, RadarGetHttpTimeseriesGroupByBrowserFamiliesResponses, RadarGetHttpTimeseriesGroupByBrowsersErrors, RadarGetHttpTimeseriesGroupByBrowsersResponses, RadarGetHttpTimeseriesGroupByDeviceTypeErrors, RadarGetHttpTimeseriesGroupByDeviceTypeResponses, RadarGetHttpTimeseriesGroupByHttpProtocolErrors, RadarGetHttpTimeseriesGroupByHttpProtocolResponses, RadarGetHttpTimeseriesGroupByHttpVersionErrors, RadarGetHttpTimeseriesGroupByHttpVersionResponses, RadarGetHttpTimeseriesGroupByIpVersionErrors, RadarGetHttpTimeseriesGroupByIpVersionResponses, RadarGetHttpTimeseriesGroupByOperatingSystemErrors, RadarGetHttpTimeseriesGroupByOperatingSystemResponses, RadarGetHttpTimeseriesGroupByPostQuantumErrors, RadarGetHttpTimeseriesGroupByPostQuantumResponses, RadarGetHttpTimeseriesGroupByTlsVersionErrors, RadarGetHttpTimeseriesGroupByTlsVersionResponses, RadarGetHttpTimeseriesGroupErrors, RadarGetHttpTimeseriesGroupResponses, RadarGetHttpTimeseriesResponses, RadarGetHttpTopAsesByBotClassErrors, RadarGetHttpTopAsesByBotClassResponses, RadarGetHttpTopAsesByBrowserFamilyErrors, RadarGetHttpTopAsesByBrowserFamilyResponses, RadarGetHttpTopAsesByDeviceTypeErrors, RadarGetHttpTopAsesByDeviceTypeResponses, RadarGetHttpTopAsesByHttpProtocolErrors, RadarGetHttpTopAsesByHttpProtocolResponses, RadarGetHttpTopAsesByHttpRequestsErrors, RadarGetHttpTopAsesByHttpRequestsResponses, RadarGetHttpTopAsesByHttpVersionErrors, RadarGetHttpTopAsesByHttpVersionResponses, RadarGetHttpTopAsesByIpVersionErrors, RadarGetHttpTopAsesByIpVersionResponses, RadarGetHttpTopAsesByOperatingSystemErrors, RadarGetHttpTopAsesByOperatingSystemResponses, RadarGetHttpTopAsesByTlsVersionErrors, RadarGetHttpTopAsesByTlsVersionResponses, RadarGetHttpTopBrowserFamiliesErrors, RadarGetHttpTopBrowserFamiliesResponses, RadarGetHttpTopBrowsersErrors, RadarGetHttpTopBrowsersResponses, RadarGetHttpTopLocationsByBotClassErrors, RadarGetHttpTopLocationsByBotClassResponses, RadarGetHttpTopLocationsByBrowserFamilyErrors, RadarGetHttpTopLocationsByBrowserFamilyResponses, RadarGetHttpTopLocationsByDeviceTypeErrors, RadarGetHttpTopLocationsByDeviceTypeResponses, RadarGetHttpTopLocationsByHttpProtocolErrors, RadarGetHttpTopLocationsByHttpProtocolResponses, RadarGetHttpTopLocationsByHttpRequestsErrors, RadarGetHttpTopLocationsByHttpRequestsResponses, RadarGetHttpTopLocationsByHttpVersionErrors, RadarGetHttpTopLocationsByHttpVersionResponses, RadarGetHttpTopLocationsByIpVersionErrors, RadarGetHttpTopLocationsByIpVersionResponses, RadarGetHttpTopLocationsByOperatingSystemErrors, RadarGetHttpTopLocationsByOperatingSystemResponses, RadarGetHttpTopLocationsByTlsVersionErrors, RadarGetHttpTopLocationsByTlsVersionResponses } from '../types.gen';
@@ -35,7 +35,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByBotClassResponses, RadarGetHttpSummaryByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -96,7 +96,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByDeviceTypeResponses, RadarGetHttpSummaryByDeviceTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -157,7 +157,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByHttpProtocolResponses, RadarGetHttpSummaryByHttpProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -218,7 +218,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByHttpVersionResponses, RadarGetHttpSummaryByHttpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -279,7 +279,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByIpVersionResponses, RadarGetHttpSummaryByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -340,7 +340,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByOperatingSystemResponses, RadarGetHttpSummaryByOperatingSystemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -402,7 +402,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByPostQuantumResponses, RadarGetHttpSummaryByPostQuantumErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -464,7 +464,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryByTlsVersionResponses, RadarGetHttpSummaryByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -507,7 +507,7 @@ export class RadarHttpService {
      * Retrieves the distribution of HTTP requests by the specified dimension.
      */
     public static radarGetHttpSummary<ThrowOnError extends boolean = true>(parameters: {
-        dimension: 'ADM1' | 'AS' | 'BOT_CLASS' | 'BROWSER' | 'BROWSER_FAMILY' | 'DEVICE_TYPE' | 'HTTP_PROTOCOL' | 'HTTP_VERSION' | 'IP_VERSION' | 'LOCATION' | 'OS' | 'POST_QUANTUM' | 'TLS_VERSION';
+        dimension: 'ADM1' | 'API_TRAFFIC' | 'AS' | 'BOT_CLASS' | 'BROWSER' | 'BROWSER_FAMILY' | 'CONTENT_TYPE' | 'DEVICE_TYPE' | 'HTTP_PROTOCOL' | 'HTTP_VERSION' | 'IP_VERSION' | 'LOCATION' | 'OS' | 'POST_QUANTUM' | 'TLS_VERSION';
         name?: Array<string>;
         dateRange?: Array<string>;
         dateStart?: Array<string>;
@@ -516,7 +516,9 @@ export class RadarHttpService {
         location?: Array<string>;
         continent?: Array<string>;
         geoId?: Array<string>;
+        apiTraffic?: Array<'API' | 'NON_API'>;
         botClass?: Array<'LIKELY_AUTOMATED' | 'LIKELY_HUMAN'>;
+        contentType?: Array<'HTML' | 'IMAGES' | 'JSON' | 'JAVASCRIPT' | 'CSS' | 'PLAIN_TEXT' | 'FONTS' | 'XML' | 'YAML' | 'VIDEO' | 'AUDIO' | 'MARKDOWN' | 'DOCUMENTS' | 'BINARY' | 'SERIALIZATION' | 'OTHER'>;
         deviceType?: Array<'DESKTOP' | 'MOBILE' | 'OTHER'>;
         httpProtocol?: Array<'HTTP' | 'HTTPS'>;
         httpVersion?: Array<'HTTPv1' | 'HTTPv2' | 'HTTPv3'>;
@@ -525,7 +527,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpSummaryResponses, RadarGetHttpSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -536,7 +538,9 @@ export class RadarHttpService {
                     { in: 'query', key: 'location' },
                     { in: 'query', key: 'continent' },
                     { in: 'query', key: 'geoId' },
+                    { in: 'query', key: 'apiTraffic' },
                     { in: 'query', key: 'botClass' },
+                    { in: 'query', key: 'contentType' },
                     { in: 'query', key: 'deviceType' },
                     { in: 'query', key: 'httpProtocol' },
                     { in: 'query', key: 'httpVersion' },
@@ -580,7 +584,9 @@ export class RadarHttpService {
         continent?: Array<string>;
         geoId?: Array<string>;
         normalization?: 'PERCENTAGE_CHANGE' | 'MIN0_MAX';
+        apiTraffic?: Array<'API' | 'NON_API'>;
         botClass?: Array<'LIKELY_AUTOMATED' | 'LIKELY_HUMAN'>;
+        contentType?: Array<'HTML' | 'IMAGES' | 'JSON' | 'JAVASCRIPT' | 'CSS' | 'PLAIN_TEXT' | 'FONTS' | 'XML' | 'YAML' | 'VIDEO' | 'AUDIO' | 'MARKDOWN' | 'DOCUMENTS' | 'BINARY' | 'SERIALIZATION' | 'OTHER'>;
         deviceType?: Array<'DESKTOP' | 'MOBILE' | 'OTHER'>;
         httpProtocol?: Array<'HTTP' | 'HTTPS'>;
         httpVersion?: Array<'HTTPv1' | 'HTTPv2' | 'HTTPv3'>;
@@ -589,7 +595,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesResponses, RadarGetHttpTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -601,7 +607,9 @@ export class RadarHttpService {
                     { in: 'query', key: 'continent' },
                     { in: 'query', key: 'geoId' },
                     { in: 'query', key: 'normalization' },
+                    { in: 'query', key: 'apiTraffic' },
                     { in: 'query', key: 'botClass' },
+                    { in: 'query', key: 'contentType' },
                     { in: 'query', key: 'deviceType' },
                     { in: 'query', key: 'httpProtocol' },
                     { in: 'query', key: 'httpVersion' },
@@ -654,7 +662,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByBotClassResponses, RadarGetHttpTimeseriesGroupByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -719,7 +727,7 @@ export class RadarHttpService {
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByBrowsersResponses, RadarGetHttpTimeseriesGroupByBrowsersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -785,7 +793,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByBrowserFamiliesResponses, RadarGetHttpTimeseriesGroupByBrowserFamiliesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -849,7 +857,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByDeviceTypeResponses, RadarGetHttpTimeseriesGroupByDeviceTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -912,7 +920,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByHttpProtocolResponses, RadarGetHttpTimeseriesGroupByHttpProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -975,7 +983,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByHttpVersionResponses, RadarGetHttpTimeseriesGroupByHttpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -1038,7 +1046,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByIpVersionResponses, RadarGetHttpTimeseriesGroupByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -1101,7 +1109,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByOperatingSystemResponses, RadarGetHttpTimeseriesGroupByOperatingSystemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -1165,7 +1173,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByPostQuantumResponses, RadarGetHttpTimeseriesGroupByPostQuantumErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -1229,7 +1237,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupByTlsVersionResponses, RadarGetHttpTimeseriesGroupByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -1273,7 +1281,7 @@ export class RadarHttpService {
      * Retrieves the distribution of HTTP requests grouped by dimension.
      */
     public static radarGetHttpTimeseriesGroup<ThrowOnError extends boolean = true>(parameters: {
-        dimension: 'ADM1' | 'AS' | 'BOT_CLASS' | 'BROWSER' | 'BROWSER_FAMILY' | 'DEVICE_TYPE' | 'HTTP_PROTOCOL' | 'HTTP_VERSION' | 'IP_VERSION' | 'LOCATION' | 'OS' | 'POST_QUANTUM' | 'TLS_VERSION';
+        dimension: 'ADM1' | 'API_TRAFFIC' | 'AS' | 'BOT_CLASS' | 'BROWSER' | 'BROWSER_FAMILY' | 'CONTENT_TYPE' | 'DEVICE_TYPE' | 'HTTP_PROTOCOL' | 'HTTP_VERSION' | 'IP_VERSION' | 'LOCATION' | 'OS' | 'POST_QUANTUM' | 'TLS_VERSION';
         aggInterval?: '15m' | '1h' | '1d' | '1w';
         name?: Array<string>;
         dateRange?: Array<string>;
@@ -1283,8 +1291,10 @@ export class RadarHttpService {
         location?: Array<string>;
         continent?: Array<string>;
         geoId?: Array<string>;
-        limitPerGroup?: number;
+        apiTraffic?: Array<'API' | 'NON_API'>;
         botClass?: Array<'LIKELY_AUTOMATED' | 'LIKELY_HUMAN'>;
+        contentType?: Array<'HTML' | 'IMAGES' | 'JSON' | 'JAVASCRIPT' | 'CSS' | 'PLAIN_TEXT' | 'FONTS' | 'XML' | 'YAML' | 'VIDEO' | 'AUDIO' | 'MARKDOWN' | 'DOCUMENTS' | 'BINARY' | 'SERIALIZATION' | 'OTHER'>;
+        limitPerGroup?: number;
         deviceType?: Array<'DESKTOP' | 'MOBILE' | 'OTHER'>;
         httpProtocol?: Array<'HTTP' | 'HTTPS'>;
         httpVersion?: Array<'HTTPv1' | 'HTTPv2' | 'HTTPv3'>;
@@ -1293,7 +1303,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTimeseriesGroupResponses, RadarGetHttpTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -1305,8 +1315,10 @@ export class RadarHttpService {
                     { in: 'query', key: 'location' },
                     { in: 'query', key: 'continent' },
                     { in: 'query', key: 'geoId' },
-                    { in: 'query', key: 'limitPerGroup' },
+                    { in: 'query', key: 'apiTraffic' },
                     { in: 'query', key: 'botClass' },
+                    { in: 'query', key: 'contentType' },
+                    { in: 'query', key: 'limitPerGroup' },
                     { in: 'query', key: 'deviceType' },
                     { in: 'query', key: 'httpProtocol' },
                     { in: 'query', key: 'httpVersion' },
@@ -1358,7 +1370,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByHttpRequestsResponses, RadarGetHttpTopAsesByHttpRequestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1421,7 +1433,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByBotClassResponses, RadarGetHttpTopAsesByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bot_class' },
                     { in: 'query', key: 'limit' },
@@ -1484,7 +1496,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByBrowserFamilyResponses, RadarGetHttpTopAsesByBrowserFamilyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'browser_family' },
                     { in: 'query', key: 'limit' },
@@ -1547,7 +1559,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByDeviceTypeResponses, RadarGetHttpTopAsesByDeviceTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'device_type' },
                     { in: 'query', key: 'limit' },
@@ -1610,7 +1622,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByHttpProtocolResponses, RadarGetHttpTopAsesByHttpProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'http_protocol' },
                     { in: 'query', key: 'limit' },
@@ -1673,7 +1685,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByHttpVersionResponses, RadarGetHttpTopAsesByHttpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'http_version' },
                     { in: 'query', key: 'limit' },
@@ -1736,7 +1748,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByIpVersionResponses, RadarGetHttpTopAsesByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_version' },
                     { in: 'query', key: 'limit' },
@@ -1799,7 +1811,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByOperatingSystemResponses, RadarGetHttpTopAsesByOperatingSystemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'os' },
                     { in: 'query', key: 'limit' },
@@ -1862,7 +1874,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopAsesByTlsVersionResponses, RadarGetHttpTopAsesByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'tls_version' },
                     { in: 'query', key: 'limit' },
@@ -1927,7 +1939,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopBrowsersResponses, RadarGetHttpTopBrowsersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1991,7 +2003,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopBrowserFamiliesResponses, RadarGetHttpTopBrowserFamiliesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -2053,7 +2065,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByHttpRequestsResponses, RadarGetHttpTopLocationsByHttpRequestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -2116,7 +2128,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByBotClassResponses, RadarGetHttpTopLocationsByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bot_class' },
                     { in: 'query', key: 'limit' },
@@ -2179,7 +2191,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByBrowserFamilyResponses, RadarGetHttpTopLocationsByBrowserFamilyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'browser_family' },
                     { in: 'query', key: 'limit' },
@@ -2242,7 +2254,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByDeviceTypeResponses, RadarGetHttpTopLocationsByDeviceTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'device_type' },
                     { in: 'query', key: 'limit' },
@@ -2305,7 +2317,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByHttpProtocolResponses, RadarGetHttpTopLocationsByHttpProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'http_protocol' },
                     { in: 'query', key: 'limit' },
@@ -2368,7 +2380,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByHttpVersionResponses, RadarGetHttpTopLocationsByHttpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'http_version' },
                     { in: 'query', key: 'limit' },
@@ -2431,7 +2443,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByIpVersionResponses, RadarGetHttpTopLocationsByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_version' },
                     { in: 'query', key: 'limit' },
@@ -2494,7 +2506,7 @@ export class RadarHttpService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3' | 'TLSvQUIC'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByOperatingSystemResponses, RadarGetHttpTopLocationsByOperatingSystemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'os' },
                     { in: 'query', key: 'limit' },
@@ -2557,7 +2569,7 @@ export class RadarHttpService {
         os?: Array<'WINDOWS' | 'MACOSX' | 'IOS' | 'ANDROID' | 'CHROMEOS' | 'LINUX' | 'SMART_TV'>;
         browserFamily?: Array<'CHROME' | 'EDGE' | 'FIREFOX' | 'SAFARI'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetHttpTopLocationsByTlsVersionResponses, RadarGetHttpTopLocationsByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'tls_version' },
                     { in: 'query', key: 'limit' },

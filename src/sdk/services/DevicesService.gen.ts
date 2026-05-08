@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DevicesCreateDeviceSettingsPolicyErrors, DevicesCreateDeviceSettingsPolicyResponses, DevicesDeleteDeviceSettingsPolicyErrors, DevicesDeleteDeviceSettingsPolicyResponses, DevicesDeviceDetailsErrors, DevicesDeviceDetailsResponses, DevicesGetDefaultDeviceSettingsPolicyErrors, DevicesGetDefaultDeviceSettingsPolicyResponses, DevicesGetDeviceSettingsPolicyByIdErrors, DevicesGetDeviceSettingsPolicyByIdResponses, DevicesGetLocalDomainFallbackListErrors, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyErrors, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesGetLocalDomainFallbackListResponses, DevicesGetPolicyCertificatesErrors, DevicesGetPolicyCertificatesResponses, DevicesGetSplitTunnelExcludeListErrors, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelExcludeListResponses, DevicesGetSplitTunnelIncludeListErrors, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelIncludeListResponses, DevicesListAdminOverrideCodeForDeviceErrors, DevicesListAdminOverrideCodeForDeviceResponses, DevicesListDevicesErrors, DevicesListDeviceSettingsPoliciesErrors, DevicesListDeviceSettingsPoliciesResponses, DevicesListDevicesResponses, DevicesRevokeDevicesErrors, DevicesRevokeDevicesResponses, DevicesSetLocalDomainFallbackListErrors, DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyErrors, DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesSetLocalDomainFallbackListResponses, DevicesSetSplitTunnelExcludeListErrors, DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelExcludeListResponses, DevicesSetSplitTunnelIncludeListErrors, DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelIncludeListResponses, DevicesUnrevokeDevicesErrors, DevicesUnrevokeDevicesResponses, DevicesUpdateDefaultDeviceSettingsPolicyErrors, DevicesUpdateDefaultDeviceSettingsPolicyResponses, DevicesUpdateDeviceSettingsPolicyErrors, DevicesUpdateDeviceSettingsPolicyResponses, DevicesUpdatePolicyCertificatesErrors, DevicesUpdatePolicyCertificatesResponses, TeamsDevicesAllowedToLeave, TeamsDevicesAllowModeSwitch, TeamsDevicesAllowUpdates, TeamsDevicesAutoConnect, TeamsDevicesCaptivePortal, TeamsDevicesDevicesPolicyCertificates, TeamsDevicesDisableAutoFallback, TeamsDevicesExcludeOfficeIps, TeamsDevicesExcludeRequest, TeamsDevicesFallbackDomain, TeamsDevicesIdentifier, TeamsDevicesIncludeRequest, TeamsDevicesLanAllowMinutes, TeamsDevicesLanAllowSubnetSize, TeamsDevicesPrecedence, TeamsDevicesRegisterInterfaceIpWithDns, TeamsDevicesRegistrationId, TeamsDevicesRevokeDevicesRequestWritable, TeamsDevicesSccmVpnBoundarySupport, TeamsDevicesSchemasDescription, TeamsDevicesSchemasMatch, TeamsDevicesSchemasUuid, TeamsDevicesServiceModeV2, TeamsDevicesSplitTunnel, TeamsDevicesSplitTunnelInclude, TeamsDevicesSupportUrl, TeamsDevicesSwitchLocked, TeamsDevicesTunnelProtocol, TeamsDevicesUnrevokeDevicesRequestWritable, TeamsDevicesVirtualNetworks } from '../types.gen';
+import type { DevicesCreateDeviceSettingsPolicyErrors, DevicesCreateDeviceSettingsPolicyResponses, DevicesDeleteDeviceSettingsPolicyErrors, DevicesDeleteDeviceSettingsPolicyResponses, DevicesDeviceDetailsErrors, DevicesDeviceDetailsResponses, DevicesGetDefaultDeviceSettingsPolicyErrors, DevicesGetDefaultDeviceSettingsPolicyResponses, DevicesGetDeviceSettingsPolicyByIdErrors, DevicesGetDeviceSettingsPolicyByIdResponses, DevicesGetLocalDomainFallbackListErrors, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyErrors, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesGetLocalDomainFallbackListResponses, DevicesGetPolicyCertificatesErrors, DevicesGetPolicyCertificatesResponses, DevicesGetSplitTunnelExcludeListErrors, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelExcludeListResponses, DevicesGetSplitTunnelIncludeListErrors, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelIncludeListResponses, DevicesListAdminOverrideCodeForDeviceErrors, DevicesListAdminOverrideCodeForDeviceResponses, DevicesListDevicesErrors, DevicesListDeviceSettingsPoliciesErrors, DevicesListDeviceSettingsPoliciesResponses, DevicesListDevicesResponses, DevicesRevokeDevicesErrors, DevicesRevokeDevicesResponses, DevicesSetLocalDomainFallbackListErrors, DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyErrors, DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesSetLocalDomainFallbackListResponses, DevicesSetSplitTunnelExcludeListErrors, DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelExcludeListResponses, DevicesSetSplitTunnelIncludeListErrors, DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelIncludeListResponses, DevicesUnrevokeDevicesErrors, DevicesUnrevokeDevicesResponses, DevicesUpdateDefaultDeviceSettingsPolicyErrors, DevicesUpdateDefaultDeviceSettingsPolicyResponses, DevicesUpdateDeviceSettingsPolicyErrors, DevicesUpdateDeviceSettingsPolicyResponses, DevicesUpdatePolicyCertificatesErrors, DevicesUpdatePolicyCertificatesResponses, TeamsDevicesAllowedToLeave, TeamsDevicesAllowModeSwitch, TeamsDevicesAllowUpdates, TeamsDevicesAutoConnect, TeamsDevicesCaptivePortal, TeamsDevicesDevicesPolicyCertificates, TeamsDevicesDisableAutoFallback, TeamsDevicesDnsSearchSuffixes, TeamsDevicesExcludeOfficeIps, TeamsDevicesExcludeRequest, TeamsDevicesFallbackDomain, TeamsDevicesGlobalAcceleration, TeamsDevicesIdentifier, TeamsDevicesIncludeRequest, TeamsDevicesLanAllowMinutes, TeamsDevicesLanAllowSubnetSize, TeamsDevicesPrecedence, TeamsDevicesRegisterInterfaceIpWithDns, TeamsDevicesRegistrationId, TeamsDevicesRevokeDevicesRequestWritable, TeamsDevicesSccmVpnBoundarySupport, TeamsDevicesSchemasDescription, TeamsDevicesSchemasMatch, TeamsDevicesSchemasUuid, TeamsDevicesServiceModeV2, TeamsDevicesSplitTunnel, TeamsDevicesSplitTunnelInclude, TeamsDevicesSupportUrl, TeamsDevicesSwitchLocked, TeamsDevicesTunnelProtocol, TeamsDevicesUnrevokeDevicesRequestWritable, TeamsDevicesVirtualNetworks } from '../types.gen';
 import { zDevicesCreateDeviceSettingsPolicyBody, zDevicesCreateDeviceSettingsPolicyPath, zDevicesCreateDeviceSettingsPolicyResponse, zDevicesDeleteDeviceSettingsPolicyBody, zDevicesDeleteDeviceSettingsPolicyPath, zDevicesDeleteDeviceSettingsPolicyResponse, zDevicesDeviceDetailsPath, zDevicesDeviceDetailsResponse, zDevicesGetDefaultDeviceSettingsPolicyPath, zDevicesGetDefaultDeviceSettingsPolicyResponse, zDevicesGetDeviceSettingsPolicyByIdPath, zDevicesGetDeviceSettingsPolicyByIdResponse, zDevicesGetLocalDomainFallbackListForADeviceSettingsPolicyPath, zDevicesGetLocalDomainFallbackListForADeviceSettingsPolicyResponse, zDevicesGetLocalDomainFallbackListPath, zDevicesGetLocalDomainFallbackListResponse, zDevicesGetPolicyCertificatesPath, zDevicesGetPolicyCertificatesResponse, zDevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyPath, zDevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyResponse, zDevicesGetSplitTunnelExcludeListPath, zDevicesGetSplitTunnelExcludeListResponse, zDevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyPath, zDevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyResponse, zDevicesGetSplitTunnelIncludeListPath, zDevicesGetSplitTunnelIncludeListResponse, zDevicesListAdminOverrideCodeForDevicePath, zDevicesListAdminOverrideCodeForDeviceResponse, zDevicesListDeviceSettingsPoliciesPath, zDevicesListDeviceSettingsPoliciesResponse, zDevicesListDevicesPath, zDevicesListDevicesResponse, zDevicesRevokeDevicesBody, zDevicesRevokeDevicesPath, zDevicesRevokeDevicesResponse, zDevicesSetLocalDomainFallbackListBody, zDevicesSetLocalDomainFallbackListForADeviceSettingsPolicyBody, zDevicesSetLocalDomainFallbackListForADeviceSettingsPolicyPath, zDevicesSetLocalDomainFallbackListForADeviceSettingsPolicyResponse, zDevicesSetLocalDomainFallbackListPath, zDevicesSetLocalDomainFallbackListResponse, zDevicesSetSplitTunnelExcludeListBody, zDevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyBody, zDevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyPath, zDevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyResponse, zDevicesSetSplitTunnelExcludeListPath, zDevicesSetSplitTunnelExcludeListResponse, zDevicesSetSplitTunnelIncludeListBody, zDevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyBody, zDevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyPath, zDevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyResponse, zDevicesSetSplitTunnelIncludeListPath, zDevicesSetSplitTunnelIncludeListResponse, zDevicesUnrevokeDevicesBody, zDevicesUnrevokeDevicesPath, zDevicesUnrevokeDevicesResponse, zDevicesUpdateDefaultDeviceSettingsPolicyBody, zDevicesUpdateDefaultDeviceSettingsPolicyPath, zDevicesUpdateDefaultDeviceSettingsPolicyResponse, zDevicesUpdateDeviceSettingsPolicyBody, zDevicesUpdateDeviceSettingsPolicyPath, zDevicesUpdateDeviceSettingsPolicyResponse, zDevicesUpdatePolicyCertificatesBody, zDevicesUpdatePolicyCertificatesPath, zDevicesUpdatePolicyCertificatesResponse } from '../zod.gen';
 
 export class DevicesService {
@@ -25,7 +25,7 @@ export class DevicesService {
      */
     public static devicesListDevices<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesListDevicesResponses, DevicesListDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesListDevicesResponses, DevicesListDevicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class DevicesService {
      */
     public static devicesListDeviceSettingsPolicies<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesListDeviceSettingsPoliciesResponses, DevicesListDeviceSettingsPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesListDeviceSettingsPoliciesResponses, DevicesListDeviceSettingsPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class DevicesService {
      */
     public static devicesGetDefaultDeviceSettingsPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetDefaultDeviceSettingsPolicyResponses, DevicesGetDefaultDeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetDefaultDeviceSettingsPolicyResponses, DevicesGetDefaultDeviceSettingsPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,8 +112,10 @@ export class DevicesService {
         auto_connect?: TeamsDevicesAutoConnect;
         captive_portal?: TeamsDevicesCaptivePortal;
         disable_auto_fallback?: TeamsDevicesDisableAutoFallback;
+        dns_search_suffixes?: TeamsDevicesDnsSearchSuffixes;
         exclude?: TeamsDevicesExcludeRequest;
         exclude_office_ips?: TeamsDevicesExcludeOfficeIps;
+        global_acceleration?: TeamsDevicesGlobalAcceleration;
         include?: TeamsDevicesIncludeRequest;
         lan_allow_minutes?: TeamsDevicesLanAllowMinutes;
         lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize;
@@ -124,7 +126,7 @@ export class DevicesService {
         switch_locked?: TeamsDevicesSwitchLocked;
         tunnel_protocol?: TeamsDevicesTunnelProtocol;
         virtual_networks?: TeamsDevicesVirtualNetworks;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesUpdateDefaultDeviceSettingsPolicyResponses, DevicesUpdateDefaultDeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'allow_mode_switch' },
@@ -133,8 +135,10 @@ export class DevicesService {
                     { in: 'body', key: 'auto_connect' },
                     { in: 'body', key: 'captive_portal' },
                     { in: 'body', key: 'disable_auto_fallback' },
+                    { in: 'body', key: 'dns_search_suffixes' },
                     { in: 'body', key: 'exclude' },
                     { in: 'body', key: 'exclude_office_ips' },
+                    { in: 'body', key: 'global_acceleration' },
                     { in: 'body', key: 'include' },
                     { in: 'body', key: 'lan_allow_minutes' },
                     { in: 'body', key: 'lan_allow_subnet_size' },
@@ -183,9 +187,11 @@ export class DevicesService {
         captive_portal?: TeamsDevicesCaptivePortal;
         description?: TeamsDevicesSchemasDescription & unknown;
         disable_auto_fallback?: TeamsDevicesDisableAutoFallback;
+        dns_search_suffixes?: TeamsDevicesDnsSearchSuffixes;
         enabled?: boolean;
         exclude?: TeamsDevicesExcludeRequest;
         exclude_office_ips?: TeamsDevicesExcludeOfficeIps;
+        global_acceleration?: TeamsDevicesGlobalAcceleration;
         include?: TeamsDevicesIncludeRequest;
         lan_allow_minutes?: TeamsDevicesLanAllowMinutes;
         lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize;
@@ -199,7 +205,7 @@ export class DevicesService {
         switch_locked?: TeamsDevicesSwitchLocked;
         tunnel_protocol?: TeamsDevicesTunnelProtocol;
         virtual_networks?: TeamsDevicesVirtualNetworks;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesCreateDeviceSettingsPolicyResponses, DevicesCreateDeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'allow_mode_switch' },
@@ -209,9 +215,11 @@ export class DevicesService {
                     { in: 'body', key: 'captive_portal' },
                     { in: 'body', key: 'description' },
                     { in: 'body', key: 'disable_auto_fallback' },
+                    { in: 'body', key: 'dns_search_suffixes' },
                     { in: 'body', key: 'enabled' },
                     { in: 'body', key: 'exclude' },
                     { in: 'body', key: 'exclude_office_ips' },
+                    { in: 'body', key: 'global_acceleration' },
                     { in: 'body', key: 'include' },
                     { in: 'body', key: 'lan_allow_minutes' },
                     { in: 'body', key: 'lan_allow_subnet_size' },
@@ -256,7 +264,7 @@ export class DevicesService {
      */
     public static devicesGetSplitTunnelExcludeList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetSplitTunnelExcludeListResponses, DevicesGetSplitTunnelExcludeListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetSplitTunnelExcludeListResponses, DevicesGetSplitTunnelExcludeListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -284,7 +292,7 @@ export class DevicesService {
     public static devicesSetSplitTunnelExcludeList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesSplitTunnel>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetSplitTunnelExcludeListResponses, DevicesSetSplitTunnelExcludeListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<DevicesSetSplitTunnelExcludeListResponses, DevicesSetSplitTunnelExcludeListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -316,7 +324,7 @@ export class DevicesService {
      */
     public static devicesGetLocalDomainFallbackList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetLocalDomainFallbackListResponses, DevicesGetLocalDomainFallbackListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetLocalDomainFallbackListResponses, DevicesGetLocalDomainFallbackListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -344,7 +352,7 @@ export class DevicesService {
     public static devicesSetLocalDomainFallbackList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesFallbackDomain>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetLocalDomainFallbackListResponses, DevicesSetLocalDomainFallbackListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<DevicesSetLocalDomainFallbackListResponses, DevicesSetLocalDomainFallbackListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -376,7 +384,7 @@ export class DevicesService {
      */
     public static devicesGetSplitTunnelIncludeList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetSplitTunnelIncludeListResponses, DevicesGetSplitTunnelIncludeListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetSplitTunnelIncludeListResponses, DevicesGetSplitTunnelIncludeListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -404,7 +412,7 @@ export class DevicesService {
     public static devicesSetSplitTunnelIncludeList<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesSplitTunnelInclude>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetSplitTunnelIncludeListResponses, DevicesSetSplitTunnelIncludeListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<DevicesSetSplitTunnelIncludeListResponses, DevicesSetSplitTunnelIncludeListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -438,7 +446,7 @@ export class DevicesService {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesDeleteDeviceSettingsPolicyResponses, DevicesDeleteDeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'account_id' },
@@ -475,7 +483,7 @@ export class DevicesService {
     public static devicesGetDeviceSettingsPolicyById<ThrowOnError extends boolean = true>(parameters: {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetDeviceSettingsPolicyByIdResponses, DevicesGetDeviceSettingsPolicyByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'policy_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetDeviceSettingsPolicyByIdResponses, DevicesGetDeviceSettingsPolicyByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -510,9 +518,11 @@ export class DevicesService {
         captive_portal?: TeamsDevicesCaptivePortal;
         description?: TeamsDevicesSchemasDescription;
         disable_auto_fallback?: TeamsDevicesDisableAutoFallback;
+        dns_search_suffixes?: TeamsDevicesDnsSearchSuffixes;
         enabled?: boolean;
         exclude?: TeamsDevicesExcludeRequest;
         exclude_office_ips?: TeamsDevicesExcludeOfficeIps;
+        global_acceleration?: TeamsDevicesGlobalAcceleration;
         include?: TeamsDevicesIncludeRequest;
         lan_allow_minutes?: TeamsDevicesLanAllowMinutes;
         lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize;
@@ -526,7 +536,7 @@ export class DevicesService {
         switch_locked?: TeamsDevicesSwitchLocked;
         tunnel_protocol?: TeamsDevicesTunnelProtocol;
         virtual_networks?: TeamsDevicesVirtualNetworks;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesUpdateDeviceSettingsPolicyResponses, DevicesUpdateDeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'account_id' },
@@ -537,9 +547,11 @@ export class DevicesService {
                     { in: 'body', key: 'captive_portal' },
                     { in: 'body', key: 'description' },
                     { in: 'body', key: 'disable_auto_fallback' },
+                    { in: 'body', key: 'dns_search_suffixes' },
                     { in: 'body', key: 'enabled' },
                     { in: 'body', key: 'exclude' },
                     { in: 'body', key: 'exclude_office_ips' },
+                    { in: 'body', key: 'global_acceleration' },
                     { in: 'body', key: 'include' },
                     { in: 'body', key: 'lan_allow_minutes' },
                     { in: 'body', key: 'lan_allow_subnet_size' },
@@ -585,7 +597,7 @@ export class DevicesService {
     public static devicesGetSplitTunnelExcludeListForADeviceSettingsPolicy<ThrowOnError extends boolean = true>(parameters: {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'policy_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -614,7 +626,7 @@ export class DevicesService {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesSplitTunnel>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'account_id' },
@@ -651,7 +663,7 @@ export class DevicesService {
     public static devicesGetLocalDomainFallbackListForADeviceSettingsPolicy<ThrowOnError extends boolean = true>(parameters: {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'policy_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesGetLocalDomainFallbackListForADeviceSettingsPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -680,7 +692,7 @@ export class DevicesService {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesFallbackDomain>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyResponses, DevicesSetLocalDomainFallbackListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'account_id' },
@@ -717,7 +729,7 @@ export class DevicesService {
     public static devicesGetSplitTunnelIncludeListForADeviceSettingsPolicy<ThrowOnError extends boolean = true>(parameters: {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'policy_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesGetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -746,7 +758,7 @@ export class DevicesService {
         policy_id: TeamsDevicesSchemasUuid;
         account_id: TeamsDevicesIdentifier;
         body: Array<TeamsDevicesSplitTunnelInclude>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyResponses, DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'account_id' },
@@ -788,7 +800,7 @@ export class DevicesService {
     public static devicesRevokeDevices<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         teamsDevicesRevokeDevicesRequestWritable: TeamsDevicesRevokeDevicesRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesRevokeDevicesResponses, DevicesRevokeDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesRevokeDevicesRequestWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<DevicesRevokeDevicesResponses, DevicesRevokeDevicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -826,7 +838,7 @@ export class DevicesService {
     public static devicesUnrevokeDevices<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         teamsDevicesUnrevokeDevicesRequestWritable: TeamsDevicesUnrevokeDevicesRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesUnrevokeDevicesResponses, DevicesUnrevokeDevicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesUnrevokeDevicesRequestWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<DevicesUnrevokeDevicesResponses, DevicesUnrevokeDevicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -866,7 +878,7 @@ export class DevicesService {
     public static devicesDeviceDetails<ThrowOnError extends boolean = true>(parameters: {
         device_id: TeamsDevicesRegistrationId;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesDeviceDetailsResponses, DevicesDeviceDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'device_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesDeviceDetailsResponses, DevicesDeviceDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -899,7 +911,7 @@ export class DevicesService {
     public static devicesListAdminOverrideCodeForDevice<ThrowOnError extends boolean = true>(parameters: {
         device_id: TeamsDevicesRegistrationId;
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesListAdminOverrideCodeForDeviceResponses, DevicesListAdminOverrideCodeForDeviceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'device_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesListAdminOverrideCodeForDeviceResponses, DevicesListAdminOverrideCodeForDeviceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -926,7 +938,7 @@ export class DevicesService {
      */
     public static devicesGetPolicyCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesGetPolicyCertificatesResponses, DevicesGetPolicyCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DevicesGetPolicyCertificatesResponses, DevicesGetPolicyCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -954,7 +966,7 @@ export class DevicesService {
     public static devicesUpdatePolicyCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TeamsDevicesIdentifier;
         teamsDevicesDevicesPolicyCertificates: TeamsDevicesDevicesPolicyCertificates;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesUpdatePolicyCertificatesResponses, DevicesUpdatePolicyCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'teamsDevicesDevicesPolicyCertificates', map: 'body' }] }]);
         return (options?.client ?? client).patch<DevicesUpdatePolicyCertificatesResponses, DevicesUpdatePolicyCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

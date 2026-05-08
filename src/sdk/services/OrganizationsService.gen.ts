@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetOrgAnalyticsResponses, OrganizationListOrganizationsErrors, OrganizationListOrganizationsResponses, OrganizationsApiOrganizationId, OrganizationsApiOrganizationWritable, OrganizationsApiProfile, OrganizationsCreateUserOrganizationErrors, OrganizationsCreateUserOrganizationResponses, OrganizationsDeleteErrors, OrganizationsDeleteResponses, OrganizationsGetAccountsErrors, OrganizationsGetAccountsResponses, OrganizationsGetProfileErrors, OrganizationsGetProfileResponses, OrganizationsModifyErrors, OrganizationsModifyProfileErrors, OrganizationsModifyProfileResponses, OrganizationsModifyResponses, OrganizationsRetrieveErrors, OrganizationsRetrieveResponses, RealtimekitAccountIdentifier, RealtimekitAppId } from '../types.gen';
@@ -21,7 +21,7 @@ export class OrganizationsService {
         app_id: RealtimekitAppId;
         start_date?: string;
         end_date?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetOrgAnalyticsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -45,7 +45,7 @@ export class OrganizationsService {
     /**
      * List organizations the user has access to
      *
-     * Retrieve a list of organizations a particular user has access to. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Retrieve a list of organizations a particular user has access to. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationListOrganizations<ThrowOnError extends boolean = true>(parameters?: {
         id?: Array<OrganizationsApiOrganizationId>;
@@ -59,7 +59,7 @@ export class OrganizationsService {
         'parent.id'?: OrganizationsApiOrganizationId | 'null';
         page_token?: string;
         page_size?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationListOrganizationsResponses, OrganizationListOrganizationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'id' },
                     { in: 'query', key: 'name' },
@@ -81,7 +81,11 @@ export class OrganizationsService {
                 query: zOrganizationListOrganizationsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zOrganizationListOrganizationsResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
             url: '/organizations',
             ...options,
             ...params
@@ -91,11 +95,11 @@ export class OrganizationsService {
     /**
      * Create organization
      *
-     * Create a new organization for a user. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Create a new organization for a user. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsCreateUserOrganization<ThrowOnError extends boolean = true>(parameters: {
         organizationsApiOrganizationWritable: OrganizationsApiOrganizationWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsCreateUserOrganizationResponses, OrganizationsCreateUserOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ key: 'organizationsApiOrganizationWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<OrganizationsCreateUserOrganizationResponses, OrganizationsCreateUserOrganizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,11 +124,13 @@ export class OrganizationsService {
      * Delete organization.
      *
      * Delete an organization. The organization MUST be empty before deleting.
-     * It must not contain any sub-organizations, accounts, members or users. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * It must not contain any sub-organizations, accounts, members or users. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     *
+     * **Access Control:** Restricted to enterprise organizations.
      */
     public static organizationsDelete<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsDeleteResponses, OrganizationsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }] }]);
         return (options?.client ?? client).delete<OrganizationsDeleteResponses, OrganizationsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -143,11 +149,11 @@ export class OrganizationsService {
     /**
      * Get organization
      *
-     * Retrieve the details of a certain organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Retrieve the details of a certain organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsRetrieve<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsRetrieveResponses, OrganizationsRetrieveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }] }]);
         return (options?.client ?? client).get<OrganizationsRetrieveResponses, OrganizationsRetrieveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -166,12 +172,12 @@ export class OrganizationsService {
     /**
      * Modify organization.
      *
-     * Modify organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Modify organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsModify<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         organizationsApiOrganizationWritable: OrganizationsApiOrganizationWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsModifyResponses, OrganizationsModifyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { key: 'organizationsApiOrganizationWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<OrganizationsModifyResponses, OrganizationsModifyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,7 +201,7 @@ export class OrganizationsService {
     /**
      * Get organization accounts
      *
-     * Retrieve a list of accounts that belong to a specific organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Retrieve a list of accounts that belong to a specific organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsGetAccounts<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
@@ -211,7 +217,7 @@ export class OrganizationsService {
         direction?: 'asc' | 'desc';
         page_token?: string;
         page_size?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsGetAccountsResponses, OrganizationsGetAccountsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'organization_id' },
                     { in: 'query', key: 'account_pubname' },
@@ -244,11 +250,11 @@ export class OrganizationsService {
     /**
      * Get organization profile
      *
-     * Get an organizations profile if it exists. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Get an organizations profile if it exists. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsGetProfile<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsGetProfileResponses, OrganizationsGetProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }] }]);
         return (options?.client ?? client).get<OrganizationsGetProfileResponses, OrganizationsGetProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -267,12 +273,12 @@ export class OrganizationsService {
     /**
      * Modify organization profile.
      *
-     * Modify organization profile. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Modify organization profile. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static organizationsModifyProfile<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         organizationsApiProfile: OrganizationsApiProfile;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationsModifyProfileResponses, OrganizationsModifyProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { key: 'organizationsApiProfile', map: 'body' }] }]);
         return (options?.client ?? client).put<OrganizationsModifyProfileResponses, OrganizationsModifyProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

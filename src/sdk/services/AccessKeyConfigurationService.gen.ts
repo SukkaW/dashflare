@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessIdentifier, AccessKeyConfigurationGetTheAccessKeyConfigurationErrors, AccessKeyConfigurationGetTheAccessKeyConfigurationResponses, AccessKeyConfigurationRotateAccessKeysErrors, AccessKeyConfigurationRotateAccessKeysResponses, AccessKeyConfigurationUpdateTheAccessKeyConfigurationErrors, AccessKeyConfigurationUpdateTheAccessKeyConfigurationResponses, AccessKeyRotationIntervalDays } from '../types.gen';
@@ -18,7 +18,7 @@ export class AccessKeyConfigurationService {
      */
     public static accessKeyConfigurationGetTheAccessKeyConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessKeyConfigurationGetTheAccessKeyConfigurationResponses, AccessKeyConfigurationGetTheAccessKeyConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessKeyConfigurationGetTheAccessKeyConfigurationResponses, AccessKeyConfigurationGetTheAccessKeyConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class AccessKeyConfigurationService {
     public static accessKeyConfigurationUpdateTheAccessKeyConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         key_rotation_interval_days: AccessKeyRotationIntervalDays;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessKeyConfigurationUpdateTheAccessKeyConfigurationResponses, AccessKeyConfigurationUpdateTheAccessKeyConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'key_rotation_interval_days' }] }]);
         return (options?.client ?? client).put<AccessKeyConfigurationUpdateTheAccessKeyConfigurationResponses, AccessKeyConfigurationUpdateTheAccessKeyConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class AccessKeyConfigurationService {
      */
     public static accessKeyConfigurationRotateAccessKeys<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessKeyConfigurationRotateAccessKeysResponses, AccessKeyConfigurationRotateAccessKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<AccessKeyConfigurationRotateAccessKeysResponses, AccessKeyConfigurationRotateAccessKeysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

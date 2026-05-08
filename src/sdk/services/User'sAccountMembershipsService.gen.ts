@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamMembershipComponentsSchemasIdentifier, IamPropertiesName, UserSAccountMembershipsDeleteMembershipErrors, UserSAccountMembershipsDeleteMembershipResponses, UserSAccountMembershipsListMembershipsErrors, UserSAccountMembershipsListMembershipsResponses, UserSAccountMembershipsMembershipDetailsErrors, UserSAccountMembershipsMembershipDetailsResponses, UserSAccountMembershipsUpdateMembershipErrors, UserSAccountMembershipsUpdateMembershipResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class User_sAccountMembershipsService {
         direction?: 'asc' | 'desc';
         name?: IamPropertiesName;
         status?: 'accepted' | 'pending' | 'rejected';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSAccountMembershipsListMembershipsResponses, UserSAccountMembershipsListMembershipsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'account.name' },
                     { in: 'query', key: 'page' },
@@ -56,7 +56,7 @@ export class User_sAccountMembershipsService {
     public static 'user'SAccountMembershipsDeleteMembership'<ThrowOnError extends boolean = true>(parameters: {
         membership_id: IamMembershipComponentsSchemasIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSAccountMembershipsDeleteMembershipResponses, UserSAccountMembershipsDeleteMembershipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'membership_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<UserSAccountMembershipsDeleteMembershipResponses, UserSAccountMembershipsDeleteMembershipErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,7 +84,7 @@ export class User_sAccountMembershipsService {
      */
     public static 'user'SAccountMembershipsMembershipDetails'<ThrowOnError extends boolean = true>(parameters: {
         membership_id: IamMembershipComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSAccountMembershipsMembershipDetailsResponses, UserSAccountMembershipsMembershipDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'membership_id' }] }]);
         return (options?.client ?? client).get<UserSAccountMembershipsMembershipDetailsResponses, UserSAccountMembershipsMembershipDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class User_sAccountMembershipsService {
     public static 'user'SAccountMembershipsUpdateMembership'<ThrowOnError extends boolean = true>(parameters: {
         membership_id: IamMembershipComponentsSchemasIdentifier;
         status: 'accepted' | 'rejected';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSAccountMembershipsUpdateMembershipResponses, UserSAccountMembershipsUpdateMembershipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'membership_id' }, { in: 'body', key: 'status' }] }]);
         return (options?.client ?? client).put<UserSAccountMembershipsUpdateMembershipResponses, UserSAccountMembershipsUpdateMembershipErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

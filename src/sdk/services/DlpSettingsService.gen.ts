@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpDlpSettingsUpdate, DlpLimitsGetErrors, DlpLimitsGetResponses, DlpPatternValidateErrors, DlpPatternValidateResponses, DlpPayloadLogGetErrors, DlpPayloadLogGetResponses, DlpPayloadLogPutErrors, DlpPayloadLogPutResponses, DlpPayloadLogSettingUpdateLegacy, DlpRegexValidationQuery, DlpSettingsDeleteErrors, DlpSettingsDeleteResponses, DlpSettingsEditErrors, DlpSettingsEditResponses, DlpSettingsGetErrors, DlpSettingsGetResponses, DlpSettingsUpdateErrors, DlpSettingsUpdateResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class DlpSettingsService {
      */
     public static dlpLimitsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpLimitsGetResponses, DlpLimitsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpLimitsGetResponses, DlpLimitsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class DlpSettingsService {
     public static dlpPatternValidate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpRegexValidationQuery: DlpRegexValidationQuery;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpPatternValidateResponses, DlpPatternValidateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpRegexValidationQuery', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpPatternValidateResponses, DlpPatternValidateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -83,7 +83,7 @@ export class DlpSettingsService {
      */
     public static dlpPayloadLogGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpPayloadLogGetResponses, DlpPayloadLogGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpPayloadLogGetResponses, DlpPayloadLogGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -111,7 +111,7 @@ export class DlpSettingsService {
     public static dlpPayloadLogPut<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpPayloadLogSettingUpdateLegacy: DlpPayloadLogSettingUpdateLegacy;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpPayloadLogPutResponses, DlpPayloadLogPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpPayloadLogSettingUpdateLegacy', map: 'body' }] }]);
         return (options?.client ?? client).put<DlpPayloadLogPutResponses, DlpPayloadLogPutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -138,10 +138,12 @@ export class DlpSettingsService {
     
     /**
      * Delete (reset) DLP account-level settings to initial values.
+     *
+     * Deletes account-level DLP settings and returns the initial values.
      */
     public static dlpSettingsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpSettingsDeleteResponses, DlpSettingsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DlpSettingsDeleteResponses, DlpSettingsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -163,10 +165,12 @@ export class DlpSettingsService {
     
     /**
      * Get DLP account-level settings.
+     *
+     * Gets the account-level DLP settings.
      */
     public static dlpSettingsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpSettingsGetResponses, DlpSettingsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpSettingsGetResponses, DlpSettingsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -194,7 +198,7 @@ export class DlpSettingsService {
     public static dlpSettingsEdit<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpDlpSettingsUpdate: DlpDlpSettingsUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpSettingsEditResponses, DlpSettingsEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpDlpSettingsUpdate', map: 'body' }] }]);
         return (options?.client ?? client).patch<DlpSettingsEditResponses, DlpSettingsEditErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +231,7 @@ export class DlpSettingsService {
     public static dlpSettingsUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpDlpSettingsUpdate: DlpDlpSettingsUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpSettingsUpdateResponses, DlpSettingsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpDlpSettingsUpdate', map: 'body' }] }]);
         return (options?.client ?? client).put<DlpSettingsUpdateResponses, DlpSettingsUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

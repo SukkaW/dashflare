@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CatalogSyncsCreateErrors, CatalogSyncsCreateResponses, CatalogSyncsDeleteErrors, CatalogSyncsDeleteResponses, CatalogSyncsListErrors, CatalogSyncsListResponses, CatalogSyncsPatchErrors, CatalogSyncsPatchResponses, CatalogSyncsPrebuiltPoliciesListErrors, CatalogSyncsPrebuiltPoliciesListResponses, CatalogSyncsReadErrors, CatalogSyncsReadResponses, CatalogSyncsRefreshErrors, CatalogSyncsRefreshResponses, CatalogSyncsUpdateErrors, CatalogSyncsUpdateResponses, McnAccountId, McnCatalogSyncDestinationType, McnCatalogSyncId, McnCreateCatalogSyncRequest, McnUpdateCatalogSyncRequest } from '../types.gen';
@@ -18,7 +18,7 @@ export class CatalogSyncService {
      */
     public static catalogSyncsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsListResponses, CatalogSyncsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CatalogSyncsListResponses, CatalogSyncsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class CatalogSyncService {
         forwarded?: string;
         account_id: McnAccountId;
         mcnCreateCatalogSyncRequest: McnCreateCatalogSyncRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsCreateResponses, CatalogSyncsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'forwarded' },
                     { in: 'path', key: 'account_id' },
@@ -85,7 +85,7 @@ export class CatalogSyncService {
     public static catalogSyncsPrebuiltPoliciesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         destination_type?: McnCatalogSyncDestinationType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsPrebuiltPoliciesListResponses, CatalogSyncsPrebuiltPoliciesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'destination_type' }] }]);
         return (options?.client ?? client).get<CatalogSyncsPrebuiltPoliciesListResponses, CatalogSyncsPrebuiltPoliciesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class CatalogSyncService {
         account_id: McnAccountId;
         sync_id: McnCatalogSyncId;
         delete_destination?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsDeleteResponses, CatalogSyncsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sync_id' },
@@ -146,7 +146,7 @@ export class CatalogSyncService {
     public static catalogSyncsRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         sync_id: McnCatalogSyncId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsReadResponses, CatalogSyncsReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sync_id' }] }]);
         return (options?.client ?? client).get<CatalogSyncsReadResponses, CatalogSyncsReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -175,7 +175,7 @@ export class CatalogSyncService {
         account_id: McnAccountId;
         sync_id: McnCatalogSyncId;
         mcnUpdateCatalogSyncRequest: McnUpdateCatalogSyncRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsPatchResponses, CatalogSyncsPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sync_id' },
@@ -213,7 +213,7 @@ export class CatalogSyncService {
         account_id: McnAccountId;
         sync_id: McnCatalogSyncId;
         mcnUpdateCatalogSyncRequest: McnUpdateCatalogSyncRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsUpdateResponses, CatalogSyncsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sync_id' },
@@ -250,7 +250,7 @@ export class CatalogSyncService {
     public static catalogSyncsRefresh<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         sync_id: McnCatalogSyncId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CatalogSyncsRefreshResponses, CatalogSyncsRefreshErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sync_id' }] }]);
         return (options?.client ?? client).post<CatalogSyncsRefreshResponses, CatalogSyncsRefreshErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

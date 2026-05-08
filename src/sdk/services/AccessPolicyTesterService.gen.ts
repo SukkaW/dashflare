@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessIdentifier, AccessPolicyInitReq, AccessPolicyTestId, AccessPolicyTestsErrors, AccessPolicyTestsGetAnUpdateErrors, AccessPolicyTestsGetAnUpdateResponses, AccessPolicyTestsGetAuserPageErrors, AccessPolicyTestsGetAuserPageResponses, AccessPolicyTestsResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class AccessPolicyTesterService {
     public static accessPolicyTests<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         accessPolicyInitReq: AccessPolicyInitReq;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPolicyTestsResponses, AccessPolicyTestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessPolicyInitReq', map: 'body' }] }]);
         return (options?.client ?? client).post<AccessPolicyTestsResponses, AccessPolicyTestsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class AccessPolicyTesterService {
     public static accessPolicyTestsGetAnUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         policy_test_id: AccessPolicyTestId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPolicyTestsGetAnUpdateResponses, AccessPolicyTestsGetAnUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_test_id' }] }]);
         return (options?.client ?? client).get<AccessPolicyTestsGetAnUpdateResponses, AccessPolicyTestsGetAnUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -83,7 +83,7 @@ export class AccessPolicyTesterService {
         page?: number;
         per_page?: number;
         status?: 'success' | 'fail' | 'error';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPolicyTestsGetAuserPageResponses, AccessPolicyTestsGetAuserPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_test_id' },

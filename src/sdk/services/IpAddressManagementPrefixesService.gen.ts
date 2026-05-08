@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingAsn, AddressingCidr, AddressingDelegateLoaCreation, AddressingDescription, AddressingLoaDocumentIdentifier, AddressingPrefixIdentifier, IpAddressManagementPrefixesAddPrefixErrors, IpAddressManagementPrefixesAddPrefixResponses, IpAddressManagementPrefixesDeletePrefixErrors, IpAddressManagementPrefixesDeletePrefixResponses, IpAddressManagementPrefixesDownloadLoaDocumentErrors, IpAddressManagementPrefixesDownloadLoaDocumentResponses, IpAddressManagementPrefixesListPrefixesErrors, IpAddressManagementPrefixesListPrefixesResponses, IpAddressManagementPrefixesPrefixDetailsErrors, IpAddressManagementPrefixesPrefixDetailsResponses, IpAddressManagementPrefixesUpdatePrefixDescriptionErrors, IpAddressManagementPrefixesUpdatePrefixDescriptionResponses, IpAddressManagementPrefixesUploadLoaDocumentErrors, IpAddressManagementPrefixesUploadLoaDocumentResponses, IpAddressManagementPrefixesValidatePrefixErrors, IpAddressManagementPrefixesValidatePrefixResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class IpAddressManagementPrefixesService {
     public static ipAddressManagementPrefixesUploadLoaDocument<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
         loa_document: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesUploadLoaDocumentResponses, IpAddressManagementPrefixesUploadLoaDocumentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'loa_document' }] }]);
         return (options?.client ?? client).post<IpAddressManagementPrefixesUploadLoaDocumentResponses, IpAddressManagementPrefixesUploadLoaDocumentErrors, ThrowOnError>({
             ...formDataBodySerializer,
@@ -49,7 +49,7 @@ export class IpAddressManagementPrefixesService {
     public static ipAddressManagementPrefixesDownloadLoaDocument<ThrowOnError extends boolean = true>(parameters: {
         loa_document_id: AddressingLoaDocumentIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesDownloadLoaDocumentResponses, IpAddressManagementPrefixesDownloadLoaDocumentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'loa_document_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementPrefixesDownloadLoaDocumentResponses, IpAddressManagementPrefixesDownloadLoaDocumentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,7 +72,7 @@ export class IpAddressManagementPrefixesService {
      */
     public static ipAddressManagementPrefixesListPrefixes<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesListPrefixesResponses, IpAddressManagementPrefixesListPrefixesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementPrefixesListPrefixesResponses, IpAddressManagementPrefixesListPrefixesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class IpAddressManagementPrefixesService {
         delegate_loa_creation?: AddressingDelegateLoaCreation;
         description?: AddressingDescription;
         loa_document_id?: AddressingLoaDocumentIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesAddPrefixResponses, IpAddressManagementPrefixesAddPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'asn' },
@@ -137,7 +137,7 @@ export class IpAddressManagementPrefixesService {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesDeletePrefixResponses, IpAddressManagementPrefixesDeletePrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'prefix_id' },
                     { in: 'path', key: 'account_id' },
@@ -170,7 +170,7 @@ export class IpAddressManagementPrefixesService {
     public static ipAddressManagementPrefixesPrefixDetails<ThrowOnError extends boolean = true>(parameters: {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesPrefixDetailsResponses, IpAddressManagementPrefixesPrefixDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'prefix_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementPrefixesPrefixDetailsResponses, IpAddressManagementPrefixesPrefixDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,7 +195,7 @@ export class IpAddressManagementPrefixesService {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
         description: AddressingDescription;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesUpdatePrefixDescriptionResponses, IpAddressManagementPrefixesUpdatePrefixDescriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'prefix_id' },
                     { in: 'path', key: 'account_id' },
@@ -228,7 +228,7 @@ export class IpAddressManagementPrefixesService {
     public static ipAddressManagementPrefixesValidatePrefix<ThrowOnError extends boolean = true>(parameters: {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesValidatePrefixResponses, IpAddressManagementPrefixesValidatePrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'prefix_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<IpAddressManagementPrefixesValidatePrefixResponses, IpAddressManagementPrefixesValidatePrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallAction, FirewallIdentifier, FirewallMatch, FirewallPeriod, FirewallRateLimitId, FirewallThreshold, RateLimitsForAZoneCreateARateLimitErrors, RateLimitsForAZoneCreateARateLimitResponses, RateLimitsForAZoneDeleteARateLimitErrors, RateLimitsForAZoneDeleteARateLimitResponses, RateLimitsForAZoneGetARateLimitErrors, RateLimitsForAZoneGetARateLimitResponses, RateLimitsForAZoneListRateLimitsErrors, RateLimitsForAZoneListRateLimitsResponses, RateLimitsForAZoneUpdateARateLimitErrors, RateLimitsForAZoneUpdateARateLimitResponses } from '../types.gen';
@@ -14,7 +14,7 @@ export class RateLimitsForAZoneService {
     /**
      * List rate limits
      *
-     * Fetches the rate limits for a zone.
+     * **Deprecated**: This endpoint returns 410 Gone. Please use the Rulesets API instead.
      *
      * @deprecated
      */
@@ -22,7 +22,7 @@ export class RateLimitsForAZoneService {
         zone_id: FirewallIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RateLimitsForAZoneListRateLimitsResponses, RateLimitsForAZoneListRateLimitsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -49,7 +49,7 @@ export class RateLimitsForAZoneService {
     /**
      * Create a rate limit
      *
-     * Creates a new rate limit for a zone. Refer to the object definition for a list of required attributes.
+     * **Deprecated**: This endpoint returns 410 Gone. Please use the Rulesets API instead.
      *
      * @deprecated
      */
@@ -59,7 +59,7 @@ export class RateLimitsForAZoneService {
         match: FirewallMatch;
         period: FirewallPeriod;
         threshold: FirewallThreshold;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RateLimitsForAZoneCreateARateLimitResponses, RateLimitsForAZoneCreateARateLimitErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'action' },
@@ -93,7 +93,7 @@ export class RateLimitsForAZoneService {
     /**
      * Delete a rate limit
      *
-     * Deletes an existing rate limit.
+     * **Deprecated**: This endpoint returns 410 Gone. Please use the Rulesets API instead.
      *
      * @deprecated
      */
@@ -101,7 +101,7 @@ export class RateLimitsForAZoneService {
         rate_limit_id: FirewallRateLimitId;
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RateLimitsForAZoneDeleteARateLimitResponses, RateLimitsForAZoneDeleteARateLimitErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rate_limit_id' },
                     { in: 'path', key: 'zone_id' },
@@ -133,14 +133,14 @@ export class RateLimitsForAZoneService {
     /**
      * Get a rate limit
      *
-     * Fetches the details of a rate limit.
+     * **Deprecated**: This endpoint returns 410 Gone. Please use the Rulesets API instead.
      *
      * @deprecated
      */
     public static rateLimitsForAZoneGetARateLimit<ThrowOnError extends boolean = true>(parameters: {
         rate_limit_id: FirewallRateLimitId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RateLimitsForAZoneGetARateLimitResponses, RateLimitsForAZoneGetARateLimitErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rate_limit_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<RateLimitsForAZoneGetARateLimitResponses, RateLimitsForAZoneGetARateLimitErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -163,7 +163,7 @@ export class RateLimitsForAZoneService {
     /**
      * Update a rate limit
      *
-     * Updates an existing rate limit.
+     * **Deprecated**: This endpoint returns 410 Gone. Please use the Rulesets API instead.
      *
      * @deprecated
      */
@@ -174,7 +174,7 @@ export class RateLimitsForAZoneService {
         match: FirewallMatch;
         period: FirewallPeriod;
         threshold: FirewallThreshold;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RateLimitsForAZoneUpdateARateLimitResponses, RateLimitsForAZoneUpdateARateLimitErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rate_limit_id' },
                     { in: 'path', key: 'zone_id' },

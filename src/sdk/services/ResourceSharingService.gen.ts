@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { OrganizationSharesListErrors, OrganizationSharesListResponses, ResourceSharingAccountId, ResourceSharingCreateShareRecipientRequest, ResourceSharingCreateShareRequest, ResourceSharingCreateShareResourceRequest, ResourceSharingOrganizationId, ResourceSharingRecipientId, ResourceSharingResourceId, ResourceSharingResourceStatus, ResourceSharingResourceType, ResourceSharingShareId, ResourceSharingShareKind, ResourceSharingShareStatus, ResourceSharingShareTargetType, ResourceSharingUpdateShareRecipientsRequest, ResourceSharingUpdateShareRequest, ResourceSharingUpdateShareResourceRequest, ShareCreateErrors, ShareCreateResponses, ShareDeleteErrors, ShareDeleteResponses, ShareRecipientCreateErrors, ShareRecipientCreateResponses, ShareRecipientDeleteErrors, ShareRecipientDeleteResponses, ShareRecipientsGetByIdErrors, ShareRecipientsGetByIdResponses, ShareRecipientsListErrors, ShareRecipientsListResponses, ShareRecipientsUpdateErrors, ShareRecipientsUpdateResponses, ShareResourceCreateErrors, ShareResourceCreateResponses, ShareResourceDeleteErrors, ShareResourceDeleteResponses, ShareResourcesGetByIdErrors, ShareResourcesGetByIdResponses, ShareResourcesListErrors, ShareResourcesListResponses, ShareResourceUpdateErrors, ShareResourceUpdateResponses, SharesGetByIdErrors, SharesGetByIdResponses, SharesListErrors, SharesListResponses, ShareUpdateErrors, ShareUpdateResponses } from '../types.gen';
+import type { OrganizationSharesListErrors, OrganizationSharesListResponses, ResourceSharingAccountId, ResourceSharingCreateShareRecipientRequest, ResourceSharingCreateShareRequest, ResourceSharingCreateShareResourceRequest, ResourceSharingOrganizationId, ResourceSharingRecipientId, ResourceSharingResourceId, ResourceSharingResourceStatus2, ResourceSharingResourceType2, ResourceSharingShareId, ResourceSharingShareKind, ResourceSharingShareStatus, ResourceSharingShareTargetType, ResourceSharingUpdateShareRecipientsRequest, ResourceSharingUpdateShareRequest, ResourceSharingUpdateShareResourceRequest, ShareCreateErrors, ShareCreateResponses, ShareDeleteErrors, ShareDeleteResponses, ShareRecipientCreateErrors, ShareRecipientCreateResponses, ShareRecipientDeleteErrors, ShareRecipientDeleteResponses, ShareRecipientsGetByIdErrors, ShareRecipientsGetByIdResponses, ShareRecipientsListErrors, ShareRecipientsListResponses, ShareRecipientsUpdateErrors, ShareRecipientsUpdateResponses, ShareResourceCreateErrors, ShareResourceCreateResponses, ShareResourceDeleteErrors, ShareResourceDeleteResponses, ShareResourcesGetByIdErrors, ShareResourcesGetByIdResponses, ShareResourcesListErrors, ShareResourcesListResponses, ShareResourceUpdateErrors, ShareResourceUpdateResponses, SharesGetByIdErrors, SharesGetByIdResponses, SharesListErrors, SharesListResponses, ShareUpdateErrors, ShareUpdateResponses } from '../types.gen';
 import { zOrganizationSharesListPath, zOrganizationSharesListQuery, zOrganizationSharesListResponse, zShareCreateBody, zShareCreatePath, zShareCreateResponse, zShareDeletePath, zShareDeleteResponse, zShareRecipientCreateBody, zShareRecipientCreatePath, zShareRecipientCreateResponse, zShareRecipientDeletePath, zShareRecipientDeleteResponse, zShareRecipientsGetByIdPath, zShareRecipientsGetByIdQuery, zShareRecipientsGetByIdResponse, zShareRecipientsListPath, zShareRecipientsListQuery, zShareRecipientsListResponse, zShareRecipientsUpdateBody, zShareRecipientsUpdatePath, zShareRecipientsUpdateResponse, zShareResourceCreateBody, zShareResourceCreatePath, zShareResourceCreateResponse, zShareResourceDeletePath, zShareResourceDeleteResponse, zShareResourcesGetByIdPath, zShareResourcesGetByIdResponse, zShareResourcesListPath, zShareResourcesListQuery, zShareResourcesListResponse, zShareResourceUpdateBody, zShareResourceUpdatePath, zShareResourceUpdateResponse, zSharesGetByIdPath, zSharesGetByIdQuery, zSharesGetByIdResponse, zSharesListPath, zSharesListQuery, zSharesListResponse, zShareUpdateBody, zShareUpdatePath, zShareUpdateResponse } from '../zod.gen';
 
 export class ResourceSharingService {
@@ -21,14 +21,15 @@ export class ResourceSharingService {
         status?: ResourceSharingShareStatus;
         kind?: ResourceSharingShareKind;
         target_type?: ResourceSharingShareTargetType;
-        resource_types?: Array<ResourceSharingResourceType>;
+        resource_types?: Array<ResourceSharingResourceType2>;
         order?: 'name' | 'created';
         direction?: 'asc' | 'desc';
         page?: number;
         per_page?: number;
         include_resources?: boolean;
         include_recipient_counts?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+        tag?: Array<string>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharesListResponses, SharesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'status' },
@@ -40,7 +41,8 @@ export class ResourceSharingService {
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
                     { in: 'query', key: 'include_resources' },
-                    { in: 'query', key: 'include_recipient_counts' }
+                    { in: 'query', key: 'include_recipient_counts' },
+                    { in: 'query', key: 'tag' }
                 ] }]);
         return (options?.client ?? client).get<SharesListResponses, SharesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -64,7 +66,7 @@ export class ResourceSharingService {
     public static shareCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         resourceSharingCreateShareRequest: ResourceSharingCreateShareRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareCreateResponses, ShareCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'resourceSharingCreateShareRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ShareCreateResponses, ShareCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,7 +95,7 @@ export class ResourceSharingService {
     public static shareDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareDeleteResponses, ShareDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'share_id' }] }]);
         return (options?.client ?? client).delete<ShareDeleteResponses, ShareDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,7 +121,7 @@ export class ResourceSharingService {
         share_id: ResourceSharingShareId;
         include_resources?: boolean;
         include_recipient_counts?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharesGetByIdResponses, SharesGetByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -149,7 +151,7 @@ export class ResourceSharingService {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
         resourceSharingUpdateShareRequest: ResourceSharingUpdateShareRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareUpdateResponses, ShareUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -185,7 +187,7 @@ export class ResourceSharingService {
         include_resources?: boolean;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareRecipientsListResponses, ShareRecipientsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -216,7 +218,7 @@ export class ResourceSharingService {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
         resourceSharingCreateShareRecipientRequest: ResourceSharingCreateShareRecipientRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareRecipientCreateResponses, ShareRecipientCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -250,7 +252,7 @@ export class ResourceSharingService {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
         resourceSharingUpdateShareRecipientsRequest: ResourceSharingUpdateShareRecipientsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareRecipientsUpdateResponses, ShareRecipientsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -284,7 +286,7 @@ export class ResourceSharingService {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
         recipient_id: ResourceSharingRecipientId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareRecipientDeleteResponses, ShareRecipientDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -314,7 +316,7 @@ export class ResourceSharingService {
         share_id: ResourceSharingShareId;
         recipient_id: ResourceSharingRecipientId;
         include_resources?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareRecipientsGetByIdResponses, ShareRecipientsGetByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -343,11 +345,11 @@ export class ResourceSharingService {
     public static shareResourcesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
-        status?: ResourceSharingResourceStatus;
-        resource_type?: ResourceSharingResourceType;
+        status?: ResourceSharingResourceStatus2;
+        resource_type?: ResourceSharingResourceType2;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareResourcesListResponses, ShareResourcesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -379,7 +381,7 @@ export class ResourceSharingService {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
         resourceSharingCreateShareResourceRequest: ResourceSharingCreateShareResourceRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareResourceCreateResponses, ShareResourceCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
@@ -412,12 +414,12 @@ export class ResourceSharingService {
     public static shareResourceDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
-        resource_id: ResourceSharingResourceId;
-    }, options?: Options<never, ThrowOnError>) {
+        share_resource_id: ResourceSharingResourceId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareResourceDeleteResponses, ShareResourceDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
-                    { in: 'path', key: 'resource_id' }
+                    { in: 'path', key: 'share_resource_id' }
                 ] }]);
         return (options?.client ?? client).delete<ShareResourceDeleteResponses, ShareResourceDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -427,7 +429,7 @@ export class ResourceSharingService {
             }).parseAsync(data),
             responseValidator: async (data) => await zShareResourceDeleteResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/accounts/{account_id}/shares/{share_id}/resources/{resource_id}',
+            url: '/accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}',
             ...options,
             ...params
         });
@@ -441,12 +443,12 @@ export class ResourceSharingService {
     public static shareResourcesGetById<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
-        resource_id: ResourceSharingResourceId;
-    }, options?: Options<never, ThrowOnError>) {
+        share_resource_id: ResourceSharingResourceId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareResourcesGetByIdResponses, ShareResourcesGetByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
-                    { in: 'path', key: 'resource_id' }
+                    { in: 'path', key: 'share_resource_id' }
                 ] }]);
         return (options?.client ?? client).get<ShareResourcesGetByIdResponses, ShareResourcesGetByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -456,7 +458,7 @@ export class ResourceSharingService {
             }).parseAsync(data),
             responseValidator: async (data) => await zShareResourcesGetByIdResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/accounts/{account_id}/shares/{share_id}/resources/{resource_id}',
+            url: '/accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}',
             ...options,
             ...params
         });
@@ -470,13 +472,13 @@ export class ResourceSharingService {
     public static shareResourceUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceSharingAccountId;
         share_id: ResourceSharingShareId;
-        resource_id: ResourceSharingResourceId;
+        share_resource_id: ResourceSharingResourceId;
         resourceSharingUpdateShareResourceRequest: ResourceSharingUpdateShareResourceRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ShareResourceUpdateResponses, ShareResourceUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'share_id' },
-                    { in: 'path', key: 'resource_id' },
+                    { in: 'path', key: 'share_resource_id' },
                     { key: 'resourceSharingUpdateShareResourceRequest', map: 'body' }
                 ] }]);
         return (options?.client ?? client).put<ShareResourceUpdateResponses, ShareResourceUpdateErrors, ThrowOnError>({
@@ -487,7 +489,7 @@ export class ResourceSharingService {
             }).parseAsync(data),
             responseValidator: async (data) => await zShareResourceUpdateResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/accounts/{account_id}/shares/{share_id}/resources/{resource_id}',
+            url: '/accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}',
             ...options,
             ...params,
             headers: {
@@ -508,12 +510,12 @@ export class ResourceSharingService {
         status?: ResourceSharingShareStatus;
         kind?: ResourceSharingShareKind;
         target_type?: ResourceSharingShareTargetType;
-        resource_types?: Array<ResourceSharingResourceType>;
+        resource_types?: Array<ResourceSharingResourceType2>;
         order?: 'name' | 'created';
         direction?: 'asc' | 'desc';
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OrganizationSharesListResponses, OrganizationSharesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'organization_id' },
                     { in: 'query', key: 'status' },

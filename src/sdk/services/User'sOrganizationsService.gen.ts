@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamCommonComponentsSchemasIdentifier, IamSchemasName, UserSOrganizationsLeaveOrganizationErrors, UserSOrganizationsLeaveOrganizationResponses, UserSOrganizationsListOrganizationsErrors, UserSOrganizationsListOrganizationsResponses, UserSOrganizationsOrganizationDetailsErrors, UserSOrganizationsOrganizationDetailsResponses } from '../types.gen';
@@ -26,7 +26,7 @@ export class User_sOrganizationsService {
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
         status?: 'member' | 'invited';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSOrganizationsListOrganizationsResponses, UserSOrganizationsListOrganizationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'page' },
@@ -60,7 +60,7 @@ export class User_sOrganizationsService {
     public static 'user'SOrganizationsLeaveOrganization'<ThrowOnError extends boolean = true>(parameters: {
         organization_id: IamCommonComponentsSchemasIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSOrganizationsLeaveOrganizationResponses, UserSOrganizationsLeaveOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<UserSOrganizationsLeaveOrganizationResponses, UserSOrganizationsLeaveOrganizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,7 +90,7 @@ export class User_sOrganizationsService {
      */
     public static 'user'SOrganizationsOrganizationDetails'<ThrowOnError extends boolean = true>(parameters: {
         organization_id: IamCommonComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSOrganizationsOrganizationDetailsResponses, UserSOrganizationsOrganizationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }] }]);
         return (options?.client ?? client).get<UserSOrganizationsOrganizationDetailsResponses, UserSOrganizationsOrganizationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

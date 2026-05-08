@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteAccountsAccountIdLogsControlCmbConfigErrors, DeleteAccountsAccountIdLogsControlCmbConfigResponses, GetAccountsAccountIdLogsControlCmbConfigErrors, GetAccountsAccountIdLogsControlCmbConfigResponses, LogcontrolCmbConfig, LogcontrolIdentifier, PostAccountsAccountIdLogsControlCmbConfigErrors, PostAccountsAccountIdLogsControlCmbConfigResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class LogcontrolCmbConfigForAnAccountService {
     public static deleteAccountsAccountIdLogsControlCmbConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogcontrolIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdLogsControlCmbConfigResponses, DeleteAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<DeleteAccountsAccountIdLogsControlCmbConfigResponses, DeleteAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class LogcontrolCmbConfigForAnAccountService {
      */
     public static getAccountsAccountIdLogsControlCmbConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogcontrolIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdLogsControlCmbConfigResponses, GetAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountsAccountIdLogsControlCmbConfigResponses, GetAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class LogcontrolCmbConfigForAnAccountService {
     public static postAccountsAccountIdLogsControlCmbConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: LogcontrolIdentifier;
         logcontrolCmbConfig: LogcontrolCmbConfig;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdLogsControlCmbConfigResponses, PostAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'logcontrolCmbConfig', map: 'body' }] }]);
         return (options?.client ?? client).post<PostAccountsAccountIdLogsControlCmbConfigResponses, PostAccountsAccountIdLogsControlCmbConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

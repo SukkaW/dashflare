@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateAccountRulesetErrors, CreateAccountRulesetResponses, CreateAccountRulesetRuleErrors, CreateAccountRulesetRuleResponses, DeleteAccountRulesetErrors, DeleteAccountRulesetResponses, DeleteAccountRulesetRuleErrors, DeleteAccountRulesetRuleResponses, DeleteAccountRulesetVersionErrors, DeleteAccountRulesetVersionResponses, GetAccountEntrypointRulesetErrors, GetAccountEntrypointRulesetResponses, GetAccountEntrypointRulesetVersionErrors, GetAccountEntrypointRulesetVersionResponses, GetAccountRulesetErrors, GetAccountRulesetResponses, GetAccountRulesetVersionErrors, GetAccountRulesetVersionResponses, ListAccountEntrypointRulesetVersionsErrors, ListAccountEntrypointRulesetVersionsResponses, ListAccountRulesetsErrors, ListAccountRulesetsResponses, ListAccountRulesetVersionRulesByTagErrors, ListAccountRulesetVersionRulesByTagResponses, ListAccountRulesetVersionsErrors, ListAccountRulesetVersionsResponses, RulesetsAccountId, RulesetsCreateRuleset, RulesetsCursor, RulesetsPerPage, RulesetsRule2, RulesetsRuleCategory, RulesetsRuleId, RulesetsRulesetId, RulesetsRulesetPhase, RulesetsRulesetVersion, RulesetsUpdateEntrypointRuleset, RulesetsUpdateRuleset, UpdateAccountEntrypointRulesetErrors, UpdateAccountEntrypointRulesetResponses, UpdateAccountRulesetErrors, UpdateAccountRulesetResponses, UpdateAccountRulesetRuleErrors, UpdateAccountRulesetRuleResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class AccountRulesetsService {
         account_id: RulesetsAccountId;
         cursor?: RulesetsCursor;
         per_page?: RulesetsPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAccountRulesetsResponses, ListAccountRulesetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cursor' },
@@ -52,7 +52,7 @@ export class AccountRulesetsService {
     public static createAccountRuleset<ThrowOnError extends boolean = true>(parameters: {
         account_id: RulesetsAccountId;
         rulesetsCreateRuleset: RulesetsCreateRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateAccountRulesetResponses, CreateAccountRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'rulesetsCreateRuleset', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateAccountRulesetResponses, CreateAccountRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class AccountRulesetsService {
     public static getAccountEntrypointRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_phase: RulesetsRulesetPhase;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountEntrypointRulesetResponses, GetAccountEntrypointRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_phase' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountEntrypointRulesetResponses, GetAccountEntrypointRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class AccountRulesetsService {
         ruleset_phase: RulesetsRulesetPhase;
         account_id: RulesetsAccountId;
         rulesetsUpdateEntrypointRuleset: RulesetsUpdateEntrypointRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateAccountEntrypointRulesetResponses, UpdateAccountEntrypointRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_phase' },
                     { in: 'path', key: 'account_id' },
@@ -151,7 +151,7 @@ export class AccountRulesetsService {
     public static listAccountEntrypointRulesetVersions<ThrowOnError extends boolean = true>(parameters: {
         ruleset_phase: RulesetsRulesetPhase;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAccountEntrypointRulesetVersionsResponses, ListAccountEntrypointRulesetVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_phase' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListAccountEntrypointRulesetVersionsResponses, ListAccountEntrypointRulesetVersionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -180,7 +180,7 @@ export class AccountRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_phase: RulesetsRulesetPhase;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountEntrypointRulesetVersionResponses, GetAccountEntrypointRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_phase' },
@@ -212,7 +212,7 @@ export class AccountRulesetsService {
     public static deleteAccountRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountRulesetResponses, DeleteAccountRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteAccountRulesetResponses, DeleteAccountRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -240,7 +240,7 @@ export class AccountRulesetsService {
     public static getAccountRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountRulesetResponses, GetAccountRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAccountRulesetResponses, GetAccountRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -269,7 +269,7 @@ export class AccountRulesetsService {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
         rulesetsUpdateRuleset: RulesetsUpdateRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateAccountRulesetResponses, UpdateAccountRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_id' },
                     { in: 'path', key: 'account_id' },
@@ -307,7 +307,7 @@ export class AccountRulesetsService {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
         rulesetsRule: RulesetsRule2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateAccountRulesetRuleResponses, CreateAccountRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_id' },
                     { in: 'path', key: 'account_id' },
@@ -345,7 +345,7 @@ export class AccountRulesetsService {
         rule_id: RulesetsRuleId;
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountRulesetRuleResponses, DeleteAccountRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -379,7 +379,7 @@ export class AccountRulesetsService {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
         rulesetsRule: RulesetsRule2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateAccountRulesetRuleResponses, UpdateAccountRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -417,7 +417,7 @@ export class AccountRulesetsService {
     public static listAccountRulesetVersions<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAccountRulesetVersionsResponses, ListAccountRulesetVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListAccountRulesetVersionsResponses, ListAccountRulesetVersionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -446,7 +446,7 @@ export class AccountRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountRulesetVersionResponses, DeleteAccountRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_id' },
@@ -479,7 +479,7 @@ export class AccountRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountRulesetVersionResponses, GetAccountRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_id' },
@@ -513,7 +513,7 @@ export class AccountRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         account_id: RulesetsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAccountRulesetVersionRulesByTagResponses, ListAccountRulesetVersionRulesByTagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_tag' },
                     { in: 'path', key: 'ruleset_version' },

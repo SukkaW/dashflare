@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldAction, ApiShieldBulkCreateRules, ApiShieldBulkEditRules, ApiShieldCreateRule, ApiShieldEditRule, ApiShieldEnabled, ApiShieldEndpoint, ApiShieldHost, ApiShieldMethod, ApiShieldPreviewRules, ApiShieldSchemasIdentifier, ApiShieldSchemasUuidWritable, ApiShieldSelectorOperationState, TokenValidationRulesBulkCreateErrors, TokenValidationRulesBulkCreateResponses, TokenValidationRulesBulkEditErrors, TokenValidationRulesBulkEditResponses, TokenValidationRulesCreateErrors, TokenValidationRulesCreateResponses, TokenValidationRulesDeleteErrors, TokenValidationRulesDeleteResponses, TokenValidationRulesEditErrors, TokenValidationRulesEditResponses, TokenValidationRulesGetErrors, TokenValidationRulesGetResponses, TokenValidationRulesListErrors, TokenValidationRulesListResponses, TokenValidationRulesPreviewErrors, TokenValidationRulesPreviewResponses } from '../types.gen';
+import type { ApiShieldAction, ApiShieldBulkCreateRules, ApiShieldBulkEditRules, ApiShieldCreateRule, ApiShieldEditRule, ApiShieldEnabled, ApiShieldEndpoint, ApiShieldHost, ApiShieldIdentifier2, ApiShieldMethod, ApiShieldPreviewRules, ApiShieldSelectorOperationState, ApiShieldUuid2Writable, TokenValidationRulesBulkCreateErrors, TokenValidationRulesBulkCreateResponses, TokenValidationRulesBulkEditErrors, TokenValidationRulesBulkEditResponses, TokenValidationRulesCreateErrors, TokenValidationRulesCreateResponses, TokenValidationRulesDeleteErrors, TokenValidationRulesDeleteResponses, TokenValidationRulesEditErrors, TokenValidationRulesEditResponses, TokenValidationRulesGetErrors, TokenValidationRulesGetResponses, TokenValidationRulesListErrors, TokenValidationRulesListResponses, TokenValidationRulesPreviewErrors, TokenValidationRulesPreviewResponses } from '../types.gen';
 import { zTokenValidationRulesBulkCreateBody, zTokenValidationRulesBulkCreatePath, zTokenValidationRulesBulkCreateResponse, zTokenValidationRulesBulkEditBody, zTokenValidationRulesBulkEditPath, zTokenValidationRulesBulkEditResponse, zTokenValidationRulesCreateBody, zTokenValidationRulesCreatePath, zTokenValidationRulesCreateResponse, zTokenValidationRulesDeletePath, zTokenValidationRulesDeleteResponse, zTokenValidationRulesEditBody, zTokenValidationRulesEditPath, zTokenValidationRulesEditResponse, zTokenValidationRulesGetPath, zTokenValidationRulesGetResponse, zTokenValidationRulesListPath, zTokenValidationRulesListQuery, zTokenValidationRulesListResponse, zTokenValidationRulesPreviewBody, zTokenValidationRulesPreviewPath, zTokenValidationRulesPreviewQuery, zTokenValidationRulesPreviewResponse } from '../zod.gen';
 
 export class TokenValidationTokenRulesService {
@@ -17,17 +17,17 @@ export class TokenValidationTokenRulesService {
      * List token validation rules
      */
     public static tokenValidationRulesList<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         per_page?: number;
         page?: number;
-        token_configuration?: Array<ApiShieldSchemasUuidWritable>;
+        token_configuration?: Array<ApiShieldUuid2Writable>;
         action?: ApiShieldAction;
         enabled?: ApiShieldEnabled;
-        id?: ApiShieldSchemasUuidWritable;
-        rule_id?: ApiShieldSchemasUuidWritable;
+        id?: ApiShieldUuid2Writable;
+        rule_id?: ApiShieldUuid2Writable;
         host?: ApiShieldHost;
         hostname?: ApiShieldHost;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesListResponses, TokenValidationRulesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'per_page' },
@@ -64,9 +64,9 @@ export class TokenValidationTokenRulesService {
      * Create a token validation rule.
      */
     public static tokenValidationRulesCreate<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldCreateRule: ApiShieldCreateRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesCreateResponses, TokenValidationRulesCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldCreateRule', map: 'body' }] }]);
         return (options?.client ?? client).post<TokenValidationRulesCreateResponses, TokenValidationRulesCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -104,9 +104,9 @@ export class TokenValidationTokenRulesService {
      *
      */
     public static tokenValidationRulesBulkEdit<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBulkEditRules: ApiShieldBulkEditRules;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesBulkEditResponses, TokenValidationRulesBulkEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBulkEditRules', map: 'body' }] }]);
         return (options?.client ?? client).patch<TokenValidationRulesBulkEditResponses, TokenValidationRulesBulkEditErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,9 +140,9 @@ export class TokenValidationTokenRulesService {
      *
      */
     public static tokenValidationRulesBulkCreate<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBulkCreateRules: ApiShieldBulkCreateRules;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesBulkCreateResponses, TokenValidationRulesBulkCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBulkCreateRules', map: 'body' }] }]);
         return (options?.client ?? client).post<TokenValidationRulesBulkCreateResponses, TokenValidationRulesBulkCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -177,7 +177,7 @@ export class TokenValidationTokenRulesService {
      *
      */
     public static tokenValidationRulesPreview<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         per_page?: number;
         page?: number;
         state?: Array<ApiShieldSelectorOperationState>;
@@ -186,7 +186,7 @@ export class TokenValidationTokenRulesService {
         method?: Array<ApiShieldMethod>;
         endpoint?: Array<ApiShieldEndpoint>;
         apiShieldPreviewRules: ApiShieldPreviewRules;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesPreviewResponses, TokenValidationRulesPreviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'per_page' },
@@ -227,9 +227,9 @@ export class TokenValidationTokenRulesService {
      * Delete a zone token validation rule.
      */
     public static tokenValidationRulesDelete<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        rule_id: ApiShieldSchemasUuidWritable;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+        rule_id: ApiShieldUuid2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesDeleteResponses, TokenValidationRulesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<TokenValidationRulesDeleteResponses, TokenValidationRulesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -255,9 +255,9 @@ export class TokenValidationTokenRulesService {
      * Get a zone token validation rule.
      */
     public static tokenValidationRulesGet<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        rule_id: ApiShieldSchemasUuidWritable;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+        rule_id: ApiShieldUuid2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesGetResponses, TokenValidationRulesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<TokenValidationRulesGetResponses, TokenValidationRulesGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -283,10 +283,10 @@ export class TokenValidationTokenRulesService {
      * Edit a zone token validation rule.
      */
     public static tokenValidationRulesEdit<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        rule_id: ApiShieldSchemasUuidWritable;
+        zone_id: ApiShieldIdentifier2;
+        rule_id: ApiShieldUuid2Writable;
         apiShieldEditRule: ApiShieldEditRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationRulesEditResponses, TokenValidationRulesEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'rule_id' },

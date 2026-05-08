@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessClientSecretVersion, AccessIdentifier, AccessPreviousClientSecretExpiresAt, AccessSchemasDuration, AccessServiceTokensComponentsSchemasName, AccessUuid, ZoneLevelAccessServiceTokensCreateAServiceTokenErrors, ZoneLevelAccessServiceTokensCreateAServiceTokenResponses, ZoneLevelAccessServiceTokensDeleteAServiceTokenErrors, ZoneLevelAccessServiceTokensDeleteAServiceTokenResponses, ZoneLevelAccessServiceTokensGetAServiceTokenErrors, ZoneLevelAccessServiceTokensGetAServiceTokenResponses, ZoneLevelAccessServiceTokensListServiceTokensErrors, ZoneLevelAccessServiceTokensListServiceTokensResponses, ZoneLevelAccessServiceTokensUpdateAServiceTokenErrors, ZoneLevelAccessServiceTokensUpdateAServiceTokenResponses } from '../types.gen';
+import type { AccessClientSecretVersion, AccessDuration2, AccessIdentifier, AccessName17, AccessPreviousClientSecretExpiresAt, AccessUuid, ZoneLevelAccessServiceTokensCreateAServiceTokenErrors, ZoneLevelAccessServiceTokensCreateAServiceTokenResponses, ZoneLevelAccessServiceTokensDeleteAServiceTokenErrors, ZoneLevelAccessServiceTokensDeleteAServiceTokenResponses, ZoneLevelAccessServiceTokensGetAServiceTokenErrors, ZoneLevelAccessServiceTokensGetAServiceTokenResponses, ZoneLevelAccessServiceTokensListServiceTokensErrors, ZoneLevelAccessServiceTokensListServiceTokensResponses, ZoneLevelAccessServiceTokensUpdateAServiceTokenErrors, ZoneLevelAccessServiceTokensUpdateAServiceTokenResponses } from '../types.gen';
 import { zZoneLevelAccessServiceTokensCreateAServiceTokenBody, zZoneLevelAccessServiceTokensCreateAServiceTokenPath, zZoneLevelAccessServiceTokensCreateAServiceTokenResponse, zZoneLevelAccessServiceTokensDeleteAServiceTokenPath, zZoneLevelAccessServiceTokensDeleteAServiceTokenResponse, zZoneLevelAccessServiceTokensGetAServiceTokenPath, zZoneLevelAccessServiceTokensGetAServiceTokenResponse, zZoneLevelAccessServiceTokensListServiceTokensPath, zZoneLevelAccessServiceTokensListServiceTokensResponse, zZoneLevelAccessServiceTokensUpdateAServiceTokenBody, zZoneLevelAccessServiceTokensUpdateAServiceTokenPath, zZoneLevelAccessServiceTokensUpdateAServiceTokenResponse } from '../zod.gen';
 
 export class ZoneLevelAccessServiceTokensService {
@@ -18,7 +18,7 @@ export class ZoneLevelAccessServiceTokensService {
      */
     public static zoneLevelAccessServiceTokensListServiceTokens<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessServiceTokensListServiceTokensResponses, ZoneLevelAccessServiceTokensListServiceTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessServiceTokensListServiceTokensResponses, ZoneLevelAccessServiceTokensListServiceTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,10 +42,10 @@ export class ZoneLevelAccessServiceTokensService {
     public static zoneLevelAccessServiceTokensCreateAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
         client_secret_version?: AccessClientSecretVersion;
-        duration?: AccessSchemasDuration;
-        name: AccessServiceTokensComponentsSchemasName;
+        duration?: AccessDuration2;
+        name: AccessName17;
         previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessServiceTokensCreateAServiceTokenResponses, ZoneLevelAccessServiceTokensCreateAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'client_secret_version' },
@@ -80,7 +80,7 @@ export class ZoneLevelAccessServiceTokensService {
     public static zoneLevelAccessServiceTokensDeleteAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         service_token_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessServiceTokensDeleteAServiceTokenResponses, ZoneLevelAccessServiceTokensDeleteAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'service_token_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessServiceTokensDeleteAServiceTokenResponses, ZoneLevelAccessServiceTokensDeleteAServiceTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -104,7 +104,7 @@ export class ZoneLevelAccessServiceTokensService {
     public static zoneLevelAccessServiceTokensGetAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         service_token_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessServiceTokensGetAServiceTokenResponses, ZoneLevelAccessServiceTokensGetAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'service_token_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessServiceTokensGetAServiceTokenResponses, ZoneLevelAccessServiceTokensGetAServiceTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -129,10 +129,10 @@ export class ZoneLevelAccessServiceTokensService {
         service_token_id: AccessUuid;
         zone_id: AccessIdentifier;
         client_secret_version?: AccessClientSecretVersion;
-        duration?: AccessSchemasDuration;
-        name?: AccessServiceTokensComponentsSchemasName;
+        duration?: AccessDuration2;
+        name?: AccessName17;
         previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessServiceTokensUpdateAServiceTokenResponses, ZoneLevelAccessServiceTokensUpdateAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'service_token_id' },
                     { in: 'path', key: 'zone_id' },

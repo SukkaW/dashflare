@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorkersIdentifier, WorkersSchemasScriptName, WorkersVersionIdentifier, WorkersVersionPost, WorkerVersionsGetVersionDetailErrors, WorkerVersionsGetVersionDetailResponses, WorkerVersionsListVersionsErrors, WorkerVersionsListVersionsResponses, WorkerVersionsUploadVersionErrors, WorkerVersionsUploadVersionResponses } from '../types.gen';
+import type { WorkersIdentifier, WorkersScriptName2, WorkersVersionIdentifier, WorkersVersionPost, WorkerVersionsGetVersionDetailErrors, WorkerVersionsGetVersionDetailResponses, WorkerVersionsListVersionsErrors, WorkerVersionsListVersionsResponses, WorkerVersionsUploadVersionErrors, WorkerVersionsUploadVersionResponses } from '../types.gen';
 import { zWorkerVersionsGetVersionDetailPath, zWorkerVersionsGetVersionDetailResponse, zWorkerVersionsListVersionsPath, zWorkerVersionsListVersionsQuery, zWorkerVersionsListVersionsResponse, zWorkerVersionsUploadVersionBody, zWorkerVersionsUploadVersionPath, zWorkerVersionsUploadVersionQuery, zWorkerVersionsUploadVersionResponse } from '../zod.gen';
 
 export class WorkerVersionsService {
@@ -18,11 +18,11 @@ export class WorkerVersionsService {
      */
     public static workerVersionsListVersions<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-        script_name: WorkersSchemasScriptName;
+        script_name: WorkersScriptName2;
         deployable?: boolean;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerVersionsListVersionsResponses, WorkerVersionsListVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -55,10 +55,10 @@ export class WorkerVersionsService {
      */
     public static workerVersionsUploadVersion<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-        script_name: WorkersSchemasScriptName;
+        script_name: WorkersScriptName2;
         bindings_inherit?: 'strict';
         workersVersionPost: WorkersVersionPost;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerVersionsUploadVersionResponses, WorkerVersionsUploadVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -96,9 +96,9 @@ export class WorkerVersionsService {
      */
     public static workerVersionsGetVersionDetail<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-        script_name: WorkersSchemasScriptName;
+        script_name: WorkersScriptName2;
         version_id: WorkersVersionIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerVersionsGetVersionDetailResponses, WorkerVersionsGetVersionDetailErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },

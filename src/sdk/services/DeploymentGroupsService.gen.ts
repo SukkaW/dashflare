@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateDeploymentGroupResponses, DeleteDeploymentGroupResponses, GetDeploymentGroupResponses, ListDeploymentGroupsResponses, TeamsDevicesDeploymentGroupCreateRequest, TeamsDevicesDeploymentGroupUpdateRequest, UpdateDeploymentGroupResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class DeploymentGroupsService {
         account_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListDeploymentGroupsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -48,7 +48,7 @@ export class DeploymentGroupsService {
     public static createDeploymentGroup<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         teamsDevicesDeploymentGroupCreateRequest: TeamsDevicesDeploymentGroupCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateDeploymentGroupResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesDeploymentGroupCreateRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateDeploymentGroupResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,7 +77,7 @@ export class DeploymentGroupsService {
     public static deleteDeploymentGroup<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         group_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeploymentGroupResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).delete<DeleteDeploymentGroupResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -101,7 +101,7 @@ export class DeploymentGroupsService {
     public static getDeploymentGroup<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         group_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDeploymentGroupResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).get<GetDeploymentGroupResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -126,7 +126,7 @@ export class DeploymentGroupsService {
         account_id: string;
         group_id: string;
         teamsDevicesDeploymentGroupUpdateRequest: TeamsDevicesDeploymentGroupUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateDeploymentGroupResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'group_id' },

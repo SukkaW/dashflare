@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { SecondaryDnsAccountIdentifier, SecondaryDnsAclAclDetailsErrors, SecondaryDnsAclAclDetailsResponses, SecondaryDnsAclComponentsSchemasName, SecondaryDnsAclCreateAclErrors, SecondaryDnsAclCreateAclResponses, SecondaryDnsAclDeleteAclErrors, SecondaryDnsAclDeleteAclResponses, SecondaryDnsAclListAcLsErrors, SecondaryDnsAclListAcLsResponses, SecondaryDnsAclUpdateAclErrors, SecondaryDnsAclUpdateAclResponses, SecondaryDnsAclWritable, SecondaryDnsComponentsSchemasIdentifier, SecondaryDnsIpRange } from '../types.gen';
+import type { SecondaryDnsAccountIdentifier, SecondaryDnsAclAclDetailsErrors, SecondaryDnsAclAclDetailsResponses, SecondaryDnsAclCreateAclErrors, SecondaryDnsAclCreateAclResponses, SecondaryDnsAclDeleteAclErrors, SecondaryDnsAclDeleteAclResponses, SecondaryDnsAclListAcLsErrors, SecondaryDnsAclListAcLsResponses, SecondaryDnsAclUpdateAclErrors, SecondaryDnsAclUpdateAclResponses, SecondaryDnsAclWritable, SecondaryDnsIdentifier3, SecondaryDnsIpRange, SecondaryDnsName4 } from '../types.gen';
 import { zSecondaryDnsAclAclDetailsPath, zSecondaryDnsAclAclDetailsResponse, zSecondaryDnsAclCreateAclBody, zSecondaryDnsAclCreateAclPath, zSecondaryDnsAclCreateAclResponse, zSecondaryDnsAclDeleteAclBody, zSecondaryDnsAclDeleteAclPath, zSecondaryDnsAclDeleteAclResponse, zSecondaryDnsAclListAcLsPath, zSecondaryDnsAclListAcLsResponse, zSecondaryDnsAclUpdateAclBody, zSecondaryDnsAclUpdateAclPath, zSecondaryDnsAclUpdateAclResponse } from '../zod.gen';
 
 export class SecondaryDnsAclService {
@@ -18,7 +18,7 @@ export class SecondaryDnsAclService {
      */
     public static secondaryDnsAclListAcLs<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsAclListAcLsResponses, SecondaryDnsAclListAcLsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsAclListAcLsResponses, SecondaryDnsAclListAcLsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,8 +46,8 @@ export class SecondaryDnsAclService {
     public static secondaryDnsAclCreateAcl<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
         ip_range: SecondaryDnsIpRange;
-        name: SecondaryDnsAclComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name: SecondaryDnsName4;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsAclCreateAclResponses, SecondaryDnsAclCreateAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'ip_range' },
@@ -82,10 +82,10 @@ export class SecondaryDnsAclService {
      * Delete ACL.
      */
     public static secondaryDnsAclDeleteAcl<ThrowOnError extends boolean = true>(parameters: {
-        acl_id: SecondaryDnsComponentsSchemasIdentifier;
+        acl_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsAclDeleteAclResponses, SecondaryDnsAclDeleteAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'acl_id' },
                     { in: 'path', key: 'account_id' },
@@ -120,9 +120,9 @@ export class SecondaryDnsAclService {
      * Get ACL.
      */
     public static secondaryDnsAclAclDetails<ThrowOnError extends boolean = true>(parameters: {
-        acl_id: SecondaryDnsComponentsSchemasIdentifier;
+        acl_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsAclAclDetailsResponses, SecondaryDnsAclAclDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'acl_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsAclAclDetailsResponses, SecondaryDnsAclAclDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -148,10 +148,10 @@ export class SecondaryDnsAclService {
      * Modify ACL.
      */
     public static secondaryDnsAclUpdateAcl<ThrowOnError extends boolean = true>(parameters: {
-        acl_id: SecondaryDnsComponentsSchemasIdentifier;
+        acl_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
         secondaryDnsAclWritable: SecondaryDnsAclWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsAclUpdateAclResponses, SecondaryDnsAclUpdateAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'acl_id' },
                     { in: 'path', key: 'account_id' },

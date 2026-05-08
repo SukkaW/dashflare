@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingComponentsSchemasAdvertised, AddressingPrefixIdentifier, IpAddressManagementDynamicAdvertisementGetAdvertisementStatusErrors, IpAddressManagementDynamicAdvertisementGetAdvertisementStatusResponses, IpAddressManagementDynamicAdvertisementUpdatePrefixDynamicAdvertisementStatusErrors, IpAddressManagementDynamicAdvertisementUpdatePrefixDynamicAdvertisementStatusResponses } from '../types.gen';
@@ -25,7 +25,7 @@ export class IpAddressManagementDynamicAdvertisementService {
     public static ipAddressManagementDynamicAdvertisementGetAdvertisementStatus<ThrowOnError extends boolean = true>(parameters: {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementDynamicAdvertisementGetAdvertisementStatusResponses, IpAddressManagementDynamicAdvertisementGetAdvertisementStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'prefix_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementDynamicAdvertisementGetAdvertisementStatusResponses, IpAddressManagementDynamicAdvertisementGetAdvertisementStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -56,7 +56,7 @@ export class IpAddressManagementDynamicAdvertisementService {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
         advertised: AddressingComponentsSchemasAdvertised;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementDynamicAdvertisementUpdatePrefixDynamicAdvertisementStatusResponses, IpAddressManagementDynamicAdvertisementUpdatePrefixDynamicAdvertisementStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'prefix_id' },
                     { in: 'path', key: 'account_id' },

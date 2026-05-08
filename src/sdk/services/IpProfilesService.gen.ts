@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateIpProfileResponses, DeleteIpProfileResponses, GetIpProfileResponses, ListIpProfilesResponses, TeamsDevicesIpProfileCreateRequest, TeamsDevicesIpProfileUpdateRequest, UpdateIpProfileResponses } from '../types.gen';
@@ -18,9 +18,14 @@ export class IpProfilesService {
      */
     public static listIpProfiles<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
+        page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'per_page' }] }]);
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListIpProfilesResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' }
+                ] }]);
         return (options?.client ?? client).get<ListIpProfilesResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -43,7 +48,7 @@ export class IpProfilesService {
     public static createIpProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         teamsDevicesIpProfileCreateRequest: TeamsDevicesIpProfileCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateIpProfileResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesIpProfileCreateRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateIpProfileResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,7 +77,7 @@ export class IpProfilesService {
     public static deleteIpProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteIpProfileResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).delete<DeleteIpProfileResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -96,7 +101,7 @@ export class IpProfilesService {
     public static getIpProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         profile_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIpProfileResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'profile_id' }] }]);
         return (options?.client ?? client).get<GetIpProfileResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -121,7 +126,7 @@ export class IpProfilesService {
         account_id: string;
         profile_id: string;
         teamsDevicesIpProfileUpdateRequest: TeamsDevicesIpProfileUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateIpProfileResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'profile_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { VectorizeCreateIndexRequest, VectorizeDeprecatedCreateVectorizeIndexErrors, VectorizeDeprecatedCreateVectorizeIndexResponses, VectorizeDeprecatedDeleteVectorizeIndexErrors, VectorizeDeprecatedDeleteVectorizeIndexResponses, VectorizeDeprecatedDeleteVectorsByIdErrors, VectorizeDeprecatedDeleteVectorsByIdResponses, VectorizeDeprecatedGetVectorizeIndexErrors, VectorizeDeprecatedGetVectorizeIndexResponses, VectorizeDeprecatedGetVectorsByIdErrors, VectorizeDeprecatedGetVectorsByIdResponses, VectorizeDeprecatedInsertVectorErrors, VectorizeDeprecatedInsertVectorResponses, VectorizeDeprecatedListVectorizeIndexesErrors, VectorizeDeprecatedListVectorizeIndexesResponses, VectorizeDeprecatedQueryVectorErrors, VectorizeDeprecatedQueryVectorResponses, VectorizeDeprecatedUpdateVectorizeIndexErrors, VectorizeDeprecatedUpdateVectorizeIndexResponses, VectorizeDeprecatedUpsertVectorErrors, VectorizeDeprecatedUpsertVectorResponses, VectorizeIdentifier, VectorizeIndexDeleteVectorsByIdRequestWritable, VectorizeIndexGetVectorsByIdRequestWritable, VectorizeIndexName, VectorizeIndexQueryRequest, VectorizeUpdateIndexRequest } from '../types.gen';
@@ -20,7 +20,7 @@ export class VectorizeBetaDeprecatedService {
      */
     public static vectorizeDeprecatedListVectorizeIndexes<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedListVectorizeIndexesResponses, VectorizeDeprecatedListVectorizeIndexesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<VectorizeDeprecatedListVectorizeIndexesResponses, VectorizeDeprecatedListVectorizeIndexesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class VectorizeBetaDeprecatedService {
     public static vectorizeDeprecatedCreateVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         vectorizeCreateIndexRequest: VectorizeCreateIndexRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedCreateVectorizeIndexResponses, VectorizeDeprecatedCreateVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'vectorizeCreateIndexRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<VectorizeDeprecatedCreateVectorizeIndexResponses, VectorizeDeprecatedCreateVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class VectorizeBetaDeprecatedService {
     public static vectorizeDeprecatedDeleteVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedDeleteVectorizeIndexResponses, VectorizeDeprecatedDeleteVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).delete<VectorizeDeprecatedDeleteVectorizeIndexResponses, VectorizeDeprecatedDeleteVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -115,7 +115,7 @@ export class VectorizeBetaDeprecatedService {
     public static vectorizeDeprecatedGetVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedGetVectorizeIndexResponses, VectorizeDeprecatedGetVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).get<VectorizeDeprecatedGetVectorizeIndexResponses, VectorizeDeprecatedGetVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeUpdateIndexRequest: VectorizeUpdateIndexRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedUpdateVectorizeIndexResponses, VectorizeDeprecatedUpdateVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -186,7 +186,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexDeleteVectorsByIdRequestWritable: VectorizeIndexDeleteVectorsByIdRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedDeleteVectorsByIdResponses, VectorizeDeprecatedDeleteVectorsByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -226,7 +226,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexGetVectorsByIdRequestWritable: VectorizeIndexGetVectorsByIdRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedGetVectorsByIdResponses, VectorizeDeprecatedGetVectorsByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -266,7 +266,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedInsertVectorResponses, VectorizeDeprecatedInsertVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -307,7 +307,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexQueryRequest: VectorizeIndexQueryRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedQueryVectorResponses, VectorizeDeprecatedQueryVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -347,7 +347,7 @@ export class VectorizeBetaDeprecatedService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeprecatedUpsertVectorResponses, VectorizeDeprecatedUpsertVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },

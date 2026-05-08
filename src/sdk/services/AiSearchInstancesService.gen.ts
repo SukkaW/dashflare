@@ -4,17 +4,17 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AiSearchCreateInstanceErrors, AiSearchCreateInstanceResponses, AiSearchDeleteInstanceErrors, AiSearchDeleteInstanceResponses, AiSearchFetchInstanceErrors, AiSearchFetchInstanceResponses, AiSearchInstanceChatCompletionErrors, AiSearchInstanceChatCompletionResponses, AiSearchInstanceSearchErrors, AiSearchInstanceSearchResponses, AiSearchListInstancesErrors, AiSearchListInstancesResponses, AiSearchNamespaceCreateInstanceErrors, AiSearchNamespaceCreateInstanceResponses, AiSearchNamespaceDeleteInstanceErrors, AiSearchNamespaceDeleteInstanceResponses, AiSearchNamespaceFetchInstanceErrors, AiSearchNamespaceFetchInstanceResponses, AiSearchNamespaceInstanceChatCompletionErrors, AiSearchNamespaceInstanceChatCompletionResponses, AiSearchNamespaceInstanceSearchErrors, AiSearchNamespaceInstanceSearchResponses, AiSearchNamespaceListInstancesErrors, AiSearchNamespaceListInstancesResponses, AiSearchNamespaceStatsErrors, AiSearchNamespaceStatsResponses, AiSearchNamespaceUpdateInstanceErrors, AiSearchNamespaceUpdateInstanceResponses, AiSearchStatsErrors, AiSearchStatsResponses, AiSearchUpdateInstanceErrors, AiSearchUpdateInstanceResponses } from '../types.gen';
-import { zAiSearchCreateInstanceBody, zAiSearchCreateInstancePath, zAiSearchCreateInstanceResponse, zAiSearchDeleteInstancePath, zAiSearchDeleteInstanceResponse, zAiSearchFetchInstancePath, zAiSearchFetchInstanceResponse, zAiSearchInstanceChatCompletionBody, zAiSearchInstanceChatCompletionPath, zAiSearchInstanceChatCompletionResponse, zAiSearchInstanceSearchBody, zAiSearchInstanceSearchPath, zAiSearchInstanceSearchResponse, zAiSearchListInstancesPath, zAiSearchListInstancesQuery, zAiSearchListInstancesResponse, zAiSearchNamespaceCreateInstanceBody, zAiSearchNamespaceCreateInstancePath, zAiSearchNamespaceCreateInstanceResponse, zAiSearchNamespaceDeleteInstancePath, zAiSearchNamespaceDeleteInstanceResponse, zAiSearchNamespaceFetchInstancePath, zAiSearchNamespaceFetchInstanceResponse, zAiSearchNamespaceInstanceChatCompletionBody, zAiSearchNamespaceInstanceChatCompletionPath, zAiSearchNamespaceInstanceChatCompletionResponse, zAiSearchNamespaceInstanceSearchBody, zAiSearchNamespaceInstanceSearchPath, zAiSearchNamespaceInstanceSearchResponse, zAiSearchNamespaceListInstancesPath, zAiSearchNamespaceListInstancesQuery, zAiSearchNamespaceListInstancesResponse, zAiSearchNamespaceStatsPath, zAiSearchNamespaceStatsResponse, zAiSearchNamespaceUpdateInstanceBody, zAiSearchNamespaceUpdateInstancePath, zAiSearchNamespaceUpdateInstanceResponse, zAiSearchStatsPath, zAiSearchStatsResponse, zAiSearchUpdateInstanceBody, zAiSearchUpdateInstancePath, zAiSearchUpdateInstanceResponse } from '../zod.gen';
+import type { AiSearchCreateInstanceErrors, AiSearchCreateInstanceResponses, AiSearchDeleteInstanceErrors, AiSearchDeleteInstanceResponses, AiSearchFetchInstanceErrors, AiSearchFetchInstanceResponses, AiSearchInstanceChatCompletionErrors, AiSearchInstanceChatCompletionResponses, AiSearchInstanceSearchErrors, AiSearchInstanceSearchResponses, AiSearchListInstancesErrors, AiSearchListInstancesResponses, AiSearchNamespaceCreateInstanceErrors, AiSearchNamespaceCreateInstanceResponses, AiSearchNamespaceDeleteInstanceErrors, AiSearchNamespaceDeleteInstanceResponses, AiSearchNamespaceFetchInstanceErrors, AiSearchNamespaceFetchInstanceResponses, AiSearchNamespaceInstanceChatCompletionErrors, AiSearchNamespaceInstanceChatCompletionResponses, AiSearchNamespaceInstanceSearchErrors, AiSearchNamespaceInstanceSearchResponses, AiSearchNamespaceListInstancesErrors, AiSearchNamespaceListInstancesResponses, AiSearchNamespacePurgeInstanceCacheErrors, AiSearchNamespacePurgeInstanceCacheResponses, AiSearchNamespaceStatsErrors, AiSearchNamespaceStatsResponses, AiSearchNamespaceUpdateInstanceErrors, AiSearchNamespaceUpdateInstanceResponses, AiSearchStatsErrors, AiSearchStatsResponses, AiSearchUpdateInstanceErrors, AiSearchUpdateInstanceResponses } from '../types.gen';
+import { zAiSearchCreateInstanceBody, zAiSearchCreateInstancePath, zAiSearchCreateInstanceResponse, zAiSearchDeleteInstancePath, zAiSearchDeleteInstanceResponse, zAiSearchFetchInstancePath, zAiSearchFetchInstanceResponse, zAiSearchInstanceChatCompletionBody, zAiSearchInstanceChatCompletionPath, zAiSearchInstanceChatCompletionResponse, zAiSearchInstanceSearchBody, zAiSearchInstanceSearchPath, zAiSearchInstanceSearchResponse, zAiSearchListInstancesPath, zAiSearchListInstancesQuery, zAiSearchListInstancesResponse, zAiSearchNamespaceCreateInstanceBody, zAiSearchNamespaceCreateInstancePath, zAiSearchNamespaceCreateInstanceResponse, zAiSearchNamespaceDeleteInstancePath, zAiSearchNamespaceDeleteInstanceResponse, zAiSearchNamespaceFetchInstancePath, zAiSearchNamespaceFetchInstanceResponse, zAiSearchNamespaceInstanceChatCompletionBody, zAiSearchNamespaceInstanceChatCompletionPath, zAiSearchNamespaceInstanceChatCompletionResponse, zAiSearchNamespaceInstanceSearchBody, zAiSearchNamespaceInstanceSearchPath, zAiSearchNamespaceInstanceSearchResponse, zAiSearchNamespaceListInstancesPath, zAiSearchNamespaceListInstancesQuery, zAiSearchNamespaceListInstancesResponse, zAiSearchNamespacePurgeInstanceCachePath, zAiSearchNamespacePurgeInstanceCacheResponse, zAiSearchNamespaceStatsPath, zAiSearchNamespaceStatsResponse, zAiSearchNamespaceUpdateInstanceBody, zAiSearchNamespaceUpdateInstancePath, zAiSearchNamespaceUpdateInstanceResponse, zAiSearchStatsPath, zAiSearchStatsResponse, zAiSearchUpdateInstanceBody, zAiSearchUpdateInstancePath, zAiSearchUpdateInstanceResponse } from '../zod.gen';
 
 export class AiSearchInstancesService {
     /**
-     * List instances.
+     * List AI Search instances.
      *
-     * List instances.
+     * List all AI Search instances in the account.
      */
     public static aiSearchListInstances<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -24,7 +24,7 @@ export class AiSearchInstancesService {
         namespace?: string;
         order_by?: 'created_at';
         order_by_direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchListInstancesResponses, AiSearchListInstancesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -53,9 +53,9 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Create new instance.
+     * Create an AI Search instance.
      *
-     * Create a new instance.
+     * Create a new AI Search instance with the given configuration.
      */
     public static aiSearchCreateInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -71,7 +71,7 @@ export class AiSearchInstancesService {
             data_type: 'text' | 'number' | 'boolean' | 'datetime';
             field_name: string;
         }>;
-        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
+        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/qwen/qwen3-vl-embedding-2b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'google-ai-studio/gemini-embedding-2' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
         fusion_method?: 'max' | 'rrf';
         hybrid_search_enabled?: boolean;
         id: string;
@@ -104,6 +104,14 @@ export class AiSearchInstancesService {
                  */
                 disabled?: boolean;
             };
+            /**
+             * Custom domain hostnames that alias this public endpoint. GET and create responses return the current set; on update (PUT) this field is only echoed back when supplied in the request body, otherwise it is null (omit it to leave domains unchanged).
+             */
+            custom_domains?: Array<string> | null;
+            /**
+             * When false, the instance is reachable only via a registered custom domain and the default <public_endpoint_id>.search.ai.cloudflare.com host returns 404. Requires at least one custom domain. Defaults to true. public_endpoint_params is replaced wholesale on update, so resend default_domain_enabled on every update to keep the default host off — omitting it resets to true.
+             */
+            default_domain_enabled?: boolean;
             enabled?: boolean;
             mcp?: {
                 description?: string;
@@ -128,20 +136,20 @@ export class AiSearchInstancesService {
         reranking_model?: '@cf/baai/bge-reranker-base' | '' | null;
         retrieval_options?: {
             /**
-             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
+             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric/datetime fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
              */
             boost_by?: Array<{
                 /**
-                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                  */
                 direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                 /**
-                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                  */
                 field: string;
             }>;
             /**
-             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted on an update, the existing stored value is preserved; when never set, search falls back to 'and'.
              */
             keyword_match_mode?: 'and' | 'or';
         } | null;
@@ -161,16 +169,9 @@ export class AiSearchInstancesService {
             prefix?: string;
             r2_jurisdiction?: string;
             web_crawler?: {
-                crawl_options?: {
-                    depth?: number;
-                    include_external_links?: boolean;
-                    include_subdomains?: boolean;
-                    max_age?: number;
-                    source?: 'all' | 'sitemaps' | 'links';
-                };
                 parse_options?: {
                     /**
-                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed.
+                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed. Omit the field to disable content selection — empty arrays are rejected.
                      */
                     content_selector?: Array<{
                         /**
@@ -178,10 +179,13 @@ export class AiSearchInstancesService {
                          */
                         path: string;
                         /**
-                         * CSS selector to extract content from pages matching the path pattern. Supports standard CSS selectors including class, ID, element, and attribute selectors.
+                         * CSS selector to extract content from pages matching the path pattern. Must not contain disallowed characters (;, `, $, {, }, \). Must target a single element; if multiple elements match, the selector is ignored and the full page is used.
                          */
                         selector: string;
                     }>;
+                    /**
+                     * Up to 5 custom HTTP headers sent with each crawl request. Names must be RFC-7230 token characters (no spaces, colons, or control characters); values must be HTAB + printable ASCII (no CR/LF).
+                     */
                     include_headers?: {
                         [key: string]: string;
                     };
@@ -192,18 +196,13 @@ export class AiSearchInstancesService {
                     specific_sitemaps?: Array<string>;
                     use_browser_rendering?: boolean;
                 };
-                parse_type?: 'sitemap' | 'feed-rss' | 'crawl';
-                store_options?: {
-                    r2_jurisdiction?: string;
-                    storage_id: string;
-                    storage_type?: 'r2';
-                };
+                parse_type?: 'sitemap' | 'discover';
             };
         } | null;
         sync_interval?: 900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400;
         token_id?: string;
         type?: 'r2' | 'web-crawler' | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchCreateInstanceResponses, AiSearchCreateInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'ai_gateway_id' },
@@ -260,14 +259,14 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Delete instance.
+     * Delete an AI Search instance.
      *
-     * Delete instance.
+     * Permanently delete an AI Search instance and all its indexed data.
      */
     public static aiSearchDeleteInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchDeleteInstanceResponses, AiSearchDeleteInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<AiSearchDeleteInstanceResponses, AiSearchDeleteInstanceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -288,14 +287,14 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Read instance.
+     * Get an AI Search instance.
      *
-     * Read instance.
+     * Retrieve the configuration and status of an AI Search instance.
      */
     public static aiSearchFetchInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchFetchInstanceResponses, AiSearchFetchInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<AiSearchFetchInstanceResponses, AiSearchFetchInstanceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -316,9 +315,9 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Update instance.
+     * Update an AI Search instance.
      *
-     * Update instance.
+     * Update the configuration of an AI Search instance.
      */
     public static aiSearchUpdateInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -335,7 +334,7 @@ export class AiSearchInstancesService {
             data_type: 'text' | 'number' | 'boolean' | 'datetime';
             field_name: string;
         }>;
-        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
+        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/qwen/qwen3-vl-embedding-2b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'google-ai-studio/gemini-embedding-2' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
         fusion_method?: 'max' | 'rrf';
         index_method?: {
             /**
@@ -367,6 +366,14 @@ export class AiSearchInstancesService {
                  */
                 disabled?: boolean;
             };
+            /**
+             * Custom domain hostnames that alias this public endpoint. GET and create responses return the current set; on update (PUT) this field is only echoed back when supplied in the request body, otherwise it is null (omit it to leave domains unchanged).
+             */
+            custom_domains?: Array<string> | null;
+            /**
+             * When false, the instance is reachable only via a registered custom domain and the default <public_endpoint_id>.search.ai.cloudflare.com host returns 404. Requires at least one custom domain. Defaults to true. public_endpoint_params is replaced wholesale on update, so resend default_domain_enabled on every update to keep the default host off — omitting it resets to true.
+             */
+            default_domain_enabled?: boolean;
             enabled?: boolean;
             mcp?: {
                 description?: string;
@@ -391,26 +398,27 @@ export class AiSearchInstancesService {
         reranking_model?: '@cf/baai/bge-reranker-base' | '' | null;
         retrieval_options?: {
             /**
-             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
+             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric/datetime fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
              */
             boost_by?: Array<{
                 /**
-                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                  */
                 direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                 /**
-                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                  */
                 field: string;
             }>;
             /**
-             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted on an update, the existing stored value is preserved; when never set, search falls back to 'and'.
              */
             keyword_match_mode?: 'and' | 'or';
         } | null;
         rewrite_model?: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' | '@cf/zai-org/glm-4.7-flash' | '@cf/meta/llama-3.1-8b-instruct-fast' | '@cf/meta/llama-3.1-8b-instruct-fp8' | '@cf/meta/llama-4-scout-17b-16e-instruct' | '@cf/qwen/qwen3-30b-a3b-fp8' | '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b' | '@cf/moonshotai/kimi-k2-instruct' | '@cf/google/gemma-3-12b-it' | '@cf/google/gemma-4-26b-a4b-it' | '@cf/moonshotai/kimi-k2.5' | 'anthropic/claude-3-7-sonnet' | 'anthropic/claude-sonnet-4' | 'anthropic/claude-opus-4' | 'anthropic/claude-3-5-haiku' | 'cerebras/qwen-3-235b-a22b-instruct' | 'cerebras/qwen-3-235b-a22b-thinking' | 'cerebras/llama-3.3-70b' | 'cerebras/llama-4-maverick-17b-128e-instruct' | 'cerebras/llama-4-scout-17b-16e-instruct' | 'cerebras/gpt-oss-120b' | 'google-ai-studio/gemini-2.5-flash' | 'google-ai-studio/gemini-2.5-pro' | 'grok/grok-4' | 'groq/llama-3.3-70b-versatile' | 'groq/llama-3.1-8b-instant' | 'openai/gpt-5' | 'openai/gpt-5-mini' | 'openai/gpt-5-nano' | '' | null;
         rewrite_query?: boolean;
         score_threshold?: number;
+        source?: string | null;
         source_params?: {
             /**
              * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin** matches /admin/users and /admin/settings/advanced)
@@ -423,16 +431,9 @@ export class AiSearchInstancesService {
             prefix?: string;
             r2_jurisdiction?: string;
             web_crawler?: {
-                crawl_options?: {
-                    depth?: number;
-                    include_external_links?: boolean;
-                    include_subdomains?: boolean;
-                    max_age?: number;
-                    source?: 'all' | 'sitemaps' | 'links';
-                };
                 parse_options?: {
                     /**
-                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed.
+                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed. Omit the field to disable content selection — empty arrays are rejected.
                      */
                     content_selector?: Array<{
                         /**
@@ -440,10 +441,13 @@ export class AiSearchInstancesService {
                          */
                         path: string;
                         /**
-                         * CSS selector to extract content from pages matching the path pattern. Supports standard CSS selectors including class, ID, element, and attribute selectors.
+                         * CSS selector to extract content from pages matching the path pattern. Must not contain disallowed characters (;, `, $, {, }, \). Must target a single element; if multiple elements match, the selector is ignored and the full page is used.
                          */
                         selector: string;
                     }>;
+                    /**
+                     * Up to 5 custom HTTP headers sent with each crawl request. Names must be RFC-7230 token characters (no spaces, colons, or control characters); values must be HTAB + printable ASCII (no CR/LF).
+                     */
                     include_headers?: {
                         [key: string]: string;
                     };
@@ -454,12 +458,7 @@ export class AiSearchInstancesService {
                     specific_sitemaps?: Array<string>;
                     use_browser_rendering?: boolean;
                 };
-                parse_type?: 'sitemap' | 'feed-rss' | 'crawl';
-                store_options?: {
-                    r2_jurisdiction?: string;
-                    storage_id: string;
-                    storage_type?: 'r2';
-                };
+                parse_type?: 'sitemap' | 'discover';
             };
         } | null;
         summarization?: boolean;
@@ -469,7 +468,7 @@ export class AiSearchInstancesService {
         system_prompt_index_summarization?: string | null;
         system_prompt_rewrite_query?: string | null;
         token_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchUpdateInstanceResponses, AiSearchUpdateInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },
@@ -496,6 +495,7 @@ export class AiSearchInstancesService {
                     { in: 'body', key: 'rewrite_model' },
                     { in: 'body', key: 'rewrite_query' },
                     { in: 'body', key: 'score_threshold' },
+                    { in: 'body', key: 'source' },
                     { in: 'body', key: 'source_params' },
                     { in: 'body', key: 'summarization' },
                     { in: 'body', key: 'summarization_model' },
@@ -557,11 +557,11 @@ export class AiSearchInstancesService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -571,7 +571,7 @@ export class AiSearchInstancesService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -581,13 +581,28 @@ export class AiSearchInstancesService {
             };
         };
         messages: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         model?: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' | '@cf/zai-org/glm-4.7-flash' | '@cf/meta/llama-3.1-8b-instruct-fast' | '@cf/meta/llama-3.1-8b-instruct-fp8' | '@cf/meta/llama-4-scout-17b-16e-instruct' | '@cf/qwen/qwen3-30b-a3b-fp8' | '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b' | '@cf/moonshotai/kimi-k2-instruct' | '@cf/google/gemma-3-12b-it' | '@cf/google/gemma-4-26b-a4b-it' | '@cf/moonshotai/kimi-k2.5' | 'anthropic/claude-3-7-sonnet' | 'anthropic/claude-sonnet-4' | 'anthropic/claude-opus-4' | 'anthropic/claude-3-5-haiku' | 'cerebras/qwen-3-235b-a22b-instruct' | 'cerebras/qwen-3-235b-a22b-thinking' | 'cerebras/llama-3.3-70b' | 'cerebras/llama-4-maverick-17b-128e-instruct' | 'cerebras/llama-4-scout-17b-16e-instruct' | 'cerebras/gpt-oss-120b' | 'google-ai-studio/gemini-2.5-flash' | 'google-ai-studio/gemini-2.5-pro' | 'grok/grok-4' | 'groq/llama-3.3-70b-versatile' | 'groq/llama-3.1-8b-instant' | 'openai/gpt-5' | 'openai/gpt-5-mini' | 'openai/gpt-5-nano' | '';
         stream?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceChatCompletionResponses, AiSearchInstanceChatCompletionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -648,11 +663,11 @@ export class AiSearchInstancesService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -662,7 +677,7 @@ export class AiSearchInstancesService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -672,12 +687,27 @@ export class AiSearchInstancesService {
             };
         };
         messages?: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         query?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchInstanceSearchResponses, AiSearchInstanceSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -709,14 +739,14 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Stats
+     * Get instance statistics.
      *
-     * Retrieves usage statistics for AI Search instances.
+     * Retrieve usage and indexing statistics for an AI Search instance.
      */
     public static aiSearchStats<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchStatsResponses, AiSearchStatsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AiSearchStatsResponses, AiSearchStatsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -737,9 +767,9 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * List instances.
+     * List AI Search instances.
      *
-     * List instances.
+     * List all AI Search instances in the account.
      */
     public static aiSearchNamespaceListInstances<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -750,7 +780,7 @@ export class AiSearchInstancesService {
         namespace?: string;
         order_by?: 'created_at';
         order_by_direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceListInstancesResponses, AiSearchNamespaceListInstancesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },
@@ -780,9 +810,9 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Create new instance.
+     * Create an AI Search instance.
      *
-     * Create a new instance.
+     * Create a new AI Search instance with the given configuration.
      */
     public static aiSearchNamespaceCreateInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -799,7 +829,7 @@ export class AiSearchInstancesService {
             data_type: 'text' | 'number' | 'boolean' | 'datetime';
             field_name: string;
         }>;
-        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
+        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/qwen/qwen3-vl-embedding-2b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'google-ai-studio/gemini-embedding-2' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
         fusion_method?: 'max' | 'rrf';
         hybrid_search_enabled?: boolean;
         id: string;
@@ -832,6 +862,14 @@ export class AiSearchInstancesService {
                  */
                 disabled?: boolean;
             };
+            /**
+             * Custom domain hostnames that alias this public endpoint. GET and create responses return the current set; on update (PUT) this field is only echoed back when supplied in the request body, otherwise it is null (omit it to leave domains unchanged).
+             */
+            custom_domains?: Array<string> | null;
+            /**
+             * When false, the instance is reachable only via a registered custom domain and the default <public_endpoint_id>.search.ai.cloudflare.com host returns 404. Requires at least one custom domain. Defaults to true. public_endpoint_params is replaced wholesale on update, so resend default_domain_enabled on every update to keep the default host off — omitting it resets to true.
+             */
+            default_domain_enabled?: boolean;
             enabled?: boolean;
             mcp?: {
                 description?: string;
@@ -856,20 +894,20 @@ export class AiSearchInstancesService {
         reranking_model?: '@cf/baai/bge-reranker-base' | '' | null;
         retrieval_options?: {
             /**
-             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
+             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric/datetime fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
              */
             boost_by?: Array<{
                 /**
-                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                  */
                 direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                 /**
-                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                  */
                 field: string;
             }>;
             /**
-             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted on an update, the existing stored value is preserved; when never set, search falls back to 'and'.
              */
             keyword_match_mode?: 'and' | 'or';
         } | null;
@@ -889,16 +927,9 @@ export class AiSearchInstancesService {
             prefix?: string;
             r2_jurisdiction?: string;
             web_crawler?: {
-                crawl_options?: {
-                    depth?: number;
-                    include_external_links?: boolean;
-                    include_subdomains?: boolean;
-                    max_age?: number;
-                    source?: 'all' | 'sitemaps' | 'links';
-                };
                 parse_options?: {
                     /**
-                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed.
+                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed. Omit the field to disable content selection — empty arrays are rejected.
                      */
                     content_selector?: Array<{
                         /**
@@ -906,10 +937,13 @@ export class AiSearchInstancesService {
                          */
                         path: string;
                         /**
-                         * CSS selector to extract content from pages matching the path pattern. Supports standard CSS selectors including class, ID, element, and attribute selectors.
+                         * CSS selector to extract content from pages matching the path pattern. Must not contain disallowed characters (;, `, $, {, }, \). Must target a single element; if multiple elements match, the selector is ignored and the full page is used.
                          */
                         selector: string;
                     }>;
+                    /**
+                     * Up to 5 custom HTTP headers sent with each crawl request. Names must be RFC-7230 token characters (no spaces, colons, or control characters); values must be HTAB + printable ASCII (no CR/LF).
+                     */
                     include_headers?: {
                         [key: string]: string;
                     };
@@ -920,18 +954,13 @@ export class AiSearchInstancesService {
                     specific_sitemaps?: Array<string>;
                     use_browser_rendering?: boolean;
                 };
-                parse_type?: 'sitemap' | 'feed-rss' | 'crawl';
-                store_options?: {
-                    r2_jurisdiction?: string;
-                    storage_id: string;
-                    storage_type?: 'r2';
-                };
+                parse_type?: 'sitemap' | 'discover';
             };
         } | null;
         sync_interval?: 900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400;
         token_id?: string;
         type?: 'r2' | 'web-crawler' | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceCreateInstanceResponses, AiSearchNamespaceCreateInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },
@@ -989,15 +1018,15 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Delete instance.
+     * Delete an AI Search instance.
      *
-     * Delete instance.
+     * Permanently delete an AI Search instance and all its indexed data.
      */
     public static aiSearchNamespaceDeleteInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceDeleteInstanceResponses, AiSearchNamespaceDeleteInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },
@@ -1022,15 +1051,15 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Read instance.
+     * Get an AI Search instance.
      *
-     * Read instance.
+     * Retrieve the configuration and status of an AI Search instance.
      */
     public static aiSearchNamespaceFetchInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceFetchInstanceResponses, AiSearchNamespaceFetchInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },
@@ -1055,9 +1084,9 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Update instance.
+     * Update an AI Search instance.
      *
-     * Update instance.
+     * Update the configuration of an AI Search instance.
      */
     public static aiSearchNamespaceUpdateInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -1075,7 +1104,7 @@ export class AiSearchInstancesService {
             data_type: 'text' | 'number' | 'boolean' | 'datetime';
             field_name: string;
         }>;
-        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
+        embedding_model?: '@cf/qwen/qwen3-embedding-0.6b' | '@cf/qwen/qwen3-vl-embedding-2b' | '@cf/baai/bge-m3' | '@cf/baai/bge-large-en-v1.5' | '@cf/google/embeddinggemma-300m' | 'google-ai-studio/gemini-embedding-001' | 'google-ai-studio/gemini-embedding-2-preview' | 'google-ai-studio/gemini-embedding-2' | 'openai/text-embedding-3-small' | 'openai/text-embedding-3-large' | '' | null;
         fusion_method?: 'max' | 'rrf';
         index_method?: {
             /**
@@ -1107,6 +1136,14 @@ export class AiSearchInstancesService {
                  */
                 disabled?: boolean;
             };
+            /**
+             * Custom domain hostnames that alias this public endpoint. GET and create responses return the current set; on update (PUT) this field is only echoed back when supplied in the request body, otherwise it is null (omit it to leave domains unchanged).
+             */
+            custom_domains?: Array<string> | null;
+            /**
+             * When false, the instance is reachable only via a registered custom domain and the default <public_endpoint_id>.search.ai.cloudflare.com host returns 404. Requires at least one custom domain. Defaults to true. public_endpoint_params is replaced wholesale on update, so resend default_domain_enabled on every update to keep the default host off — omitting it resets to true.
+             */
+            default_domain_enabled?: boolean;
             enabled?: boolean;
             mcp?: {
                 description?: string;
@@ -1131,26 +1168,27 @@ export class AiSearchInstancesService {
         reranking_model?: '@cf/baai/bge-reranker-base' | '' | null;
         retrieval_options?: {
             /**
-             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
+             * Metadata fields to boost search results by. Each entry specifies a metadata field and an optional direction. Direction defaults to 'asc' for numeric/datetime fields and 'exists' for text/boolean fields. Fields must match 'timestamp' or a defined custom_metadata field.
              */
             boost_by?: Array<{
                 /**
-                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                 * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                  */
                 direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                 /**
-                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                 * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                  */
                 field: string;
             }>;
             /**
-             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+             * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted on an update, the existing stored value is preserved; when never set, search falls back to 'and'.
              */
             keyword_match_mode?: 'and' | 'or';
         } | null;
         rewrite_model?: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' | '@cf/zai-org/glm-4.7-flash' | '@cf/meta/llama-3.1-8b-instruct-fast' | '@cf/meta/llama-3.1-8b-instruct-fp8' | '@cf/meta/llama-4-scout-17b-16e-instruct' | '@cf/qwen/qwen3-30b-a3b-fp8' | '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b' | '@cf/moonshotai/kimi-k2-instruct' | '@cf/google/gemma-3-12b-it' | '@cf/google/gemma-4-26b-a4b-it' | '@cf/moonshotai/kimi-k2.5' | 'anthropic/claude-3-7-sonnet' | 'anthropic/claude-sonnet-4' | 'anthropic/claude-opus-4' | 'anthropic/claude-3-5-haiku' | 'cerebras/qwen-3-235b-a22b-instruct' | 'cerebras/qwen-3-235b-a22b-thinking' | 'cerebras/llama-3.3-70b' | 'cerebras/llama-4-maverick-17b-128e-instruct' | 'cerebras/llama-4-scout-17b-16e-instruct' | 'cerebras/gpt-oss-120b' | 'google-ai-studio/gemini-2.5-flash' | 'google-ai-studio/gemini-2.5-pro' | 'grok/grok-4' | 'groq/llama-3.3-70b-versatile' | 'groq/llama-3.1-8b-instant' | 'openai/gpt-5' | 'openai/gpt-5-mini' | 'openai/gpt-5-nano' | '' | null;
         rewrite_query?: boolean;
         score_threshold?: number;
+        source?: string | null;
         source_params?: {
             /**
              * List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin** matches /admin/users and /admin/settings/advanced)
@@ -1163,16 +1201,9 @@ export class AiSearchInstancesService {
             prefix?: string;
             r2_jurisdiction?: string;
             web_crawler?: {
-                crawl_options?: {
-                    depth?: number;
-                    include_external_links?: boolean;
-                    include_subdomains?: boolean;
-                    max_age?: number;
-                    source?: 'all' | 'sitemaps' | 'links';
-                };
                 parse_options?: {
                     /**
-                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed.
+                     * List of path-to-selector mappings for extracting specific content from crawled pages. Each entry pairs a URL glob pattern with a CSS selector. The first matching path wins. Only the matched HTML fragment is stored and indexed. Omit the field to disable content selection — empty arrays are rejected.
                      */
                     content_selector?: Array<{
                         /**
@@ -1180,10 +1211,13 @@ export class AiSearchInstancesService {
                          */
                         path: string;
                         /**
-                         * CSS selector to extract content from pages matching the path pattern. Supports standard CSS selectors including class, ID, element, and attribute selectors.
+                         * CSS selector to extract content from pages matching the path pattern. Must not contain disallowed characters (;, `, $, {, }, \). Must target a single element; if multiple elements match, the selector is ignored and the full page is used.
                          */
                         selector: string;
                     }>;
+                    /**
+                     * Up to 5 custom HTTP headers sent with each crawl request. Names must be RFC-7230 token characters (no spaces, colons, or control characters); values must be HTAB + printable ASCII (no CR/LF).
+                     */
                     include_headers?: {
                         [key: string]: string;
                     };
@@ -1194,12 +1228,7 @@ export class AiSearchInstancesService {
                     specific_sitemaps?: Array<string>;
                     use_browser_rendering?: boolean;
                 };
-                parse_type?: 'sitemap' | 'feed-rss' | 'crawl';
-                store_options?: {
-                    r2_jurisdiction?: string;
-                    storage_id: string;
-                    storage_type?: 'r2';
-                };
+                parse_type?: 'sitemap' | 'discover';
             };
         } | null;
         summarization?: boolean;
@@ -1209,7 +1238,7 @@ export class AiSearchInstancesService {
         system_prompt_index_summarization?: string | null;
         system_prompt_rewrite_query?: string | null;
         token_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceUpdateInstanceResponses, AiSearchNamespaceUpdateInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },
@@ -1237,6 +1266,7 @@ export class AiSearchInstancesService {
                     { in: 'body', key: 'rewrite_model' },
                     { in: 'body', key: 'rewrite_query' },
                     { in: 'body', key: 'score_threshold' },
+                    { in: 'body', key: 'source' },
                     { in: 'body', key: 'source_params' },
                     { in: 'body', key: 'summarization' },
                     { in: 'body', key: 'summarization_model' },
@@ -1299,11 +1329,11 @@ export class AiSearchInstancesService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -1313,7 +1343,7 @@ export class AiSearchInstancesService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -1323,13 +1353,28 @@ export class AiSearchInstancesService {
             };
         };
         messages: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         model?: '@cf/meta/llama-3.3-70b-instruct-fp8-fast' | '@cf/zai-org/glm-4.7-flash' | '@cf/meta/llama-3.1-8b-instruct-fast' | '@cf/meta/llama-3.1-8b-instruct-fp8' | '@cf/meta/llama-4-scout-17b-16e-instruct' | '@cf/qwen/qwen3-30b-a3b-fp8' | '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b' | '@cf/moonshotai/kimi-k2-instruct' | '@cf/google/gemma-3-12b-it' | '@cf/google/gemma-4-26b-a4b-it' | '@cf/moonshotai/kimi-k2.5' | 'anthropic/claude-3-7-sonnet' | 'anthropic/claude-sonnet-4' | 'anthropic/claude-opus-4' | 'anthropic/claude-3-5-haiku' | 'cerebras/qwen-3-235b-a22b-instruct' | 'cerebras/qwen-3-235b-a22b-thinking' | 'cerebras/llama-3.3-70b' | 'cerebras/llama-4-maverick-17b-128e-instruct' | 'cerebras/llama-4-scout-17b-16e-instruct' | 'cerebras/gpt-oss-120b' | 'google-ai-studio/gemini-2.5-flash' | 'google-ai-studio/gemini-2.5-pro' | 'grok/grok-4' | 'groq/llama-3.3-70b-versatile' | 'groq/llama-3.1-8b-instant' | 'openai/gpt-5' | 'openai/gpt-5-mini' | 'openai/gpt-5-nano' | '';
         stream?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceChatCompletionResponses, AiSearchNamespaceInstanceChatCompletionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -1363,6 +1408,39 @@ export class AiSearchInstancesService {
     }
     
     /**
+     * Purge search cache.
+     *
+     * Purges all cached search results for an AI Search instance. A new internal cache key is generated, immediately orphaning all prior cached entries.
+     */
+    public static aiSearchNamespacePurgeInstanceCache<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        id: string;
+        name: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespacePurgeInstanceCacheResponses, AiSearchNamespacePurgeInstanceCacheErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'id' },
+                    { in: 'path', key: 'name' }
+                ] }]);
+        return (options?.client ?? client).post<AiSearchNamespacePurgeInstanceCacheResponses, AiSearchNamespacePurgeInstanceCacheErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAiSearchNamespacePurgeInstanceCachePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAiSearchNamespacePurgeInstanceCacheResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/ai-search/namespaces/{name}/instances/{id}/purge_cache',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Search
      *
      * Executes a semantic search query against an AI Search instance to find relevant indexed content.
@@ -1392,11 +1470,11 @@ export class AiSearchInstancesService {
                  */
                 boost_by?: Array<{
                     /**
-                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional ��� defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
+                     * Boost direction. 'desc' = higher values rank higher (e.g. newer timestamps). 'asc' = lower values rank higher. 'exists' = boost chunks that have the field. 'not_exists' = boost chunks that lack the field. Optional — defaults to 'asc' for numeric/datetime fields, 'exists' for text/boolean fields.
                      */
                     direction?: 'asc' | 'desc' | 'exists' | 'not_exists';
                     /**
-                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support asc/desc directions; text/boolean fields support exists/not_exists.
+                     * Metadata field name to boost by. Use 'timestamp' for document freshness, or any custom_metadata field. Numeric and datetime fields support all four directions (asc, desc, exists, not_exists); text/boolean fields only support exists/not_exists.
                      */
                     field: string;
                 }>;
@@ -1406,7 +1484,7 @@ export class AiSearchInstancesService {
                 };
                 fusion_method?: 'max' | 'rrf';
                 /**
-                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. Defaults to 'and'.
+                 * Controls which documents are candidates for BM25 scoring. 'and' restricts candidates to documents containing all query terms; 'or' includes any document containing at least one term, ranked by BM25 relevance. When omitted, falls back to the instance-level retrieval_options.keyword_match_mode, then to 'and'.
                  */
                 keyword_match_mode?: 'and' | 'or';
                 match_threshold?: number;
@@ -1416,12 +1494,27 @@ export class AiSearchInstancesService {
             };
         };
         messages?: Array<{
-            content: string | null;
+            content: string | Array<{
+                text: string;
+                type: 'text';
+            } | {
+                image_url: {
+                    url: string;
+                };
+                type: 'image_url';
+            } | {
+                file: {
+                    file_data?: string;
+                    file_id?: string;
+                    filename: string;
+                };
+                type: 'file';
+            }> | unknown;
             role: 'system' | 'developer' | 'user' | 'assistant' | 'tool';
             [key: string]: unknown;
         }>;
         query?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceSearchResponses, AiSearchNamespaceInstanceSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -1454,15 +1547,15 @@ export class AiSearchInstancesService {
     }
     
     /**
-     * Stats
+     * Get instance statistics.
      *
-     * Retrieves usage statistics for AI Search instances.
+     * Retrieve usage and indexing statistics for an AI Search instance.
      */
     public static aiSearchNamespaceStats<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceStatsResponses, AiSearchNamespaceStatsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },

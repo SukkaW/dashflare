@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorkersAiGetModelSchemaErrors, WorkersAiGetModelSchemaResponses, WorkersAiGetToMarkdownSupportedErrors, WorkersAiGetToMarkdownSupportedResponses, WorkersAiPostRunModelErrors, WorkersAiPostRunModelResponses, WorkersAiPostToMarkdownErrors, WorkersAiPostToMarkdownResponses, WorkersAiSearchAuthorErrors, WorkersAiSearchAuthorResponses, WorkersAiSearchModelErrors, WorkersAiSearchModelResponses, WorkersAiSearchTaskErrors, WorkersAiSearchTaskResponses } from '../types.gen';
-import { zWorkersAiGetModelSchemaPath, zWorkersAiGetModelSchemaQuery, zWorkersAiGetModelSchemaResponse, zWorkersAiGetToMarkdownSupportedPath, zWorkersAiGetToMarkdownSupportedResponse, zWorkersAiPostRunModelBody, zWorkersAiPostRunModelPath, zWorkersAiPostRunModelResponse, zWorkersAiPostToMarkdownBody, zWorkersAiPostToMarkdownPath, zWorkersAiPostToMarkdownResponse, zWorkersAiSearchAuthorPath, zWorkersAiSearchAuthorResponse, zWorkersAiSearchModelPath, zWorkersAiSearchModelQuery, zWorkersAiSearchModelResponse, zWorkersAiSearchTaskPath, zWorkersAiSearchTaskResponse } from '../zod.gen';
+import type { WorkersAiGetModelSchemaErrors, WorkersAiGetModelSchemaResponses, WorkersAiGetToMarkdownSupportedErrors, WorkersAiGetToMarkdownSupportedResponses, WorkersAiPostRunGenericErrors, WorkersAiPostRunGenericResponses, WorkersAiPostRunModelErrors, WorkersAiPostRunModelResponses, WorkersAiPostToMarkdownErrors, WorkersAiPostToMarkdownResponses, WorkersAiSearchAuthorErrors, WorkersAiSearchAuthorResponses, WorkersAiSearchModelErrors, WorkersAiSearchModelResponses, WorkersAiSearchTaskErrors, WorkersAiSearchTaskResponses } from '../types.gen';
+import { zWorkersAiGetModelSchemaPath, zWorkersAiGetModelSchemaQuery, zWorkersAiGetModelSchemaResponse, zWorkersAiGetToMarkdownSupportedPath, zWorkersAiGetToMarkdownSupportedResponse, zWorkersAiPostRunGenericBody, zWorkersAiPostRunGenericPath, zWorkersAiPostRunGenericResponse, zWorkersAiPostRunModelBody, zWorkersAiPostRunModelPath, zWorkersAiPostRunModelResponse, zWorkersAiPostToMarkdownBody, zWorkersAiPostToMarkdownPath, zWorkersAiPostToMarkdownResponse, zWorkersAiSearchAuthorPath, zWorkersAiSearchAuthorResponse, zWorkersAiSearchModelPath, zWorkersAiSearchModelQuery, zWorkersAiSearchModelResponse, zWorkersAiSearchTaskPath, zWorkersAiSearchTaskResponse } from '../zod.gen';
 
 export class WorkersAiService {
     /**
@@ -18,7 +18,7 @@ export class WorkersAiService {
      */
     public static workersAiSearchAuthor<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiSearchAuthorResponses, WorkersAiSearchAuthorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkersAiSearchAuthorResponses, WorkersAiSearchAuthorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class WorkersAiService {
     public static workersAiGetModelSchema<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         model: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiGetModelSchemaResponses, WorkersAiGetModelSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'model' }] }]);
         return (options?.client ?? client).get<WorkersAiGetModelSchemaResponses, WorkersAiGetModelSchemaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +80,9 @@ export class WorkersAiService {
         source?: number;
         hide_experimental?: boolean;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        include_deprecated?: boolean;
+        format?: 'openrouter';
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiSearchModelResponses, WorkersAiSearchModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'per_page' },
@@ -89,7 +91,9 @@ export class WorkersAiService {
                     { in: 'query', key: 'author' },
                     { in: 'query', key: 'source' },
                     { in: 'query', key: 'hide_experimental' },
-                    { in: 'query', key: 'search' }
+                    { in: 'query', key: 'search' },
+                    { in: 'query', key: 'include_deprecated' },
+                    { in: 'query', key: 'format' }
                 ] }]);
         return (options?.client ?? client).get<WorkersAiSearchModelResponses, WorkersAiSearchModelErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,6 +110,73 @@ export class WorkersAiService {
             url: '/accounts/{account_id}/ai/models/search',
             ...options,
             ...params
+        });
+    }
+    
+    /**
+     * Execute AI Model (Generic)
+     *
+     * Execute an AI model by specifying the model name in the request body.
+     *
+     * This endpoint provides a generic interface for running AI models where the model name is part of the request payload rather than the URL path. It supports all AI Gateway features including caching, custom headers, and request options.
+     *
+     * Model-specific inputs available in [Cloudflare Docs](https://developers.cloudflare.com/workers-ai/models/).
+     */
+    public static workersAiPostRunGeneric<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        input: {
+            [key: string]: unknown;
+        };
+        model: string;
+        options?: {
+            /**
+             * Additional headers to pass to the AI provider
+             */
+            extraHeaders?: {
+                [key: string]: string;
+            };
+            gateway?: {
+                /**
+                 * Cache TTL in seconds
+                 */
+                cacheTtl?: number;
+                /**
+                 * AI Gateway ID for caching and logging
+                 */
+                id?: string;
+                /**
+                 * Skip cache lookup for this request
+                 */
+                skipCache?: boolean;
+            };
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiPostRunGenericResponses, WorkersAiPostRunGenericErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'input' },
+                    { in: 'body', key: 'model' },
+                    { in: 'body', key: 'options' }
+                ] }]);
+        return (options?.client ?? client).post<WorkersAiPostRunGenericResponses, WorkersAiPostRunGenericErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorkersAiPostRunGenericBody.optional(),
+                path: zWorkersAiPostRunGenericPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorkersAiPostRunGenericResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/ai/run',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
     
@@ -605,7 +676,7 @@ export class WorkersAiService {
             image?: string;
             text?: Array<string>;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiPostRunModelResponses, WorkersAiPostRunModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'model_name' },
@@ -641,7 +712,7 @@ export class WorkersAiService {
      */
     public static workersAiSearchTask<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiSearchTaskResponses, WorkersAiSearchTaskErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkersAiSearchTaskResponses, WorkersAiSearchTaskErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -669,7 +740,7 @@ export class WorkersAiService {
     public static workersAiPostToMarkdown<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         files: Array<Blob | File>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiPostToMarkdownResponses, WorkersAiPostToMarkdownErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'files' }] }]);
         return (options?.client ?? client).post<WorkersAiPostToMarkdownResponses, WorkersAiPostToMarkdownErrors, ThrowOnError>({
             ...formDataBodySerializer,
@@ -702,7 +773,7 @@ export class WorkersAiService {
      */
     public static workersAiGetToMarkdownSupported<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersAiGetToMarkdownSupportedResponses, WorkersAiGetToMarkdownSupportedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkersAiGetToMarkdownSupportedResponses, WorkersAiGetToMarkdownSupportedErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsCreateDeployHookRequest, BuildsDeployHookUuid, BuildsScriptName, CreateDeployHookErrors, CreateDeployHookResponses, DeleteDeployHookErrors, DeleteDeployHookResponses, GetDeployHookErrors, GetDeployHookResponses, ListDeployHooksResponses, TriggerDeployHookErrors, TriggerDeployHookResponses, UpdateDeployHookErrors, UpdateDeployHookResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class DeployHooksService {
     public static listDeployHooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         script_name: BuildsScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListDeployHooksResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<ListDeployHooksResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class DeployHooksService {
         account_id: BuildsAccountId;
         script_name: BuildsScriptName;
         buildsCreateDeployHookRequest: BuildsCreateDeployHookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateDeployHookResponses, CreateDeployHookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -86,7 +86,7 @@ export class DeployHooksService {
         account_id: BuildsAccountId;
         script_name: BuildsScriptName;
         deploy_hook_uuid: BuildsDeployHookUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeployHookResponses, DeleteDeployHookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -119,7 +119,7 @@ export class DeployHooksService {
         account_id: BuildsAccountId;
         script_name: BuildsScriptName;
         deploy_hook_uuid: BuildsDeployHookUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDeployHookResponses, GetDeployHookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -153,7 +153,7 @@ export class DeployHooksService {
         script_name: BuildsScriptName;
         deploy_hook_uuid: BuildsDeployHookUuid;
         buildsCreateDeployHookRequest: BuildsCreateDeployHookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateDeployHookResponses, UpdateDeployHookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -190,7 +190,7 @@ export class DeployHooksService {
      */
     public static triggerDeployHook<ThrowOnError extends boolean = true>(parameters: {
         deploy_hook_uuid: BuildsDeployHookUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TriggerDeployHookResponses, TriggerDeployHookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'deploy_hook_uuid' }] }]);
         return (options?.client ?? client).post<TriggerDeployHookResponses, TriggerDeployHookErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

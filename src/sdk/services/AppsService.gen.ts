@@ -4,13 +4,167 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CreateAppResponses, GetAppsResponses, RealtimekitAccountIdentifier, RealtimekitCreateApp } from '../types.gen';
-import { zCreateAppBody, zCreateAppPath, zCreateAppResponse, zGetAppsPath, zGetAppsResponse } from '../zod.gen';
+import type { CreateAppResponses, FlagshipCreateAppErrors, FlagshipCreateAppResponses, FlagshipDeleteAppErrors, FlagshipDeleteAppResponses, FlagshipGetAppErrors, FlagshipGetAppResponses, FlagshipListAppsErrors, FlagshipListAppsResponses, FlagshipUpdateAppErrors, FlagshipUpdateAppResponses, GetAppResponses, GetAppsResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitCreateApp } from '../types.gen';
+import { zCreateAppBody, zCreateAppPath, zCreateAppResponse, zFlagshipCreateAppBody, zFlagshipCreateAppPath, zFlagshipCreateAppResponse, zFlagshipDeleteAppPath, zFlagshipDeleteAppResponse, zFlagshipGetAppPath, zFlagshipGetAppResponse, zFlagshipListAppsPath, zFlagshipListAppsResponse, zFlagshipUpdateAppBody, zFlagshipUpdateAppPath, zFlagshipUpdateAppResponse, zGetAppPath, zGetAppResponse, zGetAppsPath, zGetAppsQuery, zGetAppsResponse } from '../zod.gen';
 
 export class AppsService {
+    /**
+     * List apps
+     *
+     * Lists all apps in the account. Returns identity and audit fields only — flag definitions are not included.
+     */
+    public static flagshipListApps<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<FlagshipListAppsResponses, FlagshipListAppsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<FlagshipListAppsResponses, FlagshipListAppsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zFlagshipListAppsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zFlagshipListAppsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/flagship/apps',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create app
+     *
+     * Creates an app. The returned `id` is used in all subsequent flag, changelog, and evaluation requests.
+     */
+    public static flagshipCreateApp<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        name: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<FlagshipCreateAppResponses, FlagshipCreateAppErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'name' }] }]);
+        return (options?.client ?? client).post<FlagshipCreateAppResponses, FlagshipCreateAppErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zFlagshipCreateAppBody,
+                path: zFlagshipCreateAppPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zFlagshipCreateAppResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/flagship/apps',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete app
+     *
+     * Deletes an app and all its flags and changelog history. Returns 409 if any Worker still references this app via a Flagship binding.
+     */
+    public static flagshipDeleteApp<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        app_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<FlagshipDeleteAppResponses, FlagshipDeleteAppErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'app_id' }] }]);
+        return (options?.client ?? client).delete<FlagshipDeleteAppResponses, FlagshipDeleteAppErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zFlagshipDeleteAppPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zFlagshipDeleteAppResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/flagship/apps/{app_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get app
+     *
+     * Returns an app's name and audit fields. Flag definitions are not included.
+     */
+    public static flagshipGetApp<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        app_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<FlagshipGetAppResponses, FlagshipGetAppErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'app_id' }] }]);
+        return (options?.client ?? client).get<FlagshipGetAppResponses, FlagshipGetAppErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zFlagshipGetAppPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zFlagshipGetAppResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/flagship/apps/{app_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update app
+     *
+     * Updates an app. Only `name` is mutable.
+     */
+    public static flagshipUpdateApp<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        app_id: string;
+        name?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<FlagshipUpdateAppResponses, FlagshipUpdateAppErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'app_id' },
+                    { in: 'body', key: 'name' }
+                ] }]);
+        return (options?.client ?? client).put<FlagshipUpdateAppResponses, FlagshipUpdateAppErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zFlagshipUpdateAppBody,
+                path: zFlagshipUpdateAppPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zFlagshipUpdateAppResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/flagship/apps/{app_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
     /**
      * Fetch all apps
      *
@@ -18,13 +172,23 @@ export class AppsService {
      */
     public static getApps<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        page_no?: number;
+        per_page?: number;
+        search?: string;
+        sort_order?: 'ASC' | 'DESC';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAppsResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page_no' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'search' },
+                    { in: 'query', key: 'sort_order' }
+                ] }]);
         return (options?.client ?? client).get<GetAppsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zGetAppsPath,
-                query: z.never().optional()
+                query: zGetAppsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zGetAppsResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -40,13 +204,13 @@ export class AppsService {
      * Create new app for your account
      */
     public static createApp<ThrowOnError extends boolean = true>(parameters: {
-        account_id: string;
-        realtimekitCreateApp?: RealtimekitCreateApp;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: RealtimekitAccountIdentifier;
+        realtimekitCreateApp: RealtimekitCreateApp;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateAppResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'realtimekitCreateApp', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateAppResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zCreateAppBody.optional(),
+                body: zCreateAppBody,
                 path: zCreateAppPath,
                 query: z.never().optional()
             }).parseAsync(data),
@@ -60,6 +224,30 @@ export class AppsService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Fetch app details
+     *
+     * Fetch details for an app in your account.
+     */
+    public static getApp<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAppResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'app_id' }] }]);
+        return (options?.client ?? client).get<GetAppResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetAppPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetAppResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/apps/{app_id}',
+            ...options,
+            ...params
         });
     }
 }

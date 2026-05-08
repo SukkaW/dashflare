@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallConfigurations, FirewallDescription, FirewallIdentifier, FirewallIpRangeSearch, FirewallIpSearch, FirewallLockdownsComponentsSchemasId, FirewallModifiedOn, FirewallSchemasDescriptionSearch, FirewallSchemasPaused, FirewallSchemasPriority, FirewallUriSearch, FirewallUrls, ZoneLockdownCreateAZoneLockdownRuleErrors, ZoneLockdownCreateAZoneLockdownRuleResponses, ZoneLockdownDeleteAZoneLockdownRuleErrors, ZoneLockdownDeleteAZoneLockdownRuleResponses, ZoneLockdownGetAZoneLockdownRuleErrors, ZoneLockdownGetAZoneLockdownRuleResponses, ZoneLockdownListZoneLockdownRulesErrors, ZoneLockdownListZoneLockdownRulesResponses, ZoneLockdownUpdateAZoneLockdownRuleErrors, ZoneLockdownUpdateAZoneLockdownRuleResponses } from '../types.gen';
@@ -29,7 +29,7 @@ export class ZoneLockdownService {
         created_on?: string;
         description_search?: string;
         ip_search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLockdownListZoneLockdownRulesResponses, ZoneLockdownListZoneLockdownRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -74,7 +74,7 @@ export class ZoneLockdownService {
         paused?: FirewallSchemasPaused;
         priority?: FirewallSchemasPriority;
         urls: FirewallUrls;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLockdownCreateAZoneLockdownRuleResponses, ZoneLockdownCreateAZoneLockdownRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'configurations' },
@@ -115,7 +115,7 @@ export class ZoneLockdownService {
         lock_downs_id: FirewallLockdownsComponentsSchemasId;
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLockdownDeleteAZoneLockdownRuleResponses, ZoneLockdownDeleteAZoneLockdownRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'lock_downs_id' },
                     { in: 'path', key: 'zone_id' },
@@ -152,7 +152,7 @@ export class ZoneLockdownService {
     public static zoneLockdownGetAZoneLockdownRule<ThrowOnError extends boolean = true>(parameters: {
         lock_downs_id: FirewallLockdownsComponentsSchemasId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLockdownGetAZoneLockdownRuleResponses, ZoneLockdownGetAZoneLockdownRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'lock_downs_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLockdownGetAZoneLockdownRuleResponses, ZoneLockdownGetAZoneLockdownRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -182,7 +182,7 @@ export class ZoneLockdownService {
         zone_id: FirewallIdentifier;
         configurations: FirewallConfigurations;
         urls: FirewallUrls;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLockdownUpdateAZoneLockdownRuleResponses, ZoneLockdownUpdateAZoneLockdownRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'lock_downs_id' },
                     { in: 'path', key: 'zone_id' },

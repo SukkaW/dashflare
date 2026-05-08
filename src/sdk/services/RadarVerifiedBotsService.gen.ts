@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetVerifiedBotsTopByHttpRequestsErrors, RadarGetVerifiedBotsTopByHttpRequestsResponses, RadarGetVerifiedBotsTopCategoriesByHttpRequestsErrors, RadarGetVerifiedBotsTopCategoriesByHttpRequestsResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarVerifiedBotsService {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetVerifiedBotsTopByHttpRequestsResponses, RadarGetVerifiedBotsTopByHttpRequestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -75,7 +75,7 @@ export class RadarVerifiedBotsService {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetVerifiedBotsTopCategoriesByHttpRequestsResponses, RadarGetVerifiedBotsTopCategoriesByHttpRequestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { D1AccountIdentifier, D1BatchQuery, D1CreateDatabaseErrors, D1CreateDatabaseResponses, D1DatabaseIdentifier, D1DatabaseName, D1DatabaseUpdatePartialRequestBody, D1DatabaseUpdateRequestBody, D1DeleteDatabaseErrors, D1DeleteDatabaseResponses, D1ExportDatabaseErrors, D1ExportDatabaseResponses, D1GetDatabaseErrors, D1GetDatabaseResponses, D1ImportDatabaseErrors, D1ImportDatabaseResponses, D1Jurisdiction, D1ListDatabasesErrors, D1ListDatabasesResponses, D1PrimaryLocationHint, D1QueryDatabaseErrors, D1QueryDatabaseResponses, D1RawDatabaseQueryErrors, D1RawDatabaseQueryResponses, D1TimeTravelBookmark, D1TimeTravelGetBookmarkErrors, D1TimeTravelGetBookmarkResponses, D1TimeTravelRestoreErrors, D1TimeTravelRestoreResponses, D1TimeTravelTimestamp, D1UpdateDatabaseErrors, D1UpdateDatabaseResponses, D1UpdatePartialDatabaseErrors, D1UpdatePartialDatabaseResponses } from '../types.gen';
-import { zD1CreateDatabaseBody, zD1CreateDatabasePath, zD1CreateDatabaseResponse, zD1DeleteDatabasePath, zD1DeleteDatabaseResponse, zD1ExportDatabaseBody, zD1ExportDatabasePath, zD1ExportDatabaseResponse, zD1GetDatabasePath, zD1GetDatabaseResponse, zD1ImportDatabaseBody, zD1ImportDatabasePath, zD1ImportDatabaseResponse, zD1ListDatabasesPath, zD1ListDatabasesQuery, zD1ListDatabasesResponse, zD1QueryDatabaseBody, zD1QueryDatabasePath, zD1QueryDatabaseResponse, zD1RawDatabaseQueryBody, zD1RawDatabaseQueryPath, zD1RawDatabaseQueryResponse, zD1TimeTravelGetBookmarkPath, zD1TimeTravelGetBookmarkQuery, zD1TimeTravelGetBookmarkResponse, zD1TimeTravelRestorePath, zD1TimeTravelRestoreQuery, zD1TimeTravelRestoreResponse2, zD1UpdateDatabaseBody, zD1UpdateDatabasePath, zD1UpdateDatabaseResponse, zD1UpdatePartialDatabaseBody, zD1UpdatePartialDatabasePath, zD1UpdatePartialDatabaseResponse } from '../zod.gen';
+import type { D1AccountIdentifier, D1BatchQuery, D1CreateDatabaseErrors, D1CreateDatabaseResponses, D1DatabaseIdentifier, D1DatabaseName, D1DatabaseUpdatePartialRequestBody, D1DatabaseUpdateRequestBody, D1DeleteDatabaseErrors, D1DeleteDatabaseResponses, D1ExportDatabaseErrors, D1ExportDatabaseResponses, D1GetDatabaseErrors, D1GetDatabaseResponses, D1ImportDatabaseErrors, D1ImportDatabaseResponses, D1Jurisdiction, D1ListDatabasesErrors, D1ListDatabasesResponses, D1PrimaryLocationHint, D1QueryDatabaseErrors, D1QueryDatabaseResponses, D1RawDatabaseQueryErrors, D1RawDatabaseQueryResponses, D1ReadReplicationDetailsForRequest, D1TimeTravelBookmark, D1TimeTravelGetBookmarkErrors, D1TimeTravelGetBookmarkResponses, D1TimeTravelRestoreErrors, D1TimeTravelRestoreResponses, D1TimeTravelTimestamp, D1UpdateDatabaseErrors, D1UpdateDatabaseResponses, D1UpdatePartialDatabaseErrors, D1UpdatePartialDatabaseResponses } from '../types.gen';
+import { zD1CreateDatabaseBody, zD1CreateDatabasePath, zD1CreateDatabaseResponse, zD1DeleteDatabasePath, zD1DeleteDatabaseResponse, zD1ExportDatabaseBody, zD1ExportDatabasePath, zD1ExportDatabaseResponse, zD1GetDatabasePath, zD1GetDatabaseQuery, zD1GetDatabaseResponse, zD1ImportDatabaseBody, zD1ImportDatabasePath, zD1ImportDatabaseResponse, zD1ListDatabasesPath, zD1ListDatabasesQuery, zD1ListDatabasesResponse, zD1QueryDatabaseBody, zD1QueryDatabasePath, zD1QueryDatabaseResponse, zD1RawDatabaseQueryBody, zD1RawDatabaseQueryPath, zD1RawDatabaseQueryResponse, zD1TimeTravelGetBookmarkPath, zD1TimeTravelGetBookmarkQuery, zD1TimeTravelGetBookmarkResponse, zD1TimeTravelRestorePath, zD1TimeTravelRestoreQuery, zD1TimeTravelRestoreResponse2, zD1UpdateDatabaseBody, zD1UpdateDatabasePath, zD1UpdateDatabaseResponse, zD1UpdatePartialDatabaseBody, zD1UpdatePartialDatabasePath, zD1UpdatePartialDatabaseResponse } from '../zod.gen';
 
 export class D1Service {
     /**
@@ -21,7 +21,7 @@ export class D1Service {
         name?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1ListDatabasesResponses, D1ListDatabasesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -56,12 +56,14 @@ export class D1Service {
         jurisdiction?: D1Jurisdiction;
         name: D1DatabaseName;
         primary_location_hint?: D1PrimaryLocationHint;
-    }, options?: Options<never, ThrowOnError>) {
+        read_replication?: D1ReadReplicationDetailsForRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1CreateDatabaseResponses, D1CreateDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'jurisdiction' },
                     { in: 'body', key: 'name' },
-                    { in: 'body', key: 'primary_location_hint' }
+                    { in: 'body', key: 'primary_location_hint' },
+                    { in: 'body', key: 'read_replication' }
                 ] }]);
         return (options?.client ?? client).post<D1CreateDatabaseResponses, D1CreateDatabaseErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -94,7 +96,7 @@ export class D1Service {
     public static d1DeleteDatabase<ThrowOnError extends boolean = true>(parameters: {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1DeleteDatabaseResponses, D1DeleteDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'database_id' }] }]);
         return (options?.client ?? client).delete<D1DeleteDatabaseResponses, D1DeleteDatabaseErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -122,13 +124,19 @@ export class D1Service {
     public static d1GetDatabase<ThrowOnError extends boolean = true>(parameters: {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier | D1DatabaseName;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'database_id' }] }]);
+        fields?: Array<'uuid' | 'name' | 'created_at' | 'version' | 'jurisdiction' | 'num_tables' | 'file_size' | 'running_in_region' | 'read_replication'>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1GetDatabaseResponses, D1GetDatabaseErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'database_id' },
+                    { in: 'query', key: 'fields' }
+                ] }]);
         return (options?.client ?? client).get<D1GetDatabaseResponses, D1GetDatabaseErrors, ThrowOnError>({
+            querySerializer: { parameters: { fields: { array: { explode: false } } } },
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zD1GetDatabasePath,
-                query: z.never().optional()
+                query: zD1GetDatabaseQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zD1GetDatabaseResponse.parseAsync(data),
             security: [
@@ -151,7 +159,7 @@ export class D1Service {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
         d1DatabaseUpdatePartialRequestBody: D1DatabaseUpdatePartialRequestBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1UpdatePartialDatabaseResponses, D1UpdatePartialDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -189,7 +197,7 @@ export class D1Service {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
         d1DatabaseUpdateRequestBody: D1DatabaseUpdateRequestBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1UpdateDatabaseResponses, D1UpdateDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -245,7 +253,7 @@ export class D1Service {
             tables?: Array<string>;
         };
         output_format: 'polling';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1ExportDatabaseResponses, D1ExportDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -318,7 +326,7 @@ export class D1Service {
              */
             current_bookmark: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1ImportDatabaseResponses, D1ImportDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -356,7 +364,7 @@ export class D1Service {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
         d1BatchQuery: D1BatchQuery;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1QueryDatabaseResponses, D1QueryDatabaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -394,7 +402,7 @@ export class D1Service {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
         d1BatchQuery: D1BatchQuery;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1RawDatabaseQueryResponses, D1RawDatabaseQueryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -434,7 +442,7 @@ export class D1Service {
         account_id: D1AccountIdentifier;
         database_id: D1DatabaseIdentifier;
         timestamp?: D1TimeTravelTimestamp;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1TimeTravelGetBookmarkResponses, D1TimeTravelGetBookmarkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },
@@ -469,7 +477,7 @@ export class D1Service {
         database_id: D1DatabaseIdentifier;
         bookmark?: D1TimeTravelBookmark;
         timestamp?: D1TimeTravelTimestamp;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<D1TimeTravelRestoreResponses, D1TimeTravelRestoreErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'database_id' },

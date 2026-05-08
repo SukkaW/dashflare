@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateTargetEnvironmentErrors, CreateTargetEnvironmentResponses, DeleteTargetEnvironmentErrors, DeleteTargetEnvironmentResponses, EditTargetEnvironmentErrors, EditTargetEnvironmentResponses, GetTargetEnvironmentErrors, GetTargetEnvironmentResponses, ListTargetEnvironmentsErrors, ListTargetEnvironmentsResponses, UpdateTargetEnvironmentErrors, UpdateTargetEnvironmentResponses, VulnScannerCreateTargetEnvironmentRequest, VulnScannerIdentifier, VulnScannerPatchTargetEnvironmentRequest, VulnScannerUpdateTargetEnvironmentRequest } from '../types.gen';
@@ -20,7 +20,7 @@ export class TargetEnvironmentsService {
         account_id: VulnScannerIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListTargetEnvironmentsResponses, ListTargetEnvironmentsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class TargetEnvironmentsService {
     public static createTargetEnvironment<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         vulnScannerCreateTargetEnvironmentRequest: VulnScannerCreateTargetEnvironmentRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateTargetEnvironmentResponses, CreateTargetEnvironmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'vulnScannerCreateTargetEnvironmentRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateTargetEnvironmentResponses, CreateTargetEnvironmentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class TargetEnvironmentsService {
     public static deleteTargetEnvironment<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         target_environment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTargetEnvironmentResponses, DeleteTargetEnvironmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'target_environment_id' }] }]);
         return (options?.client ?? client).delete<DeleteTargetEnvironmentResponses, DeleteTargetEnvironmentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,7 +113,7 @@ export class TargetEnvironmentsService {
     public static getTargetEnvironment<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         target_environment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTargetEnvironmentResponses, GetTargetEnvironmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'target_environment_id' }] }]);
         return (options?.client ?? client).get<GetTargetEnvironmentResponses, GetTargetEnvironmentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,7 +142,7 @@ export class TargetEnvironmentsService {
         account_id: VulnScannerIdentifier;
         target_environment_id: string;
         vulnScannerPatchTargetEnvironmentRequest: VulnScannerPatchTargetEnvironmentRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditTargetEnvironmentResponses, EditTargetEnvironmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'target_environment_id' },
@@ -180,7 +180,7 @@ export class TargetEnvironmentsService {
         account_id: VulnScannerIdentifier;
         target_environment_id: string;
         vulnScannerUpdateTargetEnvironmentRequest: VulnScannerUpdateTargetEnvironmentRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateTargetEnvironmentResponses, UpdateTargetEnvironmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'target_environment_id' },

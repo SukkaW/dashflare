@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { McnAccountId, McnCreateOnrampRequest, McnOnrampId, McnUpdateMagicWanAddressSpaceRequest, McnUpdateOnrampRequest, OnrampsApplyErrors, OnrampsApplyResponses, OnrampsCreateErrors, OnrampsCreateResponses, OnrampsDeleteErrors, OnrampsDeleteResponses, OnrampsExportErrors, OnrampsExportResponses, OnrampsListErrors, OnrampsListResponses, OnrampsMwanAddrSpacePatchErrors, OnrampsMwanAddrSpacePatchResponses, OnrampsMwanAddrSpaceReadErrors, OnrampsMwanAddrSpaceReadResponses, OnrampsMwanAddrSpaceUpdateErrors, OnrampsMwanAddrSpaceUpdateResponses, OnrampsPatchErrors, OnrampsPatchResponses, OnrampsPlanErrors, OnrampsPlanResponses, OnrampsReadErrors, OnrampsReadResponses, OnrampsUpdateErrors, OnrampsUpdateResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class OnRampsService {
         desc?: boolean;
         status?: boolean;
         vpcs?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsListResponses, OnrampsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'order_by' },
@@ -57,7 +57,7 @@ export class OnRampsService {
         forwarded?: string;
         account_id: McnAccountId;
         mcnCreateOnrampRequest: McnCreateOnrampRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsCreateResponses, OnrampsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'forwarded' },
                     { in: 'path', key: 'account_id' },
@@ -94,7 +94,7 @@ export class OnRampsService {
      */
     public static onrampsMwanAddrSpaceRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsMwanAddrSpaceReadResponses, OnrampsMwanAddrSpaceReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<OnrampsMwanAddrSpaceReadResponses, OnrampsMwanAddrSpaceReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -122,7 +122,7 @@ export class OnRampsService {
     public static onrampsMwanAddrSpacePatch<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         mcnUpdateMagicWanAddressSpaceRequest: McnUpdateMagicWanAddressSpaceRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsMwanAddrSpacePatchResponses, OnrampsMwanAddrSpacePatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'mcnUpdateMagicWanAddressSpaceRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<OnrampsMwanAddrSpacePatchResponses, OnrampsMwanAddrSpacePatchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -155,7 +155,7 @@ export class OnRampsService {
     public static onrampsMwanAddrSpaceUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         mcnUpdateMagicWanAddressSpaceRequest: McnUpdateMagicWanAddressSpaceRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsMwanAddrSpaceUpdateResponses, OnrampsMwanAddrSpaceUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'mcnUpdateMagicWanAddressSpaceRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<OnrampsMwanAddrSpaceUpdateResponses, OnrampsMwanAddrSpaceUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,7 +190,7 @@ export class OnRampsService {
         onramp_id: McnOnrampId;
         destroy?: boolean;
         force?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsDeleteResponses, OnrampsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'onramp_id' },
@@ -227,7 +227,7 @@ export class OnRampsService {
         vpcs?: boolean;
         post_apply_resources?: boolean;
         planned_resources?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsReadResponses, OnrampsReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'onramp_id' },
@@ -263,7 +263,7 @@ export class OnRampsService {
         account_id: McnAccountId;
         onramp_id: McnOnrampId;
         mcnUpdateOnrampRequest: McnUpdateOnrampRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsPatchResponses, OnrampsPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'onramp_id' },
@@ -301,7 +301,7 @@ export class OnRampsService {
         account_id: McnAccountId;
         onramp_id: McnOnrampId;
         mcnUpdateOnrampRequest: McnUpdateOnrampRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsUpdateResponses, OnrampsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'onramp_id' },
@@ -338,7 +338,7 @@ export class OnRampsService {
     public static onrampsApply<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         onramp_id: McnOnrampId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsApplyResponses, OnrampsApplyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'onramp_id' }] }]);
         return (options?.client ?? client).post<OnrampsApplyResponses, OnrampsApplyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -366,7 +366,7 @@ export class OnRampsService {
     public static onrampsExport<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         onramp_id: McnOnrampId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsExportResponses, OnrampsExportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'onramp_id' }] }]);
         return (options?.client ?? client).post<OnrampsExportResponses, OnrampsExportErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -394,7 +394,7 @@ export class OnRampsService {
     public static onrampsPlan<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         onramp_id: McnOnrampId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OnrampsPlanResponses, OnrampsPlanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'onramp_id' }] }]);
         return (options?.client ?? client).post<OnrampsPlanResponses, OnrampsPlanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

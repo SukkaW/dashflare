@@ -4,13 +4,46 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BuildsAccountId, BuildsExternalScriptId, CreateWorkerErrors, CreateWorkerResponses, DeleteWorkerErrors, DeleteWorkerResponses, EditWorkerErrors, EditWorkerResponses, GetWorkerErrors, GetWorkerResponses, ListBuildsByScriptResponses, ListTriggersByScriptResponses, ListWorkersErrors, ListWorkersResponses, UpdateWorkerErrors, UpdateWorkerResponses, WorkersIdentifier, WorkersWorkerWritable } from '../types.gen';
-import { zCreateWorkerBody, zCreateWorkerPath, zCreateWorkerResponse, zDeleteWorkerPath, zDeleteWorkerResponse, zEditWorkerBody, zEditWorkerPath, zEditWorkerResponse, zGetWorkerPath, zGetWorkerResponse, zListBuildsByScriptPath, zListBuildsByScriptQuery, zListBuildsByScriptResponse, zListTriggersByScriptPath, zListTriggersByScriptResponse, zListWorkersPath, zListWorkersQuery, zListWorkersResponse, zUpdateWorkerBody, zUpdateWorkerPath, zUpdateWorkerResponse } from '../zod.gen';
+import type { BuildsAccountId, BuildsCreateWorkerRequest, BuildsExternalScriptId, BuildsUpdateWorkerRequest, CreateWorkerBuildErrors, CreateWorkerBuildResponses, CreateWorkerErrors, CreateWorkerResponses, DeleteWorkerBuildErrors, DeleteWorkerBuildResponses, DeleteWorkerErrors, DeleteWorkerResponses, EditWorkerErrors, EditWorkerResponses, GetWorkerBuildErrors, GetWorkerBuildResponses, GetWorkerErrors, GetWorkerResponses, ListBuildsByScriptResponses, ListTriggersByScriptResponses, ListWorkersErrors, ListWorkersResponses, UpdateWorkerBuildErrors, UpdateWorkerBuildResponses, UpdateWorkerErrors, UpdateWorkerResponses, WorkersIdentifier, WorkersWorkerWritable } from '../types.gen';
+import { zCreateWorkerBody, zCreateWorkerBuildBody, zCreateWorkerBuildPath, zCreateWorkerBuildResponse, zCreateWorkerPath, zCreateWorkerResponse, zDeleteWorkerBuildPath, zDeleteWorkerBuildResponse, zDeleteWorkerPath, zDeleteWorkerResponse, zEditWorkerBody, zEditWorkerPath, zEditWorkerResponse, zGetWorkerBuildPath, zGetWorkerBuildResponse, zGetWorkerPath, zGetWorkerResponse, zListBuildsByScriptPath, zListBuildsByScriptQuery, zListBuildsByScriptResponse, zListTriggersByScriptPath, zListTriggersByScriptResponse, zListWorkersPath, zListWorkersQuery, zListWorkersResponse, zUpdateWorkerBody, zUpdateWorkerBuildBody, zUpdateWorkerBuildPath, zUpdateWorkerBuildResponse, zUpdateWorkerPath, zUpdateWorkerResponse } from '../zod.gen';
 
 export class WorkersService {
+    /**
+     * Create worker build configuration
+     *
+     * Create a new build configuration for a Worker script, linking it to a git repository with CI/CD triggers.
+     */
+    public static createWorkerBuild<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BuildsAccountId;
+        buildsCreateWorkerRequest: BuildsCreateWorkerRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateWorkerBuildResponses, CreateWorkerBuildErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'buildsCreateWorkerRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CreateWorkerBuildResponses, CreateWorkerBuildErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateWorkerBuildBody,
+                path: zCreateWorkerBuildPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateWorkerBuildResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/builds/workers',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
     /**
      * List builds by script
      *
@@ -21,7 +54,7 @@ export class WorkersService {
         external_script_id: BuildsExternalScriptId;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListBuildsByScriptResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'external_script_id' },
@@ -54,7 +87,7 @@ export class WorkersService {
     public static listTriggersByScript<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         external_script_id: BuildsExternalScriptId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListTriggersByScriptResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'external_script_id' }] }]);
         return (options?.client ?? client).get<ListTriggersByScriptResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -75,6 +108,100 @@ export class WorkersService {
     }
     
     /**
+     * Delete worker build configuration
+     *
+     * Delete the build configuration for a Worker script.
+     */
+    public static deleteWorkerBuild<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BuildsAccountId;
+        script_tag: BuildsExternalScriptId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWorkerBuildResponses, DeleteWorkerBuildErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_tag' }] }]);
+        return (options?.client ?? client).delete<DeleteWorkerBuildResponses, DeleteWorkerBuildErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteWorkerBuildPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteWorkerBuildResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/builds/workers/{script_tag}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get worker build configuration
+     *
+     * Retrieve the build configuration for a specific Worker script, including git repository details and production settings.
+     */
+    public static getWorkerBuild<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BuildsAccountId;
+        script_tag: BuildsExternalScriptId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWorkerBuildResponses, GetWorkerBuildErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_tag' }] }]);
+        return (options?.client ?? client).get<GetWorkerBuildResponses, GetWorkerBuildErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetWorkerBuildPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetWorkerBuildResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/builds/workers/{script_tag}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update worker build configuration
+     *
+     * Update the build configuration for a Worker script. Supports partial updates to git repository settings and production build settings.
+     */
+    public static updateWorkerBuild<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BuildsAccountId;
+        script_tag: BuildsExternalScriptId;
+        buildsUpdateWorkerRequest: BuildsUpdateWorkerRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateWorkerBuildResponses, UpdateWorkerBuildErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'script_tag' },
+                    { key: 'buildsUpdateWorkerRequest', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<UpdateWorkerBuildResponses, UpdateWorkerBuildErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zUpdateWorkerBuildBody,
+                path: zUpdateWorkerBuildPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zUpdateWorkerBuildResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/builds/workers/{script_tag}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * List Workers
      *
      * List all Workers for an account.
@@ -85,7 +212,7 @@ export class WorkersService {
         per_page?: number;
         order_by?: 'deployed_on' | 'updated_on' | 'created_on' | 'name';
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListWorkersResponses, ListWorkersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -121,7 +248,7 @@ export class WorkersService {
         body: WorkersWorkerWritable & {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateWorkerResponses, CreateWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateWorkerResponses, CreateWorkerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -154,7 +281,7 @@ export class WorkersService {
     public static deleteWorker<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         worker_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWorkerResponses, DeleteWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'worker_id' }] }]);
         return (options?.client ?? client).delete<DeleteWorkerResponses, DeleteWorkerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -182,7 +309,7 @@ export class WorkersService {
     public static getWorker<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         worker_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWorkerResponses, GetWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'worker_id' }] }]);
         return (options?.client ?? client).get<GetWorkerResponses, GetWorkerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -213,7 +340,7 @@ export class WorkersService {
         body: WorkersWorkerWritable & {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditWorkerResponses, EditWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },
@@ -253,7 +380,7 @@ export class WorkersService {
         body: WorkersWorkerWritable & {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateWorkerResponses, UpdateWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },

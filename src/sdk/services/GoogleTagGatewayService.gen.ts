@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GoogleTagGatewayGoogleTagGatewayConfig, GoogleTagGatewayIdentifier, ZoneSettingsChangeGoogleTagGatewayConfigErrors, ZoneSettingsChangeGoogleTagGatewayConfigResponses, ZoneSettingsGetGoogleTagGatewayConfigErrors, ZoneSettingsGetGoogleTagGatewayConfigResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class GoogleTagGatewayService {
      */
     public static zoneSettingsGetGoogleTagGatewayConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: GoogleTagGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsGetGoogleTagGatewayConfigResponses, ZoneSettingsGetGoogleTagGatewayConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneSettingsGetGoogleTagGatewayConfigResponses, ZoneSettingsGetGoogleTagGatewayConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class GoogleTagGatewayService {
     public static zoneSettingsChangeGoogleTagGatewayConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: GoogleTagGatewayIdentifier;
         googleTagGatewayGoogleTagGatewayConfig: GoogleTagGatewayGoogleTagGatewayConfig;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsChangeGoogleTagGatewayConfigResponses, ZoneSettingsChangeGoogleTagGatewayConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'googleTagGatewayGoogleTagGatewayConfig', map: 'body' }] }]);
         return (options?.client ?? client).put<ZoneSettingsChangeGoogleTagGatewayConfigResponses, ZoneSettingsChangeGoogleTagGatewayConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

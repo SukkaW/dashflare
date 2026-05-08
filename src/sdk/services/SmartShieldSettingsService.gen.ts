@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SmartShieldGetSettingsErrors, SmartShieldGetSettingsResponses, SmartshieldIdentifier, SmartShieldPatchSettingsErrors, SmartShieldPatchSettingsResponses, SmartshieldSmartShieldSettingsPatchBody } from '../types.gen';
@@ -18,7 +18,7 @@ export class SmartShieldSettingsService {
      */
     public static smartShieldGetSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SmartshieldIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldGetSettingsResponses, SmartShieldGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SmartShieldGetSettingsResponses, SmartShieldGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class SmartShieldSettingsService {
     public static smartShieldPatchSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SmartshieldIdentifier;
         smartshieldSmartShieldSettingsPatchBody: SmartshieldSmartShieldSettingsPatchBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldPatchSettingsResponses, SmartShieldPatchSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'smartshieldSmartShieldSettingsPatchBody', map: 'body' }] }]);
         return (options?.client ?? client).patch<SmartShieldPatchSettingsResponses, SmartShieldPatchSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

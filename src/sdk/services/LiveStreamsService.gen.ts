@@ -4,13 +4,46 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { FetchAllLivestreamsResponses, GetLivestreamAnalyticsCompleteResponses, GetV2ActiveLivestreamSessionDetailsResponses, GetV2LivestreamSessionLivestreamIdResponses, GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponses, GetV2LivestreamsLivestreamSessionIdResponses, GetV2MeetingsMeetingIdActiveLivestreamResponses, LivestreamSessionDetailsResponses, PostAccountsByAccountIdRealtimeKitByAppIdLivestreamsResponses, RealtimekitAccountIdentifier, RealtimekitAppId, StartLivestreamingResponses, StopLivestreamingResponses } from '../types.gen';
-import { zFetchAllLivestreamsPath, zFetchAllLivestreamsQuery, zFetchAllLivestreamsResponse, zGetLivestreamAnalyticsCompletePath, zGetLivestreamAnalyticsCompleteQuery, zGetLivestreamAnalyticsCompleteResponse, zGetV2ActiveLivestreamSessionDetailsPath, zGetV2ActiveLivestreamSessionDetailsResponse, zGetV2LivestreamSessionLivestreamIdPath, zGetV2LivestreamSessionLivestreamIdQuery, zGetV2LivestreamSessionLivestreamIdResponse, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamPath, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamQuery, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponse, zGetV2LivestreamsLivestreamSessionIdPath, zGetV2LivestreamsLivestreamSessionIdResponse, zGetV2MeetingsMeetingIdActiveLivestreamPath, zGetV2MeetingsMeetingIdActiveLivestreamResponse, zLivestreamSessionDetailsPath, zLivestreamSessionDetailsQuery, zLivestreamSessionDetailsResponse, zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsBody, zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsPath, zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsResponse, zStartLivestreamingBody, zStartLivestreamingPath, zStartLivestreamingResponse, zStopLivestreamingPath, zStopLivestreamingResponse } from '../zod.gen';
+import type { CreateLivestreamResponses, FetchAllLivestreamsResponses, GetLivestreamAnalyticsCompleteResponses, GetLivestreamAnalyticsDaywiseResponses, GetV2ActiveLivestreamSessionDetailsResponses, GetV2LivestreamSessionLivestreamIdResponses, GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponses, GetV2LivestreamsLivestreamSessionIdResponses, GetV2MeetingsMeetingIdActiveLivestreamResponses, LivestreamSessionDetailsResponses, RealtimekitAccountIdentifier, RealtimekitAppId, StartLivestreamingResponses, StopLivestreamingResponses } from '../types.gen';
+import { zCreateLivestreamBody, zCreateLivestreamPath, zCreateLivestreamResponse, zFetchAllLivestreamsPath, zFetchAllLivestreamsQuery, zFetchAllLivestreamsResponse, zGetLivestreamAnalyticsCompletePath, zGetLivestreamAnalyticsCompleteQuery, zGetLivestreamAnalyticsCompleteResponse, zGetLivestreamAnalyticsDaywisePath, zGetLivestreamAnalyticsDaywiseQuery, zGetLivestreamAnalyticsDaywiseResponse, zGetV2ActiveLivestreamSessionDetailsPath, zGetV2ActiveLivestreamSessionDetailsResponse, zGetV2LivestreamSessionLivestreamIdPath, zGetV2LivestreamSessionLivestreamIdQuery, zGetV2LivestreamSessionLivestreamIdResponse, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamPath, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamQuery, zGetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponse, zGetV2LivestreamsLivestreamSessionIdPath, zGetV2LivestreamsLivestreamSessionIdResponse, zGetV2MeetingsMeetingIdActiveLivestreamPath, zGetV2MeetingsMeetingIdActiveLivestreamResponse, zLivestreamSessionDetailsPath, zLivestreamSessionDetailsQuery, zLivestreamSessionDetailsResponse, zStartLivestreamingBody, zStartLivestreamingPath, zStartLivestreamingResponse, zStopLivestreamingPath, zStopLivestreamingResponse } from '../zod.gen';
 
 export class LiveStreamsService {
+    /**
+     * Fetch day-wise analytics data for your livestreams
+     *
+     * Returns day-wise livestream analytics for the specified time range.
+     */
+    public static getLivestreamAnalyticsDaywise<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+        start_time?: number;
+        end_time?: number;
+        filters?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLivestreamAnalyticsDaywiseResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'app_id' },
+                    { in: 'query', key: 'start_time' },
+                    { in: 'query', key: 'end_time' },
+                    { in: 'query', key: 'filters' }
+                ] }]);
+        return (options?.client ?? client).get<GetLivestreamAnalyticsDaywiseResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetLivestreamAnalyticsDaywisePath,
+                query: zGetLivestreamAnalyticsDaywiseQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetLivestreamAnalyticsDaywiseResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/{app_id}/analytics/livestreams/daywise',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * Fetch complete analytics data for your livestreams
      *
@@ -19,14 +52,16 @@ export class LiveStreamsService {
     public static getLivestreamAnalyticsComplete<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
-        start_time?: string;
-        end_time?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        start_time?: number;
+        end_time?: number;
+        filters?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLivestreamAnalyticsCompleteResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'query', key: 'start_time' },
-                    { in: 'query', key: 'end_time' }
+                    { in: 'query', key: 'end_time' },
+                    { in: 'query', key: 'filters' }
                 ] }]);
         return (options?.client ?? client).get<GetLivestreamAnalyticsCompleteResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -57,7 +92,7 @@ export class LiveStreamsService {
         start_time?: string;
         end_time?: string;
         sort_order?: 'ASC' | 'DSC';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FetchAllLivestreamsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -88,23 +123,23 @@ export class LiveStreamsService {
      *
      * Creates a livestream for the given App ID and returns ingest server, stream key, and playback URL. You can pass custom input to the ingest server and stream key, and freely distribute the content using the playback URL on any player that supports HLS/LHLS.
      */
-    public static postAccountsByAccountIdRealtimeKitByAppIdLivestreams<ThrowOnError extends boolean = true>(parameters: {
+    public static createLivestream<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         name?: string | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateLivestreamResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'body', key: 'name' }
                 ] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdRealtimeKitByAppIdLivestreamsResponses, unknown, ThrowOnError>({
+        return (options?.client ?? client).post<CreateLivestreamResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsBody,
-                path: zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsPath,
+                body: zCreateLivestreamBody,
+                path: zCreateLivestreamPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdRealtimeKitByAppIdLivestreamsResponse.parseAsync(data),
+            responseValidator: async (data) => await zCreateLivestreamResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/realtime/kit/{app_id}/livestreams',
             ...options,
@@ -126,7 +161,7 @@ export class LiveStreamsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         'livestream-session-id': string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV2LivestreamsLivestreamSessionIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -157,7 +192,7 @@ export class LiveStreamsService {
         livestream_id: string;
         page_no?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV2LivestreamSessionLivestreamIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -188,7 +223,7 @@ export class LiveStreamsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         livestream_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV2ActiveLivestreamSessionDetailsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -217,7 +252,7 @@ export class LiveStreamsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         meeting_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV2MeetingsMeetingIdActiveLivestreamResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -246,7 +281,7 @@ export class LiveStreamsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         meeting_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StopLivestreamingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -277,7 +312,7 @@ export class LiveStreamsService {
         meeting_id: string;
         page_no?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LivestreamSessionDetailsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -319,7 +354,7 @@ export class LiveStreamsService {
              */
             width?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StartLivestreamingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -357,7 +392,7 @@ export class LiveStreamsService {
         session_id: string;
         per_page?: number;
         page_no?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV2LivestreamsessionSessionMeetingIdActiveLivestreamResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ListClientTargetEnvironmentsResponses, ListClientVersionsResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class ClientVersionsService {
         release_track: 'ga' | 'beta';
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListClientVersionsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'target_environment' },
@@ -51,7 +51,7 @@ export class ClientVersionsService {
      */
     public static listClientTargetEnvironments<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListClientTargetEnvironmentsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListClientTargetEnvironmentsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({

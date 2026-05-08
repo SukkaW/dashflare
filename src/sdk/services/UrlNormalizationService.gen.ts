@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteUrlNormalizationErrors, DeleteUrlNormalizationResponses, GetUrlNormalizationErrors, GetUrlNormalizationResponses, RulesetsUrlNormalization2, RulesetsZoneId, UpdateUrlNormalizationErrors, UpdateUrlNormalizationResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class UrlNormalizationService {
      */
     public static deleteUrlNormalization<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteUrlNormalizationResponses, DeleteUrlNormalizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<DeleteUrlNormalizationResponses, DeleteUrlNormalizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class UrlNormalizationService {
      */
     public static getUrlNormalization<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetUrlNormalizationResponses, GetUrlNormalizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetUrlNormalizationResponses, GetUrlNormalizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class UrlNormalizationService {
     public static updateUrlNormalization<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
         rulesetsUrlNormalization: RulesetsUrlNormalization2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateUrlNormalizationResponses, UpdateUrlNormalizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'rulesetsUrlNormalization', map: 'body' }] }]);
         return (options?.client ?? client).put<UpdateUrlNormalizationResponses, UpdateUrlNormalizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

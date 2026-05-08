@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessAppIdWritable, AccessApplicationsAddAnApplicationErrors, AccessApplicationsAddAnApplicationResponses, AccessApplicationsDeleteAnAccessApplicationErrors, AccessApplicationsDeleteAnAccessApplicationResponses, AccessApplicationsGetAnAccessApplicationErrors, AccessApplicationsGetAnAccessApplicationResponses, AccessApplicationsListAccessApplicationsErrors, AccessApplicationsListAccessApplicationsResponses, AccessApplicationsPatchUpdateAccessApplicationSettingsErrors, AccessApplicationsPatchUpdateAccessApplicationSettingsResponses, AccessApplicationsPutUpdateAccessApplicationSettingsErrors, AccessApplicationsPutUpdateAccessApplicationSettingsResponses, AccessApplicationsRevokeServiceTokensErrors, AccessApplicationsRevokeServiceTokensResponses, AccessApplicationsTestAccessPoliciesErrors, AccessApplicationsTestAccessPoliciesResponses, AccessApplicationsUpdateAnAccessApplicationErrors, AccessApplicationsUpdateAnAccessApplicationResponses, AccessAppRequestWritable, AccessAppSettingsRequest, AccessIdentifier } from '../types.gen';
@@ -26,7 +26,7 @@ export class AccessApplicationsService {
         search?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsListAccessApplicationsResponses, AccessApplicationsListAccessApplicationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -64,7 +64,7 @@ export class AccessApplicationsService {
     public static accessApplicationsAddAnApplication<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         accessAppRequestWritable: AccessAppRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsAddAnApplicationResponses, AccessApplicationsAddAnApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessAppRequestWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccessApplicationsAddAnApplicationResponses, AccessApplicationsAddAnApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -97,7 +97,7 @@ export class AccessApplicationsService {
     public static accessApplicationsDeleteAnAccessApplication<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsDeleteAnAccessApplicationResponses, AccessApplicationsDeleteAnAccessApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessApplicationsDeleteAnAccessApplicationResponses, AccessApplicationsDeleteAnAccessApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -125,7 +125,7 @@ export class AccessApplicationsService {
     public static accessApplicationsGetAnAccessApplication<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsGetAnAccessApplicationResponses, AccessApplicationsGetAnAccessApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessApplicationsGetAnAccessApplicationResponses, AccessApplicationsGetAnAccessApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -154,7 +154,7 @@ export class AccessApplicationsService {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
         accessAppRequestWritable: AccessAppRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsUpdateAnAccessApplicationResponses, AccessApplicationsUpdateAnAccessApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },
@@ -191,7 +191,7 @@ export class AccessApplicationsService {
     public static accessApplicationsRevokeServiceTokens<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsRevokeServiceTokensResponses, AccessApplicationsRevokeServiceTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<AccessApplicationsRevokeServiceTokensResponses, AccessApplicationsRevokeServiceTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -220,7 +220,7 @@ export class AccessApplicationsService {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
         accessAppSettingsRequest: AccessAppSettingsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsPatchUpdateAccessApplicationSettingsResponses, AccessApplicationsPatchUpdateAccessApplicationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },
@@ -258,7 +258,7 @@ export class AccessApplicationsService {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
         accessAppSettingsRequest: AccessAppSettingsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsPutUpdateAccessApplicationSettingsResponses, AccessApplicationsPutUpdateAccessApplicationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },
@@ -295,7 +295,7 @@ export class AccessApplicationsService {
     public static accessApplicationsTestAccessPolicies<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessApplicationsTestAccessPoliciesResponses, AccessApplicationsTestAccessPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessApplicationsTestAccessPoliciesResponses, AccessApplicationsTestAccessPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

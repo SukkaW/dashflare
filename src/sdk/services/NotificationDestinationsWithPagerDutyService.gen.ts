@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AaaAccountId, AaaIntegrationToken, NotificationDestinationsWithPagerDutyConnectPagerDutyErrors, NotificationDestinationsWithPagerDutyConnectPagerDutyResponses, NotificationDestinationsWithPagerDutyConnectPagerDutyTokenErrors, NotificationDestinationsWithPagerDutyConnectPagerDutyTokenResponses, NotificationDestinationsWithPagerDutyDeletePagerDutyServicesErrors, NotificationDestinationsWithPagerDutyDeletePagerDutyServicesResponses, NotificationDestinationsWithPagerDutyListPagerDutyServicesErrors, NotificationDestinationsWithPagerDutyListPagerDutyServicesResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class NotificationDestinationsWithPagerDutyService {
      */
     public static notificationDestinationsWithPagerDutyDeletePagerDutyServices<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationDestinationsWithPagerDutyDeletePagerDutyServicesResponses, NotificationDestinationsWithPagerDutyDeletePagerDutyServicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<NotificationDestinationsWithPagerDutyDeletePagerDutyServicesResponses, NotificationDestinationsWithPagerDutyDeletePagerDutyServicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class NotificationDestinationsWithPagerDutyService {
      */
     public static notificationDestinationsWithPagerDutyListPagerDutyServices<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationDestinationsWithPagerDutyListPagerDutyServicesResponses, NotificationDestinationsWithPagerDutyListPagerDutyServicesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NotificationDestinationsWithPagerDutyListPagerDutyServicesResponses, NotificationDestinationsWithPagerDutyListPagerDutyServicesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,7 +72,7 @@ export class NotificationDestinationsWithPagerDutyService {
      */
     public static notificationDestinationsWithPagerDutyConnectPagerDuty<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationDestinationsWithPagerDutyConnectPagerDutyResponses, NotificationDestinationsWithPagerDutyConnectPagerDutyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<NotificationDestinationsWithPagerDutyConnectPagerDutyResponses, NotificationDestinationsWithPagerDutyConnectPagerDutyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class NotificationDestinationsWithPagerDutyService {
     public static notificationDestinationsWithPagerDutyConnectPagerDutyToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         token_id: AaaIntegrationToken;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationDestinationsWithPagerDutyConnectPagerDutyTokenResponses, NotificationDestinationsWithPagerDutyConnectPagerDutyTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'token_id' }] }]);
         return (options?.client ?? client).get<NotificationDestinationsWithPagerDutyConnectPagerDutyTokenResponses, NotificationDestinationsWithPagerDutyConnectPagerDutyTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

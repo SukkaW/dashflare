@@ -4,19 +4,21 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeleteTagDeleteErrors, DeleteTagDeleteResponses, GetTagIndicatorsListErrors, GetTagIndicatorsListResponses, GetTagListErrors, GetTagListResponses, PatchTagUpdateErrors, PatchTagUpdateResponses, PostTagCreateErrors, PostTagCreateResponses } from '../types.gen';
-import { zDeleteTagDeletePath, zDeleteTagDeleteResponse, zGetTagIndicatorsListPath, zGetTagIndicatorsListQuery, zGetTagIndicatorsListResponse, zGetTagListPath, zGetTagListQuery, zGetTagListResponse, zPatchTagUpdateBody, zPatchTagUpdatePath, zPatchTagUpdateResponse, zPostTagCreateBody, zPostTagCreatePath, zPostTagCreateResponse } from '../zod.gen';
+import type { DeleteTagDeleteErrors, DeleteTagDeleteResponses, GetDatasetTagIndicatorsListErrors, GetDatasetTagIndicatorsListResponses, GetTagIndicatorsListErrors, GetTagIndicatorsListResponses, GetTagListErrors, GetTagListResponses, PatchTagUpdateErrors, PatchTagUpdateResponses, PostTagCreateErrors, PostTagCreateResponses } from '../types.gen';
+import { zDeleteTagDeletePath, zDeleteTagDeleteResponse, zGetDatasetTagIndicatorsListPath, zGetDatasetTagIndicatorsListQuery, zGetDatasetTagIndicatorsListResponse, zGetTagIndicatorsListPath, zGetTagIndicatorsListQuery, zGetTagIndicatorsListResponse, zGetTagListPath, zGetTagListQuery, zGetTagListResponse, zPatchTagUpdateBody, zPatchTagUpdatePath, zPatchTagUpdateResponse, zPostTagCreateBody, zPostTagCreatePath, zPostTagCreateResponse } from '../zod.gen';
 
 export class TagService {
     /**
-     * List indicators related to a tag
+     * List indicators related to a tag within a dataset (deprecated)
      *
-     * Returns indicators associated with the provided tag UUID across all indicator datasets, with pagination.
+     * This endpoint is deprecated. Use GET /:account_id/events/tags/:tag_uuid/indicators with the optional datasetIds query parameter instead. Returns indicators associated with the provided tag UUID within a single dataset's indicator shards, with pagination.
+     *
+     * @deprecated
      */
-    public static getTagIndicatorsList<ThrowOnError extends boolean = true>(parameters: {
+    public static getDatasetTagIndicatorsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         tag_uuid: string;
         dataset_id: string;
@@ -24,7 +26,21 @@ export class TagService {
         pageSize?: number;
         indicatorType?: string;
         relatedEvent?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+        search?: Array<{
+            /**
+             * The indicator field to search on. Allowed: value, indicatorType, uuid.
+             */
+            field: 'value' | 'indicatorType' | 'uuid';
+            /**
+             * Search operator. Use 'in' for bulk lookup of up to 100 values at once, e.g. {field:'value', op:'in', value:['evil.com','bad.org']}.
+             */
+            op: 'equals' | 'not' | 'gt' | 'gte' | 'lt' | 'lte' | 'like' | 'contains' | 'startsWith' | 'endsWith' | 'in' | 'find';
+            /**
+             * Search value. String for most operators. Array of strings for 'in' operator (max 100 items).
+             */
+            value: string | Array<string>;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDatasetTagIndicatorsListResponses, GetDatasetTagIndicatorsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tag_uuid' },
@@ -32,15 +48,16 @@ export class TagService {
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'pageSize' },
                     { in: 'query', key: 'indicatorType' },
-                    { in: 'query', key: 'relatedEvent' }
+                    { in: 'query', key: 'relatedEvent' },
+                    { in: 'query', key: 'search' }
                 ] }]);
-        return (options?.client ?? client).get<GetTagIndicatorsListResponses, GetTagIndicatorsListErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetDatasetTagIndicatorsListResponses, GetDatasetTagIndicatorsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetTagIndicatorsListPath,
-                query: zGetTagIndicatorsListQuery.optional()
+                path: zGetDatasetTagIndicatorsListPath,
+                query: zGetDatasetTagIndicatorsListQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetTagIndicatorsListResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetDatasetTagIndicatorsListResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/tags/{tag_uuid}/indicators',
             ...options,
@@ -51,7 +68,7 @@ export class TagService {
     /**
      * Lists all tags (SoT)
      *
-     * Returns all Source-of-Truth tags for an account.
+     * Returns all Source-of-Truth tags for an account. Supports legacy free-text `search` on tag value and `categoryUuid` exact match, plus a structured `filters` JSON array for filtering by metadata fields (originCountryISO, actorCategory, motive, priority, etc.). Country values may be passed as alpha-2, alpha-3, name, or common alias.
      */
     public static getTagList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -59,13 +76,30 @@ export class TagService {
         pageSize?: number;
         search?: string;
         categoryUuid?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        filters?: Array<{
+            /**
+             * Tag field to search on. Allowed: uuid, value, actorCategory, actorCategoryConfidence, aliasGroupNames, attributionConfidence, attributionConfidenceScore, attributionOrganization, categoryName, motive, motiveConfidence, opsecLevel, originCountryISO, originCountryConfidence, sophisticationLevel, priority, analyticPriority.
+             */
+            field: 'uuid' | 'value' | 'actorCategory' | 'actorCategoryConfidence' | 'aliasGroupNames' | 'attributionConfidence' | 'attributionConfidenceScore' | 'attributionOrganization' | 'categoryName' | 'motive' | 'motiveConfidence' | 'opsecLevel' | 'originCountryISO' | 'originCountryConfidence' | 'sophisticationLevel' | 'priority' | 'analyticPriority';
+            /**
+             * Search operator. Use 'in' for bulk OR within a single field, e.g. {field:"originCountryISO", op:"in", value:["IR","CN"]}.
+             */
+            op: 'equals' | 'not' | 'gt' | 'gte' | 'lt' | 'lte' | 'like' | 'contains' | 'startsWith' | 'endsWith' | 'in' | 'find';
+            /**
+             * Search value. String or number for most operators. Array for 'in' (max 100 items). Country values may be passed as alpha-2, alpha-3, name, or common alias (e.g. 'iran', 'IR', 'IRN') and are normalized to alpha-2 server-side.
+             */
+            value?: string | number | Array<string | number>;
+        }>;
+        cache?: 'from-graph';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTagListResponses, GetTagListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'pageSize' },
                     { in: 'query', key: 'search' },
-                    { in: 'query', key: 'categoryUuid' }
+                    { in: 'query', key: 'categoryUuid' },
+                    { in: 'query', key: 'filters' },
+                    { in: 'query', key: 'cache' }
                 ] }]);
         return (options?.client ?? client).get<GetTagListResponses, GetTagListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,36 +124,65 @@ export class TagService {
         account_id: string;
         activeDuration?: string;
         actorCategory?: string;
+        actorCategoryConfidence?: number;
         aliasGroupNames?: Array<string>;
         aliasGroupNamesInternal?: Array<string>;
+        aliases?: Array<{
+            confidence?: number | null;
+            tlp?: 'red' | 'amber' | 'green' | 'white';
+            value: string;
+        }>;
         analyticPriority?: number;
         attributionConfidence?: string;
+        attributionConfidenceScore?: number;
         attributionOrganization?: string;
         categoryUuid?: string;
+        dateOfDiscovery?: string;
         externalReferenceLinks?: Array<string>;
+        externalReferences?: Array<{
+            description?: string | null;
+            url: string;
+        }>;
+        internalAliases?: Array<{
+            confidence?: number | null;
+            tlp?: 'red' | 'amber' | 'green' | 'white';
+            value: string;
+        }>;
         internalDescription?: string;
         motive?: string;
+        motiveConfidence?: number;
         opsecLevel?: string;
+        originCountryConfidence?: number;
         originCountryISO?: string;
+        originCountryTlp?: 'red' | 'amber' | 'green' | 'white';
         priority?: number;
         sophisticationLevel?: string;
         value: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostTagCreateResponses, PostTagCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'activeDuration' },
                     { in: 'body', key: 'actorCategory' },
+                    { in: 'body', key: 'actorCategoryConfidence' },
                     { in: 'body', key: 'aliasGroupNames' },
                     { in: 'body', key: 'aliasGroupNamesInternal' },
+                    { in: 'body', key: 'aliases' },
                     { in: 'body', key: 'analyticPriority' },
                     { in: 'body', key: 'attributionConfidence' },
+                    { in: 'body', key: 'attributionConfidenceScore' },
                     { in: 'body', key: 'attributionOrganization' },
                     { in: 'body', key: 'categoryUuid' },
+                    { in: 'body', key: 'dateOfDiscovery' },
                     { in: 'body', key: 'externalReferenceLinks' },
+                    { in: 'body', key: 'externalReferences' },
+                    { in: 'body', key: 'internalAliases' },
                     { in: 'body', key: 'internalDescription' },
                     { in: 'body', key: 'motive' },
+                    { in: 'body', key: 'motiveConfidence' },
                     { in: 'body', key: 'opsecLevel' },
+                    { in: 'body', key: 'originCountryConfidence' },
                     { in: 'body', key: 'originCountryISO' },
+                    { in: 'body', key: 'originCountryTlp' },
                     { in: 'body', key: 'priority' },
                     { in: 'body', key: 'sophisticationLevel' },
                     { in: 'body', key: 'value' }
@@ -151,7 +214,7 @@ export class TagService {
     public static deleteTagDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         tag_uuid: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTagDeleteResponses, DeleteTagDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tag_uuid' }] }]);
         return (options?.client ?? client).delete<DeleteTagDeleteResponses, DeleteTagDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -177,37 +240,66 @@ export class TagService {
         tag_uuid: string;
         activeDuration?: string;
         actorCategory?: string;
+        actorCategoryConfidence?: number;
         aliasGroupNames?: Array<string>;
         aliasGroupNamesInternal?: Array<string>;
+        aliases?: Array<{
+            confidence?: number | null;
+            tlp?: 'red' | 'amber' | 'green' | 'white';
+            value: string;
+        }>;
         analyticPriority?: number;
         attributionConfidence?: string;
+        attributionConfidenceScore?: number;
         attributionOrganization?: string;
         categoryUuid?: string;
+        dateOfDiscovery?: string;
         externalReferenceLinks?: Array<string>;
+        externalReferences?: Array<{
+            description?: string | null;
+            url: string;
+        }>;
+        internalAliases?: Array<{
+            confidence?: number | null;
+            tlp?: 'red' | 'amber' | 'green' | 'white';
+            value: string;
+        }>;
         internalDescription?: string;
         motive?: string;
+        motiveConfidence?: number;
         opsecLevel?: string;
+        originCountryConfidence?: number;
         originCountryISO?: string;
+        originCountryTlp?: 'red' | 'amber' | 'green' | 'white';
         priority?: number;
         sophisticationLevel?: string;
         value?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchTagUpdateResponses, PatchTagUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tag_uuid' },
                     { in: 'body', key: 'activeDuration' },
                     { in: 'body', key: 'actorCategory' },
+                    { in: 'body', key: 'actorCategoryConfidence' },
                     { in: 'body', key: 'aliasGroupNames' },
                     { in: 'body', key: 'aliasGroupNamesInternal' },
+                    { in: 'body', key: 'aliases' },
                     { in: 'body', key: 'analyticPriority' },
                     { in: 'body', key: 'attributionConfidence' },
+                    { in: 'body', key: 'attributionConfidenceScore' },
                     { in: 'body', key: 'attributionOrganization' },
                     { in: 'body', key: 'categoryUuid' },
+                    { in: 'body', key: 'dateOfDiscovery' },
                     { in: 'body', key: 'externalReferenceLinks' },
+                    { in: 'body', key: 'externalReferences' },
+                    { in: 'body', key: 'internalAliases' },
                     { in: 'body', key: 'internalDescription' },
                     { in: 'body', key: 'motive' },
+                    { in: 'body', key: 'motiveConfidence' },
                     { in: 'body', key: 'opsecLevel' },
+                    { in: 'body', key: 'originCountryConfidence' },
                     { in: 'body', key: 'originCountryISO' },
+                    { in: 'body', key: 'originCountryTlp' },
                     { in: 'body', key: 'priority' },
                     { in: 'body', key: 'sophisticationLevel' },
                     { in: 'body', key: 'value' }
@@ -228,6 +320,58 @@ export class TagService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * List indicators related to a tag
+     *
+     * Returns indicators associated with the provided tag UUID, with pagination. By default fans out across every indicator dataset the account can read; pass datasetIds to scope to specific datasets.
+     */
+    public static getTagIndicatorsList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        tag_uuid: string;
+        datasetIds?: Array<string>;
+        page?: number;
+        pageSize?: number;
+        indicatorType?: string;
+        relatedEvent?: Array<string>;
+        search?: Array<{
+            /**
+             * The indicator field to search on. Allowed: value, indicatorType, uuid.
+             */
+            field: 'value' | 'indicatorType' | 'uuid';
+            /**
+             * Search operator. Use 'in' for bulk lookup of up to 100 values at once, e.g. {field:'value', op:'in', value:['evil.com','bad.org']}.
+             */
+            op: 'equals' | 'not' | 'gt' | 'gte' | 'lt' | 'lte' | 'like' | 'contains' | 'startsWith' | 'endsWith' | 'in' | 'find';
+            /**
+             * Search value. String for most operators. Array of strings for 'in' operator (max 100 items).
+             */
+            value: string | Array<string>;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTagIndicatorsListResponses, GetTagIndicatorsListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'tag_uuid' },
+                    { in: 'query', key: 'datasetIds' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'pageSize' },
+                    { in: 'query', key: 'indicatorType' },
+                    { in: 'query', key: 'relatedEvent' },
+                    { in: 'query', key: 'search' }
+                ] }]);
+        return (options?.client ?? client).get<GetTagIndicatorsListResponses, GetTagIndicatorsListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTagIndicatorsListPath,
+                query: zGetTagIndicatorsListQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTagIndicatorsListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/events/tags/{tag_uuid}/indicators',
+            ...options,
+            ...params
         });
     }
 }

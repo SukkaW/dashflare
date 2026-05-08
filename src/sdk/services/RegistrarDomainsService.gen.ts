@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RegistrarApiDomainName, RegistrarApiDomainUpdateProperties, RegistrarApiIdentifier, RegistrarDomainsGetDomainErrors, RegistrarDomainsGetDomainResponses, RegistrarDomainsListDomainsErrors, RegistrarDomainsListDomainsResponses, RegistrarDomainsUpdateDomainErrors, RegistrarDomainsUpdateDomainResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class RegistrarDomainsService {
      */
     public static registrarDomainsListDomains<ThrowOnError extends boolean = true>(parameters: {
         account_id: RegistrarApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainsListDomainsResponses, RegistrarDomainsListDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<RegistrarDomainsListDomainsResponses, RegistrarDomainsListDomainsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class RegistrarDomainsService {
     public static registrarDomainsGetDomain<ThrowOnError extends boolean = true>(parameters: {
         domain_name: RegistrarApiDomainName;
         account_id: RegistrarApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainsGetDomainResponses, RegistrarDomainsGetDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'domain_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<RegistrarDomainsGetDomainResponses, RegistrarDomainsGetDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class RegistrarDomainsService {
         domain_name: RegistrarApiDomainName;
         account_id: RegistrarApiIdentifier;
         registrarApiDomainUpdateProperties: RegistrarApiDomainUpdateProperties;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegistrarDomainsUpdateDomainResponses, RegistrarDomainsUpdateDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'domain_name' },
                     { in: 'path', key: 'account_id' },

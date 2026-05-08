@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AaaAccountId, AaaComponentsSchemasName, AaaSecret, AaaUrl, AaaWebhookId, NotificationWebhooksCreateAWebhookErrors, NotificationWebhooksCreateAWebhookResponses, NotificationWebhooksDeleteAWebhookErrors, NotificationWebhooksDeleteAWebhookResponses, NotificationWebhooksGetAWebhookErrors, NotificationWebhooksGetAWebhookResponses, NotificationWebhooksListWebhooksErrors, NotificationWebhooksListWebhooksResponses, NotificationWebhooksUpdateAWebhookErrors, NotificationWebhooksUpdateAWebhookResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class NotificationWebhooksService {
      */
     public static notificationWebhooksListWebhooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationWebhooksListWebhooksResponses, NotificationWebhooksListWebhooksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NotificationWebhooksListWebhooksResponses, NotificationWebhooksListWebhooksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class NotificationWebhooksService {
         name: AaaComponentsSchemasName;
         secret?: AaaSecret;
         url: AaaUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationWebhooksCreateAWebhookResponses, NotificationWebhooksCreateAWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'name' },
@@ -86,7 +86,7 @@ export class NotificationWebhooksService {
     public static notificationWebhooksDeleteAWebhook<ThrowOnError extends boolean = true>(parameters: {
         webhook_id: AaaWebhookId;
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationWebhooksDeleteAWebhookResponses, NotificationWebhooksDeleteAWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'webhook_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<NotificationWebhooksDeleteAWebhookResponses, NotificationWebhooksDeleteAWebhookErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class NotificationWebhooksService {
     public static notificationWebhooksGetAWebhook<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         webhook_id: AaaWebhookId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationWebhooksGetAWebhookResponses, NotificationWebhooksGetAWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'webhook_id' }] }]);
         return (options?.client ?? client).get<NotificationWebhooksGetAWebhookResponses, NotificationWebhooksGetAWebhookErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -145,7 +145,7 @@ export class NotificationWebhooksService {
         name: AaaComponentsSchemasName;
         secret?: AaaSecret;
         url: AaaUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationWebhooksUpdateAWebhookResponses, NotificationWebhooksUpdateAWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'webhook_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountLoadBalancerMonitorGroupsCreateMonitorGroupErrors, AccountLoadBalancerMonitorGroupsCreateMonitorGroupResponses, AccountLoadBalancerMonitorGroupsDeleteMonitorGroupErrors, AccountLoadBalancerMonitorGroupsDeleteMonitorGroupResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesErrors, AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupsErrors, AccountLoadBalancerMonitorGroupsListMonitorGroupsResponses, AccountLoadBalancerMonitorGroupsMonitorGroupDetailsErrors, AccountLoadBalancerMonitorGroupsMonitorGroupDetailsResponses, AccountLoadBalancerMonitorGroupsPatchMonitorGroupErrors, AccountLoadBalancerMonitorGroupsPatchMonitorGroupResponses, AccountLoadBalancerMonitorGroupsUpdateMonitorGroupErrors, AccountLoadBalancerMonitorGroupsUpdateMonitorGroupResponses, LoadBalancingComponentsSchemasIdentifier, LoadBalancingIdentifier, LoadBalancingMonitorGroupWritable, LoadBalancingSchemasIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class AccountLoadBalancerMonitorGroupsService {
      */
     public static accountLoadBalancerMonitorGroupsListMonitorGroups<ThrowOnError extends boolean = true>(parameters: {
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsListMonitorGroupsResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorGroupsListMonitorGroupsResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class AccountLoadBalancerMonitorGroupsService {
     public static accountLoadBalancerMonitorGroupsCreateMonitorGroup<ThrowOnError extends boolean = true>(parameters: {
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorGroupWritable: LoadBalancingMonitorGroupWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsCreateMonitorGroupResponses, AccountLoadBalancerMonitorGroupsCreateMonitorGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'loadBalancingMonitorGroupWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountLoadBalancerMonitorGroupsCreateMonitorGroupResponses, AccountLoadBalancerMonitorGroupsCreateMonitorGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class AccountLoadBalancerMonitorGroupsService {
     public static accountLoadBalancerMonitorGroupsDeleteMonitorGroup<ThrowOnError extends boolean = true>(parameters: {
         monitor_group_id: LoadBalancingSchemasIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsDeleteMonitorGroupResponses, AccountLoadBalancerMonitorGroupsDeleteMonitorGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_group_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccountLoadBalancerMonitorGroupsDeleteMonitorGroupResponses, AccountLoadBalancerMonitorGroupsDeleteMonitorGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class AccountLoadBalancerMonitorGroupsService {
     public static accountLoadBalancerMonitorGroupsMonitorGroupDetails<ThrowOnError extends boolean = true>(parameters: {
         monitor_group_id: LoadBalancingSchemasIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsMonitorGroupDetailsResponses, AccountLoadBalancerMonitorGroupsMonitorGroupDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_group_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorGroupsMonitorGroupDetailsResponses, AccountLoadBalancerMonitorGroupsMonitorGroupDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class AccountLoadBalancerMonitorGroupsService {
         monitor_group_id: LoadBalancingSchemasIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorGroupWritable: LoadBalancingMonitorGroupWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsPatchMonitorGroupResponses, AccountLoadBalancerMonitorGroupsPatchMonitorGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_group_id' },
                     { in: 'path', key: 'account_id' },
@@ -174,7 +174,7 @@ export class AccountLoadBalancerMonitorGroupsService {
         monitor_group_id: LoadBalancingSchemasIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorGroupWritable: LoadBalancingMonitorGroupWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsUpdateMonitorGroupResponses, AccountLoadBalancerMonitorGroupsUpdateMonitorGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_group_id' },
                     { in: 'path', key: 'account_id' },
@@ -211,7 +211,7 @@ export class AccountLoadBalancerMonitorGroupsService {
     public static accountLoadBalancerMonitorGroupsListMonitorGroupReferences<ThrowOnError extends boolean = true>(parameters: {
         monitor_group_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_group_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesResponses, AccountLoadBalancerMonitorGroupsListMonitorGroupReferencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

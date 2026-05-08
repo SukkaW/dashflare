@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AaaIdentifier, AuditLogsGetAccountAuditLogsErrors, AuditLogsGetAccountAuditLogsResponses, AuditLogsGetUserAuditLogsErrors, AuditLogsGetUserAuditLogsResponses, AuditLogsV2GetAccountAuditLogsErrors, AuditLogsV2GetAccountAuditLogsResponses, AuditLogsV2GetOrganizationAuditLogsErrors, AuditLogsV2GetOrganizationAuditLogsResponses } from '../types.gen';
-import { zAuditLogsGetAccountAuditLogsPath, zAuditLogsGetAccountAuditLogsQuery, zAuditLogsGetAccountAuditLogsResponse, zAuditLogsGetUserAuditLogsQuery, zAuditLogsGetUserAuditLogsResponse, zAuditLogsV2GetAccountAuditLogsPath, zAuditLogsV2GetAccountAuditLogsQuery, zAuditLogsV2GetAccountAuditLogsResponse, zAuditLogsV2GetOrganizationAuditLogsPath, zAuditLogsV2GetOrganizationAuditLogsQuery, zAuditLogsV2GetOrganizationAuditLogsResponse } from '../zod.gen';
+import type { AaaIdentifier, AuditLogsGetAccountAuditLogsErrors, AuditLogsGetAccountAuditLogsResponses, AuditLogsGetUserAuditLogsErrors, AuditLogsGetUserAuditLogsResponses, AuditLogsV2GetAccountAuditLogHistoryErrors, AuditLogsV2GetAccountAuditLogHistoryResponses, AuditLogsV2GetAccountAuditLogsErrors, AuditLogsV2GetAccountAuditLogsResponses, AuditLogsV2GetOrganizationAuditLogHistoryErrors, AuditLogsV2GetOrganizationAuditLogHistoryResponses, AuditLogsV2GetOrganizationAuditLogsErrors, AuditLogsV2GetOrganizationAuditLogsResponses, AuditLogsV2ListAccountProductCategoriesErrors, AuditLogsV2ListAccountProductCategoriesResponses } from '../types.gen';
+import { zAuditLogsGetAccountAuditLogsPath, zAuditLogsGetAccountAuditLogsQuery, zAuditLogsGetAccountAuditLogsResponse, zAuditLogsGetUserAuditLogsQuery, zAuditLogsGetUserAuditLogsResponse, zAuditLogsV2GetAccountAuditLogHistoryPath, zAuditLogsV2GetAccountAuditLogHistoryQuery, zAuditLogsV2GetAccountAuditLogHistoryResponse, zAuditLogsV2GetAccountAuditLogsPath, zAuditLogsV2GetAccountAuditLogsQuery, zAuditLogsV2GetAccountAuditLogsResponse, zAuditLogsV2GetOrganizationAuditLogHistoryPath, zAuditLogsV2GetOrganizationAuditLogHistoryQuery, zAuditLogsV2GetOrganizationAuditLogHistoryResponse, zAuditLogsV2GetOrganizationAuditLogsPath, zAuditLogsV2GetOrganizationAuditLogsQuery, zAuditLogsV2GetOrganizationAuditLogsResponse, zAuditLogsV2ListAccountProductCategoriesPath, zAuditLogsV2ListAccountProductCategoriesResponse } from '../zod.gen';
 
 export class AuditLogsService {
     /**
@@ -30,7 +30,7 @@ export class AuditLogsService {
         per_page?: number;
         page?: number;
         hide_user_logs?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsGetAccountAuditLogsResponses, AuditLogsGetAccountAuditLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -91,6 +91,7 @@ export class AuditLogsService {
         resource_product?: Array<string>;
         resource_type?: Array<string>;
         resource_scope?: Array<'accounts' | 'user' | 'zones' | 'memberships'>;
+        product_category?: Array<string>;
         zone_id?: Array<string>;
         zone_name?: Array<string>;
         'account_name.not'?: Array<string>;
@@ -120,7 +121,7 @@ export class AuditLogsService {
         direction?: 'desc' | 'asc';
         limit?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsV2GetAccountAuditLogsResponses, AuditLogsV2GetAccountAuditLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'account_name' },
@@ -143,6 +144,7 @@ export class AuditLogsService {
                     { in: 'query', key: 'resource_product' },
                     { in: 'query', key: 'resource_type' },
                     { in: 'query', key: 'resource_scope' },
+                    { in: 'query', key: 'product_category' },
                     { in: 'query', key: 'zone_id' },
                     { in: 'query', key: 'zone_name' },
                     { in: 'query', key: 'account_name.not' },
@@ -192,7 +194,85 @@ export class AuditLogsService {
     }
     
     /**
-     * Get organization audit logs (Version 2, Beta release)
+     * List account audit log product categories (Version 2)
+     *
+     * Lists the available audit log product categories and the resource products each one expands to. Use these values with the product_category filter on the account audit logs endpoint.
+     */
+    public static auditLogsV2ListAccountProductCategories<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsV2ListAccountProductCategoriesResponses, AuditLogsV2ListAccountProductCategoriesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<AuditLogsV2ListAccountProductCategoriesResponses, AuditLogsV2ListAccountProductCategoriesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAuditLogsV2ListAccountProductCategoriesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAuditLogsV2ListAccountProductCategoriesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/logs/audit/product_categories',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get resource change history from an account audit log entry (Version 2)
+     *
+     * Returns the chronological change history for the resource identified by the given audit log entry.
+     *
+     * The endpoint first locates the source audit log entry by `id` (using `action_time` to narrow the lookup window), derives identifying filters from that entry, and then returns matching audit logs within the `since`/`before` window.
+     *
+     * The `result_info.history_status` field indicates the quality of the resource identification used:
+     * - `exact`: Resource was identified by the resource URI.
+     * - `approximate`: Resource was identified without the resource URI.
+     * - `unavailable`: The source audit log entry did not contain enough information to identify the resource; an empty result is returned.
+     *
+     */
+    public static auditLogsV2GetAccountAuditLogHistory<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        id: string;
+        action_time: string;
+        since: string;
+        before: string;
+        direction?: 'desc' | 'asc';
+        limit?: number;
+        cursor?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsV2GetAccountAuditLogHistoryResponses, AuditLogsV2GetAccountAuditLogHistoryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'id' },
+                    { in: 'query', key: 'action_time' },
+                    { in: 'query', key: 'since' },
+                    { in: 'query', key: 'before' },
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'limit' },
+                    { in: 'query', key: 'cursor' }
+                ] }]);
+        return (options?.client ?? client).get<AuditLogsV2GetAccountAuditLogHistoryResponses, AuditLogsV2GetAccountAuditLogHistoryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAuditLogsV2GetAccountAuditLogHistoryPath,
+                query: zAuditLogsV2GetAccountAuditLogHistoryQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAuditLogsV2GetAccountAuditLogHistoryResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/logs/audit/{id}/history',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get organization audit logs (Version 2)
      *
      * Gets a list of audit logs for an organization.
      */
@@ -239,7 +319,7 @@ export class AuditLogsService {
         direction?: 'desc' | 'asc';
         limit?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsV2GetOrganizationAuditLogsResponses, AuditLogsV2GetOrganizationAuditLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'organization_id' },
                     { in: 'query', key: 'action_result' },
@@ -303,6 +383,57 @@ export class AuditLogsService {
     }
     
     /**
+     * Get resource change history from an organization audit log entry (Version 2)
+     *
+     * Returns the chronological change history for the resource identified by the given organization-scoped audit log entry.
+     *
+     * The endpoint first locates the source audit log entry by `id` (using `action_time` to narrow the lookup window), derives identifying filters from that entry, and then returns matching audit logs within the `since`/`before` window.
+     *
+     * The `result_info.history_status` field indicates the quality of the resource identification used:
+     * - `exact`: Resource was identified by the resource URI.
+     * - `approximate`: Resource was identified without the resource URI.
+     * - `unavailable`: The source audit log entry did not contain enough information to identify the resource; an empty result is returned.
+     *
+     */
+    public static auditLogsV2GetOrganizationAuditLogHistory<ThrowOnError extends boolean = true>(parameters: {
+        organization_id: string;
+        id: string;
+        action_time: string;
+        since: string;
+        before: string;
+        direction?: 'desc' | 'asc';
+        limit?: number;
+        cursor?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsV2GetOrganizationAuditLogHistoryResponses, AuditLogsV2GetOrganizationAuditLogHistoryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'organization_id' },
+                    { in: 'path', key: 'id' },
+                    { in: 'query', key: 'action_time' },
+                    { in: 'query', key: 'since' },
+                    { in: 'query', key: 'before' },
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'limit' },
+                    { in: 'query', key: 'cursor' }
+                ] }]);
+        return (options?.client ?? client).get<AuditLogsV2GetOrganizationAuditLogHistoryResponses, AuditLogsV2GetOrganizationAuditLogHistoryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAuditLogsV2GetOrganizationAuditLogHistoryPath,
+                query: zAuditLogsV2GetOrganizationAuditLogHistoryQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAuditLogsV2GetOrganizationAuditLogHistoryResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/organizations/{organization_id}/logs/audit/{id}/history',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get user audit logs
      *
      * Gets a list of audit logs for a user account. Can be filtered by who made the change, on which zone, and the timeframe of the change.
@@ -320,7 +451,7 @@ export class AuditLogsService {
         per_page?: number;
         page?: number;
         hide_user_logs?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AuditLogsGetUserAuditLogsResponses, AuditLogsGetUserAuditLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'id' },
                     { in: 'query', key: 'export' },

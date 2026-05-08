@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetDnsAs112SummaryErrors, RadarGetDnsAs112SummaryResponses, RadarGetDnsAs112TimeseriesByDnssecErrors, RadarGetDnsAs112TimeseriesByDnssecResponses, RadarGetDnsAs112TimeseriesByEdnsErrors, RadarGetDnsAs112TimeseriesByEdnsResponses, RadarGetDnsAs112TimeseriesByIpVersionErrors, RadarGetDnsAs112TimeseriesByIpVersionResponses, RadarGetDnsAs112TimeseriesByProtocolErrors, RadarGetDnsAs112TimeseriesByProtocolResponses, RadarGetDnsAs112TimeseriesByQueryTypeErrors, RadarGetDnsAs112TimeseriesByQueryTypeResponses, RadarGetDnsAs112TimeseriesByResponseCodesErrors, RadarGetDnsAs112TimeseriesByResponseCodesResponses, RadarGetDnsAs112TimeseriesErrors, RadarGetDnsAs112TimeseriesGroupByDnssecErrors, RadarGetDnsAs112TimeseriesGroupByDnssecResponses, RadarGetDnsAs112TimeseriesGroupByEdnsErrors, RadarGetDnsAs112TimeseriesGroupByEdnsResponses, RadarGetDnsAs112TimeseriesGroupByIpVersionErrors, RadarGetDnsAs112TimeseriesGroupByIpVersionResponses, RadarGetDnsAs112TimeseriesGroupByProtocolErrors, RadarGetDnsAs112TimeseriesGroupByProtocolResponses, RadarGetDnsAs112TimeseriesGroupByQueryTypeErrors, RadarGetDnsAs112TimeseriesGroupByQueryTypeResponses, RadarGetDnsAs112TimeseriesGroupByResponseCodesErrors, RadarGetDnsAs112TimeseriesGroupByResponseCodesResponses, RadarGetDnsAs112TimeseriesGroupErrors, RadarGetDnsAs112TimeseriesGroupResponses, RadarGetDnsAs112TimeseriesResponses, RadarGetDnsAs112TopLocationsByDnssecErrors, RadarGetDnsAs112TopLocationsByDnssecResponses, RadarGetDnsAs112TopLocationsByEdnsErrors, RadarGetDnsAs112TopLocationsByEdnsResponses, RadarGetDnsAs112TopLocationsByIpVersionErrors, RadarGetDnsAs112TopLocationsByIpVersionResponses, RadarGetDnsAs112TopLocationsErrors, RadarGetDnsAs112TopLocationsResponses } from '../types.gen';
@@ -29,7 +29,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByDnssecResponses, RadarGetDnsAs112TimeseriesByDnssecErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -78,7 +78,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByEdnsResponses, RadarGetDnsAs112TimeseriesByEdnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -127,7 +127,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByIpVersionResponses, RadarGetDnsAs112TimeseriesByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -175,7 +175,7 @@ export class RadarAs112Service {
         queryType?: Array<'A' | 'AAAA' | 'A6' | 'AFSDB' | 'ANY' | 'APL' | 'ATMA' | 'AXFR' | 'CAA' | 'CDNSKEY' | 'CDS' | 'CERT' | 'CNAME' | 'CSYNC' | 'DHCID' | 'DLV' | 'DNAME' | 'DNSKEY' | 'DOA' | 'DS' | 'EID' | 'EUI48' | 'EUI64' | 'GPOS' | 'GID' | 'HINFO' | 'HIP' | 'HTTPS' | 'IPSECKEY' | 'ISDN' | 'IXFR' | 'KEY' | 'KX' | 'L32' | 'L64' | 'LOC' | 'LP' | 'MAILA' | 'MAILB' | 'MB' | 'MD' | 'MF' | 'MG' | 'MINFO' | 'MR' | 'MX' | 'NAPTR' | 'NB' | 'NBSTAT' | 'NID' | 'NIMLOC' | 'NINFO' | 'NS' | 'NSAP' | 'NSEC' | 'NSEC3' | 'NSEC3PARAM' | 'NULL' | 'NXT' | 'OPENPGPKEY' | 'OPT' | 'PTR' | 'PX' | 'RKEY' | 'RP' | 'RRSIG' | 'RT' | 'SIG' | 'SINK' | 'SMIMEA' | 'SOA' | 'SPF' | 'SRV' | 'SSHFP' | 'SVCB' | 'TA' | 'TALINK' | 'TKEY' | 'TLSA' | 'TSIG' | 'TXT' | 'UINFO' | 'UID' | 'UNSPEC' | 'URI' | 'WKS' | 'X25' | 'ZONEMD'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByProtocolResponses, RadarGetDnsAs112TimeseriesByProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -223,7 +223,7 @@ export class RadarAs112Service {
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByQueryTypeResponses, RadarGetDnsAs112TimeseriesByQueryTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -272,7 +272,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesByResponseCodesResponses, RadarGetDnsAs112TimeseriesByResponseCodesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -321,7 +321,7 @@ export class RadarAs112Service {
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112SummaryResponses, RadarGetDnsAs112SummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -371,7 +371,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesResponses, RadarGetDnsAs112TimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -422,7 +422,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByDnssecResponses, RadarGetDnsAs112TimeseriesGroupByDnssecErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -473,7 +473,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByEdnsResponses, RadarGetDnsAs112TimeseriesGroupByEdnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -524,7 +524,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByIpVersionResponses, RadarGetDnsAs112TimeseriesGroupByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -574,7 +574,7 @@ export class RadarAs112Service {
         queryType?: Array<'A' | 'AAAA' | 'A6' | 'AFSDB' | 'ANY' | 'APL' | 'ATMA' | 'AXFR' | 'CAA' | 'CDNSKEY' | 'CDS' | 'CERT' | 'CNAME' | 'CSYNC' | 'DHCID' | 'DLV' | 'DNAME' | 'DNSKEY' | 'DOA' | 'DS' | 'EID' | 'EUI48' | 'EUI64' | 'GPOS' | 'GID' | 'HINFO' | 'HIP' | 'HTTPS' | 'IPSECKEY' | 'ISDN' | 'IXFR' | 'KEY' | 'KX' | 'L32' | 'L64' | 'LOC' | 'LP' | 'MAILA' | 'MAILB' | 'MB' | 'MD' | 'MF' | 'MG' | 'MINFO' | 'MR' | 'MX' | 'NAPTR' | 'NB' | 'NBSTAT' | 'NID' | 'NIMLOC' | 'NINFO' | 'NS' | 'NSAP' | 'NSEC' | 'NSEC3' | 'NSEC3PARAM' | 'NULL' | 'NXT' | 'OPENPGPKEY' | 'OPT' | 'PTR' | 'PX' | 'RKEY' | 'RP' | 'RRSIG' | 'RT' | 'SIG' | 'SINK' | 'SMIMEA' | 'SOA' | 'SPF' | 'SRV' | 'SSHFP' | 'SVCB' | 'TA' | 'TALINK' | 'TKEY' | 'TLSA' | 'TSIG' | 'TXT' | 'UINFO' | 'UID' | 'UNSPEC' | 'URI' | 'WKS' | 'X25' | 'ZONEMD'>;
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByProtocolResponses, RadarGetDnsAs112TimeseriesGroupByProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -624,7 +624,7 @@ export class RadarAs112Service {
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByQueryTypeResponses, RadarGetDnsAs112TimeseriesGroupByQueryTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -675,7 +675,7 @@ export class RadarAs112Service {
         protocol?: Array<'UDP' | 'TCP' | 'HTTPS' | 'TLS'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupByResponseCodesResponses, RadarGetDnsAs112TimeseriesGroupByResponseCodesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -726,7 +726,7 @@ export class RadarAs112Service {
         responseCode?: Array<'NOERROR' | 'FORMERR' | 'SERVFAIL' | 'NXDOMAIN' | 'NOTIMP' | 'REFUSED' | 'YXDOMAIN' | 'YXRRSET' | 'NXRRSET' | 'NOTAUTH' | 'NOTZONE' | 'BADSIG' | 'BADKEY' | 'BADTIME' | 'BADMODE' | 'BADNAME' | 'BADALG' | 'BADTRUNC' | 'BADCOOKIE'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TimeseriesGroupResponses, RadarGetDnsAs112TimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -774,7 +774,7 @@ export class RadarAs112Service {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TopLocationsResponses, RadarGetDnsAs112TopLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -818,7 +818,7 @@ export class RadarAs112Service {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TopLocationsByDnssecResponses, RadarGetDnsAs112TopLocationsByDnssecErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dnssec' },
                     { in: 'query', key: 'limit' },
@@ -863,7 +863,7 @@ export class RadarAs112Service {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TopLocationsByEdnsResponses, RadarGetDnsAs112TopLocationsByEdnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'edns' },
                     { in: 'query', key: 'limit' },
@@ -908,7 +908,7 @@ export class RadarAs112Service {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetDnsAs112TopLocationsByIpVersionResponses, RadarGetDnsAs112TopLocationsByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_version' },
                     { in: 'query', key: 'limit' },

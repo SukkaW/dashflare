@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { R2SlurperCreateJobRequest, R2SlurperR2TargetSchema, R2SlurperSourceJobSchema, SlurperAbortAllJobsErrors, SlurperAbortAllJobsResponses, SlurperAbortJobErrors, SlurperAbortJobResponses, SlurperCheckSourceConnectivityErrors, SlurperCheckSourceConnectivityResponses, SlurperCheckTargetConnectivityErrors, SlurperCheckTargetConnectivityResponses, SlurperCreateJobErrors, SlurperCreateJobResponses, SlurperDeleteJobErrors, SlurperDeleteJobResponses, SlurperGetJobErrors, SlurperGetJobLogsErrors, SlurperGetJobLogsResponses, SlurperGetJobProgressErrors, SlurperGetJobProgressResponses, SlurperGetJobResponses, SlurperListJobsErrors, SlurperListJobsResponses, SlurperPauseJobErrors, SlurperPauseJobResponses, SlurperResumeJobErrors, SlurperResumeJobResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class R2SuperSlurperService {
         account_id: string;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperListJobsResponses, SlurperListJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },
@@ -52,7 +52,7 @@ export class R2SuperSlurperService {
     public static slurperCreateJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         r2SlurperCreateJobRequest: R2SlurperCreateJobRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperCreateJobResponses, SlurperCreateJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'r2SlurperCreateJobRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<SlurperCreateJobResponses, SlurperCreateJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,7 +84,7 @@ export class R2SuperSlurperService {
      */
     public static slurperAbortAllJobs<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperAbortAllJobsResponses, SlurperAbortAllJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).put<SlurperAbortAllJobsResponses, SlurperAbortAllJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,7 +112,7 @@ export class R2SuperSlurperService {
     public static slurperDeleteJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperDeleteJobResponses, SlurperDeleteJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).delete<SlurperDeleteJobResponses, SlurperDeleteJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,7 +140,7 @@ export class R2SuperSlurperService {
     public static slurperGetJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperGetJobResponses, SlurperGetJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).get<SlurperGetJobResponses, SlurperGetJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -168,7 +168,7 @@ export class R2SuperSlurperService {
     public static slurperAbortJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperAbortJobResponses, SlurperAbortJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).put<SlurperAbortJobResponses, SlurperAbortJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -198,7 +198,7 @@ export class R2SuperSlurperService {
         job_id: string;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperGetJobLogsResponses, SlurperGetJobLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'job_id' },
@@ -231,7 +231,7 @@ export class R2SuperSlurperService {
     public static slurperPauseJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperPauseJobResponses, SlurperPauseJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).put<SlurperPauseJobResponses, SlurperPauseJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -259,7 +259,7 @@ export class R2SuperSlurperService {
     public static slurperGetJobProgress<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperGetJobProgressResponses, SlurperGetJobProgressErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).get<SlurperGetJobProgressResponses, SlurperGetJobProgressErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -287,7 +287,7 @@ export class R2SuperSlurperService {
     public static slurperResumeJob<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperResumeJobResponses, SlurperResumeJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).put<SlurperResumeJobResponses, SlurperResumeJobErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -315,7 +315,7 @@ export class R2SuperSlurperService {
     public static slurperCheckSourceConnectivity<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         r2SlurperSourceJobSchema: R2SlurperSourceJobSchema;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperCheckSourceConnectivityResponses, SlurperCheckSourceConnectivityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'r2SlurperSourceJobSchema', map: 'body' }] }]);
         return (options?.client ?? client).put<SlurperCheckSourceConnectivityResponses, SlurperCheckSourceConnectivityErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -348,7 +348,7 @@ export class R2SuperSlurperService {
     public static slurperCheckTargetConnectivity<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         r2SlurperR2TargetSchema: R2SlurperR2TargetSchema;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SlurperCheckTargetConnectivityResponses, SlurperCheckTargetConnectivityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'r2SlurperR2TargetSchema', map: 'body' }] }]);
         return (options?.client ?? client).put<SlurperCheckTargetConnectivityResponses, SlurperCheckTargetConnectivityErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

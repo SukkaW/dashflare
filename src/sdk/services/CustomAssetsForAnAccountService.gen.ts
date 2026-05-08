@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CustomAssetsForAnAccountCreateACustomAssetErrors, CustomAssetsForAnAccountCreateACustomAssetResponses, CustomAssetsForAnAccountDeleteACustomAssetErrors, CustomAssetsForAnAccountDeleteACustomAssetResponses, CustomAssetsForAnAccountGetACustomAssetErrors, CustomAssetsForAnAccountGetACustomAssetResponses, CustomAssetsForAnAccountListCustomAssetsErrors, CustomAssetsForAnAccountListCustomAssetsResponses, CustomAssetsForAnAccountUpdateACustomAssetErrors, CustomAssetsForAnAccountUpdateACustomAssetResponses, CustomPagesAssetDescription, CustomPagesAssetName, CustomPagesAssetUrl, CustomPagesIdentifier } from '../types.gen';
@@ -20,7 +20,7 @@ export class CustomAssetsForAnAccountService {
         account_identifier: CustomPagesIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAnAccountListCustomAssetsResponses, CustomAssetsForAnAccountListCustomAssetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_identifier' },
                     { in: 'query', key: 'page' },
@@ -50,7 +50,7 @@ export class CustomAssetsForAnAccountService {
         description: CustomPagesAssetDescription;
         name: CustomPagesAssetName;
         url: CustomPagesAssetUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAnAccountCreateACustomAssetResponses, CustomAssetsForAnAccountCreateACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_identifier' },
                     { in: 'body', key: 'description' },
@@ -84,7 +84,7 @@ export class CustomAssetsForAnAccountService {
     public static customAssetsForAnAccountDeleteACustomAsset<ThrowOnError extends boolean = true>(parameters: {
         asset_name: CustomPagesAssetName;
         account_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAnAccountDeleteACustomAssetResponses, CustomAssetsForAnAccountDeleteACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asset_name' }, { in: 'path', key: 'account_identifier' }] }]);
         return (options?.client ?? client).delete<CustomAssetsForAnAccountDeleteACustomAssetResponses, CustomAssetsForAnAccountDeleteACustomAssetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class CustomAssetsForAnAccountService {
     public static customAssetsForAnAccountGetACustomAsset<ThrowOnError extends boolean = true>(parameters: {
         asset_name: CustomPagesAssetName;
         account_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAnAccountGetACustomAssetResponses, CustomAssetsForAnAccountGetACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asset_name' }, { in: 'path', key: 'account_identifier' }] }]);
         return (options?.client ?? client).get<CustomAssetsForAnAccountGetACustomAssetResponses, CustomAssetsForAnAccountGetACustomAssetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class CustomAssetsForAnAccountService {
         account_identifier: CustomPagesIdentifier;
         description: CustomPagesAssetDescription;
         url: CustomPagesAssetUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAnAccountUpdateACustomAssetResponses, CustomAssetsForAnAccountUpdateACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'asset_name' },
                     { in: 'path', key: 'account_identifier' },

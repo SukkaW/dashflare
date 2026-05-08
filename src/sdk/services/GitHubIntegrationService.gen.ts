@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsBranch, BuildsProviderAccountId, BuildsRepoId, BuildsRootDirectory, BuildsScmProviderType, GetWorkerConfigAutofillResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class GitHubIntegrationService {
         repo_id: BuildsRepoId;
         branch: BuildsBranch;
         root_directory?: BuildsRootDirectory;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWorkerConfigAutofillResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'provider_type' },

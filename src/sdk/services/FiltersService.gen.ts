@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FiltersCreateFiltersErrors, FiltersCreateFiltersResponses, FiltersDeleteAFilterErrors, FiltersDeleteAFilterResponses, FiltersDeleteFiltersErrors, FiltersDeleteFiltersResponses, FiltersGetAFilterErrors, FiltersGetAFilterResponses, FiltersListFiltersErrors, FiltersListFiltersResponses, FiltersUpdateAFilterErrors, FiltersUpdateAFilterResponses, FiltersUpdateFiltersErrors, FiltersUpdateFiltersResponses, FirewallFilterRuleUpdateRequestWritable, FirewallFiltersComponentsSchemasId, FirewallFiltersComponentsSchemasPaused, FirewallFilterWritable, FirewallIdentifier } from '../types.gen';
@@ -21,7 +21,7 @@ export class FiltersService {
     public static filtersDeleteFilters<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         id: Array<FirewallFiltersComponentsSchemasId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersDeleteFiltersResponses, FiltersDeleteFiltersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'id' }] }]);
         return (options?.client ?? client).delete<FiltersDeleteFiltersResponses, FiltersDeleteFiltersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -57,7 +57,7 @@ export class FiltersService {
         page?: number;
         per_page?: number;
         id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersListFiltersResponses, FiltersListFiltersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'paused' },
@@ -96,7 +96,7 @@ export class FiltersService {
     public static filtersCreateFilters<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         body: Array<FirewallFilterWritable>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersCreateFiltersResponses, FiltersCreateFiltersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<FiltersCreateFiltersResponses, FiltersCreateFiltersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -131,7 +131,7 @@ export class FiltersService {
     public static filtersUpdateFilters<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         body: Array<FirewallFilterRuleUpdateRequestWritable>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersUpdateFiltersResponses, FiltersUpdateFiltersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<FiltersUpdateFiltersResponses, FiltersUpdateFiltersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -166,7 +166,7 @@ export class FiltersService {
     public static filtersDeleteAFilter<ThrowOnError extends boolean = true>(parameters: {
         filter_id: FirewallFiltersComponentsSchemasId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersDeleteAFilterResponses, FiltersDeleteAFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'filter_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<FiltersDeleteAFilterResponses, FiltersDeleteAFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -196,7 +196,7 @@ export class FiltersService {
     public static filtersGetAFilter<ThrowOnError extends boolean = true>(parameters: {
         filter_id: FirewallFiltersComponentsSchemasId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersGetAFilterResponses, FiltersGetAFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'filter_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<FiltersGetAFilterResponses, FiltersGetAFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +227,7 @@ export class FiltersService {
         filter_id: FirewallFiltersComponentsSchemasId;
         zone_id: FirewallIdentifier;
         firewallFilterWritable: FirewallFilterWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FiltersUpdateAFilterResponses, FiltersUpdateAFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'filter_id' },
                     { in: 'path', key: 'zone_id' },

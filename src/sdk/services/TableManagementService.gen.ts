@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ListTablesErrors, ListTablesResponses, R2DataCatalogAccountId, R2DataCatalogBucketName } from '../types.gen';
-import { zListTablesPath, zListTablesQuery, zListTablesResponse } from '../zod.gen';
+import type { GetTableErrors, GetTableResponses, ListTablesErrors, ListTablesResponses, R2DataCatalogAccountId, R2DataCatalogBucketName } from '../types.gen';
+import { zGetTablePath, zGetTableResponse, zListTablesPath, zListTablesQuery, zListTablesResponse } from '../zod.gen';
 
 export class TableManagementService {
     /**
@@ -26,7 +26,7 @@ export class TableManagementService {
         page_size?: number;
         return_uuids?: boolean;
         return_details?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListTablesResponses, ListTablesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },
@@ -49,6 +49,50 @@ export class TableManagementService {
                 { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/r2-catalog/{bucket_name}/namespaces/{namespace}/tables',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get table details
+     *
+     * Returns full Apache Iceberg metadata for a single table: schema,
+     * partition specs, sort orders, properties, and recent snapshot history.
+     * Designed for catalog introspection UIs that need per-table details
+     * without holding R2 credentials.
+     *
+     * The `metadata.snapshots`, `metadata.snapshot-log`, and
+     * `metadata.metadata-log` arrays are pruned to the most recent 10
+     * entries by `timestamp-ms`. Use `total_snapshots` and
+     * `returned_snapshots` to surface the truncation to end users.
+     *
+     */
+    public static getTable<ThrowOnError extends boolean = true>(parameters: {
+        account_id: R2DataCatalogAccountId;
+        bucket_name: R2DataCatalogBucketName;
+        namespace: string;
+        table_name: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTableResponses, GetTableErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'bucket_name' },
+                    { in: 'path', key: 'namespace' },
+                    { in: 'path', key: 'table_name' }
+                ] }]);
+        return (options?.client ?? client).get<GetTableResponses, GetTableErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTablePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTableResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/r2-catalog/{bucket_name}/namespaces/{namespace}/tables/{table_name}',
             ...options,
             ...params
         });

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { KeylessSslForAZoneCreateKeylessSslConfigurationErrors, KeylessSslForAZoneCreateKeylessSslConfigurationResponses, KeylessSslForAZoneDeleteKeylessSslConfigurationErrors, KeylessSslForAZoneDeleteKeylessSslConfigurationResponses, KeylessSslForAZoneEditKeylessSslConfigurationErrors, KeylessSslForAZoneEditKeylessSslConfigurationResponses, KeylessSslForAZoneGetKeylessSslConfigurationErrors, KeylessSslForAZoneGetKeylessSslConfigurationResponses, KeylessSslForAZoneListKeylessSslConfigurationsErrors, KeylessSslForAZoneListKeylessSslConfigurationsResponses, TlsCertificatesAndHostnamesBundleMethod, TlsCertificatesAndHostnamesEnabledWrite, TlsCertificatesAndHostnamesHost, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesKeylessTunnel, TlsCertificatesAndHostnamesNameWrite, TlsCertificatesAndHostnamesPort, TlsCertificatesAndHostnamesSchemasCertificate } from '../types.gen';
+import type { KeylessSslForAZoneCreateKeylessSslConfigurationErrors, KeylessSslForAZoneCreateKeylessSslConfigurationResponses, KeylessSslForAZoneDeleteKeylessSslConfigurationErrors, KeylessSslForAZoneDeleteKeylessSslConfigurationResponses, KeylessSslForAZoneEditKeylessSslConfigurationErrors, KeylessSslForAZoneEditKeylessSslConfigurationResponses, KeylessSslForAZoneGetKeylessSslConfigurationErrors, KeylessSslForAZoneGetKeylessSslConfigurationResponses, KeylessSslForAZoneListKeylessSslConfigurationsErrors, KeylessSslForAZoneListKeylessSslConfigurationsResponses, TlsCertificatesAndHostnamesBundleMethod, TlsCertificatesAndHostnamesCertificate2, TlsCertificatesAndHostnamesEnabledWrite, TlsCertificatesAndHostnamesHost, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesKeylessTunnel, TlsCertificatesAndHostnamesNameWrite, TlsCertificatesAndHostnamesPort } from '../types.gen';
 import { zKeylessSslForAZoneCreateKeylessSslConfigurationBody, zKeylessSslForAZoneCreateKeylessSslConfigurationPath, zKeylessSslForAZoneCreateKeylessSslConfigurationResponse, zKeylessSslForAZoneDeleteKeylessSslConfigurationBody, zKeylessSslForAZoneDeleteKeylessSslConfigurationPath, zKeylessSslForAZoneDeleteKeylessSslConfigurationResponse, zKeylessSslForAZoneEditKeylessSslConfigurationBody, zKeylessSslForAZoneEditKeylessSslConfigurationPath, zKeylessSslForAZoneEditKeylessSslConfigurationResponse, zKeylessSslForAZoneGetKeylessSslConfigurationPath, zKeylessSslForAZoneGetKeylessSslConfigurationResponse, zKeylessSslForAZoneListKeylessSslConfigurationsPath, zKeylessSslForAZoneListKeylessSslConfigurationsResponse } from '../zod.gen';
 
 export class KeylessSslForAZoneService {
@@ -18,7 +18,7 @@ export class KeylessSslForAZoneService {
      */
     public static keylessSslForAZoneListKeylessSslConfigurations<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KeylessSslForAZoneListKeylessSslConfigurationsResponses, KeylessSslForAZoneListKeylessSslConfigurationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<KeylessSslForAZoneListKeylessSslConfigurationsResponses, KeylessSslForAZoneListKeylessSslConfigurationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -28,9 +28,9 @@ export class KeylessSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zKeylessSslForAZoneListKeylessSslConfigurationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/keyless_certificates',
             ...options,
@@ -46,12 +46,12 @@ export class KeylessSslForAZoneService {
     public static keylessSslForAZoneCreateKeylessSslConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         bundle_method?: TlsCertificatesAndHostnamesBundleMethod;
-        certificate: TlsCertificatesAndHostnamesSchemasCertificate;
+        certificate: TlsCertificatesAndHostnamesCertificate2;
         host: TlsCertificatesAndHostnamesHost;
         name?: TlsCertificatesAndHostnamesNameWrite;
         port: TlsCertificatesAndHostnamesPort;
         tunnel?: TlsCertificatesAndHostnamesKeylessTunnel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KeylessSslForAZoneCreateKeylessSslConfigurationResponses, KeylessSslForAZoneCreateKeylessSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'bundle_method' },
@@ -69,9 +69,9 @@ export class KeylessSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zKeylessSslForAZoneCreateKeylessSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/keyless_certificates',
             ...options,
@@ -93,7 +93,7 @@ export class KeylessSslForAZoneService {
         keyless_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KeylessSslForAZoneDeleteKeylessSslConfigurationResponses, KeylessSslForAZoneDeleteKeylessSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'keyless_certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -107,9 +107,9 @@ export class KeylessSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zKeylessSslForAZoneDeleteKeylessSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/keyless_certificates/{keyless_certificate_id}',
             ...options,
@@ -130,7 +130,7 @@ export class KeylessSslForAZoneService {
     public static keylessSslForAZoneGetKeylessSslConfiguration<ThrowOnError extends boolean = true>(parameters: {
         keyless_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KeylessSslForAZoneGetKeylessSslConfigurationResponses, KeylessSslForAZoneGetKeylessSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'keyless_certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<KeylessSslForAZoneGetKeylessSslConfigurationResponses, KeylessSslForAZoneGetKeylessSslConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,9 +140,9 @@ export class KeylessSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zKeylessSslForAZoneGetKeylessSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/keyless_certificates/{keyless_certificate_id}',
             ...options,
@@ -163,7 +163,7 @@ export class KeylessSslForAZoneService {
         name?: TlsCertificatesAndHostnamesNameWrite;
         port?: TlsCertificatesAndHostnamesPort;
         tunnel?: TlsCertificatesAndHostnamesKeylessTunnel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KeylessSslForAZoneEditKeylessSslConfigurationResponses, KeylessSslForAZoneEditKeylessSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'keyless_certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -181,9 +181,9 @@ export class KeylessSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zKeylessSslForAZoneEditKeylessSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/keyless_certificates/{keyless_certificate_id}',
             ...options,

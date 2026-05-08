@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateCniErrors, CreateCniResponses, DeleteCniErrors, DeleteCniResponses, GetCniErrors, GetCniResponses, ListCnisErrors, ListCnisResponses, NscAccountTag, NscCni, NscCniCreate, UpdateCniErrors, UpdateCniResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class CnisService {
         tunnel_id?: string | null;
         cursor?: number | null;
         limit?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListCnisResponses, ListCnisErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'slot' },
@@ -52,7 +52,7 @@ export class CnisService {
     public static createCni<ThrowOnError extends boolean = true>(parameters: {
         account_id: NscAccountTag;
         nscCniCreate: NscCniCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateCniResponses, CreateCniErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'nscCniCreate', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateCniResponses, CreateCniErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -83,7 +83,7 @@ export class CnisService {
     public static deleteCni<ThrowOnError extends boolean = true>(parameters: {
         cni: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteCniResponses, DeleteCniErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'cni' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteCniResponses, DeleteCniErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class CnisService {
     public static getCni<ThrowOnError extends boolean = true>(parameters: {
         cni: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCniResponses, GetCniErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'cni' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetCniResponses, GetCniErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class CnisService {
         cni: string;
         account_id: NscAccountTag;
         nscCni: NscCni;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateCniResponses, UpdateCniErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'cni' },
                     { in: 'path', key: 'account_id' },

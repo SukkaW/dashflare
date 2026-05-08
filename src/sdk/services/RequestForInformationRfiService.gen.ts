@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudforceOneRequestAssetDeleteErrors, CloudforceOneRequestAssetDeleteResponses, CloudforceOneRequestAssetGetErrors, CloudforceOneRequestAssetGetResponses, CloudforceOneRequestAssetListErrors, CloudforceOneRequestAssetListResponses, CloudforceOneRequestAssetNewErrors, CloudforceOneRequestAssetNewResponses, CloudforceOneRequestAssetUpdateErrors, CloudforceOneRequestAssetUpdateResponses, CloudforceOneRequestConstantsErrors, CloudforceOneRequestConstantsResponses, CloudforceOneRequestDeleteErrors, CloudforceOneRequestDeleteResponses, CloudforceOneRequestGetErrors, CloudforceOneRequestGetResponses, CloudforceOneRequestListErrors, CloudforceOneRequestListResponses, CloudforceOneRequestMessageDeleteErrors, CloudforceOneRequestMessageDeleteResponses, CloudforceOneRequestMessageListErrors, CloudforceOneRequestMessageListResponses, CloudforceOneRequestMessageNewErrors, CloudforceOneRequestMessageNewResponses, CloudforceOneRequestMessageUpdateErrors, CloudforceOneRequestMessageUpdateResponses, CloudforceOneRequestNewErrors, CloudforceOneRequestNewResponses, CloudforceOneRequestQuotaErrors, CloudforceOneRequestQuotaResponses, CloudforceOneRequestsIdentifier, CloudforceOneRequestsRequestAssetEdit, CloudforceOneRequestsRequestAssetList, CloudforceOneRequestsRequestEdit, CloudforceOneRequestsRequestList, CloudforceOneRequestsRequestMessageEdit, CloudforceOneRequestsRequestMessageList, CloudforceOneRequestsUuid, CloudforceOneRequestTypesErrors, CloudforceOneRequestTypesResponses, CloudforceOneRequestUpdateErrors, CloudforceOneRequestUpdateResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class RequestForInformationRfiService {
     public static cloudforceOneRequestList<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         cloudforceOneRequestsRequestList: CloudforceOneRequestsRequestList;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestListResponses, CloudforceOneRequestListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneRequestsRequestList', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudforceOneRequestListResponses, CloudforceOneRequestListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class RequestForInformationRfiService {
      */
     public static cloudforceOneRequestConstants<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestConstantsResponses, CloudforceOneRequestConstantsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneRequestConstantsResponses, CloudforceOneRequestConstantsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class RequestForInformationRfiService {
     public static cloudforceOneRequestNew<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         cloudforceOneRequestsRequestEdit: CloudforceOneRequestsRequestEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestNewResponses, CloudforceOneRequestNewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneRequestsRequestEdit', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudforceOneRequestNewResponses, CloudforceOneRequestNewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -99,7 +99,7 @@ export class RequestForInformationRfiService {
      */
     public static cloudforceOneRequestQuota<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestQuotaResponses, CloudforceOneRequestQuotaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneRequestQuotaResponses, CloudforceOneRequestQuotaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -122,7 +122,7 @@ export class RequestForInformationRfiService {
      */
     public static cloudforceOneRequestTypes<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestTypesResponses, CloudforceOneRequestTypesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneRequestTypesResponses, CloudforceOneRequestTypesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class RequestForInformationRfiService {
     public static cloudforceOneRequestDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestDeleteResponses, CloudforceOneRequestDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'request_id' }] }]);
         return (options?.client ?? client).delete<CloudforceOneRequestDeleteResponses, CloudforceOneRequestDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -170,7 +170,7 @@ export class RequestForInformationRfiService {
     public static cloudforceOneRequestGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestGetResponses, CloudforceOneRequestGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'request_id' }] }]);
         return (options?.client ?? client).get<CloudforceOneRequestGetResponses, CloudforceOneRequestGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,7 +195,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestEdit: CloudforceOneRequestsRequestEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestUpdateResponses, CloudforceOneRequestUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -229,7 +229,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestAssetList: CloudforceOneRequestsRequestAssetList;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestAssetListResponses, CloudforceOneRequestAssetListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -263,7 +263,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestAssetEdit: CloudforceOneRequestsRequestAssetEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestAssetNewResponses, CloudforceOneRequestAssetNewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -298,7 +298,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         asset_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestAssetDeleteResponses, CloudforceOneRequestAssetDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -327,7 +327,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         asset_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestAssetGetResponses, CloudforceOneRequestAssetGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -357,7 +357,7 @@ export class RequestForInformationRfiService {
         request_id: CloudforceOneRequestsUuid;
         asset_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestAssetEdit: CloudforceOneRequestsRequestAssetEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestAssetUpdateResponses, CloudforceOneRequestAssetUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -392,7 +392,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestMessageList: CloudforceOneRequestsRequestMessageList;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestMessageListResponses, CloudforceOneRequestMessageListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -426,7 +426,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsRequestMessageEdit: CloudforceOneRequestsRequestMessageEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestMessageNewResponses, CloudforceOneRequestMessageNewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -460,7 +460,7 @@ export class RequestForInformationRfiService {
         account_id: CloudforceOneRequestsIdentifier;
         request_id: CloudforceOneRequestsUuid;
         message_id: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestMessageDeleteResponses, CloudforceOneRequestMessageDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },
@@ -490,7 +490,7 @@ export class RequestForInformationRfiService {
         request_id: CloudforceOneRequestsUuid;
         message_id: number;
         cloudforceOneRequestsRequestMessageEdit: CloudforceOneRequestsRequestMessageEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOneRequestMessageUpdateResponses, CloudforceOneRequestMessageUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'request_id' },

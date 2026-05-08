@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CustomSslForAZoneCreateSslConfigurationErrors, CustomSslForAZoneCreateSslConfigurationResponses, CustomSslForAZoneDeleteSslConfigurationErrors, CustomSslForAZoneDeleteSslConfigurationResponses, CustomSslForAZoneEditSslConfigurationErrors, CustomSslForAZoneEditSslConfigurationResponses, CustomSslForAZoneListSslConfigurationsErrors, CustomSslForAZoneListSslConfigurationsResponses, CustomSslForAZoneRePrioritizeSslCertificatesErrors, CustomSslForAZoneRePrioritizeSslCertificatesResponses, CustomSslForAZoneSslConfigurationDetailsErrors, CustomSslForAZoneSslConfigurationDetailsResponses, TlsCertificatesAndHostnamesBundleMethod, TlsCertificatesAndHostnamesCertificate, TlsCertificatesAndHostnamesCustomCsrId, TlsCertificatesAndHostnamesDeploy, TlsCertificatesAndHostnamesGeoRestrictions, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesPolicy, TlsCertificatesAndHostnamesPriority, TlsCertificatesAndHostnamesPrivateKey, TlsCertificatesAndHostnamesType } from '../types.gen';
@@ -22,7 +22,7 @@ export class CustomSslForAZoneService {
         per_page?: number;
         match?: 'any' | 'all';
         status?: 'active' | 'expired' | 'deleted' | 'pending' | 'initializing';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneListSslConfigurationsResponses, CustomSslForAZoneListSslConfigurationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -38,9 +38,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneListSslConfigurationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates',
             ...options,
@@ -61,9 +61,9 @@ export class CustomSslForAZoneService {
         deploy?: TlsCertificatesAndHostnamesDeploy;
         geo_restrictions?: TlsCertificatesAndHostnamesGeoRestrictions;
         policy?: TlsCertificatesAndHostnamesPolicy;
-        private_key: TlsCertificatesAndHostnamesPrivateKey;
+        private_key?: TlsCertificatesAndHostnamesPrivateKey;
         type?: TlsCertificatesAndHostnamesType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneCreateSslConfigurationResponses, CustomSslForAZoneCreateSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'bundle_method' },
@@ -83,9 +83,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneCreateSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates',
             ...options,
@@ -109,7 +109,7 @@ export class CustomSslForAZoneService {
             id?: TlsCertificatesAndHostnamesIdentifier;
             priority?: TlsCertificatesAndHostnamesPriority;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneRePrioritizeSslCertificatesResponses, CustomSslForAZoneRePrioritizeSslCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'certificates' }] }]);
         return (options?.client ?? client).put<CustomSslForAZoneRePrioritizeSslCertificatesResponses, CustomSslForAZoneRePrioritizeSslCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,9 +119,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneRePrioritizeSslCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates/prioritize',
             ...options,
@@ -143,7 +143,7 @@ export class CustomSslForAZoneService {
         custom_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneDeleteSslConfigurationResponses, CustomSslForAZoneDeleteSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -157,9 +157,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneDeleteSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates/{custom_certificate_id}',
             ...options,
@@ -180,7 +180,7 @@ export class CustomSslForAZoneService {
     public static customSslForAZoneSslConfigurationDetails<ThrowOnError extends boolean = true>(parameters: {
         custom_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneSslConfigurationDetailsResponses, CustomSslForAZoneSslConfigurationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CustomSslForAZoneSslConfigurationDetailsResponses, CustomSslForAZoneSslConfigurationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,9 +190,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneSslConfigurationDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates/{custom_certificate_id}',
             ...options,
@@ -215,7 +215,7 @@ export class CustomSslForAZoneService {
         geo_restrictions?: TlsCertificatesAndHostnamesGeoRestrictions;
         policy?: TlsCertificatesAndHostnamesPolicy;
         private_key?: TlsCertificatesAndHostnamesPrivateKey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomSslForAZoneEditSslConfigurationResponses, CustomSslForAZoneEditSslConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -235,9 +235,9 @@ export class CustomSslForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomSslForAZoneEditSslConfigurationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_certificates/{custom_certificate_id}',
             ...options,

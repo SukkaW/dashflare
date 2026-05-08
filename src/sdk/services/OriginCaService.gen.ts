@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { OriginCaCreateCertificateErrors, OriginCaCreateCertificateResponses, OriginCaGetCertificateErrors, OriginCaGetCertificateResponses, OriginCaListCertificatesErrors, OriginCaListCertificatesResponses, OriginCaRevokeCertificateErrors, OriginCaRevokeCertificateResponses, TlsCertificatesAndHostnamesCsr, TlsCertificatesAndHostnamesHostnames, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesRequestedValidity, TlsCertificatesAndHostnamesRequestType } from '../types.gen';
@@ -22,7 +22,7 @@ export class OriginCaService {
         per_page?: number;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCaListCertificatesResponses, OriginCaListCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -37,7 +37,7 @@ export class OriginCaService {
                 query: zOriginCaListCertificatesQuery
             }).parseAsync(data),
             responseValidator: async (data) => await zOriginCaListCertificatesResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-User-Service-Key', type: 'apiKey' }, { scheme: 'bearer', type: 'http' }],
+            security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Auth-User-Service-Key', type: 'apiKey' }],
             url: '/certificates',
             ...options,
             ...params
@@ -54,7 +54,7 @@ export class OriginCaService {
         hostnames: TlsCertificatesAndHostnamesHostnames;
         request_type: TlsCertificatesAndHostnamesRequestType;
         requested_validity?: TlsCertificatesAndHostnamesRequestedValidity;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCaCreateCertificateResponses, OriginCaCreateCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'body', key: 'csr' },
                     { in: 'body', key: 'hostnames' },
@@ -68,7 +68,7 @@ export class OriginCaService {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zOriginCaCreateCertificateResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-User-Service-Key', type: 'apiKey' }, { scheme: 'bearer', type: 'http' }],
+            security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Auth-User-Service-Key', type: 'apiKey' }],
             url: '/certificates',
             ...options,
             ...params,
@@ -88,7 +88,7 @@ export class OriginCaService {
     public static originCaRevokeCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCaRevokeCertificateResponses, OriginCaRevokeCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<OriginCaRevokeCertificateResponses, OriginCaRevokeCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -97,7 +97,7 @@ export class OriginCaService {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zOriginCaRevokeCertificateResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-User-Service-Key', type: 'apiKey' }, { scheme: 'bearer', type: 'http' }],
+            security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Auth-User-Service-Key', type: 'apiKey' }],
             url: '/certificates/{certificate_id}',
             ...options,
             ...params,
@@ -116,7 +116,7 @@ export class OriginCaService {
      */
     public static originCaGetCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCaGetCertificateResponses, OriginCaGetCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }] }]);
         return (options?.client ?? client).get<OriginCaGetCertificateResponses, OriginCaGetCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -125,7 +125,7 @@ export class OriginCaService {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zOriginCaGetCertificateResponse.parseAsync(data),
-            security: [{ name: 'X-Auth-User-Service-Key', type: 'apiKey' }, { scheme: 'bearer', type: 'http' }],
+            security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Auth-User-Service-Key', type: 'apiKey' }],
             url: '/certificates/{certificate_id}',
             ...options,
             ...params

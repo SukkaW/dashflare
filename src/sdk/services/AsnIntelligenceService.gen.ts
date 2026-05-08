@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AsnIntelligenceGetAsnOverviewErrors, AsnIntelligenceGetAsnOverviewResponses, AsnIntelligenceGetAsnSubnetsErrors, AsnIntelligenceGetAsnSubnetsResponses, IntelAsn, IntelIdentifier } from '../types.gen';
@@ -19,7 +19,7 @@ export class AsnIntelligenceService {
     public static asnIntelligenceGetAsnOverview<ThrowOnError extends boolean = true>(parameters: {
         asn: IntelAsn;
         account_id: IntelIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AsnIntelligenceGetAsnOverviewResponses, AsnIntelligenceGetAsnOverviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asn' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AsnIntelligenceGetAsnOverviewResponses, AsnIntelligenceGetAsnOverviewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class AsnIntelligenceService {
     public static asnIntelligenceGetAsnSubnets<ThrowOnError extends boolean = true>(parameters: {
         asn: IntelAsn;
         account_id: IntelIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AsnIntelligenceGetAsnSubnetsResponses, AsnIntelligenceGetAsnSubnetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asn' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AsnIntelligenceGetAsnSubnetsResponses, AsnIntelligenceGetAsnSubnetsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

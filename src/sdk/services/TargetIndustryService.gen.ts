@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetTargetIndustryListByDatasetErrors, GetTargetIndustryListByDatasetResponses, GetTargetIndustryListCompleteErrors, GetTargetIndustryListCompleteResponses, GetTargetIndustryListErrors, GetTargetIndustryListResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zGetTargetIndustryListByDatasetPath, zGetTargetIndustryListByDatasetRes
 export class TargetIndustryService {
     /**
      * Lists all target industries for a specific dataset
+     *
+     * List all target industries referenced in events for a specific dataset.
      */
     public static getTargetIndustryListByDataset<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTargetIndustryListByDatasetResponses, GetTargetIndustryListByDatasetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<GetTargetIndustryListByDatasetResponses, GetTargetIndustryListByDatasetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,11 +37,13 @@ export class TargetIndustryService {
     
     /**
      * Lists target industries across multiple datasets
+     *
+     * List target industries referenced in events across one or more datasets.
      */
     public static getTargetIndustryList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         datasetIds?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTargetIndustryListResponses, GetTargetIndustryListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'datasetIds' }] }]);
         return (options?.client ?? client).get<GetTargetIndustryListResponses, GetTargetIndustryListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -57,10 +61,12 @@ export class TargetIndustryService {
     
     /**
      * Lists all target industries from industry map catalog
+     *
+     * List all predefined target industries from the industry map catalog.
      */
     public static getTargetIndustryListComplete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTargetIndustryListCompleteResponses, GetTargetIndustryListCompleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetTargetIndustryListCompleteResponses, GetTargetIndustryListCompleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

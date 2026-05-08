@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AddParticipantErrors, AddParticipantResponses, CreateMeetingResponses, DeleteMeetingParticipantErrors, DeleteMeetingParticipantResponses, EditParticipantErrors, EditParticipantResponses, GetAllMeetingsResponses, GetMeetingErrors, GetMeetingParticipantErrors, GetMeetingParticipantResponses, GetMeetingParticipantsErrors, GetMeetingParticipantsResponses, GetMeetingResponses, RealtimekitAccountIdentifier, RealtimekitAddParticipantBody, RealtimekitAppId, RealtimekitCreateMeetingBody, RealtimekitEditParticipantBody, RealtimekitUpdateMeetingBody, RegenerateTokenErrors, RegenerateTokenResponses, ReplaceMeetingResponses, UpdateMeetingErrors, UpdateMeetingResponses } from '../types.gen';
-import { zAddParticipantBody, zAddParticipantPath, zAddParticipantResponse, zCreateMeetingBody, zCreateMeetingPath, zCreateMeetingResponse, zDeleteMeetingParticipantPath, zDeleteMeetingParticipantResponse, zEditParticipantBody, zEditParticipantPath, zEditParticipantResponse, zGetAllMeetingsPath, zGetAllMeetingsQuery, zGetAllMeetingsResponse, zGetMeetingParticipantPath, zGetMeetingParticipantResponse, zGetMeetingParticipantsPath, zGetMeetingParticipantsQuery, zGetMeetingParticipantsResponse, zGetMeetingPath, zGetMeetingQuery, zGetMeetingResponse, zRegenerateTokenPath, zRegenerateTokenResponse, zReplaceMeetingBody, zReplaceMeetingPath, zReplaceMeetingResponse, zUpdateMeetingBody, zUpdateMeetingPath, zUpdateMeetingResponse } from '../zod.gen';
+import type { AddParticipantErrors, AddParticipantResponses, CreateMeetingResponses, DeleteMeetingParticipantErrors, DeleteMeetingParticipantResponses, EditParticipantErrors, EditParticipantResponses, GetAllMeetingsResponses, GetMeetingErrors, GetMeetingParticipantErrors, GetMeetingParticipantResponses, GetMeetingParticipantsErrors, GetMeetingParticipantsResponses, GetMeetingResponses, RealtimekitAccountIdentifier, RealtimekitAddParticipantBody, RealtimekitAppId, RealtimekitCreateMeetingBody, RealtimekitEditParticipantBody, RealtimekitReplaceParticipantBody, RealtimekitUpdateMeetingBody, RegenerateTokenErrors, RegenerateTokenResponses, ReplaceMeetingResponses, ReplaceParticipantErrors, ReplaceParticipantResponses, UpdateMeetingErrors, UpdateMeetingResponses } from '../types.gen';
+import { zAddParticipantBody, zAddParticipantPath, zAddParticipantResponse, zCreateMeetingBody, zCreateMeetingPath, zCreateMeetingResponse, zDeleteMeetingParticipantPath, zDeleteMeetingParticipantResponse, zEditParticipantBody, zEditParticipantPath, zEditParticipantResponse, zGetAllMeetingsPath, zGetAllMeetingsQuery, zGetAllMeetingsResponse, zGetMeetingParticipantPath, zGetMeetingParticipantResponse, zGetMeetingParticipantsPath, zGetMeetingParticipantsQuery, zGetMeetingParticipantsResponse, zGetMeetingPath, zGetMeetingQuery, zGetMeetingResponse, zRegenerateTokenPath, zRegenerateTokenResponse, zReplaceMeetingBody, zReplaceMeetingPath, zReplaceMeetingResponse, zReplaceParticipantBody, zReplaceParticipantPath, zReplaceParticipantResponse, zUpdateMeetingBody, zUpdateMeetingPath, zUpdateMeetingResponse } from '../zod.gen';
 
 export class MeetingsService {
     /**
@@ -24,7 +24,8 @@ export class MeetingsService {
         start_time?: string;
         end_time?: string;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        status?: 'ACTIVE' | 'INACTIVE';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllMeetingsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -32,7 +33,8 @@ export class MeetingsService {
                     { in: 'query', key: 'per_page' },
                     { in: 'query', key: 'start_time' },
                     { in: 'query', key: 'end_time' },
-                    { in: 'query', key: 'search' }
+                    { in: 'query', key: 'search' },
+                    { in: 'query', key: 'status' }
                 ] }]);
         return (options?.client ?? client).get<GetAllMeetingsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -57,7 +59,7 @@ export class MeetingsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         realtimekitCreateMeetingBody: RealtimekitCreateMeetingBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateMeetingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -92,7 +94,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetMeetingResponses, GetMeetingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -123,7 +125,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitUpdateMeetingBody: RealtimekitUpdateMeetingBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateMeetingResponses, UpdateMeetingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -159,7 +161,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitCreateMeetingBody: RealtimekitCreateMeetingBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ReplaceMeetingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -196,7 +198,7 @@ export class MeetingsService {
         meeting_id: string;
         page_no?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetMeetingParticipantsResponses, GetMeetingParticipantsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -228,7 +230,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitAddParticipantBody: RealtimekitAddParticipantBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AddParticipantResponses, AddParticipantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -264,7 +266,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         participant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteMeetingParticipantResponses, DeleteMeetingParticipantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -295,7 +297,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         participant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetMeetingParticipantResponses, GetMeetingParticipantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -327,7 +329,7 @@ export class MeetingsService {
         meeting_id: string;
         participant_id: string;
         realtimekitEditParticipantBody: RealtimekitEditParticipantBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditParticipantResponses, EditParticipantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -355,6 +357,44 @@ export class MeetingsService {
     }
     
     /**
+     * Replace a participant's detail
+     *
+     * Replaces a participant's details for the given meeting and participant ID.
+     */
+    public static replaceParticipant<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+        meeting_id: string;
+        participant_id: string;
+        realtimekitReplaceParticipantBody: RealtimekitReplaceParticipantBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ReplaceParticipantResponses, ReplaceParticipantErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'app_id' },
+                    { in: 'path', key: 'meeting_id' },
+                    { in: 'path', key: 'participant_id' },
+                    { key: 'realtimekitReplaceParticipantBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<ReplaceParticipantResponses, ReplaceParticipantErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zReplaceParticipantBody,
+                path: zReplaceParticipantPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zReplaceParticipantResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Refresh participant's authentication token
      *
      * Regenerates participant's authentication token for the given meeting and participant ID.
@@ -364,7 +404,7 @@ export class MeetingsService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         participant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RegenerateTokenResponses, RegenerateTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

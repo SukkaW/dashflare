@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { TunnelAccountId, TunnelExistedAt, TunnelIp, TunnelIpNetwork, TunnelIpNetworkEncoded, TunnelPageNumber, TunnelPerPage, TunnelRouteComment, TunnelRouteCreateATunnelRouteErrors, TunnelRouteCreateATunnelRouteResponses, TunnelRouteCreateATunnelRouteWithCidrErrors, TunnelRouteCreateATunnelRouteWithCidrResponses, TunnelRouteDeleteATunnelRouteErrors, TunnelRouteDeleteATunnelRouteResponses, TunnelRouteDeleteATunnelRouteWithCidrErrors, TunnelRouteDeleteATunnelRouteWithCidrResponses, TunnelRouteGetTunnelRouteByIpErrors, TunnelRouteGetTunnelRouteByIpResponses, TunnelRouteGetTunnelRouteErrors, TunnelRouteGetTunnelRouteResponses, TunnelRouteId, TunnelRouteListTunnelRoutesErrors, TunnelRouteListTunnelRoutesResponses, TunnelRouteUpdateATunnelRouteErrors, TunnelRouteUpdateATunnelRouteResponses, TunnelRouteUpdateATunnelRouteWithCidrErrors, TunnelRouteUpdateATunnelRouteWithCidrResponses, TunnelTunnelId, TunnelTunnelType, TunnelTunnelTypesWritable, TunnelVirtualNetworkId, TunnelVirtualNetworkIdComputedOptional } from '../types.gen';
@@ -29,7 +29,7 @@ export class TunnelRoutingService {
         virtual_network_id?: TunnelVirtualNetworkId;
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteListTunnelRoutesResponses, TunnelRouteListTunnelRoutesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'comment' },
@@ -74,7 +74,7 @@ export class TunnelRoutingService {
         network: TunnelIpNetwork;
         tunnel_id: TunnelTunnelId;
         virtual_network_id?: TunnelVirtualNetworkIdComputedOptional;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteCreateATunnelRouteResponses, TunnelRouteCreateATunnelRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'comment' },
@@ -116,7 +116,7 @@ export class TunnelRoutingService {
         account_id: TunnelAccountId;
         virtual_network_id?: TunnelVirtualNetworkId;
         default_virtual_network_fallback?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteGetTunnelRouteByIpResponses, TunnelRouteGetTunnelRouteByIpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip' },
                     { in: 'path', key: 'account_id' },
@@ -156,7 +156,7 @@ export class TunnelRoutingService {
         virtual_network_id?: TunnelVirtualNetworkId;
         tun_type?: TunnelTunnelType;
         tunnel_id?: TunnelTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteDeleteATunnelRouteWithCidrResponses, TunnelRouteDeleteATunnelRouteWithCidrErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_network_encoded' },
                     { in: 'path', key: 'account_id' },
@@ -193,7 +193,7 @@ export class TunnelRoutingService {
     public static tunnelRouteUpdateATunnelRouteWithCidr<ThrowOnError extends boolean = true>(parameters: {
         ip_network_encoded: TunnelIpNetworkEncoded;
         account_id: TunnelAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteUpdateATunnelRouteWithCidrResponses, TunnelRouteUpdateATunnelRouteWithCidrErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ip_network_encoded' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).patch<TunnelRouteUpdateATunnelRouteWithCidrResponses, TunnelRouteUpdateATunnelRouteWithCidrErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +227,7 @@ export class TunnelRoutingService {
         comment?: TunnelRouteComment;
         tunnel_id: TunnelTunnelId;
         virtual_network_id?: TunnelVirtualNetworkId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteCreateATunnelRouteWithCidrResponses, TunnelRouteCreateATunnelRouteWithCidrErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_network_encoded' },
                     { in: 'path', key: 'account_id' },
@@ -268,7 +268,7 @@ export class TunnelRoutingService {
     public static tunnelRouteDeleteATunnelRoute<ThrowOnError extends boolean = true>(parameters: {
         route_id: TunnelRouteId;
         account_id: TunnelAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteDeleteATunnelRouteResponses, TunnelRouteDeleteATunnelRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'route_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<TunnelRouteDeleteATunnelRouteResponses, TunnelRouteDeleteATunnelRouteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -297,7 +297,7 @@ export class TunnelRoutingService {
     public static tunnelRouteGetTunnelRoute<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         route_id: TunnelRouteId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteGetTunnelRouteResponses, TunnelRouteGetTunnelRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'route_id' }] }]);
         return (options?.client ?? client).get<TunnelRouteGetTunnelRouteResponses, TunnelRouteGetTunnelRouteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -330,7 +330,7 @@ export class TunnelRoutingService {
         network?: TunnelIpNetwork;
         tunnel_id?: TunnelTunnelId;
         virtual_network_id?: TunnelVirtualNetworkIdComputedOptional;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelRouteUpdateATunnelRouteResponses, TunnelRouteUpdateATunnelRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'route_id' },
                     { in: 'path', key: 'account_id' },

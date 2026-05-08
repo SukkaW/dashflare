@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { TeamsDevicesIdentifier, TeamsDevicesZeroTrustAccountDeviceSettings, ZeroTrustAccountsCreateZeroTrustAccountErrors, ZeroTrustAccountsCreateZeroTrustAccountResponses, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountErrors, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountErrors, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsGetZeroTrustAccountConfigurationErrors, ZeroTrustAccountsGetZeroTrustAccountConfigurationResponses, ZeroTrustAccountsGetZeroTrustAccountInformationErrors, ZeroTrustAccountsGetZeroTrustAccountInformationResponses, ZeroTrustAccountsGetZeroTrustCertificateConfigurationErrors, ZeroTrustAccountsGetZeroTrustCertificateConfigurationResponses, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsPatchZeroTrustAccountConfigurationErrors, ZeroTrustAccountsPatchZeroTrustAccountConfigurationResponses, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationErrors, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponses, ZeroTrustGatewayGatewayAccountLoggingSettings, ZeroTrustGatewayGatewayAccountSettingsWritable, ZeroTrustGatewayIdentifier } from '../types.gen';
-import { zZeroTrustAccountsCreateZeroTrustAccountPath, zZeroTrustAccountsCreateZeroTrustAccountResponse, zZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountPath, zZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponse, zZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountPath, zZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponse, zZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsGetZeroTrustAccountConfigurationPath, zZeroTrustAccountsGetZeroTrustAccountConfigurationResponse, zZeroTrustAccountsGetZeroTrustAccountInformationPath, zZeroTrustAccountsGetZeroTrustAccountInformationResponse, zZeroTrustAccountsGetZeroTrustCertificateConfigurationPath, zZeroTrustAccountsGetZeroTrustCertificateConfigurationResponse, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsPatchZeroTrustAccountConfigurationBody, zZeroTrustAccountsPatchZeroTrustAccountConfigurationPath, zZeroTrustAccountsPatchZeroTrustAccountConfigurationResponse, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationBody, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationPath, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponse } from '../zod.gen';
+import type { TeamsDevicesIdentifier, TeamsDevicesZeroTrustAccountDeviceSettings, ZeroTrustAccountsCreateZeroTrustAccountErrors, ZeroTrustAccountsCreateZeroTrustAccountResponses, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountErrors, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountErrors, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetEgressCidrPairsErrors, ZeroTrustAccountsGetEgressCidrPairsResponses, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsGetZeroTrustAccountConfigurationErrors, ZeroTrustAccountsGetZeroTrustAccountConfigurationResponses, ZeroTrustAccountsGetZeroTrustAccountInformationErrors, ZeroTrustAccountsGetZeroTrustAccountInformationResponses, ZeroTrustAccountsGetZeroTrustCertificateConfigurationErrors, ZeroTrustAccountsGetZeroTrustCertificateConfigurationResponses, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsPatchZeroTrustAccountConfigurationErrors, ZeroTrustAccountsPatchZeroTrustAccountConfigurationResponses, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountErrors, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationErrors, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponses, ZeroTrustGatewayGatewayAccountLoggingSettings, ZeroTrustGatewayGatewayAccountSettingsWritable, ZeroTrustGatewayIdentifier } from '../types.gen';
+import { zZeroTrustAccountsCreateZeroTrustAccountPath, zZeroTrustAccountsCreateZeroTrustAccountResponse, zZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountPath, zZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponse, zZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountPath, zZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponse, zZeroTrustAccountsGetEgressCidrPairsPath, zZeroTrustAccountsGetEgressCidrPairsResponse, zZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsGetZeroTrustAccountConfigurationPath, zZeroTrustAccountsGetZeroTrustAccountConfigurationResponse, zZeroTrustAccountsGetZeroTrustAccountInformationPath, zZeroTrustAccountsGetZeroTrustAccountInformationResponse, zZeroTrustAccountsGetZeroTrustCertificateConfigurationPath, zZeroTrustAccountsGetZeroTrustCertificateConfigurationResponse, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsPatchZeroTrustAccountConfigurationBody, zZeroTrustAccountsPatchZeroTrustAccountConfigurationPath, zZeroTrustAccountsPatchZeroTrustAccountConfigurationResponse, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountBody, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountPath, zZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponse, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationBody, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationPath, zZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponse } from '../zod.gen';
 
 export class ZeroTrustAccountsService {
     /**
@@ -18,7 +18,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsGetDeviceSettingsForZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountResponses, ZeroTrustAccountsGetDeviceSettingsForZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class ZeroTrustAccountsService {
     public static zeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         teamsDevicesZeroTrustAccountDeviceSettings: TeamsDevicesZeroTrustAccountDeviceSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesZeroTrustAccountDeviceSettings', map: 'body' }] }]);
         return (options?.client ?? client).patch<ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsPatchDeviceSettingsForTheZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ZeroTrustAccountsService {
     public static zeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         teamsDevicesZeroTrustAccountDeviceSettings: TeamsDevicesZeroTrustAccountDeviceSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesZeroTrustAccountDeviceSettings', map: 'body' }] }]);
         return (options?.client ?? client).put<ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateDeviceSettingsForTheZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -138,7 +138,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsGetZeroTrustAccountInformation<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetZeroTrustAccountInformationResponses, ZeroTrustAccountsGetZeroTrustAccountInformationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetZeroTrustAccountInformationResponses, ZeroTrustAccountsGetZeroTrustAccountInformationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -165,7 +165,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsCreateZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsCreateZeroTrustAccountResponses, ZeroTrustAccountsCreateZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<ZeroTrustAccountsCreateZeroTrustAccountResponses, ZeroTrustAccountsCreateZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -192,7 +192,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsGetZeroTrustAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetZeroTrustAccountConfigurationResponses, ZeroTrustAccountsGetZeroTrustAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetZeroTrustAccountConfigurationResponses, ZeroTrustAccountsGetZeroTrustAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -215,12 +215,12 @@ export class ZeroTrustAccountsService {
     /**
      * Patch Zero Trust account configuration
      *
-     * Update (PATCH) a single subcollection of settings such as `antivirus`, `tls_decrypt`, `activity_log`, `block_page`, `browser_isolation`, `fips`, `body_scanning`, or `certificate` without updating the entire configuration object. This endpoint returns an error if any settings collection lacks proper configuration.
+     * Update (PATCH) a single subcollection of settings such as `antivirus`, `tls_decrypt`, `activity_log`, `block_page`, `browser_isolation`, `fips`, `body_scanning`, `certificate`, or `max_ttl_secs` without updating the entire configuration object. This endpoint returns an error if any settings collection lacks proper configuration.
      */
     public static zeroTrustAccountsPatchZeroTrustAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
         zeroTrustGatewayGatewayAccountSettingsWritable: ZeroTrustGatewayGatewayAccountSettingsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsPatchZeroTrustAccountConfigurationResponses, ZeroTrustAccountsPatchZeroTrustAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'zeroTrustGatewayGatewayAccountSettingsWritable', map: 'body' }] }]);
         return (options?.client ?? client).patch<ZeroTrustAccountsPatchZeroTrustAccountConfigurationResponses, ZeroTrustAccountsPatchZeroTrustAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -253,7 +253,7 @@ export class ZeroTrustAccountsService {
     public static zeroTrustAccountsUpdateZeroTrustAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
         zeroTrustGatewayGatewayAccountSettingsWritable: ZeroTrustGatewayGatewayAccountSettingsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponses, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'zeroTrustGatewayGatewayAccountSettingsWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<ZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponses, ZeroTrustAccountsUpdateZeroTrustAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -287,7 +287,7 @@ export class ZeroTrustAccountsService {
      */
     public static zeroTrustAccountsGetZeroTrustCertificateConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetZeroTrustCertificateConfigurationResponses, ZeroTrustAccountsGetZeroTrustCertificateConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetZeroTrustCertificateConfigurationResponses, ZeroTrustAccountsGetZeroTrustCertificateConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -308,13 +308,40 @@ export class ZeroTrustAccountsService {
     }
     
     /**
+     * Get gateway egress CIDRs pairs assigned to this account
+     *
+     * Retrieve the list of egress CIDRs allocated to this Zero Trust account.
+     */
+    public static zeroTrustAccountsGetEgressCidrPairs<ThrowOnError extends boolean = true>(parameters: {
+        account_id: ZeroTrustGatewayIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetEgressCidrPairsResponses, ZeroTrustAccountsGetEgressCidrPairsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<ZeroTrustAccountsGetEgressCidrPairsResponses, ZeroTrustAccountsGetEgressCidrPairsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZeroTrustAccountsGetEgressCidrPairsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustAccountsGetEgressCidrPairsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/gateway/egress_cidr_pairs',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get logging settings for the Zero Trust account
      *
      * Retrieve the current logging settings for the Zero Trust account.
      */
     public static zeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -342,7 +369,7 @@ export class ZeroTrustAccountsService {
     public static zeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: ZeroTrustGatewayIdentifier;
         zeroTrustGatewayGatewayAccountLoggingSettings: ZeroTrustGatewayGatewayAccountLoggingSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'zeroTrustGatewayGatewayAccountLoggingSettings', map: 'body' }] }]);
         return (options?.client ?? client).put<ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponses, ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

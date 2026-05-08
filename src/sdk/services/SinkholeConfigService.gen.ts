@@ -4,31 +4,296 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { IntelSinkholesIdentifier, SinkholeConfigGetSinkholesResponses } from '../types.gen';
-import { zSinkholeConfigGetSinkholesPath, zSinkholeConfigGetSinkholesResponse } from '../zod.gen';
+import type { IntelSinkholesIdentifier, IntelSinkholesIngressCreateParams, IntelSinkholesSinkholeCreateParamsWritable, SinkholeConfigCreateIngressErrors, SinkholeConfigCreateIngressResponses, SinkholeConfigCreateSinkholeErrors, SinkholeConfigCreateSinkholeResponses, SinkholeConfigDeleteIngressErrors, SinkholeConfigDeleteIngressResponses, SinkholeConfigDeleteSinkholeErrors, SinkholeConfigDeleteSinkholeResponses, SinkholeConfigGetIngressErrors, SinkholeConfigGetIngressResponses, SinkholeConfigGetSinkholeErrors, SinkholeConfigGetSinkholeResponses, SinkholeConfigListSinkholeIngressesErrors, SinkholeConfigListSinkholeIngressesResponses, SinkholeConfigListSinkholesErrors, SinkholeConfigListSinkholesResponses, SinkholeConfigUpdateIngressErrors, SinkholeConfigUpdateIngressResponses, SinkholeConfigUpdateSinkholeErrors, SinkholeConfigUpdateSinkholeResponses } from '../types.gen';
+import { zSinkholeConfigCreateIngressBody, zSinkholeConfigCreateIngressPath, zSinkholeConfigCreateIngressResponse, zSinkholeConfigCreateSinkholeBody, zSinkholeConfigCreateSinkholePath, zSinkholeConfigCreateSinkholeResponse, zSinkholeConfigDeleteIngressPath, zSinkholeConfigDeleteIngressResponse, zSinkholeConfigDeleteSinkholePath, zSinkholeConfigDeleteSinkholeResponse, zSinkholeConfigGetIngressPath, zSinkholeConfigGetIngressResponse, zSinkholeConfigGetSinkholePath, zSinkholeConfigGetSinkholeResponse, zSinkholeConfigListSinkholeIngressesPath, zSinkholeConfigListSinkholeIngressesResponse, zSinkholeConfigListSinkholesPath, zSinkholeConfigListSinkholesResponse, zSinkholeConfigUpdateIngressBody, zSinkholeConfigUpdateIngressPath, zSinkholeConfigUpdateIngressResponse, zSinkholeConfigUpdateSinkholeBody, zSinkholeConfigUpdateSinkholePath, zSinkholeConfigUpdateSinkholeResponse } from '../zod.gen';
 
 export class SinkholeConfigService {
     /**
      * List sinkholes owned by this account
+     *
+     * Lists sinkholes owned by the account for redirecting malicious traffic.
      */
-    public static sinkholeConfigGetSinkholes<ThrowOnError extends boolean = true>(parameters: {
+    public static sinkholeConfigListSinkholes<ThrowOnError extends boolean = true>(parameters: {
         account_id: IntelSinkholesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigListSinkholesResponses, SinkholeConfigListSinkholesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<SinkholeConfigGetSinkholesResponses, unknown, ThrowOnError>({
+        return (options?.client ?? client).get<SinkholeConfigListSinkholesResponses, SinkholeConfigListSinkholesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zSinkholeConfigGetSinkholesPath,
+                path: zSinkholeConfigListSinkholesPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zSinkholeConfigGetSinkholesResponse.parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigListSinkholesResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
             url: '/accounts/{account_id}/intel/sinkholes',
             ...options,
             ...params
+        });
+    }
+    
+    /**
+     * Create a new sinkhole for your account
+     *
+     * Create a new sinkhole. Logs of large request bodies will be truncated, but the full request body can be recorded in R2. If you wish to record large request bodies in R2, include the R2 key ID, key secret, and bucket name in the request body.
+     */
+    public static sinkholeConfigCreateSinkhole<ThrowOnError extends boolean = true>(parameters: {
+        account_id: IntelSinkholesIdentifier;
+        intelSinkholesSinkholeCreateParamsWritable: IntelSinkholesSinkholeCreateParamsWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigCreateSinkholeResponses, SinkholeConfigCreateSinkholeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'intelSinkholesSinkholeCreateParamsWritable', map: 'body' }] }]);
+        return (options?.client ?? client).post<SinkholeConfigCreateSinkholeResponses, SinkholeConfigCreateSinkholeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSinkholeConfigCreateSinkholeBody,
+                path: zSinkholeConfigCreateSinkholePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigCreateSinkholeResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/sinkholes',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a sinkhole
+     *
+     * Delete the specified sinkhole. The sinkhole must not have any active ingress rules defined. A 409 response code indicates that this condition is not met.
+     */
+    public static sinkholeConfigDeleteSinkhole<ThrowOnError extends boolean = true>(parameters: {
+        account_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigDeleteSinkholeResponses, SinkholeConfigDeleteSinkholeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sinkhole_id' }] }]);
+        return (options?.client ?? client).delete<SinkholeConfigDeleteSinkholeResponses, SinkholeConfigDeleteSinkholeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSinkholeConfigDeleteSinkholePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigDeleteSinkholeResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/sinkholes/{sinkhole_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get a sinkhole
+     *
+     * Get the specified sinkhole by its unique identifier.
+     */
+    public static sinkholeConfigGetSinkhole<ThrowOnError extends boolean = true>(parameters: {
+        account_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigGetSinkholeResponses, SinkholeConfigGetSinkholeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sinkhole_id' }] }]);
+        return (options?.client ?? client).get<SinkholeConfigGetSinkholeResponses, SinkholeConfigGetSinkholeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSinkholeConfigGetSinkholePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigGetSinkholeResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/sinkholes/{sinkhole_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update a sinkhole
+     *
+     * Update the name or R2 configuration of the specified sinkhole.
+     */
+    public static sinkholeConfigUpdateSinkhole<ThrowOnError extends boolean = true>(parameters: {
+        account_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+        intelSinkholesSinkholeCreateParamsWritable: IntelSinkholesSinkholeCreateParamsWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigUpdateSinkholeResponses, SinkholeConfigUpdateSinkholeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'sinkhole_id' },
+                    { key: 'intelSinkholesSinkholeCreateParamsWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<SinkholeConfigUpdateSinkholeResponses, SinkholeConfigUpdateSinkholeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSinkholeConfigUpdateSinkholeBody,
+                path: zSinkholeConfigUpdateSinkholePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigUpdateSinkholeResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/sinkholes/{sinkhole_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List ingresses for a sinkhole
+     *
+     * List all ingress rules associated with the specified sinkhole.
+     */
+    public static sinkholeConfigListSinkholeIngresses<ThrowOnError extends boolean = true>(parameters: {
+        account_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigListSinkholeIngressesResponses, SinkholeConfigListSinkholeIngressesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sinkhole_id' }] }]);
+        return (options?.client ?? client).get<SinkholeConfigListSinkholeIngressesResponses, SinkholeConfigListSinkholeIngressesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSinkholeConfigListSinkholeIngressesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigListSinkholeIngressesResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/sinkholes/{sinkhole_id}/ingresses',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create an ingress rule
+     *
+     * Create a new ingress rule for the specified sinkhole. The CIDR block must be a Cloudflare BYOIP associated with your account. The zone_id must be a zone with the ability to create Spectrum Apps. The sinkhole must belong to the same account as the zone.
+     */
+    public static sinkholeConfigCreateIngress<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+        intelSinkholesIngressCreateParams: IntelSinkholesIngressCreateParams;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigCreateIngressResponses, SinkholeConfigCreateIngressErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'sinkhole_id' },
+                    { key: 'intelSinkholesIngressCreateParams', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<SinkholeConfigCreateIngressResponses, SinkholeConfigCreateIngressErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSinkholeConfigCreateIngressBody,
+                path: zSinkholeConfigCreateIngressPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigCreateIngressResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete an ingress rule
+     *
+     * Delete the specified ingress rule. The sinkhole must belong to the same account as the zone.
+     */
+    public static sinkholeConfigDeleteIngress<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+        ingress_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigDeleteIngressResponses, SinkholeConfigDeleteIngressErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'sinkhole_id' },
+                    { in: 'path', key: 'ingress_id' }
+                ] }]);
+        return (options?.client ?? client).delete<SinkholeConfigDeleteIngressResponses, SinkholeConfigDeleteIngressErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSinkholeConfigDeleteIngressPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigDeleteIngressResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get an ingress rule
+     *
+     * Get the specified ingress rule associated with a sinkhole. The sinkhole must belong to the same account as the zone.
+     */
+    public static sinkholeConfigGetIngress<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+        ingress_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigGetIngressResponses, SinkholeConfigGetIngressErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'sinkhole_id' },
+                    { in: 'path', key: 'ingress_id' }
+                ] }]);
+        return (options?.client ?? client).get<SinkholeConfigGetIngressResponses, SinkholeConfigGetIngressErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSinkholeConfigGetIngressPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigGetIngressResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update an ingress rule
+     *
+     * Update the specified ingress rule. The sinkhole must belong to the same account as the zone.
+     */
+    public static sinkholeConfigUpdateIngress<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: IntelSinkholesIdentifier;
+        sinkhole_id: string;
+        ingress_id: string;
+        intelSinkholesIngressCreateParams: IntelSinkholesIngressCreateParams;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SinkholeConfigUpdateIngressResponses, SinkholeConfigUpdateIngressErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'sinkhole_id' },
+                    { in: 'path', key: 'ingress_id' },
+                    { key: 'intelSinkholesIngressCreateParams', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<SinkholeConfigUpdateIngressResponses, SinkholeConfigUpdateIngressErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSinkholeConfigUpdateIngressBody,
+                path: zSinkholeConfigUpdateIngressPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSinkholeConfigUpdateIngressResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/intel/sinkholes/{sinkhole_id}/ingresses/{ingress_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
 }

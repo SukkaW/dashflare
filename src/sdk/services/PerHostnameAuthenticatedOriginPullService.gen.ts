@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationErrors, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationErrors, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullListCertificatesErrors, PerHostnameAuthenticatedOriginPullListCertificatesResponses, PerHostnameAuthenticatedOriginPullListHostnameAssociationsErrors, PerHostnameAuthenticatedOriginPullListHostnameAssociationsResponses, PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateResponses, TlsCertificatesAndHostnamesConfig, TlsCertificatesAndHostnamesHostnameAuthenticatedOriginPullComponentsSchemasCertificate, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSchemasHostname, TlsCertificatesAndHostnamesSchemasPrivateKey } from '../types.gen';
+import type { PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationErrors, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationErrors, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullListCertificatesErrors, PerHostnameAuthenticatedOriginPullListCertificatesResponses, PerHostnameAuthenticatedOriginPullListHostnameAssociationsErrors, PerHostnameAuthenticatedOriginPullListHostnameAssociationsResponses, PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateErrors, PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateResponses, TlsCertificatesAndHostnamesCertificate6, TlsCertificatesAndHostnamesConfig, TlsCertificatesAndHostnamesHostname2, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesPrivateKey3 } from '../types.gen';
 import { zPerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateBody, zPerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificatePath, zPerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateResponse, zPerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationBody, zPerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationPath, zPerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponse, zPerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificatePath, zPerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponse, zPerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationPath, zPerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponse, zPerHostnameAuthenticatedOriginPullListCertificatesPath, zPerHostnameAuthenticatedOriginPullListCertificatesResponse, zPerHostnameAuthenticatedOriginPullListHostnameAssociationsPath, zPerHostnameAuthenticatedOriginPullListHostnameAssociationsQuery, zPerHostnameAuthenticatedOriginPullListHostnameAssociationsResponse, zPerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateBody, zPerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificatePath, zPerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateResponse } from '../zod.gen';
 
 export class PerHostnameAuthenticatedOriginPullService {
@@ -21,7 +21,7 @@ export class PerHostnameAuthenticatedOriginPullService {
         page?: number;
         per_page?: number;
         status?: 'active' | 'pending_deployment' | 'pending_deletion' | 'deleted' | 'deployment_timed_out' | 'deletion_timed_out' | 'all';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullListHostnameAssociationsResponses, PerHostnameAuthenticatedOriginPullListHostnameAssociationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -36,9 +36,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullListHostnameAssociationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames',
             ...options,
@@ -54,7 +54,7 @@ export class PerHostnameAuthenticatedOriginPullService {
     public static perHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthentication<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         config: TlsCertificatesAndHostnamesConfig;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'config' }] }]);
         return (options?.client ?? client).put<PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -64,9 +64,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullEnableOrDisableAHostnameForClientAuthenticationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames',
             ...options,
@@ -86,7 +86,7 @@ export class PerHostnameAuthenticatedOriginPullService {
      */
     public static perHostnameAuthenticatedOriginPullListCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullListCertificatesResponses, PerHostnameAuthenticatedOriginPullListCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PerHostnameAuthenticatedOriginPullListCertificatesResponses, PerHostnameAuthenticatedOriginPullListCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -96,9 +96,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullListCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames/certificates',
             ...options,
@@ -113,9 +113,9 @@ export class PerHostnameAuthenticatedOriginPullService {
      */
     public static perHostnameAuthenticatedOriginPullUploadAHostnameClientCertificate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        certificate: TlsCertificatesAndHostnamesHostnameAuthenticatedOriginPullComponentsSchemasCertificate;
-        private_key: TlsCertificatesAndHostnamesSchemasPrivateKey;
-    }, options?: Options<never, ThrowOnError>) {
+        certificate: TlsCertificatesAndHostnamesCertificate6;
+        private_key: TlsCertificatesAndHostnamesPrivateKey3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'certificate' },
@@ -129,9 +129,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullUploadAHostnameClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames/certificates',
             ...options,
@@ -155,7 +155,7 @@ export class PerHostnameAuthenticatedOriginPullService {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -169,9 +169,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullDeleteHostnameClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames/certificates/{certificate_id}',
             ...options,
@@ -192,7 +192,7 @@ export class PerHostnameAuthenticatedOriginPullService {
     public static perHostnameAuthenticatedOriginPullGetTheHostnameClientCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -202,9 +202,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullGetTheHostnameClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames/certificates/{certificate_id}',
             ...options,
@@ -218,9 +218,9 @@ export class PerHostnameAuthenticatedOriginPullService {
      * Retrieves the client certificate authentication status for a specific hostname, showing whether authenticated origin pulls are enabled.
      */
     public static perHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthentication<ThrowOnError extends boolean = true>(parameters: {
-        hostname: TlsCertificatesAndHostnamesSchemasHostname;
+        hostname: TlsCertificatesAndHostnamesHostname2;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'hostname' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponses, PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -230,9 +230,9 @@ export class PerHostnameAuthenticatedOriginPullService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/hostnames/{hostname}',
             ...options,

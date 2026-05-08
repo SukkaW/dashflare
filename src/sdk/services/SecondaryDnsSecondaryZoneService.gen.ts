@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SecondaryDnsDnsSecondarySecondaryZoneWritable, SecondaryDnsIdentifier, SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationErrors, SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationErrors, SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneForceAxfrErrors, SecondaryDnsSecondaryZoneForceAxfrResponses, SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsErrors, SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsResponses, SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationErrors, SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class SecondaryDnsSecondaryZoneService {
     public static secondaryDnsSecondaryZoneForceAxfr<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsSecondaryZoneForceAxfrResponses, SecondaryDnsSecondaryZoneForceAxfrErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsSecondaryZoneForceAxfrResponses, SecondaryDnsSecondaryZoneForceAxfrErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class SecondaryDnsSecondaryZoneService {
     public static secondaryDnsSecondaryZoneDeleteSecondaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneDeleteSecondaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,7 +84,7 @@ export class SecondaryDnsSecondaryZoneService {
      */
     public static secondaryDnsSecondaryZoneSecondaryZoneConfigurationDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsResponses, SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsResponses, SecondaryDnsSecondaryZoneSecondaryZoneConfigurationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,7 +112,7 @@ export class SecondaryDnsSecondaryZoneService {
     public static secondaryDnsSecondaryZoneCreateSecondaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         secondaryDnsDnsSecondarySecondaryZoneWritable: SecondaryDnsDnsSecondarySecondaryZoneWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'secondaryDnsDnsSecondarySecondaryZoneWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneCreateSecondaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -145,7 +145,7 @@ export class SecondaryDnsSecondaryZoneService {
     public static secondaryDnsSecondaryZoneUpdateSecondaryZoneConfiguration<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecondaryDnsIdentifier;
         secondaryDnsDnsSecondarySecondaryZoneWritable: SecondaryDnsDnsSecondarySecondaryZoneWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'secondaryDnsDnsSecondarySecondaryZoneWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationResponses, SecondaryDnsSecondaryZoneUpdateSecondaryZoneConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

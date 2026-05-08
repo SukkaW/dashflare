@@ -4,13 +4,165 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorBatchCreateWorkflowInstanceErrors, WorBatchCreateWorkflowInstanceResponses, WorBatchTerminateWorkflowInstancesErrors, WorBatchTerminateWorkflowInstancesResponses, WorChangeStatusWorkflowInstanceErrors, WorChangeStatusWorkflowInstanceResponses, WorCreateNewWorkflowInstanceErrors, WorCreateNewWorkflowInstanceResponses, WorCreateOrModifyWorkflowErrors, WorCreateOrModifyWorkflowResponses, WorDeleteWorkflowErrors, WorDeleteWorkflowResponses, WorDescribeWorkflowInstanceErrors, WorDescribeWorkflowInstanceResponses, WorDescribeWorkflowVersionsDagErrors, WorDescribeWorkflowVersionsDagResponses, WorDescribeWorkflowVersionsErrors, WorDescribeWorkflowVersionsGraphErrors, WorDescribeWorkflowVersionsGraphResponses, WorDescribeWorkflowVersionsResponses, WorGetWorkflowDetailsErrors, WorGetWorkflowDetailsResponses, WorListWorkflowInstancesErrors, WorListWorkflowInstancesResponses, WorListWorkflowsErrors, WorListWorkflowsResponses, WorListWorkflowVersionsErrors, WorListWorkflowVersionsResponses, WorSendEventWorkflowInstanceErrors, WorSendEventWorkflowInstanceResponses, WorStatusTerminateWorkflowInstancesErrors, WorStatusTerminateWorkflowInstancesResponses } from '../types.gen';
-import { zWorBatchCreateWorkflowInstanceBody, zWorBatchCreateWorkflowInstancePath, zWorBatchCreateWorkflowInstanceResponse, zWorBatchTerminateWorkflowInstancesBody, zWorBatchTerminateWorkflowInstancesPath, zWorBatchTerminateWorkflowInstancesResponse, zWorChangeStatusWorkflowInstanceBody, zWorChangeStatusWorkflowInstancePath, zWorChangeStatusWorkflowInstanceResponse, zWorCreateNewWorkflowInstanceBody, zWorCreateNewWorkflowInstancePath, zWorCreateNewWorkflowInstanceResponse, zWorCreateOrModifyWorkflowBody, zWorCreateOrModifyWorkflowPath, zWorCreateOrModifyWorkflowResponse, zWorDeleteWorkflowPath, zWorDeleteWorkflowResponse, zWorDescribeWorkflowInstancePath, zWorDescribeWorkflowInstanceQuery, zWorDescribeWorkflowInstanceResponse, zWorDescribeWorkflowVersionsDagPath, zWorDescribeWorkflowVersionsDagResponse, zWorDescribeWorkflowVersionsGraphPath, zWorDescribeWorkflowVersionsGraphResponse, zWorDescribeWorkflowVersionsPath, zWorDescribeWorkflowVersionsResponse, zWorGetWorkflowDetailsPath, zWorGetWorkflowDetailsResponse, zWorListWorkflowInstancesPath, zWorListWorkflowInstancesQuery, zWorListWorkflowInstancesResponse, zWorListWorkflowsPath, zWorListWorkflowsQuery, zWorListWorkflowsResponse, zWorListWorkflowVersionsPath, zWorListWorkflowVersionsQuery, zWorListWorkflowVersionsResponse, zWorSendEventWorkflowInstanceBody, zWorSendEventWorkflowInstancePath, zWorSendEventWorkflowInstanceResponse, zWorStatusTerminateWorkflowInstancesPath, zWorStatusTerminateWorkflowInstancesResponse } from '../zod.gen';
+import type { WorAddScriptTriggersErrors, WorAddScriptTriggersResponses, WorBatchCreateWorkflowInstanceErrors, WorBatchCreateWorkflowInstanceResponses, WorBatchTerminateWorkflowInstancesErrors, WorBatchTerminateWorkflowInstancesResponses, WorChangeStatusWorkflowInstanceErrors, WorChangeStatusWorkflowInstanceResponses, WorCreateNewWorkflowInstanceErrors, WorCreateNewWorkflowInstanceResponses, WorCreateOrModifyWorkflowErrors, WorCreateOrModifyWorkflowResponses, WorDeleteScriptTriggersErrors, WorDeleteScriptTriggersResponses, WorDeleteWorkflowErrors, WorDeleteWorkflowInstanceErrors, WorDeleteWorkflowInstanceResponses, WorDeleteWorkflowResponses, WorDescribeWorkflowInstanceErrors, WorDescribeWorkflowInstanceResponses, WorDescribeWorkflowVersionsDagErrors, WorDescribeWorkflowVersionsDagResponses, WorDescribeWorkflowVersionsErrors, WorDescribeWorkflowVersionsGraphErrors, WorDescribeWorkflowVersionsGraphResponses, WorDescribeWorkflowVersionsResponses, WorGetScriptTriggersErrors, WorGetScriptTriggersResponses, WorGetWorkflowDetailsErrors, WorGetWorkflowDetailsResponses, WorGetWorkflowInstanceStepErrors, WorGetWorkflowInstanceStepResponses, WorGetWorkflowSettingsErrors, WorGetWorkflowSettingsResponses, WorListWorkflowInstancesErrors, WorListWorkflowInstancesResponses, WorListWorkflowsErrors, WorListWorkflowsResponses, WorListWorkflowVersionsErrors, WorListWorkflowVersionsResponses, WorReplaceScriptTriggersErrors, WorReplaceScriptTriggersResponses, WorSendEventWorkflowInstanceErrors, WorSendEventWorkflowInstanceResponses, WorStatusTerminateWorkflowInstancesErrors, WorStatusTerminateWorkflowInstancesResponses, WorUpdateWorkflowSettingsErrors, WorUpdateWorkflowSettingsResponses } from '../types.gen';
+import { zWorAddScriptTriggersBody, zWorAddScriptTriggersPath, zWorAddScriptTriggersResponse, zWorBatchCreateWorkflowInstanceBody, zWorBatchCreateWorkflowInstancePath, zWorBatchCreateWorkflowInstanceResponse, zWorBatchTerminateWorkflowInstancesBody, zWorBatchTerminateWorkflowInstancesPath, zWorBatchTerminateWorkflowInstancesResponse, zWorChangeStatusWorkflowInstanceBody, zWorChangeStatusWorkflowInstancePath, zWorChangeStatusWorkflowInstanceResponse, zWorCreateNewWorkflowInstanceBody, zWorCreateNewWorkflowInstancePath, zWorCreateNewWorkflowInstanceResponse, zWorCreateOrModifyWorkflowBody, zWorCreateOrModifyWorkflowPath, zWorCreateOrModifyWorkflowResponse, zWorDeleteScriptTriggersPath, zWorDeleteScriptTriggersResponse, zWorDeleteWorkflowInstancePath, zWorDeleteWorkflowInstanceResponse, zWorDeleteWorkflowPath, zWorDeleteWorkflowResponse, zWorDescribeWorkflowInstancePath, zWorDescribeWorkflowInstanceQuery, zWorDescribeWorkflowInstanceResponse, zWorDescribeWorkflowVersionsDagPath, zWorDescribeWorkflowVersionsDagResponse, zWorDescribeWorkflowVersionsGraphPath, zWorDescribeWorkflowVersionsGraphResponse, zWorDescribeWorkflowVersionsPath, zWorDescribeWorkflowVersionsResponse, zWorGetScriptTriggersPath, zWorGetScriptTriggersResponse, zWorGetWorkflowDetailsPath, zWorGetWorkflowDetailsResponse, zWorGetWorkflowInstanceStepPath, zWorGetWorkflowInstanceStepQuery, zWorGetWorkflowInstanceStepResponse, zWorGetWorkflowSettingsPath, zWorGetWorkflowSettingsResponse, zWorListWorkflowInstancesPath, zWorListWorkflowInstancesQuery, zWorListWorkflowInstancesResponse, zWorListWorkflowsPath, zWorListWorkflowsQuery, zWorListWorkflowsResponse, zWorListWorkflowVersionsPath, zWorListWorkflowVersionsQuery, zWorListWorkflowVersionsResponse, zWorReplaceScriptTriggersBody, zWorReplaceScriptTriggersPath, zWorReplaceScriptTriggersResponse, zWorSendEventWorkflowInstanceBody, zWorSendEventWorkflowInstancePath, zWorSendEventWorkflowInstanceResponse, zWorStatusTerminateWorkflowInstancesPath, zWorStatusTerminateWorkflowInstancesResponse, zWorUpdateWorkflowSettingsBody, zWorUpdateWorkflowSettingsPath, zWorUpdateWorkflowSettingsResponse } from '../zod.gen';
 
 export class WorkflowsService {
+    /**
+     * Delete script triggers
+     *
+     * Deletes all event trigger declarations owned by a Worker script.
+     */
+    public static worDeleteScriptTriggers<ThrowOnError extends boolean = true>(parameters: {
+        script_name: string;
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDeleteScriptTriggersResponses, WorDeleteScriptTriggersErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'script_name' }, { in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).delete<WorDeleteScriptTriggersResponses, WorDeleteScriptTriggersErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWorDeleteScriptTriggersPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorDeleteScriptTriggersResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/triggers/{script_name}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get script triggers
+     *
+     * Returns the event trigger declarations owned by a Worker script.
+     */
+    public static worGetScriptTriggers<ThrowOnError extends boolean = true>(parameters: {
+        script_name: string;
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorGetScriptTriggersResponses, WorGetScriptTriggersErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'script_name' }, { in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<WorGetScriptTriggersResponses, WorGetScriptTriggersErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWorGetScriptTriggersPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorGetScriptTriggersResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/triggers/{script_name}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Add script triggers
+     *
+     * Adds event trigger declarations without removing existing declarations owned by the script.
+     */
+    public static worAddScriptTriggers<ThrowOnError extends boolean = true>(parameters: {
+        script_name: string;
+        account_id: string;
+        body: Array<{
+            filter?: {
+                [key: string]: string | number | boolean;
+            };
+            targets: Array<{
+                script_name: string;
+                type: 'workflow';
+                workflow_name: string;
+            }>;
+            type: string;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorAddScriptTriggersResponses, WorAddScriptTriggersErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'script_name' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<WorAddScriptTriggersResponses, WorAddScriptTriggersErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorAddScriptTriggersBody,
+                path: zWorAddScriptTriggersPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorAddScriptTriggersResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/triggers/{script_name}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Replace script triggers
+     *
+     * Replaces all event trigger declarations owned by a Worker script.
+     */
+    public static worReplaceScriptTriggers<ThrowOnError extends boolean = true>(parameters: {
+        script_name: string;
+        account_id: string;
+        body: Array<{
+            filter?: {
+                [key: string]: string | number | boolean;
+            };
+            targets: Array<{
+                script_name: string;
+                type: 'workflow';
+                workflow_name: string;
+            }>;
+            type: string;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorReplaceScriptTriggersResponses, WorReplaceScriptTriggersErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'script_name' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<WorReplaceScriptTriggersResponses, WorReplaceScriptTriggersErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorReplaceScriptTriggersBody,
+                path: zWorReplaceScriptTriggersPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorReplaceScriptTriggersResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/triggers/{script_name}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
     /**
      * List all Workflows
      *
@@ -21,7 +173,7 @@ export class WorkflowsService {
         per_page?: number;
         page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorListWorkflowsResponses, WorListWorkflowsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'per_page' },
@@ -47,6 +199,75 @@ export class WorkflowsService {
     }
     
     /**
+     * Get account settings
+     *
+     * Retrieves account-level Workflows settings, such as the default instance retention.
+     */
+    public static worGetWorkflowSettings<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorGetWorkflowSettingsResponses, WorGetWorkflowSettingsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<WorGetWorkflowSettingsResponses, WorGetWorkflowSettingsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWorGetWorkflowSettingsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorGetWorkflowSettingsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/workflows/settings',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update account settings
+     *
+     * Partially updates account-level Workflows settings; only the fields present in the body are changed.
+     */
+    public static worUpdateWorkflowSettings<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        default_retention?: {
+            /**
+             * Specifies the duration in milliseconds or as a string like '5 minutes'.
+             */
+            error_retention?: number | string;
+            /**
+             * Specifies the duration in milliseconds or as a string like '5 minutes'.
+             */
+            success_retention?: number | string;
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorUpdateWorkflowSettingsResponses, WorUpdateWorkflowSettingsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'default_retention' }] }]);
+        return (options?.client ?? client).patch<WorUpdateWorkflowSettingsResponses, WorUpdateWorkflowSettingsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorUpdateWorkflowSettingsBody.optional(),
+                path: zWorUpdateWorkflowSettingsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorUpdateWorkflowSettingsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/workflows/settings',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Deletes a Workflow
      *
      * Deletes a Workflow. This only deletes the Workflow and does not delete or modify any Worker associated to this Workflow or bounded to it.
@@ -54,7 +275,7 @@ export class WorkflowsService {
     public static worDeleteWorkflow<ThrowOnError extends boolean = true>(parameters: {
         workflow_name: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDeleteWorkflowResponses, WorDeleteWorkflowErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'workflow_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<WorDeleteWorkflowResponses, WorDeleteWorkflowErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +303,7 @@ export class WorkflowsService {
     public static worGetWorkflowDetails<ThrowOnError extends boolean = true>(parameters: {
         workflow_name: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorGetWorkflowDetailsResponses, WorGetWorkflowDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'workflow_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorGetWorkflowDetailsResponses, WorGetWorkflowDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -111,16 +332,31 @@ export class WorkflowsService {
         workflow_name: string;
         account_id: string;
         class_name: string;
+        default_retention?: {
+            /**
+             * Specifies the duration in milliseconds or as a string like '5 minutes'.
+             */
+            error_retention?: number | string;
+            /**
+             * Specifies the duration in milliseconds or as a string like '5 minutes'.
+             */
+            success_retention?: number | string;
+        };
         limits?: {
             steps?: number;
         };
+        schedules?: Array<{
+            cron: string;
+        }>;
         script_name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorCreateOrModifyWorkflowResponses, WorCreateOrModifyWorkflowErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'class_name' },
+                    { in: 'body', key: 'default_retention' },
                     { in: 'body', key: 'limits' },
+                    { in: 'body', key: 'schedules' },
                     { in: 'body', key: 'script_name' }
                 ] }]);
         return (options?.client ?? client).put<WorCreateOrModifyWorkflowResponses, WorCreateOrModifyWorkflowErrors, ThrowOnError>({
@@ -158,10 +394,10 @@ export class WorkflowsService {
         per_page?: number;
         cursor?: string;
         direction?: 'asc' | 'desc';
-        status?: 'queued' | 'running' | 'paused' | 'errored' | 'terminated' | 'complete' | 'waitingForPause' | 'waiting';
+        status?: 'queued' | 'running' | 'paused' | 'errored' | 'terminated' | 'complete' | 'waitingForPause' | 'waiting' | 'rollingBack';
         date_start?: string;
         date_end?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorListWorkflowInstancesResponses, WorListWorkflowInstancesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
@@ -210,10 +446,8 @@ export class WorkflowsService {
              */
             success_retention?: number | string;
         };
-        params?: {
-            [key: string]: unknown;
-        };
-    }, options?: Options<never, ThrowOnError>) {
+        params?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorCreateNewWorkflowInstanceResponses, WorCreateNewWorkflowInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
@@ -264,11 +498,12 @@ export class WorkflowsService {
                  */
                 success_retention?: number | string;
             };
-            params?: {
-                [key: string]: unknown;
-            };
+            /**
+             * JSON-encoded event payload passed into the new instance.
+             */
+            params?: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorBatchCreateWorkflowInstanceResponses, WorBatchCreateWorkflowInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
@@ -306,7 +541,7 @@ export class WorkflowsService {
         workflow_name: string;
         account_id: string;
         body?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorBatchTerminateWorkflowInstancesResponses, WorBatchTerminateWorkflowInstancesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
@@ -343,7 +578,7 @@ export class WorkflowsService {
     public static worStatusTerminateWorkflowInstances<ThrowOnError extends boolean = true>(parameters: {
         workflow_name: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorStatusTerminateWorkflowInstancesResponses, WorStatusTerminateWorkflowInstancesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'workflow_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorStatusTerminateWorkflowInstancesResponses, WorStatusTerminateWorkflowInstancesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -364,6 +599,39 @@ export class WorkflowsService {
     }
     
     /**
+     * Delete a workflow instance
+     *
+     * Deletes a workflow instance and its stored state.
+     */
+    public static worDeleteWorkflowInstance<ThrowOnError extends boolean = true>(parameters: {
+        workflow_name: string;
+        instance_id: string;
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDeleteWorkflowInstanceResponses, WorDeleteWorkflowInstanceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'workflow_name' },
+                    { in: 'path', key: 'instance_id' },
+                    { in: 'path', key: 'account_id' }
+                ] }]);
+        return (options?.client ?? client).delete<WorDeleteWorkflowInstanceResponses, WorDeleteWorkflowInstanceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWorDeleteWorkflowInstancePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorDeleteWorkflowInstanceResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get logs and status from instance
      *
      * Retrieves logs and execution status for a specific workflow instance.
@@ -374,7 +642,7 @@ export class WorkflowsService {
         account_id: string;
         simple?: 'true' | 'false';
         order?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDescribeWorkflowInstanceResponses, WorDescribeWorkflowInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'instance_id' },
@@ -413,7 +681,7 @@ export class WorkflowsService {
         body?: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorSendEventWorkflowInstanceResponses, WorSendEventWorkflowInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'instance_id' },
@@ -453,19 +721,33 @@ export class WorkflowsService {
         workflow_name: string;
         instance_id: string;
         account_id: string;
-        from?: {
-            count?: number;
-            name: string;
-            type?: 'do' | 'sleep' | 'waitForEvent';
+        body?: {
+            status: 'pause';
+        } | {
+            status: 'resume';
+        } | {
+            /**
+             * Run rollback before terminating.
+             */
+            rollback?: boolean;
+            status: 'terminate';
+        } | {
+            /**
+             * Step to restart from.
+             */
+            from?: {
+                count?: number;
+                name: string;
+                type?: 'do' | 'sleep' | 'waitForEvent';
+            };
+            status: 'restart';
         };
-        status: 'resume' | 'pause' | 'terminate' | 'restart';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorChangeStatusWorkflowInstanceResponses, WorChangeStatusWorkflowInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'instance_id' },
                     { in: 'path', key: 'account_id' },
-                    { in: 'body', key: 'from' },
-                    { in: 'body', key: 'status' }
+                    { key: 'body', map: 'body' }
                 ] }]);
         return (options?.client ?? client).patch<WorChangeStatusWorkflowInstanceResponses, WorChangeStatusWorkflowInstanceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -491,6 +773,45 @@ export class WorkflowsService {
     }
     
     /**
+     * Get full step output from instance
+     *
+     * Retrieves the full, untruncated output for a specific step on a workflow instance. Returns a flat status-shaped JSON body with step `status` ('running' | 'waiting' | 'complete' | 'errored'), `error` (nullable), and `output` (the step value, or null while running/waiting/errored). When the step returned a ReadableStream from step.do, the response is served as 'application/octet-stream' with the raw bytes as the body instead of JSON. A `status='running'` response with non-null `error` indicates the step is currently retrying after a prior attempt failed.
+     */
+    public static worGetWorkflowInstanceStep<ThrowOnError extends boolean = true>(parameters: {
+        workflow_name: string;
+        instance_id: string;
+        account_id: string;
+        name: string;
+        type: 'step' | 'waitForEvent';
+        attempt?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorGetWorkflowInstanceStepResponses, WorGetWorkflowInstanceStepErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'workflow_name' },
+                    { in: 'path', key: 'instance_id' },
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'name' },
+                    { in: 'query', key: 'type' },
+                    { in: 'query', key: 'attempt' }
+                ] }]);
+        return (options?.client ?? client).get<WorGetWorkflowInstanceStepResponses, WorGetWorkflowInstanceStepErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWorGetWorkflowInstanceStepPath,
+                query: zWorGetWorkflowInstanceStepQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorGetWorkflowInstanceStepResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/step',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * List deployed Workflow versions
      *
      * Lists all deployed versions of a workflow.
@@ -500,7 +821,7 @@ export class WorkflowsService {
         account_id: string;
         per_page?: number;
         page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorListWorkflowVersionsResponses, WorListWorkflowVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'account_id' },
@@ -534,7 +855,7 @@ export class WorkflowsService {
         workflow_name: string;
         version_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDescribeWorkflowVersionsResponses, WorDescribeWorkflowVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'version_id' },
@@ -567,7 +888,7 @@ export class WorkflowsService {
         workflow_name: string;
         version_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDescribeWorkflowVersionsDagResponses, WorDescribeWorkflowVersionsDagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'version_id' },
@@ -600,7 +921,7 @@ export class WorkflowsService {
         workflow_name: string;
         version_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorDescribeWorkflowVersionsGraphResponses, WorDescribeWorkflowVersionsGraphErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'workflow_name' },
                     { in: 'path', key: 'version_id' },

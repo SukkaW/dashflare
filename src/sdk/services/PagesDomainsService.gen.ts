@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { PagesDomainName, PagesDomainsAddDomainErrors, PagesDomainsAddDomainResponses, PagesDomainsDeleteDomainErrors, PagesDomainsDeleteDomainResponses, PagesDomainsGetDomainErrors, PagesDomainsGetDomainResponses, PagesDomainsGetDomainsErrors, PagesDomainsGetDomainsResponses, PagesDomainsPatchDomainErrors, PagesDomainsPatchDomainResponses, PagesIdentifier, PagesProjectName } from '../types.gen';
@@ -19,7 +19,7 @@ export class PagesDomainsService {
     public static pagesDomainsGetDomains<ThrowOnError extends boolean = true>(parameters: {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDomainsGetDomainsResponses, PagesDomainsGetDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'project_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<PagesDomainsGetDomainsResponses, PagesDomainsGetDomainsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class PagesDomainsService {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
         name: PagesDomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDomainsAddDomainResponses, PagesDomainsAddDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'project_name' },
                     { in: 'path', key: 'account_id' },
@@ -86,7 +86,7 @@ export class PagesDomainsService {
         domain_name: PagesDomainName;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDomainsDeleteDomainResponses, PagesDomainsDeleteDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'domain_name' },
                     { in: 'path', key: 'project_name' },
@@ -119,7 +119,7 @@ export class PagesDomainsService {
         domain_name: PagesDomainName;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDomainsGetDomainResponses, PagesDomainsGetDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'domain_name' },
                     { in: 'path', key: 'project_name' },
@@ -152,7 +152,7 @@ export class PagesDomainsService {
         domain_name: PagesDomainName;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDomainsPatchDomainResponses, PagesDomainsPatchDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'domain_name' },
                     { in: 'path', key: 'project_name' },

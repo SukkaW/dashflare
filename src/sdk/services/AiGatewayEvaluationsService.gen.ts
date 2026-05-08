@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigCreateEvaluationsErrors, AigConfigCreateEvaluationsResponses, AigConfigDeleteEvaluationsErrors, AigConfigDeleteEvaluationsResponses, AigConfigFetchEvaluationsErrors, AigConfigFetchEvaluationsResponses, AigConfigListEvaluationsErrors, AigConfigListEvaluationsResponses, AigConfigListEvaluatorsErrors, AigConfigListEvaluatorsResponses } from '../types.gen';
@@ -13,6 +13,8 @@ import { zAigConfigCreateEvaluationsBody, zAigConfigCreateEvaluationsPath, zAigC
 export class AiGatewayEvaluationsService {
     /**
      * List Evaluators
+     *
+     * Lists all available evaluator types for scoring AI gateway responses.
      */
     public static aigConfigListEvaluators<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -20,7 +22,7 @@ export class AiGatewayEvaluationsService {
         per_page?: number;
         order_by?: string;
         order_by_direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListEvaluatorsResponses, AigConfigListEvaluatorsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -59,7 +61,7 @@ export class AiGatewayEvaluationsService {
         name?: string;
         processed?: boolean;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListEvaluationsResponses, AigConfigListEvaluationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -98,7 +100,7 @@ export class AiGatewayEvaluationsService {
         dataset_ids: Array<string>;
         evaluation_type_ids: Array<string>;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigCreateEvaluationsResponses, AigConfigCreateEvaluationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'gateway_id' },
                     { in: 'path', key: 'account_id' },
@@ -138,7 +140,7 @@ export class AiGatewayEvaluationsService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteEvaluationsResponses, AigConfigDeleteEvaluationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -171,7 +173,7 @@ export class AiGatewayEvaluationsService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigFetchEvaluationsResponses, AigConfigFetchEvaluationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },

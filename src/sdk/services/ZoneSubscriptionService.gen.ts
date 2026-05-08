@@ -4,13 +4,40 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BillSubsApiIdentifier, BillSubsApiSubscriptionV2Writable, ZoneSubscriptionCreateZoneSubscriptionErrors, ZoneSubscriptionCreateZoneSubscriptionResponses, ZoneSubscriptionUpdateZoneSubscriptionErrors, ZoneSubscriptionUpdateZoneSubscriptionResponses, ZoneSubscriptionZoneSubscriptionDetailsErrors, ZoneSubscriptionZoneSubscriptionDetailsResponses } from '../types.gen';
-import { zZoneSubscriptionCreateZoneSubscriptionBody, zZoneSubscriptionCreateZoneSubscriptionPath, zZoneSubscriptionCreateZoneSubscriptionResponse, zZoneSubscriptionUpdateZoneSubscriptionBody, zZoneSubscriptionUpdateZoneSubscriptionPath, zZoneSubscriptionUpdateZoneSubscriptionResponse, zZoneSubscriptionZoneSubscriptionDetailsPath, zZoneSubscriptionZoneSubscriptionDetailsResponse } from '../zod.gen';
+import type { BillSubsApiIdentifier, BillSubsApiSubscriptionV2Writable, ZoneSubscriptionCreateZoneSubscriptionErrors, ZoneSubscriptionCreateZoneSubscriptionResponses, ZoneSubscriptionCreateZoneSubscriptionsErrors, ZoneSubscriptionCreateZoneSubscriptionsResponses, ZoneSubscriptionDeleteZoneSubscriptionErrors, ZoneSubscriptionDeleteZoneSubscriptionResponses, ZoneSubscriptionDeleteZoneSubscriptionsErrors, ZoneSubscriptionDeleteZoneSubscriptionsResponses, ZoneSubscriptionUpdateZoneSubscriptionErrors, ZoneSubscriptionUpdateZoneSubscriptionResponses, ZoneSubscriptionUpdateZoneSubscriptionsErrors, ZoneSubscriptionUpdateZoneSubscriptionsResponses, ZoneSubscriptionZoneSubscriptionDetailsErrors, ZoneSubscriptionZoneSubscriptionDetailsResponses } from '../types.gen';
+import { zZoneSubscriptionCreateZoneSubscriptionBody, zZoneSubscriptionCreateZoneSubscriptionPath, zZoneSubscriptionCreateZoneSubscriptionResponse, zZoneSubscriptionCreateZoneSubscriptionsBody, zZoneSubscriptionCreateZoneSubscriptionsPath, zZoneSubscriptionCreateZoneSubscriptionsResponse, zZoneSubscriptionDeleteZoneSubscriptionPath, zZoneSubscriptionDeleteZoneSubscriptionResponse, zZoneSubscriptionDeleteZoneSubscriptionsPath, zZoneSubscriptionDeleteZoneSubscriptionsResponse, zZoneSubscriptionUpdateZoneSubscriptionBody, zZoneSubscriptionUpdateZoneSubscriptionPath, zZoneSubscriptionUpdateZoneSubscriptionResponse, zZoneSubscriptionUpdateZoneSubscriptionsBody, zZoneSubscriptionUpdateZoneSubscriptionsPath, zZoneSubscriptionUpdateZoneSubscriptionsResponse, zZoneSubscriptionZoneSubscriptionDetailsPath, zZoneSubscriptionZoneSubscriptionDetailsResponse } from '../zod.gen';
 
 export class ZoneSubscriptionService {
+    /**
+     * Delete Zone Subscription
+     *
+     * Deletes a zone's subscription.
+     */
+    public static zoneSubscriptionDeleteZoneSubscription<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: BillSubsApiIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionDeleteZoneSubscriptionResponses, ZoneSubscriptionDeleteZoneSubscriptionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
+        return (options?.client ?? client).delete<ZoneSubscriptionDeleteZoneSubscriptionResponses, ZoneSubscriptionDeleteZoneSubscriptionErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZoneSubscriptionDeleteZoneSubscriptionPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneSubscriptionDeleteZoneSubscriptionResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/zones/{zone_id}/subscription',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * Zone Subscription Details
      *
@@ -18,7 +45,7 @@ export class ZoneSubscriptionService {
      */
     public static zoneSubscriptionZoneSubscriptionDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionZoneSubscriptionDetailsResponses, ZoneSubscriptionZoneSubscriptionDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneSubscriptionZoneSubscriptionDetailsResponses, ZoneSubscriptionZoneSubscriptionDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +73,7 @@ export class ZoneSubscriptionService {
     public static zoneSubscriptionCreateZoneSubscription<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BillSubsApiIdentifier;
         billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionCreateZoneSubscriptionResponses, ZoneSubscriptionCreateZoneSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
         return (options?.client ?? client).post<ZoneSubscriptionCreateZoneSubscriptionResponses, ZoneSubscriptionCreateZoneSubscriptionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +106,7 @@ export class ZoneSubscriptionService {
     public static zoneSubscriptionUpdateZoneSubscription<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BillSubsApiIdentifier;
         billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionUpdateZoneSubscriptionResponses, ZoneSubscriptionUpdateZoneSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
         return (options?.client ?? client).put<ZoneSubscriptionUpdateZoneSubscriptionResponses, ZoneSubscriptionUpdateZoneSubscriptionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -94,6 +121,99 @@ export class ZoneSubscriptionService {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/zones/{zone_id}/subscription',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete Zone Subscription
+     *
+     * Deletes a zone's subscription. Retained for audit-log coverage. Use the singular `/zones/{zone_id}/subscription` path instead.
+     */
+    public static zoneSubscriptionDeleteZoneSubscriptions<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: BillSubsApiIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionDeleteZoneSubscriptionsResponses, ZoneSubscriptionDeleteZoneSubscriptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
+        return (options?.client ?? client).delete<ZoneSubscriptionDeleteZoneSubscriptionsResponses, ZoneSubscriptionDeleteZoneSubscriptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZoneSubscriptionDeleteZoneSubscriptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneSubscriptionDeleteZoneSubscriptionsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/zones/{zone_id}/subscriptions',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create Zone Subscription
+     *
+     * Create a zone subscription, either plan or add-ons. Retained for audit-log coverage. Use the singular `/zones/{zone_id}/subscription` path instead.
+     */
+    public static zoneSubscriptionCreateZoneSubscriptions<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: BillSubsApiIdentifier;
+        billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionCreateZoneSubscriptionsResponses, ZoneSubscriptionCreateZoneSubscriptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
+        return (options?.client ?? client).post<ZoneSubscriptionCreateZoneSubscriptionsResponses, ZoneSubscriptionCreateZoneSubscriptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZoneSubscriptionCreateZoneSubscriptionsBody,
+                path: zZoneSubscriptionCreateZoneSubscriptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneSubscriptionCreateZoneSubscriptionsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/zones/{zone_id}/subscriptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Update Zone Subscription
+     *
+     * Updates zone subscriptions, either plan or add-ons. Retained for audit-log coverage. Use the singular `/zones/{zone_id}/subscription` path instead.
+     */
+    public static zoneSubscriptionUpdateZoneSubscriptions<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: BillSubsApiIdentifier;
+        billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSubscriptionUpdateZoneSubscriptionsResponses, ZoneSubscriptionUpdateZoneSubscriptionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
+        return (options?.client ?? client).put<ZoneSubscriptionUpdateZoneSubscriptionsResponses, ZoneSubscriptionUpdateZoneSubscriptionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZoneSubscriptionUpdateZoneSubscriptionsBody,
+                path: zZoneSubscriptionUpdateZoneSubscriptionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneSubscriptionUpdateZoneSubscriptionsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/zones/{zone_id}/subscriptions',
             ...options,
             ...params,
             headers: {

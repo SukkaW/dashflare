@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ObservatoryDeviceType, ObservatoryIdentifier, ObservatoryRegion, ObservatoryScheduleFrequency, ObservatoryTimestamp, ObservatoryUrl, SpeedCreateScheduledTestErrors, SpeedCreateScheduledTestResponses, SpeedCreateTestErrors, SpeedCreateTestResponses, SpeedDeleteTestScheduleErrors, SpeedDeleteTestScheduleResponses, SpeedDeleteTestsErrors, SpeedDeleteTestsResponses, SpeedGetAvailabilitiesErrors, SpeedGetAvailabilitiesResponses, SpeedGetScheduledTestErrors, SpeedGetScheduledTestResponses, SpeedGetTestErrors, SpeedGetTestResponses, SpeedListPagesErrors, SpeedListPagesResponses, SpeedListPageTrendErrors, SpeedListPageTrendResponses, SpeedListTestHistoryErrors, SpeedListTestHistoryResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ObservatoryService {
      */
     public static speedGetAvailabilities<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ObservatoryIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedGetAvailabilitiesResponses, SpeedGetAvailabilitiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SpeedGetAvailabilitiesResponses, SpeedGetAvailabilitiesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class ObservatoryService {
      */
     public static speedListPages<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ObservatoryIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedListPagesResponses, SpeedListPagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SpeedListPagesResponses, SpeedListPagesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class ObservatoryService {
         zone_id: ObservatoryIdentifier;
         url: ObservatoryUrl;
         region?: ObservatoryRegion & string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedDeleteTestsResponses, SpeedDeleteTestsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -109,7 +109,7 @@ export class ObservatoryService {
         page?: number;
         per_page?: number;
         region?: ObservatoryRegion & string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedListTestHistoryResponses, SpeedListTestHistoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -144,7 +144,7 @@ export class ObservatoryService {
         zone_id: ObservatoryIdentifier;
         url: ObservatoryUrl;
         region?: ObservatoryRegion & string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedCreateTestResponses, SpeedCreateTestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -182,7 +182,7 @@ export class ObservatoryService {
         zone_id: ObservatoryIdentifier;
         url: ObservatoryUrl;
         test_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedGetTestResponses, SpeedGetTestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -220,7 +220,7 @@ export class ObservatoryService {
         end?: ObservatoryTimestamp;
         tz: string;
         metrics: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedListPageTrendResponses, SpeedListPageTrendErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -258,7 +258,7 @@ export class ObservatoryService {
         zone_id: ObservatoryIdentifier;
         url: ObservatoryUrl;
         region?: ObservatoryRegion & string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedDeleteTestScheduleResponses, SpeedDeleteTestScheduleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -291,7 +291,7 @@ export class ObservatoryService {
         zone_id: ObservatoryIdentifier;
         url: ObservatoryUrl;
         region?: ObservatoryRegion & string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedGetScheduledTestResponses, SpeedGetScheduledTestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },
@@ -325,7 +325,7 @@ export class ObservatoryService {
         url: ObservatoryUrl;
         region?: ObservatoryRegion & string;
         frequency?: ObservatoryScheduleFrequency;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpeedCreateScheduledTestResponses, SpeedCreateScheduledTestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'url' },

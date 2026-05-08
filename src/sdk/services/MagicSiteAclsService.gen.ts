@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicAclsAddSingleRequest, MagicAclUpdateRequest, MagicIdentifier, MagicSiteAclsAclDetailsErrors, MagicSiteAclsAclDetailsResponses, MagicSiteAclsCreateAclErrors, MagicSiteAclsCreateAclResponses, MagicSiteAclsDeleteAclErrors, MagicSiteAclsDeleteAclResponses, MagicSiteAclsListAclsErrors, MagicSiteAclsListAclsResponses, MagicSiteAclsPatchAclErrors, MagicSiteAclsPatchAclResponses, MagicSiteAclsUpdateAclErrors, MagicSiteAclsUpdateAclResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicSiteAclsService {
     public static magicSiteAclsListAcls<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsListAclsResponses, MagicSiteAclsListAclsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).get<MagicSiteAclsListAclsResponses, MagicSiteAclsListAclsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class MagicSiteAclsService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicAclsAddSingleRequest: MagicAclsAddSingleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsCreateAclResponses, MagicSiteAclsCreateAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -87,7 +87,7 @@ export class MagicSiteAclsService {
         account_id: MagicIdentifier;
         acl_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsDeleteAclResponses, MagicSiteAclsDeleteAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -126,7 +126,7 @@ export class MagicSiteAclsService {
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
         acl_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsAclDetailsResponses, MagicSiteAclsAclDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -160,7 +160,7 @@ export class MagicSiteAclsService {
         account_id: MagicIdentifier;
         acl_id: MagicIdentifier;
         magicAclUpdateRequest: MagicAclUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsPatchAclResponses, MagicSiteAclsPatchAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -200,7 +200,7 @@ export class MagicSiteAclsService {
         account_id: MagicIdentifier;
         acl_id: MagicIdentifier;
         magicAclUpdateRequest: MagicAclUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAclsUpdateAclResponses, MagicSiteAclsUpdateAclErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },

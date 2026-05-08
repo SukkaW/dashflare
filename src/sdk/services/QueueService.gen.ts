@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MqBatchSize, MqConsumerRequest, MqEventDestination, MqEventSource, MqIdentifier, MqLeaseId, MqQueueBatch, MqQueueMessage, MqQueueName, MqQueueWritable, MqRetryDelay, MqVisibilityTimeout, QueuesAckMessagesErrors, QueuesAckMessagesResponses, QueuesAckPreviewMessagesErrors, QueuesAckPreviewMessagesResponses, QueuesCreateConsumerErrors, QueuesCreateConsumerResponses, QueuesCreateErrors, QueuesCreateResponses, QueuesDeleteConsumerErrors, QueuesDeleteConsumerResponses, QueuesDeleteErrors, QueuesDeleteResponses, QueuesGetConsumerErrors, QueuesGetConsumerResponses, QueuesGetErrors, QueuesGetMetricsErrors, QueuesGetMetricsResponses, QueuesGetResponses, QueuesListConsumersErrors, QueuesListConsumersResponses, QueuesListErrors, QueuesListResponses, QueuesPreviewMessagesErrors, QueuesPreviewMessagesResponses, QueuesPullMessagesErrors, QueuesPullMessagesResponses, QueuesPurgeErrors, QueuesPurgeGetErrors, QueuesPurgeGetResponses, QueuesPurgeResponses, QueuesPushMessageErrors, QueuesPushMessageResponses, QueuesPushMessagesErrors, QueuesPushMessagesResponses, QueuesUpdateConsumerErrors, QueuesUpdateConsumerResponses, QueuesUpdateErrors, QueuesUpdatePartialErrors, QueuesUpdatePartialResponses, QueuesUpdateResponses, SubscriptionsCreateErrors, SubscriptionsCreateResponses, SubscriptionsDeleteResponses, SubscriptionsGetErrors, SubscriptionsGetResponses, SubscriptionsListErrors, SubscriptionsListResponses, SubscriptionsPatchErrors, SubscriptionsPatchResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class QueueService {
         per_page?: number;
         order?: 'created_at' | 'name' | 'enabled' | 'source';
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubscriptionsListResponses, SubscriptionsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -60,7 +60,7 @@ export class QueueService {
         events?: Array<string>;
         name?: string;
         source?: MqEventSource;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubscriptionsCreateResponses, SubscriptionsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'destination' },
@@ -100,7 +100,7 @@ export class QueueService {
     public static subscriptionsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: MqIdentifier;
         subscription_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubscriptionsDeleteResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'subscription_id' }] }]);
         return (options?.client ?? client).delete<SubscriptionsDeleteResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -128,7 +128,7 @@ export class QueueService {
     public static subscriptionsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MqIdentifier;
         subscription_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubscriptionsGetResponses, SubscriptionsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'subscription_id' }] }]);
         return (options?.client ?? client).get<SubscriptionsGetResponses, SubscriptionsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -160,7 +160,7 @@ export class QueueService {
         enabled?: boolean;
         events?: Array<string>;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubscriptionsPatchResponses, SubscriptionsPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'subscription_id' },
@@ -199,7 +199,7 @@ export class QueueService {
      */
     public static queuesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesListResponses, QueuesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<QueuesListResponses, QueuesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +227,7 @@ export class QueueService {
     public static queuesCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MqIdentifier;
         queue_name: MqQueueName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesCreateResponses, QueuesCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'queue_name' }] }]);
         return (options?.client ?? client).post<QueuesCreateResponses, QueuesCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -260,7 +260,7 @@ export class QueueService {
     public static queuesDelete<ThrowOnError extends boolean = true>(parameters: {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesDeleteResponses, QueuesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'queue_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<QueuesDeleteResponses, QueuesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -288,7 +288,7 @@ export class QueueService {
     public static queuesGet<ThrowOnError extends boolean = true>(parameters: {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesGetResponses, QueuesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'queue_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<QueuesGetResponses, QueuesGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -317,7 +317,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqQueueWritable?: MqQueueWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesUpdatePartialResponses, QueuesUpdatePartialErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -355,7 +355,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqQueueWritable?: MqQueueWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesUpdateResponses, QueuesUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -392,7 +392,7 @@ export class QueueService {
     public static queuesListConsumers<ThrowOnError extends boolean = true>(parameters: {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesListConsumersResponses, QueuesListConsumersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'queue_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<QueuesListConsumersResponses, QueuesListConsumersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -421,7 +421,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqConsumerRequest?: MqConsumerRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesCreateConsumerResponses, QueuesCreateConsumerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -459,7 +459,7 @@ export class QueueService {
         consumer_id: MqIdentifier;
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesDeleteConsumerResponses, QueuesDeleteConsumerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'consumer_id' },
                     { in: 'path', key: 'queue_id' },
@@ -492,7 +492,7 @@ export class QueueService {
         consumer_id: MqIdentifier;
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesGetConsumerResponses, QueuesGetConsumerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'consumer_id' },
                     { in: 'path', key: 'queue_id' },
@@ -526,7 +526,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqConsumerRequest: MqConsumerRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesUpdateConsumerResponses, QueuesUpdateConsumerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'consumer_id' },
                     { in: 'path', key: 'queue_id' },
@@ -565,7 +565,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqQueueMessage?: MqQueueMessage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPushMessageResponses, QueuesPushMessageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -609,7 +609,7 @@ export class QueueService {
             delay_seconds?: MqRetryDelay;
             lease_id?: MqLeaseId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesAckMessagesResponses, QueuesAckMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -648,7 +648,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         mqQueueBatch?: MqQueueBatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPushMessagesResponses, QueuesPushMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -686,7 +686,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         batch_size?: MqBatchSize;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPreviewMessagesResponses, QueuesPreviewMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -730,7 +730,7 @@ export class QueueService {
             delay_seconds?: MqRetryDelay;
             lease_id?: MqLeaseId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesAckPreviewMessagesResponses, QueuesAckPreviewMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -770,7 +770,7 @@ export class QueueService {
         account_id: MqIdentifier;
         batch_size?: MqBatchSize;
         visibility_timeout_ms?: MqVisibilityTimeout;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPullMessagesResponses, QueuesPullMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },
@@ -808,7 +808,7 @@ export class QueueService {
     public static queuesGetMetrics<ThrowOnError extends boolean = true>(parameters: {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesGetMetricsResponses, QueuesGetMetricsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'queue_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<QueuesGetMetricsResponses, QueuesGetMetricsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -836,7 +836,7 @@ export class QueueService {
     public static queuesPurgeGet<ThrowOnError extends boolean = true>(parameters: {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPurgeGetResponses, QueuesPurgeGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'queue_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<QueuesPurgeGetResponses, QueuesPurgeGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -865,7 +865,7 @@ export class QueueService {
         queue_id: MqIdentifier;
         account_id: MqIdentifier;
         delete_messages_permanently?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueuesPurgeResponses, QueuesPurgeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'queue_id' },
                     { in: 'path', key: 'account_id' },

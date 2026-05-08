@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountLevelCustomNameserversAddAccountCustomNameserverErrors, AccountLevelCustomNameserversAddAccountCustomNameserverResponses, AccountLevelCustomNameserversDeleteAccountCustomNameserverErrors, AccountLevelCustomNameserversDeleteAccountCustomNameserverResponses, AccountLevelCustomNameserversListAccountCustomNameserversErrors, AccountLevelCustomNameserversListAccountCustomNameserversResponses, DnsCustomNameserversCustomNsInput, DnsCustomNameserversIdentifier, DnsCustomNameserversNsName } from '../types.gen';
@@ -18,7 +18,7 @@ export class AccountLevelCustomNameserversService {
      */
     public static accountLevelCustomNameserversListAccountCustomNameservers<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsCustomNameserversIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLevelCustomNameserversListAccountCustomNameserversResponses, AccountLevelCustomNameserversListAccountCustomNameserversErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLevelCustomNameserversListAccountCustomNameserversResponses, AccountLevelCustomNameserversListAccountCustomNameserversErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -40,11 +40,13 @@ export class AccountLevelCustomNameserversService {
     
     /**
      * Add Account Custom Nameserver
+     *
+     * Adds a custom nameserver to the account for use as a vanity nameserver on zones.
      */
     public static accountLevelCustomNameserversAddAccountCustomNameserver<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsCustomNameserversIdentifier;
         dnsCustomNameserversCustomNsInput: DnsCustomNameserversCustomNsInput;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLevelCustomNameserversAddAccountCustomNameserverResponses, AccountLevelCustomNameserversAddAccountCustomNameserverErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dnsCustomNameserversCustomNsInput', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountLevelCustomNameserversAddAccountCustomNameserverResponses, AccountLevelCustomNameserversAddAccountCustomNameserverErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,12 +73,14 @@ export class AccountLevelCustomNameserversService {
     
     /**
      * Delete Account Custom Nameserver
+     *
+     * Removes a custom nameserver from the account.
      */
     public static accountLevelCustomNameserversDeleteAccountCustomNameserver<ThrowOnError extends boolean = true>(parameters: {
         custom_ns_id: DnsCustomNameserversNsName;
         account_id: DnsCustomNameserversIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLevelCustomNameserversDeleteAccountCustomNameserverResponses, AccountLevelCustomNameserversDeleteAccountCustomNameserverErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_ns_id' },
                     { in: 'path', key: 'account_id' },

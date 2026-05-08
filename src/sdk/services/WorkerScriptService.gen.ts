@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorkerAssetsUploadErrors, WorkerAssetsUploadResponses, WorkerDeleteScriptSecretErrors, WorkerDeleteScriptSecretResponses, WorkerGetScriptSecretErrors, WorkerGetScriptSecretResponses, WorkerListScriptSecretsErrors, WorkerListScriptSecretsResponses, WorkerPutScriptSecretErrors, WorkerPutScriptSecretResponses, WorkersCreateAssetsUploadSessionObject, WorkerScriptDeleteSubdomainErrors, WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteWorkerErrors, WorkerScriptDeleteWorkerResponses, WorkerScriptDownloadWorkerErrors, WorkerScriptDownloadWorkerResponses, WorkerScriptFetchUsageModelErrors, WorkerScriptFetchUsageModelResponses, WorkerScriptGetContentErrors, WorkerScriptGetContentResponses, WorkerScriptGetSettingsErrors, WorkerScriptGetSettingsResponses, WorkerScriptGetSubdomainErrors, WorkerScriptGetSubdomainResponses, WorkerScriptListWorkersErrors, WorkerScriptListWorkersResponses, WorkerScriptPatchSettingsErrors, WorkerScriptPatchSettingsResponses, WorkerScriptPostSubdomainErrors, WorkerScriptPostSubdomainResponses, WorkerScriptPutContentErrors, WorkerScriptPutContentResponses, WorkerScriptSearchWorkersErrors, WorkerScriptSearchWorkersResponses, WorkerScriptSettingsGetSettingsErrors, WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsPatchSettingsErrors, WorkerScriptSettingsPatchSettingsResponses, WorkerScriptUpdateCreateAssetsUploadSessionErrors, WorkerScriptUpdateCreateAssetsUploadSessionResponses, WorkerScriptUpdateUsageModelErrors, WorkerScriptUpdateUsageModelResponses, WorkerScriptUploadWorkerModuleErrors, WorkerScriptUploadWorkerModuleResponses, WorkersIdentifier, WorkersScriptAndVersionSettingsItemWritable, WorkersScriptName, WorkersScriptSettingsItem, WorkersScriptUpload, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretWritable, WorkersUsageModel, WorkersUserLimits } from '../types.gen';
-import { zWorkerAssetsUploadBody, zWorkerAssetsUploadPath, zWorkerAssetsUploadQuery, zWorkerAssetsUploadResponse, zWorkerDeleteScriptSecretPath, zWorkerDeleteScriptSecretQuery, zWorkerDeleteScriptSecretResponse, zWorkerGetScriptSecretPath, zWorkerGetScriptSecretQuery, zWorkerGetScriptSecretResponse, zWorkerListScriptSecretsPath, zWorkerListScriptSecretsResponse, zWorkerPutScriptSecretBody, zWorkerPutScriptSecretPath, zWorkerPutScriptSecretResponse, zWorkerScriptDeleteSubdomainPath, zWorkerScriptDeleteSubdomainResponse, zWorkerScriptDeleteWorkerBody, zWorkerScriptDeleteWorkerPath, zWorkerScriptDeleteWorkerQuery, zWorkerScriptDeleteWorkerResponse, zWorkerScriptDownloadWorkerPath, zWorkerScriptDownloadWorkerResponse, zWorkerScriptFetchUsageModelPath, zWorkerScriptFetchUsageModelResponse, zWorkerScriptGetContentPath, zWorkerScriptGetContentResponse, zWorkerScriptGetSettingsPath, zWorkerScriptGetSettingsResponse, zWorkerScriptGetSubdomainPath, zWorkerScriptGetSubdomainResponse, zWorkerScriptListWorkersPath, zWorkerScriptListWorkersQuery, zWorkerScriptListWorkersResponse, zWorkerScriptPatchSettingsBody, zWorkerScriptPatchSettingsPath, zWorkerScriptPatchSettingsResponse, zWorkerScriptPostSubdomainBody, zWorkerScriptPostSubdomainPath, zWorkerScriptPostSubdomainResponse, zWorkerScriptPutContentBody, zWorkerScriptPutContentHeaders, zWorkerScriptPutContentPath, zWorkerScriptPutContentResponse, zWorkerScriptSearchWorkersPath, zWorkerScriptSearchWorkersQuery, zWorkerScriptSearchWorkersResponse, zWorkerScriptSettingsGetSettingsPath, zWorkerScriptSettingsGetSettingsResponse, zWorkerScriptSettingsPatchSettingsBody, zWorkerScriptSettingsPatchSettingsPath, zWorkerScriptSettingsPatchSettingsResponse, zWorkerScriptUpdateCreateAssetsUploadSessionBody, zWorkerScriptUpdateCreateAssetsUploadSessionPath, zWorkerScriptUpdateCreateAssetsUploadSessionResponse, zWorkerScriptUpdateUsageModelBody, zWorkerScriptUpdateUsageModelPath, zWorkerScriptUpdateUsageModelResponse, zWorkerScriptUploadWorkerModuleBody, zWorkerScriptUploadWorkerModulePath, zWorkerScriptUploadWorkerModuleQuery, zWorkerScriptUploadWorkerModuleResponse } from '../zod.gen';
+import type { WorkerAssetsUploadErrors, WorkerAssetsUploadResponses, WorkerDeleteScriptSecretErrors, WorkerDeleteScriptSecretResponses, WorkerGetScriptSecretErrors, WorkerGetScriptSecretResponses, WorkerListScriptSecretsErrors, WorkerListScriptSecretsResponses, WorkerPatchScriptSecretsBulkErrors, WorkerPatchScriptSecretsBulkResponses, WorkerPutScriptSecretErrors, WorkerPutScriptSecretResponses, WorkersCreateAssetsUploadSessionObject, WorkerScriptDeleteSubdomainErrors, WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteWorkerErrors, WorkerScriptDeleteWorkerResponses, WorkerScriptDownloadWorkerErrors, WorkerScriptDownloadWorkerResponses, WorkerScriptFetchUsageModelErrors, WorkerScriptFetchUsageModelResponses, WorkerScriptGetContentErrors, WorkerScriptGetContentResponses, WorkerScriptGetSettingsErrors, WorkerScriptGetSettingsResponses, WorkerScriptGetSubdomainErrors, WorkerScriptGetSubdomainResponses, WorkerScriptListWorkersErrors, WorkerScriptListWorkersResponses, WorkerScriptPatchSettingsErrors, WorkerScriptPatchSettingsResponses, WorkerScriptPostSubdomainErrors, WorkerScriptPostSubdomainResponses, WorkerScriptPutContentErrors, WorkerScriptPutContentResponses, WorkerScriptSearchWorkersErrors, WorkerScriptSearchWorkersResponses, WorkerScriptSettingsGetSettingsErrors, WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsPatchSettingsErrors, WorkerScriptSettingsPatchSettingsResponses, WorkerScriptUpdateCreateAssetsUploadSessionErrors, WorkerScriptUpdateCreateAssetsUploadSessionResponses, WorkerScriptUpdateUsageModelErrors, WorkerScriptUpdateUsageModelResponses, WorkerScriptUploadWorkerModuleErrors, WorkerScriptUploadWorkerModuleResponses, WorkersIdentifier, WorkersScriptAndVersionSettingsItemWritable, WorkersScriptName, WorkersScriptSettingsItem, WorkersScriptUpload, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretPatchRequestWritable, WorkersSecretWritable, WorkersUsageModel, WorkersUserLimits } from '../types.gen';
+import { zWorkerAssetsUploadBody, zWorkerAssetsUploadPath, zWorkerAssetsUploadQuery, zWorkerAssetsUploadResponse, zWorkerDeleteScriptSecretPath, zWorkerDeleteScriptSecretQuery, zWorkerDeleteScriptSecretResponse, zWorkerGetScriptSecretPath, zWorkerGetScriptSecretQuery, zWorkerGetScriptSecretResponse, zWorkerListScriptSecretsPath, zWorkerListScriptSecretsResponse, zWorkerPatchScriptSecretsBulkBody, zWorkerPatchScriptSecretsBulkPath, zWorkerPatchScriptSecretsBulkResponse, zWorkerPutScriptSecretBody, zWorkerPutScriptSecretPath, zWorkerPutScriptSecretResponse, zWorkerScriptDeleteSubdomainPath, zWorkerScriptDeleteSubdomainResponse, zWorkerScriptDeleteWorkerBody, zWorkerScriptDeleteWorkerPath, zWorkerScriptDeleteWorkerQuery, zWorkerScriptDeleteWorkerResponse, zWorkerScriptDownloadWorkerPath, zWorkerScriptDownloadWorkerResponse, zWorkerScriptFetchUsageModelPath, zWorkerScriptFetchUsageModelResponse, zWorkerScriptGetContentPath, zWorkerScriptGetContentResponse, zWorkerScriptGetSettingsPath, zWorkerScriptGetSettingsResponse, zWorkerScriptGetSubdomainPath, zWorkerScriptGetSubdomainResponse, zWorkerScriptListWorkersPath, zWorkerScriptListWorkersQuery, zWorkerScriptListWorkersResponse, zWorkerScriptPatchSettingsBody, zWorkerScriptPatchSettingsPath, zWorkerScriptPatchSettingsResponse, zWorkerScriptPostSubdomainBody, zWorkerScriptPostSubdomainPath, zWorkerScriptPostSubdomainResponse, zWorkerScriptPutContentBody, zWorkerScriptPutContentHeaders, zWorkerScriptPutContentPath, zWorkerScriptPutContentResponse, zWorkerScriptSearchWorkersPath, zWorkerScriptSearchWorkersQuery, zWorkerScriptSearchWorkersResponse, zWorkerScriptSettingsGetSettingsPath, zWorkerScriptSettingsGetSettingsResponse, zWorkerScriptSettingsPatchSettingsBody, zWorkerScriptSettingsPatchSettingsPath, zWorkerScriptSettingsPatchSettingsResponse, zWorkerScriptUpdateCreateAssetsUploadSessionBody, zWorkerScriptUpdateCreateAssetsUploadSessionPath, zWorkerScriptUpdateCreateAssetsUploadSessionResponse, zWorkerScriptUpdateUsageModelBody, zWorkerScriptUpdateUsageModelPath, zWorkerScriptUpdateUsageModelResponse, zWorkerScriptUploadWorkerModuleBody, zWorkerScriptUploadWorkerModulePath, zWorkerScriptUploadWorkerModuleQuery, zWorkerScriptUploadWorkerModuleResponse } from '../zod.gen';
 
 export class WorkerScriptService {
     /**
@@ -22,7 +22,7 @@ export class WorkerScriptService {
         body: {
             [key: string]: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerAssetsUploadResponses, WorkerAssetsUploadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'base64' },
@@ -55,7 +55,7 @@ export class WorkerScriptService {
     public static workerScriptListWorkers<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         tags?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptListWorkersResponses, WorkerScriptListWorkersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'tags' }] }]);
         return (options?.client ?? client).get<WorkerScriptListWorkersResponses, WorkerScriptListWorkersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -87,7 +87,7 @@ export class WorkerScriptService {
         order_by?: 'created_on' | 'modified_on' | 'name';
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptSearchWorkersResponses, WorkerScriptSearchWorkersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -124,7 +124,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         force?: boolean;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptDeleteWorkerResponses, WorkerScriptDeleteWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -162,7 +162,7 @@ export class WorkerScriptService {
     public static workerScriptDownloadWorker<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptDownloadWorkerResponses, WorkerScriptDownloadWorkerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptDownloadWorkerResponses, WorkerScriptDownloadWorkerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -192,7 +192,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         bindings_inherit?: 'strict';
         workersScriptUpload: WorkersScriptUpload;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptUploadWorkerModuleResponses, WorkerScriptUploadWorkerModuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -231,7 +231,7 @@ export class WorkerScriptService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         workersCreateAssetsUploadSessionObject: WorkersCreateAssetsUploadSessionObject;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptUpdateCreateAssetsUploadSessionResponses, WorkerScriptUpdateCreateAssetsUploadSessionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -281,7 +281,7 @@ export class WorkerScriptService {
              */
             main_module?: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptPutContentResponses, WorkerScriptPutContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'CF-WORKER-BODY-PART' },
                     { in: 'headers', key: 'CF-WORKER-MAIN-MODULE-PART' },
@@ -323,7 +323,7 @@ export class WorkerScriptService {
     public static workerScriptGetContent<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptGetContentResponses, WorkerScriptGetContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptGetContentResponses, WorkerScriptGetContentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -351,7 +351,7 @@ export class WorkerScriptService {
     public static workerScriptSettingsGetSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -380,7 +380,7 @@ export class WorkerScriptService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         workersScriptSettingsItem: WorkersScriptSettingsItem;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptSettingsPatchSettingsResponses, WorkerScriptSettingsPatchSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -417,7 +417,7 @@ export class WorkerScriptService {
     public static workerListScriptSecrets<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerListScriptSecretsResponses, WorkerListScriptSecretsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerListScriptSecretsResponses, WorkerListScriptSecretsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -446,7 +446,7 @@ export class WorkerScriptService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         workersSecretWritable: WorkersSecretWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerPutScriptSecretResponses, WorkerPutScriptSecretErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -476,6 +476,51 @@ export class WorkerScriptService {
     }
     
     /**
+     * Patch multiple script secrets
+     *
+     * Create, update, or delete multiple secrets on a script in a single operation using JSON Merge Patch (RFC 7396).
+     *
+     * Usage:
+     *
+     * - To create or update a secret, set its value to a secret object.
+     * - To delete a secret, set its value to `null`.
+     * - Secrets not included in the request are left unchanged.
+     *
+     */
+    public static workerPatchScriptSecretsBulk<ThrowOnError extends boolean = true>(parameters: {
+        account_id: WorkersIdentifier;
+        script_name: WorkersScriptName;
+        workersSecretPatchRequestWritable: WorkersSecretPatchRequestWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerPatchScriptSecretsBulkResponses, WorkerPatchScriptSecretsBulkErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'script_name' },
+                    { key: 'workersSecretPatchRequestWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<WorkerPatchScriptSecretsBulkResponses, WorkerPatchScriptSecretsBulkErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorkerPatchScriptSecretsBulkBody,
+                path: zWorkerPatchScriptSecretsBulkPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorkerPatchScriptSecretsBulkResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/scripts/{script_name}/secrets-bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete script secret
      *
      * Remove a secret from a script.
@@ -485,7 +530,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         secret_name: WorkersSecretName;
         url_encoded?: WorkersSecretNameUrlEncoded;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerDeleteScriptSecretResponses, WorkerDeleteScriptSecretErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -520,7 +565,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         secret_name: WorkersSecretName;
         url_encoded?: WorkersSecretNameUrlEncoded;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerGetScriptSecretResponses, WorkerGetScriptSecretErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -553,7 +598,7 @@ export class WorkerScriptService {
     public static workerScriptGetSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptGetSettingsResponses, WorkerScriptGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptGetSettingsResponses, WorkerScriptGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -582,7 +627,7 @@ export class WorkerScriptService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         settings?: WorkersScriptAndVersionSettingsItemWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptPatchSettingsResponses, WorkerScriptPatchSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -620,7 +665,7 @@ export class WorkerScriptService {
     public static workerScriptDeleteSubdomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteSubdomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).delete<WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteSubdomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -648,7 +693,7 @@ export class WorkerScriptService {
     public static workerScriptGetSubdomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptGetSubdomainResponses, WorkerScriptGetSubdomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptGetSubdomainResponses, WorkerScriptGetSubdomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -678,7 +723,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         enabled: boolean;
         previews_enabled?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptPostSubdomainResponses, WorkerScriptPostSubdomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -716,7 +761,7 @@ export class WorkerScriptService {
     public static workerScriptFetchUsageModel<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptFetchUsageModelResponses, WorkerScriptFetchUsageModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerScriptFetchUsageModelResponses, WorkerScriptFetchUsageModelErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -746,7 +791,7 @@ export class WorkerScriptService {
         script_name: WorkersScriptName;
         usage_model?: WorkersUsageModel;
         user_limits?: WorkersUserLimits;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptUpdateUsageModelResponses, WorkerScriptUpdateUsageModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },

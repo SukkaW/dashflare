@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CacheRulesCacheReserveValue, CacheRulesIdentifier, CacheRulesRegionalTieredCacheValue, CacheRulesVariantsValue, ZoneCacheSettingsChangeCacheReserveSettingErrors, ZoneCacheSettingsChangeCacheReserveSettingResponses, ZoneCacheSettingsChangeRegionalTieredCacheSettingErrors, ZoneCacheSettingsChangeRegionalTieredCacheSettingResponses, ZoneCacheSettingsChangeVariantsSettingErrors, ZoneCacheSettingsChangeVariantsSettingResponses, ZoneCacheSettingsDeleteVariantsSettingErrors, ZoneCacheSettingsDeleteVariantsSettingResponses, ZoneCacheSettingsGetCacheReserveClearErrors, ZoneCacheSettingsGetCacheReserveClearResponses, ZoneCacheSettingsGetCacheReserveSettingErrors, ZoneCacheSettingsGetCacheReserveSettingResponses, ZoneCacheSettingsGetRegionalTieredCacheSettingErrors, ZoneCacheSettingsGetRegionalTieredCacheSettingResponses, ZoneCacheSettingsGetVariantsSettingErrors, ZoneCacheSettingsGetVariantsSettingResponses, ZoneCacheSettingsStartCacheReserveClearErrors, ZoneCacheSettingsStartCacheReserveClearResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZoneCacheSettingsService {
      */
     public static zoneCacheSettingsGetCacheReserveSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetCacheReserveSettingResponses, ZoneCacheSettingsGetCacheReserveSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetCacheReserveSettingResponses, ZoneCacheSettingsGetCacheReserveSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ZoneCacheSettingsService {
     public static zoneCacheSettingsChangeCacheReserveSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesCacheReserveValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeCacheReserveSettingResponses, ZoneCacheSettingsChangeCacheReserveSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeCacheReserveSettingResponses, ZoneCacheSettingsChangeCacheReserveSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class ZoneCacheSettingsService {
      */
     public static zoneCacheSettingsGetCacheReserveClear<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetCacheReserveClearResponses, ZoneCacheSettingsGetCacheReserveClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetCacheReserveClearResponses, ZoneCacheSettingsGetCacheReserveClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ZoneCacheSettingsService {
     public static zoneCacheSettingsStartCacheReserveClear<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsStartCacheReserveClearResponses, ZoneCacheSettingsStartCacheReserveClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<ZoneCacheSettingsStartCacheReserveClearResponses, ZoneCacheSettingsStartCacheReserveClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -138,7 +138,7 @@ export class ZoneCacheSettingsService {
      */
     public static zoneCacheSettingsGetRegionalTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetRegionalTieredCacheSettingResponses, ZoneCacheSettingsGetRegionalTieredCacheSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetRegionalTieredCacheSettingResponses, ZoneCacheSettingsGetRegionalTieredCacheSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -166,7 +166,7 @@ export class ZoneCacheSettingsService {
     public static zoneCacheSettingsChangeRegionalTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesRegionalTieredCacheValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeRegionalTieredCacheSettingResponses, ZoneCacheSettingsChangeRegionalTieredCacheSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeRegionalTieredCacheSettingResponses, ZoneCacheSettingsChangeRegionalTieredCacheSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -198,7 +198,7 @@ export class ZoneCacheSettingsService {
      */
     public static zoneCacheSettingsDeleteVariantsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsDeleteVariantsSettingResponses, ZoneCacheSettingsDeleteVariantsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneCacheSettingsDeleteVariantsSettingResponses, ZoneCacheSettingsDeleteVariantsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -225,7 +225,7 @@ export class ZoneCacheSettingsService {
      */
     public static zoneCacheSettingsGetVariantsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetVariantsSettingResponses, ZoneCacheSettingsGetVariantsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetVariantsSettingResponses, ZoneCacheSettingsGetVariantsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -253,7 +253,7 @@ export class ZoneCacheSettingsService {
     public static zoneCacheSettingsChangeVariantsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesVariantsValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeVariantsSettingResponses, ZoneCacheSettingsChangeVariantsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeVariantsSettingResponses, ZoneCacheSettingsChangeVariantsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

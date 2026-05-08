@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { McnAccountId, McnResourceId, McnResourcesCatalogPolicyPreviewRequest, McnResourceType, ResourcesCatalogExportErrors, ResourcesCatalogExportResponses, ResourcesCatalogListErrors, ResourcesCatalogListResponses, ResourcesCatalogPolicyPreviewErrors, ResourcesCatalogPolicyPreviewResponses, ResourcesCatalogReadErrors, ResourcesCatalogReadResponses } from '../types.gen';
@@ -31,7 +31,7 @@ export class ResourcesService {
         page?: number;
         cloudflare?: boolean;
         v2?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ResourcesCatalogListResponses, ResourcesCatalogListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'provider_id' },
@@ -82,7 +82,7 @@ export class ResourcesService {
         order_by?: string;
         desc?: boolean;
         v2?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ResourcesCatalogExportResponses, ResourcesCatalogExportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'provider_id' },
@@ -121,7 +121,7 @@ export class ResourcesService {
     public static resourcesCatalogPolicyPreview<ThrowOnError extends boolean = true>(parameters: {
         account_id: McnAccountId;
         mcnResourcesCatalogPolicyPreviewRequest: McnResourcesCatalogPolicyPreviewRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ResourcesCatalogPolicyPreviewResponses, ResourcesCatalogPolicyPreviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'mcnResourcesCatalogPolicyPreviewRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ResourcesCatalogPolicyPreviewResponses, ResourcesCatalogPolicyPreviewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -155,7 +155,7 @@ export class ResourcesService {
         account_id: McnAccountId;
         resource_id: McnResourceId;
         v2?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ResourcesCatalogReadResponses, ResourcesCatalogReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'resource_id' },

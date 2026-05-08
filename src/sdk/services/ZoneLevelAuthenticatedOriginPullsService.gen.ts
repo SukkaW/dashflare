@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesPrivateKey, TlsCertificatesAndHostnamesZoneAuthenticatedOriginPullComponentsSchemasCertificate, TlsCertificatesAndHostnamesZoneAuthenticatedOriginPullComponentsSchemasEnabled, ZoneLevelAuthenticatedOriginPullsDeleteCertificateErrors, ZoneLevelAuthenticatedOriginPullsDeleteCertificateResponses, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsErrors, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponses, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneErrors, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponses, ZoneLevelAuthenticatedOriginPullsListCertificatesErrors, ZoneLevelAuthenticatedOriginPullsListCertificatesResponses, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneErrors, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponses, ZoneLevelAuthenticatedOriginPullsUploadCertificateErrors, ZoneLevelAuthenticatedOriginPullsUploadCertificateResponses } from '../types.gen';
+import type { TlsCertificatesAndHostnamesCertificate5, TlsCertificatesAndHostnamesEnabled4, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesPrivateKey2, ZoneLevelAuthenticatedOriginPullsDeleteCertificateErrors, ZoneLevelAuthenticatedOriginPullsDeleteCertificateResponses, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsErrors, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponses, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneErrors, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponses, ZoneLevelAuthenticatedOriginPullsListCertificatesErrors, ZoneLevelAuthenticatedOriginPullsListCertificatesResponses, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneErrors, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponses, ZoneLevelAuthenticatedOriginPullsUploadCertificateErrors, ZoneLevelAuthenticatedOriginPullsUploadCertificateResponses } from '../types.gen';
 import { zZoneLevelAuthenticatedOriginPullsDeleteCertificateBody, zZoneLevelAuthenticatedOriginPullsDeleteCertificatePath, zZoneLevelAuthenticatedOriginPullsDeleteCertificateResponse, zZoneLevelAuthenticatedOriginPullsGetCertificateDetailsPath, zZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponse, zZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZonePath, zZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponse, zZoneLevelAuthenticatedOriginPullsListCertificatesPath, zZoneLevelAuthenticatedOriginPullsListCertificatesResponse, zZoneLevelAuthenticatedOriginPullsSetEnablementForZoneBody, zZoneLevelAuthenticatedOriginPullsSetEnablementForZonePath, zZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponse, zZoneLevelAuthenticatedOriginPullsUploadCertificateBody, zZoneLevelAuthenticatedOriginPullsUploadCertificatePath, zZoneLevelAuthenticatedOriginPullsUploadCertificateResponse } from '../zod.gen';
 
 export class ZoneLevelAuthenticatedOriginPullsService {
@@ -18,7 +18,7 @@ export class ZoneLevelAuthenticatedOriginPullsService {
      */
     public static zoneLevelAuthenticatedOriginPullsListCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsListCertificatesResponses, ZoneLevelAuthenticatedOriginPullsListCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAuthenticatedOriginPullsListCertificatesResponses, ZoneLevelAuthenticatedOriginPullsListCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -28,9 +28,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsListCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth',
             ...options,
@@ -45,9 +45,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
      */
     public static zoneLevelAuthenticatedOriginPullsUploadCertificate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        certificate: TlsCertificatesAndHostnamesZoneAuthenticatedOriginPullComponentsSchemasCertificate;
-        private_key: TlsCertificatesAndHostnamesPrivateKey;
-    }, options?: Options<never, ThrowOnError>) {
+        certificate: TlsCertificatesAndHostnamesCertificate5;
+        private_key: TlsCertificatesAndHostnamesPrivateKey2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsUploadCertificateResponses, ZoneLevelAuthenticatedOriginPullsUploadCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'certificate' },
@@ -61,9 +61,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsUploadCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth',
             ...options,
@@ -83,7 +83,7 @@ export class ZoneLevelAuthenticatedOriginPullsService {
      */
     public static zoneLevelAuthenticatedOriginPullsGetEnablementSettingForZone<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponses, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponses, ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,9 +93,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/settings',
             ...options,
@@ -110,8 +110,8 @@ export class ZoneLevelAuthenticatedOriginPullsService {
      */
     public static zoneLevelAuthenticatedOriginPullsSetEnablementForZone<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        enabled: TlsCertificatesAndHostnamesZoneAuthenticatedOriginPullComponentsSchemasEnabled;
-    }, options?: Options<never, ThrowOnError>) {
+        enabled: TlsCertificatesAndHostnamesEnabled4;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponses, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'enabled' }] }]);
         return (options?.client ?? client).put<ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponses, ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -121,9 +121,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsSetEnablementForZoneResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/settings',
             ...options,
@@ -145,7 +145,7 @@ export class ZoneLevelAuthenticatedOriginPullsService {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsDeleteCertificateResponses, ZoneLevelAuthenticatedOriginPullsDeleteCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'zone_id' },
@@ -159,9 +159,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsDeleteCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/{certificate_id}',
             ...options,
@@ -182,7 +182,7 @@ export class ZoneLevelAuthenticatedOriginPullsService {
     public static zoneLevelAuthenticatedOriginPullsGetCertificateDetails<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponses, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponses, ZoneLevelAuthenticatedOriginPullsGetCertificateDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -192,9 +192,9 @@ export class ZoneLevelAuthenticatedOriginPullsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zZoneLevelAuthenticatedOriginPullsGetCertificateDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/origin_tls_client_auth/{certificate_id}',
             ...options,

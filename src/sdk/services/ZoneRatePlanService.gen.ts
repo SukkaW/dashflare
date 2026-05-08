@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BillSubsApiIdentifier, ZoneRatePlanAvailablePlanDetailsErrors, ZoneRatePlanAvailablePlanDetailsResponses, ZoneRatePlanListAvailablePlansErrors, ZoneRatePlanListAvailablePlansResponses, ZoneRatePlanListAvailableRatePlansErrors, ZoneRatePlanListAvailableRatePlansResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZoneRatePlanService {
      */
     public static zoneRatePlanListAvailablePlans<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneRatePlanListAvailablePlansResponses, ZoneRatePlanListAvailablePlansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneRatePlanListAvailablePlansResponses, ZoneRatePlanListAvailablePlansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ZoneRatePlanService {
     public static zoneRatePlanAvailablePlanDetails<ThrowOnError extends boolean = true>(parameters: {
         plan_identifier: BillSubsApiIdentifier;
         zone_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneRatePlanAvailablePlanDetailsResponses, ZoneRatePlanAvailablePlanDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'plan_identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneRatePlanAvailablePlanDetailsResponses, ZoneRatePlanAvailablePlanDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class ZoneRatePlanService {
      */
     public static zoneRatePlanListAvailableRatePlans<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneRatePlanListAvailableRatePlansResponses, ZoneRatePlanListAvailableRatePlansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneRatePlanListAvailableRatePlansResponses, ZoneRatePlanListAvailableRatePlansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

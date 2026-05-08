@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteEventDeleteErrors, DeleteEventDeleteResponses, DeleteEventQueryDeleteErrors, DeleteEventQueryDeleteResponses, DeleteEventReferenceDeleteErrors, DeleteEventReferenceDeleteResponses, DeleteEventTagDeleteErrors, DeleteEventTagDeleteResponses, GetEventAggregateErrors, GetEventAggregateResponses, GetEventListGetErrors, GetEventListGetResponses, GetEventQueryListErrors, GetEventQueryListResponses, GetEventQueryReadErrors, GetEventQueryReadResponses, GetEventRawReadDsErrors, GetEventRawReadDsResponses, GetEventRawReadErrors, GetEventRawReadResponses, GetEventReadDeprecatedErrors, GetEventReadDeprecatedResponses, GetEventReadErrors, GetEventReadResponses, GetEventRelationshipsErrors, GetEventRelationshipsResponses, PatchEventQueryUpdateErrors, PatchEventQueryUpdateResponses, PatchEventRawUpdateErrors, PatchEventRawUpdateResponses, PatchEventUpdateBulkErrors, PatchEventUpdateBulkResponses, PatchEventUpdateErrors, PatchEventUpdateResponses, PostCreateEventRelationshipErrors, PostCreateEventRelationshipResponses, PostDosEventCreateBulkWithRelationshipsErrors, PostDosEventCreateBulkWithRelationshipsResponses, PostEventCopyToNewDsErrors, PostEventCopyToNewDsResponses, PostEventCreateBulkErrors, PostEventCreateBulkResponses, PostEventCreateErrors, PostEventCreateResponses, PostEventGraphQlErrors, PostEventGraphQlResponses, PostEventGraphQlv2Errors, PostEventGraphQlv2Responses, PostEventMoveToNewDsErrors, PostEventMoveToNewDsResponses, PostEventQueryCreateErrors, PostEventQueryCreateResponses, PostEventQueryUpdateErrors, PostEventQueryUpdateResponses, PostEventRawUpdateErrors, PostEventRawUpdateResponses, PostEventReferenceCreateErrors, PostEventReferenceCreateResponses, PostEventTagCreateErrors, PostEventTagCreateResponses, PostEventUpdateErrors, PostEventUpdateResponses } from '../types.gen';
@@ -14,7 +14,7 @@ export class EventService {
     /**
      * Filter and list events
      *
-     * Use `datasetId=all` or `datasetId=*` to query all event datasets for the account (limited to 10). When `datasetId` is unspecified, events are listed from the default Cloudforce One Threat Events dataset. To list existing datasets, use the [`List Datasets`](https://developers.cloudflare.com/api/resources/cloudforce_one/subresources/threat_events/subresources/datasets/methods/list/) endpoint.
+     * Use `datasetId=all` or `datasetId=*` to query all event datasets for the account (limited to 50). When `datasetId` is unspecified, events are listed from the default Cloudforce One Threat Events dataset. To list existing datasets, use the [`List Datasets`](https://developers.cloudflare.com/api/resources/cloudforce_one/subresources/threat_events/subresources/datasets/methods/list/) endpoint.
      */
     public static getEventListGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -39,8 +39,10 @@ export class EventService {
         order?: 'asc' | 'desc';
         datasetId?: Array<string>;
         forceRefresh?: boolean;
-        format?: 'json' | 'stix2';
-    }, options?: Options<never, ThrowOnError>) {
+        format?: 'json' | 'stix2' | 'taxii';
+        source?: 'do' | 'r2catalog';
+        cache?: 'from-graph';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventListGetResponses, GetEventListGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cursor' },
@@ -51,7 +53,9 @@ export class EventService {
                     { in: 'query', key: 'order' },
                     { in: 'query', key: 'datasetId' },
                     { in: 'query', key: 'forceRefresh' },
-                    { in: 'query', key: 'format' }
+                    { in: 'query', key: 'format' },
+                    { in: 'query', key: 'source' },
+                    { in: 'query', key: 'cache' }
                 ] }]);
         return (options?.client ?? client).get<GetEventListGetResponses, GetEventListGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +84,7 @@ export class EventService {
         endDate?: string;
         groupByDate?: boolean;
         limit?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventAggregateResponses, GetEventAggregateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'aggregateBy' },
@@ -142,7 +146,7 @@ export class EventService {
         targetCountry?: string;
         targetIndustry?: string;
         tlp: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventCreateResponses, PostEventCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'accountId' },
@@ -226,7 +230,7 @@ export class EventService {
         }>;
         datasetId: string;
         includeCreatedEvents?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventCreateBulkResponses, PostEventCreateBulkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'data' },
@@ -298,7 +302,7 @@ export class EventService {
             tlp: string;
         }>;
         datasetId: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostDosEventCreateBulkWithRelationshipsResponses, PostDosEventCreateBulkWithRelationshipsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'data' },
@@ -325,6 +329,8 @@ export class EventService {
     
     /**
      * Copies specified events from one dataset to another dataset
+     *
+     * Copy one or more events from a source dataset to a destination dataset.
      */
     public static postEventCopyToNewDs<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -332,7 +338,7 @@ export class EventService {
         keepRawData?: boolean;
         destDatasetId: string;
         eventIds: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventCopyToNewDsResponses, PostEventCopyToNewDsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -368,7 +374,7 @@ export class EventService {
         account_id: string;
         dataset_id: string;
         event_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventReadResponses, GetEventReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -390,6 +396,8 @@ export class EventService {
     
     /**
      * Moves specified events from one dataset to another dataset
+     *
+     * Move one or more events from a source dataset to a destination dataset.
      */
     public static postEventMoveToNewDs<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -397,7 +405,7 @@ export class EventService {
         keepRawData?: boolean;
         destDatasetId: string;
         eventIds: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventMoveToNewDsResponses, PostEventMoveToNewDsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -426,12 +434,14 @@ export class EventService {
     
     /**
      * Removes a tag from an event
+     *
+     * Remove one or more tags from an event.
      */
     public static deleteEventTagDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
         tags: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteEventTagDeleteResponses, DeleteEventTagDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -458,12 +468,14 @@ export class EventService {
     
     /**
      * Adds a tag to an event
+     *
+     * Add one or more tags to an event.
      */
     public static postEventTagCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
         tags: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventTagCreateResponses, PostEventTagCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -495,7 +507,7 @@ export class EventService {
      */
     public static postEventGraphQl<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventGraphQlResponses, PostEventGraphQlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PostEventGraphQlResponses, PostEventGraphQlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -518,7 +530,7 @@ export class EventService {
      */
     public static getEventQueryList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventQueryListResponses, GetEventQueryListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetEventQueryListResponses, GetEventQueryListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -547,7 +559,7 @@ export class EventService {
         query_json: string;
         rule_enabled: boolean;
         rule_scope?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventQueryCreateResponses, PostEventQueryCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'alert_enabled' },
@@ -584,7 +596,7 @@ export class EventService {
     public static deleteEventQueryDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         query_id: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteEventQueryDeleteResponses, DeleteEventQueryDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'query_id' }] }]);
         return (options?.client ?? client).delete<DeleteEventQueryDeleteResponses, DeleteEventQueryDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -607,7 +619,7 @@ export class EventService {
     public static getEventQueryRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         query_id: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventQueryReadResponses, GetEventQueryReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'query_id' }] }]);
         return (options?.client ?? client).get<GetEventQueryReadResponses, GetEventQueryReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -637,7 +649,7 @@ export class EventService {
         query_json?: string;
         rule_enabled?: boolean;
         rule_scope?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchEventQueryUpdateResponses, PatchEventQueryUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'query_id' },
@@ -681,7 +693,7 @@ export class EventService {
         query_json?: string;
         rule_enabled?: boolean;
         rule_scope?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventQueryUpdateResponses, PostEventQueryUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'query_id' },
@@ -720,7 +732,7 @@ export class EventService {
         account_id: string;
         event_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventRawReadDsResponses, GetEventRawReadDsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -742,12 +754,14 @@ export class EventService {
     
     /**
      * Removes an event reference
+     *
+     * Remove one or more references from an event.
      */
     public static deleteEventReferenceDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
         events: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteEventReferenceDeleteResponses, DeleteEventReferenceDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -774,12 +788,14 @@ export class EventService {
     
     /**
      * Creates event references for a event
+     *
+     * Create one or more references between events.
      */
     public static postEventReferenceCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
         events: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventReferenceCreateResponses, PostEventReferenceCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -815,7 +831,7 @@ export class EventService {
         datasetId: string;
         parentId: string;
         relationshipType: 'related_to' | 'caused_by' | 'attributed_to';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostCreateEventRelationshipResponses, PostCreateEventRelationshipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'childIds' },
@@ -871,7 +887,7 @@ export class EventService {
             targetIndustry?: string;
             tlp?: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchEventUpdateBulkResponses, PatchEventUpdateBulkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'datasetId' },
@@ -899,12 +915,14 @@ export class EventService {
     
     /**
      * Deletes one or more events
+     *
+     * Delete one or more events from a dataset.
      */
     public static deleteEventDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
         eventIds: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteEventDeleteResponses, DeleteEventDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -934,7 +952,7 @@ export class EventService {
     public static getEventReadDeprecated<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventReadDeprecatedResponses, GetEventReadDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'event_id' }] }]);
         return (options?.client ?? client).get<GetEventReadDeprecatedResponses, GetEventReadDeprecatedErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -952,6 +970,8 @@ export class EventService {
     
     /**
      * Updates an event
+     *
+     * Update an existing event by its identifier.
      */
     public static patchEventUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -976,7 +996,7 @@ export class EventService {
         targetCountry?: string;
         targetIndustry?: string;
         tlp?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchEventUpdateResponses, PatchEventUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1016,6 +1036,8 @@ export class EventService {
     
     /**
      * Updates an event
+     *
+     * Update an existing event by its identifier.
      */
     public static postEventUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -1040,7 +1062,7 @@ export class EventService {
         targetCountry?: string;
         targetIndustry?: string;
         tlp?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventUpdateResponses, PostEventUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1080,12 +1102,14 @@ export class EventService {
     
     /**
      * Reads data for a raw event
+     *
+     * Retrieve raw data for a specific event.
      */
     public static getEventRawRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         event_id: string;
         raw_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventRawReadResponses, GetEventRawReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1107,6 +1131,8 @@ export class EventService {
     
     /**
      * Updates a raw event
+     *
+     * Update raw data for a specific event.
      */
     public static patchEventRawUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -1117,7 +1143,7 @@ export class EventService {
         };
         source?: string;
         tlp?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchEventRawUpdateResponses, PatchEventRawUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1147,6 +1173,8 @@ export class EventService {
     
     /**
      * Updates a raw event
+     *
+     * Update raw data for a specific event.
      */
     public static postEventRawUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -1157,7 +1185,7 @@ export class EventService {
         };
         source?: string;
         tlp?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventRawUpdateResponses, PostEventRawUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1201,7 +1229,7 @@ export class EventService {
         includeParent?: boolean;
         page?: number;
         pageSize?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetEventRelationshipsResponses, GetEventRelationshipsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'event_id' },
@@ -1235,7 +1263,7 @@ export class EventService {
      */
     public static postEventGraphQlv2<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostEventGraphQlv2Responses, PostEventGraphQlv2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PostEventGraphQlv2Responses, PostEventGraphQlv2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

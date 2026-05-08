@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetGeolocationDetailsErrors, RadarGetGeolocationDetailsResponses, RadarGetGeolocationsErrors, RadarGetGeolocationsResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class RadarGeolocationsService {
         geoId?: string;
         location?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetGeolocationsResponses, RadarGetGeolocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -56,7 +56,7 @@ export class RadarGeolocationsService {
     public static radarGetGeolocationDetails<ThrowOnError extends boolean = true>(parameters: {
         geo_id: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetGeolocationDetailsResponses, RadarGetGeolocationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'geo_id' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetGeolocationDetailsResponses, RadarGetGeolocationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

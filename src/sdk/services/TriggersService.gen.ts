@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsCreateBuildRequest, BuildsCreateTriggerRequest, BuildsTriggerUuid, BuildsUpdateTriggerRequest, CreateManualBuildResponses, CreateTriggerResponses, DeleteTriggerErrors, DeleteTriggerResponses, PurgeBuildCacheErrors, PurgeBuildCacheResponses, UpdateTriggerErrors, UpdateTriggerResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class TriggersService {
     public static createTrigger<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         buildsCreateTriggerRequest: BuildsCreateTriggerRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateTriggerResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'buildsCreateTriggerRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateTriggerResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class TriggersService {
     public static deleteTrigger<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTriggerResponses, DeleteTriggerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'trigger_uuid' }] }]);
         return (options?.client ?? client).delete<DeleteTriggerResponses, DeleteTriggerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class TriggersService {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
         buildsUpdateTriggerRequest: BuildsUpdateTriggerRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateTriggerResponses, UpdateTriggerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'trigger_uuid' },
@@ -119,7 +119,7 @@ export class TriggersService {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
         buildsCreateBuildRequest: BuildsCreateBuildRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateManualBuildResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'trigger_uuid' },
@@ -156,7 +156,7 @@ export class TriggersService {
     public static purgeBuildCache<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PurgeBuildCacheResponses, PurgeBuildCacheErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'trigger_uuid' }] }]);
         return (options?.client ?? client).post<PurgeBuildCacheResponses, PurgeBuildCacheErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

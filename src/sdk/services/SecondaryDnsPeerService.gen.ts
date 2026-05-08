@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { SecondaryDnsAccountIdentifier, SecondaryDnsComponentsSchemasIdentifier, SecondaryDnsComponentsSchemasName, SecondaryDnsPeerCreatePeerErrors, SecondaryDnsPeerCreatePeerResponses, SecondaryDnsPeerDeletePeerErrors, SecondaryDnsPeerDeletePeerResponses, SecondaryDnsPeerListPeersErrors, SecondaryDnsPeerListPeersResponses, SecondaryDnsPeerPeerDetailsErrors, SecondaryDnsPeerPeerDetailsResponses, SecondaryDnsPeerUpdatePeerErrors, SecondaryDnsPeerUpdatePeerResponses, SecondaryDnsPeerWritable } from '../types.gen';
+import type { SecondaryDnsAccountIdentifier, SecondaryDnsIdentifier3, SecondaryDnsName3, SecondaryDnsPeerCreatePeerErrors, SecondaryDnsPeerCreatePeerResponses, SecondaryDnsPeerDeletePeerErrors, SecondaryDnsPeerDeletePeerResponses, SecondaryDnsPeerListPeersErrors, SecondaryDnsPeerListPeersResponses, SecondaryDnsPeerPeerDetailsErrors, SecondaryDnsPeerPeerDetailsResponses, SecondaryDnsPeerUpdatePeerErrors, SecondaryDnsPeerUpdatePeerResponses, SecondaryDnsPeerWritable } from '../types.gen';
 import { zSecondaryDnsPeerCreatePeerBody, zSecondaryDnsPeerCreatePeerPath, zSecondaryDnsPeerCreatePeerResponse, zSecondaryDnsPeerDeletePeerBody, zSecondaryDnsPeerDeletePeerPath, zSecondaryDnsPeerDeletePeerResponse, zSecondaryDnsPeerListPeersPath, zSecondaryDnsPeerListPeersResponse, zSecondaryDnsPeerPeerDetailsPath, zSecondaryDnsPeerPeerDetailsResponse, zSecondaryDnsPeerUpdatePeerBody, zSecondaryDnsPeerUpdatePeerPath, zSecondaryDnsPeerUpdatePeerResponse } from '../zod.gen';
 
 export class SecondaryDnsPeerService {
@@ -18,7 +18,7 @@ export class SecondaryDnsPeerService {
      */
     public static secondaryDnsPeerListPeers<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPeerListPeersResponses, SecondaryDnsPeerListPeersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsPeerListPeersResponses, SecondaryDnsPeerListPeersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,8 +45,8 @@ export class SecondaryDnsPeerService {
      */
     public static secondaryDnsPeerCreatePeer<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
-        name: SecondaryDnsComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name: SecondaryDnsName3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPeerCreatePeerResponses, SecondaryDnsPeerCreatePeerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'name' }] }]);
         return (options?.client ?? client).post<SecondaryDnsPeerCreatePeerResponses, SecondaryDnsPeerCreatePeerErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,10 +77,10 @@ export class SecondaryDnsPeerService {
      * Delete Peer.
      */
     public static secondaryDnsPeerDeletePeer<ThrowOnError extends boolean = true>(parameters: {
-        peer_id: SecondaryDnsComponentsSchemasIdentifier;
+        peer_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPeerDeletePeerResponses, SecondaryDnsPeerDeletePeerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'peer_id' },
                     { in: 'path', key: 'account_id' },
@@ -115,9 +115,9 @@ export class SecondaryDnsPeerService {
      * Get Peer.
      */
     public static secondaryDnsPeerPeerDetails<ThrowOnError extends boolean = true>(parameters: {
-        peer_id: SecondaryDnsComponentsSchemasIdentifier;
+        peer_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPeerPeerDetailsResponses, SecondaryDnsPeerPeerDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'peer_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsPeerPeerDetailsResponses, SecondaryDnsPeerPeerDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -143,10 +143,10 @@ export class SecondaryDnsPeerService {
      * Modify Peer.
      */
     public static secondaryDnsPeerUpdatePeer<ThrowOnError extends boolean = true>(parameters: {
-        peer_id: SecondaryDnsComponentsSchemasIdentifier;
+        peer_id: SecondaryDnsIdentifier3;
         account_id: SecondaryDnsAccountIdentifier;
         secondaryDnsPeerWritable: SecondaryDnsPeerWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsPeerUpdatePeerResponses, SecondaryDnsPeerUpdatePeerErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'peer_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessCertificatesComponentsSchemasName2, AccessIdentifier, AccessSchemasAssociatedHostnames, AccessSchemasSettings, AccessUuid, ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesErrors, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses } from '../types.gen';
+import type { AccessAssociatedHostnames2, AccessIdentifier, AccessName18, AccessSettings2, AccessUuid, ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesErrors, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses } from '../types.gen';
 import { zZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateBody, zZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificatePath, zZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateResponse, zZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificatePath, zZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateResponse, zZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificatePath, zZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateResponse, zZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsPath, zZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponse, zZoneLevelAccessMtlsAuthenticationListMtlsCertificatesPath, zZoneLevelAccessMtlsAuthenticationListMtlsCertificatesResponse, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateBody, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificatePath, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateResponse, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsBody, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsPath, zZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponse } from '../zod.gen';
 
 export class ZoneLevelAccessMTlsAuthenticationService {
@@ -18,7 +18,7 @@ export class ZoneLevelAccessMTlsAuthenticationService {
      */
     public static zoneLevelAccessMtlsAuthenticationListMtlsCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -41,10 +41,10 @@ export class ZoneLevelAccessMTlsAuthenticationService {
      */
     public static zoneLevelAccessMtlsAuthenticationAddAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-        associated_hostnames?: AccessSchemasAssociatedHostnames;
+        associated_hostnames?: AccessAssociatedHostnames2;
         certificate: string;
-        name: AccessCertificatesComponentsSchemasName2;
-    }, options?: Options<never, ThrowOnError>) {
+        name: AccessName18;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'associated_hostnames' },
@@ -77,7 +77,7 @@ export class ZoneLevelAccessMTlsAuthenticationService {
      */
     public static zoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, ZoneLevelAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,8 +100,8 @@ export class ZoneLevelAccessMTlsAuthenticationService {
      */
     public static zoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-        settings: Array<AccessSchemasSettings>;
-    }, options?: Options<never, ThrowOnError>) {
+        settings: Array<AccessSettings2>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'settings' }] }]);
         return (options?.client ?? client).put<ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -130,7 +130,7 @@ export class ZoneLevelAccessMTlsAuthenticationService {
     public static zoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -154,7 +154,7 @@ export class ZoneLevelAccessMTlsAuthenticationService {
     public static zoneLevelAccessMtlsAuthenticationGetAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationGetAnMtlsCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -178,9 +178,9 @@ export class ZoneLevelAccessMTlsAuthenticationService {
     public static zoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         zone_id: AccessIdentifier;
-        associated_hostnames: AccessSchemasAssociatedHostnames;
-        name?: AccessCertificatesComponentsSchemasName2;
-    }, options?: Options<never, ThrowOnError>) {
+        associated_hostnames: AccessAssociatedHostnames2;
+        name?: AccessName18;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'zone_id' },

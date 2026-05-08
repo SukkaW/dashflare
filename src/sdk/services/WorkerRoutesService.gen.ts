@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerRoutesCreateRouteErrors, WorkerRoutesCreateRouteResponses, WorkerRoutesDeleteRouteErrors, WorkerRoutesDeleteRouteResponses, WorkerRoutesGetRouteErrors, WorkerRoutesGetRouteResponses, WorkerRoutesListRoutesErrors, WorkerRoutesListRoutesResponses, WorkerRoutesUpdateRouteErrors, WorkerRoutesUpdateRouteResponses, WorkersIdentifier, WorkersRouteWritable } from '../types.gen';
@@ -18,7 +18,7 @@ export class WorkerRoutesService {
      */
     public static workerRoutesListRoutes<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerRoutesListRoutesResponses, WorkerRoutesListRoutesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WorkerRoutesListRoutesResponses, WorkerRoutesListRoutesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class WorkerRoutesService {
     public static workerRoutesCreateRoute<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WorkersIdentifier;
         workersRouteWritable: WorkersRouteWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerRoutesCreateRouteResponses, WorkerRoutesCreateRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'workersRouteWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<WorkerRoutesCreateRouteResponses, WorkerRoutesCreateRouteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class WorkerRoutesService {
     public static workerRoutesDeleteRoute<ThrowOnError extends boolean = true>(parameters: {
         route_id: WorkersIdentifier;
         zone_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerRoutesDeleteRouteResponses, WorkerRoutesDeleteRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'route_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<WorkerRoutesDeleteRouteResponses, WorkerRoutesDeleteRouteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class WorkerRoutesService {
     public static workerRoutesGetRoute<ThrowOnError extends boolean = true>(parameters: {
         route_id: WorkersIdentifier;
         zone_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerRoutesGetRouteResponses, WorkerRoutesGetRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'route_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WorkerRoutesGetRouteResponses, WorkerRoutesGetRouteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class WorkerRoutesService {
         route_id: WorkersIdentifier;
         zone_id: WorkersIdentifier;
         workersRouteWritable: WorkersRouteWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerRoutesUpdateRouteResponses, WorkerRoutesUpdateRouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'route_id' },
                     { in: 'path', key: 'zone_id' },

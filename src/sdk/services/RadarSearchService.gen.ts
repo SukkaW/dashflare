@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetSearchGlobalErrors, RadarGetSearchGlobalResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class RadarSearchService {
         include?: Array<'ADM1S' | 'ASNS' | 'BOTS' | 'CERTIFICATE_AUTHORITIES' | 'CERTIFICATE_LOGS' | 'ORIGINS' | 'ORIGIN_REGIONS' | 'INDUSTRIES' | 'LOCATIONS' | 'NOTEBOOKS' | 'TLDS' | 'VERTICALS'>;
         exclude?: Array<'ADM1S' | 'ASNS' | 'BOTS' | 'CERTIFICATE_AUTHORITIES' | 'CERTIFICATE_LOGS' | 'ORIGINS' | 'ORIGIN_REGIONS' | 'INDUSTRIES' | 'LOCATIONS' | 'NOTEBOOKS' | 'TLDS' | 'VERTICALS'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetSearchGlobalResponses, RadarGetSearchGlobalErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'limitPerGroup' },

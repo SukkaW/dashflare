@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayCategoriesListCategoriesErrors, ZeroTrustGatewayCategoriesListCategoriesResponses, ZeroTrustGatewayComponentsSchemasIdentifier } from '../types.gen';
+import type { ZeroTrustGatewayCategoriesListCategoriesErrors, ZeroTrustGatewayCategoriesListCategoriesResponses, ZeroTrustGatewayIdentifier3 } from '../types.gen';
 import { zZeroTrustGatewayCategoriesListCategoriesPath, zZeroTrustGatewayCategoriesListCategoriesResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayCategoriesService {
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayCategoriesService {
      * List all categories.
      */
     public static zeroTrustGatewayCategoriesListCategories<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewayComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayCategoriesListCategoriesResponses, ZeroTrustGatewayCategoriesListCategoriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayCategoriesListCategoriesResponses, ZeroTrustGatewayCategoriesListCategoriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

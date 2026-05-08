@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetCrawlersSummaryErrors, RadarGetCrawlersSummaryResponses, RadarGetCrawlersTimeseriesGroupErrors, RadarGetCrawlersTimeseriesGroupResponses } from '../types.gen';
@@ -30,7 +30,7 @@ export class RadarWebCrawlersService {
         responseStatus?: Array<string>;
         responseStatusCategory?: Array<'INFORMATIONAL' | 'SUCCESS' | 'REDIRECTION' | 'CLIENT_ERROR' | 'SERVER_ERROR'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCrawlersSummaryResponses, RadarGetCrawlersSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -77,6 +77,7 @@ export class RadarWebCrawlersService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         limitPerGroup?: number;
+        normalization?: 'PERCENTAGE' | 'MIN0_MAX' | 'PERCENTAGE_CHANGE';
         botOperator?: Array<string>;
         vertical?: Array<string>;
         industry?: Array<string>;
@@ -84,7 +85,7 @@ export class RadarWebCrawlersService {
         responseStatus?: Array<string>;
         responseStatusCategory?: Array<'INFORMATIONAL' | 'SUCCESS' | 'REDIRECTION' | 'CLIENT_ERROR' | 'SERVER_ERROR'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCrawlersTimeseriesGroupResponses, RadarGetCrawlersTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -93,6 +94,7 @@ export class RadarWebCrawlersService {
                     { in: 'query', key: 'dateStart' },
                     { in: 'query', key: 'dateEnd' },
                     { in: 'query', key: 'limitPerGroup' },
+                    { in: 'query', key: 'normalization' },
                     { in: 'query', key: 'botOperator' },
                     { in: 'query', key: 'vertical' },
                     { in: 'query', key: 'industry' },

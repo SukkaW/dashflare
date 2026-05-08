@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicIdentifier, MagicNetflowConfigRequest, MagicSiteNetflowConfigCreateNetflowConfigErrors, MagicSiteNetflowConfigCreateNetflowConfigResponses, MagicSiteNetflowConfigDeleteNetflowConfigErrors, MagicSiteNetflowConfigDeleteNetflowConfigResponses, MagicSiteNetflowConfigDetailsErrors, MagicSiteNetflowConfigDetailsResponses, MagicSiteNetflowConfigPatchNetflowConfigErrors, MagicSiteNetflowConfigPatchNetflowConfigResponses, MagicSiteNetflowConfigUpdateNetflowConfigErrors, MagicSiteNetflowConfigUpdateNetflowConfigResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class MagicSiteNetFlowConfigService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteNetflowConfigDeleteNetflowConfigResponses, MagicSiteNetflowConfigDeleteNetflowConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -57,7 +57,7 @@ export class MagicSiteNetFlowConfigService {
     public static magicSiteNetflowConfigDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteNetflowConfigDetailsResponses, MagicSiteNetflowConfigDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).get<MagicSiteNetflowConfigDetailsResponses, MagicSiteNetflowConfigDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -86,7 +86,7 @@ export class MagicSiteNetFlowConfigService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicNetflowConfigRequest: MagicNetflowConfigRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteNetflowConfigPatchNetflowConfigResponses, MagicSiteNetflowConfigPatchNetflowConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -124,7 +124,7 @@ export class MagicSiteNetFlowConfigService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicNetflowConfigRequest: MagicNetflowConfigRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteNetflowConfigCreateNetflowConfigResponses, MagicSiteNetflowConfigCreateNetflowConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -162,7 +162,7 @@ export class MagicSiteNetFlowConfigService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicNetflowConfigRequest: MagicNetflowConfigRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteNetflowConfigUpdateNetflowConfigResponses, MagicSiteNetflowConfigUpdateNetflowConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },

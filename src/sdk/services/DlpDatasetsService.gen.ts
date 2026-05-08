@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpDatasetsCreateErrors, DlpDatasetsCreateResponses, DlpDatasetsCreateVersionErrors, DlpDatasetsCreateVersionResponses, DlpDatasetsDefineColumnsErrors, DlpDatasetsDefineColumnsResponses, DlpDatasetsDeleteErrors, DlpDatasetsDeleteResponses, DlpDatasetsReadAllErrors, DlpDatasetsReadAllResponses, DlpDatasetsReadErrors, DlpDatasetsReadResponses, DlpDatasetsUpdateErrors, DlpDatasetsUpdateResponses, DlpDatasetsUploadDatasetColumnErrors, DlpDatasetsUploadDatasetColumnResponses, DlpDatasetsUploadVersionErrors, DlpDatasetsUploadVersionResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class DlpDatasetsService {
      */
     public static dlpDatasetsReadAll<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsReadAllResponses, DlpDatasetsReadAllErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpDatasetsReadAllResponses, DlpDatasetsReadAllErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class DlpDatasetsService {
         encoding_version?: number;
         name: string;
         secret?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsCreateResponses, DlpDatasetsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'case_sensitive' },
@@ -90,7 +90,7 @@ export class DlpDatasetsService {
     public static dlpDatasetsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsDeleteResponses, DlpDatasetsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).delete<DlpDatasetsDeleteResponses, DlpDatasetsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -111,11 +111,13 @@ export class DlpDatasetsService {
     
     /**
      * Fetch a specific dataset
+     *
+     * Gets a dataset and its latest upload status.
      */
     public static dlpDatasetsRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsReadResponses, DlpDatasetsReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<DlpDatasetsReadResponses, DlpDatasetsReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +148,7 @@ export class DlpDatasetsService {
         case_sensitive?: boolean;
         description?: string | null;
         name?: string | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsUpdateResponses, DlpDatasetsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -185,7 +187,7 @@ export class DlpDatasetsService {
     public static dlpDatasetsCreateVersion<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsCreateVersionResponses, DlpDatasetsCreateVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).post<DlpDatasetsCreateVersionResponses, DlpDatasetsCreateVersionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -218,7 +220,7 @@ export class DlpDatasetsService {
         dataset_id: string;
         version: number;
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsUploadVersionResponses, DlpDatasetsUploadVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -268,7 +270,7 @@ export class DlpDatasetsService {
             header_name: string;
             num_cells: number;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsDefineColumnsResponses, DlpDatasetsDefineColumnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -310,7 +312,7 @@ export class DlpDatasetsService {
         version: number;
         entry_id: string;
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDatasetsUploadDatasetColumnResponses, DlpDatasetsUploadDatasetColumnErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },

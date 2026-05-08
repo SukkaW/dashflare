@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MembersBatchCreateErrors, MembersBatchCreateResponses, MembersCreateErrors, MembersCreateResponses, MembersDeleteErrors, MembersDeleteResponses, MembersListErrors, MembersListResponses, MembersRetrieveErrors, MembersRetrieveResponses, OrganizationsApiBatchCreateMembersRequest, OrganizationsApiCreateMemberRequest, OrganizationsApiMemberId, OrganizationsApiOrganizationId } from '../types.gen';
@@ -14,18 +14,18 @@ export class OrganizationMembersService {
     /**
      * List organization members
      *
-     * List memberships for an Organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * List memberships for an Organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static membersList<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
-        status?: Array<'active' | 'canceled'>;
+        status?: Array<'active' | 'pending' | 'rejected' | 'canceled'>;
         'user.email'?: string;
         'user.email.contains'?: string;
         'user.email.startsWith'?: string;
         'user.email.endsWith'?: string;
         page_token?: string;
         page_size?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MembersListResponses, MembersListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'organization_id' },
                     { in: 'query', key: 'status' },
@@ -53,12 +53,12 @@ export class OrganizationMembersService {
     /**
      * Create organization member
      *
-     * Create a membership that grants access to a specific Organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Create a membership that grants access to a specific Organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static membersCreate<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         organizationsApiCreateMemberRequest: OrganizationsApiCreateMemberRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MembersCreateResponses, MembersCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { key: 'organizationsApiCreateMemberRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MembersCreateResponses, MembersCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,13 +82,13 @@ export class OrganizationMembersService {
     /**
      * Delete organization member
      *
-     * Delete a membership to a particular Organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Delete a membership to a particular Organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static membersDelete<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         path_member_id: OrganizationsApiMemberId;
         body_member_id: OrganizationsApiMemberId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MembersDeleteResponses, MembersDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'organization_id' },
                     {
@@ -124,12 +124,12 @@ export class OrganizationMembersService {
     /**
      * Get organization member
      *
-     * Retrieve a single membership from an Organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Retrieve a single membership from an Organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static membersRetrieve<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         member_id: OrganizationsApiMemberId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MembersRetrieveResponses, MembersRetrieveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { in: 'path', key: 'member_id' }] }]);
         return (options?.client ?? client).get<MembersRetrieveResponses, MembersRetrieveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -153,7 +153,7 @@ export class OrganizationMembersService {
     public static membersBatchCreate<ThrowOnError extends boolean = true>(parameters: {
         organization_id: OrganizationsApiOrganizationId;
         organizationsApiBatchCreateMembersRequest: OrganizationsApiBatchCreateMembersRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MembersBatchCreateResponses, MembersBatchCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'organization_id' }, { key: 'organizationsApiBatchCreateMembersRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MembersBatchCreateResponses, MembersBatchCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

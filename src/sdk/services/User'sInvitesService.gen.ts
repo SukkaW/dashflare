@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamInviteComponentsSchemasIdentifier, UserSInvitesInvitationDetailsErrors, UserSInvitesInvitationDetailsResponses, UserSInvitesListInvitationsErrors, UserSInvitesListInvitationsResponses, UserSInvitesRespondToInvitationErrors, UserSInvitesRespondToInvitationResponses } from '../types.gen';
@@ -16,7 +16,7 @@ export class User_sInvitesService {
      *
      * Lists all invitations associated with my user.
      */
-    public static 'user'SInvitesListInvitations'<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static 'user'SInvitesListInvitations'<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserSInvitesListInvitationsResponses, UserSInvitesListInvitationsErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserSInvitesListInvitationsResponses, UserSInvitesListInvitationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -37,7 +37,7 @@ export class User_sInvitesService {
      */
     public static 'user'SInvitesInvitationDetails'<ThrowOnError extends boolean = true>(parameters: {
         invite_id: IamInviteComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSInvitesInvitationDetailsResponses, UserSInvitesInvitationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'invite_id' }] }]);
         return (options?.client ?? client).get<UserSInvitesInvitationDetailsResponses, UserSInvitesInvitationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -61,7 +61,7 @@ export class User_sInvitesService {
     public static 'user'SInvitesRespondToInvitation'<ThrowOnError extends boolean = true>(parameters: {
         invite_id: IamInviteComponentsSchemasIdentifier;
         status: 'accepted' | 'rejected';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSInvitesRespondToInvitationResponses, UserSInvitesRespondToInvitationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'invite_id' }, { in: 'body', key: 'status' }] }]);
         return (options?.client ?? client).patch<UserSInvitesRespondToInvitationResponses, UserSInvitesRespondToInvitationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

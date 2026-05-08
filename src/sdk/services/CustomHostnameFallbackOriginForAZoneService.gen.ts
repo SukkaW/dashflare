@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesErrors, CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesErrors, CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesErrors, CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesResponses, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesOrigin } from '../types.gen';
@@ -19,7 +19,7 @@ export class CustomHostnameFallbackOriginForAZoneService {
     public static customHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnames<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -29,9 +29,9 @@ export class CustomHostnameFallbackOriginForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameFallbackOriginForAZoneDeleteFallbackOriginForCustomHostnamesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/fallback_origin',
             ...options,
@@ -51,7 +51,7 @@ export class CustomHostnameFallbackOriginForAZoneService {
      */
     public static customHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnames<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -61,9 +61,9 @@ export class CustomHostnameFallbackOriginForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameFallbackOriginForAZoneGetFallbackOriginForCustomHostnamesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/fallback_origin',
             ...options,
@@ -79,7 +79,7 @@ export class CustomHostnameFallbackOriginForAZoneService {
     public static customHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnames<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         origin: TlsCertificatesAndHostnamesOrigin;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'origin' }] }]);
         return (options?.client ?? client).put<CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesResponses, CustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -89,9 +89,9 @@ export class CustomHostnameFallbackOriginForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameFallbackOriginForAZoneUpdateFallbackOriginForCustomHostnamesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/fallback_origin',
             ...options,

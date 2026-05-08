@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailSecurityGetMessageActionLogErrors, EmailSecurityGetMessageActionLogResponses, EmailSecurityGetMessageDetectionsErrors, EmailSecurityGetMessageDetectionsResponses, EmailSecurityGetMessageErrors, EmailSecurityGetMessagePreviewErrors, EmailSecurityGetMessagePreviewResponses, EmailSecurityGetMessageRawErrors, EmailSecurityGetMessageRawResponses, EmailSecurityGetMessageResponses, EmailSecurityGetMessageTraceErrors, EmailSecurityGetMessageTraceResponses, EmailSecurityGetPhishguardReportsErrors, EmailSecurityGetPhishguardReportsResponses, EmailSecurityIdentifier, EmailSecurityInvestigateErrors, EmailSecurityInvestigateId, EmailSecurityInvestigateResponses, EmailSecurityMailboxDestination, EmailSecurityPostBulkMoveErrors, EmailSecurityPostBulkMoveResponses, EmailSecurityPostfixId, EmailSecurityPostMessageMoveErrors, EmailSecurityPostMessageMoveResponses, EmailSecurityPostPreviewErrors, EmailSecurityPostPreviewResponses, EmailSecurityPostReclassifyErrors, EmailSecurityPostReclassifyResponses, EmailSecurityPostReleaseErrors, EmailSecurityPostReleaseResponses, EmailSecurityReclassifyRequest, EmailSecuritySubmissionDisposition, EmailSecuritySubmissionsErrors, EmailSecuritySubmissionsResponses } from '../types.gen';
-import { zEmailSecurityGetMessageActionLogPath, zEmailSecurityGetMessageActionLogResponse, zEmailSecurityGetMessageDetectionsPath, zEmailSecurityGetMessageDetectionsResponse, zEmailSecurityGetMessagePath, zEmailSecurityGetMessagePreviewPath, zEmailSecurityGetMessagePreviewResponse, zEmailSecurityGetMessageQuery, zEmailSecurityGetMessageRawPath, zEmailSecurityGetMessageRawResponse, zEmailSecurityGetMessageResponse, zEmailSecurityGetMessageTracePath, zEmailSecurityGetMessageTraceResponse, zEmailSecurityGetPhishguardReportsPath, zEmailSecurityGetPhishguardReportsQuery, zEmailSecurityGetPhishguardReportsResponse, zEmailSecurityInvestigatePath, zEmailSecurityInvestigateQuery, zEmailSecurityInvestigateResponse, zEmailSecurityPostBulkMoveBody, zEmailSecurityPostBulkMovePath, zEmailSecurityPostBulkMoveResponse, zEmailSecurityPostMessageMoveBody, zEmailSecurityPostMessageMovePath, zEmailSecurityPostMessageMoveResponse, zEmailSecurityPostPreviewBody, zEmailSecurityPostPreviewPath, zEmailSecurityPostPreviewResponse, zEmailSecurityPostReclassifyBody, zEmailSecurityPostReclassifyPath, zEmailSecurityPostReclassifyResponse, zEmailSecurityPostReleaseBody, zEmailSecurityPostReleasePath, zEmailSecurityPostReleaseResponse, zEmailSecuritySubmissionsPath, zEmailSecuritySubmissionsQuery, zEmailSecuritySubmissionsResponse } from '../zod.gen';
+import type { EmailSecurityBulkActionRequest, EmailSecurityCancelBulkJobErrors, EmailSecurityCancelBulkJobResponses, EmailSecurityCreateBulkJobErrors, EmailSecurityCreateBulkJobResponses, EmailSecurityDeleteBulkJobErrors, EmailSecurityDeleteBulkJobResponses, EmailSecurityDispositionLabel, EmailSecurityGetBulkJobErrors, EmailSecurityGetBulkJobMessagesErrors, EmailSecurityGetBulkJobMessagesResponses, EmailSecurityGetBulkJobResponses, EmailSecurityGetBulkJobsErrors, EmailSecurityGetBulkJobsResponses, EmailSecurityGetMessageActionLogErrors, EmailSecurityGetMessageActionLogResponses, EmailSecurityGetMessageDetectionsErrors, EmailSecurityGetMessageDetectionsResponses, EmailSecurityGetMessageErrors, EmailSecurityGetMessagePreviewErrors, EmailSecurityGetMessagePreviewResponses, EmailSecurityGetMessageRawErrors, EmailSecurityGetMessageRawResponses, EmailSecurityGetMessageResponses, EmailSecurityGetMessageTraceErrors, EmailSecurityGetMessageTraceResponses, EmailSecurityGetPhishguardReportsErrors, EmailSecurityGetPhishguardReportsResponses, EmailSecurityIdentifier, EmailSecurityInvestigateErrors, EmailSecurityInvestigateId, EmailSecurityInvestigateResponses, EmailSecurityMailboxDestination, EmailSecurityMessageDeliveryStatus, EmailSecurityPostBulkMoveErrors, EmailSecurityPostBulkMoveResponses, EmailSecurityPostfixId, EmailSecurityPostMessageMoveErrors, EmailSecurityPostMessageMoveResponses, EmailSecurityPostPreviewErrors, EmailSecurityPostPreviewResponses, EmailSecurityPostReclassifyErrors, EmailSecurityPostReclassifyResponses, EmailSecurityPostReleaseErrors, EmailSecurityPostReleaseResponses, EmailSecurityReclassifyRequest, EmailSecuritySubmissionDisposition, EmailSecuritySubmissionsErrors, EmailSecuritySubmissionsResponses } from '../types.gen';
+import { zEmailSecurityCancelBulkJobPath, zEmailSecurityCancelBulkJobResponse, zEmailSecurityCreateBulkJobBody, zEmailSecurityCreateBulkJobPath, zEmailSecurityCreateBulkJobResponse, zEmailSecurityDeleteBulkJobPath, zEmailSecurityDeleteBulkJobResponse, zEmailSecurityGetBulkJobMessagesPath, zEmailSecurityGetBulkJobMessagesQuery, zEmailSecurityGetBulkJobMessagesResponse, zEmailSecurityGetBulkJobPath, zEmailSecurityGetBulkJobResponse, zEmailSecurityGetBulkJobsPath, zEmailSecurityGetBulkJobsQuery, zEmailSecurityGetBulkJobsResponse, zEmailSecurityGetMessageActionLogPath, zEmailSecurityGetMessageActionLogResponse, zEmailSecurityGetMessageDetectionsPath, zEmailSecurityGetMessageDetectionsResponse, zEmailSecurityGetMessagePath, zEmailSecurityGetMessagePreviewPath, zEmailSecurityGetMessagePreviewResponse, zEmailSecurityGetMessageQuery, zEmailSecurityGetMessageRawPath, zEmailSecurityGetMessageRawResponse, zEmailSecurityGetMessageResponse, zEmailSecurityGetMessageTracePath, zEmailSecurityGetMessageTraceResponse, zEmailSecurityGetPhishguardReportsPath, zEmailSecurityGetPhishguardReportsQuery, zEmailSecurityGetPhishguardReportsResponse, zEmailSecurityInvestigatePath, zEmailSecurityInvestigateQuery, zEmailSecurityInvestigateResponse, zEmailSecurityPostBulkMoveBody, zEmailSecurityPostBulkMovePath, zEmailSecurityPostBulkMoveResponse, zEmailSecurityPostMessageMoveBody, zEmailSecurityPostMessageMovePath, zEmailSecurityPostMessageMoveResponse, zEmailSecurityPostPreviewBody, zEmailSecurityPostPreviewPath, zEmailSecurityPostPreviewResponse, zEmailSecurityPostReclassifyBody, zEmailSecurityPostReclassifyPath, zEmailSecurityPostReclassifyResponse, zEmailSecurityPostReleaseBody, zEmailSecurityPostReleasePath, zEmailSecurityPostReleaseResponse, zEmailSecuritySubmissionsPath, zEmailSecuritySubmissionsQuery, zEmailSecuritySubmissionsResponse } from '../zod.gen';
 
 export class EmailSecurityService {
     /**
@@ -22,7 +22,6 @@ export class EmailSecurityService {
         end?: string;
         query?: string;
         detections_only?: boolean;
-        action_log?: boolean;
         final_disposition?: 'MALICIOUS' | 'SUSPICIOUS' | 'SPOOF' | 'SPAM' | 'BULK' | 'NONE';
         metric?: string;
         message_action?: 'PREVIEW' | 'QUARANTINE_RELEASED' | 'MOVED';
@@ -32,17 +31,17 @@ export class EmailSecurityService {
         domain?: string;
         message_id?: string;
         subject?: string;
+        delivery_status?: EmailSecurityMessageDeliveryStatus;
         cursor?: string;
         per_page?: number;
         page?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityInvestigateResponses, EmailSecurityInvestigateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'start' },
                     { in: 'query', key: 'end' },
                     { in: 'query', key: 'query' },
                     { in: 'query', key: 'detections_only' },
-                    { in: 'query', key: 'action_log' },
                     { in: 'query', key: 'final_disposition' },
                     { in: 'query', key: 'metric' },
                     { in: 'query', key: 'message_action' },
@@ -52,6 +51,7 @@ export class EmailSecurityService {
                     { in: 'query', key: 'domain' },
                     { in: 'query', key: 'message_id' },
                     { in: 'query', key: 'subject' },
+                    { in: 'query', key: 'delivery_status' },
                     { in: 'query', key: 'cursor' },
                     { in: 'query', key: 'per_page' },
                     { in: 'query', key: 'page' }
@@ -75,6 +75,197 @@ export class EmailSecurityService {
     }
     
     /**
+     * List bulk action jobs
+     *
+     * Returns a paginated list of bulk action jobs for the account.
+     */
+    public static emailSecurityGetBulkJobs<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        page?: number;
+        per_page?: number;
+        action_type?: 'MOVE' | 'RELEASE';
+        status?: 'PENDING' | 'DISCOVERING' | 'PROCESSING' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'SKIPPED';
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetBulkJobsResponses, EmailSecurityGetBulkJobsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'action_type' },
+                    { in: 'query', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).get<EmailSecurityGetBulkJobsResponses, EmailSecurityGetBulkJobsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityGetBulkJobsPath,
+                query: zEmailSecurityGetBulkJobsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityGetBulkJobsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create a bulk action job
+     *
+     * Creates a new bulk action job to move or release messages that match the provided search parameters.
+     */
+    public static emailSecurityCreateBulkJob<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        emailSecurityBulkActionRequest: EmailSecurityBulkActionRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateBulkJobResponses, EmailSecurityCreateBulkJobErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityBulkActionRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<EmailSecurityCreateBulkJobResponses, EmailSecurityCreateBulkJobErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSecurityCreateBulkJobBody,
+                path: zEmailSecurityCreateBulkJobPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityCreateBulkJobResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a bulk action job
+     *
+     * Deletes the job, removing it from all list and detail endpoints. Only jobs in a terminal state (`COMPLETED`, `CANCELLED`, `FAILED`, or `SKIPPED`) can be deleted. To stop an in-progress job without removing it, use the cancel endpoint instead.
+     */
+    public static emailSecurityDeleteBulkJob<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        job_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteBulkJobResponses, EmailSecurityDeleteBulkJobErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
+        return (options?.client ?? client).delete<EmailSecurityDeleteBulkJobResponses, EmailSecurityDeleteBulkJobErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityDeleteBulkJobPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityDeleteBulkJobResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk/{job_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get bulk action job details
+     *
+     * Returns the status and details of a specific bulk action job.
+     */
+    public static emailSecurityGetBulkJob<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        job_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetBulkJobResponses, EmailSecurityGetBulkJobErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
+        return (options?.client ?? client).get<EmailSecurityGetBulkJobResponses, EmailSecurityGetBulkJobErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityGetBulkJobPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityGetBulkJobResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk/{job_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Cancel a bulk action job
+     *
+     * Cancels the job, marking it as cancelled and stopping any pending message processing. The job record remains visible in list and detail endpoints.
+     */
+    public static emailSecurityCancelBulkJob<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        job_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCancelBulkJobResponses, EmailSecurityCancelBulkJobErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
+        return (options?.client ?? client).post<EmailSecurityCancelBulkJobResponses, EmailSecurityCancelBulkJobErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityCancelBulkJobPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityCancelBulkJobResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk/{job_id}/cancel',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List messages for a bulk action job
+     *
+     * Returns the individual messages associated with a bulk action job, including their processing status.
+     */
+    public static emailSecurityGetBulkJobMessages<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        job_id: string;
+        page?: number;
+        per_page?: number;
+        status?: 'PENDING' | 'DISCOVERING' | 'PROCESSING' | 'COMPLETED' | 'FAILED' | 'CANCELLED' | 'SKIPPED';
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetBulkJobMessagesResponses, EmailSecurityGetBulkJobMessagesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'job_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).get<EmailSecurityGetBulkJobMessagesResponses, EmailSecurityGetBulkJobMessagesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityGetBulkJobMessagesPath,
+                query: zEmailSecurityGetBulkJobMessagesQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityGetBulkJobMessagesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/investigate/bulk/{job_id}/messages',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Move multiple messages
      *
      * Moves multiple messages to a specified mailbox folder (Inbox, JunkEmail, DeletedItems, RecoverableItemsDeletions, or RecoverableItemsPurges). Requires active integration.
@@ -82,12 +273,14 @@ export class EmailSecurityService {
     public static emailSecurityPostBulkMove<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         destination: EmailSecurityMailboxDestination;
+        expected_disposition?: EmailSecurityDispositionLabel;
         ids?: Array<EmailSecurityInvestigateId>;
         postfix_ids?: Array<EmailSecurityPostfixId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityPostBulkMoveResponses, EmailSecurityPostBulkMoveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'destination' },
+                    { in: 'body', key: 'expected_disposition' },
                     { in: 'body', key: 'ids' },
                     { in: 'body', key: 'postfix_ids' }
                 ] }]);
@@ -122,7 +315,7 @@ export class EmailSecurityService {
     public static emailSecurityPostPreview<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         postfix_id: EmailSecurityPostfixId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityPostPreviewResponses, EmailSecurityPostPreviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'postfix_id' }] }]);
         return (options?.client ?? client).post<EmailSecurityPostPreviewResponses, EmailSecurityPostPreviewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -150,12 +343,12 @@ export class EmailSecurityService {
     /**
      * Release messages from quarantine
      *
-     * Releases one or more quarantined messages, delivering them to the intended recipients. Use when a message was incorrectly quarantined. Returns delivery status for each recipient.
+     * Delivers one or more quarantined messages to their intended recipients, for cases where a message was incorrectly quarantined. The response includes delivery status for each recipient.
      */
     public static emailSecurityPostRelease<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         body: Array<EmailSecurityInvestigateId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityPostReleaseResponses, EmailSecurityPostReleaseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityPostReleaseResponses, EmailSecurityPostReleaseErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -189,7 +382,7 @@ export class EmailSecurityService {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
         submission?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessageResponses, EmailSecurityGetMessageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'investigate_id' },
@@ -221,7 +414,7 @@ export class EmailSecurityService {
     public static emailSecurityGetMessageActionLog<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessageActionLogResponses, EmailSecurityGetMessageActionLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'investigate_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetMessageActionLogResponses, EmailSecurityGetMessageActionLogErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -249,7 +442,7 @@ export class EmailSecurityService {
     public static emailSecurityGetMessageDetections<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessageDetectionsResponses, EmailSecurityGetMessageDetectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'investigate_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetMessageDetectionsResponses, EmailSecurityGetMessageDetectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -278,11 +471,13 @@ export class EmailSecurityService {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
         destination: EmailSecurityMailboxDestination;
-    }, options?: Options<never, ThrowOnError>) {
+        expected_disposition?: EmailSecurityDispositionLabel;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityPostMessageMoveResponses, EmailSecurityPostMessageMoveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'investigate_id' },
-                    { in: 'body', key: 'destination' }
+                    { in: 'body', key: 'destination' },
+                    { in: 'body', key: 'expected_disposition' }
                 ] }]);
         return (options?.client ?? client).post<EmailSecurityPostMessageMoveResponses, EmailSecurityPostMessageMoveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -315,7 +510,7 @@ export class EmailSecurityService {
     public static emailSecurityGetMessagePreview<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessagePreviewResponses, EmailSecurityGetMessagePreviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'investigate_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetMessagePreviewResponses, EmailSecurityGetMessagePreviewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -343,7 +538,7 @@ export class EmailSecurityService {
     public static emailSecurityGetMessageRaw<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessageRawResponses, EmailSecurityGetMessageRawErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'investigate_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetMessageRawResponses, EmailSecurityGetMessageRawErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -372,7 +567,7 @@ export class EmailSecurityService {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
         emailSecurityReclassifyRequest: EmailSecurityReclassifyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityPostReclassifyResponses, EmailSecurityPostReclassifyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'investigate_id' },
@@ -409,7 +604,7 @@ export class EmailSecurityService {
     public static emailSecurityGetMessageTrace<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         investigate_id: EmailSecurityInvestigateId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetMessageTraceResponses, EmailSecurityGetMessageTraceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'investigate_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetMessageTraceResponses, EmailSecurityGetMessageTraceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -440,7 +635,7 @@ export class EmailSecurityService {
         end?: string;
         from_date?: string;
         to_date?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetPhishguardReportsResponses, EmailSecurityGetPhishguardReportsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'start' },
@@ -482,9 +677,10 @@ export class EmailSecurityService {
         outcome_disposition?: EmailSecuritySubmissionDisposition;
         status?: string;
         query?: string | null;
+        escalated_from_user?: boolean;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecuritySubmissionsResponses, EmailSecuritySubmissionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'start' },
@@ -496,6 +692,7 @@ export class EmailSecurityService {
                     { in: 'query', key: 'outcome_disposition' },
                     { in: 'query', key: 'status' },
                     { in: 'query', key: 'query' },
+                    { in: 'query', key: 'escalated_from_user' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' }
                 ] }]);

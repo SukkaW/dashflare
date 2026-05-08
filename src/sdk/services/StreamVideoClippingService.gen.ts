@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { StreamAccountIdentifier, StreamVideoClippingClipVideosGivenAStartAndEndTimeErrors, StreamVideoClippingClipVideosGivenAStartAndEndTimeResponses, StreamVideoClipStandard } from '../types.gen';
@@ -19,7 +19,7 @@ export class StreamVideoClippingService {
     public static streamVideoClippingClipVideosGivenAStartAndEndTime<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
         streamVideoClipStandard: StreamVideoClipStandard;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideoClippingClipVideosGivenAStartAndEndTimeResponses, StreamVideoClippingClipVideosGivenAStartAndEndTimeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'streamVideoClipStandard', map: 'body' }] }]);
         return (options?.client ?? client).post<StreamVideoClippingClipVideosGivenAStartAndEndTimeResponses, StreamVideoClippingClipVideosGivenAStartAndEndTimeErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

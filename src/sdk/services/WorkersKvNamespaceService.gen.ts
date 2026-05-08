@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkersKvBulkDeleteWritable, WorkersKvBulkWrite, WorkersKvCreateRenameNamespaceBody, WorkersKvExpiration, WorkersKvExpirationTtl, WorkersKvIdentifier, WorkersKvKeyName, WorkersKvKeyNameBulk, WorkersKvNamespaceCreateANamespaceErrors, WorkersKvNamespaceCreateANamespaceResponses, WorkersKvNamespaceDeleteKeyValuePairErrors, WorkersKvNamespaceDeleteKeyValuePairResponses, WorkersKvNamespaceDeleteMultipleKeyValuePairsDeprecatedErrors, WorkersKvNamespaceDeleteMultipleKeyValuePairsDeprecatedResponses, WorkersKvNamespaceDeleteMultipleKeyValuePairsErrors, WorkersKvNamespaceDeleteMultipleKeyValuePairsResponses, WorkersKvNamespaceGetANamespaceErrors, WorkersKvNamespaceGetANamespaceResponses, WorkersKvNamespaceGetMultipleKeyValuePairsErrors, WorkersKvNamespaceGetMultipleKeyValuePairsResponses, WorkersKvNamespaceIdentifier, WorkersKvNamespaceListANamespaceSKeysErrors, WorkersKvNamespaceListANamespaceSKeysResponses, WorkersKvNamespaceListNamespacesErrors, WorkersKvNamespaceListNamespacesResponses, WorkersKvNamespaceReadKeyValuePairErrors, WorkersKvNamespaceReadKeyValuePairResponses, WorkersKvNamespaceReadTheMetadataForAKeyErrors, WorkersKvNamespaceReadTheMetadataForAKeyResponses, WorkersKvNamespaceRemoveANamespaceErrors, WorkersKvNamespaceRemoveANamespaceResponses, WorkersKvNamespaceRenameANamespaceErrors, WorkersKvNamespaceRenameANamespaceResponses, WorkersKvNamespaceWriteKeyValuePairWithMetadataErrors, WorkersKvNamespaceWriteKeyValuePairWithMetadataResponses, WorkersKvNamespaceWriteMultipleKeyValuePairsErrors, WorkersKvNamespaceWriteMultipleKeyValuePairsResponses, WorkersKvValue } from '../types.gen';
@@ -22,7 +22,7 @@ export class WorkersKvNamespaceService {
         per_page?: number;
         order?: 'id' | 'title';
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceListNamespacesResponses, WorkersKvNamespaceListNamespacesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -56,7 +56,7 @@ export class WorkersKvNamespaceService {
     public static workersKvNamespaceCreateANamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersKvIdentifier;
         workersKvCreateRenameNamespaceBody: WorkersKvCreateRenameNamespaceBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceCreateANamespaceResponses, WorkersKvNamespaceCreateANamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'workersKvCreateRenameNamespaceBody', map: 'body' }] }]);
         return (options?.client ?? client).post<WorkersKvNamespaceCreateANamespaceResponses, WorkersKvNamespaceCreateANamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,7 +90,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceRemoveANamespaceResponses, WorkersKvNamespaceRemoveANamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -127,7 +127,7 @@ export class WorkersKvNamespaceService {
     public static workersKvNamespaceGetANamespace<ThrowOnError extends boolean = true>(parameters: {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceGetANamespaceResponses, WorkersKvNamespaceGetANamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'namespace_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkersKvNamespaceGetANamespaceResponses, WorkersKvNamespaceGetANamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -156,7 +156,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         workersKvCreateRenameNamespaceBody: WorkersKvCreateRenameNamespaceBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceRenameANamespaceResponses, WorkersKvNamespaceRenameANamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -196,7 +196,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         workersKvBulkDeleteWritable: WorkersKvBulkDeleteWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceDeleteMultipleKeyValuePairsDeprecatedResponses, WorkersKvNamespaceDeleteMultipleKeyValuePairsDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -234,7 +234,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         workersKvBulkWrite: WorkersKvBulkWrite;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceWriteMultipleKeyValuePairsResponses, WorkersKvNamespaceWriteMultipleKeyValuePairsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -272,7 +272,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         workersKvBulkDeleteWritable: WorkersKvBulkDeleteWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceDeleteMultipleKeyValuePairsResponses, WorkersKvNamespaceDeleteMultipleKeyValuePairsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -312,7 +312,7 @@ export class WorkersKvNamespaceService {
         keys: Array<WorkersKvKeyNameBulk>;
         type?: 'text' | 'json';
         withMetadata?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceGetMultipleKeyValuePairsResponses, WorkersKvNamespaceGetMultipleKeyValuePairsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -354,7 +354,7 @@ export class WorkersKvNamespaceService {
         limit?: number;
         prefix?: string;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceListANamespaceSKeysResponses, WorkersKvNamespaceListANamespaceSKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'namespace_id' },
                     { in: 'path', key: 'account_id' },
@@ -389,7 +389,7 @@ export class WorkersKvNamespaceService {
         key_name: WorkersKvKeyName;
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceReadTheMetadataForAKeyResponses, WorkersKvNamespaceReadTheMetadataForAKeyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'key_name' },
                     { in: 'path', key: 'namespace_id' },
@@ -423,7 +423,7 @@ export class WorkersKvNamespaceService {
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceDeleteKeyValuePairResponses, WorkersKvNamespaceDeleteKeyValuePairErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'key_name' },
                     { in: 'path', key: 'namespace_id' },
@@ -462,7 +462,7 @@ export class WorkersKvNamespaceService {
         key_name: WorkersKvKeyName;
         namespace_id: WorkersKvNamespaceIdentifier;
         account_id: WorkersKvIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceReadKeyValuePairResponses, WorkersKvNamespaceReadKeyValuePairErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'key_name' },
                     { in: 'path', key: 'namespace_id' },
@@ -498,7 +498,7 @@ export class WorkersKvNamespaceService {
         expiration?: WorkersKvExpiration;
         expiration_ttl?: WorkersKvExpirationTtl;
         workersKvValue: WorkersKvValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersKvNamespaceWriteKeyValuePairWithMetadataResponses, WorkersKvNamespaceWriteKeyValuePairWithMetadataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'key_name' },
                     { in: 'path', key: 'namespace_id' },

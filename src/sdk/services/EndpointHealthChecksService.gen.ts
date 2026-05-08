@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DiagnosticsEndpointHealthcheckCreateErrors, DiagnosticsEndpointHealthcheckCreateResponses, DiagnosticsEndpointHealthcheckDeleteErrors, DiagnosticsEndpointHealthcheckDeleteResponses, DiagnosticsEndpointHealthcheckGetErrors, DiagnosticsEndpointHealthcheckGetResponses, DiagnosticsEndpointHealthcheckListErrors, DiagnosticsEndpointHealthcheckListResponses, DiagnosticsEndpointHealthcheckUpdateErrors, DiagnosticsEndpointHealthcheckUpdateResponses, MagicTransitEndpointHealthCheck, MagicTransitIdentifier, MagicTransitUuid } from '../types.gen';
@@ -18,7 +18,7 @@ export class EndpointHealthChecksService {
      */
     public static diagnosticsEndpointHealthcheckList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicTransitIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsEndpointHealthcheckListResponses, DiagnosticsEndpointHealthcheckListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DiagnosticsEndpointHealthcheckListResponses, DiagnosticsEndpointHealthcheckListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class EndpointHealthChecksService {
     public static diagnosticsEndpointHealthcheckCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicTransitIdentifier;
         magicTransitEndpointHealthCheck: MagicTransitEndpointHealthCheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsEndpointHealthcheckCreateResponses, DiagnosticsEndpointHealthcheckCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicTransitEndpointHealthCheck', map: 'body' }] }]);
         return (options?.client ?? client).post<DiagnosticsEndpointHealthcheckCreateResponses, DiagnosticsEndpointHealthcheckCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class EndpointHealthChecksService {
     public static diagnosticsEndpointHealthcheckDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicTransitIdentifier;
         id: MagicTransitUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsEndpointHealthcheckDeleteResponses, DiagnosticsEndpointHealthcheckDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).delete<DiagnosticsEndpointHealthcheckDeleteResponses, DiagnosticsEndpointHealthcheckDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class EndpointHealthChecksService {
     public static diagnosticsEndpointHealthcheckGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicTransitIdentifier;
         id: MagicTransitUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsEndpointHealthcheckGetResponses, DiagnosticsEndpointHealthcheckGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<DiagnosticsEndpointHealthcheckGetResponses, DiagnosticsEndpointHealthcheckGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class EndpointHealthChecksService {
         account_id: MagicTransitIdentifier;
         id: MagicTransitUuid;
         magicTransitEndpointHealthCheck: MagicTransitEndpointHealthCheck;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsEndpointHealthcheckUpdateResponses, DiagnosticsEndpointHealthcheckUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },

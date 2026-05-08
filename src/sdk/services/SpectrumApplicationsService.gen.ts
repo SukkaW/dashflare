@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginErrors, SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginResponses, SpectrumApplicationsDeleteSpectrumApplicationErrors, SpectrumApplicationsDeleteSpectrumApplicationResponses, SpectrumApplicationsGetSpectrumApplicationConfigurationErrors, SpectrumApplicationsGetSpectrumApplicationConfigurationResponses, SpectrumApplicationsListSpectrumApplicationsErrors, SpectrumApplicationsListSpectrumApplicationsResponses, SpectrumApplicationsUpdateSpectrumApplicationConfigurationUsingANameForTheOriginErrors, SpectrumApplicationsUpdateSpectrumApplicationConfigurationUsingANameForTheOriginResponses, SpectrumConfigAppIdentifier, SpectrumConfigUpdateAppConfigWritable, SpectrumConfigZoneIdentifier } from '../types.gen';
@@ -22,7 +22,7 @@ export class SpectrumApplicationsService {
         per_page?: number;
         direction?: 'asc' | 'desc';
         order?: 'protocol' | 'app_id' | 'created_on' | 'modified_on' | 'dns';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumApplicationsListSpectrumApplicationsResponses, SpectrumApplicationsListSpectrumApplicationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -56,7 +56,7 @@ export class SpectrumApplicationsService {
     public static spectrumApplicationsCreateSpectrumApplicationUsingANameForTheOrigin<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SpectrumConfigZoneIdentifier;
         spectrumConfigUpdateAppConfigWritable: SpectrumConfigUpdateAppConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginResponses, SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'spectrumConfigUpdateAppConfigWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginResponses, SpectrumApplicationsCreateSpectrumApplicationUsingANameForTheOriginErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -89,7 +89,7 @@ export class SpectrumApplicationsService {
     public static spectrumApplicationsDeleteSpectrumApplication<ThrowOnError extends boolean = true>(parameters: {
         app_id: SpectrumConfigAppIdentifier;
         zone_id: SpectrumConfigZoneIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumApplicationsDeleteSpectrumApplicationResponses, SpectrumApplicationsDeleteSpectrumApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<SpectrumApplicationsDeleteSpectrumApplicationResponses, SpectrumApplicationsDeleteSpectrumApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -117,7 +117,7 @@ export class SpectrumApplicationsService {
     public static spectrumApplicationsGetSpectrumApplicationConfiguration<ThrowOnError extends boolean = true>(parameters: {
         app_id: SpectrumConfigAppIdentifier;
         zone_id: SpectrumConfigZoneIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumApplicationsGetSpectrumApplicationConfigurationResponses, SpectrumApplicationsGetSpectrumApplicationConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SpectrumApplicationsGetSpectrumApplicationConfigurationResponses, SpectrumApplicationsGetSpectrumApplicationConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class SpectrumApplicationsService {
         app_id: SpectrumConfigAppIdentifier;
         zone_id: SpectrumConfigZoneIdentifier;
         spectrumConfigUpdateAppConfigWritable: SpectrumConfigUpdateAppConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumApplicationsUpdateSpectrumApplicationConfigurationUsingANameForTheOriginResponses, SpectrumApplicationsUpdateSpectrumApplicationConfigurationUsingANameForTheOriginErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'zone_id' },

@@ -4,135 +4,22 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BrapiDeleteCancelCrawlErrors, BrapiDeleteCancelCrawlResponses, BrapiDeleteDevtoolsBrowserDeleteErrors, BrapiDeleteDevtoolsBrowserDeleteResponses, BrapiGetCrawlResultErrors, BrapiGetCrawlResultResponses, BrapiGetDevtoolsBrowserAcquireErrors, BrapiGetDevtoolsBrowserErrors, BrapiGetDevtoolsJsonActivateErrors, BrapiGetDevtoolsJsonActivateResponses, BrapiGetDevtoolsJsonCloseErrors, BrapiGetDevtoolsJsonCloseResponses, BrapiGetDevtoolsJsonErrors, BrapiGetDevtoolsJsonListErrors, BrapiGetDevtoolsJsonListResponses, BrapiGetDevtoolsJsonProtocolErrors, BrapiGetDevtoolsJsonProtocolResponses, BrapiGetDevtoolsJsonResponses, BrapiGetDevtoolsJsonTargetErrors, BrapiGetDevtoolsJsonTargetResponses, BrapiGetDevtoolsJsonVersionErrors, BrapiGetDevtoolsJsonVersionResponses, BrapiGetDevtoolsPageErrors, BrapiGetDevtoolsSessionDetailsErrors, BrapiGetDevtoolsSessionDetailsResponses, BrapiGetDevtoolsSessionListErrors, BrapiGetDevtoolsSessionListResponses, BrapiPostContentErrors, BrapiPostContentResponses, BrapiPostCrawlErrors, BrapiPostCrawlResponses, BrapiPostDevtoolsAcquireErrors, BrapiPostDevtoolsAcquireResponses, BrapiPostJsonErrors, BrapiPostJsonResponses, BrapiPostLinksErrors, BrapiPostLinksResponses, BrapiPostMarkdownErrors, BrapiPostMarkdownResponses, BrapiPostPdfErrors, BrapiPostPdfResponses, BrapiPostScrapeErrors, BrapiPostScrapeResponses, BrapiPostScreenshotErrors, BrapiPostScreenshotResponses, BrapiPostSnapshotErrors, BrapiPostSnapshotResponses, BrapiPutDevtoolsJsonNewErrors, BrapiPutDevtoolsJsonNewResponses } from '../types.gen';
-import { zBrapiDeleteCancelCrawlPath, zBrapiDeleteCancelCrawlResponse, zBrapiDeleteDevtoolsBrowserDeletePath, zBrapiDeleteDevtoolsBrowserDeleteResponse, zBrapiGetCrawlResultPath, zBrapiGetCrawlResultQuery, zBrapiGetCrawlResultResponse, zBrapiGetDevtoolsBrowserAcquirePath, zBrapiGetDevtoolsBrowserAcquireQuery, zBrapiGetDevtoolsBrowserPath, zBrapiGetDevtoolsBrowserQuery, zBrapiGetDevtoolsJsonActivatePath, zBrapiGetDevtoolsJsonActivateResponse, zBrapiGetDevtoolsJsonClosePath, zBrapiGetDevtoolsJsonCloseResponse, zBrapiGetDevtoolsJsonListPath, zBrapiGetDevtoolsJsonListResponse, zBrapiGetDevtoolsJsonPath, zBrapiGetDevtoolsJsonProtocolPath, zBrapiGetDevtoolsJsonProtocolResponse, zBrapiGetDevtoolsJsonResponse, zBrapiGetDevtoolsJsonTargetPath, zBrapiGetDevtoolsJsonTargetResponse, zBrapiGetDevtoolsJsonVersionPath, zBrapiGetDevtoolsJsonVersionResponse, zBrapiGetDevtoolsPagePath, zBrapiGetDevtoolsSessionDetailsPath, zBrapiGetDevtoolsSessionDetailsResponse, zBrapiGetDevtoolsSessionListPath, zBrapiGetDevtoolsSessionListQuery, zBrapiGetDevtoolsSessionListResponse, zBrapiPostContentBody, zBrapiPostContentPath, zBrapiPostContentQuery, zBrapiPostContentResponse, zBrapiPostCrawlBody, zBrapiPostCrawlPath, zBrapiPostCrawlQuery, zBrapiPostCrawlResponse, zBrapiPostDevtoolsAcquirePath, zBrapiPostDevtoolsAcquireQuery, zBrapiPostDevtoolsAcquireResponse, zBrapiPostJsonBody, zBrapiPostJsonPath, zBrapiPostJsonQuery, zBrapiPostJsonResponse, zBrapiPostLinksBody, zBrapiPostLinksPath, zBrapiPostLinksQuery, zBrapiPostLinksResponse, zBrapiPostMarkdownBody, zBrapiPostMarkdownPath, zBrapiPostMarkdownQuery, zBrapiPostMarkdownResponse, zBrapiPostPdfBody, zBrapiPostPdfPath, zBrapiPostPdfQuery, zBrapiPostPdfResponse, zBrapiPostScrapeBody, zBrapiPostScrapePath, zBrapiPostScrapeQuery, zBrapiPostScrapeResponse, zBrapiPostScreenshotBody, zBrapiPostScreenshotPath, zBrapiPostScreenshotQuery, zBrapiPostScreenshotResponse, zBrapiPostSnapshotBody, zBrapiPostSnapshotPath, zBrapiPostSnapshotQuery, zBrapiPostSnapshotResponse, zBrapiPutDevtoolsJsonNewPath, zBrapiPutDevtoolsJsonNewQuery, zBrapiPutDevtoolsJsonNewResponse } from '../zod.gen';
+import type { BrapiDeleteCancelCrawlErrors, BrapiDeleteCancelCrawlResponses, BrapiDeleteDevtoolsBrowserDeleteErrors, BrapiDeleteDevtoolsBrowserDeleteResponses, BrapiGetCrawlResultErrors, BrapiGetCrawlResultResponses, BrapiGetDevtoolsBrowserAcquireErrors, BrapiGetDevtoolsBrowserErrors, BrapiGetDevtoolsJsonActivateErrors, BrapiGetDevtoolsJsonActivateResponses, BrapiGetDevtoolsJsonCloseErrors, BrapiGetDevtoolsJsonCloseResponses, BrapiGetDevtoolsJsonErrors, BrapiGetDevtoolsJsonListErrors, BrapiGetDevtoolsJsonListResponses, BrapiGetDevtoolsJsonProtocolErrors, BrapiGetDevtoolsJsonProtocolResponses, BrapiGetDevtoolsJsonResponses, BrapiGetDevtoolsJsonTargetErrors, BrapiGetDevtoolsJsonTargetResponses, BrapiGetDevtoolsJsonVersionErrors, BrapiGetDevtoolsJsonVersionResponses, BrapiGetDevtoolsPageErrors, BrapiGetDevtoolsSessionDetailsErrors, BrapiGetDevtoolsSessionDetailsResponses, BrapiGetDevtoolsSessionListErrors, BrapiGetDevtoolsSessionListResponses, BrapiPostAccessibilityTreeErrors, BrapiPostAccessibilityTreeResponses, BrapiPostContentErrors, BrapiPostContentResponses, BrapiPostCrawlErrors, BrapiPostCrawlResponses, BrapiPostDevtoolsAcquireErrors, BrapiPostDevtoolsAcquireResponses, BrapiPostJsonErrors, BrapiPostJsonResponses, BrapiPostLinksErrors, BrapiPostLinksResponses, BrapiPostMarkdownErrors, BrapiPostMarkdownResponses, BrapiPostPdfErrors, BrapiPostPdfResponses, BrapiPostScrapeErrors, BrapiPostScrapeResponses, BrapiPostScreenshotErrors, BrapiPostScreenshotResponses, BrapiPostSnapshotErrors, BrapiPostSnapshotResponses, BrapiPutDevtoolsJsonNewErrors, BrapiPutDevtoolsJsonNewResponses } from '../types.gen';
+import { zBrapiDeleteCancelCrawlPath, zBrapiDeleteCancelCrawlResponse, zBrapiDeleteDevtoolsBrowserDeletePath, zBrapiDeleteDevtoolsBrowserDeleteResponse, zBrapiGetCrawlResultPath, zBrapiGetCrawlResultQuery, zBrapiGetCrawlResultResponse, zBrapiGetDevtoolsBrowserAcquirePath, zBrapiGetDevtoolsBrowserAcquireQuery, zBrapiGetDevtoolsBrowserPath, zBrapiGetDevtoolsBrowserQuery, zBrapiGetDevtoolsJsonActivatePath, zBrapiGetDevtoolsJsonActivateResponse, zBrapiGetDevtoolsJsonClosePath, zBrapiGetDevtoolsJsonCloseResponse, zBrapiGetDevtoolsJsonListPath, zBrapiGetDevtoolsJsonListQuery, zBrapiGetDevtoolsJsonListResponse, zBrapiGetDevtoolsJsonPath, zBrapiGetDevtoolsJsonProtocolPath, zBrapiGetDevtoolsJsonProtocolResponse, zBrapiGetDevtoolsJsonQuery, zBrapiGetDevtoolsJsonResponse, zBrapiGetDevtoolsJsonTargetPath, zBrapiGetDevtoolsJsonTargetResponse, zBrapiGetDevtoolsJsonVersionPath, zBrapiGetDevtoolsJsonVersionResponse, zBrapiGetDevtoolsPagePath, zBrapiGetDevtoolsSessionDetailsPath, zBrapiGetDevtoolsSessionDetailsResponse, zBrapiGetDevtoolsSessionListPath, zBrapiGetDevtoolsSessionListQuery, zBrapiGetDevtoolsSessionListResponse, zBrapiPostAccessibilityTreeBody, zBrapiPostAccessibilityTreePath, zBrapiPostAccessibilityTreeQuery, zBrapiPostAccessibilityTreeResponse, zBrapiPostContentBody, zBrapiPostContentPath, zBrapiPostContentQuery, zBrapiPostContentResponse, zBrapiPostCrawlBody, zBrapiPostCrawlPath, zBrapiPostCrawlQuery, zBrapiPostCrawlResponse, zBrapiPostDevtoolsAcquirePath, zBrapiPostDevtoolsAcquireQuery, zBrapiPostDevtoolsAcquireResponse, zBrapiPostJsonBody, zBrapiPostJsonPath, zBrapiPostJsonQuery, zBrapiPostJsonResponse, zBrapiPostLinksBody, zBrapiPostLinksPath, zBrapiPostLinksQuery, zBrapiPostLinksResponse, zBrapiPostMarkdownBody, zBrapiPostMarkdownPath, zBrapiPostMarkdownQuery, zBrapiPostMarkdownResponse, zBrapiPostPdfBody, zBrapiPostPdfPath, zBrapiPostPdfQuery, zBrapiPostPdfResponse, zBrapiPostScrapeBody, zBrapiPostScrapePath, zBrapiPostScrapeQuery, zBrapiPostScrapeResponse, zBrapiPostScreenshotBody, zBrapiPostScreenshotPath, zBrapiPostScreenshotQuery, zBrapiPostScreenshotResponse, zBrapiPostSnapshotBody, zBrapiPostSnapshotPath, zBrapiPostSnapshotQuery, zBrapiPostSnapshotResponse, zBrapiPutDevtoolsJsonNewPath, zBrapiPutDevtoolsJsonNewQuery, zBrapiPutDevtoolsJsonNewResponse } from '../zod.gen';
 
 export class BrapiService {
     /**
-     * Get HTML content.
+     * Get accessibility tree page
      *
-     * Fetches rendered HTML content from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.
+     * Returns the page's accessibility tree. Use `interestingOnly` to only return semantically meaningful nodes; use `root` to scope the tree to a CSS-selector-anchored subtree. Control page loading with `gotoOptions` and `waitFor*` options.
      */
-    public static brapiPostContent<ThrowOnError extends boolean = true>(parameters: {
+    public static brapiPostAccessibilityTree<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            /**
-             * URL to navigate to, eg. `https://example.com`.
-             */
-            url: string;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -207,7 +94,8 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
+            html?: string;
+            interestingOnly?: boolean;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -216,10 +104,15 @@ export class BrapiService {
              * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
              */
             rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
+            root?: string;
             setExtraHTTPHeaders?: {
                 [key: string]: string;
             };
             setJavaScriptEnabled?: boolean;
+            /**
+             * URL to navigate to, eg. `https://example.com`.
+             */
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -246,7 +139,162 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostAccessibilityTreeResponses, BrapiPostAccessibilityTreeErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'cacheTTL' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<BrapiPostAccessibilityTreeResponses, BrapiPostAccessibilityTreeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zBrapiPostAccessibilityTreeBody,
+                path: zBrapiPostAccessibilityTreePath,
+                query: zBrapiPostAccessibilityTreeQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zBrapiPostAccessibilityTreeResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/browser-rendering/accessibilityTree',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get HTML content.
+     *
+     * Fetches rendered HTML content from provided URL or HTML. Check available options like `gotoOptions` and `waitFor*` to control page load behaviour.
+     */
+    public static brapiPostContent<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        cacheTTL?: number;
+        body: unknown & {
+            /**
+             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
+             */
+            actionTimeout?: number;
+            /**
+             * Adds a `<script>` tag into the page with the desired URL or content.
+             */
+            addScriptTag?: Array<{
+                content?: string;
+                id?: string;
+                type?: string;
+                url?: string;
+            }>;
+            /**
+             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
+             */
+            addStyleTag?: Array<{
+                content?: string;
+                url?: string;
+            }>;
+            /**
+             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+             */
+            allowRequestPattern?: Array<string>;
+            /**
+             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
+             */
+            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
+            /**
+             * Provide credentials for HTTP authentication.
+             */
+            authenticate?: {
+                password: string;
+                username: string;
+            };
+            /**
+             * Attempt to proceed when 'awaited' events fail or timeout.
+             */
+            bestAttempt?: boolean;
+            /**
+             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
+             */
+            cookies?: Array<{
+                domain?: string;
+                expires?: number;
+                httpOnly?: boolean;
+                /**
+                 * Cookie name.
+                 */
+                name: string;
+                partitionKey?: string;
+                path?: string;
+                priority?: 'Low' | 'Medium' | 'High';
+                sameParty?: boolean;
+                sameSite?: 'Strict' | 'Lax' | 'None';
+                secure?: boolean;
+                sourcePort?: number;
+                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
+                url?: string;
+                value: string;
+            }>;
+            emulateMediaType?: string;
+            /**
+             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
+             */
+            gotoOptions?: {
+                referer?: string;
+                referrerPolicy?: string;
+                timeout?: number;
+                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
+            };
+            /**
+             * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
+             */
+            html?: string;
+            /**
+             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
+             */
+            rejectRequestPattern?: Array<string>;
+            /**
+             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
+             */
+            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
+            setExtraHTTPHeaders?: {
+                [key: string]: string;
+            };
+            setJavaScriptEnabled?: boolean;
+            /**
+             * URL to navigate to, eg. `https://example.com`.
+             */
+            url?: string;
+            userAgent?: string;
+            /**
+             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
+             */
+            viewport?: {
+                deviceScaleFactor?: number;
+                hasTouch?: boolean;
+                height: number;
+                isLandscape?: boolean;
+                isMobile?: boolean;
+                width: number;
+            };
+            /**
+             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
+             */
+            waitForSelector?: {
+                hidden?: true;
+                selector: string;
+                timeout?: number;
+                visible?: true;
+            };
+            /**
+             * Waits for a specified timeout before continuing.
+             */
+            waitForTimeout?: number;
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostContentResponses, BrapiPostContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -567,7 +615,7 @@ export class BrapiService {
              */
             url: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostCrawlResponses, BrapiPostCrawlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -604,7 +652,7 @@ export class BrapiService {
     public static brapiDeleteCancelCrawl<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         job_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiDeleteCancelCrawlResponses, BrapiDeleteCancelCrawlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'job_id' }] }]);
         return (options?.client ?? client).delete<BrapiDeleteCancelCrawlResponses, BrapiDeleteCancelCrawlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -636,7 +684,7 @@ export class BrapiService {
         status?: 'queued' | 'errored' | 'completed' | 'disallowed' | 'skipped' | 'cancelled';
         cursor?: number;
         limit?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetCrawlResultResponses, BrapiGetCrawlResultErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'job_id' },
@@ -673,7 +721,7 @@ export class BrapiService {
         keep_alive?: number;
         lab?: boolean;
         recording?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<unknown, BrapiGetDevtoolsBrowserAcquireErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'keep_alive' },
@@ -699,19 +747,23 @@ export class BrapiService {
     
     /**
      * Get a browser session ID.
+     *
+     * Acquires a browser and returns its session ID and websocket URL.
      */
     public static brapiPostDevtoolsAcquire<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         keep_alive?: number;
         lab?: boolean;
         targets?: boolean;
+        liveViewUrlExpiresInMs?: number;
         recording?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostDevtoolsAcquireResponses, BrapiPostDevtoolsAcquireErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'keep_alive' },
                     { in: 'query', key: 'lab' },
                     { in: 'query', key: 'targets' },
+                    { in: 'query', key: 'liveViewUrlExpiresInMs' },
                     { in: 'query', key: 'recording' }
                 ] }]);
         return (options?.client ?? client).post<BrapiPostDevtoolsAcquireResponses, BrapiPostDevtoolsAcquireErrors, ThrowOnError>({
@@ -740,7 +792,7 @@ export class BrapiService {
     public static brapiDeleteDevtoolsBrowserDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiDeleteDevtoolsBrowserDeleteResponses, BrapiDeleteDevtoolsBrowserDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
         return (options?.client ?? client).delete<BrapiDeleteDevtoolsBrowserDeleteResponses, BrapiDeleteDevtoolsBrowserDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -771,7 +823,7 @@ export class BrapiService {
         keep_alive?: number;
         lab?: boolean;
         recording?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<unknown, BrapiGetDevtoolsBrowserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'session_id' },
@@ -804,13 +856,18 @@ export class BrapiService {
     public static brapiGetDevtoolsJson<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
+        liveViewUrlExpiresInMs?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonResponses, BrapiGetDevtoolsJsonErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'session_id' },
+                    { in: 'query', key: 'liveViewUrlExpiresInMs' }
+                ] }]);
         return (options?.client ?? client).get<BrapiGetDevtoolsJsonResponses, BrapiGetDevtoolsJsonErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zBrapiGetDevtoolsJsonPath,
-                query: z.never().optional()
+                query: zBrapiGetDevtoolsJsonQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zBrapiGetDevtoolsJsonResponse.parseAsync(data),
             security: [
@@ -833,7 +890,7 @@ export class BrapiService {
         session_id: string;
         account_id: string;
         target_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonActivateResponses, BrapiGetDevtoolsJsonActivateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'session_id' },
                     { in: 'path', key: 'account_id' },
@@ -866,7 +923,7 @@ export class BrapiService {
         session_id: string;
         account_id: string;
         target_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonCloseResponses, BrapiGetDevtoolsJsonCloseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'session_id' },
                     { in: 'path', key: 'account_id' },
@@ -898,13 +955,18 @@ export class BrapiService {
     public static brapiGetDevtoolsJsonList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
+        liveViewUrlExpiresInMs?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonListResponses, BrapiGetDevtoolsJsonListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'session_id' },
+                    { in: 'query', key: 'liveViewUrlExpiresInMs' }
+                ] }]);
         return (options?.client ?? client).get<BrapiGetDevtoolsJsonListResponses, BrapiGetDevtoolsJsonListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zBrapiGetDevtoolsJsonListPath,
-                query: z.never().optional()
+                query: zBrapiGetDevtoolsJsonListQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zBrapiGetDevtoolsJsonListResponse.parseAsync(data),
             security: [
@@ -927,7 +989,7 @@ export class BrapiService {
         account_id: string;
         session_id: string;
         target_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonTargetResponses, BrapiGetDevtoolsJsonTargetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'session_id' },
@@ -960,11 +1022,13 @@ export class BrapiService {
         account_id: string;
         session_id: string;
         url?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        liveViewUrlExpiresInMs?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPutDevtoolsJsonNewResponses, BrapiPutDevtoolsJsonNewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'session_id' },
-                    { in: 'query', key: 'url' }
+                    { in: 'query', key: 'url' },
+                    { in: 'query', key: 'liveViewUrlExpiresInMs' }
                 ] }]);
         return (options?.client ?? client).put<BrapiPutDevtoolsJsonNewResponses, BrapiPutDevtoolsJsonNewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -992,7 +1056,7 @@ export class BrapiService {
     public static brapiGetDevtoolsJsonProtocol<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonProtocolResponses, BrapiGetDevtoolsJsonProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
         return (options?.client ?? client).get<BrapiGetDevtoolsJsonProtocolResponses, BrapiGetDevtoolsJsonProtocolErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1020,7 +1084,7 @@ export class BrapiService {
     public static brapiGetDevtoolsJsonVersion<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsJsonVersionResponses, BrapiGetDevtoolsJsonVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
         return (options?.client ?? client).get<BrapiGetDevtoolsJsonVersionResponses, BrapiGetDevtoolsJsonVersionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1049,7 +1113,7 @@ export class BrapiService {
         account_id: string;
         session_id: string;
         target_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<unknown, BrapiGetDevtoolsPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'session_id' },
@@ -1081,7 +1145,7 @@ export class BrapiService {
         account_id: string;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsSessionListResponses, BrapiGetDevtoolsSessionListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },
@@ -1113,7 +1177,7 @@ export class BrapiService {
     public static brapiGetDevtoolsSessionDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         session_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiGetDevtoolsSessionDetailsResponses, BrapiGetDevtoolsSessionDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'session_id' }] }]);
         return (options?.client ?? client).get<BrapiGetDevtoolsSessionDetailsResponses, BrapiGetDevtoolsSessionDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1141,7 +1205,7 @@ export class BrapiService {
     public static brapiPostJson<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -1229,141 +1293,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            prompt?: string;
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            response_format?: {
-                /**
-                 * Schema for the response format. More information here: https://developers.cloudflare.com/workers-ai/json-mode/
-                 */
-                json_schema?: {
-                    [key: string]: string | number | boolean | {
-                        [key: string]: unknown;
-                    } | Array<string>;
-                } | null;
-                type: string;
-            };
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            /**
-             * Optional list of custom AI models to use for the request. The models will be tried in the order provided, and in case a model returns an error, the next one will be used as fallback.
-             */
-            custom_ai?: Array<{
-                /**
-                 * Authorization token for the AI model: `Bearer <token>`. Not needed for workers-ai models.
-                 */
-                authorization?: string;
-                /**
-                 * AI model to use for the request. Must be formed as `<provider>/<model_name>`, e.g. `workers-ai/@cf/meta/llama-3.3-70b-instruct-fp8-fast`.
-                 */
-                model: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             prompt?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
@@ -1391,7 +1321,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -1418,7 +1348,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostJsonResponses, BrapiPostJsonErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -1455,7 +1385,7 @@ export class BrapiService {
     public static brapiPostLinks<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -1531,118 +1461,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            visibleLinksOnly?: boolean;
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            excludeExternalLinks?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -1658,7 +1477,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -1686,7 +1505,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostLinksResponses, BrapiPostLinksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -1723,120 +1542,7 @@ export class BrapiService {
     public static brapiPostMarkdown<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            /**
-             * URL to navigate to, eg. `https://example.com`.
-             */
-            url: string;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -1911,7 +1617,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
+            html?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -1924,6 +1630,10 @@ export class BrapiService {
                 [key: string]: string;
             };
             setJavaScriptEnabled?: boolean;
+            /**
+             * URL to navigate to, eg. `https://example.com`.
+             */
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -1950,7 +1660,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostMarkdownResponses, BrapiPostMarkdownErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -1987,7 +1697,7 @@ export class BrapiService {
     public static brapiPostPdf<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -2062,190 +1772,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.pdfoptions).
-             */
-            pdfOptions?: {
-                /**
-                 * Whether to show the header and footer.
-                 */
-                displayHeaderFooter?: boolean;
-                /**
-                 * HTML template for the print footer.
-                 */
-                footerTemplate?: string;
-                /**
-                 * Paper format. Takes priority over width and height if set.
-                 */
-                format?: 'letter' | 'legal' | 'tabloid' | 'ledger' | 'a0' | 'a1' | 'a2' | 'a3' | 'a4' | 'a5' | 'a6';
-                /**
-                 * HTML template for the print header.
-                 */
-                headerTemplate?: string;
-                /**
-                 * Sets the height of paper. Can be a number or string with unit.
-                 */
-                height?: string | number;
-                /**
-                 * Whether to print in landscape orientation.
-                 */
-                landscape?: boolean;
-                /**
-                 * Set the PDF margins. Useful when setting header and footer.
-                 */
-                margin?: {
-                    bottom?: string | number;
-                    left?: string | number;
-                    right?: string | number;
-                    top?: string | number;
-                };
-                /**
-                 * Hides default white background and allows generating pdfs with transparency.
-                 */
-                omitBackground?: boolean;
-                /**
-                 * Generate document outline.
-                 */
-                outline?: boolean;
-                /**
-                 * Paper ranges to print, e.g. '1-5, 8, 11-13'.
-                 */
-                pageRanges?: string;
-                /**
-                 * Give CSS @page size priority over other size declarations.
-                 */
-                preferCSSPageSize?: boolean;
-                /**
-                 * Set to true to print background graphics.
-                 */
-                printBackground?: boolean;
-                /**
-                 * Scales the rendering of the web page. Amount must be between 0.1 and 2.
-                 */
-                scale?: number;
-                /**
-                 * Generate tagged (accessible) PDF.
-                 */
-                tagged?: boolean;
-                /**
-                 * Timeout in milliseconds.
-                 */
-                timeout?: number;
-                /**
-                 * Sets the width of paper. Can be a number or string with unit.
-                 */
-                width?: string | number;
-            };
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.pdfoptions).
              */
@@ -2335,7 +1862,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -2362,7 +1889,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostPdfResponses, BrapiPostPdfErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -2399,7 +1926,7 @@ export class BrapiService {
     public static brapiPostScrape<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -2461,7 +1988,7 @@ export class BrapiService {
                 url?: string;
                 value: string;
             }>;
-            elements: Array<{
+            elements?: Array<{
                 selector: string;
             }>;
             emulateMediaType?: string;
@@ -2477,119 +2004,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            elements: Array<{
-                selector: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -2605,7 +2020,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -2632,7 +2047,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostScrapeResponses, BrapiPostScrapeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -2669,7 +2084,7 @@ export class BrapiService {
     public static brapiPostScreenshot<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -2744,138 +2159,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.screenshotoptions).
-             */
-            screenshotOptions?: {
-                captureBeyondViewport?: boolean;
-                clip?: {
-                    height: number;
-                    scale?: number;
-                    width: number;
-                    x: number;
-                    y: number;
-                };
-                encoding?: 'binary' | 'base64';
-                fromSurface?: boolean;
-                fullPage?: boolean;
-                omitBackground?: boolean;
-                optimizeForSpeed?: boolean;
-                quality?: number;
-                type?: 'png' | 'jpeg' | 'webp';
-            };
-            scrollPage?: boolean;
-            selector?: string;
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -2913,7 +2197,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -2940,7 +2224,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostScreenshotResponses, BrapiPostScreenshotErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },
@@ -2977,7 +2261,7 @@ export class BrapiService {
     public static brapiPostSnapshot<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         cacheTTL?: number;
-        body: {
+        body: unknown & {
             /**
              * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
              */
@@ -3040,6 +2324,7 @@ export class BrapiService {
                 value: string;
             }>;
             emulateMediaType?: string;
+            formats?: Array<'content' | 'screenshot' | 'markdown' | 'accessibilityTree'>;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
              */
@@ -3052,132 +2337,7 @@ export class BrapiService {
             /**
              * Set the content of the page, eg: `<h1>Hello World!!</h1>`. Either `html` or `url` must be set.
              */
-            html: string;
-            /**
-             * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            rejectRequestPattern?: Array<string>;
-            /**
-             * Block undesired requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            rejectResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            screenshotOptions?: {
-                captureBeyondViewport?: boolean;
-                clip?: {
-                    height: number;
-                    scale?: number;
-                    width: number;
-                    x: number;
-                    y: number;
-                };
-                fromSurface?: boolean;
-                fullPage?: boolean;
-                omitBackground?: boolean;
-                optimizeForSpeed?: boolean;
-                quality?: number;
-                type?: 'png' | 'jpeg' | 'webp';
-            };
-            setExtraHTTPHeaders?: {
-                [key: string]: string;
-            };
-            setJavaScriptEnabled?: boolean;
-            userAgent?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
-             */
-            viewport?: {
-                deviceScaleFactor?: number;
-                hasTouch?: boolean;
-                height: number;
-                isLandscape?: boolean;
-                isMobile?: boolean;
-                width: number;
-            };
-            /**
-             * Wait for the selector to appear in page. Check [options](https://pptr.dev/api/puppeteer.page.waitforselector).
-             */
-            waitForSelector?: {
-                hidden?: true;
-                selector: string;
-                timeout?: number;
-                visible?: true;
-            };
-            /**
-             * Waits for a specified timeout before continuing.
-             */
-            waitForTimeout?: number;
-        } | {
-            /**
-             * The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-             */
-            actionTimeout?: number;
-            /**
-             * Adds a `<script>` tag into the page with the desired URL or content.
-             */
-            addScriptTag?: Array<{
-                content?: string;
-                id?: string;
-                type?: string;
-                url?: string;
-            }>;
-            /**
-             * Adds a `<link rel="stylesheet">` tag into the page with the desired URL or a `<style type="text/css">` tag with the content.
-             */
-            addStyleTag?: Array<{
-                content?: string;
-                url?: string;
-            }>;
-            /**
-             * Only allow requests that match the provided regex patterns, eg. '/^.*\.(css)'.
-             */
-            allowRequestPattern?: Array<string>;
-            /**
-             * Only allow requests that match the provided resource types, eg. 'image' or 'script'.
-             */
-            allowResourceTypes?: Array<'document' | 'stylesheet' | 'image' | 'media' | 'font' | 'script' | 'texttrack' | 'xhr' | 'fetch' | 'prefetch' | 'eventsource' | 'websocket' | 'manifest' | 'signedexchange' | 'ping' | 'cspviolationreport' | 'preflight' | 'other'>;
-            /**
-             * Provide credentials for HTTP authentication.
-             */
-            authenticate?: {
-                password: string;
-                username: string;
-            };
-            /**
-             * Attempt to proceed when 'awaited' events fail or timeout.
-             */
-            bestAttempt?: boolean;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.page.setcookie).
-             */
-            cookies?: Array<{
-                domain?: string;
-                expires?: number;
-                httpOnly?: boolean;
-                /**
-                 * Cookie name.
-                 */
-                name: string;
-                partitionKey?: string;
-                path?: string;
-                priority?: 'Low' | 'Medium' | 'High';
-                sameParty?: boolean;
-                sameSite?: 'Strict' | 'Lax' | 'None';
-                secure?: boolean;
-                sourcePort?: number;
-                sourceScheme?: 'Unset' | 'NonSecure' | 'Secure';
-                url?: string;
-                value: string;
-            }>;
-            emulateMediaType?: string;
-            /**
-             * Check [options](https://pptr.dev/api/puppeteer.gotooptions).
-             */
-            gotoOptions?: {
-                referer?: string;
-                referrerPolicy?: string;
-                timeout?: number;
-                waitUntil?: 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2' | Array<'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2'>;
-            };
+            html?: string;
             /**
              * Block undesired requests that match the provided regex patterns, eg. '/^.*\.(css)'.
              */
@@ -3209,7 +2369,7 @@ export class BrapiService {
             /**
              * URL to navigate to, eg. `https://example.com`.
              */
-            url: string;
+            url?: string;
             userAgent?: string;
             /**
              * Check [options](https://pptr.dev/api/puppeteer.page.setviewport).
@@ -3236,7 +2396,7 @@ export class BrapiService {
              */
             waitForTimeout?: number;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BrapiPostSnapshotResponses, BrapiPostSnapshotErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cacheTTL' },

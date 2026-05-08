@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { PageShieldCreatePolicyErrors, PageShieldCreatePolicyResponses, PageShieldDeletePolicyErrors, PageShieldDeletePolicyResponses, PageShieldEnabled, PageShieldGetConnectionErrors, PageShieldGetConnectionResponses, PageShieldGetCookieErrors, PageShieldGetCookieResponses, PageShieldGetPolicyErrors, PageShieldGetPolicyResponses, PageShieldGetScriptErrors, PageShieldGetScriptResponses, PageShieldGetSettingsErrors, PageShieldGetSettingsResponses, PageShieldId, PageShieldListConnectionsErrors, PageShieldListConnectionsResponses, PageShieldListCookiesErrors, PageShieldListCookiesResponses, PageShieldListPoliciesErrors, PageShieldListPoliciesResponses, PageShieldListScriptsErrors, PageShieldListScriptsResponses, PageShieldPolicy, PageShieldPolicyAction, PageShieldPolicyDescription, PageShieldPolicyEnabled, PageShieldPolicyExpression, PageShieldPolicyValue, PageShieldUpdatePolicyErrors, PageShieldUpdatePolicyResponses, PageShieldUpdateSettingsErrors, PageShieldUpdateSettingsResponses, PageShieldUseCloudflareReportingEndpoint, PageShieldUseConnectionUrlPath } from '../types.gen';
@@ -18,7 +18,7 @@ export class PageShieldService {
      */
     public static pageShieldGetSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldGetSettingsResponses, PageShieldGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PageShieldGetSettingsResponses, PageShieldGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class PageShieldService {
         enabled?: PageShieldEnabled;
         use_cloudflare_reporting_endpoint?: PageShieldUseCloudflareReportingEndpoint;
         use_connection_url_path?: PageShieldUseConnectionUrlPath;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldUpdateSettingsResponses, PageShieldUpdateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'enabled' },
@@ -89,7 +89,7 @@ export class PageShieldService {
         status?: string;
         page_url?: string;
         export?: 'csv';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldListConnectionsResponses, PageShieldListConnectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'exclude_urls' },
@@ -127,7 +127,7 @@ export class PageShieldService {
     public static pageShieldGetConnection<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         connection_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldGetConnectionResponses, PageShieldGetConnectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'connection_id' }] }]);
         return (options?.client ?? client).get<PageShieldGetConnectionResponses, PageShieldGetConnectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -164,7 +164,7 @@ export class PageShieldService {
         type?: 'first_party' | 'unknown';
         path?: string;
         domain?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldListCookiesResponses, PageShieldListCookiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'hosts' },
@@ -204,7 +204,7 @@ export class PageShieldService {
     public static pageShieldGetCookie<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         cookie_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldGetCookieResponses, PageShieldGetCookieErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'cookie_id' }] }]);
         return (options?.client ?? client).get<PageShieldGetCookieResponses, PageShieldGetCookieErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +227,7 @@ export class PageShieldService {
      */
     public static pageShieldListPolicies<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldListPoliciesResponses, PageShieldListPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PageShieldListPoliciesResponses, PageShieldListPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -251,7 +251,7 @@ export class PageShieldService {
     public static pageShieldCreatePolicy<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         pageShieldPolicy: PageShieldPolicy;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldCreatePolicyResponses, PageShieldCreatePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'pageShieldPolicy', map: 'body' }] }]);
         return (options?.client ?? client).post<PageShieldCreatePolicyResponses, PageShieldCreatePolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -280,7 +280,7 @@ export class PageShieldService {
     public static pageShieldDeletePolicy<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         policy_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldDeletePolicyResponses, PageShieldDeletePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).delete<PageShieldDeletePolicyResponses, PageShieldDeletePolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -304,7 +304,7 @@ export class PageShieldService {
     public static pageShieldGetPolicy<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         policy_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldGetPolicyResponses, PageShieldGetPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).get<PageShieldGetPolicyResponses, PageShieldGetPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -333,7 +333,7 @@ export class PageShieldService {
         enabled?: PageShieldPolicyEnabled;
         expression?: PageShieldPolicyExpression;
         value?: PageShieldPolicyValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldUpdatePolicyResponses, PageShieldUpdatePolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'policy_id' },
@@ -382,7 +382,7 @@ export class PageShieldService {
         status?: string;
         page_url?: string;
         export?: 'csv';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldListScriptsResponses, PageShieldListScriptsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'exclude_urls' },
@@ -421,7 +421,7 @@ export class PageShieldService {
     public static pageShieldGetScript<ThrowOnError extends boolean = true>(parameters: {
         zone_id: PageShieldId;
         script_id: PageShieldId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PageShieldGetScriptResponses, PageShieldGetScriptErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'script_id' }] }]);
         return (options?.client ?? client).get<PageShieldGetScriptResponses, PageShieldGetScriptErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayComponentsSchemasUuid, ZeroTrustGatewayContents, ZeroTrustGatewayPacfilesComponentsSchemasDescription, ZeroTrustGatewayPacfilesComponentsSchemasName, ZeroTrustGatewayPacfilesCreatePacfileErrors, ZeroTrustGatewayPacfilesCreatePacfileResponses, ZeroTrustGatewayPacfilesDeleteErrors, ZeroTrustGatewayPacfilesDeleteResponses, ZeroTrustGatewayPacfilesDetailsErrors, ZeroTrustGatewayPacfilesDetailsResponses, ZeroTrustGatewayPacfilesListErrors, ZeroTrustGatewayPacfilesListResponses, ZeroTrustGatewayPacfilesUpdateErrors, ZeroTrustGatewayPacfilesUpdateResponses, ZeroTrustGatewaySchemasIdentifier } from '../types.gen';
+import type { ZeroTrustGatewayContents, ZeroTrustGatewayDescription4, ZeroTrustGatewayIdentifier2, ZeroTrustGatewayName7, ZeroTrustGatewayPacfilesCreatePacfileErrors, ZeroTrustGatewayPacfilesCreatePacfileResponses, ZeroTrustGatewayPacfilesDeleteErrors, ZeroTrustGatewayPacfilesDeleteResponses, ZeroTrustGatewayPacfilesDetailsErrors, ZeroTrustGatewayPacfilesDetailsResponses, ZeroTrustGatewayPacfilesListErrors, ZeroTrustGatewayPacfilesListResponses, ZeroTrustGatewayPacfilesUpdateErrors, ZeroTrustGatewayPacfilesUpdateResponses, ZeroTrustGatewayUuid3 } from '../types.gen';
 import { zZeroTrustGatewayPacfilesCreatePacfileBody, zZeroTrustGatewayPacfilesCreatePacfilePath, zZeroTrustGatewayPacfilesCreatePacfileResponse, zZeroTrustGatewayPacfilesDeletePath, zZeroTrustGatewayPacfilesDeleteResponse, zZeroTrustGatewayPacfilesDetailsPath, zZeroTrustGatewayPacfilesDetailsResponse, zZeroTrustGatewayPacfilesListPath, zZeroTrustGatewayPacfilesListResponse, zZeroTrustGatewayPacfilesUpdateBody, zZeroTrustGatewayPacfilesUpdatePath, zZeroTrustGatewayPacfilesUpdateResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayPacFilesService {
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayPacFilesService {
      * List all Zero Trust Gateway PAC files for an account.
      */
     public static zeroTrustGatewayPacfilesList<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayPacfilesListResponses, ZeroTrustGatewayPacfilesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayPacfilesListResponses, ZeroTrustGatewayPacfilesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,12 +44,12 @@ export class ZeroTrustGatewayPacFilesService {
      * Create a new Zero Trust Gateway PAC file.
      */
     public static zeroTrustGatewayPacfilesCreatePacfile<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         contents: ZeroTrustGatewayContents;
-        description?: ZeroTrustGatewayPacfilesComponentsSchemasDescription;
-        name: ZeroTrustGatewayPacfilesComponentsSchemasName;
+        description?: ZeroTrustGatewayDescription4;
+        name: ZeroTrustGatewayName7;
         slug?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayPacfilesCreatePacfileResponses, ZeroTrustGatewayPacfilesCreatePacfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'contents' },
@@ -86,9 +86,9 @@ export class ZeroTrustGatewayPacFilesService {
      * Delete a configured Zero Trust Gateway PAC file.
      */
     public static zeroTrustGatewayPacfilesDelete<ThrowOnError extends boolean = true>(parameters: {
-        pacfile_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        pacfile_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayPacfilesDeleteResponses, ZeroTrustGatewayPacfilesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pacfile_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<ZeroTrustGatewayPacfilesDeleteResponses, ZeroTrustGatewayPacfilesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,9 +114,9 @@ export class ZeroTrustGatewayPacFilesService {
      * Get a single Zero Trust Gateway PAC file.
      */
     public static zeroTrustGatewayPacfilesDetails<ThrowOnError extends boolean = true>(parameters: {
-        pacfile_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        pacfile_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayPacfilesDetailsResponses, ZeroTrustGatewayPacfilesDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pacfile_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayPacfilesDetailsResponses, ZeroTrustGatewayPacfilesDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,12 +142,12 @@ export class ZeroTrustGatewayPacFilesService {
      * Update a configured Zero Trust Gateway PAC file.
      */
     public static zeroTrustGatewayPacfilesUpdate<ThrowOnError extends boolean = true>(parameters: {
-        pacfile_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        pacfile_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
         contents: ZeroTrustGatewayContents;
-        description: ZeroTrustGatewayPacfilesComponentsSchemasDescription;
-        name: ZeroTrustGatewayPacfilesComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        description: ZeroTrustGatewayDescription4;
+        name: ZeroTrustGatewayName7;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayPacfilesUpdateResponses, ZeroTrustGatewayPacfilesUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'pacfile_id' },
                     { in: 'path', key: 'account_id' },

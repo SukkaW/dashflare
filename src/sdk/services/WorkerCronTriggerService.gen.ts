@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerCronTriggerGetCronTriggersErrors, WorkerCronTriggerGetCronTriggersResponses, WorkerCronTriggerUpdateCronTriggersErrors, WorkerCronTriggerUpdateCronTriggersResponses, WorkersIdentifier, WorkersScheduleWritable, WorkersScriptName } from '../types.gen';
@@ -19,7 +19,7 @@ export class WorkerCronTriggerService {
     public static workerCronTriggerGetCronTriggers<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerCronTriggerGetCronTriggersResponses, WorkerCronTriggerGetCronTriggersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerCronTriggerGetCronTriggersResponses, WorkerCronTriggerGetCronTriggersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class WorkerCronTriggerService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         body: Array<WorkersScheduleWritable>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerCronTriggerUpdateCronTriggersResponses, WorkerCronTriggerUpdateCronTriggersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },

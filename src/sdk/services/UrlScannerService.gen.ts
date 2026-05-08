@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { UrlscannerCreateScanBulkV2Errors, UrlscannerCreateScanBulkV2Responses, UrlscannerCreateScanV2Errors, UrlscannerCreateScanV2Responses, UrlscannerGetResponseV2Errors, UrlscannerGetResponseV2Responses, UrlscannerGetScanDomV2Errors, UrlscannerGetScanDomV2Responses, UrlscannerGetScanHarV2Errors, UrlscannerGetScanHarV2Responses, UrlscannerGetScanScreenshotV2Errors, UrlscannerGetScanScreenshotV2Responses, UrlscannerGetScanV2Errors, UrlscannerGetScanV2Responses, UrlscannerSearchScansV2Errors, UrlscannerSearchScansV2Responses } from '../types.gen';
@@ -41,7 +41,7 @@ export class UrlScannerService {
              */
             visibility?: 'Public' | 'Unlisted';
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerCreateScanBulkV2Responses, UrlscannerCreateScanBulkV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<UrlscannerCreateScanBulkV2Responses, UrlscannerCreateScanBulkV2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class UrlScannerService {
     public static urlscannerGetScanDomV2<ThrowOnError extends boolean = true>(parameters: {
         scan_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanDomV2Responses, UrlscannerGetScanDomV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'scan_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetScanDomV2Responses, UrlscannerGetScanDomV2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -102,7 +102,7 @@ export class UrlScannerService {
     public static urlscannerGetScanHarV2<ThrowOnError extends boolean = true>(parameters: {
         scan_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanHarV2Responses, UrlscannerGetScanHarV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'scan_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetScanHarV2Responses, UrlscannerGetScanHarV2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -130,7 +130,7 @@ export class UrlScannerService {
     public static urlscannerGetResponseV2<ThrowOnError extends boolean = true>(parameters: {
         response_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetResponseV2Responses, UrlscannerGetResponseV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'response_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetResponseV2Responses, UrlscannerGetResponseV2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -158,7 +158,7 @@ export class UrlScannerService {
     public static urlscannerGetScanV2<ThrowOnError extends boolean = true>(parameters: {
         scan_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanV2Responses, UrlscannerGetScanV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'scan_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetScanV2Responses, UrlscannerGetScanV2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,7 +195,7 @@ export class UrlScannerService {
         screenshotsResolutions?: Array<'desktop' | 'mobile' | 'tablet'>;
         url: string;
         visibility?: 'Public' | 'Unlisted';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerCreateScanV2Responses, UrlscannerCreateScanV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'agentReadiness' },
@@ -239,7 +239,7 @@ export class UrlScannerService {
         scan_id: string;
         account_id: string;
         resolution?: 'desktop' | 'mobile' | 'tablet';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanScreenshotV2Responses, UrlscannerGetScanScreenshotV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'scan_id' },
                     { in: 'path', key: 'account_id' },
@@ -272,7 +272,7 @@ export class UrlScannerService {
         account_id: string;
         size?: number;
         q?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerSearchScansV2Responses, UrlscannerSearchScansV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'size' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetLeakedCredentialChecksSummaryByBotClassErrors, RadarGetLeakedCredentialChecksSummaryByBotClassResponses, RadarGetLeakedCredentialChecksSummaryByCompromisedErrors, RadarGetLeakedCredentialChecksSummaryByCompromisedResponses, RadarGetLeakedCredentialChecksSummaryErrors, RadarGetLeakedCredentialChecksSummaryResponses, RadarGetLeakedCredentialChecksTimeseriesGroupByBotClassErrors, RadarGetLeakedCredentialChecksTimeseriesGroupByBotClassResponses, RadarGetLeakedCredentialChecksTimeseriesGroupByCompromisedErrors, RadarGetLeakedCredentialChecksTimeseriesGroupByCompromisedResponses, RadarGetLeakedCredentialChecksTimeseriesGroupErrors, RadarGetLeakedCredentialChecksTimeseriesGroupResponses } from '../types.gen';
@@ -25,7 +25,7 @@ export class RadarLeakedCredentialChecksService {
         dateEnd?: Array<string>;
         compromised?: Array<'CLEAN' | 'COMPROMISED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksSummaryByBotClassResponses, RadarGetLeakedCredentialChecksSummaryByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -66,7 +66,7 @@ export class RadarLeakedCredentialChecksService {
         dateEnd?: Array<string>;
         botClass?: Array<'LIKELY_AUTOMATED' | 'LIKELY_HUMAN'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksSummaryByCompromisedResponses, RadarGetLeakedCredentialChecksSummaryByCompromisedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -111,7 +111,7 @@ export class RadarLeakedCredentialChecksService {
         compromised?: Array<'CLEAN' | 'COMPROMISED'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksSummaryResponses, RadarGetLeakedCredentialChecksSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -159,7 +159,7 @@ export class RadarLeakedCredentialChecksService {
         dateEnd?: Array<string>;
         compromised?: Array<'CLEAN' | 'COMPROMISED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksTimeseriesGroupByBotClassResponses, RadarGetLeakedCredentialChecksTimeseriesGroupByBotClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -202,7 +202,7 @@ export class RadarLeakedCredentialChecksService {
         dateEnd?: Array<string>;
         botClass?: Array<'LIKELY_AUTOMATED' | 'LIKELY_HUMAN'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksTimeseriesGroupByCompromisedResponses, RadarGetLeakedCredentialChecksTimeseriesGroupByCompromisedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -251,7 +251,7 @@ export class RadarLeakedCredentialChecksService {
         limitPerGroup?: number;
         normalization?: 'PERCENTAGE_CHANGE' | 'MIN0_MAX';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetLeakedCredentialChecksTimeseriesGroupResponses, RadarGetLeakedCredentialChecksTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },

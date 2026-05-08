@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountResourceGroupCreateErrors, AccountResourceGroupCreateResponses, AccountResourceGroupDeleteErrors, AccountResourceGroupDeleteResponses, AccountResourceGroupDetailsErrors, AccountResourceGroupDetailsResponses, AccountResourceGroupListErrors, AccountResourceGroupListResponses, AccountResourceGroupUpdateErrors, AccountResourceGroupUpdateResponses, IamAccountIdentifierWritable, IamRequestCreateResourceGroup, IamRequestUpdateResourceGroup, IamResourceGroupIdentifierWritable } from '../types.gen';
@@ -20,7 +20,7 @@ export class AccountResourceGroupsService {
         account_id: IamAccountIdentifierWritable;
         id?: IamResourceGroupIdentifierWritable;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountResourceGroupListResponses, AccountResourceGroupListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -52,7 +52,7 @@ export class AccountResourceGroupsService {
     public static accountResourceGroupCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamRequestCreateResourceGroup: IamRequestCreateResourceGroup;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountResourceGroupCreateResponses, AccountResourceGroupCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamRequestCreateResourceGroup', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountResourceGroupCreateResponses, AccountResourceGroupCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -86,7 +86,7 @@ export class AccountResourceGroupsService {
         account_id: IamAccountIdentifierWritable;
         resource_group_id: IamResourceGroupIdentifierWritable;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountResourceGroupDeleteResponses, AccountResourceGroupDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'resource_group_id' },
@@ -123,7 +123,7 @@ export class AccountResourceGroupsService {
     public static accountResourceGroupDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         resource_group_id: IamResourceGroupIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountResourceGroupDetailsResponses, AccountResourceGroupDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'resource_group_id' }] }]);
         return (options?.client ?? client).get<AccountResourceGroupDetailsResponses, AccountResourceGroupDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,7 +152,7 @@ export class AccountResourceGroupsService {
         account_id: IamAccountIdentifierWritable;
         resource_group_id: IamResourceGroupIdentifierWritable;
         iamRequestUpdateResourceGroup: IamRequestUpdateResourceGroup;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountResourceGroupUpdateResponses, AccountResourceGroupUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'resource_group_id' },

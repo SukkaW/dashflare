@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountRolesListRolesErrors, AccountRolesListRolesResponses, AccountRolesRoleDetailsErrors, AccountRolesRoleDetailsResponses, IamAccountIdentifierWritable, IamRoleComponentsSchemasIdentifier } from '../types.gen';
@@ -15,12 +15,14 @@ export class AccountRolesService {
      * List Roles
      *
      * Get all available roles for an account.
+     *
+     * @deprecated
      */
     public static accountRolesListRoles<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountRolesListRolesResponses, AccountRolesListRolesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -44,11 +46,13 @@ export class AccountRolesService {
      * Role Details
      *
      * Get information about a specific role for an account.
+     *
+     * @deprecated
      */
     public static accountRolesRoleDetails<ThrowOnError extends boolean = true>(parameters: {
         role_id: IamRoleComponentsSchemasIdentifier;
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountRolesRoleDetailsResponses, AccountRolesRoleDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'role_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountRolesRoleDetailsResponses, AccountRolesRoleDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

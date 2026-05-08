@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { StreamDownloadsCreateTypeSpecificDownloadsErrors, StreamDownloadsCreateTypeSpecificDownloadsResponses, StreamDownloadsDeleteTypeSpecificDownloadsErrors, StreamDownloadsDeleteTypeSpecificDownloadsResponses, StreamDownloadType, StreamIdentifier, StreamMp4DownloadsCreateDownloadsErrors, StreamMp4DownloadsCreateDownloadsResponses, StreamMp4DownloadsDeleteDownloadsErrors, StreamMp4DownloadsDeleteDownloadsResponses, StreamMp4DownloadsListDownloadsErrors, StreamMp4DownloadsListDownloadsResponses, StreamSchemasIdentifier } from '../types.gen';
+import type { StreamDownloadsCreateTypeSpecificDownloadsErrors, StreamDownloadsCreateTypeSpecificDownloadsResponses, StreamDownloadsDeleteTypeSpecificDownloadsErrors, StreamDownloadsDeleteTypeSpecificDownloadsResponses, StreamDownloadType, StreamIdentifier, StreamIdentifier2, StreamMp4DownloadsCreateDownloadsErrors, StreamMp4DownloadsCreateDownloadsResponses, StreamMp4DownloadsDeleteDownloadsErrors, StreamMp4DownloadsDeleteDownloadsResponses, StreamMp4DownloadsListDownloadsErrors, StreamMp4DownloadsListDownloadsResponses } from '../types.gen';
 import { zStreamDownloadsCreateTypeSpecificDownloadsPath, zStreamDownloadsCreateTypeSpecificDownloadsResponse, zStreamDownloadsDeleteTypeSpecificDownloadsPath, zStreamDownloadsDeleteTypeSpecificDownloadsResponse, zStreamMp4DownloadsCreateDownloadsPath, zStreamMp4DownloadsCreateDownloadsResponse, zStreamMp4DownloadsDeleteDownloadsPath, zStreamMp4DownloadsDeleteDownloadsResponse, zStreamMp4DownloadsListDownloadsPath, zStreamMp4DownloadsListDownloadsResponse } from '../zod.gen';
 
 export class StreamMp4DownloadsService {
@@ -18,8 +18,8 @@ export class StreamMp4DownloadsService {
      */
     public static streamMP4DownloadsDeleteDownloads<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamMp4DownloadsDeleteDownloadsResponses, StreamMp4DownloadsDeleteDownloadsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<StreamMp4DownloadsDeleteDownloadsResponses, StreamMp4DownloadsDeleteDownloadsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,8 +46,8 @@ export class StreamMp4DownloadsService {
      */
     public static streamMP4DownloadsListDownloads<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamMp4DownloadsListDownloadsResponses, StreamMp4DownloadsListDownloadsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamMp4DownloadsListDownloadsResponses, StreamMp4DownloadsListDownloadsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,8 +74,8 @@ export class StreamMp4DownloadsService {
      */
     public static streamMP4DownloadsCreateDownloads<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamMp4DownloadsCreateDownloadsResponses, StreamMp4DownloadsCreateDownloadsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<StreamMp4DownloadsCreateDownloadsResponses, StreamMp4DownloadsCreateDownloadsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -102,9 +102,9 @@ export class StreamMp4DownloadsService {
      */
     public static streamDownloadsDeleteTypeSpecificDownloads<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         download_type: StreamDownloadType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamDownloadsDeleteTypeSpecificDownloadsResponses, StreamDownloadsDeleteTypeSpecificDownloadsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_id' },
@@ -135,9 +135,9 @@ export class StreamMp4DownloadsService {
      */
     public static streamDownloadsCreateTypeSpecificDownloads<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         download_type: StreamDownloadType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamDownloadsCreateTypeSpecificDownloadsResponses, StreamDownloadsCreateTypeSpecificDownloadsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_id' },

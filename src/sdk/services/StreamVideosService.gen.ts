@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { StreamAccountIdentifier, StreamAsc, StreamCreator, StreamDirectUploadRequest, StreamDirectUser, StreamEnd, StreamIdentifier, StreamIncludeCounts, StreamMediaState, StreamSearch, StreamSignedTokenRequest, StreamStart, StreamTusResumable, StreamType, StreamUploadLength, StreamUploadMetadata, StreamVideoCopyRequest, StreamVideoName, StreamVideosCreateSignedUrlTokensForVideosErrors, StreamVideosCreateSignedUrlTokensForVideosResponses, StreamVideosDeleteVideoErrors, StreamVideosDeleteVideoResponses, StreamVideosInitiateVideoUploadsUsingTusErrors, StreamVideosInitiateVideoUploadsUsingTusResponses, StreamVideosListVideosErrors, StreamVideosListVideosResponses, StreamVideosRetreieveEmbedCodeHtmlErrors, StreamVideosRetreieveEmbedCodeHtmlResponses, StreamVideosRetrieveVideoDetailsErrors, StreamVideosRetrieveVideoDetailsResponses, StreamVideosStorageUsageErrors, StreamVideosStorageUsageResponses, StreamVideosUpdateVideoDetailsErrors, StreamVideosUpdateVideoDetailsResponses, StreamVideosUploadVideosFromAUrlErrors, StreamVideosUploadVideosFromAUrlResponses, StreamVideosUploadVideosViaDirectUploadUrLsErrors, StreamVideosUploadVideosViaDirectUploadUrLsResponses, StreamVideoUpdate } from '../types.gen';
@@ -33,7 +33,7 @@ export class StreamVideosService {
         before?: string;
         after?: string;
         limit?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosListVideosResponses, StreamVideosListVideosErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'status' },
@@ -82,7 +82,7 @@ export class StreamVideosService {
         'Upload-Metadata'?: StreamUploadMetadata;
         account_id: StreamAccountIdentifier;
         direct_user?: StreamDirectUser;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosInitiateVideoUploadsUsingTusResponses, StreamVideosInitiateVideoUploadsUsingTusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'Tus-Resumable' },
                     { in: 'headers', key: 'Upload-Creator' },
@@ -118,7 +118,7 @@ export class StreamVideosService {
         'Upload-Creator'?: StreamCreator;
         account_id: StreamAccountIdentifier;
         streamVideoCopyRequest: StreamVideoCopyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosUploadVideosFromAUrlResponses, StreamVideosUploadVideosFromAUrlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'Upload-Creator' },
                     { in: 'path', key: 'account_id' },
@@ -157,7 +157,7 @@ export class StreamVideosService {
         'Upload-Creator'?: StreamCreator;
         account_id: StreamAccountIdentifier;
         streamDirectUploadRequest: StreamDirectUploadRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosUploadVideosViaDirectUploadUrLsResponses, StreamVideosUploadVideosViaDirectUploadUrLsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'Upload-Creator' },
                     { in: 'path', key: 'account_id' },
@@ -195,7 +195,7 @@ export class StreamVideosService {
     public static streamVideosStorageUsage<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
         creator?: StreamCreator;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosStorageUsageResponses, StreamVideosStorageUsageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'creator' }] }]);
         return (options?.client ?? client).get<StreamVideosStorageUsageResponses, StreamVideosStorageUsageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -223,7 +223,7 @@ export class StreamVideosService {
     public static streamVideosDeleteVideo<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosDeleteVideoResponses, StreamVideosDeleteVideoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<StreamVideosDeleteVideoResponses, StreamVideosDeleteVideoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -250,7 +250,7 @@ export class StreamVideosService {
     public static streamVideosRetrieveVideoDetails<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosRetrieveVideoDetailsResponses, StreamVideosRetrieveVideoDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamVideosRetrieveVideoDetailsResponses, StreamVideosRetrieveVideoDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -279,7 +279,7 @@ export class StreamVideosService {
         identifier: StreamIdentifier;
         account_id: StreamAccountIdentifier;
         streamVideoUpdate: StreamVideoUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosUpdateVideoDetailsResponses, StreamVideosUpdateVideoDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_id' },
@@ -316,7 +316,7 @@ export class StreamVideosService {
     public static streamVideosRetreieveEmbedCodeHtml<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosRetreieveEmbedCodeHtmlResponses, StreamVideosRetreieveEmbedCodeHtmlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamVideosRetreieveEmbedCodeHtmlResponses, StreamVideosRetreieveEmbedCodeHtmlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -345,7 +345,7 @@ export class StreamVideosService {
         identifier: StreamIdentifier;
         account_id: StreamAccountIdentifier;
         streamSignedTokenRequest: StreamSignedTokenRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamVideosCreateSignedUrlTokensForVideosResponses, StreamVideosCreateSignedUrlTokensForVideosErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_id' },

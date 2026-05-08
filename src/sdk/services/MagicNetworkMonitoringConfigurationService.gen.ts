@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicNetworkMonitoringConfigurationCreateAccountConfigurationErrors, MagicNetworkMonitoringConfigurationCreateAccountConfigurationResponses, MagicNetworkMonitoringConfigurationDeleteAccountConfigurationErrors, MagicNetworkMonitoringConfigurationDeleteAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListAccountConfigurationErrors, MagicNetworkMonitoringConfigurationListAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationErrors, MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationResponses, MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsErrors, MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsResponses, MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfigurationErrors, MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfigurationResponses, MagicVisibilityMnmAccountIdentifier, MagicVisibilityMnmMnmConfigDefaultSampling, MagicVisibilityMnmMnmConfigName, MagicVisibilityMnmMnmConfigRouterIpsWritable, MagicVisibilityMnmMnmConfigWarpDevices } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicNetworkMonitoringConfigurationService {
     public static magicNetworkMonitoringConfigurationDeleteAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationDeleteAccountConfigurationResponses, MagicNetworkMonitoringConfigurationDeleteAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<MagicNetworkMonitoringConfigurationDeleteAccountConfigurationResponses, MagicNetworkMonitoringConfigurationDeleteAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class MagicNetworkMonitoringConfigurationService {
      */
     public static magicNetworkMonitoringConfigurationListAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationListAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicNetworkMonitoringConfigurationListAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class MagicNetworkMonitoringConfigurationService {
         name?: MagicVisibilityMnmMnmConfigName;
         router_ips?: MagicVisibilityMnmMnmConfigRouterIpsWritable;
         warp_devices?: MagicVisibilityMnmMnmConfigWarpDevices;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsResponses, MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'default_sampling' },
@@ -112,7 +112,7 @@ export class MagicNetworkMonitoringConfigurationService {
         name: MagicVisibilityMnmMnmConfigName;
         router_ips?: MagicVisibilityMnmMnmConfigRouterIpsWritable;
         warp_devices?: MagicVisibilityMnmMnmConfigWarpDevices;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationCreateAccountConfigurationResponses, MagicNetworkMonitoringConfigurationCreateAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'default_sampling' },
@@ -150,7 +150,7 @@ export class MagicNetworkMonitoringConfigurationService {
         name: MagicVisibilityMnmMnmConfigName;
         router_ips?: MagicVisibilityMnmMnmConfigRouterIpsWritable;
         warp_devices?: MagicVisibilityMnmMnmConfigWarpDevices;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfigurationResponses, MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'default_sampling' },
@@ -184,7 +184,7 @@ export class MagicNetworkMonitoringConfigurationService {
      */
     public static magicNetworkMonitoringConfigurationListRulesAndAccountConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicVisibilityMnmAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationResponses, MagicNetworkMonitoringConfigurationListRulesAndAccountConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

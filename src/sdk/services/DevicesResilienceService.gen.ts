@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DevicesResilienceRetrieveGlobalWarpOverrideErrors, DevicesResilienceRetrieveGlobalWarpOverrideResponses, DevicesResilienceSetGlobalWarpOverrideErrors, DevicesResilienceSetGlobalWarpOverrideResponses, TeamsDevicesGlobalWarpOverrideRequest, TeamsDevicesIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class DevicesResilienceService {
      */
     public static devicesResilienceRetrieveGlobalWarpOverride<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesResilienceRetrieveGlobalWarpOverrideResponses, DevicesResilienceRetrieveGlobalWarpOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DevicesResilienceRetrieveGlobalWarpOverrideResponses, DevicesResilienceRetrieveGlobalWarpOverrideErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class DevicesResilienceService {
     public static devicesResilienceSetGlobalWarpOverride<ThrowOnError extends boolean = true>(parameters: {
         account_id: TeamsDevicesIdentifier;
         teamsDevicesGlobalWarpOverrideRequest: TeamsDevicesGlobalWarpOverrideRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DevicesResilienceSetGlobalWarpOverrideResponses, DevicesResilienceSetGlobalWarpOverrideErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'teamsDevicesGlobalWarpOverrideRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<DevicesResilienceSetGlobalWarpOverrideResponses, DevicesResilienceSetGlobalWarpOverrideErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

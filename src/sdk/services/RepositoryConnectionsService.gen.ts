@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsRepoConnectionUuid, BuildsUpsertRepoConnectionRequest, DeleteRepoConnectionErrors, DeleteRepoConnectionResponses, UpsertRepoConnectionResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class RepositoryConnectionsService {
     public static upsertRepoConnection<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         buildsUpsertRepoConnectionRequest: BuildsUpsertRepoConnectionRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpsertRepoConnectionResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'buildsUpsertRepoConnectionRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<UpsertRepoConnectionResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class RepositoryConnectionsService {
     public static deleteRepoConnection<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         repo_connection_uuid: BuildsRepoConnectionUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteRepoConnectionResponses, DeleteRepoConnectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'repo_connection_uuid' }] }]);
         return (options?.client ?? client).delete<DeleteRepoConnectionResponses, DeleteRepoConnectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

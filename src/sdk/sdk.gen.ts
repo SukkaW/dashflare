@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
+import { buildClientParams, type Client, type ClientMeta, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { CacheIdentifier, DestinationCreateErrors, DestinationCreateResponses, DestinationListErrors, DestinationListResponses, DestinationsDeleteErrors, DestinationsDeleteResponses, DestinationUpdateErrors, DestinationUpdateResponses, PayPerCrawlCrawlerCreateStripeConfigErrors, PayPerCrawlCrawlerCreateStripeConfigResponses, PayPerCrawlCrawlerDeleteStripeConfigErrors, PayPerCrawlCrawlerDeleteStripeConfigResponses, PayPerCrawlCrawlerGetStripeConfigErrors, PayPerCrawlCrawlerGetStripeConfigResponses, PayPerCrawlCreateConfigErrors, PayPerCrawlCreateConfigResponses, PayPerCrawlDaricConfig2, PayPerCrawlGetConfigErrors, PayPerCrawlGetConfigResponses, PayPerCrawlPatchConfigErrors, PayPerCrawlPatchConfigResponses, PayPerCrawlPublisherCreateStripeConfigErrors, PayPerCrawlPublisherCreateStripeConfigResponses, PayPerCrawlPublisherDeleteStripeConfigErrors, PayPerCrawlPublisherDeleteStripeConfigResponses, PayPerCrawlPublisherGetStripeConfigErrors, PayPerCrawlPublisherGetStripeConfigResponses, PayPerCrawlQueryZonesCanBeEnabledErrors, PayPerCrawlQueryZonesCanBeEnabledResponses, PayPerCrawlSetZonesCanBeEnabledErrors, PayPerCrawlSetZonesCanBeEnabledResponses, PayPerCrawlZonesCanBeEnabledPayload2, QueriesDeleteErrors, QueriesDeleteResponses, QueriesGetErrors, QueriesGetResponses, QueriesListErrors, QueriesListResponses, QueriesPatchErrors, QueriesPatchResponses, QueriesPostErrors, QueriesPostResponses, SslTlsModeRecommendationSslTlsRecommendationErrors, SslTlsModeRecommendationSslTlsRecommendationResponses, StreamCaptionBasicUpload, StreamIdentifier, StreamLanguage, StreamSchemasIdentifier, StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageErrors, StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageErrors, StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGetVttCaptionOrSubtitleErrors, StreamSubtitlesCaptionsGetVttCaptionOrSubtitleResponses, StreamSubtitlesCaptionsListCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsListCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponses, TelemetryKeysListErrors, TelemetryKeysListResponses, TelemetryQueryErrors, TelemetryQueryResponses, TelemetryValuesListErrors, TelemetryValuesListResponses, WorkersDomainsDeleteErrors, WorkersDomainsDeleteResponses, WorkersDomainsGetErrors, WorkersDomainsGetResponses, WorkersDomainsListErrors, WorkersDomainsListResponses, WorkersDomainsUpdateErrors, WorkersDomainsUpdateResponses, WorkersDomainWritable, WorkersIdentifier, WorkersObservabilityFilterLeaf, WorkersObservabilityFilterNode } from './types.gen';
-import { zDestinationCreateBody, zDestinationCreatePath, zDestinationCreateResponse, zDestinationListPath, zDestinationListQuery, zDestinationListResponse, zDestinationsDeletePath, zDestinationsDeleteResponse, zDestinationUpdateBody, zDestinationUpdatePath, zDestinationUpdateResponse, zPayPerCrawlCrawlerCreateStripeConfigPath, zPayPerCrawlCrawlerCreateStripeConfigResponse, zPayPerCrawlCrawlerDeleteStripeConfigPath, zPayPerCrawlCrawlerDeleteStripeConfigResponse, zPayPerCrawlCrawlerGetStripeConfigPath, zPayPerCrawlCrawlerGetStripeConfigResponse, zPayPerCrawlCreateConfigBody, zPayPerCrawlCreateConfigPath, zPayPerCrawlCreateConfigResponse, zPayPerCrawlGetConfigPath, zPayPerCrawlGetConfigResponse2, zPayPerCrawlPatchConfigBody, zPayPerCrawlPatchConfigPath, zPayPerCrawlPatchConfigResponse, zPayPerCrawlPublisherCreateStripeConfigPath, zPayPerCrawlPublisherCreateStripeConfigResponse, zPayPerCrawlPublisherDeleteStripeConfigPath, zPayPerCrawlPublisherDeleteStripeConfigResponse, zPayPerCrawlPublisherGetStripeConfigPath, zPayPerCrawlPublisherGetStripeConfigResponse, zPayPerCrawlQueryZonesCanBeEnabledBody, zPayPerCrawlQueryZonesCanBeEnabledPath, zPayPerCrawlQueryZonesCanBeEnabledResponse2, zPayPerCrawlSetZonesCanBeEnabledBody, zPayPerCrawlSetZonesCanBeEnabledPath, zPayPerCrawlSetZonesCanBeEnabledResponse, zQueriesDeletePath, zQueriesDeleteResponse, zQueriesGetPath, zQueriesGetResponse, zQueriesListPath, zQueriesListQuery, zQueriesListResponse, zQueriesPatchBody, zQueriesPatchPath, zQueriesPatchResponse, zQueriesPostBody, zQueriesPostPath, zQueriesPostResponse, zSslTlsModeRecommendationSslTlsRecommendationPath, zSslTlsModeRecommendationSslTlsRecommendationResponse, zStreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesResponse, zStreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguagePath, zStreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageResponse, zStreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguagePath, zStreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageResponse, zStreamSubtitlesCaptionsGetVttCaptionOrSubtitlePath, zStreamSubtitlesCaptionsGetVttCaptionOrSubtitleResponse, zStreamSubtitlesCaptionsListCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsListCaptionsOrSubtitlesResponse, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesBody, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponse, zTelemetryKeysListBody, zTelemetryKeysListPath, zTelemetryKeysListResponse, zTelemetryQueryBody, zTelemetryQueryPath, zTelemetryQueryResponse, zTelemetryValuesListBody, zTelemetryValuesListPath, zTelemetryValuesListResponse, zWorkersDomainsDeletePath, zWorkersDomainsDeleteResponse, zWorkersDomainsGetPath, zWorkersDomainsGetResponse, zWorkersDomainsListPath, zWorkersDomainsListQuery, zWorkersDomainsListResponse, zWorkersDomainsUpdateBody, zWorkersDomainsUpdatePath, zWorkersDomainsUpdateResponse } from './zod.gen';
+import type { DestinationCreateErrors, DestinationCreateResponses, DestinationListErrors, DestinationListResponses, DestinationsDeleteErrors, DestinationsDeleteResponses, DestinationUpdateErrors, DestinationUpdateResponses, MetricsExportDeleteErrors, MetricsExportDeleteResponses, MetricsExportListErrors, MetricsExportListResponses, MetricsExportUpsertErrors, MetricsExportUpsertResponses, PayPerCrawlCrawlerCreateStripeConfigErrors, PayPerCrawlCrawlerCreateStripeConfigResponses, PayPerCrawlCrawlerDeleteStripeConfigErrors, PayPerCrawlCrawlerDeleteStripeConfigResponses, PayPerCrawlCrawlerGetStripeConfigErrors, PayPerCrawlCrawlerGetStripeConfigResponses, PayPerCrawlCreateConfigErrors, PayPerCrawlCreateConfigResponses, PayPerCrawlDaricConfig2, PayPerCrawlGetConfigErrors, PayPerCrawlGetConfigResponses, PayPerCrawlPatchConfigErrors, PayPerCrawlPatchConfigResponses, PayPerCrawlPublisherCreateStripeConfigErrors, PayPerCrawlPublisherCreateStripeConfigResponses, PayPerCrawlPublisherDeleteStripeConfigErrors, PayPerCrawlPublisherDeleteStripeConfigResponses, PayPerCrawlPublisherGetStripeConfigErrors, PayPerCrawlPublisherGetStripeConfigResponses, PayPerCrawlQueryZonesCanBeEnabledErrors, PayPerCrawlQueryZonesCanBeEnabledResponses, PayPerCrawlSetZonesCanBeEnabledErrors, PayPerCrawlSetZonesCanBeEnabledResponses, PayPerCrawlZonesCanBeEnabledPayload2, QueriesDeleteErrors, QueriesDeleteResponses, QueriesGetErrors, QueriesGetResponses, QueriesListErrors, QueriesListResponses, QueriesPatchErrors, QueriesPatchResponses, QueriesPostErrors, QueriesPostResponses, SharedQueryGetErrors, SharedQueryGetResponses, SharedQueryPostErrors, SharedQueryPostResponses, StreamCaptionBasicUpload, StreamIdentifier, StreamIdentifier2, StreamLanguage, StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageErrors, StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageErrors, StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGetVttCaptionOrSubtitleErrors, StreamSubtitlesCaptionsGetVttCaptionOrSubtitleResponses, StreamSubtitlesCaptionsListCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsListCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesErrors, StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponses, TelemetryKeysListErrors, TelemetryKeysListResponses, TelemetryLiveTailHeartbeatGetErrors, TelemetryLiveTailHeartbeatGetResponses, TelemetryLiveTailPostErrors, TelemetryLiveTailPostResponses, TelemetryQueryErrors, TelemetryQueryResponses, TelemetryValuesListErrors, TelemetryValuesListResponses, UsageGetErrors, UsageGetResponses, WorkersDomainsDeleteErrors, WorkersDomainsDeleteResponses, WorkersDomainsGetErrors, WorkersDomainsGetResponses, WorkersDomainsListErrors, WorkersDomainsListResponses, WorkersDomainsUpdateErrors, WorkersDomainsUpdateResponses, WorkersDomainWritable, WorkersIdentifier, WorkersObservabilityFilterLeaf, WorkersObservabilityFilterNode } from './types.gen';
+import { zDestinationCreateBody, zDestinationCreatePath, zDestinationCreateResponse, zDestinationListPath, zDestinationListQuery, zDestinationListResponse, zDestinationsDeletePath, zDestinationsDeleteResponse, zDestinationUpdateBody, zDestinationUpdatePath, zDestinationUpdateResponse, zMetricsExportDeleteBody, zMetricsExportDeletePath, zMetricsExportDeleteResponse, zMetricsExportListPath, zMetricsExportListResponse, zMetricsExportUpsertBody, zMetricsExportUpsertPath, zMetricsExportUpsertResponse, zPayPerCrawlCrawlerCreateStripeConfigPath, zPayPerCrawlCrawlerCreateStripeConfigResponse, zPayPerCrawlCrawlerDeleteStripeConfigPath, zPayPerCrawlCrawlerDeleteStripeConfigResponse, zPayPerCrawlCrawlerGetStripeConfigPath, zPayPerCrawlCrawlerGetStripeConfigResponse, zPayPerCrawlCreateConfigBody, zPayPerCrawlCreateConfigPath, zPayPerCrawlCreateConfigResponse, zPayPerCrawlGetConfigPath, zPayPerCrawlGetConfigResponse2, zPayPerCrawlPatchConfigBody, zPayPerCrawlPatchConfigPath, zPayPerCrawlPatchConfigResponse, zPayPerCrawlPublisherCreateStripeConfigPath, zPayPerCrawlPublisherCreateStripeConfigResponse, zPayPerCrawlPublisherDeleteStripeConfigPath, zPayPerCrawlPublisherDeleteStripeConfigResponse, zPayPerCrawlPublisherGetStripeConfigPath, zPayPerCrawlPublisherGetStripeConfigResponse, zPayPerCrawlQueryZonesCanBeEnabledBody, zPayPerCrawlQueryZonesCanBeEnabledPath, zPayPerCrawlQueryZonesCanBeEnabledResponse2, zPayPerCrawlSetZonesCanBeEnabledBody, zPayPerCrawlSetZonesCanBeEnabledPath, zPayPerCrawlSetZonesCanBeEnabledResponse, zQueriesDeletePath, zQueriesDeleteResponse, zQueriesGetPath, zQueriesGetResponse, zQueriesListPath, zQueriesListQuery, zQueriesListResponse, zQueriesPatchBody, zQueriesPatchPath, zQueriesPatchResponse, zQueriesPostBody, zQueriesPostPath, zQueriesPostResponse, zSharedQueryGetPath, zSharedQueryGetQuery, zSharedQueryGetResponse, zSharedQueryPostBody, zSharedQueryPostPath, zSharedQueryPostResponse, zStreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesResponse, zStreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguagePath, zStreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageResponse, zStreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguagePath, zStreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageResponse, zStreamSubtitlesCaptionsGetVttCaptionOrSubtitlePath, zStreamSubtitlesCaptionsGetVttCaptionOrSubtitleResponse, zStreamSubtitlesCaptionsListCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsListCaptionsOrSubtitlesResponse, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesBody, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesPath, zStreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponse, zTelemetryKeysListBody, zTelemetryKeysListPath, zTelemetryKeysListResponse, zTelemetryLiveTailHeartbeatGetBody, zTelemetryLiveTailHeartbeatGetPath, zTelemetryLiveTailHeartbeatGetResponse, zTelemetryLiveTailPostBody, zTelemetryLiveTailPostPath, zTelemetryLiveTailPostResponse, zTelemetryQueryBody, zTelemetryQueryPath, zTelemetryQueryResponse, zTelemetryValuesListBody, zTelemetryValuesListPath, zTelemetryValuesListResponse, zUsageGetPath, zUsageGetQuery, zUsageGetResponse, zWorkersDomainsDeletePath, zWorkersDomainsDeleteResponse, zWorkersDomainsGetPath, zWorkersDomainsGetResponse, zWorkersDomainsListPath, zWorkersDomainsListQuery, zWorkersDomainsListResponse, zWorkersDomainsUpdateBody, zWorkersDomainsUpdatePath, zWorkersDomainsUpdateResponse } from './zod.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -20,7 +20,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      * You can pass arbitrary values through the `meta` object. This can be
      * used to access values that aren't defined as part of the SDK function.
      */
-    meta?: Record<string, unknown>;
+    meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
 
 export class PayPerCrawl {
@@ -31,7 +31,7 @@ export class PayPerCrawl {
      */
     public static crawlerDeleteStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlCrawlerDeleteStripeConfigResponses, PayPerCrawlCrawlerDeleteStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<PayPerCrawlCrawlerDeleteStripeConfigResponses, PayPerCrawlCrawlerDeleteStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -54,7 +54,7 @@ export class PayPerCrawl {
      */
     public static crawlerGetStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlCrawlerGetStripeConfigResponses, PayPerCrawlCrawlerGetStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<PayPerCrawlCrawlerGetStripeConfigResponses, PayPerCrawlCrawlerGetStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,7 +77,7 @@ export class PayPerCrawl {
      */
     public static crawlerCreateStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlCrawlerCreateStripeConfigResponses, PayPerCrawlCrawlerCreateStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PayPerCrawlCrawlerCreateStripeConfigResponses, PayPerCrawlCrawlerCreateStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class PayPerCrawl {
      */
     public static publisherDeleteStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlPublisherDeleteStripeConfigResponses, PayPerCrawlPublisherDeleteStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<PayPerCrawlPublisherDeleteStripeConfigResponses, PayPerCrawlPublisherDeleteStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -123,7 +123,7 @@ export class PayPerCrawl {
      */
     public static publisherGetStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlPublisherGetStripeConfigResponses, PayPerCrawlPublisherGetStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<PayPerCrawlPublisherGetStripeConfigResponses, PayPerCrawlPublisherGetStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class PayPerCrawl {
      */
     public static publisherCreateStripeConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlPublisherCreateStripeConfigResponses, PayPerCrawlPublisherCreateStripeConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<PayPerCrawlPublisherCreateStripeConfigResponses, PayPerCrawlPublisherCreateStripeConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +172,7 @@ export class PayPerCrawl2 {
     public static setZonesCanBeEnabled<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         payPerCrawlZonesCanBeEnabledPayload: PayPerCrawlZonesCanBeEnabledPayload2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlSetZonesCanBeEnabledResponses, PayPerCrawlSetZonesCanBeEnabledErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'payPerCrawlZonesCanBeEnabledPayload', map: 'body' }] }]);
         return (options?.client ?? client).patch<PayPerCrawlSetZonesCanBeEnabledResponses, PayPerCrawlSetZonesCanBeEnabledErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -201,7 +201,7 @@ export class PayPerCrawl2 {
     public static queryZonesCanBeEnabled<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         payPerCrawlZonesCanBeEnabledPayload: PayPerCrawlZonesCanBeEnabledPayload2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlQueryZonesCanBeEnabledResponses, PayPerCrawlQueryZonesCanBeEnabledErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'payPerCrawlZonesCanBeEnabledPayload', map: 'body' }] }]);
         return (options?.client ?? client).post<PayPerCrawlQueryZonesCanBeEnabledResponses, PayPerCrawlQueryZonesCanBeEnabledErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -229,7 +229,7 @@ export class PayPerCrawl2 {
      */
     public static getConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlGetConfigResponses, PayPerCrawlGetConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<PayPerCrawlGetConfigResponses, PayPerCrawlGetConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -253,7 +253,7 @@ export class PayPerCrawl2 {
     public static patchConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         payPerCrawlDaricConfig: PayPerCrawlDaricConfig2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlPatchConfigResponses, PayPerCrawlPatchConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'payPerCrawlDaricConfig', map: 'body' }] }]);
         return (options?.client ?? client).patch<PayPerCrawlPatchConfigResponses, PayPerCrawlPatchConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -282,7 +282,7 @@ export class PayPerCrawl2 {
     public static createConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         payPerCrawlDaricConfig: PayPerCrawlDaricConfig2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PayPerCrawlCreateConfigResponses, PayPerCrawlCreateConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'payPerCrawlDaricConfig', map: 'body' }] }]);
         return (options?.client ?? client).post<PayPerCrawlCreateConfigResponses, PayPerCrawlCreateConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -312,8 +312,8 @@ export class StreamSubtitles {
      */
     public static captionsListCaptionsOrSubtitles<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsListCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsListCaptionsOrSubtitlesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamSubtitlesCaptionsListCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsListCaptionsOrSubtitlesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -341,8 +341,8 @@ export class StreamSubtitles {
     public static captionsDeleteCaptionsOrSubtitles<ThrowOnError extends boolean = true>(parameters: {
         language: StreamLanguage;
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsDeleteCaptionsOrSubtitlesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'language' },
                     { in: 'path', key: 'identifier' },
@@ -374,8 +374,8 @@ export class StreamSubtitles {
     public static captionsGetCaptionOrSubtitleForLanguage<ThrowOnError extends boolean = true>(parameters: {
         language: StreamLanguage;
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGetCaptionOrSubtitleForLanguageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'language' },
                     { in: 'path', key: 'identifier' },
@@ -407,9 +407,9 @@ export class StreamSubtitles {
     public static captionsUploadCaptionsOrSubtitles<ThrowOnError extends boolean = true>(parameters: {
         language: StreamLanguage;
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
+        account_id: StreamIdentifier2;
         streamCaptionBasicUpload: StreamCaptionBasicUpload;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesResponses, StreamSubtitlesCaptionsUploadCaptionsOrSubtitlesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'language' },
                     { in: 'path', key: 'identifier' },
@@ -448,8 +448,8 @@ export class StreamSubtitles {
     public static captionsGenerateCaptionOrSubtitleForLanguage<ThrowOnError extends boolean = true>(parameters: {
         language: StreamLanguage;
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageResponses, StreamSubtitlesCaptionsGenerateCaptionOrSubtitleForLanguageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'language' },
                     { in: 'path', key: 'identifier' },
@@ -481,8 +481,8 @@ export class StreamSubtitles {
     public static captionsGetVttCaptionOrSubtitle<ThrowOnError extends boolean = true>(parameters: {
         language: StreamLanguage;
         identifier: StreamIdentifier;
-        account_id: StreamSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: StreamIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamSubtitlesCaptionsGetVttCaptionOrSubtitleResponses, StreamSubtitlesCaptionsGetVttCaptionOrSubtitleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'language' },
                     { in: 'path', key: 'identifier' },
@@ -520,7 +520,7 @@ export class Domains {
         service?: string;
         hostname?: string;
         environment?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersDomainsListResponses, WorkersDomainsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'zone_id' },
@@ -557,7 +557,7 @@ export class Domains {
         body: WorkersDomainWritable & {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersDomainsUpdateResponses, WorkersDomainsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<WorkersDomainsUpdateResponses, WorkersDomainsUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -590,7 +590,7 @@ export class Domains {
     public static delete<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         domain_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersDomainsDeleteResponses, WorkersDomainsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_id' }] }]);
         return (options?.client ?? client).delete<WorkersDomainsDeleteResponses, WorkersDomainsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -618,7 +618,7 @@ export class Domains {
     public static get<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         domain_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkersDomainsGetResponses, WorkersDomainsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_id' }] }]);
         return (options?.client ?? client).get<WorkersDomainsGetResponses, WorkersDomainsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -655,7 +655,7 @@ export class Destination {
         perPage?: number;
         order?: 'asc' | 'desc';
         orderBy?: 'created' | 'updated';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DestinationListResponses, DestinationListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -693,14 +693,14 @@ export class Destination {
             headers: {
                 [key: string]: string;
             };
-            logpushDataset: 'opentelemetry-traces' | 'opentelemetry-logs';
+            logpushDataset: 'opentelemetry-traces' | 'opentelemetry-logs' | 'opentelemetry-metrics';
             type: 'logpush';
             url: string;
         };
         enabled: boolean;
         name: string;
         skipPreflightCheck?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DestinationCreateResponses, DestinationCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'configuration' },
@@ -748,7 +748,7 @@ export class Destination {
             url: string;
         };
         enabled: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DestinationUpdateResponses, DestinationUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'slug' },
@@ -789,7 +789,7 @@ export class Destinations {
     public static delete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         slug: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DestinationsDeleteResponses, DestinationsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'slug' }] }]);
         return (options?.client ?? client).delete<DestinationsDeleteResponses, DestinationsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -811,6 +811,134 @@ export class Destinations {
     }
 }
 
+export class MetricsExport {
+    /**
+     * Delete Metrics Export
+     *
+     * Delete one resource configured for Workers Observability metrics export.
+     */
+    public static delete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        meta?: string;
+        resourceId: string;
+        resourceType: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MetricsExportDeleteResponses, MetricsExportDeleteErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'meta' },
+                    { in: 'body', key: 'resourceId' },
+                    { in: 'body', key: 'resourceType' }
+                ] }]);
+        return (options?.client ?? client).delete<MetricsExportDeleteResponses, MetricsExportDeleteErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMetricsExportDeleteBody.optional(),
+                path: zMetricsExportDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMetricsExportDeleteResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/metricsexport',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List Metrics Exports
+     *
+     * List resources configured for Workers Observability metrics export.
+     */
+    public static list<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MetricsExportListResponses, MetricsExportListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<MetricsExportListResponses, MetricsExportListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zMetricsExportListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMetricsExportListResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/metricsexport',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Upsert Metrics Exports
+     *
+     * Create or replace resources configured for Workers Observability metrics export.
+     */
+    public static upsert<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        body?: {
+            destinations: Array<string>;
+            meta?: string;
+            resourceId: string;
+            resourceType: string;
+        } | {
+            requester: {
+                requesterId: string;
+                requesterType: string;
+            };
+            resources: Array<{
+                destinations: Array<string>;
+                meta?: string;
+                resourceId: string;
+                resourceType: string;
+            }>;
+        } | {
+            resources: Array<{
+                destinations: Array<string>;
+                meta?: string;
+                resourceId: string;
+                resourceType: string;
+            }>;
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<MetricsExportUpsertResponses, MetricsExportUpsertErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
+        return (options?.client ?? client).post<MetricsExportUpsertResponses, MetricsExportUpsertErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zMetricsExportUpsertBody.optional(),
+                path: zMetricsExportUpsertPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMetricsExportUpsertResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/metricsexport',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+}
+
 export class Queries {
     /**
      * List queries
@@ -823,7 +951,7 @@ export class Queries {
         perPage?: number;
         order?: 'asc' | 'desc';
         orderBy?: 'created' | 'updated';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueriesListResponses, QueriesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -922,7 +1050,7 @@ export class Queries {
                 value: string;
             };
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueriesPostResponses, QueriesPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -961,7 +1089,7 @@ export class Queries {
     public static delete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         queryId: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueriesDeleteResponses, QueriesDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'queryId' }] }]);
         return (options?.client ?? client).delete<QueriesDeleteResponses, QueriesDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -990,7 +1118,7 @@ export class Queries {
     public static get<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         queryId: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueriesGetResponses, QueriesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'queryId' }] }]);
         return (options?.client ?? client).get<QueriesGetResponses, QueriesGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1084,7 +1212,7 @@ export class Queries {
                 value: string;
             };
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<QueriesPatchResponses, QueriesPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'queryId' },
@@ -1117,109 +1245,16 @@ export class Queries {
     }
 }
 
-export class Keys {
+export class Query {
     /**
-     * List keys
+     * Create a sharable link to a query result
      *
-     * List all the keys in your telemetry events.
+     * Shared queries store the results of a previously run query, allowing you to share the results with others.
      */
-    public static list<ThrowOnError extends boolean = true>(parameters: {
-        account_id: string;
-        datasets?: Array<string>;
-        filters?: Array<WorkersObservabilityFilterNode & ({
-            /**
-             * Logical operator for combining child filters: 'and' (all must match) or 'or' (any must match).
-             */
-            filterCombination: 'and' | 'or' | 'AND' | 'OR';
-            /**
-             * Child filter nodes. Each can be a leaf filter or another nested group.
-             */
-            filters: Array<WorkersObservabilityFilterNode>;
-            /**
-             * Discriminator indicating this is a nested filter group.
-             */
-            kind: 'group';
-        } | WorkersObservabilityFilterLeaf)>;
-        from?: number;
-        keyNeedle?: {
-            /**
-             * When true, treats the value as a regular expression (RE2 syntax).
-             */
-            isRegex?: boolean;
-            /**
-             * When true, performs a case-sensitive search. Defaults to case-insensitive.
-             */
-            matchCase?: boolean;
-            /**
-             * The text or pattern to search for.
-             */
-            value: (string | number | boolean) & string;
-        };
-        limit?: number;
-        needle?: {
-            /**
-             * When true, treats the value as a regular expression (RE2 syntax).
-             */
-            isRegex?: boolean;
-            /**
-             * When true, performs a case-sensitive search. Defaults to case-insensitive.
-             */
-            matchCase?: boolean;
-            /**
-             * The text or pattern to search for.
-             */
-            value: (string | number | boolean) & string;
-        };
-        to?: number;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [
-                    { in: 'path', key: 'account_id' },
-                    { in: 'body', key: 'datasets' },
-                    { in: 'body', key: 'filters' },
-                    { in: 'body', key: 'from' },
-                    { in: 'body', key: 'keyNeedle' },
-                    { in: 'body', key: 'limit' },
-                    { in: 'body', key: 'needle' },
-                    { in: 'body', key: 'to' }
-                ] }]);
-        return (options?.client ?? client).post<TelemetryKeysListResponses, TelemetryKeysListErrors, ThrowOnError>({
-            requestValidator: async (data) => await z.object({
-                body: zTelemetryKeysListBody,
-                path: zTelemetryKeysListPath,
-                query: z.never().optional()
-            }).parseAsync(data),
-            responseValidator: async (data) => await zTelemetryKeysListResponse.parseAsync(data),
-            security: [
-                { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' },
-                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
-            ],
-            url: '/accounts/{account_id}/workers/observability/telemetry/keys',
-            ...options,
-            ...params,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers,
-                ...params.headers
-            }
-        });
-    }
-}
-
-export class Telemetry {
-    static keys = Keys;
-}
-
-export class Telemetry2 {
-    /**
-     * Run a query
-     *
-     * Run a temporary or saved query.
-     */
-    public static query<ThrowOnError extends boolean = true>(parameters: {
+    public static post<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         chart?: boolean;
+        chartType?: 'timeseries_and_aggregate' | 'timeseries' | 'aggregate' | 'distribution';
         compare?: boolean;
         dry?: boolean;
         granularity?: number;
@@ -1246,7 +1281,7 @@ export class Telemetry2 {
                  */
                 keyType?: 'string' | 'number' | 'boolean';
                 /**
-                 * Aggregation operator to apply. Examples: count, avg, sum, min, max, p50, p90, p95, p99, uniq, stddev, variance.
+                 * Aggregation operator to apply. Examples: count, avg, sum, min, max, median, p90, p95, p99, uniq, stddev, variance.
                  */
                 operator: 'uniq' | 'count' | 'max' | 'min' | 'sum' | 'avg' | 'median' | 'p001' | 'p01' | 'p05' | 'p10' | 'p25' | 'p75' | 'p90' | 'p95' | 'p99' | 'p999' | 'stddev' | 'variance' | 'COUNT_DISTINCT' | 'COUNT' | 'MAX' | 'MIN' | 'SUM' | 'AVG' | 'MEDIAN' | 'P001' | 'P01' | 'P05' | 'P10' | 'P25' | 'P75' | 'P90' | 'P95' | 'P99' | 'P999' | 'STDDEV' | 'VARIANCE';
             }>;
@@ -1352,10 +1387,649 @@ export class Telemetry2 {
             to: number;
         };
         view?: 'traces' | 'events' | 'calculations' | 'invocations' | 'requests' | 'agents';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharedQueryPostResponses, SharedQueryPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'chart' },
+                    { in: 'body', key: 'chartType' },
+                    { in: 'body', key: 'compare' },
+                    { in: 'body', key: 'dry' },
+                    { in: 'body', key: 'granularity' },
+                    { in: 'body', key: 'ignoreSeries' },
+                    { in: 'body', key: 'limit' },
+                    { in: 'body', key: 'offset' },
+                    { in: 'body', key: 'offsetBy' },
+                    { in: 'body', key: 'offsetDirection' },
+                    { in: 'body', key: 'parameters' },
+                    { in: 'body', key: 'queryId' },
+                    { in: 'body', key: 'timeframe' },
+                    { in: 'body', key: 'view' }
+                ] }]);
+        return (options?.client ?? client).post<SharedQueryPostResponses, SharedQueryPostErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSharedQueryPostBody,
+                path: zSharedQueryPostPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSharedQueryPostResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/shared/query',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * View a query that has been shared
+     *
+     * Shared queries store the results of a previously run query, allowing you to share the results with others.
+     */
+    public static get<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        id: string;
+        view?: 'events' | 'invocations' | 'calculations';
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharedQueryGetResponses, SharedQueryGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'id' },
+                    { in: 'query', key: 'view' }
+                ] }]);
+        return (options?.client ?? client).get<SharedQueryGetResponses, SharedQueryGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSharedQueryGetPath,
+                query: zSharedQueryGetQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSharedQueryGetResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/shared/query/{id}',
+            ...options,
+            ...params
+        });
+    }
+}
+
+export class Shared {
+    static query = Query;
+}
+
+export class Query2 {
+    /**
+     * Create a sharable link to a query result
+     *
+     * Shared queries store the results of a previously run query, allowing you to share the results with others.
+     */
+    public static post<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        chart?: boolean;
+        chartType?: 'timeseries_and_aggregate' | 'timeseries' | 'aggregate' | 'distribution';
+        compare?: boolean;
+        dry?: boolean;
+        granularity?: number;
+        ignoreSeries?: boolean;
+        limit?: number;
+        offset?: string;
+        offsetBy?: number;
+        offsetDirection?: string;
+        parameters?: {
+            /**
+             * Aggregation calculations to compute (e.g. count, avg, p99). Each calculation produces aggregate values and optional time-series data.
+             */
+            calculations?: Array<{
+                /**
+                 * Custom label for this calculation in the results. Useful for distinguishing multiple calculations.
+                 */
+                alias?: string;
+                /**
+                 * Field name to calculate over. Must exist in the data — verify with the keys endpoint. Omit for operators that don't require a key (e.g. count).
+                 */
+                key?: string;
+                /**
+                 * Data type of the key. Required when key is provided to ensure correct aggregation.
+                 */
+                keyType?: 'string' | 'number' | 'boolean';
+                /**
+                 * Aggregation operator to apply. Examples: count, avg, sum, min, max, median, p90, p95, p99, uniq, stddev, variance.
+                 */
+                operator: 'uniq' | 'count' | 'max' | 'min' | 'sum' | 'avg' | 'median' | 'p001' | 'p01' | 'p05' | 'p10' | 'p25' | 'p75' | 'p90' | 'p95' | 'p99' | 'p999' | 'stddev' | 'variance' | 'COUNT_DISTINCT' | 'COUNT' | 'MAX' | 'MIN' | 'SUM' | 'AVG' | 'MEDIAN' | 'P001' | 'P01' | 'P05' | 'P10' | 'P25' | 'P75' | 'P90' | 'P95' | 'P99' | 'P999' | 'STDDEV' | 'VARIANCE';
+            }>;
+            /**
+             * Datasets to query. Leave empty to query all available datasets.
+             */
+            datasets?: Array<string>;
+            /**
+             * Logical operator for combining top-level filters: 'and' (all must match) or 'or' (any must match). Defaults to 'and'.
+             */
+            filterCombination?: 'and' | 'or' | 'AND' | 'OR';
+            /**
+             * Filters to narrow query results. Use the keys and values endpoints to discover available fields before building filters. Supports nested groups via kind: 'group'. Maximum nesting depth is 4.
+             */
+            filters?: Array<WorkersObservabilityFilterNode & ({
+                /**
+                 * Logical operator for combining child filters: 'and' (all must match) or 'or' (any must match).
+                 */
+                filterCombination: 'and' | 'or' | 'AND' | 'OR';
+                /**
+                 * Child filter nodes. Each can be a leaf filter or another nested group.
+                 */
+                filters: Array<WorkersObservabilityFilterNode>;
+                /**
+                 * Discriminator indicating this is a nested filter group.
+                 */
+                kind: 'group';
+            } | WorkersObservabilityFilterLeaf)>;
+            /**
+             * Fields to group calculation results by. Only applicable when the query view is 'calculations'. Produces per-group aggregate values.
+             */
+            groupBys?: Array<{
+                /**
+                 * Data type of the group-by field.
+                 */
+                type: 'string' | 'number' | 'boolean';
+                /**
+                 * Field name to group results by (e.g. $metadata.service, $metadata.statusCode).
+                 */
+                value: string;
+            }>;
+            /**
+             * Post-aggregation filters applied to calculation results. Use to filter groups after aggregation (e.g. only groups where count > 100).
+             */
+            havings?: Array<{
+                /**
+                 * Calculation alias or operator to filter on after aggregation.
+                 */
+                key: string;
+                /**
+                 * Numeric comparison operator: eq, neq, gt, gte, lt, lte.
+                 */
+                operation: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte';
+                /**
+                 * Threshold value to compare the calculation result against.
+                 */
+                value: number;
+            }>;
+            /**
+             * Maximum number of group-by rows to return in calculation results. A value of 10 is a sensible default for most use cases.
+             */
+            limit?: number;
+            /**
+             * Full-text search expression applied across all event fields. Matches events containing the specified text.
+             */
+            needle?: {
+                /**
+                 * When true, treats the value as a regular expression (RE2 syntax).
+                 */
+                isRegex?: boolean;
+                /**
+                 * When true, performs a case-sensitive search. Defaults to case-insensitive.
+                 */
+                matchCase?: boolean;
+                /**
+                 * The text or pattern to search for.
+                 */
+                value: (string | number | boolean) & string;
+            };
+            /**
+             * Ordering for grouped calculation results. Only effective when a group-by is present.
+             */
+            orderBy?: {
+                /**
+                 * Sort direction: 'asc' for ascending, 'desc' for descending.
+                 */
+                order?: 'asc' | 'desc';
+                /**
+                 * Alias of the calculation to order results by. Must match the alias (or operator) of a calculation in the query.
+                 */
+                value: string;
+            };
+        };
+        queryId: string;
+        timeframe: {
+            /**
+             * Start timestamp for the query timeframe (Unix timestamp in milliseconds)
+             */
+            from: number;
+            /**
+             * End timestamp for the query timeframe (Unix timestamp in milliseconds)
+             */
+            to: number;
+        };
+        view?: 'traces' | 'events' | 'calculations' | 'invocations' | 'requests' | 'agents';
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharedQueryPostResponses, SharedQueryPostErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'chart' },
+                    { in: 'body', key: 'chartType' },
+                    { in: 'body', key: 'compare' },
+                    { in: 'body', key: 'dry' },
+                    { in: 'body', key: 'granularity' },
+                    { in: 'body', key: 'ignoreSeries' },
+                    { in: 'body', key: 'limit' },
+                    { in: 'body', key: 'offset' },
+                    { in: 'body', key: 'offsetBy' },
+                    { in: 'body', key: 'offsetDirection' },
+                    { in: 'body', key: 'parameters' },
+                    { in: 'body', key: 'queryId' },
+                    { in: 'body', key: 'timeframe' },
+                    { in: 'body', key: 'view' }
+                ] }]);
+        return (options?.client ?? client).post<SharedQueryPostResponses, SharedQueryPostErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSharedQueryPostBody,
+                path: zSharedQueryPostPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSharedQueryPostResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/shared/query',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * View a query that has been shared
+     *
+     * Shared queries store the results of a previously run query, allowing you to share the results with others.
+     */
+    public static get<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        id: string;
+        view?: 'events' | 'invocations' | 'calculations';
+    }, options?: Options<never, ThrowOnError>): RequestResult<SharedQueryGetResponses, SharedQueryGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'id' },
+                    { in: 'query', key: 'view' }
+                ] }]);
+        return (options?.client ?? client).get<SharedQueryGetResponses, SharedQueryGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zSharedQueryGetPath,
+                query: zSharedQueryGetQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSharedQueryGetResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/shared/query/{id}',
+            ...options,
+            ...params
+        });
+    }
+}
+
+export class Shared2 {
+    static query = Query2;
+}
+
+export class Keys {
+    /**
+     * List keys
+     *
+     * List all the keys in your telemetry events.
+     */
+    public static list<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        datasets?: Array<string>;
+        filters?: Array<WorkersObservabilityFilterNode & ({
+            /**
+             * Logical operator for combining child filters: 'and' (all must match) or 'or' (any must match).
+             */
+            filterCombination: 'and' | 'or' | 'AND' | 'OR';
+            /**
+             * Child filter nodes. Each can be a leaf filter or another nested group.
+             */
+            filters: Array<WorkersObservabilityFilterNode>;
+            /**
+             * Discriminator indicating this is a nested filter group.
+             */
+            kind: 'group';
+        } | WorkersObservabilityFilterLeaf)>;
+        from?: number;
+        keyNeedle?: {
+            /**
+             * When true, treats the value as a regular expression (RE2 syntax).
+             */
+            isRegex?: boolean;
+            /**
+             * When true, performs a case-sensitive search. Defaults to case-insensitive.
+             */
+            matchCase?: boolean;
+            /**
+             * The text or pattern to search for.
+             */
+            value: (string | number | boolean) & string;
+        };
+        limit?: number;
+        needle?: {
+            /**
+             * When true, treats the value as a regular expression (RE2 syntax).
+             */
+            isRegex?: boolean;
+            /**
+             * When true, performs a case-sensitive search. Defaults to case-insensitive.
+             */
+            matchCase?: boolean;
+            /**
+             * The text or pattern to search for.
+             */
+            value: (string | number | boolean) & string;
+        };
+        to?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TelemetryKeysListResponses, TelemetryKeysListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'datasets' },
+                    { in: 'body', key: 'filters' },
+                    { in: 'body', key: 'from' },
+                    { in: 'body', key: 'keyNeedle' },
+                    { in: 'body', key: 'limit' },
+                    { in: 'body', key: 'needle' },
+                    { in: 'body', key: 'to' }
+                ] }]);
+        return (options?.client ?? client).post<TelemetryKeysListResponses, TelemetryKeysListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zTelemetryKeysListBody,
+                path: zTelemetryKeysListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zTelemetryKeysListResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/telemetry/keys',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+}
+
+export class Telemetry {
+    static keys = Keys;
+}
+
+export class Heartbeat {
+    /**
+     * Live tail heartbeat
+     *
+     * Notify live tail that user is still eligible to receive live events.
+     */
+    public static get<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        scriptId?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TelemetryLiveTailHeartbeatGetResponses, TelemetryLiveTailHeartbeatGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'scriptId' }] }]);
+        return (options?.client ?? client).post<TelemetryLiveTailHeartbeatGetResponses, TelemetryLiveTailHeartbeatGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zTelemetryLiveTailHeartbeatGetBody,
+                path: zTelemetryLiveTailHeartbeatGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zTelemetryLiveTailHeartbeatGetResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/telemetry/live-tail/heartbeat',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+}
+
+export class LiveTail {
+    /**
+     * Prepare live tail
+     *
+     * Prepare websocket server for live tail.
+     */
+    public static post<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        filterCombination?: 'and' | 'or' | 'AND' | 'OR';
+        filters?: Array<WorkersObservabilityFilterNode & ({
+            /**
+             * Logical operator for combining child filters: 'and' (all must match) or 'or' (any must match).
+             */
+            filterCombination: 'and' | 'or' | 'AND' | 'OR';
+            /**
+             * Child filter nodes. Each can be a leaf filter or another nested group.
+             */
+            filters: Array<WorkersObservabilityFilterNode>;
+            /**
+             * Discriminator indicating this is a nested filter group.
+             */
+            kind: 'group';
+        } | WorkersObservabilityFilterLeaf)>;
+        scriptId?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TelemetryLiveTailPostResponses, TelemetryLiveTailPostErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'filterCombination' },
+                    { in: 'body', key: 'filters' },
+                    { in: 'body', key: 'scriptId' }
+                ] }]);
+        return (options?.client ?? client).post<TelemetryLiveTailPostResponses, TelemetryLiveTailPostErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zTelemetryLiveTailPostBody,
+                path: zTelemetryLiveTailPostPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zTelemetryLiveTailPostResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/observability/telemetry/live-tail',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    static heartbeat = Heartbeat;
+}
+
+export class Telemetry2 {
+    static liveTail = LiveTail;
+}
+
+export class Telemetry3 {
+    /**
+     * Run a query
+     *
+     * Run a temporary or saved query.
+     */
+    public static query<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        chart?: boolean;
+        chartType?: 'timeseries_and_aggregate' | 'timeseries' | 'aggregate' | 'distribution';
+        compare?: boolean;
+        dry?: boolean;
+        granularity?: number;
+        ignoreSeries?: boolean;
+        limit?: number;
+        offset?: string;
+        offsetBy?: number;
+        offsetDirection?: string;
+        parameters?: {
+            /**
+             * Aggregation calculations to compute (e.g. count, avg, p99). Each calculation produces aggregate values and optional time-series data.
+             */
+            calculations?: Array<{
+                /**
+                 * Custom label for this calculation in the results. Useful for distinguishing multiple calculations.
+                 */
+                alias?: string;
+                /**
+                 * Field name to calculate over. Must exist in the data — verify with the keys endpoint. Omit for operators that don't require a key (e.g. count).
+                 */
+                key?: string;
+                /**
+                 * Data type of the key. Required when key is provided to ensure correct aggregation.
+                 */
+                keyType?: 'string' | 'number' | 'boolean';
+                /**
+                 * Aggregation operator to apply. Examples: count, avg, sum, min, max, median, p90, p95, p99, uniq, stddev, variance.
+                 */
+                operator: 'uniq' | 'count' | 'max' | 'min' | 'sum' | 'avg' | 'median' | 'p001' | 'p01' | 'p05' | 'p10' | 'p25' | 'p75' | 'p90' | 'p95' | 'p99' | 'p999' | 'stddev' | 'variance' | 'COUNT_DISTINCT' | 'COUNT' | 'MAX' | 'MIN' | 'SUM' | 'AVG' | 'MEDIAN' | 'P001' | 'P01' | 'P05' | 'P10' | 'P25' | 'P75' | 'P90' | 'P95' | 'P99' | 'P999' | 'STDDEV' | 'VARIANCE';
+            }>;
+            /**
+             * Datasets to query. Leave empty to query all available datasets.
+             */
+            datasets?: Array<string>;
+            /**
+             * Logical operator for combining top-level filters: 'and' (all must match) or 'or' (any must match). Defaults to 'and'.
+             */
+            filterCombination?: 'and' | 'or' | 'AND' | 'OR';
+            /**
+             * Filters to narrow query results. Use the keys and values endpoints to discover available fields before building filters. Supports nested groups via kind: 'group'. Maximum nesting depth is 4.
+             */
+            filters?: Array<WorkersObservabilityFilterNode & ({
+                /**
+                 * Logical operator for combining child filters: 'and' (all must match) or 'or' (any must match).
+                 */
+                filterCombination: 'and' | 'or' | 'AND' | 'OR';
+                /**
+                 * Child filter nodes. Each can be a leaf filter or another nested group.
+                 */
+                filters: Array<WorkersObservabilityFilterNode>;
+                /**
+                 * Discriminator indicating this is a nested filter group.
+                 */
+                kind: 'group';
+            } | WorkersObservabilityFilterLeaf)>;
+            /**
+             * Fields to group calculation results by. Only applicable when the query view is 'calculations'. Produces per-group aggregate values.
+             */
+            groupBys?: Array<{
+                /**
+                 * Data type of the group-by field.
+                 */
+                type: 'string' | 'number' | 'boolean';
+                /**
+                 * Field name to group results by (e.g. $metadata.service, $metadata.statusCode).
+                 */
+                value: string;
+            }>;
+            /**
+             * Post-aggregation filters applied to calculation results. Use to filter groups after aggregation (e.g. only groups where count > 100).
+             */
+            havings?: Array<{
+                /**
+                 * Calculation alias or operator to filter on after aggregation.
+                 */
+                key: string;
+                /**
+                 * Numeric comparison operator: eq, neq, gt, gte, lt, lte.
+                 */
+                operation: 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte';
+                /**
+                 * Threshold value to compare the calculation result against.
+                 */
+                value: number;
+            }>;
+            /**
+             * Maximum number of group-by rows to return in calculation results. A value of 10 is a sensible default for most use cases.
+             */
+            limit?: number;
+            /**
+             * Full-text search expression applied across all event fields. Matches events containing the specified text.
+             */
+            needle?: {
+                /**
+                 * When true, treats the value as a regular expression (RE2 syntax).
+                 */
+                isRegex?: boolean;
+                /**
+                 * When true, performs a case-sensitive search. Defaults to case-insensitive.
+                 */
+                matchCase?: boolean;
+                /**
+                 * The text or pattern to search for.
+                 */
+                value: (string | number | boolean) & string;
+            };
+            /**
+             * Ordering for grouped calculation results. Only effective when a group-by is present.
+             */
+            orderBy?: {
+                /**
+                 * Sort direction: 'asc' for ascending, 'desc' for descending.
+                 */
+                order?: 'asc' | 'desc';
+                /**
+                 * Alias of the calculation to order results by. Must match the alias (or operator) of a calculation in the query.
+                 */
+                value: string;
+            };
+        };
+        queryId: string;
+        timeframe: {
+            /**
+             * Start timestamp for the query timeframe (Unix timestamp in milliseconds)
+             */
+            from: number;
+            /**
+             * End timestamp for the query timeframe (Unix timestamp in milliseconds)
+             */
+            to: number;
+        };
+        view?: 'traces' | 'events' | 'calculations' | 'invocations' | 'requests' | 'agents';
+    }, options?: Options<never, ThrowOnError>): RequestResult<TelemetryQueryResponses, TelemetryQueryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'chart' },
+                    { in: 'body', key: 'chartType' },
                     { in: 'body', key: 'compare' },
                     { in: 'body', key: 'dry' },
                     { in: 'body', key: 'granularity' },
@@ -1438,7 +2112,7 @@ export class Values {
             to: number;
         };
         type: 'string' | 'boolean' | 'number';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TelemetryValuesListResponses, TelemetryValuesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'datasets' },
@@ -1474,41 +2148,42 @@ export class Values {
     }
 }
 
-export class Telemetry3 {
+export class Telemetry4 {
     static values = Values;
 }
 
-export class TlsModeRecommendationSsl {
+export class Usage {
     /**
-     * SSL/TLS Recommendation
+     * Get event count
      *
-     * Retrieve the SSL/TLS Recommender's recommendation for a zone.
-     *
-     * @deprecated
+     * Event counts broken down by dataset and service, bucketed by day, for up to 90 days. The top-level events field is the sum of all breakdown counts.
      */
-    public static tlsRecommendation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: CacheIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
-        return (options?.client ?? client).get<SslTlsModeRecommendationSslTlsRecommendationResponses, SslTlsModeRecommendationSslTlsRecommendationErrors, ThrowOnError>({
+    public static get<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        from: string;
+        to: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UsageGetResponses, UsageGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'from' },
+                    { in: 'query', key: 'to' }
+                ] }]);
+        return (options?.client ?? client).get<UsageGetResponses, UsageGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zSslTlsModeRecommendationSslTlsRecommendationPath,
-                query: z.never().optional()
+                path: zUsageGetPath,
+                query: zUsageGetQuery
             }).parseAsync(data),
-            responseValidator: async (data) => await zSslTlsModeRecommendationSslTlsRecommendationResponse.parseAsync(data),
+            responseValidator: async (data) => await zUsageGetResponse.parseAsync(data),
             security: [
-                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' }
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
             ],
-            url: '/zones/{zone_id}/ssl/recommendation',
+            url: '/accounts/{account_id}/workers/observability/usage',
             ...options,
             ...params
         });
     }
-}
-
-export class Ssl {
-    static tlsModeRecommendationSsl = TlsModeRecommendationSsl;
 }

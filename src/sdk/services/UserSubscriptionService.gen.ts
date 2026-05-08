@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BillSubsApiSchemasIdentifier, BillSubsApiSubscriptionV2Writable, UserSubscriptionDeleteUserSubscriptionErrors, UserSubscriptionDeleteUserSubscriptionResponses, UserSubscriptionGetUserSubscriptionsErrors, UserSubscriptionGetUserSubscriptionsResponses, UserSubscriptionUpdateUserSubscriptionErrors, UserSubscriptionUpdateUserSubscriptionResponses } from '../types.gen';
-import { zUserSubscriptionDeleteUserSubscriptionBody, zUserSubscriptionDeleteUserSubscriptionPath, zUserSubscriptionDeleteUserSubscriptionResponse, zUserSubscriptionGetUserSubscriptionsResponse, zUserSubscriptionUpdateUserSubscriptionBody, zUserSubscriptionUpdateUserSubscriptionPath, zUserSubscriptionUpdateUserSubscriptionResponse } from '../zod.gen';
+import type { BillSubsApiSchemasIdentifier, BillSubsApiSubscriptionV2Writable, UserSubscriptionCreateUserSubscriptionErrors, UserSubscriptionCreateUserSubscriptionResponses, UserSubscriptionDeleteUserSubscriptionErrors, UserSubscriptionDeleteUserSubscriptionResponses, UserSubscriptionGetUserSubscriptionsErrors, UserSubscriptionGetUserSubscriptionsResponses, UserSubscriptionUpdateUserSubscriptionErrors, UserSubscriptionUpdateUserSubscriptionResponses } from '../types.gen';
+import { zUserSubscriptionCreateUserSubscriptionBody, zUserSubscriptionCreateUserSubscriptionResponse, zUserSubscriptionDeleteUserSubscriptionBody, zUserSubscriptionDeleteUserSubscriptionPath, zUserSubscriptionDeleteUserSubscriptionResponse, zUserSubscriptionGetUserSubscriptionsResponse, zUserSubscriptionUpdateUserSubscriptionBody, zUserSubscriptionUpdateUserSubscriptionPath, zUserSubscriptionUpdateUserSubscriptionResponse } from '../zod.gen';
 
 export class UserSubscriptionService {
     /**
@@ -16,7 +16,7 @@ export class UserSubscriptionService {
      *
      * Lists all of a user's subscriptions.
      */
-    public static userSubscriptionGetUserSubscriptions<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static userSubscriptionGetUserSubscriptions<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserSubscriptionGetUserSubscriptionsResponses, UserSubscriptionGetUserSubscriptionsErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserSubscriptionGetUserSubscriptionsResponses, UserSubscriptionGetUserSubscriptionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -35,6 +35,38 @@ export class UserSubscriptionService {
     }
     
     /**
+     * Create User Subscription
+     *
+     * Creates a user subscription.
+     */
+    public static userSubscriptionCreateUserSubscription<ThrowOnError extends boolean = true>(parameters: {
+        billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSubscriptionCreateUserSubscriptionResponses, UserSubscriptionCreateUserSubscriptionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
+        return (options?.client ?? client).post<UserSubscriptionCreateUserSubscriptionResponses, UserSubscriptionCreateUserSubscriptionErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zUserSubscriptionCreateUserSubscriptionBody,
+                path: z.never().optional(),
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zUserSubscriptionCreateUserSubscriptionResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/user/subscriptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete User Subscription
      *
      * Deletes a user's subscription.
@@ -42,7 +74,7 @@ export class UserSubscriptionService {
     public static userSubscriptionDeleteUserSubscription<ThrowOnError extends boolean = true>(parameters: {
         identifier: BillSubsApiSchemasIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSubscriptionDeleteUserSubscriptionResponses, UserSubscriptionDeleteUserSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<UserSubscriptionDeleteUserSubscriptionResponses, UserSubscriptionDeleteUserSubscriptionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -75,7 +107,7 @@ export class UserSubscriptionService {
     public static userSubscriptionUpdateUserSubscription<ThrowOnError extends boolean = true>(parameters: {
         identifier: BillSubsApiSchemasIdentifier;
         billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserSubscriptionUpdateUserSubscriptionResponses, UserSubscriptionUpdateUserSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
         return (options?.client ?? client).put<UserSubscriptionUpdateUserSubscriptionResponses, UserSubscriptionUpdateUserSubscriptionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

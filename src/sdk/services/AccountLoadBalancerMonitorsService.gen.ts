@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountLoadBalancerMonitorsCreateMonitorErrors, AccountLoadBalancerMonitorsCreateMonitorResponses, AccountLoadBalancerMonitorsDeleteMonitorErrors, AccountLoadBalancerMonitorsDeleteMonitorResponses, AccountLoadBalancerMonitorsListMonitorReferencesErrors, AccountLoadBalancerMonitorsListMonitorReferencesResponses, AccountLoadBalancerMonitorsListMonitorsErrors, AccountLoadBalancerMonitorsListMonitorsResponses, AccountLoadBalancerMonitorsMonitorDetailsErrors, AccountLoadBalancerMonitorsMonitorDetailsResponses, AccountLoadBalancerMonitorsPatchMonitorErrors, AccountLoadBalancerMonitorsPatchMonitorResponses, AccountLoadBalancerMonitorsPreviewMonitorErrors, AccountLoadBalancerMonitorsPreviewMonitorResponses, AccountLoadBalancerMonitorsPreviewResultErrors, AccountLoadBalancerMonitorsPreviewResultResponses, AccountLoadBalancerMonitorsUpdateMonitorErrors, AccountLoadBalancerMonitorsUpdateMonitorResponses, LoadBalancingComponentsSchemasIdentifier, LoadBalancingIdentifier, LoadBalancingMonitorEditable, LoadBalancingSchemasPreviewId } from '../types.gen';
@@ -18,7 +18,7 @@ export class AccountLoadBalancerMonitorsService {
      */
     public static accountLoadBalancerMonitorsListMonitors<ThrowOnError extends boolean = true>(parameters: {
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsListMonitorsResponses, AccountLoadBalancerMonitorsListMonitorsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorsListMonitorsResponses, AccountLoadBalancerMonitorsListMonitorsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class AccountLoadBalancerMonitorsService {
     public static accountLoadBalancerMonitorsCreateMonitor<ThrowOnError extends boolean = true>(parameters: {
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsCreateMonitorResponses, AccountLoadBalancerMonitorsCreateMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountLoadBalancerMonitorsCreateMonitorResponses, AccountLoadBalancerMonitorsCreateMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +80,7 @@ export class AccountLoadBalancerMonitorsService {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsDeleteMonitorResponses, AccountLoadBalancerMonitorsDeleteMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_id' },
                     { in: 'path', key: 'account_id' },
@@ -117,7 +117,7 @@ export class AccountLoadBalancerMonitorsService {
     public static accountLoadBalancerMonitorsMonitorDetails<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsMonitorDetailsResponses, AccountLoadBalancerMonitorsMonitorDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorsMonitorDetailsResponses, AccountLoadBalancerMonitorsMonitorDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class AccountLoadBalancerMonitorsService {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsPatchMonitorResponses, AccountLoadBalancerMonitorsPatchMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_id' },
                     { in: 'path', key: 'account_id' },
@@ -184,7 +184,7 @@ export class AccountLoadBalancerMonitorsService {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsUpdateMonitorResponses, AccountLoadBalancerMonitorsUpdateMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_id' },
                     { in: 'path', key: 'account_id' },
@@ -222,7 +222,7 @@ export class AccountLoadBalancerMonitorsService {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsPreviewMonitorResponses, AccountLoadBalancerMonitorsPreviewMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'monitor_id' },
                     { in: 'path', key: 'account_id' },
@@ -259,7 +259,7 @@ export class AccountLoadBalancerMonitorsService {
     public static accountLoadBalancerMonitorsListMonitorReferences<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsListMonitorReferencesResponses, AccountLoadBalancerMonitorsListMonitorReferencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorsListMonitorReferencesResponses, AccountLoadBalancerMonitorsListMonitorReferencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -287,7 +287,7 @@ export class AccountLoadBalancerMonitorsService {
     public static accountLoadBalancerMonitorsPreviewResult<ThrowOnError extends boolean = true>(parameters: {
         preview_id: LoadBalancingSchemasPreviewId;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLoadBalancerMonitorsPreviewResultResponses, AccountLoadBalancerMonitorsPreviewResultErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'preview_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountLoadBalancerMonitorsPreviewResultResponses, AccountLoadBalancerMonitorsPreviewResultErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

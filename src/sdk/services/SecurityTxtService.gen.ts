@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteSecurityTxtErrors, DeleteSecurityTxtResponses, GetSecurityTxtErrors, GetSecurityTxtResponses, SecurityCenterIdentifier, SecurityCenterSecurityTxt, UpdateSecurityTxtErrors, UpdateSecurityTxtResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class SecurityTxtService {
      */
     public static deleteSecurityTxt<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSecurityTxtResponses, DeleteSecurityTxtErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<DeleteSecurityTxtResponses, DeleteSecurityTxtErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class SecurityTxtService {
      */
     public static getSecurityTxt<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityTxtResponses, GetSecurityTxtErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetSecurityTxtResponses, GetSecurityTxtErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class SecurityTxtService {
     public static updateSecurityTxt<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;
         securityCenterSecurityTxt: SecurityCenterSecurityTxt;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSecurityTxtResponses, UpdateSecurityTxtErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'securityCenterSecurityTxt', map: 'body' }] }]);
         return (options?.client ?? client).put<UpdateSecurityTxtResponses, UpdateSecurityTxtErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

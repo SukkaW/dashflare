@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomOriginTrustStoreCreateErrors, CustomOriginTrustStoreCreateResponses, CustomOriginTrustStoreDeleteErrors, CustomOriginTrustStoreDeleteResponses, CustomOriginTrustStoreDetailsErrors, CustomOriginTrustStoreDetailsResponses, CustomOriginTrustStoreListDetailsErrors, CustomOriginTrustStoreListDetailsResponses, TlsCertificatesAndHostnamesComponentsSchemasCertificate, TlsCertificatesAndHostnamesIdentifier } from '../types.gen';
+import type { CustomOriginTrustStoreCreateErrors, CustomOriginTrustStoreCreateResponses, CustomOriginTrustStoreDeleteErrors, CustomOriginTrustStoreDeleteResponses, CustomOriginTrustStoreDetailsErrors, CustomOriginTrustStoreDetailsResponses, CustomOriginTrustStoreListDetailsErrors, CustomOriginTrustStoreListDetailsResponses, TlsCertificatesAndHostnamesCertificate3, TlsCertificatesAndHostnamesIdentifier } from '../types.gen';
 import { zCustomOriginTrustStoreCreateBody, zCustomOriginTrustStoreCreatePath, zCustomOriginTrustStoreCreateResponse, zCustomOriginTrustStoreDeletePath, zCustomOriginTrustStoreDeleteResponse, zCustomOriginTrustStoreDetailsPath, zCustomOriginTrustStoreDetailsResponse, zCustomOriginTrustStoreListDetailsPath, zCustomOriginTrustStoreListDetailsQuery, zCustomOriginTrustStoreListDetailsResponse } from '../zod.gen';
 
 export class CustomOriginTrustStoreService {
@@ -22,7 +22,7 @@ export class CustomOriginTrustStoreService {
         per_page?: number;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomOriginTrustStoreListDetailsResponses, CustomOriginTrustStoreListDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -38,9 +38,9 @@ export class CustomOriginTrustStoreService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomOriginTrustStoreListDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/custom_trust_store',
             ...options,
@@ -51,12 +51,12 @@ export class CustomOriginTrustStoreService {
     /**
      * Upload Custom Origin Trust Store
      *
-     * Add Custom Origin Trust Store for a Zone.
+     * Upload a root CA certificate to the Custom Origin Trust Store for a Zone. Only root CA certificates are accepted.
      */
     public static customOriginTrustStoreCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        certificate: TlsCertificatesAndHostnamesComponentsSchemasCertificate;
-    }, options?: Options<never, ThrowOnError>) {
+        certificate: TlsCertificatesAndHostnamesCertificate3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomOriginTrustStoreCreateResponses, CustomOriginTrustStoreCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'certificate' }] }]);
         return (options?.client ?? client).post<CustomOriginTrustStoreCreateResponses, CustomOriginTrustStoreCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -66,9 +66,9 @@ export class CustomOriginTrustStoreService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomOriginTrustStoreCreateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/custom_trust_store',
             ...options,
@@ -84,12 +84,12 @@ export class CustomOriginTrustStoreService {
     /**
      * Delete Custom Origin Trust Store
      *
-     * Removes a CA certificate from the custom origin trust store. Origins using certificates signed by this CA will no longer be trusted.
+     * Removes a root CA certificate from the custom origin trust store. Origins using certificates signed by this CA will no longer be trusted.
      */
     public static customOriginTrustStoreDelete<ThrowOnError extends boolean = true>(parameters: {
         custom_origin_trust_store_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomOriginTrustStoreDeleteResponses, CustomOriginTrustStoreDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_origin_trust_store_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<CustomOriginTrustStoreDeleteResponses, CustomOriginTrustStoreDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -99,9 +99,9 @@ export class CustomOriginTrustStoreService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomOriginTrustStoreDeleteResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/custom_trust_store/{custom_origin_trust_store_id}',
             ...options,
@@ -112,12 +112,12 @@ export class CustomOriginTrustStoreService {
     /**
      * Custom Origin Trust Store Details
      *
-     * Retrieves details about a specific certificate in the custom origin trust store, including expiration and subject information.
+     * Retrieves details about a specific root CA certificate in the custom origin trust store, including expiration and subject information.
      */
     public static customOriginTrustStoreDetails<ThrowOnError extends boolean = true>(parameters: {
         custom_origin_trust_store_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomOriginTrustStoreDetailsResponses, CustomOriginTrustStoreDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_origin_trust_store_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CustomOriginTrustStoreDetailsResponses, CustomOriginTrustStoreDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -127,9 +127,9 @@ export class CustomOriginTrustStoreService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomOriginTrustStoreDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/acm/custom_trust_store/{custom_origin_trust_store_id}',
             ...options,

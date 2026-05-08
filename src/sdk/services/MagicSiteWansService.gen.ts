@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicIdentifier, MagicSiteWansCreateWanErrors, MagicSiteWansCreateWanResponses, MagicSiteWansDeleteWanErrors, MagicSiteWansDeleteWanResponses, MagicSiteWansListWansErrors, MagicSiteWansListWansResponses, MagicSiteWansPatchWanErrors, MagicSiteWansPatchWanResponses, MagicSiteWansUpdateWanErrors, MagicSiteWansUpdateWanResponses, MagicSiteWansWanDetailsErrors, MagicSiteWansWanDetailsResponses, MagicWansAddSingleRequest, MagicWanUpdateRequest } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicSiteWansService {
     public static magicSiteWansListWans<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansListWansResponses, MagicSiteWansListWansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).get<MagicSiteWansListWansResponses, MagicSiteWansListWansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class MagicSiteWansService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicWansAddSingleRequest: MagicWansAddSingleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansCreateWanResponses, MagicSiteWansCreateWanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -87,7 +87,7 @@ export class MagicSiteWansService {
         account_id: MagicIdentifier;
         wan_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansDeleteWanResponses, MagicSiteWansDeleteWanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -126,7 +126,7 @@ export class MagicSiteWansService {
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
         wan_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansWanDetailsResponses, MagicSiteWansWanDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -160,7 +160,7 @@ export class MagicSiteWansService {
         account_id: MagicIdentifier;
         wan_id: MagicIdentifier;
         magicWanUpdateRequest: MagicWanUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansPatchWanResponses, MagicSiteWansPatchWanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -200,7 +200,7 @@ export class MagicSiteWansService {
         account_id: MagicIdentifier;
         wan_id: MagicIdentifier;
         magicWanUpdateRequest: MagicWanUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteWansUpdateWanResponses, MagicSiteWansUpdateWanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },

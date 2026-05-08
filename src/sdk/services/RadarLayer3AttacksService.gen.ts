@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAttacksLayer3SummaryByBitrateErrors, RadarGetAttacksLayer3SummaryByBitrateResponses, RadarGetAttacksLayer3SummaryByDurationErrors, RadarGetAttacksLayer3SummaryByDurationResponses, RadarGetAttacksLayer3SummaryByIndustryErrors, RadarGetAttacksLayer3SummaryByIndustryResponses, RadarGetAttacksLayer3SummaryByIpVersionErrors, RadarGetAttacksLayer3SummaryByIpVersionResponses, RadarGetAttacksLayer3SummaryByProtocolErrors, RadarGetAttacksLayer3SummaryByProtocolResponses, RadarGetAttacksLayer3SummaryByVectorErrors, RadarGetAttacksLayer3SummaryByVectorResponses, RadarGetAttacksLayer3SummaryByVerticalErrors, RadarGetAttacksLayer3SummaryByVerticalResponses, RadarGetAttacksLayer3SummaryErrors, RadarGetAttacksLayer3SummaryResponses, RadarGetAttacksLayer3TimeseriesByBytesErrors, RadarGetAttacksLayer3TimeseriesByBytesResponses, RadarGetAttacksLayer3TimeseriesGroupByBitrateErrors, RadarGetAttacksLayer3TimeseriesGroupByBitrateResponses, RadarGetAttacksLayer3TimeseriesGroupByDurationErrors, RadarGetAttacksLayer3TimeseriesGroupByDurationResponses, RadarGetAttacksLayer3TimeseriesGroupByIndustryErrors, RadarGetAttacksLayer3TimeseriesGroupByIndustryResponses, RadarGetAttacksLayer3TimeseriesGroupByIpVersionErrors, RadarGetAttacksLayer3TimeseriesGroupByIpVersionResponses, RadarGetAttacksLayer3TimeseriesGroupByProtocolErrors, RadarGetAttacksLayer3TimeseriesGroupByProtocolResponses, RadarGetAttacksLayer3TimeseriesGroupByVectorErrors, RadarGetAttacksLayer3TimeseriesGroupByVectorResponses, RadarGetAttacksLayer3TimeseriesGroupByVerticalErrors, RadarGetAttacksLayer3TimeseriesGroupByVerticalResponses, RadarGetAttacksLayer3TimeseriesGroupErrors, RadarGetAttacksLayer3TimeseriesGroupResponses, RadarGetAttacksLayer3TopAttacksErrors, RadarGetAttacksLayer3TopAttacksResponses, RadarGetAttacksLayer3TopIndustriesErrors, RadarGetAttacksLayer3TopIndustriesResponses, RadarGetAttacksLayer3TopOriginLocationsErrors, RadarGetAttacksLayer3TopOriginLocationsResponses, RadarGetAttacksLayer3TopTargetLocationsErrors, RadarGetAttacksLayer3TopTargetLocationsResponses, RadarGetAttacksLayer3TopVerticalsErrors, RadarGetAttacksLayer3TopVerticalsResponses } from '../types.gen';
@@ -29,7 +29,7 @@ export class RadarLayer3AttacksService {
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByBitrateResponses, RadarGetAttacksLayer3SummaryByBitrateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -78,7 +78,7 @@ export class RadarLayer3AttacksService {
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByDurationResponses, RadarGetAttacksLayer3SummaryByDurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -128,7 +128,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByIndustryResponses, RadarGetAttacksLayer3SummaryByIndustryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -177,7 +177,7 @@ export class RadarLayer3AttacksService {
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByIpVersionResponses, RadarGetAttacksLayer3SummaryByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -224,7 +224,7 @@ export class RadarLayer3AttacksService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByProtocolResponses, RadarGetAttacksLayer3SummaryByProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -273,7 +273,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByVectorResponses, RadarGetAttacksLayer3SummaryByVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -324,7 +324,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryByVerticalResponses, RadarGetAttacksLayer3SummaryByVerticalErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -374,7 +374,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3SummaryResponses, RadarGetAttacksLayer3SummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -427,7 +427,7 @@ export class RadarLayer3AttacksService {
         metric?: 'BYTES' | 'BYTES_OLD';
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesByBytesResponses, RadarGetAttacksLayer3TimeseriesByBytesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -482,7 +482,7 @@ export class RadarLayer3AttacksService {
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByBitrateResponses, RadarGetAttacksLayer3TimeseriesGroupByBitrateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -535,7 +535,7 @@ export class RadarLayer3AttacksService {
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByDurationResponses, RadarGetAttacksLayer3TimeseriesGroupByDurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -589,7 +589,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByIndustryResponses, RadarGetAttacksLayer3TimeseriesGroupByIndustryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -642,7 +642,7 @@ export class RadarLayer3AttacksService {
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByIpVersionResponses, RadarGetAttacksLayer3TimeseriesGroupByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -693,7 +693,7 @@ export class RadarLayer3AttacksService {
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         direction?: 'ORIGIN' | 'TARGET';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByProtocolResponses, RadarGetAttacksLayer3TimeseriesGroupByProtocolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -746,7 +746,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByVectorResponses, RadarGetAttacksLayer3TimeseriesGroupByVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -801,7 +801,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupByVerticalResponses, RadarGetAttacksLayer3TimeseriesGroupByVerticalErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -855,7 +855,7 @@ export class RadarLayer3AttacksService {
         direction?: 'ORIGIN' | 'TARGET';
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TimeseriesGroupResponses, RadarGetAttacksLayer3TimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -910,7 +910,7 @@ export class RadarLayer3AttacksService {
         magnitude?: 'MITIGATED_BYTES' | 'MITIGATED_ATTACKS';
         normalization?: 'PERCENTAGE' | 'MIN_MAX';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TopAttacksResponses, RadarGetAttacksLayer3TopAttacksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -963,7 +963,7 @@ export class RadarLayer3AttacksService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TopIndustriesResponses, RadarGetAttacksLayer3TopIndustriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1010,7 +1010,7 @@ export class RadarLayer3AttacksService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TopOriginLocationsResponses, RadarGetAttacksLayer3TopOriginLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1057,7 +1057,7 @@ export class RadarLayer3AttacksService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TopTargetLocationsResponses, RadarGetAttacksLayer3TopTargetLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1106,7 +1106,7 @@ export class RadarLayer3AttacksService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         protocol?: Array<'UDP' | 'TCP' | 'ICMP' | 'GRE'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAttacksLayer3TopVerticalsResponses, RadarGetAttacksLayer3TopVerticalsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

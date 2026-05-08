@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BillSubsApiOccurredAt, UserBillingHistoryDeprecatedBillingHistoryDetailsErrors, UserBillingHistoryDeprecatedBillingHistoryDetailsResponses } from '../types.gen';
@@ -25,7 +25,7 @@ export class UserBillingHistoryService {
         occurred_at?: BillSubsApiOccurredAt;
         type?: string;
         action?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserBillingHistoryDeprecatedBillingHistoryDetailsResponses, UserBillingHistoryDeprecatedBillingHistoryDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },

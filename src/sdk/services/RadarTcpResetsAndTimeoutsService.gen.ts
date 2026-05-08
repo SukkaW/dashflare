@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetTcpResetsTimeoutsSummaryErrors, RadarGetTcpResetsTimeoutsSummaryResponses, RadarGetTcpResetsTimeoutsTimeseriesGroupErrors, RadarGetTcpResetsTimeoutsTimeseriesGroupResponses } from '../types.gen';
@@ -25,7 +25,7 @@ export class RadarTcpResetsAndTimeoutsService {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetTcpResetsTimeoutsSummaryResponses, RadarGetTcpResetsTimeoutsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -69,7 +69,7 @@ export class RadarTcpResetsAndTimeoutsService {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetTcpResetsTimeoutsTimeseriesGroupResponses, RadarGetTcpResetsTimeoutsTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },

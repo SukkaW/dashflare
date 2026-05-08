@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetTrafficAnomaliesErrors, RadarGetTrafficAnomaliesResponses, RadarGetTrafficAnomaliesTopErrors, RadarGetTrafficAnomaliesTopResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarTrafficAnomaliesService {
         location?: string;
         origin?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetTrafficAnomaliesResponses, RadarGetTrafficAnomaliesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -72,7 +72,7 @@ export class RadarTrafficAnomaliesService {
         dateEnd?: string;
         status?: 'VERIFIED' | 'UNVERIFIED';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetTrafficAnomaliesTopResponses, RadarGetTrafficAnomaliesTopErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'dateRange' },

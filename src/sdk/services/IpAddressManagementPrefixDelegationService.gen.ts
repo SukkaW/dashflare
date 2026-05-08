@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingCidr, AddressingDelegatedAccountIdentifier, AddressingDelegationIdentifier, AddressingPrefixIdentifier, IpAddressManagementPrefixDelegationCreatePrefixDelegationErrors, IpAddressManagementPrefixDelegationCreatePrefixDelegationResponses, IpAddressManagementPrefixDelegationDeletePrefixDelegationErrors, IpAddressManagementPrefixDelegationDeletePrefixDelegationResponses, IpAddressManagementPrefixDelegationListPrefixDelegationsErrors, IpAddressManagementPrefixDelegationListPrefixDelegationsResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class IpAddressManagementPrefixDelegationService {
     public static ipAddressManagementPrefixDelegationListPrefixDelegations<ThrowOnError extends boolean = true>(parameters: {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixDelegationListPrefixDelegationsResponses, IpAddressManagementPrefixDelegationListPrefixDelegationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'prefix_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementPrefixDelegationListPrefixDelegationsResponses, IpAddressManagementPrefixDelegationListPrefixDelegationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class IpAddressManagementPrefixDelegationService {
         account_id: AddressingAccountIdentifier;
         cidr: AddressingCidr;
         delegated_account_id: AddressingDelegatedAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixDelegationCreatePrefixDelegationResponses, IpAddressManagementPrefixDelegationCreatePrefixDelegationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'prefix_id' },
                     { in: 'path', key: 'account_id' },
@@ -81,7 +81,7 @@ export class IpAddressManagementPrefixDelegationService {
         prefix_id: AddressingPrefixIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixDelegationDeletePrefixDelegationResponses, IpAddressManagementPrefixDelegationDeletePrefixDelegationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'delegation_id' },
                     { in: 'path', key: 'prefix_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { PostIndicatorTypeCreateErrors, PostIndicatorTypeCreateResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class IndicatorsService {
         dataset_id: string;
         description?: string;
         indicatorType: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostIndicatorTypeCreateResponses, PostIndicatorTypeCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },

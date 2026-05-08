@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { TunnelAccountId, TunnelIcmpProxyEnabled, TunnelOfframpWarpEnabled, ZeroTrustAccountsGetConnectivitySettingsErrors, ZeroTrustAccountsGetConnectivitySettingsResponses, ZeroTrustAccountsPatchConnectivitySettingsErrors, ZeroTrustAccountsPatchConnectivitySettingsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZeroTrustConnectivitySettingsService {
      */
     public static zeroTrustAccountsGetConnectivitySettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsGetConnectivitySettingsResponses, ZeroTrustAccountsGetConnectivitySettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustAccountsGetConnectivitySettingsResponses, ZeroTrustAccountsGetConnectivitySettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class ZeroTrustConnectivitySettingsService {
         account_id: TunnelAccountId;
         icmp_proxy_enabled?: TunnelIcmpProxyEnabled;
         offramp_warp_enabled?: TunnelOfframpWarpEnabled;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustAccountsPatchConnectivitySettingsResponses, ZeroTrustAccountsPatchConnectivitySettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'icmp_proxy_enabled' },

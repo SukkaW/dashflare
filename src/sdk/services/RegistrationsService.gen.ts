@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteRegistrationResponses, GetRegistrationResponses, ListRegistrationsResponses, RevokeRegistrationsResponses, UnrevokeRegistrationsResponses } from '../types.gen';
@@ -29,8 +29,9 @@ export class RegistrationsService {
         cursor?: string;
         id?: Array<string>;
         'device.id'?: string;
+        'policy.id'?: string;
         include?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListRegistrationsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'user.id' },
@@ -44,6 +45,7 @@ export class RegistrationsService {
                     { in: 'query', key: 'cursor' },
                     { in: 'query', key: 'id' },
                     { in: 'query', key: 'device.id' },
+                    { in: 'query', key: 'policy.id' },
                     { in: 'query', key: 'include' }
                 ] }]);
         return (options?.client ?? client).get<ListRegistrationsResponses, unknown, ThrowOnError>({
@@ -68,7 +70,7 @@ export class RegistrationsService {
     public static revokeRegistrations<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RevokeRegistrationsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'id' }] }]);
         return (options?.client ?? client).post<RevokeRegistrationsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -92,7 +94,7 @@ export class RegistrationsService {
     public static unrevokeRegistrations<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UnrevokeRegistrationsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'id' }] }]);
         return (options?.client ?? client).post<UnrevokeRegistrationsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -116,7 +118,7 @@ export class RegistrationsService {
     public static deleteRegistration<ThrowOnError extends boolean = true>(parameters: {
         registration_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteRegistrationResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'registration_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteRegistrationResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -141,7 +143,7 @@ export class RegistrationsService {
         registration_id: string;
         account_id: string;
         include?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetRegistrationResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'registration_id' },
                     { in: 'path', key: 'account_id' },

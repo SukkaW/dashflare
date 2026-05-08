@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetAttackerListErrors, GetAttackerListResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zGetAttackerListPath, zGetAttackerListQuery, zGetAttackerListResponse }
 export class AttackerService {
     /**
      * Lists attackers across multiple datasets
+     *
+     * List attacker names referenced in events across one or more datasets.
      */
     public static getAttackerList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         datasetIds?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAttackerListResponses, GetAttackerListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'datasetIds' }] }]);
         return (options?.client ?? client).get<GetAttackerListResponses, GetAttackerListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

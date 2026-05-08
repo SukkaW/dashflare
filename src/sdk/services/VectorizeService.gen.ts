@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { VectorizeCreateIndexRequest, VectorizeCreateMetadataIndexErrors, VectorizeCreateMetadataIndexRequest, VectorizeCreateMetadataIndexResponses, VectorizeCreateVectorizeIndexErrors, VectorizeCreateVectorizeIndexResponses, VectorizeDeleteMetadataIndexErrors, VectorizeDeleteMetadataIndexRequest, VectorizeDeleteMetadataIndexResponses, VectorizeDeleteVectorizeIndexErrors, VectorizeDeleteVectorizeIndexResponses, VectorizeDeleteVectorsByIdErrors, VectorizeDeleteVectorsByIdResponses, VectorizeGetVectorizeIndexErrors, VectorizeGetVectorizeIndexResponses, VectorizeGetVectorsByIdErrors, VectorizeGetVectorsByIdResponses, VectorizeIdentifier, VectorizeIndexDeleteVectorsByIdRequestWritable, VectorizeIndexGetVectorsByIdRequestWritable, VectorizeIndexInfoErrors, VectorizeIndexInfoResponses, VectorizeIndexName, VectorizeIndexQueryV2Request, VectorizeInsertVectorErrors, VectorizeInsertVectorResponses, VectorizeListMetadataIndexesErrors, VectorizeListMetadataIndexesResponses, VectorizeListVectorizeIndexesErrors, VectorizeListVectorizeIndexesResponses, VectorizeListVectorsErrors, VectorizeListVectorsResponses, VectorizeQueryVectorErrors, VectorizeQueryVectorResponses, VectorizeUpsertVectorErrors, VectorizeUpsertVectorResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class VectorizeService {
      */
     public static vectorizeListVectorizeIndexes<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeListVectorizeIndexesResponses, VectorizeListVectorizeIndexesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<VectorizeListVectorizeIndexesResponses, VectorizeListVectorizeIndexesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class VectorizeService {
     public static vectorizeCreateVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         vectorizeCreateIndexRequest: VectorizeCreateIndexRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeCreateVectorizeIndexResponses, VectorizeCreateVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'vectorizeCreateIndexRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<VectorizeCreateVectorizeIndexResponses, VectorizeCreateVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class VectorizeService {
     public static vectorizeDeleteVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeleteVectorizeIndexResponses, VectorizeDeleteVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).delete<VectorizeDeleteVectorizeIndexResponses, VectorizeDeleteVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class VectorizeService {
     public static vectorizeGetVectorizeIndex<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeGetVectorizeIndexResponses, VectorizeGetVectorizeIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).get<VectorizeGetVectorizeIndexResponses, VectorizeGetVectorizeIndexErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class VectorizeService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexDeleteVectorsByIdRequestWritable: VectorizeIndexDeleteVectorsByIdRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeleteVectorsByIdResponses, VectorizeDeleteVectorsByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -174,7 +174,7 @@ export class VectorizeService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexGetVectorsByIdRequestWritable: VectorizeIndexGetVectorsByIdRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeGetVectorsByIdResponses, VectorizeGetVectorsByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -211,7 +211,7 @@ export class VectorizeService {
     public static vectorizeIndexInfo<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeIndexInfoResponses, VectorizeIndexInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).get<VectorizeIndexInfoResponses, VectorizeIndexInfoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -241,7 +241,7 @@ export class VectorizeService {
         index_name: VectorizeIndexName;
         'unparsable-behavior'?: 'error' | 'discard';
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeInsertVectorResponses, VectorizeInsertVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -282,7 +282,7 @@ export class VectorizeService {
         index_name: VectorizeIndexName;
         count?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeListVectorsResponses, VectorizeListVectorsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -316,7 +316,7 @@ export class VectorizeService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeCreateMetadataIndexRequest: VectorizeCreateMetadataIndexRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeCreateMetadataIndexResponses, VectorizeCreateMetadataIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -354,7 +354,7 @@ export class VectorizeService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeDeleteMetadataIndexRequest: VectorizeDeleteMetadataIndexRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeDeleteMetadataIndexResponses, VectorizeDeleteMetadataIndexErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -391,7 +391,7 @@ export class VectorizeService {
     public static vectorizeListMetadataIndexes<ThrowOnError extends boolean = true>(parameters: {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeListMetadataIndexesResponses, VectorizeListMetadataIndexesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'index_name' }] }]);
         return (options?.client ?? client).get<VectorizeListMetadataIndexesResponses, VectorizeListMetadataIndexesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -420,7 +420,7 @@ export class VectorizeService {
         account_id: VectorizeIdentifier;
         index_name: VectorizeIndexName;
         vectorizeIndexQueryV2Request: VectorizeIndexQueryV2Request;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeQueryVectorResponses, VectorizeQueryVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },
@@ -459,7 +459,7 @@ export class VectorizeService {
         index_name: VectorizeIndexName;
         'unparsable-behavior'?: 'error' | 'discard';
         body: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<VectorizeUpsertVectorResponses, VectorizeUpsertVectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'index_name' },

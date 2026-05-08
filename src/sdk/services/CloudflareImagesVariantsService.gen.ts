@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudflareImagesVariantsCreateAVariantErrors, CloudflareImagesVariantsCreateAVariantResponses, CloudflareImagesVariantsDeleteAVariantErrors, CloudflareImagesVariantsDeleteAVariantResponses, CloudflareImagesVariantsListVariantsErrors, CloudflareImagesVariantsListVariantsResponses, CloudflareImagesVariantsUpdateAVariantErrors, CloudflareImagesVariantsUpdateAVariantResponses, CloudflareImagesVariantsVariantDetailsErrors, CloudflareImagesVariantsVariantDetailsFlatErrors, CloudflareImagesVariantsVariantDetailsFlatResponses, CloudflareImagesVariantsVariantDetailsResponses, ImagesAccountIdentifier, ImagesImageVariantDefinition, ImagesImageVariantIdentifier, ImagesImageVariantPatchRequest } from '../types.gen';
@@ -14,11 +14,11 @@ export class CloudflareImagesVariantsService {
     /**
      * List variants
      *
-     * Lists existing variants.
+     * List existing CF Images variants.
      */
     public static cloudflareImagesVariantsListVariants<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsListVariantsResponses, CloudflareImagesVariantsListVariantsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesVariantsListVariantsResponses, CloudflareImagesVariantsListVariantsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -41,12 +41,12 @@ export class CloudflareImagesVariantsService {
     /**
      * Create a variant
      *
-     * Specify variants that allow you to resize images for different use cases.
+     * Create a CF Images variant that allows you to resize images for different use cases.
      */
     public static cloudflareImagesVariantsCreateAVariant<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
         imagesImageVariantDefinition: ImagesImageVariantDefinition;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsCreateAVariantResponses, CloudflareImagesVariantsCreateAVariantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'imagesImageVariantDefinition', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudflareImagesVariantsCreateAVariantResponses, CloudflareImagesVariantsCreateAVariantErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,13 +74,13 @@ export class CloudflareImagesVariantsService {
     /**
      * Delete a variant
      *
-     * Deleting a variant purges the cache for all images associated with the variant.
+     * Delete a CF Images variant. This will purge the cache for all images associated with the variant.
      */
     public static cloudflareImagesVariantsDeleteAVariant<ThrowOnError extends boolean = true>(parameters: {
         variant_id: ImagesImageVariantIdentifier;
         account_id: ImagesAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsDeleteAVariantResponses, CloudflareImagesVariantsDeleteAVariantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'variant_id' },
                     { in: 'path', key: 'account_id' },
@@ -112,12 +112,12 @@ export class CloudflareImagesVariantsService {
     /**
      * Variant details
      *
-     * Fetch details for a single variant.
+     * Fetch details for a CF Images variant.
      */
     public static cloudflareImagesVariantsVariantDetails<ThrowOnError extends boolean = true>(parameters: {
         variant_id: ImagesImageVariantIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsVariantDetailsResponses, CloudflareImagesVariantsVariantDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'variant_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesVariantsVariantDetailsResponses, CloudflareImagesVariantsVariantDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,13 +140,13 @@ export class CloudflareImagesVariantsService {
     /**
      * Update a variant
      *
-     * Updating a variant purges the cache for all images associated with the variant.
+     * Update a CF Images variant. This will purge the cache for all images associated with the variant.
      */
     public static cloudflareImagesVariantsUpdateAVariant<ThrowOnError extends boolean = true>(parameters: {
         variant_id: ImagesImageVariantIdentifier;
         account_id: ImagesAccountIdentifier;
         imagesImageVariantPatchRequest: ImagesImageVariantPatchRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsUpdateAVariantResponses, CloudflareImagesVariantsUpdateAVariantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'variant_id' },
                     { in: 'path', key: 'account_id' },
@@ -183,7 +183,7 @@ export class CloudflareImagesVariantsService {
     public static cloudflareImagesVariantsVariantDetailsFlat<ThrowOnError extends boolean = true>(parameters: {
         variant_id: ImagesImageVariantIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesVariantsVariantDetailsFlatResponses, CloudflareImagesVariantsVariantDetailsFlatErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'variant_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesVariantsVariantDetailsFlatResponses, CloudflareImagesVariantsVariantDetailsFlatErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

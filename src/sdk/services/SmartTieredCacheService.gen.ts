@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CacheRulesIdentifier, CacheRulesSmartTieredCachePatch, SmartTieredCacheDeleteSmartTieredCacheSettingErrors, SmartTieredCacheDeleteSmartTieredCacheSettingResponses, SmartTieredCacheGetSmartTieredCacheSettingErrors, SmartTieredCacheGetSmartTieredCacheSettingResponses, SmartTieredCachePatchSmartTieredCacheSettingErrors, SmartTieredCachePatchSmartTieredCacheSettingResponses } from '../types.gen';
-import { zSmartTieredCacheDeleteSmartTieredCacheSettingPath, zSmartTieredCacheDeleteSmartTieredCacheSettingResponse, zSmartTieredCacheGetSmartTieredCacheSettingPath, zSmartTieredCacheGetSmartTieredCacheSettingResponse, zSmartTieredCachePatchSmartTieredCacheSettingBody, zSmartTieredCachePatchSmartTieredCacheSettingPath, zSmartTieredCachePatchSmartTieredCacheSettingResponse } from '../zod.gen';
+import type { CacheRulesIdentifier, CacheRulesSmartTieredCachePatch, SmartTieredCacheCreateSmartTieredCacheSettingErrors, SmartTieredCacheCreateSmartTieredCacheSettingResponses, SmartTieredCacheDeleteSmartTieredCacheSettingErrors, SmartTieredCacheDeleteSmartTieredCacheSettingResponses, SmartTieredCacheGetSmartTieredCacheSettingErrors, SmartTieredCacheGetSmartTieredCacheSettingResponses, SmartTieredCachePatchSmartTieredCacheSettingErrors, SmartTieredCachePatchSmartTieredCacheSettingResponses } from '../types.gen';
+import { zSmartTieredCacheCreateSmartTieredCacheSettingBody, zSmartTieredCacheCreateSmartTieredCacheSettingPath, zSmartTieredCacheCreateSmartTieredCacheSettingResponse, zSmartTieredCacheDeleteSmartTieredCacheSettingPath, zSmartTieredCacheDeleteSmartTieredCacheSettingResponse, zSmartTieredCacheGetSmartTieredCacheSettingPath, zSmartTieredCacheGetSmartTieredCacheSettingResponse, zSmartTieredCachePatchSmartTieredCacheSettingBody, zSmartTieredCachePatchSmartTieredCacheSettingPath, zSmartTieredCachePatchSmartTieredCacheSettingResponse } from '../zod.gen';
 
 export class SmartTieredCacheService {
     /**
@@ -18,7 +18,7 @@ export class SmartTieredCacheService {
      */
     public static smartTieredCacheDeleteSmartTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartTieredCacheDeleteSmartTieredCacheSettingResponses, SmartTieredCacheDeleteSmartTieredCacheSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<SmartTieredCacheDeleteSmartTieredCacheSettingResponses, SmartTieredCacheDeleteSmartTieredCacheSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class SmartTieredCacheService {
      */
     public static smartTieredCacheGetSmartTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartTieredCacheGetSmartTieredCacheSettingResponses, SmartTieredCacheGetSmartTieredCacheSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SmartTieredCacheGetSmartTieredCacheSettingResponses, SmartTieredCacheGetSmartTieredCacheSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class SmartTieredCacheService {
     public static smartTieredCachePatchSmartTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         cacheRulesSmartTieredCachePatch: CacheRulesSmartTieredCachePatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartTieredCachePatchSmartTieredCacheSettingResponses, SmartTieredCachePatchSmartTieredCacheSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'cacheRulesSmartTieredCachePatch', map: 'body' }] }]);
         return (options?.client ?? client).patch<SmartTieredCachePatchSmartTieredCacheSettingResponses, SmartTieredCachePatchSmartTieredCacheSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,6 +82,39 @@ export class SmartTieredCacheService {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zSmartTieredCachePatchSmartTieredCacheSettingResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/zones/{zone_id}/cache/tiered_cache_smart_topology_enable',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Create Smart Tiered Cache setting
+     *
+     * Smart Tiered Cache dynamically selects the single closest upper tier for each of your website's origins with no configuration required, using our in-house performance and routing data. Cloudflare collects latency data for each request to an origin, and uses the latency data to determine how well any upper-tier data center is connected with an origin. As a result, Cloudflare can select the data center with the lowest latency to be the upper-tier for an origin.
+     */
+    public static smartTieredCacheCreateSmartTieredCacheSetting<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: CacheRulesIdentifier;
+        cacheRulesSmartTieredCachePatch: CacheRulesSmartTieredCachePatch;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartTieredCacheCreateSmartTieredCacheSettingResponses, SmartTieredCacheCreateSmartTieredCacheSettingErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'cacheRulesSmartTieredCachePatch', map: 'body' }] }]);
+        return (options?.client ?? client).post<SmartTieredCacheCreateSmartTieredCacheSettingResponses, SmartTieredCacheCreateSmartTieredCacheSettingErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zSmartTieredCacheCreateSmartTieredCacheSettingBody,
+                path: zSmartTieredCacheCreateSmartTieredCacheSettingPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zSmartTieredCacheCreateSmartTieredCacheSettingResponse.parseAsync(data),
             security: [
                 { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },

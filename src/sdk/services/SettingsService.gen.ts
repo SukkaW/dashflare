@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetSettingsErrors, GetSettingsResponses, NscSettingsRequest, UpdateSettingsErrors, UpdateSettingsResponses } from '../types.gen';
@@ -16,7 +16,7 @@ export class SettingsService {
      */
     public static getSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSettingsResponses, GetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetSettingsResponses, GetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class SettingsService {
     public static updateSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         nscSettingsRequest: NscSettingsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSettingsResponses, UpdateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'nscSettingsRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<UpdateSettingsResponses, UpdateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

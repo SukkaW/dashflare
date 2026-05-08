@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetEntitiesIpErrors, RadarGetEntitiesIpResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class RadarIpService {
     public static radarGetEntitiesIp<ThrowOnError extends boolean = true>(parameters: {
         ip: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesIpResponses, RadarGetEntitiesIpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'ip' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetEntitiesIpResponses, RadarGetEntitiesIpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

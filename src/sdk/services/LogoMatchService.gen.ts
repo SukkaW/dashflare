@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, urlSearchParamsBodySerializer } from '../client';
+import { buildClientParams, type RequestResult, urlSearchParamsBodySerializer } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BrandProtectionApiImageFile, DeleteAccountsByAccountIdBrandProtectionLogosByLogoIdErrors, DeleteAccountsByAccountIdBrandProtectionLogosByLogoIdResponses, GetAccountsByAccountIdBrandProtectionLogoMatchesDownloadErrors, GetAccountsByAccountIdBrandProtectionLogoMatchesDownloadResponses, GetAccountsByAccountIdBrandProtectionLogoMatchesErrors, GetAccountsByAccountIdBrandProtectionLogoMatchesResponses, GetAccountsByAccountIdBrandProtectionLogosByLogoIdErrors, GetAccountsByAccountIdBrandProtectionLogosByLogoIdResponses, GetAccountsByAccountIdBrandProtectionLogosErrors, GetAccountsByAccountIdBrandProtectionLogosResponses, GetSignedUrlErrors, GetSignedUrlResponses, PostAccountsByAccountIdBrandProtectionLogosErrors, PostAccountsByAccountIdBrandProtectionLogosResponses, PostAccountsByAccountIdBrandProtectionScanLogoErrors, PostAccountsByAccountIdBrandProtectionScanLogoResponses, PostAccountsByAccountIdBrandProtectionScanPageErrors, PostAccountsByAccountIdBrandProtectionScanPageResponses } from '../types.gen';
-import { zDeleteAccountsByAccountIdBrandProtectionLogosByLogoIdPath, zDeleteAccountsByAccountIdBrandProtectionLogosByLogoIdResponse, zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadPath, zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadQuery, zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadResponse, zGetAccountsByAccountIdBrandProtectionLogoMatchesPath, zGetAccountsByAccountIdBrandProtectionLogoMatchesQuery, zGetAccountsByAccountIdBrandProtectionLogoMatchesResponse, zGetAccountsByAccountIdBrandProtectionLogosByLogoIdPath, zGetAccountsByAccountIdBrandProtectionLogosByLogoIdResponse, zGetAccountsByAccountIdBrandProtectionLogosPath, zGetAccountsByAccountIdBrandProtectionLogosResponse, zGetSignedUrlResponse, zPostAccountsByAccountIdBrandProtectionLogosBody, zPostAccountsByAccountIdBrandProtectionLogosPath, zPostAccountsByAccountIdBrandProtectionLogosQuery, zPostAccountsByAccountIdBrandProtectionLogosResponse, zPostAccountsByAccountIdBrandProtectionScanLogoPath, zPostAccountsByAccountIdBrandProtectionScanLogoResponse, zPostAccountsByAccountIdBrandProtectionScanPagePath, zPostAccountsByAccountIdBrandProtectionScanPageResponse } from '../zod.gen';
+import type { BrandProtectionApiImageFile, DeleteAccountsAccountIdBrandProtectionLogosLogoIdErrors, DeleteAccountsAccountIdBrandProtectionLogosLogoIdResponses, GetAccountsAccountIdBrandProtectionLogoMatchesDownloadErrors, GetAccountsAccountIdBrandProtectionLogoMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionLogoMatchesErrors, GetAccountsAccountIdBrandProtectionLogoMatchesResponses, GetAccountsAccountIdBrandProtectionLogosErrors, GetAccountsAccountIdBrandProtectionLogosLogoIdErrors, GetAccountsAccountIdBrandProtectionLogosLogoIdResponses, GetAccountsAccountIdBrandProtectionLogosResponses, GetSignedUrlErrors, GetSignedUrlResponses, PostAccountsAccountIdBrandProtectionLogosErrors, PostAccountsAccountIdBrandProtectionLogosResponses, PostAccountsAccountIdBrandProtectionScanLogoErrors, PostAccountsAccountIdBrandProtectionScanLogoResponses, PostAccountsAccountIdBrandProtectionScanPageErrors, PostAccountsAccountIdBrandProtectionScanPageResponses } from '../types.gen';
+import { zDeleteAccountsAccountIdBrandProtectionLogosLogoIdPath, zDeleteAccountsAccountIdBrandProtectionLogosLogoIdResponse, zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadPath, zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadQuery, zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadResponse, zGetAccountsAccountIdBrandProtectionLogoMatchesPath, zGetAccountsAccountIdBrandProtectionLogoMatchesQuery, zGetAccountsAccountIdBrandProtectionLogoMatchesResponse, zGetAccountsAccountIdBrandProtectionLogosLogoIdPath, zGetAccountsAccountIdBrandProtectionLogosLogoIdResponse, zGetAccountsAccountIdBrandProtectionLogosPath, zGetAccountsAccountIdBrandProtectionLogosResponse, zGetSignedUrlResponse, zPostAccountsAccountIdBrandProtectionLogosBody, zPostAccountsAccountIdBrandProtectionLogosPath, zPostAccountsAccountIdBrandProtectionLogosQuery, zPostAccountsAccountIdBrandProtectionLogosResponse, zPostAccountsAccountIdBrandProtectionScanLogoPath, zPostAccountsAccountIdBrandProtectionScanLogoResponse, zPostAccountsAccountIdBrandProtectionScanPagePath, zPostAccountsAccountIdBrandProtectionScanPageResponse } from '../zod.gen';
 
 export class LogoMatchService {
     /**
@@ -16,25 +16,25 @@ export class LogoMatchService {
      *
      * Return matches for logo queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionLogoMatches<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionLogoMatches<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         logo_id?: Array<string>;
         offset?: string;
         limit?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionLogoMatchesResponses, GetAccountsAccountIdBrandProtectionLogoMatchesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'logo_id' },
                     { in: 'query', key: 'offset' },
                     { in: 'query', key: 'limit' }
                 ] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionLogoMatchesResponses, GetAccountsByAccountIdBrandProtectionLogoMatchesErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionLogoMatchesResponses, GetAccountsAccountIdBrandProtectionLogoMatchesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionLogoMatchesPath,
-                query: zGetAccountsByAccountIdBrandProtectionLogoMatchesQuery.optional()
+                path: zGetAccountsAccountIdBrandProtectionLogoMatchesPath,
+                query: zGetAccountsAccountIdBrandProtectionLogoMatchesQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionLogoMatchesResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionLogoMatchesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logo-matches',
             ...options,
@@ -47,25 +47,25 @@ export class LogoMatchService {
      *
      * Return matches as CSV for logo queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionLogoMatchesDownload<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionLogoMatchesDownload<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         logo_id?: Array<string>;
         offset?: string;
         limit?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionLogoMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionLogoMatchesDownloadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'logo_id' },
                     { in: 'query', key: 'offset' },
                     { in: 'query', key: 'limit' }
                 ] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionLogoMatchesDownloadResponses, GetAccountsByAccountIdBrandProtectionLogoMatchesDownloadErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionLogoMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionLogoMatchesDownloadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadPath,
-                query: zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadQuery.optional()
+                path: zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadPath,
+                query: zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionLogoMatchesDownloadResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionLogoMatchesDownloadResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logo-matches/download',
             ...options,
@@ -78,17 +78,17 @@ export class LogoMatchService {
      *
      * Return all saved logo queries
      */
-    public static getAccountsByAccountIdBrandProtectionLogos<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionLogos<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionLogosResponses, GetAccountsAccountIdBrandProtectionLogosErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionLogosResponses, GetAccountsByAccountIdBrandProtectionLogosErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionLogosResponses, GetAccountsAccountIdBrandProtectionLogosErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionLogosPath,
+                path: zGetAccountsAccountIdBrandProtectionLogosPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionLogosResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionLogosResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logos',
             ...options,
@@ -101,13 +101,13 @@ export class LogoMatchService {
      *
      * Return new saved logo queries created from image files
      */
-    public static postAccountsByAccountIdBrandProtectionLogos<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionLogos<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         tag?: string;
         match_type?: string;
         threshold?: number;
         brandProtectionApiImageFile: BrandProtectionApiImageFile;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionLogosResponses, PostAccountsAccountIdBrandProtectionLogosErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'tag' },
@@ -115,14 +115,14 @@ export class LogoMatchService {
                     { in: 'query', key: 'threshold' },
                     { key: 'brandProtectionApiImageFile', map: 'body' }
                 ] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionLogosResponses, PostAccountsByAccountIdBrandProtectionLogosErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionLogosResponses, PostAccountsAccountIdBrandProtectionLogosErrors, ThrowOnError>({
             ...urlSearchParamsBodySerializer,
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdBrandProtectionLogosBody,
-                path: zPostAccountsByAccountIdBrandProtectionLogosPath,
-                query: zPostAccountsByAccountIdBrandProtectionLogosQuery.optional()
+                body: zPostAccountsAccountIdBrandProtectionLogosBody,
+                path: zPostAccountsAccountIdBrandProtectionLogosPath,
+                query: zPostAccountsAccountIdBrandProtectionLogosQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionLogosResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionLogosResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logos',
             ...options,
@@ -140,18 +140,18 @@ export class LogoMatchService {
      *
      * Return a success message after deleting saved logo queries by ID
      */
-    public static deleteAccountsByAccountIdBrandProtectionLogosByLogoId<ThrowOnError extends boolean = true>(parameters: {
+    public static deleteAccountsAccountIdBrandProtectionLogosLogoId<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         logo_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdBrandProtectionLogosLogoIdResponses, DeleteAccountsAccountIdBrandProtectionLogosLogoIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'logo_id' }] }]);
-        return (options?.client ?? client).delete<DeleteAccountsByAccountIdBrandProtectionLogosByLogoIdResponses, DeleteAccountsByAccountIdBrandProtectionLogosByLogoIdErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DeleteAccountsAccountIdBrandProtectionLogosLogoIdResponses, DeleteAccountsAccountIdBrandProtectionLogosLogoIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteAccountsByAccountIdBrandProtectionLogosByLogoIdPath,
+                path: zDeleteAccountsAccountIdBrandProtectionLogosLogoIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteAccountsByAccountIdBrandProtectionLogosByLogoIdResponse.parseAsync(data),
+            responseValidator: async (data) => await zDeleteAccountsAccountIdBrandProtectionLogosLogoIdResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logos/{logo_id}',
             ...options,
@@ -164,18 +164,18 @@ export class LogoMatchService {
      *
      * Return saved logo queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionLogosByLogoId<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionLogosLogoId<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         logo_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionLogosLogoIdResponses, GetAccountsAccountIdBrandProtectionLogosLogoIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'logo_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionLogosByLogoIdResponses, GetAccountsByAccountIdBrandProtectionLogosByLogoIdErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionLogosLogoIdResponses, GetAccountsAccountIdBrandProtectionLogosLogoIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionLogosByLogoIdPath,
+                path: zGetAccountsAccountIdBrandProtectionLogosLogoIdPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionLogosByLogoIdResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionLogosLogoIdResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/logos/{logo_id}',
             ...options,
@@ -188,17 +188,17 @@ export class LogoMatchService {
      *
      * Return new logo queries created from image files
      */
-    public static postAccountsByAccountIdBrandProtectionScanLogo<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionScanLogo<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionScanLogoResponses, PostAccountsAccountIdBrandProtectionScanLogoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionScanLogoResponses, PostAccountsByAccountIdBrandProtectionScanLogoErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionScanLogoResponses, PostAccountsAccountIdBrandProtectionScanLogoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionScanLogoPath,
+                path: zPostAccountsAccountIdBrandProtectionScanLogoPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionScanLogoResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionScanLogoResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/scan-logo',
             ...options,
@@ -211,17 +211,17 @@ export class LogoMatchService {
      *
      * Return new logo queries created from URLs
      */
-    public static postAccountsByAccountIdBrandProtectionScanPage<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionScanPage<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionScanPageResponses, PostAccountsAccountIdBrandProtectionScanPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionScanPageResponses, PostAccountsByAccountIdBrandProtectionScanPageErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionScanPageResponses, PostAccountsAccountIdBrandProtectionScanPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionScanPagePath,
+                path: zPostAccountsAccountIdBrandProtectionScanPagePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionScanPageResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionScanPageResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/scan-page',
             ...options,
@@ -231,8 +231,10 @@ export class LogoMatchService {
     
     /**
      * Internal route for testing signed URLs
+     *
+     * Internal route for testing signed URLs.
      */
-    public static getSignedUrl<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static getSignedUrl<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<GetSignedUrlResponses, GetSignedUrlErrors, ThrowOnError> {
         return (options?.client ?? client).get<GetSignedUrlResponses, GetSignedUrlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),

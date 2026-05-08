@@ -4,13 +4,46 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { GetLivestreamAnalyticsCompleteResponses, RealtimekitAccountIdentifier, RealtimekitAppId } from '../types.gen';
-import { zGetLivestreamAnalyticsCompletePath, zGetLivestreamAnalyticsCompleteQuery, zGetLivestreamAnalyticsCompleteResponse } from '../zod.gen';
+import type { GetLivestreamAnalyticsCompleteResponses, GetLivestreamAnalyticsDaywiseResponses, RealtimekitAccountIdentifier, RealtimekitAppId } from '../types.gen';
+import { zGetLivestreamAnalyticsCompletePath, zGetLivestreamAnalyticsCompleteQuery, zGetLivestreamAnalyticsCompleteResponse, zGetLivestreamAnalyticsDaywisePath, zGetLivestreamAnalyticsDaywiseQuery, zGetLivestreamAnalyticsDaywiseResponse } from '../zod.gen';
 
 export class LivestreamAnalyticsService {
+    /**
+     * Fetch day-wise analytics data for your livestreams
+     *
+     * Returns day-wise livestream analytics for the specified time range.
+     */
+    public static getLivestreamAnalyticsDaywise<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+        start_time?: number;
+        end_time?: number;
+        filters?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLivestreamAnalyticsDaywiseResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'app_id' },
+                    { in: 'query', key: 'start_time' },
+                    { in: 'query', key: 'end_time' },
+                    { in: 'query', key: 'filters' }
+                ] }]);
+        return (options?.client ?? client).get<GetLivestreamAnalyticsDaywiseResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetLivestreamAnalyticsDaywisePath,
+                query: zGetLivestreamAnalyticsDaywiseQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetLivestreamAnalyticsDaywiseResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/{app_id}/analytics/livestreams/daywise',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * Fetch complete analytics data for your livestreams
      *
@@ -19,14 +52,16 @@ export class LivestreamAnalyticsService {
     public static getLivestreamAnalyticsComplete<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
-        start_time?: string;
-        end_time?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        start_time?: number;
+        end_time?: number;
+        filters?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLivestreamAnalyticsCompleteResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'query', key: 'start_time' },
-                    { in: 'query', key: 'end_time' }
+                    { in: 'query', key: 'end_time' },
+                    { in: 'query', key: 'filters' }
                 ] }]);
         return (options?.client ?? client).get<GetLivestreamAnalyticsCompleteResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({

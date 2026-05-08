@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetOrgAnalyticsResponses, RealtimekitAccountIdentifier, RealtimekitAppId } from '../types.gen';
@@ -21,7 +21,7 @@ export class AnalyticsService {
         app_id: RealtimekitAppId;
         start_date?: string;
         end_date?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetOrgAnalyticsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

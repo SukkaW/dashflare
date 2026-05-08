@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CustomAssetsForAZoneCreateACustomAssetErrors, CustomAssetsForAZoneCreateACustomAssetResponses, CustomAssetsForAZoneDeleteACustomAssetErrors, CustomAssetsForAZoneDeleteACustomAssetResponses, CustomAssetsForAZoneGetACustomAssetErrors, CustomAssetsForAZoneGetACustomAssetResponses, CustomAssetsForAZoneListCustomAssetsErrors, CustomAssetsForAZoneListCustomAssetsResponses, CustomAssetsForAZoneUpdateACustomAssetErrors, CustomAssetsForAZoneUpdateACustomAssetResponses, CustomPagesAssetDescription, CustomPagesAssetName, CustomPagesAssetUrl, CustomPagesIdentifier } from '../types.gen';
@@ -20,7 +20,7 @@ export class CustomAssetsForAZoneService {
         zone_identifier: CustomPagesIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAZoneListCustomAssetsResponses, CustomAssetsForAZoneListCustomAssetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_identifier' },
                     { in: 'query', key: 'page' },
@@ -50,7 +50,7 @@ export class CustomAssetsForAZoneService {
         description: CustomPagesAssetDescription;
         name: CustomPagesAssetName;
         url: CustomPagesAssetUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAZoneCreateACustomAssetResponses, CustomAssetsForAZoneCreateACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_identifier' },
                     { in: 'body', key: 'description' },
@@ -84,7 +84,7 @@ export class CustomAssetsForAZoneService {
     public static customAssetsForAZoneDeleteACustomAsset<ThrowOnError extends boolean = true>(parameters: {
         asset_name: CustomPagesAssetName;
         zone_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAZoneDeleteACustomAssetResponses, CustomAssetsForAZoneDeleteACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asset_name' }, { in: 'path', key: 'zone_identifier' }] }]);
         return (options?.client ?? client).delete<CustomAssetsForAZoneDeleteACustomAssetResponses, CustomAssetsForAZoneDeleteACustomAssetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class CustomAssetsForAZoneService {
     public static customAssetsForAZoneGetACustomAsset<ThrowOnError extends boolean = true>(parameters: {
         asset_name: CustomPagesAssetName;
         zone_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAZoneGetACustomAssetResponses, CustomAssetsForAZoneGetACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asset_name' }, { in: 'path', key: 'zone_identifier' }] }]);
         return (options?.client ?? client).get<CustomAssetsForAZoneGetACustomAssetResponses, CustomAssetsForAZoneGetACustomAssetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class CustomAssetsForAZoneService {
         zone_identifier: CustomPagesIdentifier;
         description: CustomPagesAssetDescription;
         url: CustomPagesAssetUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomAssetsForAZoneUpdateACustomAssetResponses, CustomAssetsForAZoneUpdateACustomAssetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'asset_name' },
                     { in: 'path', key: 'zone_identifier' },

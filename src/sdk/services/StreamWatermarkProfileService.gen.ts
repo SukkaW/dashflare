@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { StreamAccountIdentifier, StreamName, StreamOpacity, StreamPadding, StreamPosition, StreamScale, StreamWatermarkIdentifier, StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadErrors, StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadResponses, StreamWatermarkProfileDeleteWatermarkProfilesErrors, StreamWatermarkProfileDeleteWatermarkProfilesResponses, StreamWatermarkProfileListWatermarkProfilesErrors, StreamWatermarkProfileListWatermarkProfilesResponses, StreamWatermarkProfileWatermarkProfileDetailsErrors, StreamWatermarkProfileWatermarkProfileDetailsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class StreamWatermarkProfileService {
      */
     public static streamWatermarkProfileListWatermarkProfiles<ThrowOnError extends boolean = true>(parameters: {
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWatermarkProfileListWatermarkProfilesResponses, StreamWatermarkProfileListWatermarkProfilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamWatermarkProfileListWatermarkProfilesResponses, StreamWatermarkProfileListWatermarkProfilesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class StreamWatermarkProfileService {
         position?: StreamPosition;
         scale?: StreamScale;
         url?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadResponses, StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'name' },
@@ -92,7 +92,7 @@ export class StreamWatermarkProfileService {
     public static streamWatermarkProfileDeleteWatermarkProfiles<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamWatermarkIdentifier;
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWatermarkProfileDeleteWatermarkProfilesResponses, StreamWatermarkProfileDeleteWatermarkProfilesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<StreamWatermarkProfileDeleteWatermarkProfilesResponses, StreamWatermarkProfileDeleteWatermarkProfilesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,7 +120,7 @@ export class StreamWatermarkProfileService {
     public static streamWatermarkProfileWatermarkProfileDetails<ThrowOnError extends boolean = true>(parameters: {
         identifier: StreamWatermarkIdentifier;
         account_id: StreamAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StreamWatermarkProfileWatermarkProfileDetailsResponses, StreamWatermarkProfileWatermarkProfileDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<StreamWatermarkProfileWatermarkProfileDetailsResponses, StreamWatermarkProfileWatermarkProfileDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeletePresetsPresetIdResponses, GetPresetsPresetIdResponses, GetPresetsResponses, PatchPresetsPresetIdResponses, PostPresetsResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitCreatePresetBody, RealtimekitUpdatePresetBody } from '../types.gen';
-import { zDeletePresetsPresetIdPath, zDeletePresetsPresetIdResponse, zGetPresetsPath, zGetPresetsPresetIdPath, zGetPresetsPresetIdResponse, zGetPresetsQuery, zGetPresetsResponse, zPatchPresetsPresetIdBody, zPatchPresetsPresetIdPath, zPatchPresetsPresetIdResponse, zPostPresetsBody, zPostPresetsPath, zPostPresetsResponse } from '../zod.gen';
+import type { DeletePresetsPresetIdResponses, GetPresetsPresetIdResponses, GetPresetsResponses, PatchPresetsPresetIdResponses, PostPresetsResponses, PutPresetsPresetIdResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitCreatePresetBody, RealtimekitUpdatePresetBody } from '../types.gen';
+import { zDeletePresetsPresetIdPath, zDeletePresetsPresetIdResponse, zGetPresetsPath, zGetPresetsPresetIdPath, zGetPresetsPresetIdResponse, zGetPresetsQuery, zGetPresetsResponse, zPatchPresetsPresetIdBody, zPatchPresetsPresetIdPath, zPatchPresetsPresetIdResponse, zPostPresetsBody, zPostPresetsPath, zPostPresetsResponse, zPutPresetsPresetIdBody, zPutPresetsPresetIdPath, zPutPresetsPresetIdResponse } from '../zod.gen';
 
 export class PresetsService {
     /**
@@ -21,12 +21,14 @@ export class PresetsService {
         app_id: RealtimekitAppId;
         per_page?: number;
         page_no?: number;
-    }, options?: Options<never, ThrowOnError>) {
+        search?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetPresetsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'query', key: 'per_page' },
-                    { in: 'query', key: 'page_no' }
+                    { in: 'query', key: 'page_no' },
+                    { in: 'query', key: 'search' }
                 ] }]);
         return (options?.client ?? client).get<GetPresetsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +53,7 @@ export class PresetsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         realtimekitCreatePresetBody: RealtimekitCreatePresetBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostPresetsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -85,7 +87,7 @@ export class PresetsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         preset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeletePresetsPresetIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -114,7 +116,7 @@ export class PresetsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         preset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetPresetsPresetIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -144,7 +146,7 @@ export class PresetsService {
         app_id: RealtimekitAppId;
         preset_id: string;
         realtimekitUpdatePresetBody: RealtimekitUpdatePresetBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchPresetsPresetIdResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -158,6 +160,42 @@ export class PresetsService {
                 query: z.never().optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zPatchPresetsPresetIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Replace a preset
+     *
+     * Replace all details for the preset using the provided preset ID.
+     */
+    public static putPresetsPresetId<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+        preset_id: string;
+        realtimekitCreatePresetBody: RealtimekitCreatePresetBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutPresetsPresetIdResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'app_id' },
+                    { in: 'path', key: 'preset_id' },
+                    { key: 'realtimekitCreatePresetBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<PutPresetsPresetIdResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPutPresetsPresetIdBody,
+                path: zPutPresetsPresetIdPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPutPresetsPresetIdResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}',
             ...options,

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesUniversal, UniversalSslSettingsForAZoneEditUniversalSslSettingsErrors, UniversalSslSettingsForAZoneEditUniversalSslSettingsResponses, UniversalSslSettingsForAZoneUniversalSslSettingsDetailsErrors, UniversalSslSettingsForAZoneUniversalSslSettingsDetailsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class UniversalSslSettingsForAZoneService {
      */
     public static universalSslSettingsForAZoneUniversalSslSettingsDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UniversalSslSettingsForAZoneUniversalSslSettingsDetailsResponses, UniversalSslSettingsForAZoneUniversalSslSettingsDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<UniversalSslSettingsForAZoneUniversalSslSettingsDetailsResponses, UniversalSslSettingsForAZoneUniversalSslSettingsDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -28,9 +28,9 @@ export class UniversalSslSettingsForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zUniversalSslSettingsForAZoneUniversalSslSettingsDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/universal/settings',
             ...options,
@@ -46,7 +46,7 @@ export class UniversalSslSettingsForAZoneService {
     public static universalSslSettingsForAZoneEditUniversalSslSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         tlsCertificatesAndHostnamesUniversal: TlsCertificatesAndHostnamesUniversal;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UniversalSslSettingsForAZoneEditUniversalSslSettingsResponses, UniversalSslSettingsForAZoneEditUniversalSslSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'tlsCertificatesAndHostnamesUniversal', map: 'body' }] }]);
         return (options?.client ?? client).patch<UniversalSslSettingsForAZoneEditUniversalSslSettingsResponses, UniversalSslSettingsForAZoneEditUniversalSslSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -56,9 +56,9 @@ export class UniversalSslSettingsForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zUniversalSslSettingsForAZoneEditUniversalSslSettingsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/universal/settings',
             ...options,

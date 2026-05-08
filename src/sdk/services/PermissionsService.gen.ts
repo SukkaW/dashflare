@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeletePermissionDeleteErrors, DeletePermissionDeleteResponses, GetPermissionListErrors, GetPermissionListResponses, PostPermissionCreateErrors, PostPermissionCreateResponses, PutPermissionUpdateErrors, PutPermissionUpdateResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class PermissionsService {
     public static getPermissionList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetPermissionListResponses, GetPermissionListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<GetPermissionListResponses, GetPermissionListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class PermissionsService {
         role: 'read' | 'write';
         subjectId: string;
         subjectType: 'account' | 'group';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostPermissionCreateResponses, PostPermissionCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -82,7 +82,7 @@ export class PermissionsService {
         account_id: string;
         dataset_id: string;
         grant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeletePermissionDeleteResponses, DeletePermissionDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -112,7 +112,7 @@ export class PermissionsService {
         dataset_id: string;
         grant_id: string;
         role: 'read' | 'write';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutPermissionUpdateResponses, PutPermissionUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },

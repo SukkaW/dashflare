@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorkersIdentifier, WorkersSchemasSubdomain, WorkerSubdomainCreateSubdomainErrors, WorkerSubdomainCreateSubdomainResponses, WorkerSubdomainDeleteSubdomainErrors, WorkerSubdomainDeleteSubdomainResponses, WorkerSubdomainGetSubdomainErrors, WorkerSubdomainGetSubdomainResponses } from '../types.gen';
+import type { WorkersIdentifier, WorkersSubdomain2, WorkerSubdomainCreateSubdomainErrors, WorkerSubdomainCreateSubdomainResponses, WorkerSubdomainDeleteSubdomainErrors, WorkerSubdomainDeleteSubdomainResponses, WorkerSubdomainGetSubdomainErrors, WorkerSubdomainGetSubdomainResponses } from '../types.gen';
 import { zWorkerSubdomainCreateSubdomainBody, zWorkerSubdomainCreateSubdomainPath, zWorkerSubdomainCreateSubdomainResponse, zWorkerSubdomainDeleteSubdomainPath, zWorkerSubdomainDeleteSubdomainResponse, zWorkerSubdomainGetSubdomainPath, zWorkerSubdomainGetSubdomainResponse } from '../zod.gen';
 
 export class WorkerSubdomainService {
@@ -18,7 +18,7 @@ export class WorkerSubdomainService {
      */
     public static workerSubdomainDeleteSubdomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerSubdomainDeleteSubdomainResponses, WorkerSubdomainDeleteSubdomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<WorkerSubdomainDeleteSubdomainResponses, WorkerSubdomainDeleteSubdomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class WorkerSubdomainService {
      */
     public static workerSubdomainGetSubdomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerSubdomainGetSubdomainResponses, WorkerSubdomainGetSubdomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkerSubdomainGetSubdomainResponses, WorkerSubdomainGetSubdomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,9 +72,9 @@ export class WorkerSubdomainService {
      */
     public static workerSubdomainCreateSubdomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-        workersSchemasSubdomain: WorkersSchemasSubdomain;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'workersSchemasSubdomain', map: 'body' }] }]);
+        workersSubdomain2: WorkersSubdomain2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerSubdomainCreateSubdomainResponses, WorkerSubdomainCreateSubdomainErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'workersSubdomain2', map: 'body' }] }]);
         return (options?.client ?? client).put<WorkerSubdomainCreateSubdomainResponses, WorkerSubdomainCreateSubdomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zWorkerSubdomainCreateSubdomainBody,

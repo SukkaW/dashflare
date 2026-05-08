@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { MTlsCertificateManagementDeleteMTlsCertificateErrors, MTlsCertificateManagementDeleteMTlsCertificateResponses, MTlsCertificateManagementGetMTlsCertificateErrors, MTlsCertificateManagementGetMTlsCertificateResponses, MTlsCertificateManagementListMTlsCertificateAssociationsErrors, MTlsCertificateManagementListMTlsCertificateAssociationsResponses, MTlsCertificateManagementListMTlsCertificatesErrors, MTlsCertificateManagementListMTlsCertificatesResponses, MTlsCertificateManagementUploadMTlsCertificateErrors, MTlsCertificateManagementUploadMTlsCertificateResponses, TlsCertificatesAndHostnamesCa, TlsCertificatesAndHostnamesComponentsSchemasPrivateKey, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSchemasCertificates, TlsCertificatesAndHostnamesSchemasName } from '../types.gen';
+import type { MTlsCertificateManagementDeleteMTlsCertificateErrors, MTlsCertificateManagementDeleteMTlsCertificateResponses, MTlsCertificateManagementGetMTlsCertificateErrors, MTlsCertificateManagementGetMTlsCertificateResponses, MTlsCertificateManagementListMTlsCertificateAssociationsErrors, MTlsCertificateManagementListMTlsCertificateAssociationsResponses, MTlsCertificateManagementListMTlsCertificatesErrors, MTlsCertificateManagementListMTlsCertificatesResponses, MTlsCertificateManagementUploadMTlsCertificateErrors, MTlsCertificateManagementUploadMTlsCertificateResponses, TlsCertificatesAndHostnamesCa, TlsCertificatesAndHostnamesCertificates2, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesName2, TlsCertificatesAndHostnamesPrivateKey4 } from '../types.gen';
 import { zMTlsCertificateManagementDeleteMTlsCertificateBody, zMTlsCertificateManagementDeleteMTlsCertificatePath, zMTlsCertificateManagementDeleteMTlsCertificateResponse, zMTlsCertificateManagementGetMTlsCertificatePath, zMTlsCertificateManagementGetMTlsCertificateResponse, zMTlsCertificateManagementListMTlsCertificateAssociationsPath, zMTlsCertificateManagementListMTlsCertificateAssociationsResponse, zMTlsCertificateManagementListMTlsCertificatesPath, zMTlsCertificateManagementListMTlsCertificatesQuery, zMTlsCertificateManagementListMTlsCertificatesResponse, zMTlsCertificateManagementUploadMTlsCertificateBody, zMTlsCertificateManagementUploadMTlsCertificatePath, zMTlsCertificateManagementUploadMTlsCertificateResponse } from '../zod.gen';
 
 export class MTlsCertificateManagementService {
@@ -19,7 +19,7 @@ export class MTlsCertificateManagementService {
     public static mTlsCertificateManagementListMTlsCertificates<ThrowOnError extends boolean = true>(parameters: {
         account_id: TlsCertificatesAndHostnamesIdentifier;
         type?: Array<'custom' | 'gateway_managed' | 'access_managed'>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MTlsCertificateManagementListMTlsCertificatesResponses, MTlsCertificateManagementListMTlsCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'type' }] }]);
         return (options?.client ?? client).get<MTlsCertificateManagementListMTlsCertificatesResponses, MTlsCertificateManagementListMTlsCertificatesErrors, ThrowOnError>({
             querySerializer: { parameters: { type: { array: { explode: false } } } },
@@ -30,9 +30,9 @@ export class MTlsCertificateManagementService {
             }).parseAsync(data),
             responseValidator: async (data) => await zMTlsCertificateManagementListMTlsCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/mtls_certificates',
             ...options,
@@ -48,10 +48,10 @@ export class MTlsCertificateManagementService {
     public static mTlsCertificateManagementUploadMTlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         account_id: TlsCertificatesAndHostnamesIdentifier;
         ca: TlsCertificatesAndHostnamesCa;
-        certificates: TlsCertificatesAndHostnamesSchemasCertificates;
-        name?: TlsCertificatesAndHostnamesSchemasName;
-        private_key?: TlsCertificatesAndHostnamesComponentsSchemasPrivateKey;
-    }, options?: Options<never, ThrowOnError>) {
+        certificates: TlsCertificatesAndHostnamesCertificates2;
+        name?: TlsCertificatesAndHostnamesName2;
+        private_key?: TlsCertificatesAndHostnamesPrivateKey4;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MTlsCertificateManagementUploadMTlsCertificateResponses, MTlsCertificateManagementUploadMTlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'ca' },
@@ -67,9 +67,9 @@ export class MTlsCertificateManagementService {
             }).parseAsync(data),
             responseValidator: async (data) => await zMTlsCertificateManagementUploadMTlsCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/mtls_certificates',
             ...options,
@@ -91,7 +91,7 @@ export class MTlsCertificateManagementService {
         mtls_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         account_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MTlsCertificateManagementDeleteMTlsCertificateResponses, MTlsCertificateManagementDeleteMTlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'mtls_certificate_id' },
                     { in: 'path', key: 'account_id' },
@@ -105,9 +105,9 @@ export class MTlsCertificateManagementService {
             }).parseAsync(data),
             responseValidator: async (data) => await zMTlsCertificateManagementDeleteMTlsCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/mtls_certificates/{mtls_certificate_id}',
             ...options,
@@ -128,7 +128,7 @@ export class MTlsCertificateManagementService {
     public static mTlsCertificateManagementGetMTlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         mtls_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         account_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MTlsCertificateManagementGetMTlsCertificateResponses, MTlsCertificateManagementGetMTlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'mtls_certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MTlsCertificateManagementGetMTlsCertificateResponses, MTlsCertificateManagementGetMTlsCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -138,9 +138,9 @@ export class MTlsCertificateManagementService {
             }).parseAsync(data),
             responseValidator: async (data) => await zMTlsCertificateManagementGetMTlsCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/mtls_certificates/{mtls_certificate_id}',
             ...options,
@@ -156,7 +156,7 @@ export class MTlsCertificateManagementService {
     public static mTlsCertificateManagementListMTlsCertificateAssociations<ThrowOnError extends boolean = true>(parameters: {
         mtls_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         account_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MTlsCertificateManagementListMTlsCertificateAssociationsResponses, MTlsCertificateManagementListMTlsCertificateAssociationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'mtls_certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MTlsCertificateManagementListMTlsCertificateAssociationsResponses, MTlsCertificateManagementListMTlsCertificateAssociationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -166,9 +166,9 @@ export class MTlsCertificateManagementService {
             }).parseAsync(data),
             responseValidator: async (data) => await zMTlsCertificateManagementListMTlsCertificateAssociationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/mtls_certificates/{mtls_certificate_id}/associations',
             ...options,

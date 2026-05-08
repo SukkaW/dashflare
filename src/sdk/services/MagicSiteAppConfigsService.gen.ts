@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicAppConfigAddSingleRequestWritable, MagicAppConfigUpdateRequestWritable, MagicIdentifier, MagicSiteAppConfigsAddAppConfigErrors, MagicSiteAppConfigsAddAppConfigResponses, MagicSiteAppConfigsDeleteAppConfigErrors, MagicSiteAppConfigsDeleteAppConfigResponses, MagicSiteAppConfigsListAppConfigsErrors, MagicSiteAppConfigsListAppConfigsResponses, MagicSiteAppConfigsPatchAppConfigErrors, MagicSiteAppConfigsPatchAppConfigResponses, MagicSiteAppConfigsUpdateAppConfigErrors, MagicSiteAppConfigsUpdateAppConfigResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicSiteAppConfigsService {
     public static magicSiteAppConfigsListAppConfigs<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAppConfigsListAppConfigsResponses, MagicSiteAppConfigsListAppConfigsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).get<MagicSiteAppConfigsListAppConfigsResponses, MagicSiteAppConfigsListAppConfigsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class MagicSiteAppConfigsService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         magicAppConfigAddSingleRequestWritable: MagicAppConfigAddSingleRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAppConfigsAddAppConfigResponses, MagicSiteAppConfigsAddAppConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -86,7 +86,7 @@ export class MagicSiteAppConfigsService {
         account_id: MagicIdentifier;
         site_id: MagicIdentifier;
         app_config_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAppConfigsDeleteAppConfigResponses, MagicSiteAppConfigsDeleteAppConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -120,7 +120,7 @@ export class MagicSiteAppConfigsService {
         site_id: MagicIdentifier;
         app_config_id: MagicIdentifier;
         magicAppConfigUpdateRequestWritable: MagicAppConfigUpdateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAppConfigsPatchAppConfigResponses, MagicSiteAppConfigsPatchAppConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -160,7 +160,7 @@ export class MagicSiteAppConfigsService {
         site_id: MagicIdentifier;
         app_config_id: MagicIdentifier;
         magicAppConfigUpdateRequestWritable: MagicAppConfigUpdateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSiteAppConfigsUpdateAppConfigResponses, MagicSiteAppConfigsUpdateAppConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessIdentifier, AccessTagsComponentsSchemasName, AccessTagsCreateTagErrors, AccessTagsCreateTagResponses, AccessTagsDeleteATagErrors, AccessTagsDeleteATagResponses, AccessTagsGetATagErrors, AccessTagsGetATagResponses, AccessTagsListTagsErrors, AccessTagsListTagsResponses, AccessTagsUpdateATagErrors, AccessTagsUpdateATagResponses, AccessTagWithoutAppCount } from '../types.gen';
+import type { AccessIdentifier, AccessName13, AccessTagsCreateTagErrors, AccessTagsCreateTagResponses, AccessTagsDeleteATagErrors, AccessTagsDeleteATagResponses, AccessTagsGetATagErrors, AccessTagsGetATagResponses, AccessTagsListTagsErrors, AccessTagsListTagsResponses, AccessTagsUpdateATagErrors, AccessTagsUpdateATagResponses, AccessTagWithoutAppCount } from '../types.gen';
 import { zAccessTagsCreateTagBody, zAccessTagsCreateTagPath, zAccessTagsCreateTagResponse, zAccessTagsDeleteATagPath, zAccessTagsDeleteATagResponse, zAccessTagsGetATagPath, zAccessTagsGetATagResponse, zAccessTagsListTagsPath, zAccessTagsListTagsQuery, zAccessTagsListTagsResponse, zAccessTagsUpdateATagBody, zAccessTagsUpdateATagPath, zAccessTagsUpdateATagResponse } from '../zod.gen';
 
 export class AccessTagsService {
@@ -20,7 +20,7 @@ export class AccessTagsService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessTagsListTagsResponses, AccessTagsListTagsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -51,8 +51,8 @@ export class AccessTagsService {
      */
     public static accessTagsCreateTag<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        name?: AccessTagsComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name?: AccessName13;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessTagsCreateTagResponses, AccessTagsCreateTagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'name' }] }]);
         return (options?.client ?? client).post<AccessTagsCreateTagResponses, AccessTagsCreateTagErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,8 +84,8 @@ export class AccessTagsService {
      */
     public static accessTagsDeleteATag<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        tag_name: AccessTagsComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        tag_name: AccessName13;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessTagsDeleteATagResponses, AccessTagsDeleteATagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tag_name' }] }]);
         return (options?.client ?? client).delete<AccessTagsDeleteATagResponses, AccessTagsDeleteATagErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,8 +112,8 @@ export class AccessTagsService {
      */
     public static accessTagsGetATag<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        tag_name: AccessTagsComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        tag_name: AccessName13;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessTagsGetATagResponses, AccessTagsGetATagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tag_name' }] }]);
         return (options?.client ?? client).get<AccessTagsGetATagResponses, AccessTagsGetATagErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,9 +140,9 @@ export class AccessTagsService {
      */
     public static accessTagsUpdateATag<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        tag_name: AccessTagsComponentsSchemasName;
+        tag_name: AccessName13;
         accessTagWithoutAppCount?: AccessTagWithoutAppCount;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessTagsUpdateATagResponses, AccessTagsUpdateATagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tag_name' },

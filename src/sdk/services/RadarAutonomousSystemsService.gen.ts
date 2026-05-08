@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAsBotnetThreatFeedErrors, RadarGetAsBotnetThreatFeedResponses, RadarGetAsnsAsSetErrors, RadarGetAsnsAsSetResponses, RadarGetAsnsRelErrors, RadarGetAsnsRelResponses, RadarGetEntitiesAsnByIdErrors, RadarGetEntitiesAsnByIdResponses, RadarGetEntitiesAsnByIpErrors, RadarGetEntitiesAsnByIpResponses, RadarGetEntitiesAsnListErrors, RadarGetEntitiesAsnListResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class RadarAutonomousSystemsService {
         location?: string;
         orderBy?: 'ASN' | 'POPULATION';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesAsnListResponses, RadarGetEntitiesAsnListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -65,7 +65,7 @@ export class RadarAutonomousSystemsService {
         asn?: Array<string>;
         sortOrder?: 'ASC' | 'DESC';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAsBotnetThreatFeedResponses, RadarGetAsBotnetThreatFeedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -103,7 +103,7 @@ export class RadarAutonomousSystemsService {
     public static radarGetEntitiesAsnByIp<ThrowOnError extends boolean = true>(parameters: {
         ip: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesAsnByIpResponses, RadarGetEntitiesAsnByIpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'ip' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetEntitiesAsnByIpResponses, RadarGetEntitiesAsnByIpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -131,7 +131,7 @@ export class RadarAutonomousSystemsService {
     public static radarGetEntitiesAsnById<ThrowOnError extends boolean = true>(parameters: {
         asn: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesAsnByIdResponses, RadarGetEntitiesAsnByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asn' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetEntitiesAsnByIdResponses, RadarGetEntitiesAsnByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -159,7 +159,7 @@ export class RadarAutonomousSystemsService {
     public static radarGetAsnsAsSet<ThrowOnError extends boolean = true>(parameters: {
         asn: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAsnsAsSetResponses, RadarGetAsnsAsSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'asn' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetAsnsAsSetResponses, RadarGetAsnsAsSetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -188,7 +188,7 @@ export class RadarAutonomousSystemsService {
         asn: number;
         asn2?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAsnsRelResponses, RadarGetAsnsRelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'asn' },
                     { in: 'query', key: 'asn2' },

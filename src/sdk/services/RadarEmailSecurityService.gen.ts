@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetEmailSecuritySummaryByArcErrors, RadarGetEmailSecuritySummaryByArcResponses, RadarGetEmailSecuritySummaryByDkimErrors, RadarGetEmailSecuritySummaryByDkimResponses, RadarGetEmailSecuritySummaryByDmarcErrors, RadarGetEmailSecuritySummaryByDmarcResponses, RadarGetEmailSecuritySummaryByMaliciousErrors, RadarGetEmailSecuritySummaryByMaliciousResponses, RadarGetEmailSecuritySummaryBySpamErrors, RadarGetEmailSecuritySummaryBySpamResponses, RadarGetEmailSecuritySummaryBySpfErrors, RadarGetEmailSecuritySummaryBySpfResponses, RadarGetEmailSecuritySummaryBySpoofErrors, RadarGetEmailSecuritySummaryBySpoofResponses, RadarGetEmailSecuritySummaryByThreatCategoryErrors, RadarGetEmailSecuritySummaryByThreatCategoryResponses, RadarGetEmailSecuritySummaryByTlsVersionErrors, RadarGetEmailSecuritySummaryByTlsVersionResponses, RadarGetEmailSecuritySummaryErrors, RadarGetEmailSecuritySummaryResponses, RadarGetEmailSecurityTimeseriesGroupByArcErrors, RadarGetEmailSecurityTimeseriesGroupByArcResponses, RadarGetEmailSecurityTimeseriesGroupByDkimErrors, RadarGetEmailSecurityTimeseriesGroupByDkimResponses, RadarGetEmailSecurityTimeseriesGroupByDmarcErrors, RadarGetEmailSecurityTimeseriesGroupByDmarcResponses, RadarGetEmailSecurityTimeseriesGroupByMaliciousErrors, RadarGetEmailSecurityTimeseriesGroupByMaliciousResponses, RadarGetEmailSecurityTimeseriesGroupBySpamErrors, RadarGetEmailSecurityTimeseriesGroupBySpamResponses, RadarGetEmailSecurityTimeseriesGroupBySpfErrors, RadarGetEmailSecurityTimeseriesGroupBySpfResponses, RadarGetEmailSecurityTimeseriesGroupBySpoofErrors, RadarGetEmailSecurityTimeseriesGroupBySpoofResponses, RadarGetEmailSecurityTimeseriesGroupByThreatCategoryErrors, RadarGetEmailSecurityTimeseriesGroupByThreatCategoryResponses, RadarGetEmailSecurityTimeseriesGroupByTlsVersionErrors, RadarGetEmailSecurityTimeseriesGroupByTlsVersionResponses, RadarGetEmailSecurityTimeseriesGroupErrors, RadarGetEmailSecurityTimeseriesGroupResponses, RadarGetEmailSecurityTopTldsByMaliciousErrors, RadarGetEmailSecurityTopTldsByMaliciousResponses, RadarGetEmailSecurityTopTldsByMessagesErrors, RadarGetEmailSecurityTopTldsByMessagesResponses, RadarGetEmailSecurityTopTldsBySpamErrors, RadarGetEmailSecurityTopTldsBySpamResponses, RadarGetEmailSecurityTopTldsBySpoofErrors, RadarGetEmailSecurityTopTldsBySpoofResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByArcResponses, RadarGetEmailSecuritySummaryByArcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -75,7 +75,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByDkimResponses, RadarGetEmailSecuritySummaryByDkimErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -122,7 +122,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByDmarcResponses, RadarGetEmailSecuritySummaryByDmarcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -170,7 +170,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByMaliciousResponses, RadarGetEmailSecuritySummaryByMaliciousErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -219,7 +219,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryBySpamResponses, RadarGetEmailSecuritySummaryBySpamErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -267,7 +267,7 @@ export class RadarEmailSecurityService {
         dmarc?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryBySpfResponses, RadarGetEmailSecuritySummaryBySpfErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -315,7 +315,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryBySpoofResponses, RadarGetEmailSecuritySummaryBySpoofErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -364,7 +364,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByThreatCategoryResponses, RadarGetEmailSecuritySummaryByThreatCategoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -412,7 +412,7 @@ export class RadarEmailSecurityService {
         dmarc?: Array<'PASS' | 'NONE' | 'FAIL'>;
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryByTlsVersionResponses, RadarGetEmailSecuritySummaryByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -460,7 +460,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecuritySummaryResponses, RadarGetEmailSecuritySummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -511,7 +511,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByArcResponses, RadarGetEmailSecurityTimeseriesGroupByArcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -560,7 +560,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByDkimResponses, RadarGetEmailSecurityTimeseriesGroupByDkimErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -609,7 +609,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByDmarcResponses, RadarGetEmailSecurityTimeseriesGroupByDmarcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -659,7 +659,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByMaliciousResponses, RadarGetEmailSecurityTimeseriesGroupByMaliciousErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -710,7 +710,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupBySpamResponses, RadarGetEmailSecurityTimeseriesGroupBySpamErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -760,7 +760,7 @@ export class RadarEmailSecurityService {
         dmarc?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupBySpfResponses, RadarGetEmailSecurityTimeseriesGroupBySpfErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -810,7 +810,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupBySpoofResponses, RadarGetEmailSecurityTimeseriesGroupBySpoofErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -861,7 +861,7 @@ export class RadarEmailSecurityService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByThreatCategoryResponses, RadarGetEmailSecurityTimeseriesGroupByThreatCategoryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -911,7 +911,7 @@ export class RadarEmailSecurityService {
         dmarc?: Array<'PASS' | 'NONE' | 'FAIL'>;
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupByTlsVersionResponses, RadarGetEmailSecurityTimeseriesGroupByTlsVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -961,7 +961,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTimeseriesGroupResponses, RadarGetEmailSecurityTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -1013,7 +1013,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         tldCategory?: 'CLASSIC' | 'COUNTRY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTopTldsByMessagesResponses, RadarGetEmailSecurityTopTldsByMessagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -1065,7 +1065,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         tldCategory?: 'CLASSIC' | 'COUNTRY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTopTldsByMaliciousResponses, RadarGetEmailSecurityTopTldsByMaliciousErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'malicious' },
                     { in: 'query', key: 'limit' },
@@ -1118,7 +1118,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         tldCategory?: 'CLASSIC' | 'COUNTRY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTopTldsBySpamResponses, RadarGetEmailSecurityTopTldsBySpamErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'spam' },
                     { in: 'query', key: 'limit' },
@@ -1171,7 +1171,7 @@ export class RadarEmailSecurityService {
         tlsVersion?: Array<'TLSv1_0' | 'TLSv1_1' | 'TLSv1_2' | 'TLSv1_3'>;
         tldCategory?: 'CLASSIC' | 'COUNTRY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailSecurityTopTldsBySpoofResponses, RadarGetEmailSecurityTopTldsBySpoofErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'spoof' },
                     { in: 'query', key: 'limit' },

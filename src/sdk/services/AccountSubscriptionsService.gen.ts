@@ -4,13 +4,57 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccountSubscriptionsCreateSubscriptionErrors, AccountSubscriptionsCreateSubscriptionResponses, AccountSubscriptionsDeleteSubscriptionErrors, AccountSubscriptionsDeleteSubscriptionResponses, AccountSubscriptionsListSubscriptionsErrors, AccountSubscriptionsListSubscriptionsResponses, AccountSubscriptionsUpdateSubscriptionErrors, AccountSubscriptionsUpdateSubscriptionResponses, BillSubsApiIdentifier, BillSubsApiSchemasIdentifier, BillSubsApiSubscriptionV2Writable } from '../types.gen';
-import { zAccountSubscriptionsCreateSubscriptionBody, zAccountSubscriptionsCreateSubscriptionPath, zAccountSubscriptionsCreateSubscriptionResponse, zAccountSubscriptionsDeleteSubscriptionBody, zAccountSubscriptionsDeleteSubscriptionPath, zAccountSubscriptionsDeleteSubscriptionResponse, zAccountSubscriptionsListSubscriptionsPath, zAccountSubscriptionsListSubscriptionsResponse, zAccountSubscriptionsUpdateSubscriptionBody, zAccountSubscriptionsUpdateSubscriptionPath, zAccountSubscriptionsUpdateSubscriptionResponse } from '../zod.gen';
+import type { AccountSubscriptionsActionAppendSubscriptionErrors, AccountSubscriptionsActionAppendSubscriptionResponses, AccountSubscriptionsBulkCreateSubscriptionErrors, AccountSubscriptionsBulkCreateSubscriptionResponses, AccountSubscriptionsCreateSubscriptionErrors, AccountSubscriptionsCreateSubscriptionResponses, AccountSubscriptionsDeleteSubscriptionErrors, AccountSubscriptionsDeleteSubscriptionResponses, AccountSubscriptionsListSubscriptionsErrors, AccountSubscriptionsListSubscriptionsResponses, AccountSubscriptionsUpdateSubscriptionErrors, AccountSubscriptionsUpdateSubscriptionResponses, BillSubsApiIdentifier, BillSubsApiSchemasIdentifier, BillSubsApiSubscriptionV2Writable } from '../types.gen';
+import { zAccountSubscriptionsActionAppendSubscriptionBody, zAccountSubscriptionsActionAppendSubscriptionPath, zAccountSubscriptionsActionAppendSubscriptionResponse, zAccountSubscriptionsBulkCreateSubscriptionBody, zAccountSubscriptionsBulkCreateSubscriptionPath, zAccountSubscriptionsBulkCreateSubscriptionQuery, zAccountSubscriptionsBulkCreateSubscriptionResponse, zAccountSubscriptionsCreateSubscriptionBody, zAccountSubscriptionsCreateSubscriptionPath, zAccountSubscriptionsCreateSubscriptionResponse, zAccountSubscriptionsDeleteSubscriptionBody, zAccountSubscriptionsDeleteSubscriptionPath, zAccountSubscriptionsDeleteSubscriptionResponse, zAccountSubscriptionsListSubscriptionsPath, zAccountSubscriptionsListSubscriptionsResponse, zAccountSubscriptionsUpdateSubscriptionBody, zAccountSubscriptionsUpdateSubscriptionPath, zAccountSubscriptionsUpdateSubscriptionResponse } from '../zod.gen';
 
 export class AccountSubscriptionsService {
+    /**
+     * Create Subscriptions
+     *
+     * Creates multiple subscriptions for an account in a single request.
+     */
+    public static accountSubscriptionsBulkCreateSubscription<ThrowOnError extends boolean = true>(parameters: {
+        account_id: BillSubsApiIdentifier;
+        idemp_key?: string;
+        coupon_code?: string;
+        payment_hold_id?: number;
+        subscriptions?: Array<BillSubsApiSubscriptionV2Writable>;
+        user_is_on_session?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsBulkCreateSubscriptionResponses, AccountSubscriptionsBulkCreateSubscriptionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'idemp_key' },
+                    { in: 'body', key: 'coupon_code' },
+                    { in: 'body', key: 'payment_hold_id' },
+                    { in: 'body', key: 'subscriptions' },
+                    { in: 'body', key: 'user_is_on_session' }
+                ] }]);
+        return (options?.client ?? client).post<AccountSubscriptionsBulkCreateSubscriptionResponses, AccountSubscriptionsBulkCreateSubscriptionErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zAccountSubscriptionsBulkCreateSubscriptionBody,
+                path: zAccountSubscriptionsBulkCreateSubscriptionPath,
+                query: zAccountSubscriptionsBulkCreateSubscriptionQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAccountSubscriptionsBulkCreateSubscriptionResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/bulk/subscriptions',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
     /**
      * List Subscriptions
      *
@@ -18,7 +62,7 @@ export class AccountSubscriptionsService {
      */
     public static accountSubscriptionsListSubscriptions<ThrowOnError extends boolean = true>(parameters: {
         account_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsListSubscriptionsResponses, AccountSubscriptionsListSubscriptionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountSubscriptionsListSubscriptionsResponses, AccountSubscriptionsListSubscriptionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +90,7 @@ export class AccountSubscriptionsService {
     public static accountSubscriptionsCreateSubscription<ThrowOnError extends boolean = true>(parameters: {
         account_id: BillSubsApiIdentifier;
         billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsCreateSubscriptionResponses, AccountSubscriptionsCreateSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountSubscriptionsCreateSubscriptionResponses, AccountSubscriptionsCreateSubscriptionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +124,7 @@ export class AccountSubscriptionsService {
         subscription_identifier: BillSubsApiSchemasIdentifier;
         account_id: BillSubsApiIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsDeleteSubscriptionResponses, AccountSubscriptionsDeleteSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'subscription_identifier' },
                     { in: 'path', key: 'account_id' },
@@ -118,7 +162,7 @@ export class AccountSubscriptionsService {
         subscription_identifier: BillSubsApiSchemasIdentifier;
         account_id: BillSubsApiIdentifier;
         billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsUpdateSubscriptionResponses, AccountSubscriptionsUpdateSubscriptionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'subscription_identifier' },
                     { in: 'path', key: 'account_id' },
@@ -137,6 +181,44 @@ export class AccountSubscriptionsService {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/accounts/{account_id}/subscriptions/{subscription_identifier}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Append Subscription Action
+     *
+     * Smartly applies the incoming subscription into the lifecycle of the subscription.
+     */
+    public static accountSubscriptionsActionAppendSubscription<ThrowOnError extends boolean = true>(parameters: {
+        subscription_identifier: BillSubsApiSchemasIdentifier;
+        account_id: BillSubsApiIdentifier;
+        billSubsApiSubscriptionV2Writable: BillSubsApiSubscriptionV2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountSubscriptionsActionAppendSubscriptionResponses, AccountSubscriptionsActionAppendSubscriptionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'subscription_identifier' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'billSubsApiSubscriptionV2Writable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<AccountSubscriptionsActionAppendSubscriptionResponses, AccountSubscriptionsActionAppendSubscriptionErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zAccountSubscriptionsActionAppendSubscriptionBody,
+                path: zAccountSubscriptionsActionAppendSubscriptionPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAccountSubscriptionsActionAppendSubscriptionResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/subscriptions/{subscription_identifier}/action/append',
             ...options,
             ...params,
             headers: {

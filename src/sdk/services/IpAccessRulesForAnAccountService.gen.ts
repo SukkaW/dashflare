@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallAccountIdentifier, FirewallConfiguration, FirewallNotes, FirewallRuleIdentifier, FirewallSchemasMode, FirewallSchemasRuleWritable, IpAccessRulesForAnAccountCreateAnIpAccessRuleErrors, IpAccessRulesForAnAccountCreateAnIpAccessRuleResponses, IpAccessRulesForAnAccountDeleteAnIpAccessRuleErrors, IpAccessRulesForAnAccountDeleteAnIpAccessRuleResponses, IpAccessRulesForAnAccountGetAnIpAccessRuleErrors, IpAccessRulesForAnAccountGetAnIpAccessRuleResponses, IpAccessRulesForAnAccountListIpAccessRulesErrors, IpAccessRulesForAnAccountListIpAccessRulesResponses, IpAccessRulesForAnAccountUpdateAnIpAccessRuleErrors, IpAccessRulesForAnAccountUpdateAnIpAccessRuleResponses } from '../types.gen';
@@ -27,7 +27,7 @@ export class IpAccessRulesForAnAccountService {
         per_page?: number;
         order?: 'configuration.target' | 'configuration.value' | 'mode';
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAnAccountListIpAccessRulesResponses, IpAccessRulesForAnAccountListIpAccessRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'mode' },
@@ -70,7 +70,7 @@ export class IpAccessRulesForAnAccountService {
         configuration: FirewallConfiguration;
         mode: FirewallSchemasMode;
         notes?: FirewallNotes & unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAnAccountCreateAnIpAccessRuleResponses, IpAccessRulesForAnAccountCreateAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'configuration' },
@@ -111,7 +111,7 @@ export class IpAccessRulesForAnAccountService {
         rule_id: FirewallRuleIdentifier;
         account_id: FirewallAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAnAccountDeleteAnIpAccessRuleResponses, IpAccessRulesForAnAccountDeleteAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },
@@ -148,7 +148,7 @@ export class IpAccessRulesForAnAccountService {
     public static ipAccessRulesForAnAccountGetAnIpAccessRule<ThrowOnError extends boolean = true>(parameters: {
         rule_id: FirewallRuleIdentifier;
         account_id: FirewallAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAnAccountGetAnIpAccessRuleResponses, IpAccessRulesForAnAccountGetAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAccessRulesForAnAccountGetAnIpAccessRuleResponses, IpAccessRulesForAnAccountGetAnIpAccessRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -179,7 +179,7 @@ export class IpAccessRulesForAnAccountService {
         rule_id: FirewallRuleIdentifier;
         account_id: FirewallAccountIdentifier;
         firewallSchemasRuleWritable: FirewallSchemasRuleWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAnAccountUpdateAnIpAccessRuleResponses, IpAccessRulesForAnAccountUpdateAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'account_id' },

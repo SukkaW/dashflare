@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { Web3ContentListEntryCreateRequest, Web3ContentListUpdateRequestWritable, Web3CreateRequest, Web3HostnameCreateIpfsUniversalPathGatewayContentListEntryErrors, Web3HostnameCreateIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameCreateWeb3HostnameErrors, Web3HostnameCreateWeb3HostnameResponses, Web3HostnameDeleteIpfsUniversalPathGatewayContentListEntryErrors, Web3HostnameDeleteIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameDeleteWeb3HostnameErrors, Web3HostnameDeleteWeb3HostnameResponses, Web3HostnameEditIpfsUniversalPathGatewayContentListEntryErrors, Web3HostnameEditIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameEditWeb3HostnameErrors, Web3HostnameEditWeb3HostnameResponses, Web3HostnameIpfsUniversalPathGatewayContentListDetailsErrors, Web3HostnameIpfsUniversalPathGatewayContentListDetailsResponses, Web3HostnameIpfsUniversalPathGatewayContentListEntryDetailsErrors, Web3HostnameIpfsUniversalPathGatewayContentListEntryDetailsResponses, Web3HostnameListIpfsUniversalPathGatewayContentListEntriesErrors, Web3HostnameListIpfsUniversalPathGatewayContentListEntriesResponses, Web3HostnameListWeb3HostnamesErrors, Web3HostnameListWeb3HostnamesResponses, Web3HostnameUpdateIpfsUniversalPathGatewayContentListErrors, Web3HostnameUpdateIpfsUniversalPathGatewayContentListResponses, Web3HostnameWeb3HostnameDetailsErrors, Web3HostnameWeb3HostnameDetailsResponses, Web3Identifier, Web3ModifyRequest } from '../types.gen';
@@ -16,7 +16,7 @@ export class Web3HostnameService {
      */
     public static web3HostnameListWeb3Hostnames<ThrowOnError extends boolean = true>(parameters: {
         zone_id: Web3Identifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameListWeb3HostnamesResponses, Web3HostnameListWeb3HostnamesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Web3HostnameListWeb3HostnamesResponses, Web3HostnameListWeb3HostnamesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class Web3HostnameService {
     public static web3HostnameCreateWeb3Hostname<ThrowOnError extends boolean = true>(parameters: {
         zone_id: Web3Identifier;
         web3CreateRequest: Web3CreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameCreateWeb3HostnameResponses, Web3HostnameCreateWeb3HostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'web3CreateRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<Web3HostnameCreateWeb3HostnameResponses, Web3HostnameCreateWeb3HostnameErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameDeleteWeb3HostnameResponses, Web3HostnameDeleteWeb3HostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'zone_id' },
@@ -109,7 +109,7 @@ export class Web3HostnameService {
     public static web3HostnameWeb3HostnameDetails<ThrowOnError extends boolean = true>(parameters: {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameWeb3HostnameDetailsResponses, Web3HostnameWeb3HostnameDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Web3HostnameWeb3HostnameDetailsResponses, Web3HostnameWeb3HostnameDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +136,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         web3ModifyRequest: Web3ModifyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameEditWeb3HostnameResponses, Web3HostnameEditWeb3HostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'zone_id' },
@@ -171,7 +171,7 @@ export class Web3HostnameService {
     public static web3HostnameIpfsUniversalPathGatewayContentListDetails<ThrowOnError extends boolean = true>(parameters: {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameIpfsUniversalPathGatewayContentListDetailsResponses, Web3HostnameIpfsUniversalPathGatewayContentListDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Web3HostnameIpfsUniversalPathGatewayContentListDetailsResponses, Web3HostnameIpfsUniversalPathGatewayContentListDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -198,7 +198,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         web3ContentListUpdateRequestWritable: Web3ContentListUpdateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameUpdateIpfsUniversalPathGatewayContentListResponses, Web3HostnameUpdateIpfsUniversalPathGatewayContentListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'zone_id' },
@@ -233,7 +233,7 @@ export class Web3HostnameService {
     public static web3HostnameListIpfsUniversalPathGatewayContentListEntries<ThrowOnError extends boolean = true>(parameters: {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameListIpfsUniversalPathGatewayContentListEntriesResponses, Web3HostnameListIpfsUniversalPathGatewayContentListEntriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Web3HostnameListIpfsUniversalPathGatewayContentListEntriesResponses, Web3HostnameListIpfsUniversalPathGatewayContentListEntriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -260,7 +260,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         web3ContentListEntryCreateRequest: Web3ContentListEntryCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameCreateIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameCreateIpfsUniversalPathGatewayContentListEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'zone_id' },
@@ -297,7 +297,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameDeleteIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameDeleteIpfsUniversalPathGatewayContentListEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'content_list_entry_identifier' },
                     { in: 'path', key: 'identifier' },
@@ -334,7 +334,7 @@ export class Web3HostnameService {
         content_list_entry_identifier: Web3Identifier;
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameIpfsUniversalPathGatewayContentListEntryDetailsResponses, Web3HostnameIpfsUniversalPathGatewayContentListEntryDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'content_list_entry_identifier' },
                     { in: 'path', key: 'identifier' },
@@ -366,7 +366,7 @@ export class Web3HostnameService {
         identifier: Web3Identifier;
         zone_id: Web3Identifier;
         web3ContentListEntryCreateRequest: Web3ContentListEntryCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Web3HostnameEditIpfsUniversalPathGatewayContentListEntryResponses, Web3HostnameEditIpfsUniversalPathGatewayContentListEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'content_list_entry_identifier' },
                     { in: 'path', key: 'identifier' },

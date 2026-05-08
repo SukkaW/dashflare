@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { LoadBalancerHealthcheckEventsListHealthcheckEventsErrors, LoadBalancerHealthcheckEventsListHealthcheckEventsResponses, LoadBalancingOriginHealthy2, LoadBalancingPoolName, LoadBalancingSchemasIdentifier, LoadBalancingUntil } from '../types.gen';
@@ -24,7 +24,7 @@ export class LoadBalancerHealthcheckEventsService {
         since?: string;
         origin_name?: string;
         pool_healthy?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerHealthcheckEventsListHealthcheckEventsResponses, LoadBalancerHealthcheckEventsListHealthcheckEventsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'until' },
                     { in: 'query', key: 'pool_name' },

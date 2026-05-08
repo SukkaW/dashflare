@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAiBotsSummaryByUserAgentErrors, RadarGetAiBotsSummaryByUserAgentResponses, RadarGetAiBotsSummaryErrors, RadarGetAiBotsSummaryResponses, RadarGetAiBotsTimeseriesErrors, RadarGetAiBotsTimeseriesGroupByUserAgentErrors, RadarGetAiBotsTimeseriesGroupByUserAgentResponses, RadarGetAiBotsTimeseriesGroupErrors, RadarGetAiBotsTimeseriesGroupResponses, RadarGetAiBotsTimeseriesResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarAiBotsService {
         continent?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiBotsSummaryByUserAgentResponses, RadarGetAiBotsSummaryByUserAgentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -81,7 +81,7 @@ export class RadarAiBotsService {
         responseStatusCategory?: Array<'INFORMATIONAL' | 'SUCCESS' | 'REDIRECTION' | 'CLIENT_ERROR' | 'SERVER_ERROR'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiBotsSummaryResponses, RadarGetAiBotsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -142,7 +142,7 @@ export class RadarAiBotsService {
         responseStatusCategory?: Array<'INFORMATIONAL' | 'SUCCESS' | 'REDIRECTION' | 'CLIENT_ERROR' | 'SERVER_ERROR'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiBotsTimeseriesResponses, RadarGetAiBotsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -198,7 +198,7 @@ export class RadarAiBotsService {
         continent?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiBotsTimeseriesGroupByUserAgentResponses, RadarGetAiBotsTimeseriesGroupByUserAgentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -252,9 +252,9 @@ export class RadarAiBotsService {
         responseStatus?: Array<string>;
         responseStatusCategory?: Array<'INFORMATIONAL' | 'SUCCESS' | 'REDIRECTION' | 'CLIENT_ERROR' | 'SERVER_ERROR'>;
         limitPerGroup?: number;
-        normalization?: 'PERCENTAGE' | 'MIN0_MAX';
+        normalization?: 'PERCENTAGE' | 'MIN0_MAX' | 'PERCENTAGE_CHANGE';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiBotsTimeseriesGroupResponses, RadarGetAiBotsTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigCreateProvidersErrors, AigConfigCreateProvidersResponses, AigConfigDeleteProvidersErrors, AigConfigDeleteProvidersResponses, AigConfigListProvidersErrors, AigConfigListProvidersResponses, AigConfigUpdateProvidersErrors, AigConfigUpdateProvidersResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class AiGatewayProviderConfigsService {
         gateway_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListProvidersResponses, AigConfigListProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -59,9 +59,9 @@ export class AiGatewayProviderConfigsService {
         provider_slug: string;
         rate_limit?: number;
         rate_limit_period?: number;
-        secret: string;
-        secret_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+        secret?: string;
+        secret_id?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigCreateProvidersResponses, AigConfigCreateProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -105,7 +105,7 @@ export class AiGatewayProviderConfigsService {
         account_id: string;
         gateway_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteProvidersResponses, AigConfigDeleteProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -139,7 +139,7 @@ export class AiGatewayProviderConfigsService {
         gateway_id: string;
         id: string;
         secret: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigUpdateProvidersResponses, AigConfigUpdateProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },

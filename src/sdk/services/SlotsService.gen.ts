@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetSlotErrors, GetSlotResponses, ListSlotsErrors, ListSlotsResponses, NscAccountTag } from '../types.gen';
@@ -22,7 +22,7 @@ export class SlotsService {
         occupied?: boolean | null;
         cursor?: number | null;
         limit?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListSlotsResponses, ListSlotsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'address_contains' },
@@ -56,7 +56,7 @@ export class SlotsService {
     public static getSlot<ThrowOnError extends boolean = true>(parameters: {
         slot: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSlotResponses, GetSlotErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'slot' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetSlotResponses, GetSlotErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldApiDiscoveryOrigin, ApiShieldApiDiscoveryPatchMultipleRequest, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiErrors, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneErrors, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneResponses, ApiShieldApiDiscoveryState, ApiShieldApiDiscoveryStatePatch, ApiShieldApiPatchDiscoveredOperationErrors, ApiShieldApiPatchDiscoveredOperationResponses, ApiShieldApiPatchDiscoveredOperationsErrors, ApiShieldApiPatchDiscoveredOperationsResponses, ApiShieldSchemasIdentifier, ApiShieldSchemasUuidWritable } from '../types.gen';
-import { zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiPath, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponse, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZonePath, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneQuery, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneResponse, zApiShieldApiPatchDiscoveredOperationBody, zApiShieldApiPatchDiscoveredOperationPath, zApiShieldApiPatchDiscoveredOperationResponse, zApiShieldApiPatchDiscoveredOperationsBody, zApiShieldApiPatchDiscoveredOperationsPath, zApiShieldApiPatchDiscoveredOperationsResponse } from '../zod.gen';
+import type { ApiShieldApiDiscoveryOrigin, ApiShieldApiDiscoveryPatchMultipleRequest, ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdErrors, ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiErrors, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneErrors, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneResponses, ApiShieldApiDiscoveryState, ApiShieldApiDiscoveryStatePatch, ApiShieldApiPatchDiscoveredOperationErrors, ApiShieldApiPatchDiscoveredOperationResponses, ApiShieldApiPatchDiscoveredOperationsErrors, ApiShieldApiPatchDiscoveredOperationsResponses, ApiShieldIdentifier2, ApiShieldUuid2Writable } from '../types.gen';
+import { zApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdPath, zApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdResponse, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiPath, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponse, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZonePath, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneQuery, zApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneResponse, zApiShieldApiPatchDiscoveredOperationBody, zApiShieldApiPatchDiscoveredOperationPath, zApiShieldApiPatchDiscoveredOperationResponse, zApiShieldApiPatchDiscoveredOperationsBody, zApiShieldApiPatchDiscoveredOperationsPath, zApiShieldApiPatchDiscoveredOperationsResponse } from '../zod.gen';
 
 export class ApiShieldApiDiscoveryService {
     /**
@@ -17,8 +17,8 @@ export class ApiShieldApiDiscoveryService {
      * Retrieve the most up to date view of discovered operations, rendered as OpenAPI schemas
      */
     public static apiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapi<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneAsOpenapiErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class ApiShieldApiDiscoveryService {
      * Retrieve the most up to date view of discovered operations
      */
     public static apiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZone<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
         host?: Array<string>;
@@ -55,7 +55,7 @@ export class ApiShieldApiDiscoveryService {
         diff?: boolean;
         origin?: ApiShieldApiDiscoveryOrigin;
         state?: ApiShieldApiDiscoveryState;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -93,9 +93,9 @@ export class ApiShieldApiDiscoveryService {
      * Update the `state` on one or more discovered operations
      */
     public static apiShieldApiPatchDiscoveredOperations<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldApiDiscoveryPatchMultipleRequest: ApiShieldApiDiscoveryPatchMultipleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldApiPatchDiscoveredOperationsResponses, ApiShieldApiPatchDiscoveredOperationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldApiDiscoveryPatchMultipleRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<ApiShieldApiPatchDiscoveredOperationsResponses, ApiShieldApiPatchDiscoveredOperationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -121,18 +121,46 @@ export class ApiShieldApiDiscoveryService {
     }
     
     /**
+     * Retrieve a discovered operation
+     *
+     * Retrieve a single discovered operation by ID
+     */
+    public static apiShieldApiDiscoveryRetrieveDiscoveredOperationById<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: ApiShieldIdentifier2;
+        discovery_id: ApiShieldUuid2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'discovery_id' }] }]);
+        return (options?.client ?? client).get<ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdResponses, ApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zApiShieldApiDiscoveryRetrieveDiscoveredOperationByIdResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/zones/{zone_id}/api_gateway/discovery/operations/{discovery_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Patch discovered operation
      *
      * Update the `state` on a discovered operation
      */
     public static apiShieldApiPatchDiscoveredOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        operation_id: ApiShieldSchemasUuidWritable;
+        zone_id: ApiShieldIdentifier2;
+        discovery_id: ApiShieldUuid2Writable;
         state?: ApiShieldApiDiscoveryStatePatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldApiPatchDiscoveredOperationResponses, ApiShieldApiPatchDiscoveredOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
-                    { in: 'path', key: 'operation_id' },
+                    { in: 'path', key: 'discovery_id' },
                     { in: 'body', key: 'state' }
                 ] }]);
         return (options?.client ?? client).patch<ApiShieldApiPatchDiscoveredOperationResponses, ApiShieldApiPatchDiscoveredOperationErrors, ThrowOnError>({
@@ -147,7 +175,7 @@ export class ApiShieldApiDiscoveryService {
                 { name: 'X-Auth-Key', type: 'apiKey' },
                 { scheme: 'bearer', type: 'http' }
             ],
-            url: '/zones/{zone_id}/api_gateway/discovery/operations/{operation_id}',
+            url: '/zones/{zone_id}/api_gateway/discovery/operations/{discovery_id}',
             ...options,
             ...params,
             headers: {

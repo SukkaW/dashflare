@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessDirection, AccessIdentifier, AccessIdpId, AccessLimit, AccessRequestMethod, AccessRequestsCfResourceId, AccessRequestsIdpResourceId, AccessRequestsStatus, AccessResourceGroupName, AccessResourceType, AccessResourceUserEmail, AccessScimUpdateLogsListAccessScimUpdateLogsErrors, AccessScimUpdateLogsListAccessScimUpdateLogsResponses, AccessSince, AccessUntil } from '../types.gen';
+import type { AccessCfResourceId3, AccessDirection, AccessIdentifier, AccessIdpId, AccessIdpResourceId3, AccessLimit, AccessRequestMethod, AccessResourceGroupName, AccessResourceType, AccessResourceUserEmail, AccessScimUpdateLogsListAccessScimUpdateLogsErrors, AccessScimUpdateLogsListAccessScimUpdateLogsResponses, AccessSince, AccessStatus2, AccessUntil } from '../types.gen';
 import { zAccessScimUpdateLogsListAccessScimUpdateLogsPath, zAccessScimUpdateLogsListAccessScimUpdateLogsQuery, zAccessScimUpdateLogsListAccessScimUpdateLogsResponse } from '../zod.gen';
 
 export class AccessScimUpdateLogsService {
@@ -23,16 +23,16 @@ export class AccessScimUpdateLogsService {
         since?: AccessSince;
         until?: AccessUntil;
         idp_id: AccessIdpId;
-        status?: AccessRequestsStatus;
+        status?: AccessStatus2;
         resource_type?: AccessResourceType;
         request_method?: AccessRequestMethod;
         resource_user_email?: AccessResourceUserEmail;
         resource_group_name?: AccessResourceGroupName;
-        cf_resource_id?: AccessRequestsCfResourceId;
-        idp_resource_id?: AccessRequestsIdpResourceId;
+        cf_resource_id?: AccessCfResourceId3;
+        idp_resource_id?: AccessIdpResourceId3;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessScimUpdateLogsListAccessScimUpdateLogsResponses, AccessScimUpdateLogsListAccessScimUpdateLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'limit' },

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { TunnelAccountId, TunnelAddressFamily, TunnelExistedAt, TunnelIpNetworkEncoded, TunnelPageNumber, TunnelPerPage, TunnelSubnetComment, TunnelSubnetId, TunnelSubnetIpNetwork, TunnelSubnetIsDefaultNetwork, TunnelSubnetName, TunnelSubnetQueryComment, TunnelSubnetQueryName, ZeroTrustNetworksSubnetCreateWarpErrors, ZeroTrustNetworksSubnetCreateWarpResponses, ZeroTrustNetworksSubnetDeleteWarpErrors, ZeroTrustNetworksSubnetDeleteWarpResponses, ZeroTrustNetworksSubnetGetWarpErrors, ZeroTrustNetworksSubnetGetWarpResponses, ZeroTrustNetworksSubnetsListErrors, ZeroTrustNetworksSubnetsListResponses, ZeroTrustNetworksSubnetUpdateCloudflareSourceErrors, ZeroTrustNetworksSubnetUpdateCloudflareSourceResponses, ZeroTrustNetworksSubnetUpdateWarpErrors, ZeroTrustNetworksSubnetUpdateWarpResponses } from '../types.gen';
-import { zZeroTrustNetworksSubnetCreateWarpBody, zZeroTrustNetworksSubnetCreateWarpPath, zZeroTrustNetworksSubnetCreateWarpResponse, zZeroTrustNetworksSubnetDeleteWarpPath, zZeroTrustNetworksSubnetDeleteWarpResponse, zZeroTrustNetworksSubnetGetWarpPath, zZeroTrustNetworksSubnetGetWarpResponse, zZeroTrustNetworksSubnetsListPath, zZeroTrustNetworksSubnetsListQuery, zZeroTrustNetworksSubnetsListResponse, zZeroTrustNetworksSubnetUpdateCloudflareSourceBody, zZeroTrustNetworksSubnetUpdateCloudflareSourcePath, zZeroTrustNetworksSubnetUpdateCloudflareSourceResponse, zZeroTrustNetworksSubnetUpdateWarpBody, zZeroTrustNetworksSubnetUpdateWarpPath, zZeroTrustNetworksSubnetUpdateWarpResponse } from '../zod.gen';
+import type { TunnelAccountId, TunnelAddressFamily, TunnelExistedAt, TunnelIpNetworkEncoded, TunnelPageNumber, TunnelPerPage, TunnelSubnetComment, TunnelSubnetId, TunnelSubnetIpNetwork, TunnelSubnetIsDefaultNetwork, TunnelSubnetName, TunnelSubnetQueryComment, TunnelSubnetQueryName, ZeroTrustNetworksSubnetCreateWarpErrors, ZeroTrustNetworksSubnetCreateWarpResponses, ZeroTrustNetworksSubnetDeleteWarpErrors, ZeroTrustNetworksSubnetDeleteWarpResponses, ZeroTrustNetworksSubnetGetGatewayEphemeralErrors, ZeroTrustNetworksSubnetGetGatewayEphemeralResponses, ZeroTrustNetworksSubnetGetWarpErrors, ZeroTrustNetworksSubnetGetWarpResponses, ZeroTrustNetworksSubnetsListErrors, ZeroTrustNetworksSubnetsListResponses, ZeroTrustNetworksSubnetUpdateCloudflareSourceErrors, ZeroTrustNetworksSubnetUpdateCloudflareSourceResponses, ZeroTrustNetworksSubnetUpdateGatewayEphemeralErrors, ZeroTrustNetworksSubnetUpdateGatewayEphemeralResponses, ZeroTrustNetworksSubnetUpdateWarpErrors, ZeroTrustNetworksSubnetUpdateWarpResponses } from '../types.gen';
+import { zZeroTrustNetworksSubnetCreateWarpBody, zZeroTrustNetworksSubnetCreateWarpPath, zZeroTrustNetworksSubnetCreateWarpResponse, zZeroTrustNetworksSubnetDeleteWarpPath, zZeroTrustNetworksSubnetDeleteWarpResponse, zZeroTrustNetworksSubnetGetGatewayEphemeralPath, zZeroTrustNetworksSubnetGetGatewayEphemeralResponse, zZeroTrustNetworksSubnetGetWarpPath, zZeroTrustNetworksSubnetGetWarpResponse, zZeroTrustNetworksSubnetsListPath, zZeroTrustNetworksSubnetsListQuery, zZeroTrustNetworksSubnetsListResponse, zZeroTrustNetworksSubnetUpdateCloudflareSourceBody, zZeroTrustNetworksSubnetUpdateCloudflareSourcePath, zZeroTrustNetworksSubnetUpdateCloudflareSourceResponse, zZeroTrustNetworksSubnetUpdateGatewayEphemeralBody, zZeroTrustNetworksSubnetUpdateGatewayEphemeralPath, zZeroTrustNetworksSubnetUpdateGatewayEphemeralResponse, zZeroTrustNetworksSubnetUpdateWarpBody, zZeroTrustNetworksSubnetUpdateWarpPath, zZeroTrustNetworksSubnetUpdateWarpResponse } from '../zod.gen';
 
 export class ZeroTrustSubnetsService {
     /**
@@ -26,10 +26,10 @@ export class ZeroTrustSubnetsService {
         is_default_network?: boolean;
         is_deleted?: boolean;
         sort_order?: 'asc' | 'desc';
-        subnet_types?: 'cloudflare_source' | 'warp';
+        subnet_types?: 'cloudflare_source' | 'initial_resolved_ip' | 'warp';
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetsListResponses, ZeroTrustNetworksSubnetsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -74,7 +74,7 @@ export class ZeroTrustSubnetsService {
         comment?: TunnelSubnetComment;
         name?: TunnelSubnetName;
         network?: TunnelSubnetIpNetwork;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetUpdateCloudflareSourceResponses, ZeroTrustNetworksSubnetUpdateCloudflareSourceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'address_family' },
@@ -107,6 +107,80 @@ export class ZeroTrustSubnetsService {
     }
     
     /**
+     * Get Gateway Ephemeral Subnet
+     *
+     * Returns the account's default gateway ephemeral subnet for the given address family.
+     */
+    public static zeroTrustNetworksSubnetGetGatewayEphemeral<ThrowOnError extends boolean = true>(parameters: {
+        account_id: TunnelAccountId;
+        address_family: TunnelAddressFamily;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetGetGatewayEphemeralResponses, ZeroTrustNetworksSubnetGetGatewayEphemeralErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'address_family' }] }]);
+        return (options?.client ?? client).get<ZeroTrustNetworksSubnetGetGatewayEphemeralResponses, ZeroTrustNetworksSubnetGetGatewayEphemeralErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZeroTrustNetworksSubnetGetGatewayEphemeralPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustNetworksSubnetGetGatewayEphemeralResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update Gateway Ephemeral Subnet
+     *
+     * Updates the CIDR for the account's default gateway ephemeral subnet of the given address
+     * family. The new CIDR must not conflict with existing private routes in the account.
+     *
+     */
+    public static zeroTrustNetworksSubnetUpdateGatewayEphemeral<ThrowOnError extends boolean = true>(parameters: {
+        account_id: TunnelAccountId;
+        address_family: TunnelAddressFamily;
+        comment?: TunnelSubnetComment;
+        name?: TunnelSubnetName;
+        network?: TunnelSubnetIpNetwork;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetUpdateGatewayEphemeralResponses, ZeroTrustNetworksSubnetUpdateGatewayEphemeralErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'address_family' },
+                    { in: 'body', key: 'comment' },
+                    { in: 'body', key: 'name' },
+                    { in: 'body', key: 'network' }
+                ] }]);
+        return (options?.client ?? client).put<ZeroTrustNetworksSubnetUpdateGatewayEphemeralResponses, ZeroTrustNetworksSubnetUpdateGatewayEphemeralErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZeroTrustNetworksSubnetUpdateGatewayEphemeralBody,
+                path: zZeroTrustNetworksSubnetUpdateGatewayEphemeralPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZeroTrustNetworksSubnetUpdateGatewayEphemeralResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/zerotrust/subnets/initial_resolved_ip/{address_family}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Create WARP IP subnet
      *
      * Create a WARP IP assignment subnet. Currently, only IPv4 subnets can be created.
@@ -126,7 +200,7 @@ export class ZeroTrustSubnetsService {
         is_default_network?: TunnelSubnetIsDefaultNetwork;
         name: TunnelSubnetName;
         network: TunnelSubnetIpNetwork;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetCreateWarpResponses, ZeroTrustNetworksSubnetCreateWarpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'comment' },
@@ -166,7 +240,7 @@ export class ZeroTrustSubnetsService {
     public static zeroTrustNetworksSubnetDeleteWarp<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         subnet_id: TunnelSubnetId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetDeleteWarpResponses, ZeroTrustNetworksSubnetDeleteWarpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'subnet_id' }] }]);
         return (options?.client ?? client).delete<ZeroTrustNetworksSubnetDeleteWarpResponses, ZeroTrustNetworksSubnetDeleteWarpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,7 +269,7 @@ export class ZeroTrustSubnetsService {
     public static zeroTrustNetworksSubnetGetWarp<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         subnet_id: TunnelSubnetId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetGetWarpResponses, ZeroTrustNetworksSubnetGetWarpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'subnet_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustNetworksSubnetGetWarpResponses, ZeroTrustNetworksSubnetGetWarpErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -233,7 +307,7 @@ export class ZeroTrustSubnetsService {
         is_default_network?: TunnelSubnetIsDefaultNetwork;
         name?: TunnelSubnetName;
         network?: TunnelSubnetIpNetwork;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksSubnetUpdateWarpResponses, ZeroTrustNetworksSubnetUpdateWarpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'subnet_id' },

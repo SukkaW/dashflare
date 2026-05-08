@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountsTurnstileWidgetCreateErrors, AccountsTurnstileWidgetCreateResponses, AccountsTurnstileWidgetDeleteErrors, AccountsTurnstileWidgetDeleteResponses, AccountsTurnstileWidgetGetErrors, AccountsTurnstileWidgetGetResponses, AccountsTurnstileWidgetRotateSecretErrors, AccountsTurnstileWidgetRotateSecretResponses, AccountsTurnstileWidgetsListErrors, AccountsTurnstileWidgetsListResponses, AccountsTurnstileWidgetUpdateErrors, AccountsTurnstileWidgetUpdateResponses, TurnstileBotFightMode, TurnstileClearanceLevel, TurnstileDomains, TurnstileEphemeralId, TurnstileIdentifier, TurnstileInvalidateImmediately, TurnstileName, TurnstileOfflabel, TurnstileRegion, TurnstileSitekey, TurnstileWidgetMode } from '../types.gen';
@@ -23,7 +23,7 @@ export class TurnstileService {
         order?: 'id' | 'sitekey' | 'name' | 'created_on' | 'modified_on';
         direction?: 'asc' | 'desc';
         filter?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetsListResponses, AccountsTurnstileWidgetsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -70,7 +70,7 @@ export class TurnstileService {
         name: TurnstileName;
         offlabel?: TurnstileOfflabel;
         region?: TurnstileRegion;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetCreateResponses, AccountsTurnstileWidgetCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -118,7 +118,7 @@ export class TurnstileService {
     public static accountsTurnstileWidgetDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: TurnstileIdentifier;
         sitekey: TurnstileSitekey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetDeleteResponses, AccountsTurnstileWidgetDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sitekey' }] }]);
         return (options?.client ?? client).delete<AccountsTurnstileWidgetDeleteResponses, AccountsTurnstileWidgetDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,7 +146,7 @@ export class TurnstileService {
     public static accountsTurnstileWidgetGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: TurnstileIdentifier;
         sitekey: TurnstileSitekey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetGetResponses, AccountsTurnstileWidgetGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sitekey' }] }]);
         return (options?.client ?? client).get<AccountsTurnstileWidgetGetResponses, AccountsTurnstileWidgetGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -182,7 +182,7 @@ export class TurnstileService {
         name: TurnstileName;
         offlabel?: TurnstileOfflabel;
         region?: TurnstileRegion;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetUpdateResponses, AccountsTurnstileWidgetUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sitekey' },
@@ -231,7 +231,7 @@ export class TurnstileService {
         account_id: TurnstileIdentifier;
         sitekey: TurnstileSitekey;
         invalidate_immediately?: TurnstileInvalidateImmediately;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsTurnstileWidgetRotateSecretResponses, AccountsTurnstileWidgetRotateSecretErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sitekey' },

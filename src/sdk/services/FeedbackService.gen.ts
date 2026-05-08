@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BotManagementFeedbackReportWritable, BotManagementIdentifier, BotManagementZoneFeedbackCreateErrors, BotManagementZoneFeedbackCreateResponses, BotManagementZoneFeedbackListErrors, BotManagementZoneFeedbackListResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class FeedbackService {
      */
     public static botManagementZoneFeedbackList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BotManagementIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotManagementZoneFeedbackListResponses, BotManagementZoneFeedbackListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<BotManagementZoneFeedbackListResponses, BotManagementZoneFeedbackListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class FeedbackService {
     public static botManagementZoneFeedbackCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BotManagementIdentifier;
         botManagementFeedbackReportWritable: BotManagementFeedbackReportWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotManagementZoneFeedbackCreateResponses, BotManagementZoneFeedbackCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'botManagementFeedbackReportWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<BotManagementZoneFeedbackCreateResponses, BotManagementZoneFeedbackCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

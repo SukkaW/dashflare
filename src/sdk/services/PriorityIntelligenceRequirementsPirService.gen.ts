@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudforceOnePriorityDeleteErrors, CloudforceOnePriorityDeleteResponses, CloudforceOnePriorityGetErrors, CloudforceOnePriorityGetResponses, CloudforceOnePriorityListErrors, CloudforceOnePriorityListResponses, CloudforceOnePriorityNewErrors, CloudforceOnePriorityNewResponses, CloudforceOnePriorityQuotaErrors, CloudforceOnePriorityQuotaResponses, CloudforceOnePriorityUpdateErrors, CloudforceOnePriorityUpdateResponses, CloudforceOneRequestsIdentifier, CloudforceOneRequestsPriorityEdit, CloudforceOneRequestsPriorityList, CloudforceOneRequestsUuid } from '../types.gen';
@@ -19,7 +19,7 @@ export class PriorityIntelligenceRequirementsPirService {
     public static cloudforceOnePriorityList<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         cloudforceOneRequestsPriorityList: CloudforceOneRequestsPriorityList;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityListResponses, CloudforceOnePriorityListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneRequestsPriorityList', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudforceOnePriorityListResponses, CloudforceOnePriorityListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class PriorityIntelligenceRequirementsPirService {
     public static cloudforceOnePriorityNew<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         cloudforceOneRequestsPriorityEdit: CloudforceOneRequestsPriorityEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityNewResponses, CloudforceOnePriorityNewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'cloudforceOneRequestsPriorityEdit', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudforceOnePriorityNewResponses, CloudforceOnePriorityNewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -76,7 +76,7 @@ export class PriorityIntelligenceRequirementsPirService {
      */
     public static cloudforceOnePriorityQuota<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityQuotaResponses, CloudforceOnePriorityQuotaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudforceOnePriorityQuotaResponses, CloudforceOnePriorityQuotaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class PriorityIntelligenceRequirementsPirService {
     public static cloudforceOnePriorityDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         priority_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityDeleteResponses, CloudforceOnePriorityDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'priority_id' }] }]);
         return (options?.client ?? client).delete<CloudforceOnePriorityDeleteResponses, CloudforceOnePriorityDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -124,7 +124,7 @@ export class PriorityIntelligenceRequirementsPirService {
     public static cloudforceOnePriorityGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudforceOneRequestsIdentifier;
         priority_id: CloudforceOneRequestsUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityGetResponses, CloudforceOnePriorityGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'priority_id' }] }]);
         return (options?.client ?? client).get<CloudforceOnePriorityGetResponses, CloudforceOnePriorityGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -149,7 +149,7 @@ export class PriorityIntelligenceRequirementsPirService {
         account_id: CloudforceOneRequestsIdentifier;
         priority_id: CloudforceOneRequestsUuid;
         cloudforceOneRequestsPriorityEdit: CloudforceOneRequestsPriorityEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudforceOnePriorityUpdateResponses, CloudforceOnePriorityUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'priority_id' },

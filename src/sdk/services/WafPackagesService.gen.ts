@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallActionMode, FirewallIdentifier, FirewallPackageId, FirewallSensitivity, WafPackagesGetAWafPackageErrors, WafPackagesGetAWafPackageResponses, WafPackagesListWafPackagesErrors, WafPackagesListWafPackagesResponses, WafPackagesUpdateAWafPackageErrors, WafPackagesUpdateAWafPackageResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class WafPackagesService {
         direction?: 'asc' | 'desc';
         match?: 'any' | 'all';
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafPackagesListWafPackagesResponses, WafPackagesListWafPackagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -68,7 +68,7 @@ export class WafPackagesService {
     public static wafPackagesGetAWafPackage<ThrowOnError extends boolean = true>(parameters: {
         package_id: FirewallPackageId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafPackagesGetAWafPackageResponses, WafPackagesGetAWafPackageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'package_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafPackagesGetAWafPackageResponses, WafPackagesGetAWafPackageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -102,7 +102,7 @@ export class WafPackagesService {
         zone_id: FirewallIdentifier;
         action_mode?: FirewallActionMode;
         sensitivity?: FirewallSensitivity;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafPackagesUpdateAWafPackageResponses, WafPackagesUpdateAWafPackageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'package_id' },
                     { in: 'path', key: 'zone_id' },

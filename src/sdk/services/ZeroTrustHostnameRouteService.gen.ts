@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { TunnelAccountId, TunnelComponentsSchemasTunnelId, TunnelExistedAt, TunnelHostname, TunnelHostnameComment, TunnelHostnameQueryComment, TunnelHostnameRouteId, TunnelPageNumber, TunnelPerPage, ZeroTrustNetworksRouteHostnameCreateErrors, ZeroTrustNetworksRouteHostnameCreateResponses, ZeroTrustNetworksRouteHostnameDeleteErrors, ZeroTrustNetworksRouteHostnameDeleteResponses, ZeroTrustNetworksRouteHostnameGetErrors, ZeroTrustNetworksRouteHostnameGetResponses, ZeroTrustNetworksRouteHostnameListErrors, ZeroTrustNetworksRouteHostnameListResponses, ZeroTrustNetworksRouteHostnameUpdateErrors, ZeroTrustNetworksRouteHostnameUpdateResponses } from '../types.gen';
+import type { TunnelAccountId, TunnelExistedAt, TunnelHostname, TunnelHostnameComment, TunnelHostnameQueryComment, TunnelHostnameRouteId, TunnelPageNumber, TunnelPerPage, TunnelTunnelId3, ZeroTrustNetworksRouteHostnameCreateErrors, ZeroTrustNetworksRouteHostnameCreateResponses, ZeroTrustNetworksRouteHostnameDeleteErrors, ZeroTrustNetworksRouteHostnameDeleteResponses, ZeroTrustNetworksRouteHostnameGetErrors, ZeroTrustNetworksRouteHostnameGetResponses, ZeroTrustNetworksRouteHostnameListErrors, ZeroTrustNetworksRouteHostnameListResponses, ZeroTrustNetworksRouteHostnameUpdateErrors, ZeroTrustNetworksRouteHostnameUpdateResponses } from '../types.gen';
 import { zZeroTrustNetworksRouteHostnameCreateBody, zZeroTrustNetworksRouteHostnameCreatePath, zZeroTrustNetworksRouteHostnameCreateResponse, zZeroTrustNetworksRouteHostnameDeletePath, zZeroTrustNetworksRouteHostnameDeleteResponse, zZeroTrustNetworksRouteHostnameGetPath, zZeroTrustNetworksRouteHostnameGetResponse, zZeroTrustNetworksRouteHostnameListPath, zZeroTrustNetworksRouteHostnameListQuery, zZeroTrustNetworksRouteHostnameListResponse, zZeroTrustNetworksRouteHostnameUpdateBody, zZeroTrustNetworksRouteHostnameUpdatePath, zZeroTrustNetworksRouteHostnameUpdateResponse } from '../zod.gen';
 
 export class ZeroTrustHostnameRouteService {
@@ -20,13 +20,13 @@ export class ZeroTrustHostnameRouteService {
         account_id: TunnelAccountId;
         id?: TunnelHostnameRouteId;
         hostname?: TunnelHostname;
-        tunnel_id?: TunnelComponentsSchemasTunnelId;
+        tunnel_id?: TunnelTunnelId3;
         comment?: TunnelHostnameQueryComment;
         existed_at?: TunnelExistedAt;
         is_deleted?: boolean;
         per_page?: TunnelPerPage;
         page?: TunnelPageNumber;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksRouteHostnameListResponses, ZeroTrustNetworksRouteHostnameListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -66,8 +66,8 @@ export class ZeroTrustHostnameRouteService {
         account_id: TunnelAccountId;
         comment?: TunnelHostnameComment;
         hostname?: TunnelHostname;
-        tunnel_id?: TunnelComponentsSchemasTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+        tunnel_id?: TunnelTunnelId3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksRouteHostnameCreateResponses, ZeroTrustNetworksRouteHostnameCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'comment' },
@@ -106,7 +106,7 @@ export class ZeroTrustHostnameRouteService {
     public static zeroTrustNetworksRouteHostnameDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         hostname_route_id: TunnelHostnameRouteId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksRouteHostnameDeleteResponses, ZeroTrustNetworksRouteHostnameDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hostname_route_id' }] }]);
         return (options?.client ?? client).delete<ZeroTrustNetworksRouteHostnameDeleteResponses, ZeroTrustNetworksRouteHostnameDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class ZeroTrustHostnameRouteService {
     public static zeroTrustNetworksRouteHostnameGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelAccountId;
         hostname_route_id: TunnelHostnameRouteId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksRouteHostnameGetResponses, ZeroTrustNetworksRouteHostnameGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hostname_route_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustNetworksRouteHostnameGetResponses, ZeroTrustNetworksRouteHostnameGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -166,8 +166,8 @@ export class ZeroTrustHostnameRouteService {
         hostname_route_id: TunnelHostnameRouteId;
         comment?: TunnelHostnameComment;
         hostname?: TunnelHostname;
-        tunnel_id?: TunnelComponentsSchemasTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+        tunnel_id?: TunnelTunnelId3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustNetworksRouteHostnameUpdateResponses, ZeroTrustNetworksRouteHostnameUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'hostname_route_id' },

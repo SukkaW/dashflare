@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IntelIdentifier, IpIntelligenceGetIpOverviewErrors, IpIntelligenceGetIpOverviewResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class IpIntelligenceService {
         account_id: IntelIdentifier;
         ipv4?: string;
         ipv6?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpIntelligenceGetIpOverviewResponses, IpIntelligenceGetIpOverviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'ipv4' },

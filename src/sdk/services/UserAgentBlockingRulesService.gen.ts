@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallComponentsSchemasIdentifier, FirewallComponentsUaRuleId, FirewallConfiguration, FirewallDescription, FirewallDescriptionSearch, FirewallIdentifier, FirewallSchemasMode, FirewallSchemasPaused, FirewallUaConfiguration, UserAgentBlockingRulesCreateAuserAgentBlockingRuleErrors, UserAgentBlockingRulesCreateAuserAgentBlockingRuleResponses, UserAgentBlockingRulesDeleteAuserAgentBlockingRuleErrors, UserAgentBlockingRulesDeleteAuserAgentBlockingRuleResponses, UserAgentBlockingRulesGetAuserAgentBlockingRuleErrors, UserAgentBlockingRulesGetAuserAgentBlockingRuleResponses, UserAgentBlockingRulesListUserAgentBlockingRulesErrors, UserAgentBlockingRulesListUserAgentBlockingRulesResponses, UserAgentBlockingRulesUpdateAuserAgentBlockingRuleErrors, UserAgentBlockingRulesUpdateAuserAgentBlockingRuleResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class UserAgentBlockingRulesService {
         per_page?: number;
         user_agent?: string;
         paused?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserAgentBlockingRulesListUserAgentBlockingRulesResponses, UserAgentBlockingRulesListUserAgentBlockingRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -61,7 +61,7 @@ export class UserAgentBlockingRulesService {
         description?: FirewallDescription;
         mode: FirewallSchemasMode;
         paused?: FirewallSchemasPaused;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserAgentBlockingRulesCreateAuserAgentBlockingRuleResponses, UserAgentBlockingRulesCreateAuserAgentBlockingRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'configuration' },
@@ -101,7 +101,7 @@ export class UserAgentBlockingRulesService {
         ua_rule_id: FirewallComponentsUaRuleId;
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserAgentBlockingRulesDeleteAuserAgentBlockingRuleResponses, UserAgentBlockingRulesDeleteAuserAgentBlockingRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ua_rule_id' },
                     { in: 'path', key: 'zone_id' },
@@ -138,7 +138,7 @@ export class UserAgentBlockingRulesService {
     public static userAgentBlockingRulesGetAUserAgentBlockingRule<ThrowOnError extends boolean = true>(parameters: {
         ua_rule_id: FirewallComponentsUaRuleId;
         zone_id: FirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserAgentBlockingRulesGetAuserAgentBlockingRuleResponses, UserAgentBlockingRulesGetAuserAgentBlockingRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ua_rule_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<UserAgentBlockingRulesGetAuserAgentBlockingRuleResponses, UserAgentBlockingRulesGetAuserAgentBlockingRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -171,7 +171,7 @@ export class UserAgentBlockingRulesService {
         id: FirewallComponentsSchemasIdentifier;
         mode: FirewallSchemasMode;
         paused?: FirewallSchemasPaused;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserAgentBlockingRulesUpdateAuserAgentBlockingRuleResponses, UserAgentBlockingRulesUpdateAuserAgentBlockingRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ua_rule_id' },
                     { in: 'path', key: 'zone_id' },

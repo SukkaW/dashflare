@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { RumCreateRuleRequest, RumCreateSiteRequest, RumIdentifier, RumModifyRulesRequest, RumOrderBy, RumPage, RumPerPage, RumRuleIdentifier, RumRulesetIdentifier, RumToggleRumRequest, RumUpdateSiteRequest, WebAnalyticsCreateRuleErrors, WebAnalyticsCreateRuleResponses, WebAnalyticsCreateSiteErrors, WebAnalyticsCreateSiteResponses, WebAnalyticsDeleteRuleErrors, WebAnalyticsDeleteRuleResponses, WebAnalyticsDeleteSiteErrors, WebAnalyticsDeleteSiteResponses, WebAnalyticsGetRumStatusErrors, WebAnalyticsGetRumStatusResponses, WebAnalyticsGetSiteErrors, WebAnalyticsGetSiteResponses, WebAnalyticsListRulesErrors, WebAnalyticsListRulesResponses, WebAnalyticsListSitesErrors, WebAnalyticsListSitesResponses, WebAnalyticsModifyRulesErrors, WebAnalyticsModifyRulesResponses, WebAnalyticsToggleRumErrors, WebAnalyticsToggleRumResponses, WebAnalyticsUpdateRuleErrors, WebAnalyticsUpdateRuleResponses, WebAnalyticsUpdateSiteErrors, WebAnalyticsUpdateSiteResponses } from '../types.gen';
-import { zWebAnalyticsCreateRuleBody, zWebAnalyticsCreateRulePath, zWebAnalyticsCreateRuleResponse, zWebAnalyticsCreateSiteBody, zWebAnalyticsCreateSitePath, zWebAnalyticsCreateSiteResponse, zWebAnalyticsDeleteRulePath, zWebAnalyticsDeleteRuleResponse, zWebAnalyticsDeleteSitePath, zWebAnalyticsDeleteSiteResponse, zWebAnalyticsGetRumStatusPath, zWebAnalyticsGetRumStatusResponse, zWebAnalyticsGetSitePath, zWebAnalyticsGetSiteResponse, zWebAnalyticsListRulesPath, zWebAnalyticsListRulesResponse, zWebAnalyticsListSitesPath, zWebAnalyticsListSitesQuery, zWebAnalyticsListSitesResponse, zWebAnalyticsModifyRulesBody, zWebAnalyticsModifyRulesPath, zWebAnalyticsModifyRulesResponse, zWebAnalyticsToggleRumBody, zWebAnalyticsToggleRumPath, zWebAnalyticsToggleRumResponse, zWebAnalyticsUpdateRuleBody, zWebAnalyticsUpdateRulePath, zWebAnalyticsUpdateRuleResponse, zWebAnalyticsUpdateSiteBody, zWebAnalyticsUpdateSitePath, zWebAnalyticsUpdateSiteResponse } from '../zod.gen';
+import type { RumCreateRuleRequest, RumCreateSiteRequest, RumIdentifier, RumModifyRulesRequest, RumOrderBy, RumPage, RumPerPage, RumRuleIdentifier, RumRulesetIdentifier, RumToggleRumRequest, RumUpdateSiteRequest, WebAnalyticsCreateRuleErrors, WebAnalyticsCreateRuleResponses, WebAnalyticsCreateSiteErrors, WebAnalyticsCreateSiteResponses, WebAnalyticsDeleteRuleErrors, WebAnalyticsDeleteRuleResponses, WebAnalyticsDeleteSiteErrors, WebAnalyticsDeleteSiteResponses, WebAnalyticsGetRumStatusErrors, WebAnalyticsGetRumStatusResponses, WebAnalyticsGetSiteErrors, WebAnalyticsGetSiteResponses, WebAnalyticsListRulesErrors, WebAnalyticsListRulesResponses, WebAnalyticsListSitesErrors, WebAnalyticsListSitesResponses, WebAnalyticsListSiteTagsErrors, WebAnalyticsListSiteTagsResponses, WebAnalyticsListZoneTagsErrors, WebAnalyticsListZoneTagsResponses, WebAnalyticsModifyRulesErrors, WebAnalyticsModifyRulesResponses, WebAnalyticsToggleRumErrors, WebAnalyticsToggleRumResponses, WebAnalyticsUpdateRuleErrors, WebAnalyticsUpdateRuleResponses, WebAnalyticsUpdateSiteErrors, WebAnalyticsUpdateSiteResponses, WebAnalyticsValidateSiteHostnameErrors, WebAnalyticsValidateSiteHostnameResponses } from '../types.gen';
+import { zWebAnalyticsCreateRuleBody, zWebAnalyticsCreateRulePath, zWebAnalyticsCreateRuleResponse, zWebAnalyticsCreateSiteBody, zWebAnalyticsCreateSitePath, zWebAnalyticsCreateSiteResponse, zWebAnalyticsDeleteRulePath, zWebAnalyticsDeleteRuleResponse, zWebAnalyticsDeleteSitePath, zWebAnalyticsDeleteSiteResponse, zWebAnalyticsGetRumStatusPath, zWebAnalyticsGetRumStatusResponse, zWebAnalyticsGetSitePath, zWebAnalyticsGetSiteResponse, zWebAnalyticsListRulesPath, zWebAnalyticsListRulesResponse, zWebAnalyticsListSitesPath, zWebAnalyticsListSitesQuery, zWebAnalyticsListSitesResponse, zWebAnalyticsListSiteTagsPath, zWebAnalyticsListSiteTagsQuery, zWebAnalyticsListSiteTagsResponse, zWebAnalyticsListZoneTagsPath, zWebAnalyticsListZoneTagsResponse, zWebAnalyticsModifyRulesBody, zWebAnalyticsModifyRulesPath, zWebAnalyticsModifyRulesResponse, zWebAnalyticsToggleRumBody, zWebAnalyticsToggleRumPath, zWebAnalyticsToggleRumResponse, zWebAnalyticsUpdateRuleBody, zWebAnalyticsUpdateRulePath, zWebAnalyticsUpdateRuleResponse, zWebAnalyticsUpdateSiteBody, zWebAnalyticsUpdateSitePath, zWebAnalyticsUpdateSiteResponse, zWebAnalyticsValidateSiteHostnamePath, zWebAnalyticsValidateSiteHostnameResponse } from '../zod.gen';
 
 export class WebAnalyticsService {
     /**
@@ -19,7 +19,7 @@ export class WebAnalyticsService {
     public static webAnalyticsCreateSite<ThrowOnError extends boolean = true>(parameters: {
         account_id: RumIdentifier;
         rumCreateSiteRequest: RumCreateSiteRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsCreateSiteResponses, WebAnalyticsCreateSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'rumCreateSiteRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<WebAnalyticsCreateSiteResponses, WebAnalyticsCreateSiteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -54,7 +54,7 @@ export class WebAnalyticsService {
         per_page?: RumPerPage;
         page?: RumPage;
         order_by?: RumOrderBy;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsListSitesResponses, WebAnalyticsListSitesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'per_page' },
@@ -80,6 +80,92 @@ export class WebAnalyticsService {
     }
     
     /**
+     * List Web Analytics site tags
+     *
+     * Returns all site tags for an account as an array of site tag strings. This endpoint returns all results without pagination.
+     *
+     */
+    public static webAnalyticsListSiteTags<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RumIdentifier;
+        all?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsListSiteTagsResponses, WebAnalyticsListSiteTagsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'all' }] }]);
+        return (options?.client ?? client).get<WebAnalyticsListSiteTagsResponses, WebAnalyticsListSiteTagsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWebAnalyticsListSiteTagsPath,
+                query: zWebAnalyticsListSiteTagsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWebAnalyticsListSiteTagsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/rum/site_info/site_tag/list',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Validate a Web Analytics site hostname
+     *
+     * Validates that the provided hostname is well-formed, does not contain wildcards, and has a valid TLD. Returns an empty result on success.
+     *
+     */
+    public static webAnalyticsValidateSiteHostname<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RumIdentifier;
+        hostname: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsValidateSiteHostnameResponses, WebAnalyticsValidateSiteHostnameErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hostname' }] }]);
+        return (options?.client ?? client).get<WebAnalyticsValidateSiteHostnameResponses, WebAnalyticsValidateSiteHostnameErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWebAnalyticsValidateSiteHostnamePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWebAnalyticsValidateSiteHostnameResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/rum/site_info/validate/{hostname}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List Web Analytics zone tags
+     *
+     * Returns all zone tags associated with Web Analytics sites for an account. These can be used to filter or exclude zones in the zone selection input. This endpoint returns all results without pagination.
+     *
+     */
+    public static webAnalyticsListZoneTags<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RumIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsListZoneTagsResponses, WebAnalyticsListZoneTagsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<WebAnalyticsListZoneTagsResponses, WebAnalyticsListZoneTagsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zWebAnalyticsListZoneTagsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWebAnalyticsListZoneTagsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/accounts/{account_id}/rum/site_info/zone_tag/list',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Delete a Web Analytics site
      *
      * Deletes an existing Web Analytics site.
@@ -87,7 +173,7 @@ export class WebAnalyticsService {
     public static webAnalyticsDeleteSite<ThrowOnError extends boolean = true>(parameters: {
         account_id: RumIdentifier;
         site_id: RumIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsDeleteSiteResponses, WebAnalyticsDeleteSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).delete<WebAnalyticsDeleteSiteResponses, WebAnalyticsDeleteSiteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -115,7 +201,7 @@ export class WebAnalyticsService {
     public static webAnalyticsGetSite<ThrowOnError extends boolean = true>(parameters: {
         account_id: RumIdentifier;
         site_id: RumIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsGetSiteResponses, WebAnalyticsGetSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'site_id' }] }]);
         return (options?.client ?? client).get<WebAnalyticsGetSiteResponses, WebAnalyticsGetSiteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,7 +230,7 @@ export class WebAnalyticsService {
         account_id: RumIdentifier;
         site_id: RumIdentifier;
         rumUpdateSiteRequest: RumUpdateSiteRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsUpdateSiteResponses, WebAnalyticsUpdateSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'site_id' },
@@ -182,7 +268,7 @@ export class WebAnalyticsService {
         account_id: RumIdentifier;
         ruleset_id: RumRulesetIdentifier;
         rumCreateRuleRequest: RumCreateRuleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsCreateRuleResponses, WebAnalyticsCreateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -220,7 +306,7 @@ export class WebAnalyticsService {
         account_id: RumIdentifier;
         ruleset_id: RumRulesetIdentifier;
         rule_id: RumRuleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsDeleteRuleResponses, WebAnalyticsDeleteRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -254,7 +340,7 @@ export class WebAnalyticsService {
         ruleset_id: RumRulesetIdentifier;
         rule_id: RumRuleIdentifier;
         rumCreateRuleRequest: RumCreateRuleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsUpdateRuleResponses, WebAnalyticsUpdateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -292,7 +378,7 @@ export class WebAnalyticsService {
     public static webAnalyticsListRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: RumIdentifier;
         ruleset_id: RumRulesetIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsListRulesResponses, WebAnalyticsListRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'ruleset_id' }] }]);
         return (options?.client ?? client).get<WebAnalyticsListRulesResponses, WebAnalyticsListRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -321,7 +407,7 @@ export class WebAnalyticsService {
         account_id: RumIdentifier;
         ruleset_id: RumRulesetIdentifier;
         rumModifyRulesRequest: RumModifyRulesRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsModifyRulesResponses, WebAnalyticsModifyRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -357,7 +443,7 @@ export class WebAnalyticsService {
      */
     public static webAnalyticsGetRumStatus<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RumIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsGetRumStatusResponses, WebAnalyticsGetRumStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WebAnalyticsGetRumStatusResponses, WebAnalyticsGetRumStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -385,7 +471,7 @@ export class WebAnalyticsService {
     public static webAnalyticsToggleRum<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RumIdentifier;
         rumToggleRumRequest: RumToggleRumRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WebAnalyticsToggleRumResponses, WebAnalyticsToggleRumErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'rumToggleRumRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<WebAnalyticsToggleRumResponses, WebAnalyticsToggleRumErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

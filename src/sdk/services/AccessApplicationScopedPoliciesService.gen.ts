@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessAppPolicyRequest, AccessIdentifier, AccessPoliciesConvertReusableErrors, AccessPoliciesConvertReusableResponses, AccessPoliciesCreateAnAccessPolicyErrors, AccessPoliciesCreateAnAccessPolicyResponses, AccessPoliciesDeleteAnAccessPolicyErrors, AccessPoliciesDeleteAnAccessPolicyResponses, AccessPoliciesGetAnAccessPolicyErrors, AccessPoliciesGetAnAccessPolicyResponses, AccessPoliciesListAccessAppPoliciesErrors, AccessPoliciesListAccessAppPoliciesResponses, AccessPoliciesUpdateAnAccessPolicyErrors, AccessPoliciesUpdateAnAccessPolicyResponses, AccessUuid } from '../types.gen';
@@ -21,7 +21,7 @@ export class AccessApplicationScopedPoliciesService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesListAccessAppPoliciesResponses, AccessPoliciesListAccessAppPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },
@@ -55,7 +55,7 @@ export class AccessApplicationScopedPoliciesService {
         app_id: AccessUuid;
         account_id: AccessIdentifier;
         accessAppPolicyRequest: AccessAppPolicyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesCreateAnAccessPolicyResponses, AccessPoliciesCreateAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },
@@ -93,7 +93,7 @@ export class AccessApplicationScopedPoliciesService {
         app_id: AccessUuid;
         policy_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesDeleteAnAccessPolicyResponses, AccessPoliciesDeleteAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'policy_id' },
@@ -126,7 +126,7 @@ export class AccessApplicationScopedPoliciesService {
         app_id: AccessUuid;
         policy_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesGetAnAccessPolicyResponses, AccessPoliciesGetAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'policy_id' },
@@ -156,7 +156,7 @@ export class AccessApplicationScopedPoliciesService {
         policy_id: AccessUuid;
         account_id: AccessIdentifier;
         accessAppPolicyRequest: AccessAppPolicyRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesUpdateAnAccessPolicyResponses, AccessPoliciesUpdateAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'policy_id' },
@@ -195,7 +195,7 @@ export class AccessApplicationScopedPoliciesService {
         app_id: AccessUuid;
         policy_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessPoliciesConvertReusableResponses, AccessPoliciesConvertReusableErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'policy_id' },

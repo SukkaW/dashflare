@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpDocumentFingerprintsCreateErrors, DlpDocumentFingerprintsCreateResponses, DlpDocumentFingerprintsDeleteErrors, DlpDocumentFingerprintsDeleteResponses, DlpDocumentFingerprintsReadAllErrors, DlpDocumentFingerprintsReadAllResponses, DlpDocumentFingerprintsReadErrors, DlpDocumentFingerprintsReadResponses, DlpDocumentFingerprintsUpdateErrors, DlpDocumentFingerprintsUpdateResponses, DlpDocumentFingerprintsUploadErrors, DlpDocumentFingerprintsUploadResponses, DlpUpdateDocumentFingerprint } from '../types.gen';
@@ -18,7 +18,7 @@ export class DlpDocumentFingerprintsService {
      */
     public static dlpDocumentFingerprintsReadAll<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsReadAllResponses, DlpDocumentFingerprintsReadAllErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpDocumentFingerprintsReadAllResponses, DlpDocumentFingerprintsReadAllErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class DlpDocumentFingerprintsService {
         description?: string;
         match_percent: number;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsCreateResponses, DlpDocumentFingerprintsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -86,7 +86,7 @@ export class DlpDocumentFingerprintsService {
     public static dlpDocumentFingerprintsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         document_fingerprint_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsDeleteResponses, DlpDocumentFingerprintsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'document_fingerprint_id' }] }]);
         return (options?.client ?? client).delete<DlpDocumentFingerprintsDeleteResponses, DlpDocumentFingerprintsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,11 +107,13 @@ export class DlpDocumentFingerprintsService {
     
     /**
      * Retrieve data about a specific document fingerprint.
+     *
+     * Gets a document fingerprint and its latest upload status.
      */
     public static dlpDocumentFingerprintsRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         document_fingerprint_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsReadResponses, DlpDocumentFingerprintsReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'document_fingerprint_id' }] }]);
         return (options?.client ?? client).get<DlpDocumentFingerprintsReadResponses, DlpDocumentFingerprintsReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,7 +142,7 @@ export class DlpDocumentFingerprintsService {
         account_id: string;
         document_fingerprint_id: string;
         dlpUpdateDocumentFingerprint: DlpUpdateDocumentFingerprint;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsUpdateResponses, DlpDocumentFingerprintsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'document_fingerprint_id' },
@@ -178,7 +180,7 @@ export class DlpDocumentFingerprintsService {
         account_id: string;
         document_fingerprint_id: string;
         file: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpDocumentFingerprintsUploadResponses, DlpDocumentFingerprintsUploadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'document_fingerprint_id' },

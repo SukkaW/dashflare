@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { TunnelAccountId, TunnelIsDefaultNetwork, TunnelIsDefaultNetworkOptional, TunnelVirtualNetworkComment, TunnelVirtualNetworkCreateAVirtualNetworkErrors, TunnelVirtualNetworkCreateAVirtualNetworkResponses, TunnelVirtualNetworkDeleteErrors, TunnelVirtualNetworkDeleteResponses, TunnelVirtualNetworkGetErrors, TunnelVirtualNetworkGetResponses, TunnelVirtualNetworkId, TunnelVirtualNetworkListVirtualNetworksErrors, TunnelVirtualNetworkListVirtualNetworksResponses, TunnelVirtualNetworkName, TunnelVirtualNetworkUpdateErrors, TunnelVirtualNetworkUpdateResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class TunnelVirtualNetworkService {
         is_default?: boolean;
         is_default_network?: boolean;
         is_deleted?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelVirtualNetworkListVirtualNetworksResponses, TunnelVirtualNetworkListVirtualNetworksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -62,7 +62,7 @@ export class TunnelVirtualNetworkService {
         is_default?: boolean;
         is_default_network?: TunnelIsDefaultNetworkOptional;
         name: TunnelVirtualNetworkName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelVirtualNetworkCreateAVirtualNetworkResponses, TunnelVirtualNetworkCreateAVirtualNetworkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'comment' },
@@ -103,7 +103,7 @@ export class TunnelVirtualNetworkService {
         virtual_network_id: TunnelVirtualNetworkId;
         account_id: TunnelAccountId;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelVirtualNetworkDeleteResponses, TunnelVirtualNetworkDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'virtual_network_id' },
                     { in: 'path', key: 'account_id' },
@@ -144,7 +144,7 @@ export class TunnelVirtualNetworkService {
         comment?: TunnelVirtualNetworkComment;
         is_default_network?: TunnelIsDefaultNetwork;
         name?: TunnelVirtualNetworkName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelVirtualNetworkGetResponses, TunnelVirtualNetworkGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'virtual_network_id' },
@@ -187,7 +187,7 @@ export class TunnelVirtualNetworkService {
         comment?: TunnelVirtualNetworkComment;
         is_default_network?: TunnelIsDefaultNetworkOptional;
         name?: TunnelVirtualNetworkName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TunnelVirtualNetworkUpdateResponses, TunnelVirtualNetworkUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'virtual_network_id' },

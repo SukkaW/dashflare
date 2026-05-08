@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeleteIndicatorDeleteErrors, DeleteIndicatorDeleteResponses, GetIndicatorListErrors, GetIndicatorListLegacyResponses, GetIndicatorListResponses, GetIndicatorReadErrors, GetIndicatorReadResponses, GetIndicatorTagsListErrors, GetIndicatorTagsListResponses, PatchIndicatorUpdateErrors, PatchIndicatorUpdateResponses, PostIndicatorCreateBulkErrors, PostIndicatorCreateBulkResponses, PostIndicatorCreateErrors, PostIndicatorCreateResponses } from '../types.gen';
-import { zDeleteIndicatorDeletePath, zDeleteIndicatorDeleteResponse, zGetIndicatorListLegacyPath, zGetIndicatorListLegacyQuery, zGetIndicatorListLegacyResponse, zGetIndicatorListPath, zGetIndicatorListQuery, zGetIndicatorListResponse, zGetIndicatorReadPath, zGetIndicatorReadResponse, zGetIndicatorTagsListPath, zGetIndicatorTagsListResponse, zPatchIndicatorUpdateBody, zPatchIndicatorUpdatePath, zPatchIndicatorUpdateResponse, zPostIndicatorCreateBody, zPostIndicatorCreateBulkBody, zPostIndicatorCreateBulkPath, zPostIndicatorCreateBulkResponse, zPostIndicatorCreatePath, zPostIndicatorCreateResponse } from '../zod.gen';
+import type { DeleteIndicatorDeleteErrors, DeleteIndicatorDeleteResponses, GetIndicatorAggregateErrors, GetIndicatorAggregateResponses, GetIndicatorListErrors, GetIndicatorListLegacyResponses, GetIndicatorListResponses, GetIndicatorReadErrors, GetIndicatorReadResponses, GetIndicatorTagsListErrors, GetIndicatorTagsListResponses, PatchIndicatorUpdateErrors, PatchIndicatorUpdateResponses, PostIndicatorCreateBulkErrors, PostIndicatorCreateBulkResponses, PostIndicatorCreateErrors, PostIndicatorCreateResponses } from '../types.gen';
+import { zDeleteIndicatorDeletePath, zDeleteIndicatorDeleteResponse, zGetIndicatorAggregatePath, zGetIndicatorAggregateQuery, zGetIndicatorAggregateResponse, zGetIndicatorListLegacyPath, zGetIndicatorListLegacyQuery, zGetIndicatorListLegacyResponse, zGetIndicatorListPath, zGetIndicatorListQuery, zGetIndicatorListResponse, zGetIndicatorReadPath, zGetIndicatorReadResponse, zGetIndicatorTagsListPath, zGetIndicatorTagsListResponse, zPatchIndicatorUpdateBody, zPatchIndicatorUpdatePath, zPatchIndicatorUpdateResponse, zPostIndicatorCreateBody, zPostIndicatorCreateBulkBody, zPostIndicatorCreateBulkPath, zPostIndicatorCreateBulkResponse, zPostIndicatorCreatePath, zPostIndicatorCreateResponse } from '../zod.gen';
 
 export class IndicatorService {
     /**
@@ -26,7 +26,7 @@ export class IndicatorService {
         name?: string;
         indicatorType?: string;
         relatedEvent?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorListLegacyResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -75,7 +75,7 @@ export class IndicatorService {
             }>;
             value: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostIndicatorCreateBulkResponses, PostIndicatorCreateBulkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -120,7 +120,7 @@ export class IndicatorService {
             value: string;
         }>;
         value: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostIndicatorCreateResponses, PostIndicatorCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -157,7 +157,7 @@ export class IndicatorService {
     public static getIndicatorTagsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorTagsListResponses, GetIndicatorTagsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<GetIndicatorTagsListResponses, GetIndicatorTagsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -182,7 +182,7 @@ export class IndicatorService {
         account_id: string;
         dataset_id: string;
         indicator_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteIndicatorDeleteResponses, DeleteIndicatorDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -211,7 +211,7 @@ export class IndicatorService {
         account_id: string;
         dataset_id: string;
         indicator_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorReadResponses, GetIndicatorReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -250,7 +250,7 @@ export class IndicatorService {
             value: string;
         }>;
         value?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchIndicatorUpdateResponses, PatchIndicatorUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -291,9 +291,9 @@ export class IndicatorService {
         pageSize?: number;
         search?: Array<{
             /**
-             * The indicator field to search on. Allowed: value, indicatorType.
+             * The indicator field to search on. Allowed: value, indicatorType, uuid.
              */
-            field: 'value' | 'indicatorType';
+            field: 'value' | 'indicatorType' | 'uuid';
             /**
              * Search operator. Use 'in' for bulk lookup of up to 100 values at once, e.g. {field:'value', op:'in', value:['evil.com','bad.org']}.
              */
@@ -307,13 +307,29 @@ export class IndicatorService {
         indicatorType?: string;
         relatedEvents?: Array<string>;
         tags?: Array<string>;
+        tagSearch?: Array<{
+            /**
+             * Tag mirror field to filter on. Allowed: value, categoryId, actorCategory, aliasGroupNames, attributionConfidence, attributionOrganization, motive, opsecLevel, originCountryISO, sophisticationLevel, priority, analyticPriority. Filters operate against the per-dataset IndicatorTag mirror (which is kept in sync with the Tags SoT by the tag-propagation workflow).
+             */
+            field: 'value' | 'categoryId' | 'actorCategory' | 'aliasGroupNames' | 'attributionConfidence' | 'attributionOrganization' | 'motive' | 'opsecLevel' | 'originCountryISO' | 'sophisticationLevel' | 'priority' | 'analyticPriority';
+            /**
+             * Search operator. Use 'in' for bulk OR within a single field, e.g. {field:"originCountryISO", op:"in", value:["IR","CN"]}.
+             */
+            op: 'equals' | 'not' | 'gt' | 'gte' | 'lt' | 'lte' | 'like' | 'contains' | 'startsWith' | 'endsWith' | 'in' | 'find';
+            /**
+             * Search value. String or number for most operators. Array for 'in' (max 100 items). Country values may be passed as alpha-2, alpha-3, name, or common alias (e.g. "iran", "IR", "IRN") and are normalized to alpha-2 server-side.
+             */
+            value?: string | number | Array<string | number>;
+        }>;
         createdAfter?: string;
         createdBefore?: string;
         relatedEventsLimit?: number;
         includeTags?: boolean;
         includeTotalCount?: boolean;
-        format?: 'json' | 'stix2';
-    }, options?: Options<never, ThrowOnError>) {
+        format?: 'json' | 'stix2' | 'taxii';
+        source?: 'do' | 'r2catalog';
+        cache?: 'from-graph';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorListResponses, GetIndicatorListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'datasetIds' },
@@ -324,12 +340,15 @@ export class IndicatorService {
                     { in: 'query', key: 'indicatorType' },
                     { in: 'query', key: 'relatedEvents' },
                     { in: 'query', key: 'tags' },
+                    { in: 'query', key: 'tagSearch' },
                     { in: 'query', key: 'createdAfter' },
                     { in: 'query', key: 'createdBefore' },
                     { in: 'query', key: 'relatedEventsLimit' },
                     { in: 'query', key: 'includeTags' },
                     { in: 'query', key: 'includeTotalCount' },
-                    { in: 'query', key: 'format' }
+                    { in: 'query', key: 'format' },
+                    { in: 'query', key: 'source' },
+                    { in: 'query', key: 'cache' }
                 ] }]);
         return (options?.client ?? client).get<GetIndicatorListResponses, GetIndicatorListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -340,6 +359,49 @@ export class IndicatorService {
             responseValidator: async (data) => await zGetIndicatorListResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/cloudforce-one/events/indicators',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Aggregate indicators by column(s)
+     *
+     * Aggregate threat indicators by one or more columns (e.g., indicatorType, value) across datasets. Returns top-N groups ordered by count.
+     */
+    public static getIndicatorAggregate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        aggregateBy: string;
+        measure?: 'indicators' | 'relationships';
+        tagUuid?: string;
+        datasetIds?: Array<string>;
+        createdAfter?: string;
+        createdBefore?: string;
+        eventDateAfter?: string;
+        eventDateBefore?: string;
+        limit?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorAggregateResponses, GetIndicatorAggregateErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'aggregateBy' },
+                    { in: 'query', key: 'measure' },
+                    { in: 'query', key: 'tagUuid' },
+                    { in: 'query', key: 'datasetIds' },
+                    { in: 'query', key: 'createdAfter' },
+                    { in: 'query', key: 'createdBefore' },
+                    { in: 'query', key: 'eventDateAfter' },
+                    { in: 'query', key: 'eventDateBefore' },
+                    { in: 'query', key: 'limit' }
+                ] }]);
+        return (options?.client ?? client).get<GetIndicatorAggregateResponses, GetIndicatorAggregateErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetIndicatorAggregatePath,
+                query: zGetIndicatorAggregateQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetIndicatorAggregateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/events/indicators/aggregate',
             ...options,
             ...params
         });

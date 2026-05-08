@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetSecurityCenterAccountScansErrors, GetSecurityCenterAccountScansResponses, GetSecurityCenterZoneScansErrors, GetSecurityCenterZoneScansResponses, SecurityCenterIdentifier, SecurityCenterNewScanRequest, StartSecurityCenterAccountScanErrors, StartSecurityCenterAccountScanResponses, StartSecurityCenterZoneScanErrors, StartSecurityCenterZoneScanResponses } from '../types.gen';
@@ -14,11 +14,11 @@ export class SecurityCenterScansService {
     /**
      * Get Recent Account Scans
      *
-     * Returns the most recent on-demand scans for the account, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account-wide and zone-scoped scans.
+     * Returns the most recent on-demand scans for the account, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account-wide and zone-scoped scans. Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.
      */
     public static getSecurityCenterAccountScans<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecurityCenterIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterAccountScansResponses, GetSecurityCenterAccountScansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetSecurityCenterAccountScansResponses, GetSecurityCenterAccountScansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class SecurityCenterScansService {
     public static startSecurityCenterAccountScan<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecurityCenterIdentifier;
         securityCenterNewScanRequest: SecurityCenterNewScanRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StartSecurityCenterAccountScanResponses, StartSecurityCenterAccountScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'securityCenterNewScanRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<StartSecurityCenterAccountScanResponses, StartSecurityCenterAccountScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,11 +74,11 @@ export class SecurityCenterScansService {
     /**
      * Get Recent Zone Scans
      *
-     * Returns the most recent on-demand scans for a specific zone, up to a maximum of 5. Each scan includes its ID, start time, and current status.
+     * Returns the most recent on-demand scans for a specific zone, up to a maximum of 5. Each scan includes its ID, start time, and current status. Results include both zone-specific scans and account-wide scans (which cover all zones). Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.
      */
     public static getSecurityCenterZoneScans<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterZoneScansResponses, GetSecurityCenterZoneScansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetSecurityCenterZoneScansResponses, GetSecurityCenterZoneScansErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class SecurityCenterScansService {
     public static startSecurityCenterZoneScan<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;
         securityCenterNewScanRequest: SecurityCenterNewScanRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StartSecurityCenterZoneScanResponses, StartSecurityCenterZoneScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'securityCenterNewScanRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<StartSecurityCenterZoneScanResponses, StartSecurityCenterZoneScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

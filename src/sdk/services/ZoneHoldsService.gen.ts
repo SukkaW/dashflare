@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { Zones0HoldDeleteErrors, Zones0HoldDeleteResponses, Zones0HoldGetErrors, Zones0HoldGetResponses, Zones0HoldPatchErrors, Zones0HoldPatchResponses, Zones0HoldPostErrors, Zones0HoldPostResponses, ZonesSchemasIdentifier } from '../types.gen';
-import { zZones0HoldDeletePath, zZones0HoldDeleteQuery, zZones0HoldDeleteResponse, zZones0HoldGetPath, zZones0HoldGetResponse, zZones0HoldPatchBody, zZones0HoldPatchPath, zZones0HoldPatchResponse, zZones0HoldPostPath, zZones0HoldPostQuery, zZones0HoldPostResponse } from '../zod.gen';
+import type { Zones0HoldDeleteErrors, Zones0HoldDeleteResponses, Zones0HoldGetErrors, Zones0HoldGetResponses, Zones0HoldPatchErrors, Zones0HoldPatchResponses, Zones0HoldPostErrors, Zones0HoldPostResponses, Zones0HoldZoneNameGetErrors, Zones0HoldZoneNameGetResponses, ZonesIdentifier2 } from '../types.gen';
+import { zZones0HoldDeletePath, zZones0HoldDeleteQuery, zZones0HoldDeleteResponse, zZones0HoldGetPath, zZones0HoldGetResponse, zZones0HoldPatchBody, zZones0HoldPatchPath, zZones0HoldPatchResponse, zZones0HoldPostPath, zZones0HoldPostQuery, zZones0HoldPostResponse, zZones0HoldZoneNameGetPath, zZones0HoldZoneNameGetResponse } from '../zod.gen';
 
 export class ZoneHoldsService {
     /**
@@ -16,11 +16,13 @@ export class ZoneHoldsService {
      *
      * Stop enforcement of a zone hold on the zone, permanently or temporarily, allowing the
      * creation and activation of zones with this zone's hostname.
+     * Existing zone holds can be removed from CDN-only zones when `hold_after` is not provided.
+     * Active holds are automatically disabled when a zone transitions to CDN-only mode.
      */
     public static zones0HoldDelete<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
+        zone_id: ZonesIdentifier2;
         hold_after?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0HoldDeleteResponses, Zones0HoldDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'hold_after' }] }]);
         return (options?.client ?? client).delete<Zones0HoldDeleteResponses, Zones0HoldDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,8 +48,8 @@ export class ZoneHoldsService {
      * Retrieve whether the zone is subject to a zone hold, and metadata about the hold.
      */
     public static zones0HoldGet<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ZonesIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0HoldGetResponses, Zones0HoldGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<Zones0HoldGetResponses, Zones0HoldGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -72,12 +74,15 @@ export class ZoneHoldsService {
      *
      * Update the `hold_after` and/or `include_subdomains` values on an existing zone hold.
      * The hold is enabled if the `hold_after` date-time value is in the past.
+     * Existing zone holds can be removed from CDN-only zones by setting `hold_after` to `null`.
+     * Other zone hold updates cannot be made on CDN-only zones.
+     * Active holds are automatically disabled when a zone transitions to CDN-only mode.
      */
     public static zones0HoldPatch<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
-        hold_after?: string;
+        zone_id: ZonesIdentifier2;
+        hold_after?: string | null;
         include_subdomains?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0HoldPatchResponses, Zones0HoldPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'hold_after' },
@@ -110,11 +115,12 @@ export class ZoneHoldsService {
      * Create Zone Hold
      *
      * Enforce a zone hold on the zone, blocking the creation and activation of zones with this zone's hostname.
+     * Zone holds cannot be enabled on CDN-only zones.
      */
     public static zones0HoldPost<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
+        zone_id: ZonesIdentifier2;
         include_subdomains?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0HoldPostResponses, Zones0HoldPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'include_subdomains' }] }]);
         return (options?.client ?? client).post<Zones0HoldPostResponses, Zones0HoldPostErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -129,6 +135,33 @@ export class ZoneHoldsService {
                 { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/hold',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get Zone Hold by Zone Name
+     *
+     * Retrieve whether a given hostname is subject to a zone hold, and metadata about the hold.
+     * This endpoint checks whether the given hostname (or any of its ancestor domains) is blocked
+     * by an active zone hold. If a hold with `include_subdomains` is active on an ancestor domain,
+     * that hold is returned. This endpoint is used internally by SSL/COMS to check hold status
+     * during zone activation.
+     */
+    public static zones0HoldZoneNameGet<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: ZonesIdentifier2;
+        zone_name: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<Zones0HoldZoneNameGetResponses, Zones0HoldZoneNameGetErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'zone_name' }] }]);
+        return (options?.client ?? client).get<Zones0HoldZoneNameGetResponses, Zones0HoldZoneNameGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZones0HoldZoneNameGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZones0HoldZoneNameGetResponse.parseAsync(data),
+            url: '/zones/{zone_id}/hold/{zone_name}',
             ...options,
             ...params
         });

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessClientSecretVersion, AccessDuration, AccessIdentifier, AccessPreviousClientSecretExpiresAt, AccessSchemasName, AccessServiceTokensCreateAServiceTokenErrors, AccessServiceTokensCreateAServiceTokenResponses, AccessServiceTokensDeleteAServiceTokenErrors, AccessServiceTokensDeleteAServiceTokenResponses, AccessServiceTokensGetAServiceTokenErrors, AccessServiceTokensGetAServiceTokenResponses, AccessServiceTokensListServiceTokensErrors, AccessServiceTokensListServiceTokensResponses, AccessServiceTokensRefreshAServiceTokenErrors, AccessServiceTokensRefreshAServiceTokenResponses, AccessServiceTokensRotateAServiceTokenErrors, AccessServiceTokensRotateAServiceTokenResponses, AccessServiceTokensUpdateAServiceTokenErrors, AccessServiceTokensUpdateAServiceTokenResponses, AccessUuid } from '../types.gen';
+import type { AccessClientSecretVersion, AccessDuration, AccessIdentifier, AccessName2, AccessPreviousClientSecretExpiresAt, AccessServiceTokensCreateAServiceTokenErrors, AccessServiceTokensCreateAServiceTokenResponses, AccessServiceTokensDeleteAServiceTokenErrors, AccessServiceTokensDeleteAServiceTokenResponses, AccessServiceTokensGetAServiceTokenErrors, AccessServiceTokensGetAServiceTokenResponses, AccessServiceTokensListServiceTokensErrors, AccessServiceTokensListServiceTokensResponses, AccessServiceTokensRefreshAServiceTokenErrors, AccessServiceTokensRefreshAServiceTokenResponses, AccessServiceTokensRotateAServiceTokenErrors, AccessServiceTokensRotateAServiceTokenResponses, AccessServiceTokensUpdateAServiceTokenErrors, AccessServiceTokensUpdateAServiceTokenResponses, AccessUuid } from '../types.gen';
 import { zAccessServiceTokensCreateAServiceTokenBody, zAccessServiceTokensCreateAServiceTokenPath, zAccessServiceTokensCreateAServiceTokenResponse, zAccessServiceTokensDeleteAServiceTokenPath, zAccessServiceTokensDeleteAServiceTokenResponse, zAccessServiceTokensGetAServiceTokenPath, zAccessServiceTokensGetAServiceTokenResponse, zAccessServiceTokensListServiceTokensPath, zAccessServiceTokensListServiceTokensQuery, zAccessServiceTokensListServiceTokensResponse, zAccessServiceTokensRefreshAServiceTokenPath, zAccessServiceTokensRefreshAServiceTokenResponse, zAccessServiceTokensRotateAServiceTokenBody, zAccessServiceTokensRotateAServiceTokenPath, zAccessServiceTokensRotateAServiceTokenResponse, zAccessServiceTokensUpdateAServiceTokenBody, zAccessServiceTokensUpdateAServiceTokenPath, zAccessServiceTokensUpdateAServiceTokenResponse } from '../zod.gen';
 
 export class AccessServiceTokensService {
@@ -22,7 +22,7 @@ export class AccessServiceTokensService {
         search?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensListServiceTokensResponses, AccessServiceTokensListServiceTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -57,9 +57,9 @@ export class AccessServiceTokensService {
         account_id: AccessIdentifier;
         client_secret_version?: AccessClientSecretVersion;
         duration?: AccessDuration;
-        name: AccessSchemasName;
+        name: AccessName2;
         previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensCreateAServiceTokenResponses, AccessServiceTokensCreateAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'client_secret_version' },
@@ -98,7 +98,7 @@ export class AccessServiceTokensService {
     public static accessServiceTokensDeleteAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         service_token_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensDeleteAServiceTokenResponses, AccessServiceTokensDeleteAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'service_token_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessServiceTokensDeleteAServiceTokenResponses, AccessServiceTokensDeleteAServiceTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -126,7 +126,7 @@ export class AccessServiceTokensService {
     public static accessServiceTokensGetAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         service_token_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensGetAServiceTokenResponses, AccessServiceTokensGetAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'service_token_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessServiceTokensGetAServiceTokenResponses, AccessServiceTokensGetAServiceTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -156,9 +156,9 @@ export class AccessServiceTokensService {
         account_id: AccessIdentifier;
         client_secret_version?: AccessClientSecretVersion;
         duration?: AccessDuration;
-        name?: AccessSchemasName;
+        name?: AccessName2;
         previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensUpdateAServiceTokenResponses, AccessServiceTokensUpdateAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'service_token_id' },
                     { in: 'path', key: 'account_id' },
@@ -198,7 +198,7 @@ export class AccessServiceTokensService {
     public static accessServiceTokensRefreshAServiceToken<ThrowOnError extends boolean = true>(parameters: {
         service_token_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensRefreshAServiceTokenResponses, AccessServiceTokensRefreshAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'service_token_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<AccessServiceTokensRefreshAServiceTokenResponses, AccessServiceTokensRefreshAServiceTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -227,7 +227,7 @@ export class AccessServiceTokensService {
         service_token_id: AccessUuid;
         account_id: AccessIdentifier;
         previous_client_secret_expires_at?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessServiceTokensRotateAServiceTokenResponses, AccessServiceTokensRotateAServiceTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'service_token_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CacheRulesIdentifier, CacheRulesOriginPostQuantumEncryptionValue, ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingErrors, ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingResponses, ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingErrors, ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingResponses } from '../types.gen';
@@ -15,10 +15,12 @@ export class OriginPostQuantumService {
      * Get Origin Post-Quantum Encryption setting
      *
      * Instructs Cloudflare to use Post-Quantum (PQ) key agreement algorithms when connecting to your origin. Preferred instructs Cloudflare to opportunistically send a Post-Quantum keyshare in the first message to the origin (for fastest connections when the origin supports and prefers PQ), supported means that PQ algorithms are advertised but only used when requested by the origin, and off means that PQ algorithms are not advertised.
+     *
+     * @deprecated
      */
     public static zoneCacheSettingsGetOriginPostQuantumEncryptionSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingResponses, ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingResponses, ZoneCacheSettingsGetOriginPostQuantumEncryptionSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,11 +44,13 @@ export class OriginPostQuantumService {
      * Change Origin Post-Quantum Encryption setting
      *
      * Instructs Cloudflare to use Post-Quantum (PQ) key agreement algorithms when connecting to your origin. Preferred instructs Cloudflare to opportunistically send a Post-Quantum keyshare in the first message to the origin (for fastest connections when the origin supports and prefers PQ), supported means that PQ algorithms are advertised but only used when requested by the origin, and off means that PQ algorithms are not advertised.
+     *
+     * @deprecated
      */
     public static zoneCacheSettingsChangeOriginPostQuantumEncryptionSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesOriginPostQuantumEncryptionValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingResponses, ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).put<ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingResponses, ZoneCacheSettingsChangeOriginPostQuantumEncryptionSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

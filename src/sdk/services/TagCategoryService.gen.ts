@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteTagCategoryDeleteErrors, DeleteTagCategoryDeleteResponses, GetTagCategoryListErrors, GetTagCategoryListResponses, PatchTagCategoryUpdateErrors, PatchTagCategoryUpdateResponses, PostTagCategoryCreateErrors, PostTagCategoryCreateResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class TagCategoryService {
     public static getTagCategoryList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTagCategoryListResponses, GetTagCategoryListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'search' }] }]);
         return (options?.client ?? client).get<GetTagCategoryListResponses, GetTagCategoryListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class TagCategoryService {
         account_id: string;
         description?: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostTagCategoryCreateResponses, PostTagCategoryCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -77,7 +77,7 @@ export class TagCategoryService {
     public static deleteTagCategoryDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         category_uuid: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTagCategoryDeleteResponses, DeleteTagCategoryDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'category_uuid' }] }]);
         return (options?.client ?? client).delete<DeleteTagCategoryDeleteResponses, DeleteTagCategoryDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -103,7 +103,7 @@ export class TagCategoryService {
         category_uuid: string;
         description?: string;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchTagCategoryUpdateResponses, PatchTagCategoryUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'category_uuid' },

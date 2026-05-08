@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AiSearchNamespaceInstanceCreateOrUpdateItemErrors, AiSearchNamespaceInstanceCreateOrUpdateItemResponses, AiSearchNamespaceInstanceDeleteItemErrors, AiSearchNamespaceInstanceDeleteItemResponses, AiSearchNamespaceInstanceGetItemContentErrors, AiSearchNamespaceInstanceGetItemContentResponses, AiSearchNamespaceInstanceGetItemErrors, AiSearchNamespaceInstanceGetItemResponses, AiSearchNamespaceInstanceListItemChunksErrors, AiSearchNamespaceInstanceListItemChunksResponses, AiSearchNamespaceInstanceListItemsErrors, AiSearchNamespaceInstanceListItemsResponses, AiSearchNamespaceInstanceLogsItemErrors, AiSearchNamespaceInstanceLogsItemResponses, AiSearchNamespaceInstanceSyncItemErrors, AiSearchNamespaceInstanceSyncItemResponses, AiSearchNamespaceInstanceUploadItemErrors, AiSearchNamespaceInstanceUploadItemResponses } from '../types.gen';
@@ -28,7 +28,8 @@ export class AiSearchInstancesItemsService {
         source?: string;
         metadata_filter?: string;
         item_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        key?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceListItemsResponses, AiSearchNamespaceInstanceListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -40,7 +41,8 @@ export class AiSearchInstancesItemsService {
                     { in: 'query', key: 'status' },
                     { in: 'query', key: 'source' },
                     { in: 'query', key: 'metadata_filter' },
-                    { in: 'query', key: 'item_id' }
+                    { in: 'query', key: 'item_id' },
+                    { in: 'query', key: 'key' }
                 ] }]);
         return (options?.client ?? client).get<AiSearchNamespaceInstanceListItemsResponses, AiSearchNamespaceInstanceListItemsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -63,7 +65,7 @@ export class AiSearchInstancesItemsService {
     /**
      * Upload Item.
      *
-     * Uploads a file to a managed AI Search instance via multipart/form-data (max 4MB).
+     * Uploads a file to a managed AI Search instance via multipart/form-data.
      */
     public static aiSearchNamespaceInstanceUploadItem<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -72,7 +74,7 @@ export class AiSearchInstancesItemsService {
         file: Blob | File;
         metadata?: string;
         wait_for_completion?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceUploadItemResponses, AiSearchNamespaceInstanceUploadItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -117,7 +119,7 @@ export class AiSearchInstancesItemsService {
         key: string;
         next_action: 'INDEX';
         wait_for_completion?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceCreateOrUpdateItemResponses, AiSearchNamespaceInstanceCreateOrUpdateItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -159,7 +161,7 @@ export class AiSearchInstancesItemsService {
         item_id: string;
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceDeleteItemResponses, AiSearchNamespaceInstanceDeleteItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },
@@ -194,7 +196,7 @@ export class AiSearchInstancesItemsService {
         item_id: string;
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceGetItemResponses, AiSearchNamespaceInstanceGetItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },
@@ -231,7 +233,7 @@ export class AiSearchInstancesItemsService {
         name: string;
         next_action: 'INDEX';
         wait_for_completion?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceSyncItemResponses, AiSearchNamespaceInstanceSyncItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },
@@ -275,7 +277,7 @@ export class AiSearchInstancesItemsService {
         name: string;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceListItemChunksResponses, AiSearchNamespaceInstanceListItemChunksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },
@@ -312,7 +314,7 @@ export class AiSearchInstancesItemsService {
         item_id: string;
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceGetItemContentResponses, AiSearchNamespaceInstanceGetItemContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },
@@ -349,7 +351,7 @@ export class AiSearchInstancesItemsService {
         name: string;
         limit?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchNamespaceInstanceLogsItemResponses, AiSearchNamespaceInstanceLogsItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'item_id' },

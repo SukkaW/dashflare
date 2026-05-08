@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetMaintenanceConfigErrors, GetMaintenanceConfigResponses, R2DataCatalogAccountId, R2DataCatalogBucketName, R2DataCatalogCatalogMaintenanceUpdateRequest, UpdateMaintenanceConfigErrors, UpdateMaintenanceConfigResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class MaintenanceConfigurationService {
     public static getMaintenanceConfig<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetMaintenanceConfigResponses, GetMaintenanceConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'bucket_name' }] }]);
         return (options?.client ?? client).get<GetMaintenanceConfigResponses, GetMaintenanceConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class MaintenanceConfigurationService {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
         r2DataCatalogCatalogMaintenanceUpdateRequest: R2DataCatalogCatalogMaintenanceUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateMaintenanceConfigResponses, UpdateMaintenanceConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },

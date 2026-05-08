@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudflareImagesKeysAddSigningKeyErrors, CloudflareImagesKeysAddSigningKeyResponses, CloudflareImagesKeysDeleteSigningKeyErrors, CloudflareImagesKeysDeleteSigningKeyResponses, CloudflareImagesKeysListSigningKeysErrors, CloudflareImagesKeysListSigningKeysResponses, ImagesAccountIdentifier, ImagesSigningKeyIdentifier } from '../types.gen';
@@ -14,11 +14,11 @@ export class CloudflareImagesKeysService {
     /**
      * List Signing Keys
      *
-     * Lists your signing keys. These can be found on your Cloudflare Images dashboard.
+     * List your CF Images signing keys.
      */
     public static cloudflareImagesKeysListSigningKeys<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesKeysListSigningKeysResponses, CloudflareImagesKeysListSigningKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesKeysListSigningKeysResponses, CloudflareImagesKeysListSigningKeysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -41,14 +41,14 @@ export class CloudflareImagesKeysService {
     /**
      * Delete Signing Key
      *
-     * Delete signing key with specified name. Returns all keys available.
-     * When last key is removed, a new default signing key will be generated.
+     * Delete a CF Images signing key with specified name. Returns all keys available.
+     * When the last key is removed, a new default signing key will be generated.
      *
      */
     public static cloudflareImagesKeysDeleteSigningKey<ThrowOnError extends boolean = true>(parameters: {
         signing_key_name: ImagesSigningKeyIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesKeysDeleteSigningKeyResponses, CloudflareImagesKeysDeleteSigningKeyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'signing_key_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<CloudflareImagesKeysDeleteSigningKeyResponses, CloudflareImagesKeysDeleteSigningKeyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,12 +71,12 @@ export class CloudflareImagesKeysService {
     /**
      * Create a new Signing Key
      *
-     * Create a new signing key with specified name. Returns all keys available.
+     * Create a new CF Images signing key with specified name. Returns all keys available.
      */
     public static cloudflareImagesKeysAddSigningKey<ThrowOnError extends boolean = true>(parameters: {
         signing_key_name: ImagesSigningKeyIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesKeysAddSigningKeyResponses, CloudflareImagesKeysAddSigningKeyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'signing_key_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).put<CloudflareImagesKeysAddSigningKeyResponses, CloudflareImagesKeysAddSigningKeyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

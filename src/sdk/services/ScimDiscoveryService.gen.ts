@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamAccountIdentifierWritable, ScimResourceTypesGetErrors, ScimResourceTypesGetResponses, ScimResourceTypesListErrors, ScimResourceTypesListResponses, ScimSchemasGetErrors, ScimSchemasGetResponses, ScimSchemasListErrors, ScimSchemasListResponses, ScimServiceProviderConfigGetErrors, ScimServiceProviderConfigGetResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class ScimDiscoveryService {
      */
     public static scimResourceTypesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimResourceTypesListResponses, ScimResourceTypesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ScimResourceTypesListResponses, ScimResourceTypesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class ScimDiscoveryService {
     public static scimResourceTypesGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         resource_type_id: 'User' | 'Group';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimResourceTypesGetResponses, ScimResourceTypesGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'resource_type_id' }] }]);
         return (options?.client ?? client).get<ScimResourceTypesGetResponses, ScimResourceTypesGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -68,7 +68,7 @@ export class ScimDiscoveryService {
      */
     public static scimSchemasList<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimSchemasListResponses, ScimSchemasListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ScimSchemasListResponses, ScimSchemasListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,7 +93,7 @@ export class ScimDiscoveryService {
     public static scimSchemasGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         schema_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimSchemasGetResponses, ScimSchemasGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'schema_id' }] }]);
         return (options?.client ?? client).get<ScimSchemasGetResponses, ScimSchemasGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -117,7 +117,7 @@ export class ScimDiscoveryService {
      */
     public static scimServiceProviderConfigGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimServiceProviderConfigGetResponses, ScimServiceProviderConfigGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ScimServiceProviderConfigGetResponses, ScimServiceProviderConfigGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

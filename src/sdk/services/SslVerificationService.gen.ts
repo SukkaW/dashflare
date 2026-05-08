@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { SslVerificationEditSslCertificatePackValidationMethodErrors, SslVerificationEditSslCertificatePackValidationMethodResponses, SslVerificationSslVerificationDetailsErrors, SslVerificationSslVerificationDetailsResponses, TlsCertificatesAndHostnamesCertPackUuid, TlsCertificatesAndHostnamesComponentsSchemasValidationMethod, TlsCertificatesAndHostnamesIdentifier } from '../types.gen';
+import type { SslVerificationEditSslCertificatePackValidationMethodErrors, SslVerificationEditSslCertificatePackValidationMethodResponses, SslVerificationSslVerificationDetailsErrors, SslVerificationSslVerificationDetailsResponses, TlsCertificatesAndHostnamesCertPackUuid, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesValidationMethod3 } from '../types.gen';
 import { zSslVerificationEditSslCertificatePackValidationMethodBody, zSslVerificationEditSslCertificatePackValidationMethodPath, zSslVerificationEditSslCertificatePackValidationMethodResponse, zSslVerificationSslVerificationDetailsPath, zSslVerificationSslVerificationDetailsQuery, zSslVerificationSslVerificationDetailsResponse } from '../zod.gen';
 
 export class SslVerificationService {
@@ -19,7 +19,7 @@ export class SslVerificationService {
     public static sslVerificationSslVerificationDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         retry?: true;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SslVerificationSslVerificationDetailsResponses, SslVerificationSslVerificationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'retry' }] }]);
         return (options?.client ?? client).get<SslVerificationSslVerificationDetailsResponses, SslVerificationSslVerificationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -29,9 +29,9 @@ export class SslVerificationService {
             }).parseAsync(data),
             responseValidator: async (data) => await zSslVerificationSslVerificationDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/verification',
             ...options,
@@ -47,12 +47,12 @@ export class SslVerificationService {
     public static sslVerificationEditSslCertificatePackValidationMethod<ThrowOnError extends boolean = true>(parameters: {
         certificate_pack_id: TlsCertificatesAndHostnamesCertPackUuid;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        tlsCertificatesAndHostnamesComponentsSchemasValidationMethod: TlsCertificatesAndHostnamesComponentsSchemasValidationMethod;
-    }, options?: Options<never, ThrowOnError>) {
+        tlsCertificatesAndHostnamesValidationMethod3: TlsCertificatesAndHostnamesValidationMethod3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SslVerificationEditSslCertificatePackValidationMethodResponses, SslVerificationEditSslCertificatePackValidationMethodErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_pack_id' },
                     { in: 'path', key: 'zone_id' },
-                    { key: 'tlsCertificatesAndHostnamesComponentsSchemasValidationMethod', map: 'body' }
+                    { key: 'tlsCertificatesAndHostnamesValidationMethod3', map: 'body' }
                 ] }]);
         return (options?.client ?? client).patch<SslVerificationEditSslCertificatePackValidationMethodResponses, SslVerificationEditSslCertificatePackValidationMethodErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -62,9 +62,9 @@ export class SslVerificationService {
             }).parseAsync(data),
             responseValidator: async (data) => await zSslVerificationEditSslCertificatePackValidationMethodResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/verification/{certificate_pack_id}',
             ...options,

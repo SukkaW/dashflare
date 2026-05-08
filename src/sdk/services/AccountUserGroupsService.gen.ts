@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountUserGroupCreateErrors, AccountUserGroupCreateResponses, AccountUserGroupDeleteErrors, AccountUserGroupDeleteResponses, AccountUserGroupDetailsErrors, AccountUserGroupDetailsResponses, AccountUserGroupListErrors, AccountUserGroupListResponses, AccountUserGroupUpdateErrors, AccountUserGroupUpdateResponses, IamAccountIdentifierWritable, IamCreateUserGroupBody, IamUpdateUserGroupBody, IamUserGroupIdentifierWritable } from '../types.gen';
@@ -24,7 +24,7 @@ export class AccountUserGroupsService {
         page?: number;
         per_page?: number;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupListResponses, AccountUserGroupListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -56,7 +56,7 @@ export class AccountUserGroupsService {
     public static accountUserGroupCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamCreateUserGroupBody: IamCreateUserGroupBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupCreateResponses, AccountUserGroupCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamCreateUserGroupBody', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountUserGroupCreateResponses, AccountUserGroupCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class AccountUserGroupsService {
     public static accountUserGroupDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         user_group_id: IamUserGroupIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupDeleteResponses, AccountUserGroupDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'user_group_id' }] }]);
         return (options?.client ?? client).delete<AccountUserGroupDeleteResponses, AccountUserGroupDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -109,7 +109,7 @@ export class AccountUserGroupsService {
     public static accountUserGroupDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         user_group_id: IamUserGroupIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupDetailsResponses, AccountUserGroupDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'user_group_id' }] }]);
         return (options?.client ?? client).get<AccountUserGroupDetailsResponses, AccountUserGroupDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class AccountUserGroupsService {
         account_id: IamAccountIdentifierWritable;
         user_group_id: IamUserGroupIdentifierWritable;
         iamUpdateUserGroupBody: IamUpdateUserGroupBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountUserGroupUpdateResponses, AccountUserGroupUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'user_group_id' },

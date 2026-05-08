@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessAllowAuthenticateViaWarp, AccessAuthDomain, AccessAutoRedirectToIdentity, AccessCustomPages, AccessDenyUnmatchedRequests, AccessDenyUnmatchedRequestsExemptedZoneNames, AccessDohJwtDuration, AccessIdentifier, AccessIsUiReadOnly, AccessLoginDesign, AccessMfaRequiredForAllApps, AccessMfaSshPivKeyRequirements, AccessName, AccessOrgMfaConfig, AccessSessionDuration, AccessUiReadOnlyToggleReason, AccessUserSeatExpirationInactiveTime, AccessWarpAuthSessionDuration, ZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsErrors, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsErrors, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses } from '../types.gen';
+import type { AccessAllowAuthenticateViaWarp, AccessAuthDomain, AccessAutoRedirectToIdentity, AccessCustomPages, AccessDenyUnmatchedRequests, AccessDenyUnmatchedRequestsExemptedZoneNames, AccessDohJwtDuration, AccessIdentifier, AccessIsUiReadOnly, AccessLoginDesign, AccessMfaPivKeyRequirements, AccessMfaRequiredForAllApps, AccessName, AccessOrgMfaConfig, AccessSessionDuration, AccessUiReadOnlyToggleReason, AccessUserSeatExpirationInactiveTime, AccessWarpAuthSessionDuration, ZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsErrors, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsErrors, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses } from '../types.gen';
 import { zZeroTrustOrganizationCreateYourZeroTrustOrganizationBody, zZeroTrustOrganizationCreateYourZeroTrustOrganizationPath, zZeroTrustOrganizationCreateYourZeroTrustOrganizationResponse, zZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsPath, zZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponse, zZeroTrustOrganizationGetYourZeroTrustOrganizationPath, zZeroTrustOrganizationGetYourZeroTrustOrganizationResponse, zZeroTrustOrganizationRevokeAllAccessTokensForAuserBody, zZeroTrustOrganizationRevokeAllAccessTokensForAuserPath, zZeroTrustOrganizationRevokeAllAccessTokensForAuserQuery, zZeroTrustOrganizationRevokeAllAccessTokensForAuserResponse, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationBody, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsBody, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsPath, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsResponse, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationPath, zZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponse } from '../zod.gen';
 
 export class ZeroTrustOrganizationService {
@@ -18,7 +18,7 @@ export class ZeroTrustOrganizationService {
      */
     public static zeroTrustOrganizationGetYourZeroTrustOrganization<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -53,14 +53,14 @@ export class ZeroTrustOrganizationService {
         is_ui_read_only?: AccessIsUiReadOnly;
         login_design?: AccessLoginDesign;
         mfa_config?: AccessOrgMfaConfig;
+        mfa_piv_key_requirements?: AccessMfaPivKeyRequirements;
         mfa_required_for_all_apps?: AccessMfaRequiredForAllApps;
-        mfa_ssh_piv_key_requirements?: AccessMfaSshPivKeyRequirements;
         name: AccessName;
         session_duration?: AccessSessionDuration;
         ui_read_only_toggle_reason?: AccessUiReadOnlyToggleReason;
         user_seat_expiration_inactive_time?: AccessUserSeatExpirationInactiveTime;
         warp_auth_session_duration?: AccessWarpAuthSessionDuration;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'allow_authenticate_via_warp' },
@@ -71,8 +71,8 @@ export class ZeroTrustOrganizationService {
                     { in: 'body', key: 'is_ui_read_only' },
                     { in: 'body', key: 'login_design' },
                     { in: 'body', key: 'mfa_config' },
+                    { in: 'body', key: 'mfa_piv_key_requirements' },
                     { in: 'body', key: 'mfa_required_for_all_apps' },
-                    { in: 'body', key: 'mfa_ssh_piv_key_requirements' },
                     { in: 'body', key: 'name' },
                     { in: 'body', key: 'session_duration' },
                     { in: 'body', key: 'ui_read_only_toggle_reason' },
@@ -118,14 +118,14 @@ export class ZeroTrustOrganizationService {
         is_ui_read_only?: AccessIsUiReadOnly;
         login_design?: AccessLoginDesign;
         mfa_config?: AccessOrgMfaConfig;
+        mfa_piv_key_requirements?: AccessMfaPivKeyRequirements;
         mfa_required_for_all_apps?: AccessMfaRequiredForAllApps;
-        mfa_ssh_piv_key_requirements?: AccessMfaSshPivKeyRequirements;
         name?: AccessName;
         session_duration?: AccessSessionDuration;
         ui_read_only_toggle_reason?: AccessUiReadOnlyToggleReason;
         user_seat_expiration_inactive_time?: AccessUserSeatExpirationInactiveTime;
         warp_auth_session_duration?: AccessWarpAuthSessionDuration;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'allow_authenticate_via_warp' },
@@ -137,8 +137,8 @@ export class ZeroTrustOrganizationService {
                     { in: 'body', key: 'is_ui_read_only' },
                     { in: 'body', key: 'login_design' },
                     { in: 'body', key: 'mfa_config' },
+                    { in: 'body', key: 'mfa_piv_key_requirements' },
                     { in: 'body', key: 'mfa_required_for_all_apps' },
-                    { in: 'body', key: 'mfa_ssh_piv_key_requirements' },
                     { in: 'body', key: 'name' },
                     { in: 'body', key: 'session_duration' },
                     { in: 'body', key: 'ui_read_only_toggle_reason' },
@@ -175,7 +175,7 @@ export class ZeroTrustOrganizationService {
      */
     public static zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationGetYourZeroTrustOrganizationDohSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -204,7 +204,7 @@ export class ZeroTrustOrganizationService {
         account_id: AccessIdentifier;
         doh_jwt_duration?: AccessDohJwtDuration;
         service_token_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsResponses, ZeroTrustOrganizationUpdateYourZeroTrustOrganizationDohSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'doh_jwt_duration' },
@@ -245,7 +245,7 @@ export class ZeroTrustOrganizationService {
         email: string;
         user_uid?: string;
         warp_session_reauth?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     {

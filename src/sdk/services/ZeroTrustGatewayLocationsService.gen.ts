@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayClientDefault, ZeroTrustGatewayComponentsSchemasUuid, ZeroTrustGatewayDnsDestinationIpsIdWrite, ZeroTrustGatewayEcsSupport, ZeroTrustGatewayEndpoints, ZeroTrustGatewayIpv4Networks, ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsErrors, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsResponses, ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsErrors, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsResponses, ZeroTrustGatewaySchemasIdentifier, ZeroTrustGatewaySchemasName } from '../types.gen';
+import type { ZeroTrustGatewayClientDefault, ZeroTrustGatewayDnsDestinationIpsIdWrite, ZeroTrustGatewayEcsSupport, ZeroTrustGatewayEndpoints, ZeroTrustGatewayIdentifier2, ZeroTrustGatewayIpv4Networks, ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsErrors, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsResponses, ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationErrors, ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsErrors, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsResponses, ZeroTrustGatewayMaxTtl, ZeroTrustGatewayName2, ZeroTrustGatewayUuid3 } from '../types.gen';
 import { zZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationBody, zZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationPath, zZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationResponse, zZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationBody, zZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationPath, zZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationResponse, zZeroTrustGatewayLocationsListZeroTrustGatewayLocationsPath, zZeroTrustGatewayLocationsListZeroTrustGatewayLocationsResponse, zZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationBody, zZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationPath, zZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationResponse, zZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsPath, zZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayLocationsService {
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayLocationsService {
      * List Zero Trust Gateway locations for an account.
      */
     public static zeroTrustGatewayLocationsListZeroTrustGatewayLocations<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsResponses, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsResponses, ZeroTrustGatewayLocationsListZeroTrustGatewayLocationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,20 +44,22 @@ export class ZeroTrustGatewayLocationsService {
      * Create a new Zero Trust Gateway location.
      */
     public static zeroTrustGatewayLocationsCreateZeroTrustGatewayLocation<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         client_default?: ZeroTrustGatewayClientDefault;
         dns_destination_ips_id?: ZeroTrustGatewayDnsDestinationIpsIdWrite;
         ecs_support?: ZeroTrustGatewayEcsSupport;
         endpoints?: ZeroTrustGatewayEndpoints;
-        name: ZeroTrustGatewaySchemasName;
+        max_ttl?: ZeroTrustGatewayMaxTtl;
+        name: ZeroTrustGatewayName2;
         networks?: ZeroTrustGatewayIpv4Networks;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsCreateZeroTrustGatewayLocationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'client_default' },
                     { in: 'body', key: 'dns_destination_ips_id' },
                     { in: 'body', key: 'ecs_support' },
                     { in: 'body', key: 'endpoints' },
+                    { in: 'body', key: 'max_ttl' },
                     { in: 'body', key: 'name' },
                     { in: 'body', key: 'networks' }
                 ] }]);
@@ -90,10 +92,10 @@ export class ZeroTrustGatewayLocationsService {
      * Delete a configured Zero Trust Gateway location.
      */
     public static zeroTrustGatewayLocationsDeleteZeroTrustGatewayLocation<ThrowOnError extends boolean = true>(parameters: {
-        location_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        location_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsDeleteZeroTrustGatewayLocationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'location_id' },
                     { in: 'path', key: 'account_id' },
@@ -128,9 +130,9 @@ export class ZeroTrustGatewayLocationsService {
      * Get a single Zero Trust Gateway location.
      */
     public static zeroTrustGatewayLocationsZeroTrustGatewayLocationDetails<ThrowOnError extends boolean = true>(parameters: {
-        location_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        location_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsResponses, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'location_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsResponses, ZeroTrustGatewayLocationsZeroTrustGatewayLocationDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -156,15 +158,16 @@ export class ZeroTrustGatewayLocationsService {
      * Update a configured Zero Trust Gateway location.
      */
     public static zeroTrustGatewayLocationsUpdateZeroTrustGatewayLocation<ThrowOnError extends boolean = true>(parameters: {
-        location_id: ZeroTrustGatewayComponentsSchemasUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        location_id: ZeroTrustGatewayUuid3;
+        account_id: ZeroTrustGatewayIdentifier2;
         client_default?: ZeroTrustGatewayClientDefault;
         dns_destination_ips_id?: ZeroTrustGatewayDnsDestinationIpsIdWrite;
         ecs_support?: ZeroTrustGatewayEcsSupport;
         endpoints?: ZeroTrustGatewayEndpoints;
-        name: ZeroTrustGatewaySchemasName;
+        max_ttl?: ZeroTrustGatewayMaxTtl;
+        name: ZeroTrustGatewayName2;
         networks?: ZeroTrustGatewayIpv4Networks;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationResponses, ZeroTrustGatewayLocationsUpdateZeroTrustGatewayLocationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'location_id' },
                     { in: 'path', key: 'account_id' },
@@ -172,6 +175,7 @@ export class ZeroTrustGatewayLocationsService {
                     { in: 'body', key: 'dns_destination_ips_id' },
                     { in: 'body', key: 'ecs_support' },
                     { in: 'body', key: 'endpoints' },
+                    { in: 'body', key: 'max_ttl' },
                     { in: 'body', key: 'name' },
                     { in: 'body', key: 'networks' }
                 ] }]);

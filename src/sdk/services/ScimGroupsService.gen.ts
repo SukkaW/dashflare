@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamAccountIdentifierWritable, IamScimGroupCreateRequest, IamScimGroupIdentifier, IamScimGroupPatchOpRequest, ScimGroupsCreateErrors, ScimGroupsCreateResponses, ScimGroupsDeleteErrors, ScimGroupsDeleteResponses, ScimGroupsGetErrors, ScimGroupsGetResponses, ScimGroupsListErrors, ScimGroupsListResponses, ScimGroupsPatchErrors, ScimGroupsPatchResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class ScimGroupsService {
         startIndex?: number;
         count?: number;
         filter?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimGroupsListResponses, ScimGroupsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'startIndex' },
@@ -52,7 +52,7 @@ export class ScimGroupsService {
     public static scimGroupsCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamScimGroupCreateRequest: IamScimGroupCreateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimGroupsCreateResponses, ScimGroupsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamScimGroupCreateRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ScimGroupsCreateResponses, ScimGroupsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +82,7 @@ export class ScimGroupsService {
     public static scimGroupsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         group_id: IamScimGroupIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimGroupsDeleteResponses, ScimGroupsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).delete<ScimGroupsDeleteResponses, ScimGroupsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ScimGroupsService {
     public static scimGroupsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         group_id: IamScimGroupIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimGroupsGetResponses, ScimGroupsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'group_id' }] }]);
         return (options?.client ?? client).get<ScimGroupsGetResponses, ScimGroupsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -132,7 +132,7 @@ export class ScimGroupsService {
         account_id: IamAccountIdentifierWritable;
         group_id: IamScimGroupIdentifier;
         iamScimGroupPatchOpRequest: IamScimGroupPatchOpRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ScimGroupsPatchResponses, ScimGroupsPatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'group_id' },

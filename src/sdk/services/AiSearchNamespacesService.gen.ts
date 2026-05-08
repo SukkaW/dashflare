@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AiSearchCreateNamespaceErrors, AiSearchCreateNamespaceResponses, AiSearchDeleteNamespaceErrors, AiSearchDeleteNamespaceResponses, AiSearchFetchNamespaceErrors, AiSearchFetchNamespaceResponses, AiSearchListNamespacesErrors, AiSearchListNamespacesResponses, AiSearchMoveInstanceErrors, AiSearchMoveInstanceResponses, AiSearchUpdateNamespaceErrors, AiSearchUpdateNamespaceResponses } from '../types.gen';
@@ -12,16 +12,16 @@ import { zAiSearchCreateNamespaceBody, zAiSearchCreateNamespacePath, zAiSearchCr
 
 export class AiSearchNamespacesService {
     /**
-     * List namespaces.
+     * List namespaces
      *
-     * List namespaces.
+     * List namespaces in the account, including their descriptions and creation times.
      */
     public static aiSearchListNamespaces<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         page?: number;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchListNamespacesResponses, AiSearchListNamespacesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -47,15 +47,15 @@ export class AiSearchNamespacesService {
     }
     
     /**
-     * Create namespace.
+     * Create a namespace
      *
-     * Create a new namespace.
+     * Create a namespace for organizing AI Search instances.
      */
     public static aiSearchCreateNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         description?: string | null;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchCreateNamespaceResponses, AiSearchCreateNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -85,14 +85,14 @@ export class AiSearchNamespacesService {
     }
     
     /**
-     * Delete namespace.
+     * Delete a namespace
      *
-     * Delete namespace.
+     * Permanently delete a namespace. The namespace must be empty (no instances), and the default namespace cannot be deleted.
      */
     public static aiSearchDeleteNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchDeleteNamespaceResponses, AiSearchDeleteNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'name' }] }]);
         return (options?.client ?? client).delete<AiSearchDeleteNamespaceResponses, AiSearchDeleteNamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,14 +113,14 @@ export class AiSearchNamespacesService {
     }
     
     /**
-     * Read namespace.
+     * Get a namespace
      *
-     * Read namespace.
+     * Retrieve a namespace and its description.
      */
     public static aiSearchFetchNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchFetchNamespaceResponses, AiSearchFetchNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'name' }] }]);
         return (options?.client ?? client).get<AiSearchFetchNamespaceResponses, AiSearchFetchNamespaceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -141,15 +141,15 @@ export class AiSearchNamespacesService {
     }
     
     /**
-     * Update namespace.
+     * Update a namespace
      *
-     * Update namespace.
+     * Update the description of an existing namespace. The default namespace cannot be modified.
      */
     public static aiSearchUpdateNamespace<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         name: string;
         description?: string | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchUpdateNamespaceResponses, AiSearchUpdateNamespaceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },
@@ -181,14 +181,14 @@ export class AiSearchNamespacesService {
     /**
      * Move an instance to a different namespace.
      *
-     * Moves an instance from its current namespace to the specified target namespace. Use 'default' as new_namespace to move the instance back to the default namespace. Fails with 400 if the target namespace already has an instance with the same id (ids must be unique within a namespace — the same id can exist in different namespaces).
+     * Moves an instance from its current namespace to the specified target namespace. Use 'default' with --destination-namespace to move the instance back to the default namespace. Fails with 400 if the target namespace already has an instance with the same id (ids must be unique within a namespace — the same id can exist in different namespaces).
      */
     public static aiSearchMoveInstance<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         name: string;
         id: string;
         new_namespace: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AiSearchMoveInstanceResponses, AiSearchMoveInstanceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'name' },

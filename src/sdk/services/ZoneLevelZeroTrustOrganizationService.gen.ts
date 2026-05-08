@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessOrganizationsComponentsSchemasIdentifier, AccessOrganizationsComponentsSchemasName, AccessSchemasAuthDomain, AccessSchemasIsUiReadOnly, AccessSchemasLoginDesign, AccessSchemasUserSeatExpirationInactiveTime, AccessUiReadOnlyToggleReason, ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses } from '../types.gen';
+import type { AccessAuthDomain2, AccessIdentifier4, AccessIsUiReadOnly2, AccessLoginDesign2, AccessName15, AccessUiReadOnlyToggleReason, AccessUserSeatExpirationInactiveTime2, ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses } from '../types.gen';
 import { zZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationBody, zZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationPath, zZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationResponse, zZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationPath, zZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationResponse, zZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserBody, zZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserPath, zZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserResponse, zZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationBody, zZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationPath, zZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponse } from '../zod.gen';
 
 export class ZoneLevelZeroTrustOrganizationService {
@@ -17,8 +17,8 @@ export class ZoneLevelZeroTrustOrganizationService {
      * Returns the configuration for your Zero Trust organization.
      */
     public static zoneLevelZeroTrustOrganizationGetYourZeroTrustOrganization<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: AccessOrganizationsComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: AccessIdentifier4;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationGetYourZeroTrustOrganizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -40,14 +40,14 @@ export class ZoneLevelZeroTrustOrganizationService {
      * Sets up a Zero Trust organization for your account.
      */
     public static zoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganization<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: AccessOrganizationsComponentsSchemasIdentifier;
-        auth_domain: AccessSchemasAuthDomain;
-        is_ui_read_only?: AccessSchemasIsUiReadOnly;
-        login_design?: AccessSchemasLoginDesign;
-        name: AccessOrganizationsComponentsSchemasName;
+        zone_id: AccessIdentifier4;
+        auth_domain: AccessAuthDomain2;
+        is_ui_read_only?: AccessIsUiReadOnly2;
+        login_design?: AccessLoginDesign2;
+        name: AccessName15;
         ui_read_only_toggle_reason?: AccessUiReadOnlyToggleReason;
-        user_seat_expiration_inactive_time?: AccessSchemasUserSeatExpirationInactiveTime;
-    }, options?: Options<never, ThrowOnError>) {
+        user_seat_expiration_inactive_time?: AccessUserSeatExpirationInactiveTime2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationCreateYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'auth_domain' },
@@ -82,14 +82,14 @@ export class ZoneLevelZeroTrustOrganizationService {
      * Updates the configuration for your Zero Trust organization.
      */
     public static zoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganization<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: AccessOrganizationsComponentsSchemasIdentifier;
-        auth_domain?: AccessSchemasAuthDomain;
-        is_ui_read_only?: AccessSchemasIsUiReadOnly;
-        login_design?: AccessSchemasLoginDesign;
-        name?: AccessOrganizationsComponentsSchemasName;
+        zone_id: AccessIdentifier4;
+        auth_domain?: AccessAuthDomain2;
+        is_ui_read_only?: AccessIsUiReadOnly2;
+        login_design?: AccessLoginDesign2;
+        name?: AccessName15;
         ui_read_only_toggle_reason?: AccessUiReadOnlyToggleReason;
-        user_seat_expiration_inactive_time?: AccessSchemasUserSeatExpirationInactiveTime;
-    }, options?: Options<never, ThrowOnError>) {
+        user_seat_expiration_inactive_time?: AccessUserSeatExpirationInactiveTime2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationResponses, ZoneLevelZeroTrustOrganizationUpdateYourZeroTrustOrganizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'auth_domain' },
@@ -124,9 +124,9 @@ export class ZoneLevelZeroTrustOrganizationService {
      * Revokes a user's access across all applications.
      */
     public static zoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAUser<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: AccessOrganizationsComponentsSchemasIdentifier;
+        zone_id: AccessIdentifier4;
         email: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'email' }] }]);
         return (options?.client ?? client).post<ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserResponses, ZoneLevelZeroTrustOrganizationRevokeAllAccessTokensForAuserErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CacheIdentifier, CacheSchemasPatch, SslDetectorAutomaticModeGetEnrollmentErrors, SslDetectorAutomaticModeGetEnrollmentResponses, SslDetectorAutomaticModePatchEnrollmentErrors, SslDetectorAutomaticModePatchEnrollmentResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class AutomaticSslTlsService {
      */
     public static sslDetectorAutomaticModeGetEnrollment<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SslDetectorAutomaticModeGetEnrollmentResponses, SslDetectorAutomaticModeGetEnrollmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SslDetectorAutomaticModeGetEnrollmentResponses, SslDetectorAutomaticModeGetEnrollmentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class AutomaticSslTlsService {
     public static sslDetectorAutomaticModePatchEnrollment<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheIdentifier;
         cacheSchemasPatch: CacheSchemasPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SslDetectorAutomaticModePatchEnrollmentResponses, SslDetectorAutomaticModePatchEnrollmentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'cacheSchemasPatch', map: 'body' }] }]);
         return (options?.client ?? client).patch<SslDetectorAutomaticModePatchEnrollmentResponses, SslDetectorAutomaticModePatchEnrollmentErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { R2AccountIdentifier, R2GetAccountLevelMetricsErrors, R2GetAccountLevelMetricsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class R2AccountService {
      */
     public static r2GetAccountLevelMetrics<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetAccountLevelMetricsResponses, R2GetAccountLevelMetricsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<R2GetAccountLevelMetricsResponses, R2GetAccountLevelMetricsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

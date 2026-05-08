@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomHostnameForAZoneCreateCustomHostnameErrors, CustomHostnameForAZoneCreateCustomHostnameResponses, CustomHostnameForAZoneCustomHostnameDetailsErrors, CustomHostnameForAZoneCustomHostnameDetailsResponses, CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesErrors, CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponses, CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameErrors, CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponses, CustomHostnameForAZoneEditCustomCertificateCustomHostnameErrors, CustomHostnameForAZoneEditCustomCertificateCustomHostnameResponses, CustomHostnameForAZoneEditCustomHostnameErrors, CustomHostnameForAZoneEditCustomHostnameResponses, CustomHostnameForAZoneListCustomHostnamesErrors, CustomHostnameForAZoneListCustomHostnamesResponses, TlsCertificatesAndHostnamesCustomCertAndKey, TlsCertificatesAndHostnamesCustomMetadata, TlsCertificatesAndHostnamesCustomOriginServer, TlsCertificatesAndHostnamesCustomOriginSni, TlsCertificatesAndHostnamesHostnamePost, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSslpost } from '../types.gen';
-import { zCustomHostnameForAZoneCreateCustomHostnameBody, zCustomHostnameForAZoneCreateCustomHostnamePath, zCustomHostnameForAZoneCreateCustomHostnameResponse, zCustomHostnameForAZoneCustomHostnameDetailsPath, zCustomHostnameForAZoneCustomHostnameDetailsResponse, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesBody, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesPath, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponse, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameBody, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnamePath, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponse, zCustomHostnameForAZoneEditCustomCertificateCustomHostnameBody, zCustomHostnameForAZoneEditCustomCertificateCustomHostnamePath, zCustomHostnameForAZoneEditCustomCertificateCustomHostnameResponse, zCustomHostnameForAZoneEditCustomHostnameBody, zCustomHostnameForAZoneEditCustomHostnamePath, zCustomHostnameForAZoneEditCustomHostnameResponse, zCustomHostnameForAZoneListCustomHostnamesPath, zCustomHostnameForAZoneListCustomHostnamesQuery, zCustomHostnameForAZoneListCustomHostnamesResponse } from '../zod.gen';
+import type { CustomHostnameForAZoneCreateCustomHostnameErrors, CustomHostnameForAZoneCreateCustomHostnameResponses, CustomHostnameForAZoneCustomHostnameDetailsErrors, CustomHostnameForAZoneCustomHostnameDetailsResponses, CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesErrors, CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponses, CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameErrors, CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponses, CustomHostnameForAZoneEditCustomCertificateCustomHostnameErrors, CustomHostnameForAZoneEditCustomCertificateCustomHostnameResponses, CustomHostnameForAZoneEditCustomHostnameErrors, CustomHostnameForAZoneEditCustomHostnameResponses, CustomHostnameForAZoneGetCustomHostnameQuotaErrors, CustomHostnameForAZoneGetCustomHostnameQuotaResponses, CustomHostnameForAZoneListCustomHostnamesErrors, CustomHostnameForAZoneListCustomHostnamesResponses, TlsCertificatesAndHostnamesCustomCertAndKey, TlsCertificatesAndHostnamesCustomMetadata, TlsCertificatesAndHostnamesCustomOriginServer, TlsCertificatesAndHostnamesCustomOriginSni, TlsCertificatesAndHostnamesHostnamePost, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSslpost } from '../types.gen';
+import { zCustomHostnameForAZoneCreateCustomHostnameBody, zCustomHostnameForAZoneCreateCustomHostnamePath, zCustomHostnameForAZoneCreateCustomHostnameResponse, zCustomHostnameForAZoneCustomHostnameDetailsPath, zCustomHostnameForAZoneCustomHostnameDetailsResponse, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesBody, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesPath, zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponse, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameBody, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnamePath, zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponse, zCustomHostnameForAZoneEditCustomCertificateCustomHostnameBody, zCustomHostnameForAZoneEditCustomCertificateCustomHostnamePath, zCustomHostnameForAZoneEditCustomCertificateCustomHostnameResponse, zCustomHostnameForAZoneEditCustomHostnameBody, zCustomHostnameForAZoneEditCustomHostnamePath, zCustomHostnameForAZoneEditCustomHostnameResponse, zCustomHostnameForAZoneGetCustomHostnameQuotaPath, zCustomHostnameForAZoneGetCustomHostnameQuotaResponse, zCustomHostnameForAZoneListCustomHostnamesPath, zCustomHostnameForAZoneListCustomHostnamesQuery, zCustomHostnameForAZoneListCustomHostnamesResponse } from '../zod.gen';
 
 export class CustomHostnameForAZoneService {
     /**
@@ -19,6 +19,8 @@ export class CustomHostnameForAZoneService {
     public static customHostnameForAZoneListCustomHostnames<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         hostname?: string;
+        'hostname.exact'?: string;
+        'hostname.startsWith'?: string;
         'hostname.contain'?: string;
         id?: string;
         page?: number;
@@ -31,10 +33,12 @@ export class CustomHostnameForAZoneService {
         wildcard?: boolean;
         custom_origin_server?: string;
         ssl?: 0 | 1;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneListCustomHostnamesResponses, CustomHostnameForAZoneListCustomHostnamesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'hostname' },
+                    { in: 'query', key: 'hostname.exact' },
+                    { in: 'query', key: 'hostname.startsWith' },
                     { in: 'query', key: 'hostname.contain' },
                     { in: 'query', key: 'id' },
                     { in: 'query', key: 'page' },
@@ -56,9 +60,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneListCustomHostnamesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames',
             ...options,
@@ -74,12 +78,16 @@ export class CustomHostnameForAZoneService {
     public static customHostnameForAZoneCreateCustomHostname<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         custom_metadata?: TlsCertificatesAndHostnamesCustomMetadata;
+        custom_origin_server?: TlsCertificatesAndHostnamesCustomOriginServer;
+        custom_origin_sni?: TlsCertificatesAndHostnamesCustomOriginSni;
         hostname: TlsCertificatesAndHostnamesHostnamePost;
         ssl?: TlsCertificatesAndHostnamesSslpost;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneCreateCustomHostnameResponses, CustomHostnameForAZoneCreateCustomHostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'custom_metadata' },
+                    { in: 'body', key: 'custom_origin_server' },
+                    { in: 'body', key: 'custom_origin_sni' },
                     { in: 'body', key: 'hostname' },
                     { in: 'body', key: 'ssl' }
                 ] }]);
@@ -91,9 +99,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneCreateCustomHostnameResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames',
             ...options,
@@ -107,6 +115,33 @@ export class CustomHostnameForAZoneService {
     }
     
     /**
+     * Get Custom Hostname Quota
+     *
+     * Returns custom hostname quota usage for a zone. The allocated quota is a soft limit; creating custom hostnames after usage exceeds this limit can still succeed until the hard cap is reached. Use the exceeded and hard_cap fields to track when usage is above the soft limit and when new custom hostname creation will be rejected.
+     */
+    public static customHostnameForAZoneGetCustomHostnameQuota<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: TlsCertificatesAndHostnamesIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneGetCustomHostnameQuotaResponses, CustomHostnameForAZoneGetCustomHostnameQuotaErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
+        return (options?.client ?? client).get<CustomHostnameForAZoneGetCustomHostnameQuotaResponses, CustomHostnameForAZoneGetCustomHostnameQuotaErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCustomHostnameForAZoneGetCustomHostnameQuotaPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCustomHostnameForAZoneGetCustomHostnameQuotaResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/zones/{zone_id}/custom_hostnames/quota',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Delete Custom Hostname (and any issued SSL certificates)
      *
      * Permanently deletes a custom hostname and revokes any SSL certificates that were issued for it. This action cannot be undone.
@@ -115,7 +150,7 @@ export class CustomHostnameForAZoneService {
         custom_hostname_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponses, CustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_hostname_id' },
                     { in: 'path', key: 'zone_id' },
@@ -129,9 +164,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneDeleteCustomHostnameAndAnyIssuedSslCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/{custom_hostname_id}',
             ...options,
@@ -152,7 +187,7 @@ export class CustomHostnameForAZoneService {
     public static customHostnameForAZoneCustomHostnameDetails<ThrowOnError extends boolean = true>(parameters: {
         custom_hostname_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneCustomHostnameDetailsResponses, CustomHostnameForAZoneCustomHostnameDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_hostname_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CustomHostnameForAZoneCustomHostnameDetailsResponses, CustomHostnameForAZoneCustomHostnameDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -162,9 +197,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneCustomHostnameDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/{custom_hostname_id}',
             ...options,
@@ -184,7 +219,7 @@ export class CustomHostnameForAZoneService {
         custom_origin_server?: TlsCertificatesAndHostnamesCustomOriginServer;
         custom_origin_sni?: TlsCertificatesAndHostnamesCustomOriginSni;
         ssl?: TlsCertificatesAndHostnamesSslpost;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneEditCustomHostnameResponses, CustomHostnameForAZoneEditCustomHostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_hostname_id' },
                     { in: 'path', key: 'zone_id' },
@@ -201,9 +236,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneEditCustomHostnameResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/{custom_hostname_id}',
             ...options,
@@ -227,7 +262,7 @@ export class CustomHostnameForAZoneService {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponses, CustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_hostname_id' },
                     { in: 'path', key: 'certificate_pack_id' },
@@ -243,9 +278,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneDeleteSingleCertificateAndKeyInACustomHostnameResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}',
             ...options,
@@ -269,7 +304,7 @@ export class CustomHostnameForAZoneService {
         certificate_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         tlsCertificatesAndHostnamesCustomCertAndKey: TlsCertificatesAndHostnamesCustomCertAndKey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomHostnameForAZoneEditCustomCertificateCustomHostnameResponses, CustomHostnameForAZoneEditCustomCertificateCustomHostnameErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_hostname_id' },
                     { in: 'path', key: 'certificate_pack_id' },
@@ -285,9 +320,9 @@ export class CustomHostnameForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCustomHostnameForAZoneEditCustomCertificateCustomHostnameResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/custom_hostnames/{custom_hostname_id}/certificate_pack/{certificate_pack_id}/certificates/{certificate_id}',
             ...options,

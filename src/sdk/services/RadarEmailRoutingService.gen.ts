@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetEmailRoutingSummaryByArcErrors, RadarGetEmailRoutingSummaryByArcResponses, RadarGetEmailRoutingSummaryByDkimErrors, RadarGetEmailRoutingSummaryByDkimResponses, RadarGetEmailRoutingSummaryByDmarcErrors, RadarGetEmailRoutingSummaryByDmarcResponses, RadarGetEmailRoutingSummaryByEncryptedErrors, RadarGetEmailRoutingSummaryByEncryptedResponses, RadarGetEmailRoutingSummaryByIpVersionErrors, RadarGetEmailRoutingSummaryByIpVersionResponses, RadarGetEmailRoutingSummaryBySpfErrors, RadarGetEmailRoutingSummaryBySpfResponses, RadarGetEmailRoutingSummaryErrors, RadarGetEmailRoutingSummaryResponses, RadarGetEmailRoutingTimeseriesGroupByArcErrors, RadarGetEmailRoutingTimeseriesGroupByArcResponses, RadarGetEmailRoutingTimeseriesGroupByDkimErrors, RadarGetEmailRoutingTimeseriesGroupByDkimResponses, RadarGetEmailRoutingTimeseriesGroupByDmarcErrors, RadarGetEmailRoutingTimeseriesGroupByDmarcResponses, RadarGetEmailRoutingTimeseriesGroupByEncryptedErrors, RadarGetEmailRoutingTimeseriesGroupByEncryptedResponses, RadarGetEmailRoutingTimeseriesGroupByIpVersionErrors, RadarGetEmailRoutingTimeseriesGroupByIpVersionResponses, RadarGetEmailRoutingTimeseriesGroupBySpfErrors, RadarGetEmailRoutingTimeseriesGroupBySpfResponses, RadarGetEmailRoutingTimeseriesGroupErrors, RadarGetEmailRoutingTimeseriesGroupResponses } from '../types.gen';
@@ -29,7 +29,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryByArcResponses, RadarGetEmailRoutingSummaryByArcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -78,7 +78,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryByDkimResponses, RadarGetEmailRoutingSummaryByDkimErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -127,7 +127,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryByDmarcResponses, RadarGetEmailRoutingSummaryByDmarcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -176,7 +176,7 @@ export class RadarEmailRoutingService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryByEncryptedResponses, RadarGetEmailRoutingSummaryByEncryptedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -225,7 +225,7 @@ export class RadarEmailRoutingService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryByIpVersionResponses, RadarGetEmailRoutingSummaryByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -274,7 +274,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryBySpfResponses, RadarGetEmailRoutingSummaryBySpfErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -324,7 +324,7 @@ export class RadarEmailRoutingService {
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingSummaryResponses, RadarGetEmailRoutingSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -377,7 +377,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupByArcResponses, RadarGetEmailRoutingTimeseriesGroupByArcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -428,7 +428,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupByDkimResponses, RadarGetEmailRoutingTimeseriesGroupByDkimErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -479,7 +479,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupByDmarcResponses, RadarGetEmailRoutingTimeseriesGroupByDmarcErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -530,7 +530,7 @@ export class RadarEmailRoutingService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupByEncryptedResponses, RadarGetEmailRoutingTimeseriesGroupByEncryptedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -581,7 +581,7 @@ export class RadarEmailRoutingService {
         spf?: Array<'PASS' | 'NONE' | 'FAIL'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupByIpVersionResponses, RadarGetEmailRoutingTimeseriesGroupByIpVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -632,7 +632,7 @@ export class RadarEmailRoutingService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupBySpfResponses, RadarGetEmailRoutingTimeseriesGroupBySpfErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -684,7 +684,7 @@ export class RadarEmailRoutingService {
         encrypted?: Array<'ENCRYPTED' | 'NOT_ENCRYPTED'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEmailRoutingTimeseriesGroupResponses, RadarGetEmailRoutingTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },

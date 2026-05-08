@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IntelIdentifier, IntelMiscategorization, MiscategorizationCreateMiscategorizationErrors, MiscategorizationCreateMiscategorizationResponses } from '../types.gen';
@@ -15,11 +15,17 @@ export class MiscategorizationService {
      * Create Miscategorization
      *
      * Allows you to submit requests to change a domain’s category.
+     *
+     * Requests that include category `169` (New Domains) or category `177` (Newly Seen)
+     * in any of `content_adds`, `content_removes`, `security_adds`, or `security_removes`
+     * will be rejected with a `400 Bad Request`. These categories are automatically
+     * managed and fall off 30 days after they are applied.
+     *
      */
     public static miscategorizationCreateMiscategorization<ThrowOnError extends boolean = true>(parameters: {
         account_id: IntelIdentifier;
         intelMiscategorization: IntelMiscategorization;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MiscategorizationCreateMiscategorizationResponses, MiscategorizationCreateMiscategorizationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'intelMiscategorization', map: 'body' }] }]);
         return (options?.client ?? client).post<MiscategorizationCreateMiscategorizationResponses, MiscategorizationCreateMiscategorizationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

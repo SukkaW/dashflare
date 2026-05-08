@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { PerHostnameTlsSettingsDeleteErrors, PerHostnameTlsSettingsDeleteResponses, PerHostnameTlsSettingsGetErrors, PerHostnameTlsSettingsGetResponses, PerHostnameTlsSettingsListErrors, PerHostnameTlsSettingsListResponses, PerHostnameTlsSettingsPutErrors, PerHostnameTlsSettingsPutResponses, TlsCertificatesAndHostnamesComponentsSchemasHostname, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSettingId, TlsCertificatesAndHostnamesValue } from '../types.gen';
+import type { PerHostnameTlsSettingsDeleteErrors, PerHostnameTlsSettingsDeleteResponses, PerHostnameTlsSettingsGetErrors, PerHostnameTlsSettingsGetResponses, PerHostnameTlsSettingsListErrors, PerHostnameTlsSettingsListResponses, PerHostnameTlsSettingsPutErrors, PerHostnameTlsSettingsPutResponses, TlsCertificatesAndHostnamesHostname3, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSettingId, TlsCertificatesAndHostnamesValue } from '../types.gen';
 import { zPerHostnameTlsSettingsDeletePath, zPerHostnameTlsSettingsDeleteResponse, zPerHostnameTlsSettingsGetPath, zPerHostnameTlsSettingsGetResponse, zPerHostnameTlsSettingsListPath, zPerHostnameTlsSettingsListResponse, zPerHostnameTlsSettingsPutBody, zPerHostnameTlsSettingsPutPath, zPerHostnameTlsSettingsPutResponse } from '../zod.gen';
 
 export class PerHostnameTlsSettingsService {
@@ -19,7 +19,7 @@ export class PerHostnameTlsSettingsService {
     public static perHostnameTlsSettingsList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         setting_id: TlsCertificatesAndHostnamesSettingId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameTlsSettingsListResponses, PerHostnameTlsSettingsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'setting_id' }] }]);
         return (options?.client ?? client).get<PerHostnameTlsSettingsListResponses, PerHostnameTlsSettingsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -29,9 +29,9 @@ export class PerHostnameTlsSettingsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameTlsSettingsListResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/hostnames/settings/{setting_id}',
             ...options,
@@ -47,8 +47,8 @@ export class PerHostnameTlsSettingsService {
     public static perHostnameTlsSettingsDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         setting_id: TlsCertificatesAndHostnamesSettingId;
-        hostname: TlsCertificatesAndHostnamesComponentsSchemasHostname;
-    }, options?: Options<never, ThrowOnError>) {
+        hostname: TlsCertificatesAndHostnamesHostname3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameTlsSettingsDeleteResponses, PerHostnameTlsSettingsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'setting_id' },
@@ -62,9 +62,9 @@ export class PerHostnameTlsSettingsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameTlsSettingsDeleteResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/hostnames/settings/{setting_id}/{hostname}',
             ...options,
@@ -80,8 +80,8 @@ export class PerHostnameTlsSettingsService {
     public static perHostnameTlsSettingsGet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         setting_id: TlsCertificatesAndHostnamesSettingId;
-        hostname: TlsCertificatesAndHostnamesComponentsSchemasHostname;
-    }, options?: Options<never, ThrowOnError>) {
+        hostname: TlsCertificatesAndHostnamesHostname3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameTlsSettingsGetResponses, PerHostnameTlsSettingsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'setting_id' },
@@ -95,9 +95,9 @@ export class PerHostnameTlsSettingsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameTlsSettingsGetResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/hostnames/settings/{setting_id}/{hostname}',
             ...options,
@@ -113,9 +113,9 @@ export class PerHostnameTlsSettingsService {
     public static perHostnameTlsSettingsPut<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         setting_id: TlsCertificatesAndHostnamesSettingId;
-        hostname: TlsCertificatesAndHostnamesComponentsSchemasHostname;
+        hostname: TlsCertificatesAndHostnamesHostname3;
         value: TlsCertificatesAndHostnamesValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PerHostnameTlsSettingsPutResponses, PerHostnameTlsSettingsPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'setting_id' },
@@ -130,9 +130,9 @@ export class PerHostnameTlsSettingsService {
             }).parseAsync(data),
             responseValidator: async (data) => await zPerHostnameTlsSettingsPutResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/hostnames/settings/{setting_id}/{hostname}',
             ...options,

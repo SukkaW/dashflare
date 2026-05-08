@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetReportsDatasetDownloadErrors, RadarGetReportsDatasetDownloadResponses, RadarGetReportsDatasetsErrors, RadarGetReportsDatasetsResponses, RadarPostReportsDatasetDownloadUrlErrors, RadarPostReportsDatasetDownloadUrlResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class RadarDatasetsService {
         datasetType?: 'RANKING_BUCKET' | 'REPORT';
         date?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetReportsDatasetsResponses, RadarGetReportsDatasetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -56,7 +56,7 @@ export class RadarDatasetsService {
     public static radarPostReportsDatasetDownloadUrl<ThrowOnError extends boolean = true>(parameters: {
         format?: 'JSON' | 'CSV';
         datasetId: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarPostReportsDatasetDownloadUrlResponses, RadarPostReportsDatasetDownloadUrlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'format' }, { in: 'body', key: 'datasetId' }] }]);
         return (options?.client ?? client).post<RadarPostReportsDatasetDownloadUrlResponses, RadarPostReportsDatasetDownloadUrlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -88,7 +88,7 @@ export class RadarDatasetsService {
      */
     public static radarGetReportsDatasetDownload<ThrowOnError extends boolean = true>(parameters: {
         alias: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetReportsDatasetDownloadResponses, RadarGetReportsDatasetDownloadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'alias' }] }]);
         return (options?.client ?? client).get<RadarGetReportsDatasetDownloadResponses, RadarGetReportsDatasetDownloadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

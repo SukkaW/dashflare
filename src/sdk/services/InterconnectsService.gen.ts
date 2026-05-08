@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateInterconnectErrors, CreateInterconnectResponses, DeleteInterconnectErrors, DeleteInterconnectResponses, GetInterconnectErrors, GetInterconnectLoaErrors, GetInterconnectLoaResponses, GetInterconnectResponses, GetInterconnectStatusErrors, GetInterconnectStatusResponses, ListInterconnectsErrors, ListInterconnectsResponses, NscAccountTag, NscInterconnectCreate } from '../types.gen';
@@ -20,7 +20,7 @@ export class InterconnectsService {
         type?: string | null;
         cursor?: number | null;
         limit?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListInterconnectsResponses, ListInterconnectsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'site' },
@@ -52,7 +52,7 @@ export class InterconnectsService {
     public static createInterconnect<ThrowOnError extends boolean = true>(parameters: {
         account_id: NscAccountTag;
         nscInterconnectCreate: NscInterconnectCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateInterconnectResponses, CreateInterconnectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'nscInterconnectCreate', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateInterconnectResponses, CreateInterconnectErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -83,7 +83,7 @@ export class InterconnectsService {
     public static deleteInterconnect<ThrowOnError extends boolean = true>(parameters: {
         icon: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteInterconnectResponses, DeleteInterconnectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'icon' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteInterconnectResponses, DeleteInterconnectErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,7 +108,7 @@ export class InterconnectsService {
     public static getInterconnect<ThrowOnError extends boolean = true>(parameters: {
         icon: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetInterconnectResponses, GetInterconnectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'icon' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetInterconnectResponses, GetInterconnectErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class InterconnectsService {
     public static getInterconnectLoa<ThrowOnError extends boolean = true>(parameters: {
         icon: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetInterconnectLoaResponses, GetInterconnectLoaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'icon' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetInterconnectLoaResponses, GetInterconnectLoaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -159,7 +159,7 @@ export class InterconnectsService {
     public static getInterconnectStatus<ThrowOnError extends boolean = true>(parameters: {
         icon: string;
         account_id: NscAccountTag;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetInterconnectStatusResponses, GetInterconnectStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'icon' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetInterconnectStatusResponses, GetInterconnectStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

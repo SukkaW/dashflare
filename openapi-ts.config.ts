@@ -2,7 +2,10 @@ import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
   input: {
-    path: 'https://cdn.jsdelivr.net/gh/cloudflare/api-schemas@main/openapi.json'
+    path: 'https://raw.githubusercontent.com/cloudflare/api-schemas/refs/heads/main/openapi.json'
+  },
+  logs: {
+    level: 'debug'
   },
   output: {
     importFileExtension: undefined,

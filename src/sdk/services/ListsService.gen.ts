@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ListsAccountId, ListsCreateAListErrors, ListsCreateAListResponses, ListsCreateListItemsErrors, ListsCreateListItemsResponses, ListsDeleteAListErrors, ListsDeleteAListResponses, ListsDeleteListItemsErrors, ListsDeleteListItemsResponses, ListsDescription, ListsGetAListErrors, ListsGetAListItemErrors, ListsGetAListItemResponses, ListsGetAListResponses, ListsGetBulkOperationStatusErrors, ListsGetBulkOperationStatusResponses, ListsGetListItemsErrors, ListsGetListItemsResponses, ListsGetListsErrors, ListsGetListsResponses, ListsItemId, ListsItemsUpdateRequestCollection, ListsKind, ListsListId, ListsName, ListsOperationId, ListsUpdateAListErrors, ListsUpdateAListResponses, ListsUpdateAllListItemsErrors, ListsUpdateAllListItemsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ListsService {
      */
     public static listsGetLists<ThrowOnError extends boolean = true>(parameters: {
         account_id: ListsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsGetListsResponses, ListsGetListsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListsGetListsResponses, ListsGetListsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class ListsService {
         description?: ListsDescription;
         kind: ListsKind;
         name: ListsName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsCreateAListResponses, ListsCreateAListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -88,7 +88,7 @@ export class ListsService {
     public static listsGetBulkOperationStatus<ThrowOnError extends boolean = true>(parameters: {
         operation_id: ListsOperationId;
         account_id: ListsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsGetBulkOperationStatusResponses, ListsGetBulkOperationStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'operation_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListsGetBulkOperationStatusResponses, ListsGetBulkOperationStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -117,7 +117,7 @@ export class ListsService {
         list_id: ListsListId;
         account_id: ListsAccountId;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsDeleteAListResponses, ListsDeleteAListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -154,7 +154,7 @@ export class ListsService {
     public static listsGetAList<ThrowOnError extends boolean = true>(parameters: {
         list_id: ListsListId;
         account_id: ListsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsGetAListResponses, ListsGetAListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'list_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ListsGetAListResponses, ListsGetAListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -183,7 +183,7 @@ export class ListsService {
         list_id: ListsListId;
         account_id: ListsAccountId;
         description?: ListsDescription;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsUpdateAListResponses, ListsUpdateAListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -230,7 +230,7 @@ export class ListsService {
              */
             id: string;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsDeleteListItemsResponses, ListsDeleteListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -270,7 +270,7 @@ export class ListsService {
         cursor?: string;
         per_page?: number;
         search?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsGetListItemsResponses, ListsGetListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -309,7 +309,7 @@ export class ListsService {
         list_id: ListsListId;
         account_id: ListsAccountId;
         listsItemsUpdateRequestCollection: ListsItemsUpdateRequestCollection;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsCreateListItemsResponses, ListsCreateListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -351,7 +351,7 @@ export class ListsService {
         list_id: ListsListId;
         account_id: ListsAccountId;
         listsItemsUpdateRequestCollection: ListsItemsUpdateRequestCollection;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsUpdateAllListItemsResponses, ListsUpdateAllListItemsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'list_id' },
                     { in: 'path', key: 'account_id' },
@@ -389,7 +389,7 @@ export class ListsService {
         item_id: ListsItemId;
         list_id: ListsListId;
         account_id: ListsAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListsGetAListItemResponses, ListsGetAListItemErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'item_id' },
                     { in: 'path', key: 'list_id' },

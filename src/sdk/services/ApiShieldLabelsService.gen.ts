@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldBulkDeleteLabelsOnOperationRequest, ApiShieldBulkPostLabelsOnOperationRequest, ApiShieldBulkPutLabelsOnOperationRequest, ApiShieldDeleteLabelsOnOperationRequest, ApiShieldDeleteUserLabelErrors, ApiShieldDeleteUserLabelResponses, ApiShieldLabelName, ApiShieldLabelRequest, ApiShieldLabelsCreateUserLabelsErrors, ApiShieldLabelsCreateUserLabelsResponses, ApiShieldLabelsDeleteUserLabelsErrors, ApiShieldLabelsDeleteUserLabelsResponses, ApiShieldLabelsGetLabelsErrors, ApiShieldLabelsGetLabelsResponses, ApiShieldLabelsGetManagedLabelErrors, ApiShieldLabelsGetManagedLabelResponses, ApiShieldLabelsGetUserLabelErrors, ApiShieldLabelsGetUserLabelResponses, ApiShieldLabelSource, ApiShieldLabelsReplaceOperationsAttachedToManagedLabelErrors, ApiShieldLabelsReplaceOperationsAttachedToManagedLabelResponses, ApiShieldLabelsReplaceOperationsAttachedToUserLabelErrors, ApiShieldLabelsReplaceOperationsAttachedToUserLabelResponses, ApiShieldOperationsBulkDeleteLabelsToOperationsErrors, ApiShieldOperationsBulkDeleteLabelsToOperationsResponses, ApiShieldOperationsBulkPostLabelsToOperationsErrors, ApiShieldOperationsBulkPostLabelsToOperationsResponses, ApiShieldOperationsBulkPutLabelsToOperationsErrors, ApiShieldOperationsBulkPutLabelsToOperationsResponses, ApiShieldOperationsDeleteLabelsFromOperationErrors, ApiShieldOperationsDeleteLabelsFromOperationResponses, ApiShieldOperationsPostLabelsToOperationErrors, ApiShieldOperationsPostLabelsToOperationResponses, ApiShieldOperationsPutLabelsToOperationErrors, ApiShieldOperationsPutLabelsToOperationResponses, ApiShieldPatchLabelRequest, ApiShieldPatchUserLabelErrors, ApiShieldPatchUserLabelResponses, ApiShieldPostLabelsOnOperationRequest, ApiShieldPutLabelRequest, ApiShieldPutLabelsOnOperationRequest, ApiShieldPutUserLabelErrors, ApiShieldPutUserLabelResponses, ApiShieldReplaceOperationsAttachedToLabelRequest, ApiShieldSchemasIdentifier, ApiShieldUuid } from '../types.gen';
+import type { ApiShieldBulkDeleteLabelsOnOperationRequest, ApiShieldBulkPostLabelsOnOperationRequest, ApiShieldBulkPutLabelsOnOperationRequest, ApiShieldDeleteLabelsOnOperationRequest, ApiShieldDeleteUserLabelErrors, ApiShieldDeleteUserLabelResponses, ApiShieldIdentifier2, ApiShieldLabelName, ApiShieldLabelRequest, ApiShieldLabelsCreateUserLabelsErrors, ApiShieldLabelsCreateUserLabelsResponses, ApiShieldLabelsDeleteUserLabelsErrors, ApiShieldLabelsDeleteUserLabelsResponses, ApiShieldLabelsGetLabelsErrors, ApiShieldLabelsGetLabelsResponses, ApiShieldLabelsGetManagedLabelErrors, ApiShieldLabelsGetManagedLabelResponses, ApiShieldLabelsGetUserLabelErrors, ApiShieldLabelsGetUserLabelResponses, ApiShieldLabelSource, ApiShieldLabelsReplaceOperationsAttachedToManagedLabelErrors, ApiShieldLabelsReplaceOperationsAttachedToManagedLabelResponses, ApiShieldLabelsReplaceOperationsAttachedToUserLabelErrors, ApiShieldLabelsReplaceOperationsAttachedToUserLabelResponses, ApiShieldOperationsBulkDeleteLabelsToOperationsErrors, ApiShieldOperationsBulkDeleteLabelsToOperationsResponses, ApiShieldOperationsBulkPostLabelsToOperationsErrors, ApiShieldOperationsBulkPostLabelsToOperationsResponses, ApiShieldOperationsBulkPutLabelsToOperationsErrors, ApiShieldOperationsBulkPutLabelsToOperationsResponses, ApiShieldOperationsDeleteLabelsFromOperationErrors, ApiShieldOperationsDeleteLabelsFromOperationResponses, ApiShieldOperationsPostLabelsToOperationErrors, ApiShieldOperationsPostLabelsToOperationResponses, ApiShieldOperationsPutLabelsToOperationErrors, ApiShieldOperationsPutLabelsToOperationResponses, ApiShieldPatchLabelRequest, ApiShieldPatchUserLabelErrors, ApiShieldPatchUserLabelResponses, ApiShieldPostLabelsOnOperationRequest, ApiShieldPutLabelRequest, ApiShieldPutLabelsOnOperationRequest, ApiShieldPutUserLabelErrors, ApiShieldPutUserLabelResponses, ApiShieldReplaceOperationsAttachedToLabelRequest, ApiShieldUuid } from '../types.gen';
 import { zApiShieldDeleteUserLabelPath, zApiShieldDeleteUserLabelResponse, zApiShieldLabelsCreateUserLabelsBody, zApiShieldLabelsCreateUserLabelsPath, zApiShieldLabelsCreateUserLabelsResponse, zApiShieldLabelsDeleteUserLabelsBody, zApiShieldLabelsDeleteUserLabelsPath, zApiShieldLabelsDeleteUserLabelsResponse, zApiShieldLabelsGetLabelsPath, zApiShieldLabelsGetLabelsQuery, zApiShieldLabelsGetLabelsResponse, zApiShieldLabelsGetManagedLabelPath, zApiShieldLabelsGetManagedLabelQuery, zApiShieldLabelsGetManagedLabelResponse, zApiShieldLabelsGetUserLabelPath, zApiShieldLabelsGetUserLabelQuery, zApiShieldLabelsGetUserLabelResponse, zApiShieldLabelsReplaceOperationsAttachedToManagedLabelBody, zApiShieldLabelsReplaceOperationsAttachedToManagedLabelPath, zApiShieldLabelsReplaceOperationsAttachedToManagedLabelResponse, zApiShieldLabelsReplaceOperationsAttachedToUserLabelBody, zApiShieldLabelsReplaceOperationsAttachedToUserLabelPath, zApiShieldLabelsReplaceOperationsAttachedToUserLabelResponse, zApiShieldOperationsBulkDeleteLabelsToOperationsBody, zApiShieldOperationsBulkDeleteLabelsToOperationsPath, zApiShieldOperationsBulkDeleteLabelsToOperationsResponse, zApiShieldOperationsBulkPostLabelsToOperationsBody, zApiShieldOperationsBulkPostLabelsToOperationsPath, zApiShieldOperationsBulkPostLabelsToOperationsResponse, zApiShieldOperationsBulkPutLabelsToOperationsBody, zApiShieldOperationsBulkPutLabelsToOperationsPath, zApiShieldOperationsBulkPutLabelsToOperationsResponse, zApiShieldOperationsDeleteLabelsFromOperationBody, zApiShieldOperationsDeleteLabelsFromOperationPath, zApiShieldOperationsDeleteLabelsFromOperationResponse, zApiShieldOperationsPostLabelsToOperationBody, zApiShieldOperationsPostLabelsToOperationPath, zApiShieldOperationsPostLabelsToOperationResponse, zApiShieldOperationsPutLabelsToOperationBody, zApiShieldOperationsPutLabelsToOperationPath, zApiShieldOperationsPutLabelsToOperationResponse, zApiShieldPatchUserLabelBody, zApiShieldPatchUserLabelPath, zApiShieldPatchUserLabelResponse, zApiShieldPutUserLabelBody, zApiShieldPutUserLabelPath, zApiShieldPutUserLabelResponse } from '../zod.gen';
 
 export class ApiShieldLabelsService {
@@ -17,7 +17,7 @@ export class ApiShieldLabelsService {
      * Retrieve all labels
      */
     public static apiShieldLabelsGetLabels<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
         order?: 'name' | 'description' | 'created_at' | 'last_updated' | 'mapped_resources.operations';
@@ -25,7 +25,7 @@ export class ApiShieldLabelsService {
         source?: ApiShieldLabelSource;
         filter?: string;
         with_mapped_resource_counts?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsGetLabelsResponses, ApiShieldLabelsGetLabelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -60,10 +60,10 @@ export class ApiShieldLabelsService {
      * Retrieve managed label
      */
     public static apiShieldLabelsGetManagedLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         with_mapped_resource_counts?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsGetManagedLabelResponses, ApiShieldLabelsGetManagedLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -93,10 +93,10 @@ export class ApiShieldLabelsService {
      * Replace all operations(s) attached to a managed label
      */
     public static apiShieldLabelsReplaceOperationsAttachedToManagedLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         apiShieldReplaceOperationsAttachedToLabelRequest: ApiShieldReplaceOperationsAttachedToLabelRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsReplaceOperationsAttachedToManagedLabelResponses, ApiShieldLabelsReplaceOperationsAttachedToManagedLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -127,11 +127,13 @@ export class ApiShieldLabelsService {
     
     /**
      * Delete user labels
+     *
+     * Delete user labels
      */
     public static apiShieldLabelsDeleteUserLabels<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         body: Array<ApiShieldLabelName>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsDeleteUserLabelsResponses, ApiShieldLabelsDeleteUserLabelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<ApiShieldLabelsDeleteUserLabelsResponses, ApiShieldLabelsDeleteUserLabelsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -158,11 +160,13 @@ export class ApiShieldLabelsService {
     
     /**
      * Create user labels
+     *
+     * Create user labels
      */
     public static apiShieldLabelsCreateUserLabels<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         body: Array<ApiShieldLabelRequest>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsCreateUserLabelsResponses, ApiShieldLabelsCreateUserLabelsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<ApiShieldLabelsCreateUserLabelsResponses, ApiShieldLabelsCreateUserLabelsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -193,9 +197,9 @@ export class ApiShieldLabelsService {
      * Delete user label
      */
     public static apiShieldDeleteUserLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldDeleteUserLabelResponses, ApiShieldDeleteUserLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'name' }] }]);
         return (options?.client ?? client).delete<ApiShieldDeleteUserLabelResponses, ApiShieldDeleteUserLabelErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -221,10 +225,10 @@ export class ApiShieldLabelsService {
      * Retrieve user label
      */
     public static apiShieldLabelsGetUserLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         with_mapped_resource_counts?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsGetUserLabelResponses, ApiShieldLabelsGetUserLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -254,10 +258,10 @@ export class ApiShieldLabelsService {
      * Update certain fields on a label
      */
     public static apiShieldPatchUserLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         apiShieldPatchLabelRequest: ApiShieldPatchLabelRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldPatchUserLabelResponses, ApiShieldPatchUserLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -292,10 +296,10 @@ export class ApiShieldLabelsService {
      * Update all fields on a label
      */
     public static apiShieldPutUserLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         apiShieldPutLabelRequest: ApiShieldPutLabelRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldPutUserLabelResponses, ApiShieldPutUserLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -330,10 +334,10 @@ export class ApiShieldLabelsService {
      * Replace all operations(s) attached to a user label
      */
     public static apiShieldLabelsReplaceOperationsAttachedToUserLabel<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         name: ApiShieldLabelName;
         apiShieldReplaceOperationsAttachedToLabelRequest: ApiShieldReplaceOperationsAttachedToLabelRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldLabelsReplaceOperationsAttachedToUserLabelResponses, ApiShieldLabelsReplaceOperationsAttachedToUserLabelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'name' },
@@ -368,9 +372,9 @@ export class ApiShieldLabelsService {
      * Bulk remove label(s) on operation(s) in endpoint management
      */
     public static apiShieldOperationsBulkDeleteLabelsToOperations<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBulkDeleteLabelsOnOperationRequest: ApiShieldBulkDeleteLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsBulkDeleteLabelsToOperationsResponses, ApiShieldOperationsBulkDeleteLabelsToOperationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBulkDeleteLabelsOnOperationRequest', map: 'body' }] }]);
         return (options?.client ?? client).delete<ApiShieldOperationsBulkDeleteLabelsToOperationsResponses, ApiShieldOperationsBulkDeleteLabelsToOperationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -401,9 +405,9 @@ export class ApiShieldLabelsService {
      * Bulk attach label(s) on operation(s) in endpoint management
      */
     public static apiShieldOperationsBulkPostLabelsToOperations<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBulkPostLabelsOnOperationRequest: ApiShieldBulkPostLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsBulkPostLabelsToOperationsResponses, ApiShieldOperationsBulkPostLabelsToOperationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBulkPostLabelsOnOperationRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ApiShieldOperationsBulkPostLabelsToOperationsResponses, ApiShieldOperationsBulkPostLabelsToOperationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -434,9 +438,9 @@ export class ApiShieldLabelsService {
      * Bulk replace label(s) on operation(s) in endpoint management
      */
     public static apiShieldOperationsBulkPutLabelsToOperations<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBulkPutLabelsOnOperationRequest: ApiShieldBulkPutLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsBulkPutLabelsToOperationsResponses, ApiShieldOperationsBulkPutLabelsToOperationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBulkPutLabelsOnOperationRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<ApiShieldOperationsBulkPutLabelsToOperationsResponses, ApiShieldOperationsBulkPutLabelsToOperationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -467,10 +471,10 @@ export class ApiShieldLabelsService {
      * Remove label(s) on an operation in endpoint management
      */
     public static apiShieldOperationsDeleteLabelsFromOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         apiShieldDeleteLabelsOnOperationRequest: ApiShieldDeleteLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsDeleteLabelsFromOperationResponses, ApiShieldOperationsDeleteLabelsFromOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },
@@ -505,10 +509,10 @@ export class ApiShieldLabelsService {
      * Attach label(s) on an operation in endpoint management
      */
     public static apiShieldOperationsPostLabelsToOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         apiShieldPostLabelsOnOperationRequest: ApiShieldPostLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsPostLabelsToOperationResponses, ApiShieldOperationsPostLabelsToOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },
@@ -543,10 +547,10 @@ export class ApiShieldLabelsService {
      * Replace label(s) on an operation in endpoint management
      */
     public static apiShieldOperationsPutLabelsToOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         apiShieldPutLabelsOnOperationRequest: ApiShieldPutLabelsOnOperationRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldOperationsPutLabelsToOperationResponses, ApiShieldOperationsPutLabelsToOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetQualityIndexSummaryErrors, RadarGetQualityIndexSummaryResponses, RadarGetQualityIndexTimeseriesGroupErrors, RadarGetQualityIndexTimeseriesGroupResponses, RadarGetQualitySpeedHistogramErrors, RadarGetQualitySpeedHistogramResponses, RadarGetQualitySpeedSummaryErrors, RadarGetQualitySpeedSummaryResponses, RadarGetQualitySpeedTopAsesErrors, RadarGetQualitySpeedTopAsesResponses, RadarGetQualitySpeedTopLocationsErrors, RadarGetQualitySpeedTopLocationsResponses } from '../types.gen';
@@ -26,7 +26,7 @@ export class RadarQualityService {
         continent?: Array<string>;
         metric: 'BANDWIDTH' | 'DNS' | 'LATENCY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualityIndexSummaryResponses, RadarGetQualityIndexSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -73,7 +73,7 @@ export class RadarQualityService {
         interpolation?: boolean;
         metric: 'BANDWIDTH' | 'DNS' | 'LATENCY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualityIndexTimeseriesGroupResponses, RadarGetQualityIndexTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -119,7 +119,7 @@ export class RadarQualityService {
         bucketSize?: number;
         metricGroup?: 'BANDWIDTH' | 'LATENCY' | 'JITTER';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualitySpeedHistogramResponses, RadarGetQualitySpeedHistogramErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateEnd' },
@@ -160,7 +160,7 @@ export class RadarQualityService {
         location?: Array<string>;
         continent?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualitySpeedSummaryResponses, RadarGetQualitySpeedSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateEnd' },
@@ -202,7 +202,7 @@ export class RadarQualityService {
         orderBy?: 'BANDWIDTH_DOWNLOAD' | 'BANDWIDTH_UPLOAD' | 'LATENCY_IDLE' | 'LATENCY_LOADED' | 'JITTER_IDLE' | 'JITTER_LOADED';
         reverse?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualitySpeedTopAsesResponses, RadarGetQualitySpeedTopAsesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -247,7 +247,7 @@ export class RadarQualityService {
         orderBy?: 'BANDWIDTH_DOWNLOAD' | 'BANDWIDTH_UPLOAD' | 'LATENCY_IDLE' | 'LATENCY_LOADED' | 'JITTER_IDLE' | 'JITTER_LOADED';
         reverse?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetQualitySpeedTopLocationsResponses, RadarGetQualitySpeedTopLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

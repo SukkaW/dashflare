@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CacheRulesAegisValue, CacheRulesIdentifier, CacheRulesOriginH2MaxStreamsValue, CacheRulesOriginMaxHttpVersionValue, SpeedCloudflareFontsValue, SpeedIdentifier, ZoneCacheSettingsChangeAegisSettingErrors, ZoneCacheSettingsChangeAegisSettingResponses, ZoneCacheSettingsChangeOriginH2MaxStreamsSettingErrors, ZoneCacheSettingsChangeOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsChangeOriginMaxHttpVersionSettingErrors, ZoneCacheSettingsChangeOriginMaxHttpVersionSettingResponses, ZoneCacheSettingsGetAegisSettingErrors, ZoneCacheSettingsGetAegisSettingResponses, ZoneCacheSettingsGetOriginH2MaxStreamsSettingErrors, ZoneCacheSettingsGetOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsGetOriginMaxHttpVersionSettingErrors, ZoneCacheSettingsGetOriginMaxHttpVersionSettingResponses, ZoneSettingsChangeFontsSettingErrors, ZoneSettingsChangeFontsSettingResponses, ZoneSettingsChangeSpeedBrainSettingErrors, ZoneSettingsChangeSpeedBrainSettingResponses, ZoneSettingsEditSingleSettingErrors, ZoneSettingsEditSingleSettingResponses, ZoneSettingsEditZoneSettingsInfoErrors, ZoneSettingsEditZoneSettingsInfoResponses, ZoneSettingsGetAllZoneSettingsErrors, ZoneSettingsGetAllZoneSettingsResponses, ZoneSettingsGetFontsSettingErrors, ZoneSettingsGetFontsSettingResponses, ZoneSettingsGetSingleSettingErrors, ZoneSettingsGetSingleSettingResponses, ZoneSettingsGetSpeedBrainSettingErrors, ZoneSettingsGetSpeedBrainSettingResponses, ZonesIdentifier, ZonesMultipleSettingsWritable, ZonesSettingName, ZonesZoneSettingsSingleRequestWritable } from '../types.gen';
@@ -20,7 +20,7 @@ export class ZoneSettingsService {
      */
     public static zoneSettingsGetAllZoneSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZonesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsGetAllZoneSettingsResponses, ZoneSettingsGetAllZoneSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneSettingsGetAllZoneSettingsResponses, ZoneSettingsGetAllZoneSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class ZoneSettingsService {
     public static zoneSettingsEditZoneSettingsInfo<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZonesIdentifier;
         zonesMultipleSettingsWritable: ZonesMultipleSettingsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsEditZoneSettingsInfoResponses, ZoneSettingsEditZoneSettingsInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'zonesMultipleSettingsWritable', map: 'body' }] }]);
         return (options?.client ?? client).patch<ZoneSettingsEditZoneSettingsInfoResponses, ZoneSettingsEditZoneSettingsInfoErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +82,7 @@ export class ZoneSettingsService {
      */
     public static zoneCacheSettingsGetAegisSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetAegisSettingResponses, ZoneCacheSettingsGetAegisSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetAegisSettingResponses, ZoneCacheSettingsGetAegisSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -110,7 +110,7 @@ export class ZoneSettingsService {
     public static zoneCacheSettingsChangeAegisSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesAegisValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeAegisSettingResponses, ZoneCacheSettingsChangeAegisSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeAegisSettingResponses, ZoneCacheSettingsChangeAegisSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,7 +144,7 @@ export class ZoneSettingsService {
      */
     public static zoneSettingsGetFontsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SpeedIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsGetFontsSettingResponses, ZoneSettingsGetFontsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneSettingsGetFontsSettingResponses, ZoneSettingsGetFontsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -174,7 +174,7 @@ export class ZoneSettingsService {
     public static zoneSettingsChangeFontsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SpeedIdentifier;
         value: SpeedCloudflareFontsValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsChangeFontsSettingResponses, ZoneSettingsChangeFontsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneSettingsChangeFontsSettingResponses, ZoneSettingsChangeFontsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -206,7 +206,7 @@ export class ZoneSettingsService {
      */
     public static zoneCacheSettingsGetOriginH2MaxStreamsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsGetOriginH2MaxStreamsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsGetOriginH2MaxStreamsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -234,7 +234,7 @@ export class ZoneSettingsService {
     public static zoneCacheSettingsChangeOriginH2MaxStreamsSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesOriginH2MaxStreamsValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsChangeOriginH2MaxStreamsSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeOriginH2MaxStreamsSettingResponses, ZoneCacheSettingsChangeOriginH2MaxStreamsSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -266,7 +266,7 @@ export class ZoneSettingsService {
      */
     public static zoneCacheSettingsGetOriginMaxHttpVersionSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsGetOriginMaxHttpVersionSettingResponses, ZoneCacheSettingsGetOriginMaxHttpVersionSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCacheSettingsGetOriginMaxHttpVersionSettingResponses, ZoneCacheSettingsGetOriginMaxHttpVersionSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -294,7 +294,7 @@ export class ZoneSettingsService {
     public static zoneCacheSettingsChangeOriginMaxHttpVersionSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         value: CacheRulesOriginMaxHttpVersionValue;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCacheSettingsChangeOriginMaxHttpVersionSettingResponses, ZoneCacheSettingsChangeOriginMaxHttpVersionSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneCacheSettingsChangeOriginMaxHttpVersionSettingResponses, ZoneCacheSettingsChangeOriginMaxHttpVersionSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -328,7 +328,7 @@ export class ZoneSettingsService {
      */
     public static zoneSettingsGetSpeedBrainSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SpeedIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsGetSpeedBrainSettingResponses, ZoneSettingsGetSpeedBrainSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneSettingsGetSpeedBrainSettingResponses, ZoneSettingsGetSpeedBrainSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -358,7 +358,7 @@ export class ZoneSettingsService {
     public static zoneSettingsChangeSpeedBrainSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SpeedIdentifier;
         value: 'on' | 'off';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsChangeSpeedBrainSettingResponses, ZoneSettingsChangeSpeedBrainSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'value' }] }]);
         return (options?.client ?? client).patch<ZoneSettingsChangeSpeedBrainSettingResponses, ZoneSettingsChangeSpeedBrainSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -391,7 +391,7 @@ export class ZoneSettingsService {
     public static zoneSettingsGetSingleSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ZonesIdentifier;
         setting_id: ZonesSettingName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsGetSingleSettingResponses, ZoneSettingsGetSingleSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'setting_id' }] }]);
         return (options?.client ?? client).get<ZoneSettingsGetSingleSettingResponses, ZoneSettingsGetSingleSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -420,7 +420,7 @@ export class ZoneSettingsService {
         zone_id: ZonesIdentifier;
         setting_id: ZonesSettingName;
         zonesZoneSettingsSingleRequestWritable: ZonesZoneSettingsSingleRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneSettingsEditSingleSettingResponses, ZoneSettingsEditSingleSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'setting_id' },

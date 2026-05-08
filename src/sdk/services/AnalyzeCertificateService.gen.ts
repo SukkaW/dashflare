@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AnalyzeCertificateAnalyzeCertificateErrors, AnalyzeCertificateAnalyzeCertificateResponses, TlsCertificatesAndHostnamesBundleMethod, TlsCertificatesAndHostnamesCertificate, TlsCertificatesAndHostnamesIdentifier } from '../types.gen';
@@ -20,7 +20,7 @@ export class AnalyzeCertificateService {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         bundle_method?: TlsCertificatesAndHostnamesBundleMethod;
         certificate?: TlsCertificatesAndHostnamesCertificate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AnalyzeCertificateAnalyzeCertificateResponses, AnalyzeCertificateAnalyzeCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'bundle_method' },
@@ -34,9 +34,9 @@ export class AnalyzeCertificateService {
             }).parseAsync(data),
             responseValidator: async (data) => await zAnalyzeCertificateAnalyzeCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/analyze',
             ...options,

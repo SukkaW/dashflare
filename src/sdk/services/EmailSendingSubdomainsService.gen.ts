@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailCreateSendingSubdomainProperties, EmailIdentifier, EmailSendingSubdomainIdentifier, EmailSendingSubdomainsCreateSendingSubdomainResponses, EmailSendingSubdomainsDeleteSendingSubdomainResponses, EmailSendingSubdomainsFixSendingSubdomainDnsErrors, EmailSendingSubdomainsFixSendingSubdomainDnsResponses, EmailSendingSubdomainsGetSendingSubdomainDnsResponses, EmailSendingSubdomainsGetSendingSubdomainDnsStatusErrors, EmailSendingSubdomainsGetSendingSubdomainDnsStatusResponses, EmailSendingSubdomainsGetSendingSubdomainResponses, EmailSendingSubdomainsListSendingSubdomainsResponses, EmailSendingSubdomainsPreviewSendingSubdomainResponses } from '../types.gen';
-import { zEmailSendingSubdomainsCreateSendingSubdomainBody, zEmailSendingSubdomainsCreateSendingSubdomainPath, zEmailSendingSubdomainsCreateSendingSubdomainResponse, zEmailSendingSubdomainsDeleteSendingSubdomainPath, zEmailSendingSubdomainsDeleteSendingSubdomainResponse, zEmailSendingSubdomainsFixSendingSubdomainDnsPath, zEmailSendingSubdomainsFixSendingSubdomainDnsResponse, zEmailSendingSubdomainsGetSendingSubdomainDnsPath, zEmailSendingSubdomainsGetSendingSubdomainDnsResponse, zEmailSendingSubdomainsGetSendingSubdomainDnsStatusPath, zEmailSendingSubdomainsGetSendingSubdomainDnsStatusResponse, zEmailSendingSubdomainsGetSendingSubdomainPath, zEmailSendingSubdomainsGetSendingSubdomainResponse, zEmailSendingSubdomainsListSendingSubdomainsPath, zEmailSendingSubdomainsListSendingSubdomainsResponse, zEmailSendingSubdomainsPreviewSendingSubdomainBody, zEmailSendingSubdomainsPreviewSendingSubdomainPath, zEmailSendingSubdomainsPreviewSendingSubdomainResponse } from '../zod.gen';
+import type { EmailCreateSendingSubdomainProperties, EmailIdentifier, EmailSendingSubdomainIdentifier, EmailSendingSubdomainsCreateSendingSubdomainResponses, EmailSendingSubdomainsDeleteSendingSubdomainResponses, EmailSendingSubdomainsFixSendingSubdomainDnsErrors, EmailSendingSubdomainsFixSendingSubdomainDnsResponses, EmailSendingSubdomainsGetSendingSubdomainDnsResponses, EmailSendingSubdomainsGetSendingSubdomainDnsStatusErrors, EmailSendingSubdomainsGetSendingSubdomainDnsStatusResponses, EmailSendingSubdomainsGetSendingSubdomainResponses, EmailSendingSubdomainsListSendingSubdomainsResponses, EmailSendingSubdomainsPreviewSendingSubdomainResponses, EmailSendingSubdomainsUpdateSendingSubdomainResponses, EmailUpdateSendingSubdomainProperties } from '../types.gen';
+import { zEmailSendingSubdomainsCreateSendingSubdomainBody, zEmailSendingSubdomainsCreateSendingSubdomainPath, zEmailSendingSubdomainsCreateSendingSubdomainResponse, zEmailSendingSubdomainsDeleteSendingSubdomainPath, zEmailSendingSubdomainsDeleteSendingSubdomainResponse, zEmailSendingSubdomainsFixSendingSubdomainDnsPath, zEmailSendingSubdomainsFixSendingSubdomainDnsResponse, zEmailSendingSubdomainsGetSendingSubdomainDnsPath, zEmailSendingSubdomainsGetSendingSubdomainDnsResponse, zEmailSendingSubdomainsGetSendingSubdomainDnsStatusPath, zEmailSendingSubdomainsGetSendingSubdomainDnsStatusResponse, zEmailSendingSubdomainsGetSendingSubdomainPath, zEmailSendingSubdomainsGetSendingSubdomainResponse, zEmailSendingSubdomainsListSendingSubdomainsPath, zEmailSendingSubdomainsListSendingSubdomainsResponse, zEmailSendingSubdomainsPreviewSendingSubdomainBody, zEmailSendingSubdomainsPreviewSendingSubdomainPath, zEmailSendingSubdomainsPreviewSendingSubdomainResponse, zEmailSendingSubdomainsUpdateSendingSubdomainBody, zEmailSendingSubdomainsUpdateSendingSubdomainPath, zEmailSendingSubdomainsUpdateSendingSubdomainResponse } from '../zod.gen';
 
 export class EmailSendingSubdomainsService {
     /**
@@ -18,7 +18,7 @@ export class EmailSendingSubdomainsService {
      */
     public static emailSendingSubdomainsListSendingSubdomains<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsListSendingSubdomainsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailSendingSubdomainsListSendingSubdomainsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsCreateSendingSubdomain<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         emailCreateSendingSubdomainProperties: EmailCreateSendingSubdomainProperties;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsCreateSendingSubdomainResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailCreateSendingSubdomainProperties', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSendingSubdomainsCreateSendingSubdomainResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsPreviewSendingSubdomain<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
         emailCreateSendingSubdomainProperties: EmailCreateSendingSubdomainProperties;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsPreviewSendingSubdomainResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailCreateSendingSubdomainProperties', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSendingSubdomainsPreviewSendingSubdomainResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,7 +100,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsDeleteSendingSubdomain<ThrowOnError extends boolean = true>(parameters: {
         subdomain_id: EmailSendingSubdomainIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsDeleteSendingSubdomainResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'subdomain_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<EmailSendingSubdomainsDeleteSendingSubdomainResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -124,7 +124,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsGetSendingSubdomain<ThrowOnError extends boolean = true>(parameters: {
         subdomain_id: EmailSendingSubdomainIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsGetSendingSubdomainResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'subdomain_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailSendingSubdomainsGetSendingSubdomainResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -141,6 +141,40 @@ export class EmailSendingSubdomainsService {
     }
     
     /**
+     * Update a sending subdomain
+     *
+     * Updates the activity-log preview preference for a sending subdomain.
+     */
+    public static emailSendingSubdomainsUpdateSendingSubdomain<ThrowOnError extends boolean = true>(parameters: {
+        subdomain_id: EmailSendingSubdomainIdentifier;
+        zone_id: EmailIdentifier;
+        emailUpdateSendingSubdomainProperties: EmailUpdateSendingSubdomainProperties;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsUpdateSendingSubdomainResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'subdomain_id' },
+                    { in: 'path', key: 'zone_id' },
+                    { key: 'emailUpdateSendingSubdomainProperties', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<EmailSendingSubdomainsUpdateSendingSubdomainResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSendingSubdomainsUpdateSendingSubdomainBody,
+                path: zEmailSendingSubdomainsUpdateSendingSubdomainPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSendingSubdomainsUpdateSendingSubdomainResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_id}/email/sending/subdomains/{subdomain_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Get sending subdomain DNS records
      *
      * Returns the expected DNS records for a sending subdomain.
@@ -148,7 +182,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsGetSendingSubdomainDns<ThrowOnError extends boolean = true>(parameters: {
         subdomain_id: EmailSendingSubdomainIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsGetSendingSubdomainDnsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'subdomain_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailSendingSubdomainsGetSendingSubdomainDnsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +206,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsFixSendingSubdomainDns<ThrowOnError extends boolean = true>(parameters: {
         subdomain_id: EmailSendingSubdomainIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsFixSendingSubdomainDnsResponses, EmailSendingSubdomainsFixSendingSubdomainDnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'subdomain_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).post<EmailSendingSubdomainsFixSendingSubdomainDnsResponses, EmailSendingSubdomainsFixSendingSubdomainDnsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -196,7 +230,7 @@ export class EmailSendingSubdomainsService {
     public static emailSendingSubdomainsGetSendingSubdomainDnsStatus<ThrowOnError extends boolean = true>(parameters: {
         subdomain_id: EmailSendingSubdomainIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSendingSubdomainsGetSendingSubdomainDnsStatusResponses, EmailSendingSubdomainsGetSendingSubdomainDnsStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'subdomain_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailSendingSubdomainsGetSendingSubdomainDnsStatusResponses, EmailSendingSubdomainsGetSendingSubdomainDnsStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

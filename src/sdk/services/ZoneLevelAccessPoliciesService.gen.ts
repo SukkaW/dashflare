@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessComponentsSchemasExclude, AccessComponentsSchemasRequire, AccessIdentifier, AccessInclude, AccessPoliciesComponentsSchemasName, AccessPurposeJustificationPrompt, AccessSchemasApprovalGroups, AccessSchemasApprovalRequired, AccessSchemasDecision, AccessSchemasIsolationRequired, AccessSchemasPrecedence, AccessSchemasPurposeJustificationRequired, AccessUuid, ZoneLevelAccessPoliciesCreateAnAccessPolicyErrors, ZoneLevelAccessPoliciesCreateAnAccessPolicyResponses, ZoneLevelAccessPoliciesDeleteAnAccessPolicyErrors, ZoneLevelAccessPoliciesDeleteAnAccessPolicyResponses, ZoneLevelAccessPoliciesGetAnAccessPolicyErrors, ZoneLevelAccessPoliciesGetAnAccessPolicyResponses, ZoneLevelAccessPoliciesListAccessPoliciesErrors, ZoneLevelAccessPoliciesListAccessPoliciesResponses, ZoneLevelAccessPoliciesUpdateAnAccessPolicyErrors, ZoneLevelAccessPoliciesUpdateAnAccessPolicyResponses } from '../types.gen';
+import type { AccessApprovalGroups2, AccessApprovalRequired2, AccessDecision2, AccessExclude3, AccessIdentifier, AccessInclude, AccessIsolationRequired2, AccessName9, AccessPrecedence2, AccessPurposeJustificationPrompt, AccessPurposeJustificationRequired2, AccessRequire3, AccessUuid, ZoneLevelAccessPoliciesCreateAnAccessPolicyErrors, ZoneLevelAccessPoliciesCreateAnAccessPolicyResponses, ZoneLevelAccessPoliciesDeleteAnAccessPolicyErrors, ZoneLevelAccessPoliciesDeleteAnAccessPolicyResponses, ZoneLevelAccessPoliciesGetAnAccessPolicyErrors, ZoneLevelAccessPoliciesGetAnAccessPolicyResponses, ZoneLevelAccessPoliciesListAccessPoliciesErrors, ZoneLevelAccessPoliciesListAccessPoliciesResponses, ZoneLevelAccessPoliciesUpdateAnAccessPolicyErrors, ZoneLevelAccessPoliciesUpdateAnAccessPolicyResponses } from '../types.gen';
 import { zZoneLevelAccessPoliciesCreateAnAccessPolicyBody, zZoneLevelAccessPoliciesCreateAnAccessPolicyPath, zZoneLevelAccessPoliciesCreateAnAccessPolicyResponse, zZoneLevelAccessPoliciesDeleteAnAccessPolicyPath, zZoneLevelAccessPoliciesDeleteAnAccessPolicyResponse, zZoneLevelAccessPoliciesGetAnAccessPolicyPath, zZoneLevelAccessPoliciesGetAnAccessPolicyResponse, zZoneLevelAccessPoliciesListAccessPoliciesPath, zZoneLevelAccessPoliciesListAccessPoliciesResponse, zZoneLevelAccessPoliciesUpdateAnAccessPolicyBody, zZoneLevelAccessPoliciesUpdateAnAccessPolicyPath, zZoneLevelAccessPoliciesUpdateAnAccessPolicyResponse } from '../zod.gen';
 
 export class ZoneLevelAccessPoliciesService {
@@ -19,7 +19,7 @@ export class ZoneLevelAccessPoliciesService {
     public static zoneLevelAccessPoliciesListAccessPolicies<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessPoliciesListAccessPoliciesResponses, ZoneLevelAccessPoliciesListAccessPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessPoliciesListAccessPoliciesResponses, ZoneLevelAccessPoliciesListAccessPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -43,18 +43,18 @@ export class ZoneLevelAccessPoliciesService {
     public static zoneLevelAccessPoliciesCreateAnAccessPolicy<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-        approval_groups?: AccessSchemasApprovalGroups;
-        approval_required?: AccessSchemasApprovalRequired;
-        decision: AccessSchemasDecision;
-        exclude?: AccessComponentsSchemasExclude;
+        approval_groups?: AccessApprovalGroups2;
+        approval_required?: AccessApprovalRequired2;
+        decision: AccessDecision2;
+        exclude?: AccessExclude3;
         include: AccessInclude;
-        isolation_required?: AccessSchemasIsolationRequired;
-        name: AccessPoliciesComponentsSchemasName;
-        precedence?: AccessSchemasPrecedence;
+        isolation_required?: AccessIsolationRequired2;
+        name: AccessName9;
+        precedence?: AccessPrecedence2;
         purpose_justification_prompt?: AccessPurposeJustificationPrompt;
-        purpose_justification_required?: AccessSchemasPurposeJustificationRequired;
-        require?: AccessComponentsSchemasRequire;
-    }, options?: Options<never, ThrowOnError>) {
+        purpose_justification_required?: AccessPurposeJustificationRequired2;
+        require?: AccessRequire3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessPoliciesCreateAnAccessPolicyResponses, ZoneLevelAccessPoliciesCreateAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'zone_id' },
@@ -98,7 +98,7 @@ export class ZoneLevelAccessPoliciesService {
         policy_id: AccessUuid;
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessPoliciesDeleteAnAccessPolicyResponses, ZoneLevelAccessPoliciesDeleteAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'app_id' },
@@ -127,7 +127,7 @@ export class ZoneLevelAccessPoliciesService {
         policy_id: AccessUuid;
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessPoliciesGetAnAccessPolicyResponses, ZoneLevelAccessPoliciesGetAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'app_id' },
@@ -156,18 +156,18 @@ export class ZoneLevelAccessPoliciesService {
         policy_id: AccessUuid;
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-        approval_groups?: AccessSchemasApprovalGroups;
-        approval_required?: AccessSchemasApprovalRequired;
-        decision: AccessSchemasDecision;
-        exclude?: AccessComponentsSchemasExclude;
+        approval_groups?: AccessApprovalGroups2;
+        approval_required?: AccessApprovalRequired2;
+        decision: AccessDecision2;
+        exclude?: AccessExclude3;
         include: AccessInclude;
-        isolation_required?: AccessSchemasIsolationRequired;
-        name: AccessPoliciesComponentsSchemasName;
-        precedence?: AccessSchemasPrecedence;
+        isolation_required?: AccessIsolationRequired2;
+        name: AccessName9;
+        precedence?: AccessPrecedence2;
         purpose_justification_prompt?: AccessPurposeJustificationPrompt;
-        purpose_justification_required?: AccessSchemasPurposeJustificationRequired;
-        require?: AccessComponentsSchemasRequire;
-    }, options?: Options<never, ThrowOnError>) {
+        purpose_justification_required?: AccessPurposeJustificationRequired2;
+        require?: AccessRequire3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessPoliciesUpdateAnAccessPolicyResponses, ZoneLevelAccessPoliciesUpdateAnAccessPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'policy_id' },
                     { in: 'path', key: 'app_id' },

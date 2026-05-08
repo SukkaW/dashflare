@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudConnectorIdentifier, ZoneCloudConnectorRulesErrors, ZoneCloudConnectorRulesResponses } from '../types.gen';
@@ -13,10 +13,12 @@ import { zZoneCloudConnectorRulesPath, zZoneCloudConnectorRulesResponse } from '
 export class ZoneCloudConnectorRulesGetService {
     /**
      * Rules
+     *
+     * Retrieves the Cloud Connector rules configured for a zone. Rules define how traffic is routed to cloud services.
      */
     public static zoneCloudConnectorRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CloudConnectorIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneCloudConnectorRulesResponses, ZoneCloudConnectorRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneCloudConnectorRulesResponses, ZoneCloudConnectorRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

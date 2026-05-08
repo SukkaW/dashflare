@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ArchiveSecurityCenterInsightDeprecatedErrors, ArchiveSecurityCenterInsightDeprecatedResponses, ArchiveSecurityCenterInsightErrors, ArchiveSecurityCenterInsightResponses, ArchiveZoneSecurityCenterInsightErrors, ArchiveZoneSecurityCenterInsightResponses, GetSecurityCenterInsightContextErrors, GetSecurityCenterInsightContextResponses, GetSecurityCenterInsightCountsByClassErrors, GetSecurityCenterInsightCountsByClassResponses, GetSecurityCenterInsightCountsBySeverityErrors, GetSecurityCenterInsightCountsBySeverityResponses, GetSecurityCenterInsightCountsByTypeErrors, GetSecurityCenterInsightCountsByTypeResponses, GetSecurityCenterInsightsErrors, GetSecurityCenterInsightsResponses, GetSecurityCenterIssueCountsByClassErrors, GetSecurityCenterIssueCountsByClassResponses, GetSecurityCenterIssueCountsBySeverityErrors, GetSecurityCenterIssueCountsBySeverityResponses, GetSecurityCenterIssueCountsByTypeErrors, GetSecurityCenterIssueCountsByTypeResponses, GetSecurityCenterIssuesErrors, GetSecurityCenterIssuesResponses, GetSecurityCenterIssueTypesErrors, GetSecurityCenterIssueTypesResponses, GetZoneSecurityCenterInsightCountsByClassErrors, GetZoneSecurityCenterInsightCountsByClassResponses, GetZoneSecurityCenterInsightCountsBySeverityErrors, GetZoneSecurityCenterInsightCountsBySeverityResponses, GetZoneSecurityCenterInsightCountsByTypeErrors, GetZoneSecurityCenterInsightCountsByTypeResponses, GetZoneSecurityCenterInsightsErrors, GetZoneSecurityCenterInsightsResponses, SecurityCenterDismissed, SecurityCenterIdentifier, SecurityCenterIssueClassesWritable, SecurityCenterIssueTypesWritable, SecurityCenterPage, SecurityCenterPerPage, SecurityCenterProducts, SecurityCenterSeverityQueryParam, SecurityCenterSubjectsWritable, SecurityCenterUserClassificationUpdate, UpdateSecurityCenterInsightClassificationErrors, UpdateSecurityCenterInsightClassificationResponses, UpdateZoneSecurityCenterInsightClassificationErrors, UpdateZoneSecurityCenterInsightClassificationResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class SecurityCenterInsightsService {
      */
     public static getSecurityCenterIssueTypes<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecurityCenterIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssueTypesResponses, GetSecurityCenterIssueTypesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetSecurityCenterIssueTypesResponses, GetSecurityCenterIssueTypesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -60,7 +60,7 @@ export class SecurityCenterInsightsService {
         'subject~neq'?: SecurityCenterSubjectsWritable;
         page?: SecurityCenterPage;
         per_page?: SecurityCenterPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssuesResponses, GetSecurityCenterIssuesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -115,7 +115,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssueCountsByClassResponses, GetSecurityCenterIssueCountsByClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -168,7 +168,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssueCountsBySeverityResponses, GetSecurityCenterIssueCountsBySeverityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -221,7 +221,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterIssueCountsByTypeResponses, GetSecurityCenterIssueCountsByTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -265,7 +265,7 @@ export class SecurityCenterInsightsService {
         account_id: SecurityCenterIdentifier;
         issue_id: string;
         dismiss?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArchiveSecurityCenterInsightDeprecatedResponses, ArchiveSecurityCenterInsightDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'issue_id' },
@@ -314,7 +314,7 @@ export class SecurityCenterInsightsService {
         'subject~neq'?: SecurityCenterSubjectsWritable;
         page?: SecurityCenterPage;
         per_page?: SecurityCenterPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterInsightsResponses, GetSecurityCenterInsightsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -367,7 +367,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterInsightCountsByClassResponses, GetSecurityCenterInsightCountsByClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -418,7 +418,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterInsightCountsBySeverityResponses, GetSecurityCenterInsightCountsBySeverityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -469,7 +469,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterInsightCountsByTypeResponses, GetSecurityCenterInsightCountsByTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'dismissed' },
@@ -511,7 +511,7 @@ export class SecurityCenterInsightsService {
         account_id: SecurityCenterIdentifier;
         issue_id: string;
         securityCenterUserClassificationUpdate: SecurityCenterUserClassificationUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSecurityCenterInsightClassificationResponses, UpdateSecurityCenterInsightClassificationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'issue_id' },
@@ -548,7 +548,7 @@ export class SecurityCenterInsightsService {
     public static getSecurityCenterInsightContext<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecurityCenterIdentifier;
         issue_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSecurityCenterInsightContextResponses, GetSecurityCenterInsightContextErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'issue_id' }] }]);
         return (options?.client ?? client).get<GetSecurityCenterInsightContextResponses, GetSecurityCenterInsightContextErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -577,7 +577,7 @@ export class SecurityCenterInsightsService {
         account_id: SecurityCenterIdentifier;
         issue_id: string;
         dismiss?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArchiveSecurityCenterInsightResponses, ArchiveSecurityCenterInsightErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'issue_id' },
@@ -626,7 +626,7 @@ export class SecurityCenterInsightsService {
         'subject~neq'?: SecurityCenterSubjectsWritable;
         page?: SecurityCenterPage;
         per_page?: SecurityCenterPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterInsightsResponses, GetZoneSecurityCenterInsightsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dismissed' },
@@ -679,7 +679,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterInsightCountsByClassResponses, GetZoneSecurityCenterInsightCountsByClassErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dismissed' },
@@ -730,7 +730,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterInsightCountsBySeverityResponses, GetZoneSecurityCenterInsightCountsBySeverityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dismissed' },
@@ -781,7 +781,7 @@ export class SecurityCenterInsightsService {
         'product~neq'?: SecurityCenterProducts;
         'severity~neq'?: SecurityCenterSeverityQueryParam;
         'subject~neq'?: SecurityCenterSubjectsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneSecurityCenterInsightCountsByTypeResponses, GetZoneSecurityCenterInsightCountsByTypeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dismissed' },
@@ -823,7 +823,7 @@ export class SecurityCenterInsightsService {
         zone_id: SecurityCenterIdentifier;
         issue_id: string;
         securityCenterUserClassificationUpdate: SecurityCenterUserClassificationUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneSecurityCenterInsightClassificationResponses, UpdateZoneSecurityCenterInsightClassificationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'issue_id' },
@@ -861,7 +861,7 @@ export class SecurityCenterInsightsService {
         zone_id: SecurityCenterIdentifier;
         issue_id: string;
         dismiss?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArchiveZoneSecurityCenterInsightResponses, ArchiveZoneSecurityCenterInsightErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'issue_id' },

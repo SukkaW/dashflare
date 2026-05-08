@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteZonesZoneIdLogpushJobsJobIdErrors, DeleteZonesZoneIdLogpushJobsJobIdResponses, GetZonesZoneIdLogpushDatasetsDatasetIdFieldsErrors, GetZonesZoneIdLogpushDatasetsDatasetIdFieldsResponses, GetZonesZoneIdLogpushDatasetsDatasetIdJobsErrors, GetZonesZoneIdLogpushDatasetsDatasetIdJobsResponses, GetZonesZoneIdLogpushJobsErrors, GetZonesZoneIdLogpushJobsJobIdErrors, GetZonesZoneIdLogpushJobsJobIdResponses, GetZonesZoneIdLogpushJobsResponses, LogpushDataset, LogpushDestinationConf, LogpushEnabled, LogpushFilter, LogpushFrequency, LogpushId, LogpushIdentifier, LogpushKind, LogpushLogpullOptions, LogpushMaxUploadBytes, LogpushMaxUploadIntervalSeconds, LogpushMaxUploadRecords, LogpushName, LogpushOutputOptions, LogpushOwnershipChallenge, PostZonesZoneIdLogpushJobsErrors, PostZonesZoneIdLogpushJobsResponses, PostZonesZoneIdLogpushOwnershipErrors, PostZonesZoneIdLogpushOwnershipResponses, PostZonesZoneIdLogpushOwnershipValidateErrors, PostZonesZoneIdLogpushOwnershipValidateResponses, PostZonesZoneIdLogpushValidateDestinationErrors, PostZonesZoneIdLogpushValidateDestinationExistsErrors, PostZonesZoneIdLogpushValidateDestinationExistsResponses, PostZonesZoneIdLogpushValidateDestinationResponses, PostZonesZoneIdLogpushValidateOriginErrors, PostZonesZoneIdLogpushValidateOriginResponses, PutZonesZoneIdLogpushJobsJobIdErrors, PutZonesZoneIdLogpushJobsJobIdResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class LogpushJobsForAZoneService {
     public static getZonesZoneIdLogpushDatasetsDatasetIdFields<ThrowOnError extends boolean = true>(parameters: {
         dataset_id: LogpushDataset;
         zone_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogpushDatasetsDatasetIdFieldsResponses, GetZonesZoneIdLogpushDatasetsDatasetIdFieldsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dataset_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogpushDatasetsDatasetIdFieldsResponses, GetZonesZoneIdLogpushDatasetsDatasetIdFieldsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class LogpushJobsForAZoneService {
     public static getZonesZoneIdLogpushDatasetsDatasetIdJobs<ThrowOnError extends boolean = true>(parameters: {
         dataset_id: LogpushDataset;
         zone_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogpushDatasetsDatasetIdJobsResponses, GetZonesZoneIdLogpushDatasetsDatasetIdJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dataset_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogpushDatasetsDatasetIdJobsResponses, GetZonesZoneIdLogpushDatasetsDatasetIdJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class LogpushJobsForAZoneService {
      */
     public static getZonesZoneIdLogpushJobs<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogpushJobsResponses, GetZonesZoneIdLogpushJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogpushJobsResponses, GetZonesZoneIdLogpushJobsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class LogpushJobsForAZoneService {
         name?: LogpushName;
         output_options?: LogpushOutputOptions;
         ownership_challenge?: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushJobsResponses, PostZonesZoneIdLogpushJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'dataset' },
@@ -163,7 +163,7 @@ export class LogpushJobsForAZoneService {
         job_id: LogpushId;
         zone_id: LogpushIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZonesZoneIdLogpushJobsJobIdResponses, DeleteZonesZoneIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'job_id' },
                     { in: 'path', key: 'zone_id' },
@@ -200,7 +200,7 @@ export class LogpushJobsForAZoneService {
     public static getZonesZoneIdLogpushJobsJobId<ThrowOnError extends boolean = true>(parameters: {
         job_id: LogpushId;
         zone_id: LogpushIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZonesZoneIdLogpushJobsJobIdResponses, GetZonesZoneIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'job_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZonesZoneIdLogpushJobsJobIdResponses, GetZonesZoneIdLogpushJobsJobIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -240,7 +240,7 @@ export class LogpushJobsForAZoneService {
         name?: LogpushName;
         output_options?: LogpushOutputOptions;
         ownership_challenge?: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutZonesZoneIdLogpushJobsJobIdResponses, PutZonesZoneIdLogpushJobsJobIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'job_id' },
                     { in: 'path', key: 'zone_id' },
@@ -288,7 +288,7 @@ export class LogpushJobsForAZoneService {
     public static postZonesZoneIdLogpushOwnership<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushOwnershipResponses, PostZonesZoneIdLogpushOwnershipErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdLogpushOwnershipResponses, PostZonesZoneIdLogpushOwnershipErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -322,7 +322,7 @@ export class LogpushJobsForAZoneService {
         zone_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
         ownership_challenge: LogpushOwnershipChallenge;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushOwnershipValidateResponses, PostZonesZoneIdLogpushOwnershipValidateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'destination_conf' },
@@ -359,7 +359,7 @@ export class LogpushJobsForAZoneService {
     public static postZonesZoneIdLogpushValidateDestination<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushValidateDestinationResponses, PostZonesZoneIdLogpushValidateDestinationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdLogpushValidateDestinationResponses, PostZonesZoneIdLogpushValidateDestinationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -392,7 +392,7 @@ export class LogpushJobsForAZoneService {
     public static postZonesZoneIdLogpushValidateDestinationExists<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
         destination_conf: LogpushDestinationConf;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushValidateDestinationExistsResponses, PostZonesZoneIdLogpushValidateDestinationExistsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'destination_conf' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdLogpushValidateDestinationExistsResponses, PostZonesZoneIdLogpushValidateDestinationExistsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -425,7 +425,7 @@ export class LogpushJobsForAZoneService {
     public static postZonesZoneIdLogpushValidateOrigin<ThrowOnError extends boolean = true>(parameters: {
         zone_id: LogpushIdentifier;
         logpull_options: LogpushLogpullOptions;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostZonesZoneIdLogpushValidateOriginResponses, PostZonesZoneIdLogpushValidateOriginErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'logpull_options' }] }]);
         return (options?.client ?? client).post<PostZonesZoneIdLogpushValidateOriginResponses, PostZonesZoneIdLogpushValidateOriginErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

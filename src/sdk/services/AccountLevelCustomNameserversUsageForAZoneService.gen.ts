@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataErrors, AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataErrors, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataResponses, DnsCustomNameserversSchemasIdentifier, DnsCustomNameserversZoneMetadata } from '../types.gen';
+import type { AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataErrors, AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataErrors, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataResponses, DnsCustomNameserversIdentifier2, DnsCustomNameserversZoneMetadata } from '../types.gen';
 import { zAccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataPath, zAccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataResponse, zAccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataBody, zAccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataPath, zAccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataResponse } from '../zod.gen';
 
 export class AccountLevelCustomNameserversUsageForAZoneService {
@@ -22,8 +22,8 @@ export class AccountLevelCustomNameserversUsageForAZoneService {
      * @deprecated
      */
     public static accountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadata<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: DnsCustomNameserversSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: DnsCustomNameserversIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneGetAccountCustomNameserverRelatedZoneMetadataErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -56,9 +56,9 @@ export class AccountLevelCustomNameserversUsageForAZoneService {
      * @deprecated
      */
     public static accountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadata<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: DnsCustomNameserversSchemasIdentifier;
+        zone_id: DnsCustomNameserversIdentifier2;
         dnsCustomNameserversZoneMetadata: DnsCustomNameserversZoneMetadata;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'dnsCustomNameserversZoneMetadata', map: 'body' }] }]);
         return (options?.client ?? client).put<AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataResponses, AccountLevelCustomNameserversUsageForAZoneSetAccountCustomNameserverRelatedZoneMetadataErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

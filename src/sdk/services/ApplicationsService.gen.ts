@@ -4,13 +4,585 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { GetApplicationByIdErrors, GetApplicationByIdResponses, GetApplicationsErrors, GetApplicationsResponses } from '../types.gen';
-import { zGetApplicationByIdPath, zGetApplicationByIdResponse, zGetApplicationsPath, zGetApplicationsQuery, zGetApplicationsResponse } from '../zod.gen';
+import type { CcApplicationId, CcApplicationName, CcContainerInstanceExecRequestBody, CcContainerInstanceFetchRequestBody, CcContainerInstanceId, CcCreateApplicationRequest, CcCreateApplicationRolloutRequest, CcCreateContainerInstanceRequestBody, CcImage, CcModifyApplicationRequestBody, ContainerInstanceExecErrors, ContainerInstanceExecResponses, ContainerInstanceFetchErrors, ContainerInstanceFetchResponses, CreateApplicationErrors, CreateApplicationResponses, CreateApplicationRolloutErrors, CreateApplicationRolloutResponses, CreateContainerInstanceErrors, CreateContainerInstanceResponses, DeleteApplicationErrors, DeleteApplicationResponses, DeleteContainerInstanceErrors, DeleteContainerInstanceResponses, GetApplicationAuthMethodsV2Errors, GetApplicationAuthMethodsV2Responses, GetApplicationByIdErrors, GetApplicationByIdResponses, GetApplicationErrors, GetApplicationResponses, GetApplicationsErrors, GetApplicationSetupFlowsV2Errors, GetApplicationSetupFlowsV2Responses, GetApplicationsResponses, GetApplicationV2Errors, GetApplicationV2Responses, GetContainerInstanceErrors, GetContainerInstanceResponses, ListApplicationsErrors, ListApplicationsResponses, ListApplicationsV2Errors, ListApplicationsV2Responses, ListApplicationVersionsErrors, ListApplicationVersionsResponses, ListContainerInstancesErrors, ListContainerInstancesResponses, ModifyApplicationErrors, ModifyApplicationResponses } from '../types.gen';
+import { zContainerInstanceExecBody, zContainerInstanceExecPath, zContainerInstanceExecResponse, zContainerInstanceFetchBody, zContainerInstanceFetchPath, zContainerInstanceFetchResponse, zCreateApplicationBody, zCreateApplicationPath, zCreateApplicationResponse, zCreateApplicationRolloutBody, zCreateApplicationRolloutPath, zCreateApplicationRolloutResponse, zCreateContainerInstanceBody, zCreateContainerInstancePath, zCreateContainerInstanceResponse, zDeleteApplicationPath, zDeleteApplicationResponse, zDeleteContainerInstancePath, zDeleteContainerInstanceResponse, zGetApplicationAuthMethodsV2Path, zGetApplicationAuthMethodsV2Response, zGetApplicationByIdPath, zGetApplicationByIdResponse, zGetApplicationPath, zGetApplicationResponse, zGetApplicationSetupFlowsV2Path, zGetApplicationSetupFlowsV2Query, zGetApplicationSetupFlowsV2Response, zGetApplicationsPath, zGetApplicationsQuery, zGetApplicationsResponse, zGetApplicationV2Path, zGetApplicationV2Response, zGetContainerInstancePath, zGetContainerInstanceResponse, zListApplicationsPath, zListApplicationsQuery, zListApplicationsResponse, zListApplicationsV2Path, zListApplicationsV2Query, zListApplicationsV2Response, zListApplicationVersionsPath, zListApplicationVersionsResponse, zListContainerInstancesPath, zListContainerInstancesQuery, zListContainerInstancesResponse, zModifyApplicationBody, zModifyApplicationPath, zModifyApplicationResponse } from '../zod.gen';
 
 export class ApplicationsService {
+    /**
+     * List Applications associated with your account
+     *
+     * Lists all the applications that are associated with your account
+     */
+    public static listApplications<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        name?: CcApplicationName;
+        image?: CcImage;
+        label?: Array<string>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListApplicationsResponses, ListApplicationsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'name' },
+                    { in: 'query', key: 'image' },
+                    { in: 'query', key: 'label' }
+                ] }]);
+        return (options?.client ?? client).get<ListApplicationsResponses, ListApplicationsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListApplicationsPath,
+                query: zListApplicationsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListApplicationsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create a new application
+     *
+     * Create a new application. An Application represents an intent to run one or more containers, with the same image, dynamically scheduled based on constraints
+     */
+    public static createApplication<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        ccCreateApplicationRequest: CcCreateApplicationRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateApplicationResponses, CreateApplicationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'ccCreateApplicationRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CreateApplicationResponses, CreateApplicationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateApplicationBody,
+                path: zCreateApplicationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateApplicationResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a single application by id
+     *
+     * Deletes a single application by id
+     */
+    public static deleteApplication<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteApplicationResponses, DeleteApplicationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'application_id' }] }]);
+        return (options?.client ?? client).delete<DeleteApplicationResponses, DeleteApplicationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteApplicationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteApplicationResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get a single application by id
+     *
+     * Returns a single application by id
+     */
+    public static getApplication<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationResponses, GetApplicationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'application_id' }] }]);
+        return (options?.client ?? client).get<GetApplicationResponses, GetApplicationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetApplicationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetApplicationResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Modify an application
+     *
+     * Modifies a single application by id.
+     */
+    public static modifyApplication<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        ccModifyApplicationRequestBody: CcModifyApplicationRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ModifyApplicationResponses, ModifyApplicationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { key: 'ccModifyApplicationRequestBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<ModifyApplicationResponses, ModifyApplicationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zModifyApplicationBody,
+                path: zModifyApplicationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zModifyApplicationResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List container instances
+     *
+     * Lists container instances for an application, including control-plane details and any associated deployment/placement information.
+     *
+     */
+    public static listContainerInstances<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        per_page?: number;
+        page_token?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListContainerInstancesResponses, ListContainerInstancesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'page_token' }
+                ] }]);
+        return (options?.client ?? client).get<ListContainerInstancesResponses, ListContainerInstancesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListContainerInstancesPath,
+                query: zListContainerInstancesQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListContainerInstancesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create a container instance
+     *
+     * Creates a new container instance within an application. The instance's container is started immediately by invoking startAndWaitForPorts on the backing Durable Object.
+     *
+     */
+    public static createContainerInstance<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        ccCreateContainerInstanceRequestBody: CcCreateContainerInstanceRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateContainerInstanceResponses, CreateContainerInstanceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { key: 'ccCreateContainerInstanceRequestBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<CreateContainerInstanceResponses, CreateContainerInstanceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateContainerInstanceBody,
+                path: zCreateContainerInstancePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateContainerInstanceResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a container instance
+     *
+     * Stops the backing Durable Object container by sending SIGKILL. The instance remains visible until normal runtime lifecycle processing marks it asleep and eventually prunes it.
+     *
+     */
+    public static deleteContainerInstance<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        instance_id: CcContainerInstanceId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteContainerInstanceResponses, DeleteContainerInstanceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'path', key: 'instance_id' }
+                ] }]);
+        return (options?.client ?? client).delete<DeleteContainerInstanceResponses, DeleteContainerInstanceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteContainerInstancePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteContainerInstanceResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances/{instance_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get a container instance
+     *
+     * Returns control-plane details for a single container instance and any associated deployment/placement information.
+     *
+     */
+    public static getContainerInstance<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        instance_id: CcContainerInstanceId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetContainerInstanceResponses, GetContainerInstanceErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'path', key: 'instance_id' }
+                ] }]);
+        return (options?.client ?? client).get<GetContainerInstanceResponses, GetContainerInstanceErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetContainerInstancePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetContainerInstanceResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances/{instance_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Execute a command in a container instance
+     *
+     * Executes a command in a running container instance and returns its buffered standard output, standard error, and exit code.
+     *
+     */
+    public static containerInstanceExec<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        instance_id: CcContainerInstanceId;
+        ccContainerInstanceExecRequestBody: CcContainerInstanceExecRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ContainerInstanceExecResponses, ContainerInstanceExecErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'path', key: 'instance_id' },
+                    { key: 'ccContainerInstanceExecRequestBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<ContainerInstanceExecResponses, ContainerInstanceExecErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zContainerInstanceExecBody,
+                path: zContainerInstanceExecPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zContainerInstanceExecResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances/{instance_id}/exec',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Proxy a request to a container instance
+     *
+     * Forwards an HTTP request to a running container instance by invoking fetch on the backing Durable Object. The container must be running. The container response status, headers, and text body are returned in the API response body.
+     *
+     */
+    public static containerInstanceFetch<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        instance_id: CcContainerInstanceId;
+        ccContainerInstanceFetchRequestBody: CcContainerInstanceFetchRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ContainerInstanceFetchResponses, ContainerInstanceFetchErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'path', key: 'instance_id' },
+                    { key: 'ccContainerInstanceFetchRequestBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<ContainerInstanceFetchResponses, ContainerInstanceFetchErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zContainerInstanceFetchBody,
+                path: zContainerInstanceFetchPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zContainerInstanceFetchResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/instances/{instance_id}/fetch',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Create a new rollout for an application
+     *
+     * A rollout can be used to update the application's configuration across instances with minimal downtime.
+     */
+    public static createApplicationRollout<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+        ccCreateApplicationRolloutRequest: CcCreateApplicationRolloutRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateApplicationRolloutResponses, CreateApplicationRolloutErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { key: 'ccCreateApplicationRolloutRequest', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<CreateApplicationRolloutResponses, CreateApplicationRolloutErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateApplicationRolloutBody,
+                path: zCreateApplicationRolloutPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateApplicationRolloutResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/rollouts',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List all application versions
+     *
+     * Returns all versions for this application
+     */
+    public static listApplicationVersions<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: CcApplicationId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListApplicationVersionsResponses, ListApplicationVersionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'application_id' }] }]);
+        return (options?.client ?? client).get<ListApplicationVersionsResponses, ListApplicationVersionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListApplicationVersionsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListApplicationVersionsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/applications/{application_id}/versions',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List applications
+     *
+     * Returns a list of available applications with use cases and permissions.
+     */
+    public static listApplicationsV2<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        environment?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListApplicationsV2Responses, ListApplicationsV2Errors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'environment' }] }]);
+        return (options?.client ?? client).get<ListApplicationsV2Responses, ListApplicationsV2Errors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListApplicationsV2Path,
+                query: zListApplicationsV2Query.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListApplicationsV2Response.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/one/applications',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get application details
+     *
+     * Returns full application details including auth methods, use cases, and permissions.
+     */
+    public static getApplicationV2<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: 'ANTHROPIC' | 'BITBUCKET' | 'BOX' | 'CONFLUENCE' | 'DROPBOX' | 'GITHUB' | 'GOOGLE_CLOUD_PLATFORM' | 'GOOGLE_WORKSPACE' | 'JIRA' | 'MICROSOFT_INTERNAL' | 'OPENAI' | 'SALESFORCE' | 'SLACK';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationV2Responses, GetApplicationV2Errors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'application_id' }] }]);
+        return (options?.client ?? client).get<GetApplicationV2Responses, GetApplicationV2Errors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetApplicationV2Path,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetApplicationV2Response.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/one/applications/{application_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get auth methods
+     *
+     * Returns available auth methods for the specified vendor, including credential schema, instructions, and example payloads. Use this to understand what credentials are required before calling POST /v2/integrations.
+     */
+    public static getApplicationAuthMethodsV2<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: 'ANTHROPIC' | 'BITBUCKET' | 'BOX' | 'CONFLUENCE' | 'DROPBOX' | 'GITHUB' | 'GOOGLE_CLOUD_PLATFORM' | 'GOOGLE_WORKSPACE' | 'JIRA' | 'MICROSOFT_INTERNAL' | 'OPENAI' | 'SALESFORCE' | 'SLACK';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationAuthMethodsV2Responses, GetApplicationAuthMethodsV2Errors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'application_id' }] }]);
+        return (options?.client ?? client).get<GetApplicationAuthMethodsV2Responses, GetApplicationAuthMethodsV2Errors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetApplicationAuthMethodsV2Path,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetApplicationAuthMethodsV2Response.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/one/applications/{application_id}/auth-methods',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get application setup flows
+     *
+     * Returns all available setup flows for the application, one per auth method.
+     */
+    public static getApplicationSetupFlowsV2<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        application_id: 'ANTHROPIC' | 'BITBUCKET' | 'BOX' | 'CONFLUENCE' | 'DROPBOX' | 'GITHUB' | 'GOOGLE_CLOUD_PLATFORM' | 'GOOGLE_WORKSPACE' | 'JIRA' | 'MICROSOFT_INTERNAL' | 'OPENAI' | 'SALESFORCE' | 'SLACK';
+        auth_method?: string;
+        environment?: 'fedramp' | 'standard';
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationSetupFlowsV2Responses, GetApplicationSetupFlowsV2Errors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'application_id' },
+                    { in: 'query', key: 'auth_method' },
+                    { in: 'query', key: 'environment' }
+                ] }]);
+        return (options?.client ?? client).get<GetApplicationSetupFlowsV2Responses, GetApplicationSetupFlowsV2Errors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetApplicationSetupFlowsV2Path,
+                query: zGetApplicationSetupFlowsV2Query.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetApplicationSetupFlowsV2Response.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/one/applications/{application_id}/setup-flows',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * List applications
      *
@@ -22,13 +594,15 @@ export class ApplicationsService {
         limit?: number;
         offset?: number;
         order_by?: string;
-    }, options?: Options<never, ThrowOnError>) {
+        search?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationsResponses, GetApplicationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'filter' },
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
-                    { in: 'query', key: 'order_by' }
+                    { in: 'query', key: 'order_by' },
+                    { in: 'query', key: 'search' }
                 ] }]);
         return (options?.client ?? client).get<GetApplicationsResponses, GetApplicationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -56,7 +630,7 @@ export class ApplicationsService {
     public static getApplicationById<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetApplicationByIdResponses, GetApplicationByIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'id' }] }]);
         return (options?.client ?? client).get<GetApplicationByIdResponses, GetApplicationByIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

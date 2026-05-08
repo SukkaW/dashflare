@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAiInferenceSummaryByModelErrors, RadarGetAiInferenceSummaryByModelResponses, RadarGetAiInferenceSummaryByTaskErrors, RadarGetAiInferenceSummaryByTaskResponses, RadarGetAiInferenceSummaryErrors, RadarGetAiInferenceSummaryResponses, RadarGetAiInferenceTimeseriesGroupByModelErrors, RadarGetAiInferenceTimeseriesGroupByModelResponses, RadarGetAiInferenceTimeseriesGroupByTaskErrors, RadarGetAiInferenceTimeseriesGroupByTaskResponses, RadarGetAiInferenceTimeseriesGroupErrors, RadarGetAiInferenceTimeseriesGroupResponses } from '../types.gen';
@@ -14,7 +14,7 @@ export class RadarAiInferenceService {
     /**
      * Get Workers AI models summary
      *
-     * Retrieves the distribution of unique accounts by model.
+     * Retrieves the distribution of the number of inferences by model.
      *
      * @deprecated
      */
@@ -25,7 +25,7 @@ export class RadarAiInferenceService {
         dateEnd?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceSummaryByModelResponses, RadarGetAiInferenceSummaryByModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -55,7 +55,7 @@ export class RadarAiInferenceService {
     /**
      * Get Workers AI tasks summary
      *
-     * Retrieves the distribution of unique accounts by task.
+     * Retrieves the distribution of the number of inferences by task.
      *
      * @deprecated
      */
@@ -66,7 +66,7 @@ export class RadarAiInferenceService {
         dateEnd?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceSummaryByTaskResponses, RadarGetAiInferenceSummaryByTaskErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -96,7 +96,7 @@ export class RadarAiInferenceService {
     /**
      * Get Workers AI inference distribution by dimension
      *
-     * Retrieves an aggregated summary of unique accounts using Workers AI inference grouped by the specified dimension.
+     * Retrieves an aggregated summary of the number of inferences run on Workers AI, grouped by the specified dimension.
      */
     public static radarGetAiInferenceSummary<ThrowOnError extends boolean = true>(parameters: {
         dimension: 'MODEL' | 'TASK';
@@ -109,7 +109,7 @@ export class RadarAiInferenceService {
         continent?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceSummaryResponses, RadarGetAiInferenceSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -143,7 +143,7 @@ export class RadarAiInferenceService {
     /**
      * Get Workers AI models time series
      *
-     * Retrieves the distribution of unique accounts by model over time.
+     * Retrieves the distribution of the number of inferences by model over time.
      *
      * @deprecated
      */
@@ -155,7 +155,7 @@ export class RadarAiInferenceService {
         dateEnd?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceTimeseriesGroupByModelResponses, RadarGetAiInferenceTimeseriesGroupByModelErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -186,7 +186,7 @@ export class RadarAiInferenceService {
     /**
      * Get Workers AI tasks time series
      *
-     * Retrieves the distribution of unique accounts by task over time.
+     * Retrieves the distribution of the number of inferences by task over time.
      *
      * @deprecated
      */
@@ -198,7 +198,7 @@ export class RadarAiInferenceService {
         dateEnd?: Array<string>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceTimeseriesGroupByTaskResponses, RadarGetAiInferenceTimeseriesGroupByTaskErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -229,7 +229,7 @@ export class RadarAiInferenceService {
     /**
      * Get time series distribution of Workers AI inference by dimension.
      *
-     * Retrieves the distribution of unique accounts using Workers AI inference, grouped by the specified dimension over time.
+     * Retrieves the distribution of the number of inferences run on Workers AI, grouped by the specified dimension over time.
      */
     public static radarGetAiInferenceTimeseriesGroup<ThrowOnError extends boolean = true>(parameters: {
         dimension: 'MODEL' | 'TASK';
@@ -244,7 +244,7 @@ export class RadarAiInferenceService {
         limitPerGroup?: number;
         normalization?: 'PERCENTAGE' | 'MIN0_MAX';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAiInferenceTimeseriesGroupResponses, RadarGetAiInferenceTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },

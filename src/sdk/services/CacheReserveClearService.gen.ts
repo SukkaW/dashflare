@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SmartshieldIdentifier, SmartShieldSettingsGetCacheReserveClearErrors, SmartShieldSettingsGetCacheReserveClearResponses, SmartShieldSettingsStartCacheReserveClearErrors, SmartShieldSettingsStartCacheReserveClearResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class CacheReserveClearService {
      */
     public static smartShieldSettingsGetCacheReserveClear<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SmartshieldIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldSettingsGetCacheReserveClearResponses, SmartShieldSettingsGetCacheReserveClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SmartShieldSettingsGetCacheReserveClearResponses, SmartShieldSettingsGetCacheReserveClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class CacheReserveClearService {
     public static smartShieldSettingsStartCacheReserveClear<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SmartshieldIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SmartShieldSettingsStartCacheReserveClearResponses, SmartShieldSettingsStartCacheReserveClearErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<SmartShieldSettingsStartCacheReserveClearResponses, SmartShieldSettingsStartCacheReserveClearErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

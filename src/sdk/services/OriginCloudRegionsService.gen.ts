@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CacheRulesIdentifier, CacheRulesOriginCloudRegionRequest, CacheRulesOriginCloudRegionV2Request, OriginCloudRegionsBatchDeleteErrors, OriginCloudRegionsBatchDeleteResponses, OriginCloudRegionsBatchUpsertErrors, OriginCloudRegionsBatchUpsertResponses, OriginCloudRegionsCreateErrors, OriginCloudRegionsCreateResponses, OriginCloudRegionsDeleteErrors, OriginCloudRegionsDeleteResponses, OriginCloudRegionsGetErrors, OriginCloudRegionsGetResponses, OriginCloudRegionsListErrors, OriginCloudRegionsListResponses, OriginCloudRegionsSupportedRegionsErrors, OriginCloudRegionsSupportedRegionsResponses, OriginCloudRegionsUpsertErrors, OriginCloudRegionsUpsertResponses, OriginCloudRegionsV2BatchDeleteErrors, OriginCloudRegionsV2BatchDeleteResponses, OriginCloudRegionsV2BatchUpsertErrors, OriginCloudRegionsV2BatchUpsertResponses, OriginCloudRegionsV2DeleteErrors, OriginCloudRegionsV2DeleteResponses, OriginCloudRegionsV2GetErrors, OriginCloudRegionsV2GetResponses, OriginCloudRegionsV2ListErrors, OriginCloudRegionsV2ListResponses, OriginCloudRegionsV2SupportedRegionsErrors, OriginCloudRegionsV2SupportedRegionsResponses, OriginCloudRegionsV2UpsertErrors, OriginCloudRegionsV2UpsertResponses } from '../types.gen';
@@ -15,10 +15,12 @@ export class OriginCloudRegionsService {
      * List origin cloud region mappings
      *
      * Returns all IP-to-cloud-region mappings configured for the zone. Each mapping tells Cloudflare which cloud vendor and region hosts the origin at that IP, enabling the edge to route via the nearest Tiered Cache upper-tier co-located with that cloud provider. Returns an empty array when no mappings exist.
+     *
+     * @deprecated
      */
     public static originCloudRegionsList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsListResponses, OriginCloudRegionsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<OriginCloudRegionsListResponses, OriginCloudRegionsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,11 +44,13 @@ export class OriginCloudRegionsService {
      * Create or update an origin cloud region mapping
      *
      * Adds or updates a single IP-to-cloud-region mapping for the zone. Unlike POST, this operation is idempotent — if a mapping for the IP already exists it is overwritten. Returns the complete updated list of all mappings for the zone. Returns 403 (code 1164) when the zone has reached the limit of 3,500 IP mappings.
+     *
+     * @deprecated
      */
     public static originCloudRegionsUpsert<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         cacheRulesOriginCloudRegionRequest: CacheRulesOriginCloudRegionRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsUpsertResponses, OriginCloudRegionsUpsertErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'cacheRulesOriginCloudRegionRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<OriginCloudRegionsUpsertResponses, OriginCloudRegionsUpsertErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -75,11 +79,13 @@ export class OriginCloudRegionsService {
      * Create an origin cloud region mapping
      *
      * Adds a single IP-to-cloud-region mapping for the zone. The IP must be a valid IPv4 or IPv6 address and is normalized to canonical form before storage (RFC 5952 for IPv6). Returns 400 (code 1145) if a mapping for that IP already exists — use PATCH to update an existing entry. The vendor and region are validated against the list from `GET /zones/{zone_id}/cache/origin_cloud_regions/supported_regions`.
+     *
+     * @deprecated
      */
     public static originCloudRegionsCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         cacheRulesOriginCloudRegionRequest: CacheRulesOriginCloudRegionRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsCreateResponses, OriginCloudRegionsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'cacheRulesOriginCloudRegionRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<OriginCloudRegionsCreateResponses, OriginCloudRegionsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -108,11 +114,13 @@ export class OriginCloudRegionsService {
      * Batch delete origin cloud region mappings
      *
      * Removes up to 100 IP-to-cloud-region mappings in a single request. Each IP is validated independently — successfully deleted items are returned in the `succeeded` array and IPs that could not be found or are invalid are returned in the `failed` array.
+     *
+     * @deprecated
      */
     public static originCloudRegionsBatchDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         body: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsBatchDeleteResponses, OriginCloudRegionsBatchDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<OriginCloudRegionsBatchDeleteResponses, OriginCloudRegionsBatchDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -141,11 +149,13 @@ export class OriginCloudRegionsService {
      * Batch create or update origin cloud region mappings
      *
      * Adds or updates up to 100 IP-to-cloud-region mappings in a single request. Each item is validated independently — valid items are applied and invalid items are returned in the `failed` array. The vendor and region for every item are validated against the list from `GET /zones/{zone_id}/cache/origin_cloud_regions/supported_regions`.
+     *
+     * @deprecated
      */
     public static originCloudRegionsBatchUpsert<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         body: Array<CacheRulesOriginCloudRegionRequest>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsBatchUpsertResponses, OriginCloudRegionsBatchUpsertErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).patch<OriginCloudRegionsBatchUpsertResponses, OriginCloudRegionsBatchUpsertErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -174,10 +184,12 @@ export class OriginCloudRegionsService {
      * List supported cloud vendors and regions
      *
      * Returns the cloud vendors and regions that are valid values for origin cloud region mappings. Each region includes the Tiered Cache upper-tier colocation codes that will be used for cache routing when a mapping targeting that region is active. Requires the zone to have Tiered Cache enabled.
+     *
+     * @deprecated
      */
     public static originCloudRegionsSupportedRegions<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsSupportedRegionsResponses, OriginCloudRegionsSupportedRegionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<OriginCloudRegionsSupportedRegionsResponses, OriginCloudRegionsSupportedRegionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -201,11 +213,13 @@ export class OriginCloudRegionsService {
      * Delete an origin cloud region mapping
      *
      * Removes the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup. Returns the deleted entry on success. Returns 404 (code 1163) if no mapping exists for the specified IP. When the last mapping for the zone is removed the underlying rule record is also deleted.
+     *
+     * @deprecated
      */
     public static originCloudRegionsDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         origin_ip: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsDeleteResponses, OriginCloudRegionsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'origin_ip' }] }]);
         return (options?.client ?? client).delete<OriginCloudRegionsDeleteResponses, OriginCloudRegionsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -229,11 +243,13 @@ export class OriginCloudRegionsService {
      * Get an origin cloud region mapping
      *
      * Returns the cloud region mapping for a single origin IP address. The IP path parameter is normalized before lookup (RFC 5952 for IPv6). Returns 404 (code 1142) if the zone has no mappings or if the specified IP has no mapping.
+     *
+     * @deprecated
      */
     public static originCloudRegionsGet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         origin_ip: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsGetResponses, OriginCloudRegionsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'origin_ip' }] }]);
         return (options?.client ?? client).get<OriginCloudRegionsGetResponses, OriginCloudRegionsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -262,7 +278,7 @@ export class OriginCloudRegionsService {
         zone_id: CacheRulesIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2ListResponses, OriginCloudRegionsV2ListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -294,7 +310,7 @@ export class OriginCloudRegionsService {
     public static originCloudRegionsV2BatchDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         body: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2BatchDeleteResponses, OriginCloudRegionsV2BatchDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<OriginCloudRegionsV2BatchDeleteResponses, OriginCloudRegionsV2BatchDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -327,7 +343,7 @@ export class OriginCloudRegionsService {
     public static originCloudRegionsV2BatchUpsert<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         body: Array<CacheRulesOriginCloudRegionV2Request>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2BatchUpsertResponses, OriginCloudRegionsV2BatchUpsertErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<OriginCloudRegionsV2BatchUpsertResponses, OriginCloudRegionsV2BatchUpsertErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -359,7 +375,7 @@ export class OriginCloudRegionsService {
      */
     public static originCloudRegionsV2SupportedRegions<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2SupportedRegionsResponses, OriginCloudRegionsV2SupportedRegionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<OriginCloudRegionsV2SupportedRegionsResponses, OriginCloudRegionsV2SupportedRegionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -387,7 +403,7 @@ export class OriginCloudRegionsService {
     public static originCloudRegionsV2Delete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         origin_ip: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2DeleteResponses, OriginCloudRegionsV2DeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'origin_ip' }] }]);
         return (options?.client ?? client).delete<OriginCloudRegionsV2DeleteResponses, OriginCloudRegionsV2DeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -415,7 +431,7 @@ export class OriginCloudRegionsService {
     public static originCloudRegionsV2Get<ThrowOnError extends boolean = true>(parameters: {
         zone_id: CacheRulesIdentifier;
         origin_ip: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2GetResponses, OriginCloudRegionsV2GetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'origin_ip' }] }]);
         return (options?.client ?? client).get<OriginCloudRegionsV2GetResponses, OriginCloudRegionsV2GetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -444,7 +460,7 @@ export class OriginCloudRegionsService {
         zone_id: CacheRulesIdentifier;
         origin_ip: string;
         cacheRulesOriginCloudRegionV2Request: CacheRulesOriginCloudRegionV2Request;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<OriginCloudRegionsV2UpsertResponses, OriginCloudRegionsV2UpsertErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'origin_ip' },

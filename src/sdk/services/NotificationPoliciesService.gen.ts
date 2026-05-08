@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AaaAccountId, AaaAlertInterval, AaaAlertType, AaaEnabled, AaaFilters, AaaMechanisms, AaaPolicyId, AaaSchemasDescription, AaaSchemasName, NotificationPoliciesCreateANotificationPolicyErrors, NotificationPoliciesCreateANotificationPolicyResponses, NotificationPoliciesDeleteANotificationPolicyErrors, NotificationPoliciesDeleteANotificationPolicyResponses, NotificationPoliciesGetANotificationPolicyErrors, NotificationPoliciesGetANotificationPolicyResponses, NotificationPoliciesListNotificationPoliciesErrors, NotificationPoliciesListNotificationPoliciesResponses, NotificationPoliciesShowEmailUnsubscribeDetailsErrors, NotificationPoliciesShowEmailUnsubscribeDetailsResponses, NotificationPoliciesUnsubscribeEmailFromNotificationPolicyErrors, NotificationPoliciesUnsubscribeEmailFromNotificationPolicyResponses, NotificationPoliciesUpdateANotificationPolicyErrors, NotificationPoliciesUpdateANotificationPolicyResponses } from '../types.gen';
-import { zNotificationPoliciesCreateANotificationPolicyBody, zNotificationPoliciesCreateANotificationPolicyPath, zNotificationPoliciesCreateANotificationPolicyResponse, zNotificationPoliciesDeleteANotificationPolicyPath, zNotificationPoliciesDeleteANotificationPolicyResponse, zNotificationPoliciesGetANotificationPolicyPath, zNotificationPoliciesGetANotificationPolicyResponse, zNotificationPoliciesListNotificationPoliciesPath, zNotificationPoliciesListNotificationPoliciesResponse, zNotificationPoliciesShowEmailUnsubscribeDetailsPath, zNotificationPoliciesShowEmailUnsubscribeDetailsQuery, zNotificationPoliciesShowEmailUnsubscribeDetailsResponse, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyPath, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyResponse, zNotificationPoliciesUpdateANotificationPolicyBody, zNotificationPoliciesUpdateANotificationPolicyPath, zNotificationPoliciesUpdateANotificationPolicyResponse } from '../zod.gen';
+import type { AaaAccountId, AaaAlertInterval, AaaAlertType, AaaEnabled, AaaFilters, AaaMechanisms, AaaPolicyId, AaaSchemasDescription, AaaSchemasName, NotificationPoliciesCreateANotificationPolicyErrors, NotificationPoliciesCreateANotificationPolicyResponses, NotificationPoliciesDeleteANotificationPolicyErrors, NotificationPoliciesDeleteANotificationPolicyResponses, NotificationPoliciesGetANotificationPolicyErrors, NotificationPoliciesGetANotificationPolicyResponses, NotificationPoliciesListNotificationPoliciesErrors, NotificationPoliciesListNotificationPoliciesResponses, NotificationPoliciesShowEmailUnsubscribeDetailsErrors, NotificationPoliciesShowEmailUnsubscribeDetailsResponses, NotificationPoliciesTestANotificationPolicyErrors, NotificationPoliciesTestANotificationPolicyResponses, NotificationPoliciesUnsubscribeEmailFromNotificationPolicyErrors, NotificationPoliciesUnsubscribeEmailFromNotificationPolicyResponses, NotificationPoliciesUpdateANotificationPolicyErrors, NotificationPoliciesUpdateANotificationPolicyResponses } from '../types.gen';
+import { zNotificationPoliciesCreateANotificationPolicyBody, zNotificationPoliciesCreateANotificationPolicyPath, zNotificationPoliciesCreateANotificationPolicyResponse, zNotificationPoliciesDeleteANotificationPolicyPath, zNotificationPoliciesDeleteANotificationPolicyResponse, zNotificationPoliciesGetANotificationPolicyPath, zNotificationPoliciesGetANotificationPolicyResponse, zNotificationPoliciesListNotificationPoliciesPath, zNotificationPoliciesListNotificationPoliciesResponse, zNotificationPoliciesShowEmailUnsubscribeDetailsPath, zNotificationPoliciesShowEmailUnsubscribeDetailsQuery, zNotificationPoliciesShowEmailUnsubscribeDetailsResponse, zNotificationPoliciesTestANotificationPolicyBody, zNotificationPoliciesTestANotificationPolicyPath, zNotificationPoliciesTestANotificationPolicyResponse, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyPath, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery, zNotificationPoliciesUnsubscribeEmailFromNotificationPolicyResponse, zNotificationPoliciesUpdateANotificationPolicyBody, zNotificationPoliciesUpdateANotificationPolicyPath, zNotificationPoliciesUpdateANotificationPolicyResponse } from '../zod.gen';
 
 export class NotificationPoliciesService {
     /**
@@ -18,7 +18,7 @@ export class NotificationPoliciesService {
      */
     public static notificationPoliciesListNotificationPolicies<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesListNotificationPoliciesResponses, NotificationPoliciesListNotificationPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NotificationPoliciesListNotificationPoliciesResponses, NotificationPoliciesListNotificationPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -52,7 +52,7 @@ export class NotificationPoliciesService {
         filters?: AaaFilters;
         mechanisms: AaaMechanisms;
         name: AaaSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesCreateANotificationPolicyResponses, NotificationPoliciesCreateANotificationPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'alert_interval' },
@@ -94,7 +94,7 @@ export class NotificationPoliciesService {
     public static notificationPoliciesDeleteANotificationPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         policy_id: AaaPolicyId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesDeleteANotificationPolicyResponses, NotificationPoliciesDeleteANotificationPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).delete<NotificationPoliciesDeleteANotificationPolicyResponses, NotificationPoliciesDeleteANotificationPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -122,7 +122,7 @@ export class NotificationPoliciesService {
     public static notificationPoliciesGetANotificationPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         policy_id: AaaPolicyId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesGetANotificationPolicyResponses, NotificationPoliciesGetANotificationPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).get<NotificationPoliciesGetANotificationPolicyResponses, NotificationPoliciesGetANotificationPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -157,7 +157,7 @@ export class NotificationPoliciesService {
         filters?: AaaFilters;
         mechanisms?: AaaMechanisms;
         name?: AaaSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesUpdateANotificationPolicyResponses, NotificationPoliciesUpdateANotificationPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_id' },
@@ -202,7 +202,7 @@ export class NotificationPoliciesService {
         policy_id: AaaPolicyId;
         email: string;
         token: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesShowEmailUnsubscribeDetailsResponses, NotificationPoliciesShowEmailUnsubscribeDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_id' },
@@ -232,7 +232,7 @@ export class NotificationPoliciesService {
         policy_id: AaaPolicyId;
         email: string;
         token: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesUnsubscribeEmailFromNotificationPolicyResponses, NotificationPoliciesUnsubscribeEmailFromNotificationPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_id' },
@@ -249,6 +249,50 @@ export class NotificationPoliciesService {
             url: '/accounts/{account_id}/alerting/v3/policies/{policy_id}/email/unsubscribe',
             ...options,
             ...params
+        });
+    }
+    
+    /**
+     * Test a Notification policy
+     *
+     * Send a test notification for a policy to verify delivery mechanisms are working as expected.
+     */
+    public static notificationPoliciesTestANotificationPolicy<ThrowOnError extends boolean = true>(parameters: {
+        account_id: AaaAccountId;
+        policy_id: AaaPolicyId;
+        severity?: 0 | 1 | 2 | 3 | 4;
+        source?: string;
+        state_correlation_id?: string;
+        state_event?: 0 | 1 | 2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationPoliciesTestANotificationPolicyResponses, NotificationPoliciesTestANotificationPolicyErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'policy_id' },
+                    { in: 'body', key: 'severity' },
+                    { in: 'body', key: 'source' },
+                    { in: 'body', key: 'state_correlation_id' },
+                    { in: 'body', key: 'state_event' }
+                ] }]);
+        return (options?.client ?? client).post<NotificationPoliciesTestANotificationPolicyResponses, NotificationPoliciesTestANotificationPolicyErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zNotificationPoliciesTestANotificationPolicyBody.optional(),
+                path: zNotificationPoliciesTestANotificationPolicyPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zNotificationPoliciesTestANotificationPolicyResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/alerting/v3/policies/{policy_id}/test',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
 }

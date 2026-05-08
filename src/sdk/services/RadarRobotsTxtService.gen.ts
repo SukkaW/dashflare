@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetRobotsTxtTopDomainCategoriesByFilesParsedErrors, RadarGetRobotsTxtTopDomainCategoriesByFilesParsedResponses, RadarGetRobotsTxtTopUserAgentsByDirectiveErrors, RadarGetRobotsTxtTopUserAgentsByDirectiveResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class RadarRobotsTxtService {
         userAgentCategory?: 'AI';
         date?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetRobotsTxtTopDomainCategoriesByFilesParsedResponses, RadarGetRobotsTxtTopDomainCategoriesByFilesParsedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -61,7 +61,7 @@ export class RadarRobotsTxtService {
         domainCategory?: Array<string>;
         directive?: 'ALLOW' | 'DISALLOW';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetRobotsTxtTopUserAgentsByDirectiveResponses, RadarGetRobotsTxtTopUserAgentsByDirectiveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

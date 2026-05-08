@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ArgoAnalyticsForZoneArgoAnalyticsForAZoneErrors, ArgoAnalyticsForZoneArgoAnalyticsForAZoneResponses, ArgoAnalyticsIdentifier } from '../types.gen';
@@ -19,7 +19,7 @@ export class ArgoAnalyticsForZoneService {
     public static argoAnalyticsForZoneArgoAnalyticsForAZone<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ArgoAnalyticsIdentifier;
         bins?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArgoAnalyticsForZoneArgoAnalyticsForAZoneResponses, ArgoAnalyticsForZoneArgoAnalyticsForAZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'bins' }] }]);
         return (options?.client ?? client).get<ArgoAnalyticsForZoneArgoAnalyticsForAZoneResponses, ArgoAnalyticsForZoneArgoAnalyticsForAZoneErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CreateWorkerVersionErrors, CreateWorkerVersionResponses, DeleteWorkerVersionErrors, DeleteWorkerVersionResponses, GetWorkerVersionErrors, GetWorkerVersionResponses, ListWorkerVersionsErrors, ListWorkerVersionsResponses, WorkersIdentifier, WorkersVersionWritable } from '../types.gen';
-import { zCreateWorkerVersionBody, zCreateWorkerVersionPath, zCreateWorkerVersionQuery, zCreateWorkerVersionResponse, zDeleteWorkerVersionPath, zDeleteWorkerVersionResponse, zGetWorkerVersionPath, zGetWorkerVersionQuery, zGetWorkerVersionResponse, zListWorkerVersionsPath, zListWorkerVersionsQuery, zListWorkerVersionsResponse } from '../zod.gen';
+import type { CreateWorkerVersionErrors, CreateWorkerVersionResponses, DeleteWorkerVersionErrors, DeleteWorkerVersionResponses, GetWorkerVersionErrors, GetWorkerVersionResponses, ListWorkerVersionsErrors, ListWorkerVersionsResponses, PatchLatestWorkerVersionErrors, PatchLatestWorkerVersionResponses, WorkersIdentifier, WorkersVersionWritable } from '../types.gen';
+import { zCreateWorkerVersionBody, zCreateWorkerVersionPath, zCreateWorkerVersionQuery, zCreateWorkerVersionResponse, zDeleteWorkerVersionPath, zDeleteWorkerVersionResponse, zGetWorkerVersionPath, zGetWorkerVersionQuery, zGetWorkerVersionResponse, zListWorkerVersionsPath, zListWorkerVersionsQuery, zListWorkerVersionsResponse, zPatchLatestWorkerVersionBody, zPatchLatestWorkerVersionPath, zPatchLatestWorkerVersionQuery, zPatchLatestWorkerVersionResponse } from '../zod.gen';
 
 export class VersionsService {
     /**
@@ -21,7 +21,7 @@ export class VersionsService {
         worker_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListWorkerVersionsResponses, ListWorkerVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },
@@ -56,7 +56,7 @@ export class VersionsService {
         worker_id: string;
         deploy?: boolean;
         workersVersionWritable: WorkersVersionWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateWorkerVersionResponses, CreateWorkerVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },
@@ -87,6 +87,48 @@ export class VersionsService {
     }
     
     /**
+     * Patch Latest Version
+     *
+     * Only `/versions/latest` is supported. Creates a new version by applying a JSON Merge Patch (RFC 7396) to the latest version. Patching a specific version ID is not supported. Omitted fields are inherited from the latest version.
+     */
+    public static patchLatestWorkerVersion<ThrowOnError extends boolean = true>(parameters: {
+        account_id: WorkersIdentifier;
+        worker_id: string;
+        deploy?: boolean;
+        body?: WorkersVersionWritable & {
+            [key: string]: unknown;
+        };
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchLatestWorkerVersionResponses, PatchLatestWorkerVersionErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'worker_id' },
+                    { in: 'query', key: 'deploy' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<PatchLatestWorkerVersionResponses, PatchLatestWorkerVersionErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPatchLatestWorkerVersionBody.optional(),
+                path: zPatchLatestWorkerVersionPath,
+                query: zPatchLatestWorkerVersionQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPatchLatestWorkerVersionResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/workers/{worker_id}/versions/latest',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Delete Version
      *
      * Delete a version.
@@ -95,7 +137,7 @@ export class VersionsService {
         account_id: WorkersIdentifier;
         worker_id: string;
         version_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWorkerVersionResponses, DeleteWorkerVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },
@@ -129,7 +171,7 @@ export class VersionsService {
         worker_id: string;
         version_id: string;
         include?: 'modules';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWorkerVersionResponses, GetWorkerVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'worker_id' },

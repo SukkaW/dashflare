@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { KaminoEnvironmentsRequest, ZonesEnvironmentsCreateErrors, ZonesEnvironmentsCreateResponses, ZonesEnvironmentsDeleteErrors, ZonesEnvironmentsDeleteResponses, ZonesEnvironmentsEditErrors, ZonesEnvironmentsEditResponses, ZonesEnvironmentsListErrors, ZonesEnvironmentsListResponses, ZonesEnvironmentsRollbackErrors, ZonesEnvironmentsRollbackResponses, ZonesEnvironmentsUpdateErrors, ZonesEnvironmentsUpdateResponses } from '../types.gen';
@@ -13,10 +13,12 @@ import { zZonesEnvironmentsCreateBody, zZonesEnvironmentsCreatePath, zZonesEnvir
 export class ZoneEnvironmentsService {
     /**
      * List zone environments
+     *
+     * Lists configured environments for a zone.
      */
     public static zonesEnvironmentsList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsListResponses, ZonesEnvironmentsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZonesEnvironmentsListResponses, ZonesEnvironmentsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -38,11 +40,13 @@ export class ZoneEnvironmentsService {
     
     /**
      * Partially update zone environments
+     *
+     * Applies partial updates to zone environments.
      */
     public static zonesEnvironmentsEdit<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         kaminoEnvironmentsRequest: KaminoEnvironmentsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsEditResponses, ZonesEnvironmentsEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'kaminoEnvironmentsRequest', map: 'body' }] }]);
         return (options?.client ?? client).patch<ZonesEnvironmentsEditResponses, ZonesEnvironmentsEditErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -69,11 +73,13 @@ export class ZoneEnvironmentsService {
     
     /**
      * Create zone environments
+     *
+     * Creates environments for a zone.
      */
     public static zonesEnvironmentsCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         kaminoEnvironmentsRequest: KaminoEnvironmentsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsCreateResponses, ZonesEnvironmentsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'kaminoEnvironmentsRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ZonesEnvironmentsCreateResponses, ZonesEnvironmentsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -100,11 +106,13 @@ export class ZoneEnvironmentsService {
     
     /**
      * Upsert zone environments
+     *
+     * Replaces the full environment configuration for a zone.
      */
     public static zonesEnvironmentsUpdate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         kaminoEnvironmentsRequest: KaminoEnvironmentsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsUpdateResponses, ZonesEnvironmentsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'kaminoEnvironmentsRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<ZonesEnvironmentsUpdateResponses, ZonesEnvironmentsUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -131,11 +139,13 @@ export class ZoneEnvironmentsService {
     
     /**
      * Delete zone environment
+     *
+     * Deletes a zone environment by reference identifier.
      */
     public static zonesEnvironmentsDelete<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         environment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsDeleteResponses, ZonesEnvironmentsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'environment_id' }] }]);
         return (options?.client ?? client).delete<ZonesEnvironmentsDeleteResponses, ZonesEnvironmentsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -157,11 +167,13 @@ export class ZoneEnvironmentsService {
     
     /**
      * Roll back zone environment
+     *
+     * Rolls a zone environment back to its previous version.
      */
     public static zonesEnvironmentsRollback<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         environment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesEnvironmentsRollbackResponses, ZonesEnvironmentsRollbackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'environment_id' }] }]);
         return (options?.client ?? client).post<ZonesEnvironmentsRollbackResponses, ZonesEnvironmentsRollbackErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

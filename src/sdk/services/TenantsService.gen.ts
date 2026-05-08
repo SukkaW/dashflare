@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { TenantsListAccountsErrors, TenantsListAccountsResponses, TenantsListEntitlementsErrors, TenantsListEntitlementsResponses, TenantsListMembershipsErrors, TenantsListMembershipsResponses, TenantsRetrieveTenantErrors, TenantsRetrieveTenantResponses, TenantsValidAccountTypesErrors, TenantsValidAccountTypesResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class TenantsService {
      */
     public static tenantsRetrieveTenant<ThrowOnError extends boolean = true>(parameters: {
         tenant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TenantsRetrieveTenantResponses, TenantsRetrieveTenantErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tenant_id' }] }]);
         return (options?.client ?? client).get<TenantsRetrieveTenantResponses, TenantsRetrieveTenantErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -41,7 +41,7 @@ export class TenantsService {
      */
     public static tenantsValidAccountTypes<ThrowOnError extends boolean = true>(parameters: {
         tenant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TenantsValidAccountTypesResponses, TenantsValidAccountTypesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tenant_id' }] }]);
         return (options?.client ?? client).get<TenantsValidAccountTypesResponses, TenantsValidAccountTypesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -64,7 +64,7 @@ export class TenantsService {
      */
     public static tenantsListAccounts<ThrowOnError extends boolean = true>(parameters: {
         tenant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TenantsListAccountsResponses, TenantsListAccountsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tenant_id' }] }]);
         return (options?.client ?? client).get<TenantsListAccountsResponses, TenantsListAccountsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -87,7 +87,7 @@ export class TenantsService {
      */
     public static tenantsListEntitlements<ThrowOnError extends boolean = true>(parameters: {
         tenant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TenantsListEntitlementsResponses, TenantsListEntitlementsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tenant_id' }] }]);
         return (options?.client ?? client).get<TenantsListEntitlementsResponses, TenantsListEntitlementsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -110,7 +110,7 @@ export class TenantsService {
      */
     public static tenantsListMemberships<ThrowOnError extends boolean = true>(parameters: {
         tenant_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TenantsListMembershipsResponses, TenantsListMembershipsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tenant_id' }] }]);
         return (options?.client ?? client).get<TenantsListMembershipsResponses, TenantsListMembershipsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

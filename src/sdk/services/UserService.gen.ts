@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IamCountry, IamFirstName, IamLastName, IamTelephone, IamZipcode, UserEditUserErrors, UserEditUserResponses, UserListUserTenantsErrors, UserListUserTenantsResponses, UserUserDetailsErrors, UserUserDetailsResponses } from '../types.gen';
@@ -13,8 +13,10 @@ import { zUserEditUserBody, zUserEditUserResponse, zUserListUserTenantsResponse,
 export class UserService {
     /**
      * User Details
+     *
+     * Retrieves detailed information about the currently authenticated user, including email, name, and account memberships.
      */
-    public static userUserDetails<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static userUserDetails<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserUserDetailsResponses, UserUserDetailsErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserUserDetailsResponses, UserUserDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -39,7 +41,7 @@ export class UserService {
         last_name?: IamLastName;
         telephone?: IamTelephone;
         zipcode?: IamZipcode;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserEditUserResponses, UserEditUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'body', key: 'country' },
                     { in: 'body', key: 'first_name' },
@@ -75,7 +77,7 @@ export class UserService {
      *
      * Retrieves list of tenants the authenticated user / method has access to.
      */
-    public static userListUserTenants<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static userListUserTenants<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserListUserTenantsResponses, UserListUserTenantsErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserListUserTenantsResponses, UserListUserTenantsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -84,7 +86,7 @@ export class UserService {
             }).parseAsync(data),
             responseValidator: async (data) => await zUserListUserTenantsResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
-            url: '/users/tenants',
+            url: '/user/tenants',
             ...options
         });
     }

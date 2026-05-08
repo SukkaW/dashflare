@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WaitingRoomCreateACustomWaitingRoomPagePreviewErrors, WaitingRoomCreateACustomWaitingRoomPagePreviewResponses, WaitingRoomCreateEventErrors, WaitingRoomCreateEventResponses, WaitingroomCreateRule, WaitingRoomCreateWaitingRoomErrors, WaitingRoomCreateWaitingRoomResponses, WaitingRoomCreateWaitingRoomRuleErrors, WaitingRoomCreateWaitingRoomRuleResponses, WaitingRoomDeleteEventErrors, WaitingRoomDeleteEventResponses, WaitingRoomDeleteWaitingRoomErrors, WaitingRoomDeleteWaitingRoomResponses, WaitingRoomDeleteWaitingRoomRuleErrors, WaitingRoomDeleteWaitingRoomRuleResponses, WaitingRoomEventDetailsErrors, WaitingRoomEventDetailsResponses, WaitingroomEventId, WaitingRoomGetWaitingRoomStatusErrors, WaitingRoomGetWaitingRoomStatusResponses, WaitingRoomGetZoneSettingsErrors, WaitingRoomGetZoneSettingsResponses, WaitingroomIdentifier, WaitingRoomListEventsErrors, WaitingRoomListEventsResponses, WaitingRoomListWaitingRoomRulesErrors, WaitingRoomListWaitingRoomRulesResponses, WaitingRoomListWaitingRoomsAccountErrors, WaitingRoomListWaitingRoomsAccountResponses, WaitingRoomListWaitingRoomsErrors, WaitingRoomListWaitingRoomsResponses, WaitingRoomPatchEventErrors, WaitingRoomPatchEventResponses, WaitingroomPatchRule, WaitingRoomPatchWaitingRoomErrors, WaitingRoomPatchWaitingRoomResponses, WaitingRoomPatchWaitingRoomRuleErrors, WaitingRoomPatchWaitingRoomRuleResponses, WaitingRoomPatchZoneSettingsErrors, WaitingRoomPatchZoneSettingsResponses, WaitingRoomPreviewActiveEventDetailsErrors, WaitingRoomPreviewActiveEventDetailsResponses, WaitingroomQueryEvent, WaitingroomQueryPreview, WaitingroomQueryWaitingroom, WaitingRoomReplaceWaitingRoomRulesErrors, WaitingRoomReplaceWaitingRoomRulesResponses, WaitingroomRuleId, WaitingRoomUpdateEventErrors, WaitingRoomUpdateEventResponses, WaitingroomUpdateRules, WaitingRoomUpdateWaitingRoomErrors, WaitingRoomUpdateWaitingRoomResponses, WaitingRoomUpdateZoneSettingsErrors, WaitingRoomUpdateZoneSettingsResponses, WaitingRoomWaitingRoomDetailsErrors, WaitingRoomWaitingRoomDetailsResponses, WaitingroomWaitingRoomId, WaitingroomZoneSettings } from '../types.gen';
@@ -20,7 +20,7 @@ export class WaitingRoomService {
         account_id: WaitingroomIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomListWaitingRoomsAccountResponses, WaitingRoomListWaitingRoomsAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -53,7 +53,7 @@ export class WaitingRoomService {
         zone_id: WaitingroomIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomListWaitingRoomsResponses, WaitingRoomListWaitingRoomsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -85,7 +85,7 @@ export class WaitingRoomService {
     public static waitingRoomCreateWaitingRoom<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WaitingroomIdentifier;
         waitingroomQueryWaitingroom: WaitingroomQueryWaitingroom;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomCreateWaitingRoomResponses, WaitingRoomCreateWaitingRoomErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'waitingroomQueryWaitingroom', map: 'body' }] }]);
         return (options?.client ?? client).post<WaitingRoomCreateWaitingRoomResponses, WaitingRoomCreateWaitingRoomErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class WaitingRoomService {
     public static waitingRoomCreateACustomWaitingRoomPagePreview<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WaitingroomIdentifier;
         waitingroomQueryPreview: WaitingroomQueryPreview;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomCreateACustomWaitingRoomPagePreviewResponses, WaitingRoomCreateACustomWaitingRoomPagePreviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'waitingroomQueryPreview', map: 'body' }] }]);
         return (options?.client ?? client).post<WaitingRoomCreateACustomWaitingRoomPagePreviewResponses, WaitingRoomCreateACustomWaitingRoomPagePreviewErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -163,11 +163,11 @@ export class WaitingRoomService {
     /**
      * Get zone-level Waiting Room settings
      *
-     * Gets the zone-level Waiting Room settings that apply as defaults to all waiting rooms on the zone.
+     * Get zone-level Waiting Room settings.
      */
     public static waitingRoomGetZoneSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomGetZoneSettingsResponses, WaitingRoomGetZoneSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WaitingRoomGetZoneSettingsResponses, WaitingRoomGetZoneSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,12 +190,12 @@ export class WaitingRoomService {
     /**
      * Patch zone-level Waiting Room settings
      *
-     * Partially updates zone-level Waiting Room settings using PATCH semantics.
+     * Patch zone-level Waiting Room settings.
      */
     public static waitingRoomPatchZoneSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WaitingroomIdentifier;
         waitingroomZoneSettings: WaitingroomZoneSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomPatchZoneSettingsResponses, WaitingRoomPatchZoneSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'waitingroomZoneSettings', map: 'body' }] }]);
         return (options?.client ?? client).patch<WaitingRoomPatchZoneSettingsResponses, WaitingRoomPatchZoneSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -223,12 +223,12 @@ export class WaitingRoomService {
     /**
      * Update zone-level Waiting Room settings
      *
-     * Fully updates zone-level Waiting Room settings, replacing the existing configuration.
+     * Replace zone-level Waiting Room settings.
      */
     public static waitingRoomUpdateZoneSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WaitingroomIdentifier;
         waitingroomZoneSettings: WaitingroomZoneSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomUpdateZoneSettingsResponses, WaitingRoomUpdateZoneSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'waitingroomZoneSettings', map: 'body' }] }]);
         return (options?.client ?? client).put<WaitingRoomUpdateZoneSettingsResponses, WaitingRoomUpdateZoneSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -262,7 +262,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomDeleteWaitingRoomResponses, WaitingRoomDeleteWaitingRoomErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -299,7 +299,7 @@ export class WaitingRoomService {
     public static waitingRoomWaitingRoomDetails<ThrowOnError extends boolean = true>(parameters: {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomWaitingRoomDetailsResponses, WaitingRoomWaitingRoomDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'waiting_room_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WaitingRoomWaitingRoomDetailsResponses, WaitingRoomWaitingRoomDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -328,7 +328,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomQueryWaitingroom: WaitingroomQueryWaitingroom;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomPatchWaitingRoomResponses, WaitingRoomPatchWaitingRoomErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -366,7 +366,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomQueryWaitingroom: WaitingroomQueryWaitingroom;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomUpdateWaitingRoomResponses, WaitingRoomUpdateWaitingRoomErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -405,7 +405,7 @@ export class WaitingRoomService {
         zone_id: WaitingroomIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomListEventsResponses, WaitingRoomListEventsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -439,7 +439,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomQueryEvent: WaitingroomQueryEvent;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomCreateEventResponses, WaitingRoomCreateEventErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -478,7 +478,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomDeleteEventResponses, WaitingRoomDeleteEventErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'event_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -517,7 +517,7 @@ export class WaitingRoomService {
         event_id: WaitingroomEventId;
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomEventDetailsResponses, WaitingRoomEventDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'event_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -551,7 +551,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomQueryEvent: WaitingroomQueryEvent;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomPatchEventResponses, WaitingRoomPatchEventErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'event_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -591,7 +591,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomQueryEvent: WaitingroomQueryEvent;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomUpdateEventResponses, WaitingRoomUpdateEventErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'event_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -630,7 +630,7 @@ export class WaitingRoomService {
         event_id: WaitingroomEventId;
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomPreviewActiveEventDetailsResponses, WaitingRoomPreviewActiveEventDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'event_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -662,7 +662,7 @@ export class WaitingRoomService {
     public static waitingRoomListWaitingRoomRules<ThrowOnError extends boolean = true>(parameters: {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomListWaitingRoomRulesResponses, WaitingRoomListWaitingRoomRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'waiting_room_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WaitingRoomListWaitingRoomRulesResponses, WaitingRoomListWaitingRoomRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -691,7 +691,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomCreateRule: WaitingroomCreateRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomCreateWaitingRoomRuleResponses, WaitingRoomCreateWaitingRoomRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -729,7 +729,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomUpdateRules: WaitingroomUpdateRules;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomReplaceWaitingRoomRulesResponses, WaitingRoomReplaceWaitingRoomRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'waiting_room_id' },
                     { in: 'path', key: 'zone_id' },
@@ -768,7 +768,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomDeleteWaitingRoomRuleResponses, WaitingRoomDeleteWaitingRoomRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -808,7 +808,7 @@ export class WaitingRoomService {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
         waitingroomPatchRule: WaitingroomPatchRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomPatchWaitingRoomRuleResponses, WaitingRoomPatchWaitingRoomRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'waiting_room_id' },
@@ -855,7 +855,7 @@ export class WaitingRoomService {
     public static waitingRoomGetWaitingRoomStatus<ThrowOnError extends boolean = true>(parameters: {
         waiting_room_id: WaitingroomWaitingRoomId;
         zone_id: WaitingroomIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WaitingRoomGetWaitingRoomStatusResponses, WaitingRoomGetWaitingRoomStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'waiting_room_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WaitingRoomGetWaitingRoomStatusResponses, WaitingRoomGetWaitingRoomStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

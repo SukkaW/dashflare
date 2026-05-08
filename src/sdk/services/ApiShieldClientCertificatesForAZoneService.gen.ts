@@ -4,22 +4,22 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ClientCertificateForAZoneClientCertificateDetailsErrors, ClientCertificateForAZoneClientCertificateDetailsResponses, ClientCertificateForAZoneCreateClientCertificateErrors, ClientCertificateForAZoneCreateClientCertificateResponses, ClientCertificateForAZoneDeleteClientCertificateErrors, ClientCertificateForAZoneDeleteClientCertificateResponses, ClientCertificateForAZoneEditClientCertificateErrors, ClientCertificateForAZoneEditClientCertificateResponses, ClientCertificateForAZoneListClientCertificatesErrors, ClientCertificateForAZoneListClientCertificatesResponses, ClientCertificateForAZoneListHostnameAssociationsErrors, ClientCertificateForAZoneListHostnameAssociationsResponses, ClientCertificateForAZonePutHostnameAssociationsErrors, ClientCertificateForAZonePutHostnameAssociationsResponses, TlsCertificatesAndHostnamesHostnameAssociation, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSchemasCsr, TlsCertificatesAndHostnamesSchemasValidityDays } from '../types.gen';
+import type { ClientCertificateForAZoneClientCertificateDetailsErrors, ClientCertificateForAZoneClientCertificateDetailsResponses, ClientCertificateForAZoneCreateClientCertificateErrors, ClientCertificateForAZoneCreateClientCertificateResponses, ClientCertificateForAZoneDeleteClientCertificateErrors, ClientCertificateForAZoneDeleteClientCertificateResponses, ClientCertificateForAZoneEditClientCertificateErrors, ClientCertificateForAZoneEditClientCertificateResponses, ClientCertificateForAZoneListClientCertificatesErrors, ClientCertificateForAZoneListClientCertificatesResponses, ClientCertificateForAZoneListHostnameAssociationsErrors, ClientCertificateForAZoneListHostnameAssociationsResponses, ClientCertificateForAZonePutHostnameAssociationsErrors, ClientCertificateForAZonePutHostnameAssociationsResponses, TlsCertificatesAndHostnamesCsr2, TlsCertificatesAndHostnamesHostnameAssociation, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesValidityDays2 } from '../types.gen';
 import { zClientCertificateForAZoneClientCertificateDetailsPath, zClientCertificateForAZoneClientCertificateDetailsResponse, zClientCertificateForAZoneCreateClientCertificateBody, zClientCertificateForAZoneCreateClientCertificatePath, zClientCertificateForAZoneCreateClientCertificateResponse, zClientCertificateForAZoneDeleteClientCertificatePath, zClientCertificateForAZoneDeleteClientCertificateResponse, zClientCertificateForAZoneEditClientCertificateBody, zClientCertificateForAZoneEditClientCertificatePath, zClientCertificateForAZoneEditClientCertificateResponse, zClientCertificateForAZoneListClientCertificatesPath, zClientCertificateForAZoneListClientCertificatesQuery, zClientCertificateForAZoneListClientCertificatesResponse, zClientCertificateForAZoneListHostnameAssociationsPath, zClientCertificateForAZoneListHostnameAssociationsQuery, zClientCertificateForAZoneListHostnameAssociationsResponse, zClientCertificateForAZonePutHostnameAssociationsBody, zClientCertificateForAZonePutHostnameAssociationsPath, zClientCertificateForAZonePutHostnameAssociationsResponse } from '../zod.gen';
 
 export class ApiShieldClientCertificatesForAZoneService {
     /**
      * List Hostname Associations
      *
-     * List Hostname Associations
+     * List Hostname Associations.
      */
     public static clientCertificateForAZoneListHostnameAssociations<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         mtls_certificate_id?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneListHostnameAssociationsResponses, ClientCertificateForAZoneListHostnameAssociationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'mtls_certificate_id' }] }]);
         return (options?.client ?? client).get<ClientCertificateForAZoneListHostnameAssociationsResponses, ClientCertificateForAZoneListHostnameAssociationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -29,9 +29,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneListHostnameAssociationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/certificate_authorities/hostname_associations',
             ...options,
@@ -42,12 +42,12 @@ export class ApiShieldClientCertificatesForAZoneService {
     /**
      * Replace Hostname Associations
      *
-     * Replace Hostname Associations
+     * Replace Hostname Associations.
      */
     public static clientCertificateForAZonePutHostnameAssociations<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         tlsCertificatesAndHostnamesHostnameAssociation: TlsCertificatesAndHostnamesHostnameAssociation;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZonePutHostnameAssociationsResponses, ClientCertificateForAZonePutHostnameAssociationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'tlsCertificatesAndHostnamesHostnameAssociation', map: 'body' }] }]);
         return (options?.client ?? client).put<ClientCertificateForAZonePutHostnameAssociationsResponses, ClientCertificateForAZonePutHostnameAssociationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -57,9 +57,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZonePutHostnameAssociationsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/certificate_authorities/hostname_associations',
             ...options,
@@ -75,7 +75,7 @@ export class ApiShieldClientCertificatesForAZoneService {
     /**
      * List Client Certificates
      *
-     * List all of your Zone's API Shield mTLS Client Certificates by Status and/or using Pagination
+     * List all of your Zone's API Shield mTLS Client Certificates by Status and/or using Pagination.
      */
     public static clientCertificateForAZoneListClientCertificates<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
@@ -84,7 +84,7 @@ export class ApiShieldClientCertificatesForAZoneService {
         per_page?: number;
         limit?: number;
         offset?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneListClientCertificatesResponses, ClientCertificateForAZoneListClientCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'status' },
@@ -101,9 +101,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneListClientCertificatesResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/client_certificates',
             ...options,
@@ -114,13 +114,13 @@ export class ApiShieldClientCertificatesForAZoneService {
     /**
      * Create Client Certificate
      *
-     * Create a new API Shield mTLS Client Certificate
+     * Create a new API Shield mTLS Client Certificate.
      */
     public static clientCertificateForAZoneCreateClientCertificate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        csr: TlsCertificatesAndHostnamesSchemasCsr;
-        validity_days: TlsCertificatesAndHostnamesSchemasValidityDays;
-    }, options?: Options<never, ThrowOnError>) {
+        csr: TlsCertificatesAndHostnamesCsr2;
+        validity_days: TlsCertificatesAndHostnamesValidityDays2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneCreateClientCertificateResponses, ClientCertificateForAZoneCreateClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'csr' },
@@ -134,9 +134,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneCreateClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/client_certificates',
             ...options,
@@ -157,7 +157,7 @@ export class ApiShieldClientCertificatesForAZoneService {
     public static clientCertificateForAZoneDeleteClientCertificate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         client_certificate_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneDeleteClientCertificateResponses, ClientCertificateForAZoneDeleteClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'client_certificate_id' }] }]);
         return (options?.client ?? client).delete<ClientCertificateForAZoneDeleteClientCertificateResponses, ClientCertificateForAZoneDeleteClientCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -167,9 +167,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneDeleteClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/client_certificates/{client_certificate_id}',
             ...options,
@@ -180,12 +180,12 @@ export class ApiShieldClientCertificatesForAZoneService {
     /**
      * Client Certificate Details
      *
-     * Get Details for a single mTLS API Shield Client Certificate
+     * Get Details for a single mTLS API Shield Client Certificate.
      */
     public static clientCertificateForAZoneClientCertificateDetails<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         client_certificate_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneClientCertificateDetailsResponses, ClientCertificateForAZoneClientCertificateDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'client_certificate_id' }] }]);
         return (options?.client ?? client).get<ClientCertificateForAZoneClientCertificateDetailsResponses, ClientCertificateForAZoneClientCertificateDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -195,9 +195,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneClientCertificateDetailsResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/client_certificates/{client_certificate_id}',
             ...options,
@@ -214,7 +214,7 @@ export class ApiShieldClientCertificatesForAZoneService {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         client_certificate_id: TlsCertificatesAndHostnamesIdentifier;
         reactivate?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ClientCertificateForAZoneEditClientCertificateResponses, ClientCertificateForAZoneEditClientCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'client_certificate_id' },
@@ -228,9 +228,9 @@ export class ApiShieldClientCertificatesForAZoneService {
             }).parseAsync(data),
             responseValidator: async (data) => await zClientCertificateForAZoneEditClientCertificateResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/client_certificates/{client_certificate_id}',
             ...options,

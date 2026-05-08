@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { UrlscannerCreateScanErrors, UrlscannerCreateScanResponses, UrlscannerGetResponseTextErrors, UrlscannerGetResponseTextResponses, UrlscannerGetScanErrors, UrlscannerGetScanHarErrors, UrlscannerGetScanHarResponses, UrlscannerGetScanResponses, UrlscannerGetScanScreenshotErrors, UrlscannerGetScanScreenshotResponses, UrlscannerSearchScansErrors, UrlscannerSearchScansResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class UrlScannerDeprecatedService {
     public static urlscannerGetResponseText<ThrowOnError extends boolean = true>(parameters: {
         response_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetResponseTextResponses, UrlscannerGetResponseTextErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'response_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetResponseTextResponses, UrlscannerGetResponseTextErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -67,7 +67,7 @@ export class UrlScannerDeprecatedService {
         page_ip?: string;
         account_scans?: boolean;
         is_malicious?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerSearchScansResponses, UrlscannerSearchScansErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'scan_id' },
@@ -122,7 +122,7 @@ export class UrlScannerDeprecatedService {
         screenshotsResolutions?: Array<'desktop' | 'mobile' | 'tablet'>;
         url: string;
         visibility?: 'Public' | 'Unlisted';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerCreateScanResponses, UrlscannerCreateScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'country' },
@@ -165,7 +165,7 @@ export class UrlScannerDeprecatedService {
         scan_id: string;
         account_id: string;
         full?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanResponses, UrlscannerGetScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'scan_id' },
                     { in: 'path', key: 'account_id' },
@@ -199,7 +199,7 @@ export class UrlScannerDeprecatedService {
     public static urlscannerGetScanHar<ThrowOnError extends boolean = true>(parameters: {
         scan_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanHarResponses, UrlscannerGetScanHarErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'scan_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<UrlscannerGetScanHarResponses, UrlscannerGetScanHarErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -230,7 +230,7 @@ export class UrlScannerDeprecatedService {
         scan_id: string;
         account_id: string;
         resolution?: 'desktop' | 'mobile' | 'tablet';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UrlscannerGetScanScreenshotResponses, UrlscannerGetScanScreenshotErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'scan_id' },
                     { in: 'path', key: 'account_id' },

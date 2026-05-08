@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountApiTokensCreateTokenErrors, AccountApiTokensCreateTokenResponses, AccountApiTokensDeleteTokenErrors, AccountApiTokensDeleteTokenResponses, AccountApiTokensListPermissionGroupsErrors, AccountApiTokensListPermissionGroupsResponses, AccountApiTokensListTokensErrors, AccountApiTokensListTokensResponses, AccountApiTokensRollTokenErrors, AccountApiTokensRollTokenResponses, AccountApiTokensTokenDetailsErrors, AccountApiTokensTokenDetailsResponses, AccountApiTokensUpdateTokenErrors, AccountApiTokensUpdateTokenResponses, AccountApiTokensVerifyTokenErrors, AccountApiTokensVerifyTokenResponses, IamAccountIdentifierWritable, IamCreatePayloadWritable, IamTokenBodyWritable, IamTokenIdentifier } from '../types.gen';
@@ -14,19 +14,21 @@ export class AccountOwnedApiTokensService {
     /**
      * List Tokens
      *
-     * List all Account Owned API tokens created for this account.
+     * List all Account Owned API tokens created for this account. Results include active, disabled, and recently-expired tokens when include_expired is set to true.
      */
     public static accountApiTokensListTokens<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         page?: number;
         per_page?: number;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+        include_expired?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensListTokensResponses, AccountApiTokensListTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
-                    { in: 'query', key: 'direction' }
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'include_expired' }
                 ] }]);
         return (options?.client ?? client).get<AccountApiTokensListTokensResponses, AccountApiTokensListTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +52,7 @@ export class AccountOwnedApiTokensService {
     public static accountApiTokensCreateToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamCreatePayloadWritable: IamCreatePayloadWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensCreateTokenResponses, AccountApiTokensCreateTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamCreatePayloadWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountApiTokensCreateTokenResponses, AccountApiTokensCreateTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -80,7 +82,7 @@ export class AccountOwnedApiTokensService {
         account_id: IamAccountIdentifierWritable;
         name?: string;
         scope?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensListPermissionGroupsResponses, AccountApiTokensListPermissionGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -107,7 +109,7 @@ export class AccountOwnedApiTokensService {
      */
     public static accountApiTokensVerifyToken<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensVerifyTokenResponses, AccountApiTokensVerifyTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountApiTokensVerifyTokenResponses, AccountApiTokensVerifyTokenErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -132,7 +134,7 @@ export class AccountOwnedApiTokensService {
         account_id: IamAccountIdentifierWritable;
         token_id: IamTokenIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensDeleteTokenResponses, AccountApiTokensDeleteTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'token_id' },
@@ -165,7 +167,7 @@ export class AccountOwnedApiTokensService {
     public static accountApiTokensTokenDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         token_id: IamTokenIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensTokenDetailsResponses, AccountApiTokensTokenDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'token_id' }] }]);
         return (options?.client ?? client).get<AccountApiTokensTokenDetailsResponses, AccountApiTokensTokenDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -190,7 +192,7 @@ export class AccountOwnedApiTokensService {
         account_id: IamAccountIdentifierWritable;
         token_id: IamTokenIdentifier;
         iamTokenBodyWritable: IamTokenBodyWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensUpdateTokenResponses, AccountApiTokensUpdateTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'token_id' },
@@ -226,7 +228,7 @@ export class AccountOwnedApiTokensService {
         body: {
             [key: string]: unknown;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountApiTokensRollTokenResponses, AccountApiTokensRollTokenErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'token_id' },

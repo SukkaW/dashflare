@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpRiskScoreBehaviorsGetErrors, DlpRiskScoreBehaviorsGetResponses, DlpRiskScoreBehaviorsPutErrors, DlpRiskScoreBehaviorsPutResponses, DlpRiskScoreResetPostErrors, DlpRiskScoreResetPostResponses, DlpRiskScoreSummaryGetErrors, DlpRiskScoreSummaryGetForUserErrors, DlpRiskScoreSummaryGetForUserResponses, DlpRiskScoreSummaryGetResponses, DlpUpdateBehaviors } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZeroTrustRiskScoringService {
      */
     public static dlpRiskScoreBehaviorsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpRiskScoreBehaviorsGetResponses, DlpRiskScoreBehaviorsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpRiskScoreBehaviorsGetResponses, DlpRiskScoreBehaviorsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ZeroTrustRiskScoringService {
     public static dlpRiskScoreBehaviorsPut<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpUpdateBehaviors: DlpUpdateBehaviors;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpRiskScoreBehaviorsPutResponses, DlpRiskScoreBehaviorsPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpUpdateBehaviors', map: 'body' }] }]);
         return (options?.client ?? client).put<DlpRiskScoreBehaviorsPutResponses, DlpRiskScoreBehaviorsPutErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class ZeroTrustRiskScoringService {
      */
     public static dlpRiskScoreSummaryGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpRiskScoreSummaryGetResponses, DlpRiskScoreSummaryGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpRiskScoreSummaryGetResponses, DlpRiskScoreSummaryGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class ZeroTrustRiskScoringService {
     public static dlpRiskScoreSummaryGetForUser<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         user_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpRiskScoreSummaryGetForUserResponses, DlpRiskScoreSummaryGetForUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'user_id' }] }]);
         return (options?.client ?? client).get<DlpRiskScoreSummaryGetForUserResponses, DlpRiskScoreSummaryGetForUserErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class ZeroTrustRiskScoringService {
     public static dlpRiskScoreResetPost<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         user_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpRiskScoreResetPostResponses, DlpRiskScoreResetPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'user_id' }] }]);
         return (options?.client ?? client).post<DlpRiskScoreResetPostResponses, DlpRiskScoreResetPostErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

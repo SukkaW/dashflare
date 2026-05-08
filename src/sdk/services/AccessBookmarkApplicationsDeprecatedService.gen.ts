@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsErrors, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsResponses, AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationResponses, AccessComponentsSchemasIdentifier, AccessUuid } from '../types.gen';
+import type { AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsErrors, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsResponses, AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationErrors, AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationResponses, AccessIdentifier3, AccessUuid } from '../types.gen';
 import { zAccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationBody, zAccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationPath, zAccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationResponse, zAccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationBody, zAccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationPath, zAccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationResponse, zAccessBookmarkApplicationsDeprecatedGetABookmarkApplicationPath, zAccessBookmarkApplicationsDeprecatedGetABookmarkApplicationResponse, zAccessBookmarkApplicationsDeprecatedListBookmarkApplicationsPath, zAccessBookmarkApplicationsDeprecatedListBookmarkApplicationsResponse, zAccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationBody, zAccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationPath, zAccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationResponse } from '../zod.gen';
 
 export class AccessBookmarkApplicationsDeprecatedService {
@@ -19,8 +19,8 @@ export class AccessBookmarkApplicationsDeprecatedService {
      * @deprecated
      */
     public static accessBookmarkApplicationsDeprecatedListBookmarkApplications<ThrowOnError extends boolean = true>(parameters: {
-        account_id: AccessComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: AccessIdentifier3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsResponses, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsResponses, AccessBookmarkApplicationsDeprecatedListBookmarkApplicationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,9 +49,9 @@ export class AccessBookmarkApplicationsDeprecatedService {
      */
     public static accessBookmarkApplicationsDeprecatedDeleteABookmarkApplication<ThrowOnError extends boolean = true>(parameters: {
         bookmark_id: AccessUuid;
-        account_id: AccessComponentsSchemasIdentifier;
+        account_id: AccessIdentifier3;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedDeleteABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bookmark_id' },
                     { in: 'path', key: 'account_id' },
@@ -89,8 +89,8 @@ export class AccessBookmarkApplicationsDeprecatedService {
      */
     public static accessBookmarkApplicationsDeprecatedGetABookmarkApplication<ThrowOnError extends boolean = true>(parameters: {
         bookmark_id: AccessUuid;
-        account_id: AccessComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: AccessIdentifier3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'bookmark_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedGetABookmarkApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,9 +119,9 @@ export class AccessBookmarkApplicationsDeprecatedService {
      */
     public static accessBookmarkApplicationsDeprecatedCreateABookmarkApplication<ThrowOnError extends boolean = true>(parameters: {
         bookmark_id: AccessUuid;
-        account_id: AccessComponentsSchemasIdentifier;
+        account_id: AccessIdentifier3;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedCreateABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bookmark_id' },
                     { in: 'path', key: 'account_id' },
@@ -159,9 +159,9 @@ export class AccessBookmarkApplicationsDeprecatedService {
      */
     public static accessBookmarkApplicationsDeprecatedUpdateABookmarkApplication<ThrowOnError extends boolean = true>(parameters: {
         bookmark_id: AccessUuid;
-        account_id: AccessComponentsSchemasIdentifier;
+        account_id: AccessIdentifier3;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationResponses, AccessBookmarkApplicationsDeprecatedUpdateABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bookmark_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CreateHyperdriveErrors, CreateHyperdriveResponses, DeleteHyperdriveErrors, DeleteHyperdriveResponses, GetHyperdriveErrors, GetHyperdriveResponses, HyperdriveHyperdriveConfigPatchWritable, HyperdriveHyperdriveConfigWritable, HyperdriveIdentifier, ListHyperdriveErrors, ListHyperdriveResponses, PatchHyperdriveErrors, PatchHyperdriveResponses, UpdateHyperdriveErrors, UpdateHyperdriveResponses } from '../types.gen';
-import { zCreateHyperdriveBody, zCreateHyperdrivePath, zCreateHyperdriveResponse, zDeleteHyperdrivePath, zDeleteHyperdriveResponse, zGetHyperdrivePath, zGetHyperdriveResponse, zListHyperdrivePath, zListHyperdriveResponse, zPatchHyperdriveBody, zPatchHyperdrivePath, zPatchHyperdriveResponse, zUpdateHyperdriveBody, zUpdateHyperdrivePath, zUpdateHyperdriveResponse } from '../zod.gen';
+import type { CreateHyperdriveErrors, CreateHyperdriveResponses, DeleteHyperdriveErrors, DeleteHyperdriveResponses, GetHyperdriveErrors, GetHyperdriveResponses, HyperdriveHyperdriveConfigPatchWritable, HyperdriveHyperdriveConfigWritable, HyperdriveIdentifier, ListHyperdriveErrors, ListHyperdriveResponses, PatchHyperdriveErrors, PatchHyperdriveResponses, RestartHyperdriveErrors, RestartHyperdriveResponses, UpdateHyperdriveErrors, UpdateHyperdriveResponses } from '../types.gen';
+import { zCreateHyperdriveBody, zCreateHyperdrivePath, zCreateHyperdriveResponse, zDeleteHyperdrivePath, zDeleteHyperdriveResponse, zGetHyperdrivePath, zGetHyperdriveResponse, zListHyperdrivePath, zListHyperdriveQuery, zListHyperdriveResponse, zPatchHyperdriveBody, zPatchHyperdrivePath, zPatchHyperdriveResponse, zRestartHyperdrivePath, zRestartHyperdriveResponse, zUpdateHyperdriveBody, zUpdateHyperdrivePath, zUpdateHyperdriveResponse } from '../zod.gen';
 
 export class HyperdriveService {
     /**
@@ -18,13 +18,19 @@ export class HyperdriveService {
      */
     public static listHyperdrive<ThrowOnError extends boolean = true>(parameters: {
         account_id: HyperdriveIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        page?: number;
+        per_page?: number;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListHyperdriveResponses, ListHyperdriveErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' }
+                ] }]);
         return (options?.client ?? client).get<ListHyperdriveResponses, ListHyperdriveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zListHyperdrivePath,
-                query: z.never().optional()
+                query: zListHyperdriveQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zListHyperdriveResponse.parseAsync(data),
             security: [
@@ -46,7 +52,7 @@ export class HyperdriveService {
     public static createHyperdrive<ThrowOnError extends boolean = true>(parameters: {
         account_id: HyperdriveIdentifier;
         hyperdriveHyperdriveConfigWritable: HyperdriveHyperdriveConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateHyperdriveResponses, CreateHyperdriveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'hyperdriveHyperdriveConfigWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateHyperdriveResponses, CreateHyperdriveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +85,7 @@ export class HyperdriveService {
     public static deleteHyperdrive<ThrowOnError extends boolean = true>(parameters: {
         account_id: HyperdriveIdentifier;
         hyperdrive_id: HyperdriveIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteHyperdriveResponses, DeleteHyperdriveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hyperdrive_id' }] }]);
         return (options?.client ?? client).delete<DeleteHyperdriveResponses, DeleteHyperdriveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +113,7 @@ export class HyperdriveService {
     public static getHyperdrive<ThrowOnError extends boolean = true>(parameters: {
         account_id: HyperdriveIdentifier;
         hyperdrive_id: HyperdriveIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetHyperdriveResponses, GetHyperdriveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hyperdrive_id' }] }]);
         return (options?.client ?? client).get<GetHyperdriveResponses, GetHyperdriveErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -136,7 +142,7 @@ export class HyperdriveService {
         account_id: HyperdriveIdentifier;
         hyperdrive_id: HyperdriveIdentifier;
         hyperdriveHyperdriveConfigPatchWritable: HyperdriveHyperdriveConfigPatchWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchHyperdriveResponses, PatchHyperdriveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'hyperdrive_id' },
@@ -174,7 +180,7 @@ export class HyperdriveService {
         account_id: HyperdriveIdentifier;
         hyperdrive_id: HyperdriveIdentifier;
         hyperdriveHyperdriveConfigWritable: HyperdriveHyperdriveConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateHyperdriveResponses, UpdateHyperdriveErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'hyperdrive_id' },
@@ -200,6 +206,34 @@ export class HyperdriveService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Restart Hyperdrive
+     *
+     * Restarts the connection pool for the specified Hyperdrive configuration without changing its configuration. Existing connections are drained and a new pool is established at the edge.
+     */
+    public static restartHyperdrive<ThrowOnError extends boolean = true>(parameters: {
+        account_id: HyperdriveIdentifier;
+        hyperdrive_id: HyperdriveIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<RestartHyperdriveResponses, RestartHyperdriveErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hyperdrive_id' }] }]);
+        return (options?.client ?? client).post<RestartHyperdriveResponses, RestartHyperdriveErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zRestartHyperdrivePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zRestartHyperdriveResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}/restart',
+            ...options,
+            ...params
         });
     }
 }

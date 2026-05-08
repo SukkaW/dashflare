@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldSchemaCreate, ApiShieldSchemaEdit, ApiShieldSchemasIdentifier, ApiShieldSchemasUuidWritable, SchemaValidationCreateSchemaErrors, SchemaValidationCreateSchemaResponses, SchemaValidationDeleteSchemaErrors, SchemaValidationDeleteSchemaResponses, SchemaValidationEditSchemaErrors, SchemaValidationEditSchemaResponses, SchemaValidationExtractOperationsFromSchemaErrors, SchemaValidationExtractOperationsFromSchemaResponses, SchemaValidationGetSchemaErrors, SchemaValidationGetSchemaResponses, SchemaValidationListSchemaHostsErrors, SchemaValidationListSchemaHostsResponses, SchemaValidationListSchemasPaginatedErrors, SchemaValidationListSchemasPaginatedResponses } from '../types.gen';
+import type { ApiShieldIdentifier2, ApiShieldSchemaCreate, ApiShieldSchemaEdit, ApiShieldUuid2Writable, SchemaValidationCreateSchemaErrors, SchemaValidationCreateSchemaResponses, SchemaValidationDeleteSchemaErrors, SchemaValidationDeleteSchemaResponses, SchemaValidationEditSchemaErrors, SchemaValidationEditSchemaResponses, SchemaValidationExtractOperationsFromSchemaErrors, SchemaValidationExtractOperationsFromSchemaResponses, SchemaValidationGetSchemaErrors, SchemaValidationGetSchemaResponses, SchemaValidationListSchemaHostsErrors, SchemaValidationListSchemaHostsResponses, SchemaValidationListSchemasPaginatedErrors, SchemaValidationListSchemasPaginatedResponses } from '../types.gen';
 import { zSchemaValidationCreateSchemaBody, zSchemaValidationCreateSchemaPath, zSchemaValidationCreateSchemaResponse, zSchemaValidationDeleteSchemaPath, zSchemaValidationDeleteSchemaResponse, zSchemaValidationEditSchemaBody, zSchemaValidationEditSchemaPath, zSchemaValidationEditSchemaResponse, zSchemaValidationExtractOperationsFromSchemaPath, zSchemaValidationExtractOperationsFromSchemaQuery, zSchemaValidationExtractOperationsFromSchemaResponse, zSchemaValidationGetSchemaPath, zSchemaValidationGetSchemaQuery, zSchemaValidationGetSchemaResponse, zSchemaValidationListSchemaHostsPath, zSchemaValidationListSchemaHostsQuery, zSchemaValidationListSchemaHostsResponse, zSchemaValidationListSchemasPaginatedPath, zSchemaValidationListSchemasPaginatedQuery, zSchemaValidationListSchemasPaginatedResponse } from '../zod.gen';
 
 export class SchemaValidationService {
@@ -17,12 +17,12 @@ export class SchemaValidationService {
      * Lists all OpenAPI schemas uploaded to API Shield with pagination support.
      */
     public static schemaValidationListSchemasPaginated<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
         omit_source?: boolean;
         validation_enabled?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationListSchemasPaginatedResponses, SchemaValidationListSchemasPaginatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -54,9 +54,9 @@ export class SchemaValidationService {
      * Uploads a new OpenAPI schema for API Shield schema validation. The schema defines expected request/response formats for API endpoints.
      */
     public static schemaValidationCreateSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldSchemaCreate: ApiShieldSchemaCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationCreateSchemaResponses, SchemaValidationCreateSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldSchemaCreate', map: 'body' }] }]);
         return (options?.client ?? client).post<SchemaValidationCreateSchemaResponses, SchemaValidationCreateSchemaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -87,10 +87,10 @@ export class SchemaValidationService {
      * Lists all unique hosts found in uploaded OpenAPI schemas for the zone.
      */
     public static schemaValidationListSchemaHosts<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationListSchemaHostsResponses, SchemaValidationListSchemaHostsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -120,9 +120,9 @@ export class SchemaValidationService {
      * Permanently removes an uploaded OpenAPI schema from API Shield. Operations using this schema will lose their validation rules.
      */
     public static schemaValidationDeleteSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        schema_id: ApiShieldSchemasUuidWritable & string;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+        schema_id: ApiShieldUuid2Writable & string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationDeleteSchemaResponses, SchemaValidationDeleteSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'schema_id' }] }]);
         return (options?.client ?? client).delete<SchemaValidationDeleteSchemaResponses, SchemaValidationDeleteSchemaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -148,10 +148,10 @@ export class SchemaValidationService {
      * Gets the contents and metadata of a specific OpenAPI schema uploaded to API Shield.
      */
     public static schemaValidationGetSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        schema_id: ApiShieldSchemasUuidWritable & string;
+        zone_id: ApiShieldIdentifier2;
+        schema_id: ApiShieldUuid2Writable & string;
         omit_source?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationGetSchemaResponses, SchemaValidationGetSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'schema_id' },
@@ -181,10 +181,10 @@ export class SchemaValidationService {
      * Modifies an existing OpenAPI schema in API Shield, updating the validation rules for associated API operations.
      */
     public static schemaValidationEditSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        schema_id: ApiShieldSchemasUuidWritable & string;
+        zone_id: ApiShieldIdentifier2;
+        schema_id: ApiShieldUuid2Writable & string;
         apiShieldSchemaEdit: ApiShieldSchemaEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationEditSchemaResponses, SchemaValidationEditSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'schema_id' },
@@ -219,8 +219,8 @@ export class SchemaValidationService {
      * Retrieves all operations from the schema. Operations that already exist in API Shield Endpoint Management will be returned as full operations.
      */
     public static schemaValidationExtractOperationsFromSchema<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        schema_id: ApiShieldSchemasUuidWritable & string;
+        zone_id: ApiShieldIdentifier2;
+        schema_id: ApiShieldUuid2Writable & string;
         feature?: Array<'thresholds' | 'parameter_schemas' | 'schema_info'>;
         host?: Array<string>;
         method?: Array<string>;
@@ -228,7 +228,7 @@ export class SchemaValidationService {
         page?: number;
         per_page?: number;
         operation_status?: 'new' | 'existing';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationExtractOperationsFromSchemaResponses, SchemaValidationExtractOperationsFromSchemaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'schema_id' },

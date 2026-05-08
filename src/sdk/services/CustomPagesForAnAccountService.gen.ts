@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomPagesErrorPageType, CustomPagesForAnAccountGetACustomPageErrors, CustomPagesForAnAccountGetACustomPageResponses, CustomPagesForAnAccountListCustomPagesErrors, CustomPagesForAnAccountListCustomPagesResponses, CustomPagesForAnAccountUpdateACustomPageErrors, CustomPagesForAnAccountUpdateACustomPageResponses, CustomPagesIdentifier, CustomPagesState, CustomPagesUrl } from '../types.gen';
-import { zCustomPagesForAnAccountGetACustomPagePath, zCustomPagesForAnAccountGetACustomPageResponse, zCustomPagesForAnAccountListCustomPagesPath, zCustomPagesForAnAccountListCustomPagesResponse, zCustomPagesForAnAccountUpdateACustomPageBody, zCustomPagesForAnAccountUpdateACustomPagePath, zCustomPagesForAnAccountUpdateACustomPageResponse } from '../zod.gen';
+import type { CustomPagesErrorPageType, CustomPagesForAnAccountCreatePreviewTokenErrors, CustomPagesForAnAccountCreatePreviewTokenResponses, CustomPagesForAnAccountGetACustomPageErrors, CustomPagesForAnAccountGetACustomPageResponses, CustomPagesForAnAccountListCustomPagesErrors, CustomPagesForAnAccountListCustomPagesResponses, CustomPagesForAnAccountUpdateACustomPageErrors, CustomPagesForAnAccountUpdateACustomPageResponses, CustomPagesIdentifier, CustomPagesPreviewRequest, CustomPagesState, CustomPagesUrl } from '../types.gen';
+import { zCustomPagesForAnAccountCreatePreviewTokenBody, zCustomPagesForAnAccountCreatePreviewTokenPath, zCustomPagesForAnAccountCreatePreviewTokenResponse, zCustomPagesForAnAccountGetACustomPagePath, zCustomPagesForAnAccountGetACustomPageResponse, zCustomPagesForAnAccountListCustomPagesPath, zCustomPagesForAnAccountListCustomPagesResponse, zCustomPagesForAnAccountUpdateACustomPageBody, zCustomPagesForAnAccountUpdateACustomPagePath, zCustomPagesForAnAccountUpdateACustomPageResponse } from '../zod.gen';
 
 export class CustomPagesForAnAccountService {
     /**
@@ -18,7 +18,7 @@ export class CustomPagesForAnAccountService {
      */
     public static customPagesForAnAccountListCustomPages<ThrowOnError extends boolean = true>(parameters: {
         account_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAnAccountListCustomPagesResponses, CustomPagesForAnAccountListCustomPagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_identifier' }] }]);
         return (options?.client ?? client).get<CustomPagesForAnAccountListCustomPagesResponses, CustomPagesForAnAccountListCustomPagesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,6 +35,35 @@ export class CustomPagesForAnAccountService {
     }
     
     /**
+     * Create a preview token
+     *
+     * Creates a signed JWT token used to preview custom pages before they are published.
+     */
+    public static customPagesForAnAccountCreatePreviewToken<ThrowOnError extends boolean = true>(parameters: {
+        account_identifier: CustomPagesIdentifier;
+        customPagesPreviewRequest: CustomPagesPreviewRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAnAccountCreatePreviewTokenResponses, CustomPagesForAnAccountCreatePreviewTokenErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_identifier' }, { key: 'customPagesPreviewRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CustomPagesForAnAccountCreatePreviewTokenResponses, CustomPagesForAnAccountCreatePreviewTokenErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCustomPagesForAnAccountCreatePreviewTokenBody,
+                path: zCustomPagesForAnAccountCreatePreviewTokenPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCustomPagesForAnAccountCreatePreviewTokenResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_identifier}/custom_pages/preview_tokens',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Get a custom page
      *
      * Fetches the details of a custom page.
@@ -42,7 +71,7 @@ export class CustomPagesForAnAccountService {
     public static customPagesForAnAccountGetACustomPage<ThrowOnError extends boolean = true>(parameters: {
         identifier: CustomPagesErrorPageType;
         account_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAnAccountGetACustomPageResponses, CustomPagesForAnAccountGetACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'account_identifier' }] }]);
         return (options?.client ?? client).get<CustomPagesForAnAccountGetACustomPageResponses, CustomPagesForAnAccountGetACustomPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -68,7 +97,7 @@ export class CustomPagesForAnAccountService {
         account_identifier: CustomPagesIdentifier;
         state: CustomPagesState;
         url: CustomPagesUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAnAccountUpdateACustomPageResponses, CustomPagesForAnAccountUpdateACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'account_identifier' },

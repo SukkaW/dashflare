@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetBotDetailsErrors, RadarGetBotDetailsResponses, RadarGetBotsErrors, RadarGetBotsResponses, RadarGetBotsSummaryErrors, RadarGetBotsSummaryResponses, RadarGetBotsTimeseriesErrors, RadarGetBotsTimeseriesGroupErrors, RadarGetBotsTimeseriesGroupResponses, RadarGetBotsTimeseriesResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class RadarBotsService {
         kind?: 'AGENT' | 'BOT';
         botVerificationStatus?: 'VERIFIED';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBotsResponses, RadarGetBotsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -73,7 +73,7 @@ export class RadarBotsService {
         botKind?: Array<'AGENT' | 'BOT'>;
         botVerificationStatus?: Array<'VERIFIED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBotsSummaryResponses, RadarGetBotsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -129,7 +129,7 @@ export class RadarBotsService {
         botKind?: Array<'AGENT' | 'BOT'>;
         botVerificationStatus?: Array<'VERIFIED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBotsTimeseriesResponses, RadarGetBotsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -186,7 +186,7 @@ export class RadarBotsService {
         botKind?: Array<'AGENT' | 'BOT'>;
         botVerificationStatus?: Array<'VERIFIED'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBotsTimeseriesGroupResponses, RadarGetBotsTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -231,7 +231,7 @@ export class RadarBotsService {
     public static radarGetBotDetails<ThrowOnError extends boolean = true>(parameters: {
         bot_slug: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBotDetailsResponses, RadarGetBotDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'bot_slug' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetBotDetailsResponses, RadarGetBotDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

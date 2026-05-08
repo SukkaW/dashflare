@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetBinDbGetBinaryErrors, GetBinDbGetBinaryResponses, PostBinDbPostErrors, PostBinDbPostResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zGetBinDbGetBinaryPath, zPostBinDbPostBody, zPostBinDbPostPath, zPostBi
 export class BinDbService {
     /**
      * Posts a file to Binary Storage
+     *
+     * Uploads a binary file to Cloudforce One's binary database for malware analysis and threat intelligence correlation.
      */
     public static postBinDbPost<ThrowOnError extends boolean = true>(parameters: {
         account_id: number;
         file: Blob | File;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostBinDbPostResponses, PostBinDbPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'file' }] }]);
         return (options?.client ?? client).post<PostBinDbPostResponses, PostBinDbPostErrors, ThrowOnError>({
             ...formDataBodySerializer,
@@ -41,11 +43,13 @@ export class BinDbService {
     
     /**
      * Retrieves a file from Binary Storage
+     *
+     * Retrieves a binary file from the Cloudforce One binary storage for analysis.
      */
     public static getBinDbGetBinary<ThrowOnError extends boolean = true>(parameters: {
         account_id: number;
         hash: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetBinDbGetBinaryResponses, GetBinDbGetBinaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'hash' }] }]);
         return (options?.client ?? client).get<GetBinDbGetBinaryResponses, GetBinDbGetBinaryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

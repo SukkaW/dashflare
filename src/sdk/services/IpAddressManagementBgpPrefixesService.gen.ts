@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingBgpPrefixCreate, AddressingBgpPrefixIdentifier, AddressingBgpPrefixUpdateAdvertisement, AddressingPrefixIdentifier, IpAddressManagementPrefixesCreateBgpPrefixErrors, IpAddressManagementPrefixesCreateBgpPrefixResponses, IpAddressManagementPrefixesDeleteBgpPrefixErrors, IpAddressManagementPrefixesDeleteBgpPrefixResponses, IpAddressManagementPrefixesFetchBgpPrefixErrors, IpAddressManagementPrefixesFetchBgpPrefixResponses, IpAddressManagementPrefixesListBgpPrefixesErrors, IpAddressManagementPrefixesListBgpPrefixesResponses, IpAddressManagementPrefixesUpdateBgpPrefixErrors, IpAddressManagementPrefixesUpdateBgpPrefixResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class IpAddressManagementBgpPrefixesService {
     public static ipAddressManagementPrefixesListBgpPrefixes<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesListBgpPrefixesResponses, IpAddressManagementPrefixesListBgpPrefixesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementPrefixesListBgpPrefixesResponses, IpAddressManagementPrefixesListBgpPrefixesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +44,7 @@ export class IpAddressManagementBgpPrefixesService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         addressingBgpPrefixCreate: AddressingBgpPrefixCreate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesCreateBgpPrefixResponses, IpAddressManagementPrefixesCreateBgpPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -78,7 +78,7 @@ export class IpAddressManagementBgpPrefixesService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         bgp_prefix_id: AddressingBgpPrefixIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesDeleteBgpPrefixResponses, IpAddressManagementPrefixesDeleteBgpPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -107,7 +107,7 @@ export class IpAddressManagementBgpPrefixesService {
         account_id: AddressingAccountIdentifier;
         prefix_id: AddressingPrefixIdentifier;
         bgp_prefix_id: AddressingBgpPrefixIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesFetchBgpPrefixResponses, IpAddressManagementPrefixesFetchBgpPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -137,7 +137,7 @@ export class IpAddressManagementBgpPrefixesService {
         prefix_id: AddressingPrefixIdentifier;
         bgp_prefix_id: AddressingBgpPrefixIdentifier;
         addressingBgpPrefixUpdateAdvertisement: AddressingBgpPrefixUpdateAdvertisement;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementPrefixesUpdateBgpPrefixResponses, IpAddressManagementPrefixesUpdateBgpPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },

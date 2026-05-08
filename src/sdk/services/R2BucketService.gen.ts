@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { R2AccountIdentifier, R2AddCustomDomainErrors, R2AddCustomDomainRequest, R2AddCustomDomainResponses, R2BucketLocation, R2BucketLockRule, R2BucketName, R2CorsRule, R2CreateBucketErrors, R2CreateBucketResponses, R2CreateTempAccessCredentialsErrors, R2CreateTempAccessCredentialsResponses, R2DeleteBucketCorsPolicyErrors, R2DeleteBucketCorsPolicyResponses, R2DeleteBucketErrors, R2DeleteBucketResponses, R2DeleteBucketSippyConfigErrors, R2DeleteBucketSippyConfigResponses, R2DeleteCustomDomainErrors, R2DeleteCustomDomainResponses, R2DomainName, R2EditCustomDomainRequest, R2EditCustomDomainSettingsErrors, R2EditCustomDomainSettingsResponses, R2EditManagedDomainRequest, R2EnableSippyAws, R2EnableSippyGcs, R2EnableSippyS3, R2EventNotificationDeleteConfigErrors, R2EventNotificationDeleteConfigResponses, R2GetBucketCorsPolicyErrors, R2GetBucketCorsPolicyResponses, R2GetBucketErrors, R2GetBucketLifecycleConfigurationErrors, R2GetBucketLifecycleConfigurationResponses, R2GetBucketLocalUploadsConfigurationErrors, R2GetBucketLocalUploadsConfigurationResponses, R2GetBucketLockConfigurationErrors, R2GetBucketLockConfigurationResponses, R2GetBucketPublicPolicyErrors, R2GetBucketPublicPolicyResponses, R2GetBucketResponses, R2GetBucketSippyConfigErrors, R2GetBucketSippyConfigResponses, R2GetCustomDomainSettingsErrors, R2GetCustomDomainSettingsResponses, R2GetEventNotificationConfigErrors, R2GetEventNotificationConfigResponses, R2GetEventNotificationConfigsErrors, R2GetEventNotificationConfigsResponses, R2Jurisdiction, R2LifecycleRule, R2ListBucketsErrors, R2ListBucketsResponses, R2ListCustomDomainsErrors, R2ListCustomDomainsResponses, R2PatchBucketErrors, R2PatchBucketResponses, R2PutBucketCorsPolicyErrors, R2PutBucketCorsPolicyResponses, R2PutBucketLifecycleConfigurationErrors, R2PutBucketLifecycleConfigurationResponses, R2PutBucketLocalUploadsConfigurationErrors, R2PutBucketLocalUploadsConfigurationResponses, R2PutBucketLockConfigurationErrors, R2PutBucketLockConfigurationResponses, R2PutBucketPublicPolicyErrors, R2PutBucketPublicPolicyResponses, R2PutBucketSippyConfigErrors, R2PutBucketSippyConfigResponses, R2PutEventNotificationConfigErrors, R2PutEventNotificationConfigResponses, R2QueueIdentifier, R2Rule, R2StorageClass, R2TempAccessCredsRequest } from '../types.gen';
+import type { R2AccountIdentifier, R2AddCustomDomainErrors, R2AddCustomDomainRequest, R2AddCustomDomainResponses, R2BucketLocation, R2BucketLockRule, R2BucketName, R2CorsRule, R2CreateBucketErrors, R2CreateBucketResponses, R2CreateTempAccessCredentialsErrors, R2CreateTempAccessCredentialsResponses, R2DeleteBucketCorsPolicyErrors, R2DeleteBucketCorsPolicyResponses, R2DeleteBucketErrors, R2DeleteBucketResponses, R2DeleteBucketSippyConfigErrors, R2DeleteBucketSippyConfigResponses, R2DeleteCustomDomainErrors, R2DeleteCustomDomainResponses, R2DomainName, R2EditCustomDomainRequest, R2EditCustomDomainSettingsErrors, R2EditCustomDomainSettingsResponses, R2EditManagedDomainRequest, R2EnableSippyAws, R2EnableSippyAzure, R2EnableSippyGcs, R2EnableSippyS3, R2EventNotificationDeleteConfigErrors, R2EventNotificationDeleteConfigResponses, R2GetBucketCorsPolicyErrors, R2GetBucketCorsPolicyResponses, R2GetBucketErrors, R2GetBucketLifecycleConfigurationErrors, R2GetBucketLifecycleConfigurationResponses, R2GetBucketLocalUploadsConfigurationErrors, R2GetBucketLocalUploadsConfigurationResponses, R2GetBucketLockConfigurationErrors, R2GetBucketLockConfigurationResponses, R2GetBucketPublicPolicyErrors, R2GetBucketPublicPolicyResponses, R2GetBucketResponses, R2GetBucketSippyConfigErrors, R2GetBucketSippyConfigResponses, R2GetCustomDomainSettingsErrors, R2GetCustomDomainSettingsResponses, R2GetEventNotificationConfigErrors, R2GetEventNotificationConfigResponses, R2GetEventNotificationConfigsErrors, R2GetEventNotificationConfigsResponses, R2Jurisdiction, R2LifecycleRule, R2ListBucketsErrors, R2ListBucketsResponses, R2ListCustomDomainsErrors, R2ListCustomDomainsResponses, R2PatchBucketErrors, R2PatchBucketResponses, R2PutBucketCorsPolicyErrors, R2PutBucketCorsPolicyResponses, R2PutBucketLifecycleConfigurationErrors, R2PutBucketLifecycleConfigurationResponses, R2PutBucketLocalUploadsConfigurationErrors, R2PutBucketLocalUploadsConfigurationResponses, R2PutBucketLockConfigurationErrors, R2PutBucketLockConfigurationResponses, R2PutBucketPublicPolicyErrors, R2PutBucketPublicPolicyResponses, R2PutBucketSippyConfigErrors, R2PutBucketSippyConfigResponses, R2PutEventNotificationConfigErrors, R2PutEventNotificationConfigResponses, R2QueueIdentifier, R2Rule, R2StorageClass, R2TempAccessCredsRequest } from '../types.gen';
 import { zR2AddCustomDomainBody, zR2AddCustomDomainHeaders, zR2AddCustomDomainPath, zR2AddCustomDomainResponse2, zR2CreateBucketBody, zR2CreateBucketHeaders, zR2CreateBucketPath, zR2CreateBucketResponse, zR2CreateTempAccessCredentialsBody, zR2CreateTempAccessCredentialsPath, zR2CreateTempAccessCredentialsResponse, zR2DeleteBucketCorsPolicyHeaders, zR2DeleteBucketCorsPolicyPath, zR2DeleteBucketCorsPolicyResponse, zR2DeleteBucketHeaders, zR2DeleteBucketPath, zR2DeleteBucketResponse, zR2DeleteBucketSippyConfigHeaders, zR2DeleteBucketSippyConfigPath, zR2DeleteBucketSippyConfigResponse, zR2DeleteCustomDomainHeaders, zR2DeleteCustomDomainPath, zR2DeleteCustomDomainResponse, zR2EditCustomDomainSettingsBody, zR2EditCustomDomainSettingsHeaders, zR2EditCustomDomainSettingsPath, zR2EditCustomDomainSettingsResponse, zR2EventNotificationDeleteConfigBody, zR2EventNotificationDeleteConfigHeaders, zR2EventNotificationDeleteConfigPath, zR2EventNotificationDeleteConfigResponse, zR2GetBucketCorsPolicyHeaders, zR2GetBucketCorsPolicyPath, zR2GetBucketCorsPolicyResponse, zR2GetBucketHeaders, zR2GetBucketLifecycleConfigurationHeaders, zR2GetBucketLifecycleConfigurationPath, zR2GetBucketLifecycleConfigurationResponse, zR2GetBucketLocalUploadsConfigurationPath, zR2GetBucketLocalUploadsConfigurationResponse, zR2GetBucketLockConfigurationHeaders, zR2GetBucketLockConfigurationPath, zR2GetBucketLockConfigurationResponse, zR2GetBucketPath, zR2GetBucketPublicPolicyHeaders, zR2GetBucketPublicPolicyPath, zR2GetBucketPublicPolicyResponse, zR2GetBucketResponse, zR2GetBucketSippyConfigHeaders, zR2GetBucketSippyConfigPath, zR2GetBucketSippyConfigResponse, zR2GetCustomDomainSettingsHeaders, zR2GetCustomDomainSettingsPath, zR2GetCustomDomainSettingsResponse, zR2GetEventNotificationConfigHeaders, zR2GetEventNotificationConfigPath, zR2GetEventNotificationConfigResponse, zR2GetEventNotificationConfigsHeaders, zR2GetEventNotificationConfigsPath, zR2GetEventNotificationConfigsResponse, zR2ListBucketsHeaders, zR2ListBucketsPath, zR2ListBucketsQuery, zR2ListBucketsResponse, zR2ListCustomDomainsHeaders, zR2ListCustomDomainsPath, zR2ListCustomDomainsResponse2, zR2PatchBucketHeaders, zR2PatchBucketPath, zR2PatchBucketResponse, zR2PutBucketCorsPolicyBody, zR2PutBucketCorsPolicyHeaders, zR2PutBucketCorsPolicyPath, zR2PutBucketCorsPolicyResponse, zR2PutBucketLifecycleConfigurationBody, zR2PutBucketLifecycleConfigurationHeaders, zR2PutBucketLifecycleConfigurationPath, zR2PutBucketLifecycleConfigurationResponse, zR2PutBucketLocalUploadsConfigurationBody, zR2PutBucketLocalUploadsConfigurationPath, zR2PutBucketLocalUploadsConfigurationResponse, zR2PutBucketLockConfigurationBody, zR2PutBucketLockConfigurationHeaders, zR2PutBucketLockConfigurationPath, zR2PutBucketLockConfigurationResponse, zR2PutBucketPublicPolicyBody, zR2PutBucketPublicPolicyHeaders, zR2PutBucketPublicPolicyPath, zR2PutBucketPublicPolicyResponse, zR2PutBucketSippyConfigBody, zR2PutBucketSippyConfigHeaders, zR2PutBucketSippyConfigPath, zR2PutBucketSippyConfigResponse, zR2PutEventNotificationConfigBody, zR2PutEventNotificationConfigHeaders, zR2PutEventNotificationConfigPath, zR2PutEventNotificationConfigResponse } from '../zod.gen';
 
 export class R2BucketService {
@@ -20,7 +20,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetEventNotificationConfigsResponses, R2GetEventNotificationConfigsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -52,7 +52,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         ruleIds?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2EventNotificationDeleteConfigResponses, R2EventNotificationDeleteConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'queue_id' },
@@ -90,7 +90,7 @@ export class R2BucketService {
         queue_id: R2QueueIdentifier;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetEventNotificationConfigResponses, R2GetEventNotificationConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'queue_id' },
@@ -123,7 +123,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         rules: Array<R2Rule>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutEventNotificationConfigResponses, R2PutEventNotificationConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'queue_id' },
@@ -165,7 +165,7 @@ export class R2BucketService {
         order?: 'name';
         direction?: 'asc' | 'desc';
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2ListBucketsResponses, R2ListBucketsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -202,7 +202,7 @@ export class R2BucketService {
         locationHint?: R2BucketLocation;
         name: R2BucketName;
         storageClass?: R2StorageClass;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2CreateBucketResponses, R2CreateBucketErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -239,7 +239,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2DeleteBucketResponses, R2DeleteBucketErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -269,7 +269,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketResponses, R2GetBucketErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -300,7 +300,7 @@ export class R2BucketService {
         'cf-r2-storage-class': R2StorageClass;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PatchBucketResponses, R2PatchBucketErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'headers', key: 'cf-r2-storage-class' },
@@ -331,7 +331,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2DeleteBucketCorsPolicyResponses, R2DeleteBucketCorsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -361,7 +361,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketCorsPolicyResponses, R2GetBucketCorsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -392,7 +392,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         rules?: Array<R2CorsRule>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketCorsPolicyResponses, R2PutBucketCorsPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -428,7 +428,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2ListCustomDomainsResponses, R2ListCustomDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -459,7 +459,7 @@ export class R2BucketService {
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
         r2AddCustomDomainRequest: R2AddCustomDomainRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2AddCustomDomainResponses, R2AddCustomDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -496,7 +496,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         domain: R2DomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2DeleteCustomDomainResponses, R2DeleteCustomDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -528,7 +528,7 @@ export class R2BucketService {
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
         domain: R2DomainName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetCustomDomainSettingsResponses, R2GetCustomDomainSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -561,7 +561,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         domain: R2DomainName;
         r2EditCustomDomainRequest: R2EditCustomDomainRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2EditCustomDomainSettingsResponses, R2EditCustomDomainSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -598,7 +598,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketPublicPolicyResponses, R2GetBucketPublicPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -629,7 +629,7 @@ export class R2BucketService {
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
         r2EditManagedDomainRequest: R2EditManagedDomainRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketPublicPolicyResponses, R2PutBucketPublicPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -665,7 +665,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketLifecycleConfigurationResponses, R2GetBucketLifecycleConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -696,7 +696,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         rules?: Array<R2LifecycleRule>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketLifecycleConfigurationResponses, R2PutBucketLifecycleConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -731,7 +731,7 @@ export class R2BucketService {
     public static r2GetBucketLocalUploadsConfiguration<ThrowOnError extends boolean = true>(parameters: {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketLocalUploadsConfigurationResponses, R2GetBucketLocalUploadsConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'bucket_name' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<R2GetBucketLocalUploadsConfigurationResponses, R2GetBucketLocalUploadsConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -756,7 +756,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         enabled: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketLocalUploadsConfigurationResponses, R2PutBucketLocalUploadsConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'bucket_name' },
                     { in: 'path', key: 'account_id' },
@@ -790,7 +790,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketLockConfigurationResponses, R2GetBucketLockConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -821,7 +821,7 @@ export class R2BucketService {
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
         rules?: Array<R2BucketLockRule>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketLockConfigurationResponses, R2PutBucketLockConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -857,7 +857,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         bucket_name: R2BucketName;
         account_id: R2AccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2DeleteBucketSippyConfigResponses, R2DeleteBucketSippyConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'bucket_name' },
@@ -887,7 +887,7 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2GetBucketSippyConfigResponses, R2GetBucketSippyConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -917,8 +917,8 @@ export class R2BucketService {
         'cf-r2-jurisdiction'?: R2Jurisdiction;
         account_id: R2AccountIdentifier;
         bucket_name: R2BucketName;
-        body: R2EnableSippyAws | R2EnableSippyGcs | R2EnableSippyS3;
-    }, options?: Options<never, ThrowOnError>) {
+        body: R2EnableSippyAws | R2EnableSippyGcs | R2EnableSippyS3 | R2EnableSippyAzure;
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2PutBucketSippyConfigResponses, R2PutBucketSippyConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'cf-r2-jurisdiction' },
                     { in: 'path', key: 'account_id' },
@@ -953,7 +953,7 @@ export class R2BucketService {
     public static r2CreateTempAccessCredentials<ThrowOnError extends boolean = true>(parameters: {
         account_id: R2AccountIdentifier;
         r2TempAccessCredsRequest: R2TempAccessCredsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<R2CreateTempAccessCredentialsResponses, R2CreateTempAccessCredentialsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'r2TempAccessCredsRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<R2CreateTempAccessCredentialsResponses, R2CreateTempAccessCredentialsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

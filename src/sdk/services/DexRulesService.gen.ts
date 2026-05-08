@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateDexRuleErrors, CreateDexRuleResponses, DeleteDexRuleErrors, DeleteDexRuleResponses, DigitalExperienceMonitoringAccountIdentifier, DigitalExperienceMonitoringCreateRuleBody, DigitalExperienceMonitoringPatchRuleBody, DigitalExperienceMonitoringUuid, GetDexRuleErrors, GetDexRuleResponses, ListDexRulesErrors, ListDexRulesResponses, UpdateDexRuleErrors, UpdateDexRuleResponses } from '../types.gen';
@@ -14,7 +14,7 @@ export class DexRulesService {
     /**
      * List DEX Rules
      *
-     * List DEX Rules
+     * List DEX Rules.
      */
     public static listDexRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
@@ -23,7 +23,7 @@ export class DexRulesService {
         sort_order?: 'ASC' | 'DESC';
         sort_by?: 'name' | 'created_at' | 'updated_at';
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListDexRulesResponses, ListDexRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -54,12 +54,12 @@ export class DexRulesService {
     /**
      * Create a DEX Rule
      *
-     * Create a DEX Rule
+     * Create a DEX Rule.
      */
     public static createDexRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         digitalExperienceMonitoringCreateRuleBody: DigitalExperienceMonitoringCreateRuleBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateDexRuleResponses, CreateDexRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'digitalExperienceMonitoringCreateRuleBody', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateDexRuleResponses, CreateDexRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -88,12 +88,12 @@ export class DexRulesService {
     /**
      * Delete a DEX Rule
      *
-     * Delete a DEX Rule
+     * Delete a DEX Rule.
      */
     public static deleteDexRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         rule_id: DigitalExperienceMonitoringUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDexRuleResponses, DeleteDexRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<DeleteDexRuleResponses, DeleteDexRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -117,12 +117,12 @@ export class DexRulesService {
     /**
      * Get DEX Rule
      *
-     * Get details for a DEX Rule
+     * Get details for a DEX Rule.
      */
     public static getDexRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         rule_id: DigitalExperienceMonitoringUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDexRuleResponses, GetDexRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<GetDexRuleResponses, GetDexRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -146,13 +146,13 @@ export class DexRulesService {
     /**
      * Update a DEX Rule
      *
-     * Update a DEX Rule
+     * Update a DEX Rule.
      */
     public static updateDexRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DigitalExperienceMonitoringAccountIdentifier;
         rule_id: DigitalExperienceMonitoringUuid;
         digitalExperienceMonitoringPatchRuleBody: DigitalExperienceMonitoringPatchRuleBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateDexRuleResponses, UpdateDexRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'rule_id' },

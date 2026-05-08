@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateCredentialSetErrors, CreateCredentialSetResponses, DeleteCredentialSetErrors, DeleteCredentialSetResponses, EditCredentialSetErrors, EditCredentialSetResponses, GetCredentialSetErrors, GetCredentialSetResponses, ListCredentialSetsErrors, ListCredentialSetsResponses, UpdateCredentialSetErrors, UpdateCredentialSetResponses, VulnScannerCreateCredentialSetRequest, VulnScannerIdentifier, VulnScannerPatchCredentialSetRequest, VulnScannerUpdateCredentialSetRequest } from '../types.gen';
@@ -20,7 +20,7 @@ export class CredentialSetsService {
         account_id: VulnScannerIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListCredentialSetsResponses, ListCredentialSetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class CredentialSetsService {
     public static createCredentialSet<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         vulnScannerCreateCredentialSetRequest: VulnScannerCreateCredentialSetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateCredentialSetResponses, CreateCredentialSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'vulnScannerCreateCredentialSetRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateCredentialSetResponses, CreateCredentialSetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class CredentialSetsService {
     public static deleteCredentialSet<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         credential_set_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteCredentialSetResponses, DeleteCredentialSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'credential_set_id' }] }]);
         return (options?.client ?? client).delete<DeleteCredentialSetResponses, DeleteCredentialSetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,7 +113,7 @@ export class CredentialSetsService {
     public static getCredentialSet<ThrowOnError extends boolean = true>(parameters: {
         account_id: VulnScannerIdentifier;
         credential_set_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCredentialSetResponses, GetCredentialSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'credential_set_id' }] }]);
         return (options?.client ?? client).get<GetCredentialSetResponses, GetCredentialSetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,7 +142,7 @@ export class CredentialSetsService {
         account_id: VulnScannerIdentifier;
         credential_set_id: string;
         vulnScannerPatchCredentialSetRequest: VulnScannerPatchCredentialSetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditCredentialSetResponses, EditCredentialSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'credential_set_id' },
@@ -180,7 +180,7 @@ export class CredentialSetsService {
         account_id: VulnScannerIdentifier;
         credential_set_id: string;
         vulnScannerUpdateCredentialSetRequest: VulnScannerUpdateCredentialSetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateCredentialSetResponses, UpdateCredentialSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'credential_set_id' },

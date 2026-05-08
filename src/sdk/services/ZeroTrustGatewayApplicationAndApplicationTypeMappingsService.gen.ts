@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsErrors, ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsResponses, ZeroTrustGatewayComponentsSchemasIdentifier } from '../types.gen';
+import type { ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsErrors, ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsResponses, ZeroTrustGatewayIdentifier3 } from '../types.gen';
 import { zZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsPath, zZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsResponse } from '../zod.gen';
 
 export class ZeroTrustGatewayApplicationAndApplicationTypeMappingsService {
@@ -17,8 +17,8 @@ export class ZeroTrustGatewayApplicationAndApplicationTypeMappingsService {
      * List all application and application type mappings.
      */
     public static zeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappings<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewayComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier3;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsResponses, ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsResponses, ZeroTrustGatewayApplicationAndApplicationTypeMappingsListApplicationAndApplicationTypeMappingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

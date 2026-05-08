@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountBillingProfileDeprecatedBillingProfileDetailsErrors, AccountBillingProfileDeprecatedBillingProfileDetailsResponses, BillSubsApiIdentifier } from '../types.gen';
@@ -20,7 +20,7 @@ export class AccountBillingProfileService {
      */
     public static accountBillingProfileDeprecatedBillingProfileDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: BillSubsApiIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountBillingProfileDeprecatedBillingProfileDetailsResponses, AccountBillingProfileDeprecatedBillingProfileDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountBillingProfileDeprecatedBillingProfileDetailsResponses, AccountBillingProfileDeprecatedBillingProfileDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

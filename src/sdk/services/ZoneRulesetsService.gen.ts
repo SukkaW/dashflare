@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreateZoneRulesetErrors, CreateZoneRulesetResponses, CreateZoneRulesetRuleErrors, CreateZoneRulesetRuleResponses, DeleteZoneRulesetErrors, DeleteZoneRulesetResponses, DeleteZoneRulesetRuleErrors, DeleteZoneRulesetRuleResponses, DeleteZoneRulesetVersionErrors, DeleteZoneRulesetVersionResponses, GetZoneEntrypointRulesetErrors, GetZoneEntrypointRulesetResponses, GetZoneEntrypointRulesetVersionErrors, GetZoneEntrypointRulesetVersionResponses, GetZoneRulesetErrors, GetZoneRulesetResponses, GetZoneRulesetVersionErrors, GetZoneRulesetVersionResponses, ListZoneEntrypointRulesetVersionsErrors, ListZoneEntrypointRulesetVersionsResponses, ListZoneRulesetsErrors, ListZoneRulesetsResponses, ListZoneRulesetVersionRulesByTagErrors, ListZoneRulesetVersionRulesByTagResponses, ListZoneRulesetVersionsErrors, ListZoneRulesetVersionsResponses, RulesetsCreateRuleset, RulesetsCursor, RulesetsPerPage, RulesetsRule2, RulesetsRuleCategory, RulesetsRuleId, RulesetsRulesetId, RulesetsRulesetPhase, RulesetsRulesetVersion, RulesetsUpdateEntrypointRuleset, RulesetsUpdateRuleset, RulesetsZoneId, UpdateZoneEntrypointRulesetErrors, UpdateZoneEntrypointRulesetResponses, UpdateZoneRulesetErrors, UpdateZoneRulesetResponses, UpdateZoneRulesetRuleErrors, UpdateZoneRulesetRuleResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class ZoneRulesetsService {
         zone_id: RulesetsZoneId;
         cursor?: RulesetsCursor;
         per_page?: RulesetsPerPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneRulesetsResponses, ListZoneRulesetsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'cursor' },
@@ -52,7 +52,7 @@ export class ZoneRulesetsService {
     public static createZoneRuleset<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
         rulesetsCreateRuleset: RulesetsCreateRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateZoneRulesetResponses, CreateZoneRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'rulesetsCreateRuleset', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateZoneRulesetResponses, CreateZoneRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class ZoneRulesetsService {
     public static getZoneEntrypointRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_phase: RulesetsRulesetPhase;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneEntrypointRulesetResponses, GetZoneEntrypointRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_phase' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZoneEntrypointRulesetResponses, GetZoneEntrypointRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +114,7 @@ export class ZoneRulesetsService {
         ruleset_phase: RulesetsRulesetPhase;
         zone_id: RulesetsZoneId;
         rulesetsUpdateEntrypointRuleset: RulesetsUpdateEntrypointRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneEntrypointRulesetResponses, UpdateZoneEntrypointRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_phase' },
                     { in: 'path', key: 'zone_id' },
@@ -151,7 +151,7 @@ export class ZoneRulesetsService {
     public static listZoneEntrypointRulesetVersions<ThrowOnError extends boolean = true>(parameters: {
         ruleset_phase: RulesetsRulesetPhase;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneEntrypointRulesetVersionsResponses, ListZoneEntrypointRulesetVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_phase' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ListZoneEntrypointRulesetVersionsResponses, ListZoneEntrypointRulesetVersionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -180,7 +180,7 @@ export class ZoneRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_phase: RulesetsRulesetPhase;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneEntrypointRulesetVersionResponses, GetZoneEntrypointRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_phase' },
@@ -212,7 +212,7 @@ export class ZoneRulesetsService {
     public static deleteZoneRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZoneRulesetResponses, DeleteZoneRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<DeleteZoneRulesetResponses, DeleteZoneRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -240,7 +240,7 @@ export class ZoneRulesetsService {
     public static getZoneRuleset<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneRulesetResponses, GetZoneRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<GetZoneRulesetResponses, GetZoneRulesetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -269,7 +269,7 @@ export class ZoneRulesetsService {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
         rulesetsUpdateRuleset: RulesetsUpdateRuleset;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneRulesetResponses, UpdateZoneRulesetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_id' },
                     { in: 'path', key: 'zone_id' },
@@ -307,7 +307,7 @@ export class ZoneRulesetsService {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
         rulesetsRule: RulesetsRule2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateZoneRulesetRuleResponses, CreateZoneRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_id' },
                     { in: 'path', key: 'zone_id' },
@@ -345,7 +345,7 @@ export class ZoneRulesetsService {
         rule_id: RulesetsRuleId;
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZoneRulesetRuleResponses, DeleteZoneRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -379,7 +379,7 @@ export class ZoneRulesetsService {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
         rulesetsRule: RulesetsRule2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateZoneRulesetRuleResponses, UpdateZoneRulesetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'ruleset_id' },
@@ -417,7 +417,7 @@ export class ZoneRulesetsService {
     public static listZoneRulesetVersions<ThrowOnError extends boolean = true>(parameters: {
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneRulesetVersionsResponses, ListZoneRulesetVersionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ruleset_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ListZoneRulesetVersionsResponses, ListZoneRulesetVersionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -446,7 +446,7 @@ export class ZoneRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteZoneRulesetVersionResponses, DeleteZoneRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_id' },
@@ -479,7 +479,7 @@ export class ZoneRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetZoneRulesetVersionResponses, GetZoneRulesetVersionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ruleset_version' },
                     { in: 'path', key: 'ruleset_id' },
@@ -513,7 +513,7 @@ export class ZoneRulesetsService {
         ruleset_version: RulesetsRulesetVersion;
         ruleset_id: RulesetsRulesetId;
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListZoneRulesetVersionRulesByTagResponses, ListZoneRulesetVersionRulesByTagErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_tag' },
                     { in: 'path', key: 'ruleset_version' },

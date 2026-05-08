@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteManagedTransformsErrors, DeleteManagedTransformsResponses, ListManagedTransformsErrors, ListManagedTransformsResponses, RulesetsManagedTransforms2, RulesetsZoneId, UpdateManagedTransformsErrors, UpdateManagedTransformsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ManagedTransformsService {
      */
     public static deleteManagedTransforms<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteManagedTransformsResponses, DeleteManagedTransformsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<DeleteManagedTransformsResponses, DeleteManagedTransformsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class ManagedTransformsService {
      */
     public static listManagedTransforms<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListManagedTransformsResponses, ListManagedTransformsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ListManagedTransformsResponses, ListManagedTransformsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class ManagedTransformsService {
     public static updateManagedTransforms<ThrowOnError extends boolean = true>(parameters: {
         zone_id: RulesetsZoneId;
         rulesetsManagedTransforms: RulesetsManagedTransforms2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateManagedTransformsResponses, UpdateManagedTransformsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'rulesetsManagedTransforms', map: 'body' }] }]);
         return (options?.client ?? client).patch<UpdateManagedTransformsResponses, UpdateManagedTransformsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

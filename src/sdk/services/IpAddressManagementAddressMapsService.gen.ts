@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingAccountIdentifier, AddressingAddressMapIdentifier, AddressingDefaultSni, AddressingEnabled, AddressingIpAddress, AddressingMembershipRequests, AddressingSchemasDescription, AddressingZoneIdentifier, IpAddressManagementAddressMapsAddAnAccountMembershipToAnAddressMapErrors, IpAddressManagementAddressMapsAddAnAccountMembershipToAnAddressMapResponses, IpAddressManagementAddressMapsAddAnIpToAnAddressMapErrors, IpAddressManagementAddressMapsAddAnIpToAnAddressMapResponses, IpAddressManagementAddressMapsAddAZoneMembershipToAnAddressMapErrors, IpAddressManagementAddressMapsAddAZoneMembershipToAnAddressMapResponses, IpAddressManagementAddressMapsAddressMapDetailsErrors, IpAddressManagementAddressMapsAddressMapDetailsResponses, IpAddressManagementAddressMapsCreateAddressMapErrors, IpAddressManagementAddressMapsCreateAddressMapResponses, IpAddressManagementAddressMapsDeleteAddressMapErrors, IpAddressManagementAddressMapsDeleteAddressMapResponses, IpAddressManagementAddressMapsListAddressMapsErrors, IpAddressManagementAddressMapsListAddressMapsResponses, IpAddressManagementAddressMapsRemoveAnAccountMembershipFromAnAddressMapErrors, IpAddressManagementAddressMapsRemoveAnAccountMembershipFromAnAddressMapResponses, IpAddressManagementAddressMapsRemoveAnIpFromAnAddressMapErrors, IpAddressManagementAddressMapsRemoveAnIpFromAnAddressMapResponses, IpAddressManagementAddressMapsRemoveAZoneMembershipFromAnAddressMapErrors, IpAddressManagementAddressMapsRemoveAZoneMembershipFromAnAddressMapResponses, IpAddressManagementAddressMapsUpdateAddressMapErrors, IpAddressManagementAddressMapsUpdateAddressMapResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class IpAddressManagementAddressMapsService {
      */
     public static ipAddressManagementAddressMapsListAddressMaps<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsListAddressMapsResponses, IpAddressManagementAddressMapsListAddressMapsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementAddressMapsListAddressMapsResponses, IpAddressManagementAddressMapsListAddressMapsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class IpAddressManagementAddressMapsService {
         enabled?: AddressingEnabled;
         ips?: Array<AddressingIpAddress>;
         memberships?: AddressingMembershipRequests;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsCreateAddressMapResponses, IpAddressManagementAddressMapsCreateAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'description' },
@@ -81,7 +81,7 @@ export class IpAddressManagementAddressMapsService {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsDeleteAddressMapResponses, IpAddressManagementAddressMapsDeleteAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'address_map_id' },
                     { in: 'path', key: 'account_id' },
@@ -114,7 +114,7 @@ export class IpAddressManagementAddressMapsService {
     public static ipAddressManagementAddressMapsAddressMapDetails<ThrowOnError extends boolean = true>(parameters: {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsAddressMapDetailsResponses, IpAddressManagementAddressMapsAddressMapDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'address_map_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementAddressMapsAddressMapDetailsResponses, IpAddressManagementAddressMapsAddressMapDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -141,7 +141,7 @@ export class IpAddressManagementAddressMapsService {
         default_sni?: AddressingDefaultSni;
         description?: AddressingSchemasDescription;
         enabled?: AddressingEnabled;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsUpdateAddressMapResponses, IpAddressManagementAddressMapsUpdateAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'address_map_id' },
                     { in: 'path', key: 'account_id' },
@@ -177,7 +177,7 @@ export class IpAddressManagementAddressMapsService {
         account_id: AddressingAccountIdentifier;
         address_map_id: AddressingAddressMapIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsRemoveAnAccountMembershipFromAnAddressMapResponses, IpAddressManagementAddressMapsRemoveAnAccountMembershipFromAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'address_map_id' },
@@ -211,7 +211,7 @@ export class IpAddressManagementAddressMapsService {
         account_id: AddressingAccountIdentifier;
         address_map_id: AddressingAddressMapIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsAddAnAccountMembershipToAnAddressMapResponses, IpAddressManagementAddressMapsAddAnAccountMembershipToAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'address_map_id' },
@@ -246,7 +246,7 @@ export class IpAddressManagementAddressMapsService {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsRemoveAnIpFromAnAddressMapResponses, IpAddressManagementAddressMapsRemoveAnIpFromAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_address' },
                     { in: 'path', key: 'address_map_id' },
@@ -282,7 +282,7 @@ export class IpAddressManagementAddressMapsService {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsAddAnIpToAnAddressMapResponses, IpAddressManagementAddressMapsAddAnIpToAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'ip_address' },
                     { in: 'path', key: 'address_map_id' },
@@ -318,7 +318,7 @@ export class IpAddressManagementAddressMapsService {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsRemoveAZoneMembershipFromAnAddressMapResponses, IpAddressManagementAddressMapsRemoveAZoneMembershipFromAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'address_map_id' },
@@ -354,7 +354,7 @@ export class IpAddressManagementAddressMapsService {
         address_map_id: AddressingAddressMapIdentifier;
         account_id: AddressingAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementAddressMapsAddAZoneMembershipToAnAddressMapResponses, IpAddressManagementAddressMapsAddAZoneMembershipToAnAddressMapErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'address_map_id' },

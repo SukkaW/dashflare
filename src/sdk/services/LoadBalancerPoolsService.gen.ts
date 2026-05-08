@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { LoadBalancerPoolsCreatePoolErrors, LoadBalancerPoolsCreatePoolResponses, LoadBalancerPoolsDeletePoolErrors, LoadBalancerPoolsDeletePoolResponses, LoadBalancerPoolsListPoolReferencesErrors, LoadBalancerPoolsListPoolReferencesResponses, LoadBalancerPoolsListPoolsErrors, LoadBalancerPoolsListPoolsResponses, LoadBalancerPoolsPatchPoolErrors, LoadBalancerPoolsPatchPoolResponses, LoadBalancerPoolsPatchPoolsErrors, LoadBalancerPoolsPatchPoolsResponses, LoadBalancerPoolsPoolDetailsErrors, LoadBalancerPoolsPoolDetailsResponses, LoadBalancerPoolsPoolHealthDetailsErrors, LoadBalancerPoolsPoolHealthDetailsResponses, LoadBalancerPoolsPreviewPoolErrors, LoadBalancerPoolsPreviewPoolResponses, LoadBalancerPoolsUpdatePoolErrors, LoadBalancerPoolsUpdatePoolResponses, LoadBalancingCheckRegions, LoadBalancingEnabled, LoadBalancingLatitude, LoadBalancingLoadShedding, LoadBalancingLongitude, LoadBalancingMinimumOrigins, LoadBalancingMonitorEditable, LoadBalancingMonitorGroupId, LoadBalancingMonitorId, LoadBalancingName, LoadBalancingNetworks, LoadBalancingNotificationEmail, LoadBalancingNotificationFilter, LoadBalancingOriginSteering, LoadBalancingOriginsWritable, LoadBalancingSchemasDescription, LoadBalancingSchemasDisabledAt, LoadBalancingSchemasIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class LoadBalancerPoolsService {
      */
     public static loadBalancerPoolsListPools<ThrowOnError extends boolean = true>(parameters?: {
         monitor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsListPoolsResponses, LoadBalancerPoolsListPoolsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'monitor' }] }]);
         return (options?.client ?? client).get<LoadBalancerPoolsListPoolsResponses, LoadBalancerPoolsListPoolsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class LoadBalancerPoolsService {
      */
     public static loadBalancerPoolsPatchPools<ThrowOnError extends boolean = true>(parameters: {
         body: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsPatchPoolsResponses, LoadBalancerPoolsPatchPoolsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).patch<LoadBalancerPoolsPatchPoolsResponses, LoadBalancerPoolsPatchPoolsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -91,7 +91,7 @@ export class LoadBalancerPoolsService {
         notification_filter?: LoadBalancingNotificationFilter;
         origin_steering?: LoadBalancingOriginSteering;
         origins: LoadBalancingOriginsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsCreatePoolResponses, LoadBalancerPoolsCreatePoolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'body', key: 'check_regions' },
                     { in: 'body', key: 'description' },
@@ -140,7 +140,7 @@ export class LoadBalancerPoolsService {
     public static loadBalancerPoolsDeletePool<ThrowOnError extends boolean = true>(parameters: {
         pool_id: LoadBalancingSchemasIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsDeletePoolResponses, LoadBalancerPoolsDeletePoolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pool_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<LoadBalancerPoolsDeletePoolResponses, LoadBalancerPoolsDeletePoolErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +172,7 @@ export class LoadBalancerPoolsService {
      */
     public static loadBalancerPoolsPoolDetails<ThrowOnError extends boolean = true>(parameters: {
         pool_id: LoadBalancingSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsPoolDetailsResponses, LoadBalancerPoolsPoolDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pool_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerPoolsPoolDetailsResponses, LoadBalancerPoolsPoolDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -214,7 +214,7 @@ export class LoadBalancerPoolsService {
         notification_filter?: LoadBalancingNotificationFilter;
         origin_steering?: LoadBalancingOriginSteering;
         origins?: LoadBalancingOriginsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsPatchPoolResponses, LoadBalancerPoolsPatchPoolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'pool_id' },
                     { in: 'body', key: 'check_regions' },
@@ -279,7 +279,7 @@ export class LoadBalancerPoolsService {
         notification_filter?: LoadBalancingNotificationFilter;
         origin_steering?: LoadBalancingOriginSteering;
         origins: LoadBalancingOriginsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsUpdatePoolResponses, LoadBalancerPoolsUpdatePoolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'pool_id' },
                     { in: 'body', key: 'check_regions' },
@@ -329,7 +329,7 @@ export class LoadBalancerPoolsService {
      */
     public static loadBalancerPoolsPoolHealthDetails<ThrowOnError extends boolean = true>(parameters: {
         pool_id: LoadBalancingSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsPoolHealthDetailsResponses, LoadBalancerPoolsPoolHealthDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pool_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerPoolsPoolHealthDetailsResponses, LoadBalancerPoolsPoolHealthDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -357,7 +357,7 @@ export class LoadBalancerPoolsService {
     public static loadBalancerPoolsPreviewPool<ThrowOnError extends boolean = true>(parameters: {
         pool_id: LoadBalancingSchemasIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsPreviewPoolResponses, LoadBalancerPoolsPreviewPoolErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pool_id' }, { key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).post<LoadBalancerPoolsPreviewPoolResponses, LoadBalancerPoolsPreviewPoolErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -389,7 +389,7 @@ export class LoadBalancerPoolsService {
      */
     public static loadBalancerPoolsListPoolReferences<ThrowOnError extends boolean = true>(parameters: {
         pool_id: LoadBalancingSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerPoolsListPoolReferencesResponses, LoadBalancerPoolsListPoolReferencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'pool_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerPoolsListPoolReferencesResponses, LoadBalancerPoolsListPoolReferencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

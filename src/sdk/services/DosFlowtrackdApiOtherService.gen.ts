@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BulkCreatePrefixesErrors, BulkCreatePrefixesResponses, CreateAllowlistedPrefixErrors, CreateAllowlistedPrefixResponses, CreateDnsProtectionRuleErrors, CreateDnsProtectionRuleResponses, CreatePrefixErrors, CreatePrefixResponses, CreateSynProtectionFilterErrors, CreateSynProtectionFilterResponses, CreateSynProtectionRuleErrors, CreateSynProtectionRuleResponses, CreateTcpFlowProtectionFilterErrors, CreateTcpFlowProtectionFilterResponses, CreateTcpFlowProtectionRuleErrors, CreateTcpFlowProtectionRuleResponses, DeleteAllowlistPrefixErrors, DeleteAllowlistPrefixesForAccountErrors, DeleteAllowlistPrefixesForAccountResponses, DeleteAllowlistPrefixResponses, DeleteDnsProtectionRuleErrors, DeleteDnsProtectionRuleResponses, DeleteDnsProtectionRulesForAccountResponses, DeletePrefixErrors, DeletePrefixesForAccountErrors, DeletePrefixesForAccountResponses, DeletePrefixResponses, DeleteSynProtectionFilterErrors, DeleteSynProtectionFilterResponses, DeleteSynProtectionFiltersForAccountErrors, DeleteSynProtectionFiltersForAccountResponses, DeleteSynProtectionRuleErrors, DeleteSynProtectionRuleResponses, DeleteSynProtectionRulesForAccountErrors, DeleteSynProtectionRulesForAccountResponses, DeleteTcpFlowProtectionFilterErrors, DeleteTcpFlowProtectionFilterResponses, DeleteTcpFlowProtectionFiltersForAccountErrors, DeleteTcpFlowProtectionFiltersForAccountResponses, DeleteTcpFlowProtectionRuleErrors, DeleteTcpFlowProtectionRuleResponses, DeleteTcpFlowProtectionRulesForAccountErrors, DeleteTcpFlowProtectionRulesForAccountResponses, DosDnsProtectionRuleUpdate, DosExpressionFilterUpdate, DosIdentifier, DosInfraPrefixUpdate, DosNewDnsProtectionRule, DosNewExpressionFilter, DosNewInfraPrefix, DosNewPrefix, DosNewSynProtectionRule, DosNewTcpFlowProtectionRule, DosPrefixUpdate, DosSynProtectionRuleUpdate, DosTcpFlowProtectionRuleUpdate, DosUpdateProtectionStatus, DosUuid, GetAllowlistPrefixErrors, GetAllowlistPrefixResponses, GetDnsProtectionRuleErrors, GetDnsProtectionRuleResponses, GetPrefixErrors, GetPrefixResponses, GetProtectionStatusErrors, GetProtectionStatusResponses, GetSynProtectionFilterErrors, GetSynProtectionFilterResponses, GetSynProtectionRuleErrors, GetSynProtectionRuleResponses, GetTcpFlowProtectionFilterErrors, GetTcpFlowProtectionFilterResponses, GetTcpFlowProtectionRuleErrors, GetTcpFlowProtectionRuleResponses, ListAllowlistPrefixesForAccountErrors, ListAllowlistPrefixesForAccountResponses, ListDnsProtectionRulesForAccountErrors, ListDnsProtectionRulesForAccountResponses, ListPrefixesForAccountErrors, ListPrefixesForAccountResponses, ListSynProtectionFiltersForAccountErrors, ListSynProtectionFiltersForAccountResponses, ListSynProtectionRulesForAccountErrors, ListSynProtectionRulesForAccountResponses, ListTcpFlowProtectionFiltersForAccountErrors, ListTcpFlowProtectionFiltersForAccountResponses, ListTcpFlowProtectionRulesForAccountErrors, ListTcpFlowProtectionRulesForAccountResponses, UpdateAllowlistPrefixErrors, UpdateAllowlistPrefixResponses, UpdateDnsProtectionRuleErrors, UpdateDnsProtectionRuleResponses, UpdatePrefixErrors, UpdatePrefixResponses, UpdateProtectionStatusErrors, UpdateProtectionStatusResponses, UpdateSynProtectionFilterErrors, UpdateSynProtectionFilterResponses, UpdateSynProtectionRuleErrors, UpdateSynProtectionRuleResponses, UpdateTcpFlowProtectionFilterErrors, UpdateTcpFlowProtectionFilterResponses, UpdateTcpFlowProtectionRuleErrors, UpdateTcpFlowProtectionRuleResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteDnsProtectionRulesForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDnsProtectionRulesForAccountResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteDnsProtectionRulesForAccountResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListDnsProtectionRulesForAccountResponses, ListDnsProtectionRulesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -83,7 +83,7 @@ export class DosFlowtrackdApiOtherService {
     public static createDnsProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewDnsProtectionRule: DosNewDnsProtectionRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateDnsProtectionRuleResponses, CreateDnsProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewDnsProtectionRule', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateDnsProtectionRuleResponses, CreateDnsProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -116,7 +116,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteDnsProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDnsProtectionRuleResponses, DeleteDnsProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<DeleteDnsProtectionRuleResponses, DeleteDnsProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,7 +144,7 @@ export class DosFlowtrackdApiOtherService {
     public static getDnsProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDnsProtectionRuleResponses, GetDnsProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<GetDnsProtectionRuleResponses, GetDnsProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -173,7 +173,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         rule_id: DosUuid;
         dosDnsProtectionRuleUpdate: DosDnsProtectionRuleUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateDnsProtectionRuleResponses, UpdateDnsProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'rule_id' },
@@ -209,7 +209,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteAllowlistPrefixesForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAllowlistPrefixesForAccountResponses, DeleteAllowlistPrefixesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteAllowlistPrefixesForAccountResponses, DeleteAllowlistPrefixesForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -240,7 +240,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAllowlistPrefixesForAccountResponses, ListAllowlistPrefixesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -274,7 +274,7 @@ export class DosFlowtrackdApiOtherService {
     public static createAllowlistedPrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewInfraPrefix: DosNewInfraPrefix;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateAllowlistedPrefixResponses, CreateAllowlistedPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewInfraPrefix', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateAllowlistedPrefixResponses, CreateAllowlistedPrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -307,7 +307,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteAllowlistPrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAllowlistPrefixResponses, DeleteAllowlistPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).delete<DeleteAllowlistPrefixResponses, DeleteAllowlistPrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -335,7 +335,7 @@ export class DosFlowtrackdApiOtherService {
     public static getAllowlistPrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllowlistPrefixResponses, GetAllowlistPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).get<GetAllowlistPrefixResponses, GetAllowlistPrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -364,7 +364,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
         dosInfraPrefixUpdate: DosInfraPrefixUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateAllowlistPrefixResponses, UpdateAllowlistPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -400,7 +400,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deletePrefixesForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeletePrefixesForAccountResponses, DeletePrefixesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeletePrefixesForAccountResponses, DeletePrefixesForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -431,7 +431,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListPrefixesForAccountResponses, ListPrefixesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -465,7 +465,7 @@ export class DosFlowtrackdApiOtherService {
     public static createPrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewPrefix: DosNewPrefix;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreatePrefixResponses, CreatePrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewPrefix', map: 'body' }] }]);
         return (options?.client ?? client).post<CreatePrefixResponses, CreatePrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -498,7 +498,7 @@ export class DosFlowtrackdApiOtherService {
     public static bulkCreatePrefixes<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         body: Array<DosNewPrefix>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BulkCreatePrefixesResponses, BulkCreatePrefixesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<BulkCreatePrefixesResponses, BulkCreatePrefixesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -531,7 +531,7 @@ export class DosFlowtrackdApiOtherService {
     public static deletePrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeletePrefixResponses, DeletePrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).delete<DeletePrefixResponses, DeletePrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -559,7 +559,7 @@ export class DosFlowtrackdApiOtherService {
     public static getPrefix<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetPrefixResponses, GetPrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'prefix_id' }] }]);
         return (options?.client ?? client).get<GetPrefixResponses, GetPrefixErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -588,7 +588,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         prefix_id: DosUuid;
         dosPrefixUpdate: DosPrefixUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdatePrefixResponses, UpdatePrefixErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'prefix_id' },
@@ -624,7 +624,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteSynProtectionFiltersForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSynProtectionFiltersForAccountResponses, DeleteSynProtectionFiltersForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteSynProtectionFiltersForAccountResponses, DeleteSynProtectionFiltersForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -656,7 +656,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListSynProtectionFiltersForAccountResponses, ListSynProtectionFiltersForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'mode' },
@@ -691,7 +691,7 @@ export class DosFlowtrackdApiOtherService {
     public static createSynProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewExpressionFilter: DosNewExpressionFilter;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateSynProtectionFilterResponses, CreateSynProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewExpressionFilter', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateSynProtectionFilterResponses, CreateSynProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -724,7 +724,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteSynProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         filter_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSynProtectionFilterResponses, DeleteSynProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'filter_id' }] }]);
         return (options?.client ?? client).delete<DeleteSynProtectionFilterResponses, DeleteSynProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -752,7 +752,7 @@ export class DosFlowtrackdApiOtherService {
     public static getSynProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         filter_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSynProtectionFilterResponses, GetSynProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'filter_id' }] }]);
         return (options?.client ?? client).get<GetSynProtectionFilterResponses, GetSynProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -781,7 +781,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         filter_id: DosUuid;
         dosExpressionFilterUpdate: DosExpressionFilterUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSynProtectionFilterResponses, UpdateSynProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'filter_id' },
@@ -817,7 +817,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteSynProtectionRulesForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSynProtectionRulesForAccountResponses, DeleteSynProtectionRulesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteSynProtectionRulesForAccountResponses, DeleteSynProtectionRulesForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -848,7 +848,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListSynProtectionRulesForAccountResponses, ListSynProtectionRulesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -882,7 +882,7 @@ export class DosFlowtrackdApiOtherService {
     public static createSynProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewSynProtectionRule: DosNewSynProtectionRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateSynProtectionRuleResponses, CreateSynProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewSynProtectionRule', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateSynProtectionRuleResponses, CreateSynProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -915,7 +915,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteSynProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSynProtectionRuleResponses, DeleteSynProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<DeleteSynProtectionRuleResponses, DeleteSynProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -943,7 +943,7 @@ export class DosFlowtrackdApiOtherService {
     public static getSynProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSynProtectionRuleResponses, GetSynProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<GetSynProtectionRuleResponses, GetSynProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -972,7 +972,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         rule_id: DosUuid;
         dosSynProtectionRuleUpdate: DosSynProtectionRuleUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSynProtectionRuleResponses, UpdateSynProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'rule_id' },
@@ -1008,7 +1008,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteTcpFlowProtectionFiltersForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTcpFlowProtectionFiltersForAccountResponses, DeleteTcpFlowProtectionFiltersForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteTcpFlowProtectionFiltersForAccountResponses, DeleteTcpFlowProtectionFiltersForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1040,7 +1040,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListTcpFlowProtectionFiltersForAccountResponses, ListTcpFlowProtectionFiltersForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'mode' },
@@ -1075,7 +1075,7 @@ export class DosFlowtrackdApiOtherService {
     public static createTcpFlowProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewExpressionFilter: DosNewExpressionFilter;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateTcpFlowProtectionFilterResponses, CreateTcpFlowProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewExpressionFilter', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateTcpFlowProtectionFilterResponses, CreateTcpFlowProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1108,7 +1108,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteTcpFlowProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         filter_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTcpFlowProtectionFilterResponses, DeleteTcpFlowProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'filter_id' }] }]);
         return (options?.client ?? client).delete<DeleteTcpFlowProtectionFilterResponses, DeleteTcpFlowProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1136,7 +1136,7 @@ export class DosFlowtrackdApiOtherService {
     public static getTcpFlowProtectionFilter<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         filter_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTcpFlowProtectionFilterResponses, GetTcpFlowProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'filter_id' }] }]);
         return (options?.client ?? client).get<GetTcpFlowProtectionFilterResponses, GetTcpFlowProtectionFilterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1165,7 +1165,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         filter_id: DosUuid;
         dosExpressionFilterUpdate: DosExpressionFilterUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateTcpFlowProtectionFilterResponses, UpdateTcpFlowProtectionFilterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'filter_id' },
@@ -1201,7 +1201,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static deleteTcpFlowProtectionRulesForAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTcpFlowProtectionRulesForAccountResponses, DeleteTcpFlowProtectionRulesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteTcpFlowProtectionRulesForAccountResponses, DeleteTcpFlowProtectionRulesForAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1232,7 +1232,7 @@ export class DosFlowtrackdApiOtherService {
         per_page?: number;
         order?: string;
         direction?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListTcpFlowProtectionRulesForAccountResponses, ListTcpFlowProtectionRulesForAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -1266,7 +1266,7 @@ export class DosFlowtrackdApiOtherService {
     public static createTcpFlowProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosNewTcpFlowProtectionRule: DosNewTcpFlowProtectionRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateTcpFlowProtectionRuleResponses, CreateTcpFlowProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosNewTcpFlowProtectionRule', map: 'body' }] }]);
         return (options?.client ?? client).post<CreateTcpFlowProtectionRuleResponses, CreateTcpFlowProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1299,7 +1299,7 @@ export class DosFlowtrackdApiOtherService {
     public static deleteTcpFlowProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteTcpFlowProtectionRuleResponses, DeleteTcpFlowProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<DeleteTcpFlowProtectionRuleResponses, DeleteTcpFlowProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1327,7 +1327,7 @@ export class DosFlowtrackdApiOtherService {
     public static getTcpFlowProtectionRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         rule_id: DosUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetTcpFlowProtectionRuleResponses, GetTcpFlowProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<GetTcpFlowProtectionRuleResponses, GetTcpFlowProtectionRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1356,7 +1356,7 @@ export class DosFlowtrackdApiOtherService {
         account_id: DosIdentifier;
         rule_id: DosUuid;
         dosTcpFlowProtectionRuleUpdate: DosTcpFlowProtectionRuleUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateTcpFlowProtectionRuleResponses, UpdateTcpFlowProtectionRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'rule_id' },
@@ -1392,7 +1392,7 @@ export class DosFlowtrackdApiOtherService {
      */
     public static getProtectionStatus<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetProtectionStatusResponses, GetProtectionStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetProtectionStatusResponses, GetProtectionStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1420,7 +1420,7 @@ export class DosFlowtrackdApiOtherService {
     public static updateProtectionStatus<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         dosUpdateProtectionStatus: DosUpdateProtectionStatus;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateProtectionStatusResponses, UpdateProtectionStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dosUpdateProtectionStatus', map: 'body' }] }]);
         return (options?.client ?? client).patch<UpdateProtectionStatusResponses, UpdateProtectionStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustGatewayPublicKey, ZeroTrustGatewaySchemasIdentifier, ZeroTrustGetAuditSshSettingsErrors, ZeroTrustGetAuditSshSettingsResponses, ZeroTrustRotateSshAccountSeedErrors, ZeroTrustRotateSshAccountSeedResponses, ZeroTrustUpdateAuditSshSettingsErrors, ZeroTrustUpdateAuditSshSettingsResponses } from '../types.gen';
+import type { ZeroTrustGatewayIdentifier2, ZeroTrustGatewayPublicKey, ZeroTrustGetAuditSshSettingsErrors, ZeroTrustGetAuditSshSettingsResponses, ZeroTrustRotateSshAccountSeedErrors, ZeroTrustRotateSshAccountSeedResponses, ZeroTrustUpdateAuditSshSettingsErrors, ZeroTrustUpdateAuditSshSettingsResponses } from '../types.gen';
 import { zZeroTrustGetAuditSshSettingsPath, zZeroTrustGetAuditSshSettingsResponse, zZeroTrustRotateSshAccountSeedPath, zZeroTrustRotateSshAccountSeedResponse, zZeroTrustUpdateAuditSshSettingsBody, zZeroTrustUpdateAuditSshSettingsPath, zZeroTrustUpdateAuditSshSettingsResponse } from '../zod.gen';
 
 export class ZeroTrustSshSettingsService {
@@ -17,8 +17,8 @@ export class ZeroTrustSshSettingsService {
      * Retrieve all Zero Trust Audit SSH and SSH with Access for Infrastructure settings for an account.
      */
     public static zeroTrustGetAuditSshSettings<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustGetAuditSshSettingsResponses, ZeroTrustGetAuditSshSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustGetAuditSshSettingsResponses, ZeroTrustGetAuditSshSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,9 +44,9 @@ export class ZeroTrustSshSettingsService {
      * Update Zero Trust Audit SSH and SSH with Access for Infrastructure settings for an account.
      */
     public static zeroTrustUpdateAuditSshSettings<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         public_key: ZeroTrustGatewayPublicKey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUpdateAuditSshSettingsResponses, ZeroTrustUpdateAuditSshSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'public_key' }] }]);
         return (options?.client ?? client).put<ZeroTrustUpdateAuditSshSettingsResponses, ZeroTrustUpdateAuditSshSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,8 +77,8 @@ export class ZeroTrustSshSettingsService {
      * Rotate the SSH account seed that generates the host key identity when connecting through the Cloudflare SSH Proxy.
      */
     public static zeroTrustRotateSshAccountSeed<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustRotateSshAccountSeedResponses, ZeroTrustRotateSshAccountSeedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<ZeroTrustRotateSshAccountSeedResponses, ZeroTrustRotateSshAccountSeedErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { InfraAccountTag, InfraIpInfo, InfraSortingDirection, InfraTargetId, InfraTargetsDeleteBatchErrors, InfraTargetsDeleteBatchPostErrors, InfraTargetsDeleteBatchPostResponses, InfraTargetsDeleteBatchResponses, InfraTargetsDeleteErrors, InfraTargetsDeleteResponses, InfraTargetsGetErrors, InfraTargetsGetResponses, InfraTargetsListErrors, InfraTargetsListResponses, InfraTargetsPostErrors, InfraTargetsPostResponses, InfraTargetsPutBatchErrors, InfraTargetsPutBatchResponses, InfraTargetsPutErrors, InfraTargetsPutResponses } from '../types.gen';
@@ -39,7 +39,7 @@ export class InfrastructureAccessTargetsService {
         per_page?: number;
         order?: 'hostname' | 'created_at';
         direction?: InfraSortingDirection;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsListResponses, InfraTargetsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'hostname' },
@@ -88,7 +88,7 @@ export class InfrastructureAccessTargetsService {
         account_id: InfraAccountTag;
         hostname: string;
         ip: InfraIpInfo;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsPostResponses, InfraTargetsPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'hostname' },
@@ -127,7 +127,7 @@ export class InfrastructureAccessTargetsService {
     public static infraTargetsDeleteBatch<ThrowOnError extends boolean = true>(parameters: {
         account_id: InfraAccountTag;
         target_ids: Array<InfraTargetId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsDeleteBatchResponses, InfraTargetsDeleteBatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'target_ids' }] }]);
         return (options?.client ?? client).delete<InfraTargetsDeleteBatchResponses, InfraTargetsDeleteBatchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -168,7 +168,7 @@ export class InfrastructureAccessTargetsService {
             hostname: string;
             ip: InfraIpInfo;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsPutBatchResponses, InfraTargetsPutBatchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<InfraTargetsPutBatchResponses, InfraTargetsPutBatchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -201,7 +201,7 @@ export class InfrastructureAccessTargetsService {
     public static infraTargetsDeleteBatchPost<ThrowOnError extends boolean = true>(parameters: {
         account_id: InfraAccountTag;
         target_ids: Array<InfraTargetId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsDeleteBatchPostResponses, InfraTargetsDeleteBatchPostErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'target_ids' }] }]);
         return (options?.client ?? client).post<InfraTargetsDeleteBatchPostResponses, InfraTargetsDeleteBatchPostErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -231,7 +231,7 @@ export class InfrastructureAccessTargetsService {
     public static infraTargetsDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: InfraAccountTag;
         target_id: InfraTargetId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsDeleteResponses, InfraTargetsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'target_id' }] }]);
         return (options?.client ?? client).delete<InfraTargetsDeleteResponses, InfraTargetsDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -256,7 +256,7 @@ export class InfrastructureAccessTargetsService {
     public static infraTargetsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: InfraAccountTag;
         target_id: InfraTargetId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsGetResponses, InfraTargetsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'target_id' }] }]);
         return (options?.client ?? client).get<InfraTargetsGetResponses, InfraTargetsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -284,7 +284,7 @@ export class InfrastructureAccessTargetsService {
         target_id: InfraTargetId;
         hostname: string;
         ip: InfraIpInfo;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InfraTargetsPutResponses, InfraTargetsPutErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'target_id' },

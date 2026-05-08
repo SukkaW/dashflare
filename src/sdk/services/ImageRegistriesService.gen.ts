@@ -4,13 +4,101 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CcImageRegistryCredentialsConfiguration, GenerateImageRegistryCredentialsErrors, GenerateImageRegistryCredentialsResponses } from '../types.gen';
-import { zGenerateImageRegistryCredentialsBody, zGenerateImageRegistryCredentialsPath, zGenerateImageRegistryCredentialsResponse } from '../zod.gen';
+import type { CcCreateImageRegistryRequestBody, CcImageRegistryCredentialsConfiguration, CreateImageRegistryErrors, CreateImageRegistryResponses, DeleteImageRegistryErrors, DeleteImageRegistryResponses, GenerateImageRegistryCredentialsErrors, GenerateImageRegistryCredentialsResponses, ListImageRegistriesErrors, ListImageRegistriesResponses } from '../types.gen';
+import { zCreateImageRegistryBody, zCreateImageRegistryPath, zCreateImageRegistryResponse, zDeleteImageRegistryPath, zDeleteImageRegistryResponse, zGenerateImageRegistryCredentialsBody, zGenerateImageRegistryCredentialsPath, zGenerateImageRegistryCredentialsResponse, zListImageRegistriesPath, zListImageRegistriesResponse } from '../zod.gen';
 
 export class ImageRegistriesService {
+    /**
+     * Get the list of configured registries in the account
+     *
+     * Get the list of configured registries in the account
+     */
+    public static listImageRegistries<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListImageRegistriesResponses, ListImageRegistriesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<ListImageRegistriesResponses, ListImageRegistriesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListImageRegistriesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListImageRegistriesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/registries',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Add a new image registry configuration
+     *
+     * Add a new image registry into your account, so then Cloudflare can pull docker images with public key JWT authentication
+     */
+    public static createImageRegistry<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        ccCreateImageRegistryRequestBody: CcCreateImageRegistryRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateImageRegistryResponses, CreateImageRegistryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'ccCreateImageRegistryRequestBody', map: 'body' }] }]);
+        return (options?.client ?? client).post<CreateImageRegistryResponses, CreateImageRegistryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateImageRegistryBody,
+                path: zCreateImageRegistryPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateImageRegistryResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/registries',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a registry from the account
+     *
+     * Delete a registry from the account, this will make Cloudchamber unable to pull images from the registry
+     */
+    public static deleteImageRegistry<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        domain: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteImageRegistryResponses, DeleteImageRegistryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain' }] }]);
+        return (options?.client ?? client).delete<DeleteImageRegistryResponses, DeleteImageRegistryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteImageRegistryPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteImageRegistryResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/containers/registries/{domain}',
+            ...options,
+            ...params
+        });
+    }
+    
     /**
      * Generate a JWT to interact with the specified image registry.
      *
@@ -20,7 +108,7 @@ export class ImageRegistriesService {
         account_id: string;
         domain: string;
         ccImageRegistryCredentialsConfiguration: CcImageRegistryCredentialsConfiguration;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GenerateImageRegistryCredentialsResponses, GenerateImageRegistryCredentialsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'domain' },

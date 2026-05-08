@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessGatewayCaAddAnSshCaErrors, AccessGatewayCaAddAnSshCaResponses, AccessGatewayCaDeleteAnSshCaErrors, AccessGatewayCaDeleteAnSshCaResponses, AccessGatewayCaListSshCaErrors, AccessGatewayCaListSshCaResponses, AccessIdentifier, AccessUuid } from '../types.gen';
@@ -18,7 +18,7 @@ export class GatewayCaService {
      */
     public static accessGatewayCaListSshCa<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGatewayCaListSshCaResponses, AccessGatewayCaListSshCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessGatewayCaListSshCaResponses, AccessGatewayCaListSshCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,7 +45,7 @@ export class GatewayCaService {
      */
     public static accessGatewayCaAddAnSshCa<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGatewayCaAddAnSshCaResponses, AccessGatewayCaAddAnSshCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).post<AccessGatewayCaAddAnSshCaResponses, AccessGatewayCaAddAnSshCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -73,7 +73,7 @@ export class GatewayCaService {
     public static accessGatewayCaDeleteAnSshCa<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGatewayCaDeleteAnSshCaResponses, AccessGatewayCaDeleteAnSshCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessGatewayCaDeleteAnSshCaResponses, AccessGatewayCaDeleteAnSshCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

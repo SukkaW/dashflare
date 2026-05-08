@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { LoadBalancerRegionsGetRegionErrors, LoadBalancerRegionsGetRegionResponses, LoadBalancerRegionsListRegionsErrors, LoadBalancerRegionsListRegionsResponses, LoadBalancingComponentsSchemasIdentifier, LoadBalancingRegionCode, LoadBalancingSubdivisionCodeA2 } from '../types.gen';
-import { zLoadBalancerRegionsGetRegionPath, zLoadBalancerRegionsGetRegionResponse, zLoadBalancerRegionsListRegionsPath, zLoadBalancerRegionsListRegionsQuery, zLoadBalancerRegionsListRegionsResponse } from '../zod.gen';
+import type { LoadBalancerRegionsGetRegionErrors, LoadBalancerRegionsGetRegionResponses, LoadBalancerRegionsListRegionsErrors, LoadBalancerRegionsListRegionsResponses, LoadBalancingComponentsSchemasIdentifier, LoadBalancingRegionCode, LoadBalancingSubdivisionCodeA2, UserLoadBalancerRegionsListRegionsErrors, UserLoadBalancerRegionsListRegionsResponses } from '../types.gen';
+import { zLoadBalancerRegionsGetRegionPath, zLoadBalancerRegionsGetRegionResponse, zLoadBalancerRegionsListRegionsPath, zLoadBalancerRegionsListRegionsQuery, zLoadBalancerRegionsListRegionsResponse, zUserLoadBalancerRegionsListRegionsQuery, zUserLoadBalancerRegionsListRegionsResponse } from '../zod.gen';
 
 export class LoadBalancerRegionsService {
     /**
@@ -21,7 +21,7 @@ export class LoadBalancerRegionsService {
         subdivision_code?: LoadBalancingSubdivisionCodeA2;
         subdivision_code_a2?: LoadBalancingSubdivisionCodeA2;
         country_code_a2?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerRegionsListRegionsResponses, LoadBalancerRegionsListRegionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'subdivision_code' },
@@ -54,7 +54,7 @@ export class LoadBalancerRegionsService {
     public static loadBalancerRegionsGetRegion<ThrowOnError extends boolean = true>(parameters: {
         region_id: LoadBalancingRegionCode;
         account_id: LoadBalancingComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerRegionsGetRegionResponses, LoadBalancerRegionsGetRegionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'region_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerRegionsGetRegionResponses, LoadBalancerRegionsGetRegionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -69,6 +69,34 @@ export class LoadBalancerRegionsService {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/accounts/{account_id}/load_balancers/regions/{region_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * List Regions
+     *
+     * List all region mappings in the user context.
+     */
+    public static userLoadBalancerRegionsListRegions<ThrowOnError extends boolean = true>(parameters?: {
+        subdivision_code?: LoadBalancingSubdivisionCodeA2;
+        country_code?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UserLoadBalancerRegionsListRegionsResponses, UserLoadBalancerRegionsListRegionsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'subdivision_code' }, { in: 'query', key: 'country_code' }] }]);
+        return (options?.client ?? client).get<UserLoadBalancerRegionsListRegionsResponses, UserLoadBalancerRegionsListRegionsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: z.never().optional(),
+                query: zUserLoadBalancerRegionsListRegionsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zUserLoadBalancerRegionsListRegionsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/user/load_balancers/regions',
             ...options,
             ...params
         });

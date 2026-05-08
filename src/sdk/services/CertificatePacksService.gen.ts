@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CertificatePacksDeleteAdvancedCertificateManagerCertificatePackErrors, CertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponses, CertificatePacksGetCertificatePackErrors, CertificatePacksGetCertificatePackQuotasErrors, CertificatePacksGetCertificatePackQuotasResponses, CertificatePacksGetCertificatePackResponses, CertificatePacksListCertificatePacksErrors, CertificatePacksListCertificatePacksResponses, CertificatePacksOrderAdvancedCertificateManagerCertificatePackErrors, CertificatePacksOrderAdvancedCertificateManagerCertificatePackResponses, CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackErrors, CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackResponses, TlsCertificatesAndHostnamesAdvancedType, TlsCertificatesAndHostnamesCloudflareBranding, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesSchemasCertificateAuthority, TlsCertificatesAndHostnamesSchemasHosts, TlsCertificatesAndHostnamesValidationMethod, TlsCertificatesAndHostnamesValidityDays } from '../types.gen';
+import type { CertificatePacksDeleteAdvancedCertificateManagerCertificatePackErrors, CertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponses, CertificatePacksGetCertificatePackErrors, CertificatePacksGetCertificatePackQuotasErrors, CertificatePacksGetCertificatePackQuotasResponses, CertificatePacksGetCertificatePackResponses, CertificatePacksListCertificatePacksErrors, CertificatePacksListCertificatePacksResponses, CertificatePacksOrderAdvancedCertificateManagerCertificatePackErrors, CertificatePacksOrderAdvancedCertificateManagerCertificatePackResponses, CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackErrors, CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackResponses, TlsCertificatesAndHostnamesAdvancedType, TlsCertificatesAndHostnamesCertificateAuthority2, TlsCertificatesAndHostnamesCloudflareBranding, TlsCertificatesAndHostnamesHosts2, TlsCertificatesAndHostnamesIdentifier, TlsCertificatesAndHostnamesValidationMethod, TlsCertificatesAndHostnamesValidityDays } from '../types.gen';
 import { zCertificatePacksDeleteAdvancedCertificateManagerCertificatePackBody, zCertificatePacksDeleteAdvancedCertificateManagerCertificatePackPath, zCertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponse, zCertificatePacksGetCertificatePackPath, zCertificatePacksGetCertificatePackQuotasPath, zCertificatePacksGetCertificatePackQuotasResponse, zCertificatePacksGetCertificatePackResponse, zCertificatePacksListCertificatePacksPath, zCertificatePacksListCertificatePacksQuery, zCertificatePacksListCertificatePacksResponse, zCertificatePacksOrderAdvancedCertificateManagerCertificatePackBody, zCertificatePacksOrderAdvancedCertificateManagerCertificatePackPath, zCertificatePacksOrderAdvancedCertificateManagerCertificatePackResponse, zCertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackBody, zCertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackPath, zCertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackResponse } from '../zod.gen';
 
 export class CertificatePacksService {
@@ -22,7 +22,7 @@ export class CertificatePacksService {
         per_page?: number;
         status?: 'all';
         deploy?: 'staging' | 'production';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksListCertificatePacksResponses, CertificatePacksListCertificatePacksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -38,9 +38,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksListCertificatePacksResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs',
             ...options,
@@ -55,13 +55,13 @@ export class CertificatePacksService {
      */
     public static certificatePacksOrderAdvancedCertificateManagerCertificatePack<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-        certificate_authority: TlsCertificatesAndHostnamesSchemasCertificateAuthority;
+        certificate_authority: TlsCertificatesAndHostnamesCertificateAuthority2;
         cloudflare_branding?: TlsCertificatesAndHostnamesCloudflareBranding;
-        hosts: TlsCertificatesAndHostnamesSchemasHosts;
+        hosts: TlsCertificatesAndHostnamesHosts2;
         type: TlsCertificatesAndHostnamesAdvancedType;
         validation_method: TlsCertificatesAndHostnamesValidationMethod;
         validity_days: TlsCertificatesAndHostnamesValidityDays;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksOrderAdvancedCertificateManagerCertificatePackResponses, CertificatePacksOrderAdvancedCertificateManagerCertificatePackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'certificate_authority' },
@@ -79,9 +79,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksOrderAdvancedCertificateManagerCertificatePackResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs/order',
             ...options,
@@ -101,7 +101,7 @@ export class CertificatePacksService {
      */
     public static certificatePacksGetCertificatePackQuotas<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksGetCertificatePackQuotasResponses, CertificatePacksGetCertificatePackQuotasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CertificatePacksGetCertificatePackQuotasResponses, CertificatePacksGetCertificatePackQuotasErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -111,9 +111,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksGetCertificatePackQuotasResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs/quota',
             ...options,
@@ -130,7 +130,7 @@ export class CertificatePacksService {
         certificate_pack_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponses, CertificatePacksDeleteAdvancedCertificateManagerCertificatePackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_pack_id' },
                     { in: 'path', key: 'zone_id' },
@@ -144,9 +144,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksDeleteAdvancedCertificateManagerCertificatePackResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}',
             ...options,
@@ -167,7 +167,7 @@ export class CertificatePacksService {
     public static certificatePacksGetCertificatePack<ThrowOnError extends boolean = true>(parameters: {
         certificate_pack_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksGetCertificatePackResponses, CertificatePacksGetCertificatePackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_pack_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<CertificatePacksGetCertificatePackResponses, CertificatePacksGetCertificatePackErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -177,9 +177,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksGetCertificatePackResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}',
             ...options,
@@ -196,7 +196,7 @@ export class CertificatePacksService {
         certificate_pack_id: TlsCertificatesAndHostnamesIdentifier;
         zone_id: TlsCertificatesAndHostnamesIdentifier;
         cloudflare_branding?: TlsCertificatesAndHostnamesCloudflareBranding;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackResponses, CertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_pack_id' },
                     { in: 'path', key: 'zone_id' },
@@ -210,9 +210,9 @@ export class CertificatePacksService {
             }).parseAsync(data),
             responseValidator: async (data) => await zCertificatePacksRestartValidationForAdvancedCertificateManagerCertificatePackResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/ssl/certificate_packs/{certificate_pack_id}',
             ...options,

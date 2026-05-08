@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { BrandProtectionApiQuery, BrandProtectionApiQueryBulk, DeleteAccountsByAccountIdBrandProtectionQueriesErrors, DeleteAccountsByAccountIdBrandProtectionQueriesResponses, GetAccountsByAccountIdBrandProtectionMatchesDownloadErrors, GetAccountsByAccountIdBrandProtectionMatchesDownloadResponses, GetAccountsByAccountIdBrandProtectionMatchesErrors, GetAccountsByAccountIdBrandProtectionMatchesResponses, GetAccountsByAccountIdBrandProtectionQueriesErrors, GetAccountsByAccountIdBrandProtectionQueriesResponses, GetAccountsByAccountIdBrandProtectionTotalQueriesErrors, GetAccountsByAccountIdBrandProtectionTotalQueriesResponses, PatchAccountsByAccountIdBrandProtectionQueriesErrors, PatchAccountsByAccountIdBrandProtectionQueriesResponses, PostAccountsByAccountIdBrandProtectionQueriesBulkErrors, PostAccountsByAccountIdBrandProtectionQueriesBulkResponses, PostAccountsByAccountIdBrandProtectionQueriesErrors, PostAccountsByAccountIdBrandProtectionQueriesResponses, PostAccountsByAccountIdBrandProtectionSearchErrors, PostAccountsByAccountIdBrandProtectionSearchResponses } from '../types.gen';
-import { zDeleteAccountsByAccountIdBrandProtectionQueriesPath, zDeleteAccountsByAccountIdBrandProtectionQueriesQuery, zDeleteAccountsByAccountIdBrandProtectionQueriesResponse, zGetAccountsByAccountIdBrandProtectionMatchesDownloadPath, zGetAccountsByAccountIdBrandProtectionMatchesDownloadQuery, zGetAccountsByAccountIdBrandProtectionMatchesDownloadResponse, zGetAccountsByAccountIdBrandProtectionMatchesPath, zGetAccountsByAccountIdBrandProtectionMatchesQuery, zGetAccountsByAccountIdBrandProtectionMatchesResponse, zGetAccountsByAccountIdBrandProtectionQueriesPath, zGetAccountsByAccountIdBrandProtectionQueriesResponse, zGetAccountsByAccountIdBrandProtectionTotalQueriesPath, zGetAccountsByAccountIdBrandProtectionTotalQueriesResponse, zPatchAccountsByAccountIdBrandProtectionQueriesBody, zPatchAccountsByAccountIdBrandProtectionQueriesPath, zPatchAccountsByAccountIdBrandProtectionQueriesResponse, zPostAccountsByAccountIdBrandProtectionQueriesBody, zPostAccountsByAccountIdBrandProtectionQueriesBulkBody, zPostAccountsByAccountIdBrandProtectionQueriesBulkPath, zPostAccountsByAccountIdBrandProtectionQueriesBulkResponse, zPostAccountsByAccountIdBrandProtectionQueriesPath, zPostAccountsByAccountIdBrandProtectionQueriesQuery, zPostAccountsByAccountIdBrandProtectionQueriesResponse, zPostAccountsByAccountIdBrandProtectionSearchPath, zPostAccountsByAccountIdBrandProtectionSearchResponse } from '../zod.gen';
+import type { BrandProtectionApiQuery, BrandProtectionApiQueryBulk, DeleteAccountsAccountIdBrandProtectionQueriesErrors, DeleteAccountsAccountIdBrandProtectionQueriesResponses, GetAccountsAccountIdBrandProtectionMatchesDownloadErrors, GetAccountsAccountIdBrandProtectionMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionMatchesErrors, GetAccountsAccountIdBrandProtectionMatchesResponses, GetAccountsAccountIdBrandProtectionQueriesErrors, GetAccountsAccountIdBrandProtectionQueriesResponses, GetAccountsAccountIdBrandProtectionTotalQueriesErrors, GetAccountsAccountIdBrandProtectionTotalQueriesResponses, PatchAccountsAccountIdBrandProtectionQueriesErrors, PatchAccountsAccountIdBrandProtectionQueriesResponses, PostAccountsAccountIdBrandProtectionQueriesBulkErrors, PostAccountsAccountIdBrandProtectionQueriesBulkResponses, PostAccountsAccountIdBrandProtectionQueriesErrors, PostAccountsAccountIdBrandProtectionQueriesResponses, PostAccountsAccountIdBrandProtectionSearchErrors, PostAccountsAccountIdBrandProtectionSearchResponses } from '../types.gen';
+import { zDeleteAccountsAccountIdBrandProtectionQueriesPath, zDeleteAccountsAccountIdBrandProtectionQueriesQuery, zDeleteAccountsAccountIdBrandProtectionQueriesResponse, zGetAccountsAccountIdBrandProtectionMatchesDownloadPath, zGetAccountsAccountIdBrandProtectionMatchesDownloadQuery, zGetAccountsAccountIdBrandProtectionMatchesDownloadResponse, zGetAccountsAccountIdBrandProtectionMatchesPath, zGetAccountsAccountIdBrandProtectionMatchesQuery, zGetAccountsAccountIdBrandProtectionMatchesResponse, zGetAccountsAccountIdBrandProtectionQueriesPath, zGetAccountsAccountIdBrandProtectionQueriesResponse, zGetAccountsAccountIdBrandProtectionTotalQueriesPath, zGetAccountsAccountIdBrandProtectionTotalQueriesResponse, zPatchAccountsAccountIdBrandProtectionQueriesBody, zPatchAccountsAccountIdBrandProtectionQueriesPath, zPatchAccountsAccountIdBrandProtectionQueriesResponse, zPostAccountsAccountIdBrandProtectionQueriesBody, zPostAccountsAccountIdBrandProtectionQueriesBulkBody, zPostAccountsAccountIdBrandProtectionQueriesBulkPath, zPostAccountsAccountIdBrandProtectionQueriesBulkResponse, zPostAccountsAccountIdBrandProtectionQueriesPath, zPostAccountsAccountIdBrandProtectionQueriesQuery, zPostAccountsAccountIdBrandProtectionQueriesResponse, zPostAccountsAccountIdBrandProtectionSearchPath, zPostAccountsAccountIdBrandProtectionSearchResponse } from '../zod.gen';
 
 export class DomainSearchService {
     /**
@@ -16,13 +16,13 @@ export class DomainSearchService {
      *
      * Return matches for string queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionMatches<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionMatches<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: string;
         offset?: number;
         limit?: number;
         include_domain_id?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionMatchesResponses, GetAccountsAccountIdBrandProtectionMatchesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -30,13 +30,13 @@ export class DomainSearchService {
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'include_domain_id' }
                 ] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionMatchesResponses, GetAccountsByAccountIdBrandProtectionMatchesErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionMatchesResponses, GetAccountsAccountIdBrandProtectionMatchesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionMatchesPath,
-                query: zGetAccountsByAccountIdBrandProtectionMatchesQuery.optional()
+                path: zGetAccountsAccountIdBrandProtectionMatchesPath,
+                query: zGetAccountsAccountIdBrandProtectionMatchesQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionMatchesResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionMatchesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/matches',
             ...options,
@@ -49,13 +49,13 @@ export class DomainSearchService {
      *
      * Return matches as CSV for string queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionMatchesDownload<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionMatchesDownload<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: string;
         offset?: number;
         limit?: number;
         include_domain_id?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionMatchesDownloadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -63,13 +63,13 @@ export class DomainSearchService {
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'include_domain_id' }
                 ] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionMatchesDownloadResponses, GetAccountsByAccountIdBrandProtectionMatchesDownloadErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionMatchesDownloadResponses, GetAccountsAccountIdBrandProtectionMatchesDownloadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionMatchesDownloadPath,
-                query: zGetAccountsByAccountIdBrandProtectionMatchesDownloadQuery.optional()
+                path: zGetAccountsAccountIdBrandProtectionMatchesDownloadPath,
+                query: zGetAccountsAccountIdBrandProtectionMatchesDownloadQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionMatchesDownloadResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionMatchesDownloadResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/matches/download',
             ...options,
@@ -82,25 +82,25 @@ export class DomainSearchService {
      *
      * Return a success message after deleting saved string queries by ID
      */
-    public static deleteAccountsByAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
+    public static deleteAccountsAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: string;
         tag?: string;
         scan?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteAccountsAccountIdBrandProtectionQueriesResponses, DeleteAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
                     { in: 'query', key: 'tag' },
                     { in: 'query', key: 'scan' }
                 ] }]);
-        return (options?.client ?? client).delete<DeleteAccountsByAccountIdBrandProtectionQueriesResponses, DeleteAccountsByAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DeleteAccountsAccountIdBrandProtectionQueriesResponses, DeleteAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteAccountsByAccountIdBrandProtectionQueriesPath,
-                query: zDeleteAccountsByAccountIdBrandProtectionQueriesQuery.optional()
+                path: zDeleteAccountsAccountIdBrandProtectionQueriesPath,
+                query: zDeleteAccountsAccountIdBrandProtectionQueriesQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteAccountsByAccountIdBrandProtectionQueriesResponse.parseAsync(data),
+            responseValidator: async (data) => await zDeleteAccountsAccountIdBrandProtectionQueriesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/queries',
             ...options,
@@ -113,17 +113,17 @@ export class DomainSearchService {
      *
      * Return string queries based on ID
      */
-    public static getAccountsByAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionQueriesResponses, GetAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionQueriesResponses, GetAccountsByAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionQueriesResponses, GetAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionQueriesPath,
+                path: zGetAccountsAccountIdBrandProtectionQueriesPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionQueriesResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionQueriesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/queries',
             ...options,
@@ -136,7 +136,7 @@ export class DomainSearchService {
      *
      * Update a saved query's tag, scan setting, or string_matches (pattern). When string_matches is provided, the query parameters and hash are updated. At least one of tag, scan, or string_matches is required.
      */
-    public static patchAccountsByAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
+    public static patchAccountsAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: number;
         scan?: boolean;
@@ -151,7 +151,7 @@ export class DomainSearchService {
             pattern: string;
         }>;
         tag?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchAccountsAccountIdBrandProtectionQueriesResponses, PatchAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'id' },
@@ -159,13 +159,13 @@ export class DomainSearchService {
                     { in: 'body', key: 'string_matches' },
                     { in: 'body', key: 'tag' }
                 ] }]);
-        return (options?.client ?? client).patch<PatchAccountsByAccountIdBrandProtectionQueriesResponses, PatchAccountsByAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
+        return (options?.client ?? client).patch<PatchAccountsAccountIdBrandProtectionQueriesResponses, PatchAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPatchAccountsByAccountIdBrandProtectionQueriesBody,
-                path: zPatchAccountsByAccountIdBrandProtectionQueriesPath,
+                body: zPatchAccountsAccountIdBrandProtectionQueriesBody,
+                path: zPatchAccountsAccountIdBrandProtectionQueriesPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPatchAccountsByAccountIdBrandProtectionQueriesResponse.parseAsync(data),
+            responseValidator: async (data) => await zPatchAccountsAccountIdBrandProtectionQueriesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/queries',
             ...options,
@@ -183,13 +183,13 @@ export class DomainSearchService {
      *
      * Return a success message after creating new saved string queries
      */
-    public static postAccountsByAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id?: string;
         tag?: string;
         scan?: boolean;
         brandProtectionApiQuery: BrandProtectionApiQuery;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionQueriesResponses, PostAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'id' },
@@ -197,13 +197,13 @@ export class DomainSearchService {
                     { in: 'query', key: 'scan' },
                     { key: 'brandProtectionApiQuery', map: 'body' }
                 ] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionQueriesResponses, PostAccountsByAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionQueriesResponses, PostAccountsAccountIdBrandProtectionQueriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdBrandProtectionQueriesBody,
-                path: zPostAccountsByAccountIdBrandProtectionQueriesPath,
-                query: zPostAccountsByAccountIdBrandProtectionQueriesQuery.optional()
+                body: zPostAccountsAccountIdBrandProtectionQueriesBody,
+                path: zPostAccountsAccountIdBrandProtectionQueriesPath,
+                query: zPostAccountsAccountIdBrandProtectionQueriesQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionQueriesResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionQueriesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/queries',
             ...options,
@@ -221,18 +221,18 @@ export class DomainSearchService {
      *
      * Return a success message after creating new saved string queries in bulk
      */
-    public static postAccountsByAccountIdBrandProtectionQueriesBulk<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionQueriesBulk<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         brandProtectionApiQueryBulk: BrandProtectionApiQueryBulk;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionQueriesBulkResponses, PostAccountsAccountIdBrandProtectionQueriesBulkErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'brandProtectionApiQueryBulk', map: 'body' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionQueriesBulkResponses, PostAccountsByAccountIdBrandProtectionQueriesBulkErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionQueriesBulkResponses, PostAccountsAccountIdBrandProtectionQueriesBulkErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdBrandProtectionQueriesBulkBody,
-                path: zPostAccountsByAccountIdBrandProtectionQueriesBulkPath,
+                body: zPostAccountsAccountIdBrandProtectionQueriesBulkBody,
+                path: zPostAccountsAccountIdBrandProtectionQueriesBulkPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionQueriesBulkResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionQueriesBulkResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/queries/bulk',
             ...options,
@@ -250,17 +250,17 @@ export class DomainSearchService {
      *
      * Return new string queries
      */
-    public static postAccountsByAccountIdBrandProtectionSearch<ThrowOnError extends boolean = true>(parameters: {
+    public static postAccountsAccountIdBrandProtectionSearch<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostAccountsAccountIdBrandProtectionSearchResponses, PostAccountsAccountIdBrandProtectionSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdBrandProtectionSearchResponses, PostAccountsByAccountIdBrandProtectionSearchErrors, ThrowOnError>({
+        return (options?.client ?? client).post<PostAccountsAccountIdBrandProtectionSearchResponses, PostAccountsAccountIdBrandProtectionSearchErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zPostAccountsByAccountIdBrandProtectionSearchPath,
+                path: zPostAccountsAccountIdBrandProtectionSearchPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdBrandProtectionSearchResponse.parseAsync(data),
+            responseValidator: async (data) => await zPostAccountsAccountIdBrandProtectionSearchResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/search',
             ...options,
@@ -273,17 +273,17 @@ export class DomainSearchService {
      *
      * Return the total number of saved string queries
      */
-    public static getAccountsByAccountIdBrandProtectionTotalQueries<ThrowOnError extends boolean = true>(parameters: {
+    public static getAccountsAccountIdBrandProtectionTotalQueries<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAccountsAccountIdBrandProtectionTotalQueriesResponses, GetAccountsAccountIdBrandProtectionTotalQueriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdBrandProtectionTotalQueriesResponses, GetAccountsByAccountIdBrandProtectionTotalQueriesErrors, ThrowOnError>({
+        return (options?.client ?? client).get<GetAccountsAccountIdBrandProtectionTotalQueriesResponses, GetAccountsAccountIdBrandProtectionTotalQueriesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdBrandProtectionTotalQueriesPath,
+                path: zGetAccountsAccountIdBrandProtectionTotalQueriesPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdBrandProtectionTotalQueriesResponse.parseAsync(data),
+            responseValidator: async (data) => await zGetAccountsAccountIdBrandProtectionTotalQueriesResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/brand-protection/total-queries',
             ...options,

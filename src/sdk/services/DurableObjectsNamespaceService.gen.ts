@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DurableObjectsNamespaceListNamespacesErrors, DurableObjectsNamespaceListNamespacesResponses, DurableObjectsNamespaceListObjectsErrors, DurableObjectsNamespaceListObjectsResponses, WorkersIdentifier, WorkersSchemasId } from '../types.gen';
@@ -20,7 +20,7 @@ export class DurableObjectsNamespaceService {
         account_id: WorkersIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DurableObjectsNamespaceListNamespacesResponses, DurableObjectsNamespaceListNamespacesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -54,7 +54,7 @@ export class DurableObjectsNamespaceService {
         id: WorkersSchemasId;
         limit?: number;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DurableObjectsNamespaceListObjectsResponses, DurableObjectsNamespaceListObjectsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'id' },

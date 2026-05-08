@@ -4,6 +4,7 @@
 
 import * as z from 'zod';
 
+import type { RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { UserBillingProfileDeprecatedBillingProfileDetailsErrors, UserBillingProfileDeprecatedBillingProfileDetailsResponses } from '../types.gen';
@@ -17,7 +18,7 @@ export class UserBillingProfileService {
      *
      * @deprecated
      */
-    public static userBillingProfileDeprecatedBillingProfileDetails<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static userBillingProfileDeprecatedBillingProfileDetails<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<UserBillingProfileDeprecatedBillingProfileDetailsResponses, UserBillingProfileDeprecatedBillingProfileDetailsErrors, ThrowOnError> {
         return (options?.client ?? client).get<UserBillingProfileDeprecatedBillingProfileDetailsResponses, UserBillingProfileDeprecatedBillingProfileDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { PagesDeploymentCreateDeploymentErrors, PagesDeploymentCreateDeploymentResponses, PagesDeploymentDeleteDeploymentErrors, PagesDeploymentDeleteDeploymentResponses, PagesDeploymentGetDeploymentInfoErrors, PagesDeploymentGetDeploymentInfoResponses, PagesDeploymentGetDeploymentLogsErrors, PagesDeploymentGetDeploymentLogsResponses, PagesDeploymentGetDeploymentsErrors, PagesDeploymentGetDeploymentsResponses, PagesDeploymentRetryDeploymentErrors, PagesDeploymentRetryDeploymentResponses, PagesDeploymentRollbackDeploymentErrors, PagesDeploymentRollbackDeploymentResponses, PagesIdentifier, PagesProjectName } from '../types.gen';
-import { zPagesDeploymentCreateDeploymentBody, zPagesDeploymentCreateDeploymentPath, zPagesDeploymentCreateDeploymentResponse, zPagesDeploymentDeleteDeploymentPath, zPagesDeploymentDeleteDeploymentQuery, zPagesDeploymentDeleteDeploymentResponse, zPagesDeploymentGetDeploymentInfoPath, zPagesDeploymentGetDeploymentInfoResponse, zPagesDeploymentGetDeploymentLogsPath, zPagesDeploymentGetDeploymentLogsResponse, zPagesDeploymentGetDeploymentsPath, zPagesDeploymentGetDeploymentsQuery, zPagesDeploymentGetDeploymentsResponse, zPagesDeploymentRetryDeploymentPath, zPagesDeploymentRetryDeploymentResponse, zPagesDeploymentRollbackDeploymentPath, zPagesDeploymentRollbackDeploymentResponse } from '../zod.gen';
+import type { PagesDeploymentCreateDeploymentErrors, PagesDeploymentCreateDeploymentResponses, PagesDeploymentCreateTailErrors, PagesDeploymentCreateTailResponses, PagesDeploymentDeleteDeploymentErrors, PagesDeploymentDeleteDeploymentResponses, PagesDeploymentDeleteTailErrors, PagesDeploymentDeleteTailResponses, PagesDeploymentGetDeploymentInfoErrors, PagesDeploymentGetDeploymentInfoResponses, PagesDeploymentGetDeploymentLogsErrors, PagesDeploymentGetDeploymentLogsResponses, PagesDeploymentGetDeploymentsErrors, PagesDeploymentGetDeploymentsResponses, PagesDeploymentRetryDeploymentErrors, PagesDeploymentRetryDeploymentResponses, PagesDeploymentRollbackDeploymentErrors, PagesDeploymentRollbackDeploymentResponses, PagesIdentifier, PagesProjectName } from '../types.gen';
+import { zPagesDeploymentCreateDeploymentBody, zPagesDeploymentCreateDeploymentPath, zPagesDeploymentCreateDeploymentResponse, zPagesDeploymentCreateTailBody, zPagesDeploymentCreateTailPath, zPagesDeploymentCreateTailResponse, zPagesDeploymentDeleteDeploymentPath, zPagesDeploymentDeleteDeploymentQuery, zPagesDeploymentDeleteDeploymentResponse, zPagesDeploymentDeleteTailPath, zPagesDeploymentDeleteTailResponse, zPagesDeploymentGetDeploymentInfoPath, zPagesDeploymentGetDeploymentInfoResponse, zPagesDeploymentGetDeploymentLogsPath, zPagesDeploymentGetDeploymentLogsResponse, zPagesDeploymentGetDeploymentsPath, zPagesDeploymentGetDeploymentsQuery, zPagesDeploymentGetDeploymentsResponse, zPagesDeploymentRetryDeploymentPath, zPagesDeploymentRetryDeploymentResponse, zPagesDeploymentRollbackDeploymentPath, zPagesDeploymentRollbackDeploymentResponse } from '../zod.gen';
 
 export class PagesDeploymentService {
     /**
@@ -22,7 +22,7 @@ export class PagesDeploymentService {
         env?: 'production' | 'preview';
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentGetDeploymentsResponses, PagesDeploymentGetDeploymentsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'project_name' },
                     { in: 'path', key: 'account_id' },
@@ -69,7 +69,7 @@ export class PagesDeploymentService {
         manifest?: string;
         pages_build_output_dir?: string;
         wrangler_config_hash?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentCreateDeploymentResponses, PagesDeploymentCreateDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'project_name' },
                     { in: 'path', key: 'account_id' },
@@ -121,7 +121,7 @@ export class PagesDeploymentService {
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
         force?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentDeleteDeploymentResponses, PagesDeploymentDeleteDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'deployment_id' },
                     { in: 'path', key: 'project_name' },
@@ -155,7 +155,7 @@ export class PagesDeploymentService {
         deployment_id: PagesIdentifier;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentGetDeploymentInfoResponses, PagesDeploymentGetDeploymentInfoErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'deployment_id' },
                     { in: 'path', key: 'project_name' },
@@ -188,7 +188,7 @@ export class PagesDeploymentService {
         deployment_id: PagesIdentifier;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentGetDeploymentLogsResponses, PagesDeploymentGetDeploymentLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'deployment_id' },
                     { in: 'path', key: 'project_name' },
@@ -221,7 +221,7 @@ export class PagesDeploymentService {
         deployment_id: PagesIdentifier;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentRetryDeploymentResponses, PagesDeploymentRetryDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'deployment_id' },
                     { in: 'path', key: 'project_name' },
@@ -254,7 +254,7 @@ export class PagesDeploymentService {
         deployment_id: PagesIdentifier;
         project_name: PagesProjectName;
         account_id: PagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentRollbackDeploymentResponses, PagesDeploymentRollbackDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'deployment_id' },
                     { in: 'path', key: 'project_name' },
@@ -273,6 +273,83 @@ export class PagesDeploymentService {
                 { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/rollback',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create deployment tail
+     *
+     * Start a tail that receives logs and exception data.
+     */
+    public static pagesDeploymentCreateTail<ThrowOnError extends boolean = true>(parameters: {
+        deployment_id: PagesIdentifier;
+        project_name: PagesProjectName;
+        account_id: PagesIdentifier;
+        filters?: Array<{
+            [key: string]: unknown;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentCreateTailResponses, PagesDeploymentCreateTailErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'deployment_id' },
+                    { in: 'path', key: 'project_name' },
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'filters' }
+                ] }]);
+        return (options?.client ?? client).post<PagesDeploymentCreateTailResponses, PagesDeploymentCreateTailErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPagesDeploymentCreateTailBody,
+                path: zPagesDeploymentCreateTailPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPagesDeploymentCreateTailResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/tails',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete deployment tail
+     *
+     * Deletes a tail from a Pages deployment.
+     */
+    public static pagesDeploymentDeleteTail<ThrowOnError extends boolean = true>(parameters: {
+        tail_id: PagesIdentifier;
+        deployment_id: PagesIdentifier;
+        project_name: PagesProjectName;
+        account_id: PagesIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PagesDeploymentDeleteTailResponses, PagesDeploymentDeleteTailErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'tail_id' },
+                    { in: 'path', key: 'deployment_id' },
+                    { in: 'path', key: 'project_name' },
+                    { in: 'path', key: 'account_id' }
+                ] }]);
+        return (options?.client ?? client).delete<PagesDeploymentDeleteTailResponses, PagesDeploymentDeleteTailErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zPagesDeploymentDeleteTailPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPagesDeploymentDeleteTailResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}/tails/{tail_id}',
             ...options,
             ...params
         });

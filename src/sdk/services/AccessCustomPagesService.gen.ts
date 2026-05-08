@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessCustomPage, AccessCustomPagesCreateACustomPageErrors, AccessCustomPagesCreateACustomPageResponses, AccessCustomPagesDeleteACustomPageErrors, AccessCustomPagesDeleteACustomPageResponses, AccessCustomPagesGetACustomPageErrors, AccessCustomPagesGetACustomPageResponses, AccessCustomPagesListCustomPagesErrors, AccessCustomPagesListCustomPagesResponses, AccessCustomPagesUpdateACustomPageErrors, AccessCustomPagesUpdateACustomPageResponses, AccessIdentifier, AccessUuid } from '../types.gen';
@@ -20,7 +20,7 @@ export class AccessCustomPagesService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessCustomPagesListCustomPagesResponses, AccessCustomPagesListCustomPagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class AccessCustomPagesService {
     public static accessCustomPagesCreateACustomPage<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         accessCustomPage?: AccessCustomPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessCustomPagesCreateACustomPageResponses, AccessCustomPagesCreateACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessCustomPage', map: 'body' }] }]);
         return (options?.client ?? client).post<AccessCustomPagesCreateACustomPageResponses, AccessCustomPagesCreateACustomPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -85,7 +85,7 @@ export class AccessCustomPagesService {
     public static accessCustomPagesDeleteACustomPage<ThrowOnError extends boolean = true>(parameters: {
         custom_page_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessCustomPagesDeleteACustomPageResponses, AccessCustomPagesDeleteACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_page_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessCustomPagesDeleteACustomPageResponses, AccessCustomPagesDeleteACustomPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -113,7 +113,7 @@ export class AccessCustomPagesService {
     public static accessCustomPagesGetACustomPage<ThrowOnError extends boolean = true>(parameters: {
         custom_page_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessCustomPagesGetACustomPageResponses, AccessCustomPagesGetACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'custom_page_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessCustomPagesGetACustomPageResponses, AccessCustomPagesGetACustomPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,7 +142,7 @@ export class AccessCustomPagesService {
         custom_page_id: AccessUuid;
         account_id: AccessIdentifier;
         accessCustomPage?: AccessCustomPage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessCustomPagesUpdateACustomPageResponses, AccessCustomPagesUpdateACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'custom_page_id' },
                     { in: 'path', key: 'account_id' },

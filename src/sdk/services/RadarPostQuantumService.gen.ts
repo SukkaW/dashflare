@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetOriginPostQuantumSummaryErrors, RadarGetOriginPostQuantumSummaryResponses, RadarGetOriginPostQuantumTimeseriesGroupsErrors, RadarGetOriginPostQuantumTimeseriesGroupsResponses, RadarGetPostQuantumTlsSupportErrors, RadarGetPostQuantumTlsSupportResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class RadarPostQuantumService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginPostQuantumSummaryResponses, RadarGetOriginPostQuantumSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -62,7 +62,7 @@ export class RadarPostQuantumService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetOriginPostQuantumTimeseriesGroupsResponses, RadarGetOriginPostQuantumTimeseriesGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -92,11 +92,11 @@ export class RadarPostQuantumService {
     /**
      * Check Post-Quantum TLS support
      *
-     * Tests whether a hostname or IP address supports Post-Quantum (PQ) TLS key exchange. Returns information about the negotiated key exchange algorithm and whether it uses PQ cryptography.
+     * Tests whether a hostname or IP address supports Post-Quantum (PQ) TLS key exchange. Returns information about the negotiated key exchange algorithm, whether it uses PQ cryptography, and any detected TLS implementation bugs (Split ClientHello, HRR failure, etc.).
      */
     public static radarGetPostQuantumTlsSupport<ThrowOnError extends boolean = true>(parameters: {
         host: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetPostQuantumTlsSupportResponses, RadarGetPostQuantumTlsSupportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'host' }] }]);
         return (options?.client ?? client).get<RadarGetPostQuantumTlsSupportResponses, RadarGetPostQuantumTlsSupportErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

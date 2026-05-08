@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsFirewallCreateDnsFirewallClusterErrors, DnsFirewallCreateDnsFirewallClusterResponses, DnsFirewallDeleteDnsFirewallClusterErrors, DnsFirewallDeleteDnsFirewallClusterResponses, DnsFirewallDnsFirewallClusterDetailsErrors, DnsFirewallDnsFirewallClusterDetailsResponses, DnsFirewallDnsFirewallClusterPatch, DnsFirewallDnsFirewallClusterPost, DnsFirewallDnsFirewallReverseDnsPatch, DnsFirewallIdentifier, DnsFirewallListDnsFirewallClustersErrors, DnsFirewallListDnsFirewallClustersResponses, DnsFirewallShowDnsFirewallClusterReverseDnsErrors, DnsFirewallShowDnsFirewallClusterReverseDnsResponses, DnsFirewallUpdateDnsFirewallClusterErrors, DnsFirewallUpdateDnsFirewallClusterResponses, DnsFirewallUpdateDnsFirewallClusterReverseDnsErrors, DnsFirewallUpdateDnsFirewallClusterReverseDnsResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class DnsFirewallService {
         account_id: DnsFirewallIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallListDnsFirewallClustersResponses, DnsFirewallListDnsFirewallClustersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class DnsFirewallService {
     public static dnsFirewallCreateDnsFirewallCluster<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsFirewallIdentifier;
         dnsFirewallDnsFirewallClusterPost: DnsFirewallDnsFirewallClusterPost;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallCreateDnsFirewallClusterResponses, DnsFirewallCreateDnsFirewallClusterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dnsFirewallDnsFirewallClusterPost', map: 'body' }] }]);
         return (options?.client ?? client).post<DnsFirewallCreateDnsFirewallClusterResponses, DnsFirewallCreateDnsFirewallClusterErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -86,7 +86,7 @@ export class DnsFirewallService {
         dns_firewall_id: DnsFirewallIdentifier;
         account_id: DnsFirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallDeleteDnsFirewallClusterResponses, DnsFirewallDeleteDnsFirewallClusterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_firewall_id' },
                     { in: 'path', key: 'account_id' },
@@ -123,7 +123,7 @@ export class DnsFirewallService {
     public static dnsFirewallDnsFirewallClusterDetails<ThrowOnError extends boolean = true>(parameters: {
         dns_firewall_id: DnsFirewallIdentifier;
         account_id: DnsFirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallDnsFirewallClusterDetailsResponses, DnsFirewallDnsFirewallClusterDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dns_firewall_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DnsFirewallDnsFirewallClusterDetailsResponses, DnsFirewallDnsFirewallClusterDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,7 +152,7 @@ export class DnsFirewallService {
         dns_firewall_id: DnsFirewallIdentifier;
         account_id: DnsFirewallIdentifier;
         dnsFirewallDnsFirewallClusterPatch: DnsFirewallDnsFirewallClusterPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallUpdateDnsFirewallClusterResponses, DnsFirewallUpdateDnsFirewallClusterErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_firewall_id' },
                     { in: 'path', key: 'account_id' },
@@ -189,7 +189,7 @@ export class DnsFirewallService {
     public static dnsFirewallShowDnsFirewallClusterReverseDns<ThrowOnError extends boolean = true>(parameters: {
         dns_firewall_id: DnsFirewallIdentifier;
         account_id: DnsFirewallIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallShowDnsFirewallClusterReverseDnsResponses, DnsFirewallShowDnsFirewallClusterReverseDnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dns_firewall_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DnsFirewallShowDnsFirewallClusterReverseDnsResponses, DnsFirewallShowDnsFirewallClusterReverseDnsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -218,7 +218,7 @@ export class DnsFirewallService {
         dns_firewall_id: DnsFirewallIdentifier;
         account_id: DnsFirewallIdentifier;
         dnsFirewallDnsFirewallReverseDnsPatch: DnsFirewallDnsFirewallReverseDnsPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallUpdateDnsFirewallClusterReverseDnsResponses, DnsFirewallUpdateDnsFirewallClusterReverseDnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_firewall_id' },
                     { in: 'path', key: 'account_id' },

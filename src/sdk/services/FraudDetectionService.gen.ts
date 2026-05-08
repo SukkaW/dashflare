@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FraudDetectionZoneGetSettingsErrors, FraudDetectionZoneGetSettingsResponses, FraudDetectionZoneUpdateSettingsErrors, FraudDetectionZoneUpdateSettingsResponses, FraudFraudSettings, FraudIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class FraudDetectionService {
      */
     public static fraudDetectionZoneGetSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FraudIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FraudDetectionZoneGetSettingsResponses, FraudDetectionZoneGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<FraudDetectionZoneGetSettingsResponses, FraudDetectionZoneGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -51,7 +51,7 @@ export class FraudDetectionService {
     public static fraudDetectionZoneUpdateSettings<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FraudIdentifier;
         fraudFraudSettings: FraudFraudSettings;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FraudDetectionZoneUpdateSettingsResponses, FraudDetectionZoneUpdateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'fraudFraudSettings', map: 'body' }] }]);
         return (options?.client ?? client).put<FraudDetectionZoneUpdateSettingsResponses, FraudDetectionZoneUpdateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessSchemasIdentifierWritable, AccessSeatsDefinition, ZeroTrustSeatsUpdateAuserSeatErrors, ZeroTrustSeatsUpdateAuserSeatResponses } from '../types.gen';
+import type { AccessIdentifier2Writable, AccessSeatsDefinition, ZeroTrustSeatsUpdateAuserSeatErrors, ZeroTrustSeatsUpdateAuserSeatResponses } from '../types.gen';
 import { zZeroTrustSeatsUpdateAuserSeatBody, zZeroTrustSeatsUpdateAuserSeatPath, zZeroTrustSeatsUpdateAuserSeatResponse } from '../zod.gen';
 
 export class ZeroTrustSeatsService {
@@ -17,9 +17,9 @@ export class ZeroTrustSeatsService {
      * Removes a user from a Zero Trust seat when both `access_seat` and `gateway_seat` are set to false.
      */
     public static zeroTrustSeatsUpdateAUserSeat<ThrowOnError extends boolean = true>(parameters: {
-        account_id: AccessSchemasIdentifierWritable;
+        account_id: AccessIdentifier2Writable;
         accessSeatsDefinition: AccessSeatsDefinition;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustSeatsUpdateAuserSeatResponses, ZeroTrustSeatsUpdateAuserSeatErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'accessSeatsDefinition', map: 'body' }] }]);
         return (options?.client ?? client).patch<ZeroTrustSeatsUpdateAuserSeatResponses, ZeroTrustSeatsUpdateAuserSeatErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

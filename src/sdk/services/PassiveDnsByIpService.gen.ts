@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IntelIdentifier, IntelStartEndParams, PassiveDnsByIpGetPassiveDnsByIpErrors, PassiveDnsByIpGetPassiveDnsByIpResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class PassiveDnsByIpService {
         ipv4?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PassiveDnsByIpGetPassiveDnsByIpResponses, PassiveDnsByIpGetPassiveDnsByIpErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'start_end_params' },

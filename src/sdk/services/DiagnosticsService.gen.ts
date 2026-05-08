@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DiagnosticsTracerouteErrors, DiagnosticsTracerouteResponses, MagicTransitColos, MagicTransitIdentifier, MagicTransitOptions, MagicTransitTargets } from '../types.gen';
@@ -21,7 +21,7 @@ export class DiagnosticsService {
         colos?: MagicTransitColos;
         options?: MagicTransitOptions;
         targets: MagicTransitTargets;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DiagnosticsTracerouteResponses, DiagnosticsTracerouteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'colos' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { LoadBalancerMonitorsCreateMonitorErrors, LoadBalancerMonitorsCreateMonitorResponses, LoadBalancerMonitorsDeleteMonitorErrors, LoadBalancerMonitorsDeleteMonitorResponses, LoadBalancerMonitorsListMonitorReferencesErrors, LoadBalancerMonitorsListMonitorReferencesResponses, LoadBalancerMonitorsListMonitorsErrors, LoadBalancerMonitorsListMonitorsResponses, LoadBalancerMonitorsMonitorDetailsErrors, LoadBalancerMonitorsMonitorDetailsResponses, LoadBalancerMonitorsPatchMonitorErrors, LoadBalancerMonitorsPatchMonitorResponses, LoadBalancerMonitorsPreviewMonitorErrors, LoadBalancerMonitorsPreviewMonitorResponses, LoadBalancerMonitorsPreviewResultErrors, LoadBalancerMonitorsPreviewResultResponses, LoadBalancerMonitorsUpdateMonitorErrors, LoadBalancerMonitorsUpdateMonitorResponses, LoadBalancingIdentifier, LoadBalancingMonitorEditable, LoadBalancingPreviewId } from '../types.gen';
@@ -16,7 +16,7 @@ export class LoadBalancerMonitorsService {
      *
      * List configured monitors for a user.
      */
-    public static loadBalancerMonitorsListMonitors<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>) {
+    public static loadBalancerMonitorsListMonitors<ThrowOnError extends boolean = true>(options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsListMonitorsResponses, LoadBalancerMonitorsListMonitorsErrors, ThrowOnError> {
         return (options?.client ?? client).get<LoadBalancerMonitorsListMonitorsResponses, LoadBalancerMonitorsListMonitorsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
@@ -41,7 +41,7 @@ export class LoadBalancerMonitorsService {
      */
     public static loadBalancerMonitorsCreateMonitor<ThrowOnError extends boolean = true>(parameters: {
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsCreateMonitorResponses, LoadBalancerMonitorsCreateMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).post<LoadBalancerMonitorsCreateMonitorResponses, LoadBalancerMonitorsCreateMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -74,7 +74,7 @@ export class LoadBalancerMonitorsService {
     public static loadBalancerMonitorsDeleteMonitor<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsDeleteMonitorResponses, LoadBalancerMonitorsDeleteMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<LoadBalancerMonitorsDeleteMonitorResponses, LoadBalancerMonitorsDeleteMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class LoadBalancerMonitorsService {
      */
     public static loadBalancerMonitorsMonitorDetails<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsMonitorDetailsResponses, LoadBalancerMonitorsMonitorDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerMonitorsMonitorDetailsResponses, LoadBalancerMonitorsMonitorDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -134,7 +134,7 @@ export class LoadBalancerMonitorsService {
     public static loadBalancerMonitorsPatchMonitor<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsPatchMonitorResponses, LoadBalancerMonitorsPatchMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).patch<LoadBalancerMonitorsPatchMonitorResponses, LoadBalancerMonitorsPatchMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -167,7 +167,7 @@ export class LoadBalancerMonitorsService {
     public static loadBalancerMonitorsUpdateMonitor<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsUpdateMonitorResponses, LoadBalancerMonitorsUpdateMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).put<LoadBalancerMonitorsUpdateMonitorResponses, LoadBalancerMonitorsUpdateMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -200,7 +200,7 @@ export class LoadBalancerMonitorsService {
     public static loadBalancerMonitorsPreviewMonitor<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
         loadBalancingMonitorEditable: LoadBalancingMonitorEditable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsPreviewMonitorResponses, LoadBalancerMonitorsPreviewMonitorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }, { key: 'loadBalancingMonitorEditable', map: 'body' }] }]);
         return (options?.client ?? client).post<LoadBalancerMonitorsPreviewMonitorResponses, LoadBalancerMonitorsPreviewMonitorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -232,7 +232,7 @@ export class LoadBalancerMonitorsService {
      */
     public static loadBalancerMonitorsListMonitorReferences<ThrowOnError extends boolean = true>(parameters: {
         monitor_id: LoadBalancingIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsListMonitorReferencesResponses, LoadBalancerMonitorsListMonitorReferencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'monitor_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerMonitorsListMonitorReferencesResponses, LoadBalancerMonitorsListMonitorReferencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -259,7 +259,7 @@ export class LoadBalancerMonitorsService {
      */
     public static loadBalancerMonitorsPreviewResult<ThrowOnError extends boolean = true>(parameters: {
         preview_id: LoadBalancingPreviewId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<LoadBalancerMonitorsPreviewResultResponses, LoadBalancerMonitorsPreviewResultErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'preview_id' }] }]);
         return (options?.client ?? client).get<LoadBalancerMonitorsPreviewResultResponses, LoadBalancerMonitorsPreviewResultErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

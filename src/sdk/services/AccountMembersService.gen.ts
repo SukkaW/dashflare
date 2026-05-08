@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountMembersAddMemberErrors, AccountMembersAddMemberResponses, AccountMembersListMembersErrors, AccountMembersListMembersResponses, AccountMembersMemberDetailsErrors, AccountMembersMemberDetailsResponses, AccountMembersRemoveMemberErrors, AccountMembersRemoveMemberResponses, AccountMembersUpdateMemberErrors, AccountMembersUpdateMemberResponses, IamAccountIdentifierWritable, IamCreateMemberWithPoliciesWritable, IamCreateMemberWithRoles, IamMembershipComponentsSchemasIdentifier, IamUpdateMemberWithPoliciesWritable, IamUpdateMemberWithRolesWritable } from '../types.gen';
@@ -23,7 +23,7 @@ export class AccountMembersService {
         page?: number;
         per_page?: number;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountMembersListMembersResponses, AccountMembersListMembersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'order' },
@@ -54,7 +54,7 @@ export class AccountMembersService {
     public static accountMembersAddMember<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         body: IamCreateMemberWithRoles | IamCreateMemberWithPoliciesWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountMembersAddMemberResponses, AccountMembersAddMemberErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountMembersAddMemberResponses, AccountMembersAddMemberErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -84,7 +84,7 @@ export class AccountMembersService {
         member_id: IamMembershipComponentsSchemasIdentifier;
         account_id: IamAccountIdentifierWritable;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountMembersRemoveMemberResponses, AccountMembersRemoveMemberErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'member_id' },
                     { in: 'path', key: 'account_id' },
@@ -117,7 +117,7 @@ export class AccountMembersService {
     public static accountMembersMemberDetails<ThrowOnError extends boolean = true>(parameters: {
         member_id: IamMembershipComponentsSchemasIdentifier;
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountMembersMemberDetailsResponses, AccountMembersMemberDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'member_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountMembersMemberDetailsResponses, AccountMembersMemberDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -142,7 +142,7 @@ export class AccountMembersService {
         member_id: IamMembershipComponentsSchemasIdentifier;
         account_id: IamAccountIdentifierWritable;
         body: IamUpdateMemberWithRolesWritable | IamUpdateMemberWithPoliciesWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountMembersUpdateMemberResponses, AccountMembersUpdateMemberErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'member_id' },
                     { in: 'path', key: 'account_id' },

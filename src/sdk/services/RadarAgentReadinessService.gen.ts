@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetAgentReadinessSummaryErrors, RadarGetAgentReadinessSummaryResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class RadarAgentReadinessService {
         domainCategory?: Array<string>;
         name?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetAgentReadinessSummaryResponses, RadarGetAgentReadinessSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'date' },

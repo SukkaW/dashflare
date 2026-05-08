@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpEntriesCreateIntegrationEntryErrors, DlpEntriesCreateIntegrationEntryResponses, DlpEntriesDeleteIntegrationEntryErrors, DlpEntriesDeleteIntegrationEntryResponses, DlpEntriesUpdateIntegrationEntryErrors, DlpEntriesUpdateIntegrationEntryResponses, DlpNewPredefinedEntry, DlpPredefinedEntryUpdate } from '../types.gen';
@@ -20,7 +20,7 @@ export class DlpIntegrationEntriesService {
     public static dlpEntriesCreateIntegrationEntry<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpNewPredefinedEntry: DlpNewPredefinedEntry;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEntriesCreateIntegrationEntryResponses, DlpEntriesCreateIntegrationEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpNewPredefinedEntry', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpEntriesCreateIntegrationEntryResponses, DlpEntriesCreateIntegrationEntryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -53,7 +53,7 @@ export class DlpIntegrationEntriesService {
     public static dlpEntriesDeleteIntegrationEntry<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         entry_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEntriesDeleteIntegrationEntryResponses, DlpEntriesDeleteIntegrationEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'entry_id' }] }]);
         return (options?.client ?? client).delete<DlpEntriesDeleteIntegrationEntryResponses, DlpEntriesDeleteIntegrationEntryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -82,7 +82,7 @@ export class DlpIntegrationEntriesService {
         account_id: string;
         entry_id: string;
         dlpPredefinedEntryUpdate: DlpPredefinedEntryUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEntriesUpdateIntegrationEntryResponses, DlpEntriesUpdateIntegrationEntryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'entry_id' },

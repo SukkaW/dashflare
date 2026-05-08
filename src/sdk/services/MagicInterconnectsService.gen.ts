@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicIdentifier, MagicInterconnectsListInterconnectDetailsErrors, MagicInterconnectsListInterconnectDetailsResponses, MagicInterconnectsListInterconnectsErrors, MagicInterconnectsListInterconnectsResponses, MagicInterconnectsUpdateInterconnectErrors, MagicInterconnectsUpdateInterconnectResponses, MagicInterconnectsUpdateMultipleInterconnectsErrors, MagicInterconnectsUpdateMultipleInterconnectsResponses, MagicInterconnectTunnelUpdateRequestWritable } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicInterconnectsService {
     public static magicInterconnectsListInterconnects<ThrowOnError extends boolean = true>(parameters: {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicInterconnectsListInterconnectsResponses, MagicInterconnectsListInterconnectsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'headers', key: 'x-magic-new-hc-target' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<MagicInterconnectsListInterconnectsResponses, MagicInterconnectsListInterconnectsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class MagicInterconnectsService {
         'x-magic-new-hc-target'?: boolean;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicInterconnectsUpdateMultipleInterconnectsResponses, MagicInterconnectsUpdateMultipleInterconnectsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'account_id' },
@@ -88,7 +88,7 @@ export class MagicInterconnectsService {
         'x-magic-new-hc-target'?: boolean;
         cf_interconnect_id: MagicIdentifier;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicInterconnectsListInterconnectDetailsResponses, MagicInterconnectsListInterconnectDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'cf_interconnect_id' },
@@ -123,7 +123,7 @@ export class MagicInterconnectsService {
         cf_interconnect_id: MagicIdentifier;
         account_id: MagicIdentifier;
         magicInterconnectTunnelUpdateRequestWritable: MagicInterconnectTunnelUpdateRequestWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicInterconnectsUpdateInterconnectResponses, MagicInterconnectsUpdateInterconnectErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'cf_interconnect_id' },

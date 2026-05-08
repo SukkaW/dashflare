@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DigitalExperienceMonitoringAccountIdentifier, ListWarpChangeEventsErrors, ListWarpChangeEventsResponses } from '../types.gen';
@@ -27,7 +27,7 @@ export class WarpChangeEventsService {
         config_name?: string;
         account_name?: string;
         sort_order?: 'ASC' | 'DESC';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListWarpChangeEventsResponses, ListWarpChangeEventsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },

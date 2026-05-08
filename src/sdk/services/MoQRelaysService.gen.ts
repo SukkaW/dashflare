@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeleteAccountsByAccountIdMoqRelaysByRelayIdErrors, DeleteAccountsByAccountIdMoqRelaysByRelayIdResponses, GetAccountsByAccountIdMoqRelaysByRelayIdErrors, GetAccountsByAccountIdMoqRelaysByRelayIdResponses, GetAccountsByAccountIdMoqRelaysErrors, GetAccountsByAccountIdMoqRelaysResponses, MoqAccountIdentifier, MoqRelayConfig, PostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateErrors, PostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateResponses, PostAccountsByAccountIdMoqRelaysErrors, PostAccountsByAccountIdMoqRelaysResponses, PutAccountsByAccountIdMoqRelaysByRelayIdErrors, PutAccountsByAccountIdMoqRelaysByRelayIdResponses } from '../types.gen';
-import { zDeleteAccountsByAccountIdMoqRelaysByRelayIdPath, zDeleteAccountsByAccountIdMoqRelaysByRelayIdResponse, zGetAccountsByAccountIdMoqRelaysByRelayIdPath, zGetAccountsByAccountIdMoqRelaysByRelayIdResponse, zGetAccountsByAccountIdMoqRelaysPath, zGetAccountsByAccountIdMoqRelaysResponse, zPostAccountsByAccountIdMoqRelaysBody, zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateBody, zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotatePath, zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateResponse, zPostAccountsByAccountIdMoqRelaysPath, zPostAccountsByAccountIdMoqRelaysResponse, zPutAccountsByAccountIdMoqRelaysByRelayIdBody, zPutAccountsByAccountIdMoqRelaysByRelayIdPath, zPutAccountsByAccountIdMoqRelaysByRelayIdResponse } from '../zod.gen';
+import type { MoqAccountIdentifier, MoqRelayConfig, MoqRelaysCreateErrors, MoqRelaysCreateResponses, MoqRelaysDeleteErrors, MoqRelaysDeleteResponses, MoqRelaysGetErrors, MoqRelaysGetResponses, MoqRelaysListErrors, MoqRelaysListResponses, MoqRelaysTokensCreateErrors, MoqRelaysTokensCreateResponses, MoqRelaysTokensDeleteErrors, MoqRelaysTokensDeleteResponses, MoqRelaysTokensListErrors, MoqRelaysTokensListResponses, MoqRelaysUpdateErrors, MoqRelaysUpdateResponses } from '../types.gen';
+import { zMoqRelaysCreateBody, zMoqRelaysCreatePath, zMoqRelaysCreateResponse, zMoqRelaysDeletePath, zMoqRelaysDeleteResponse, zMoqRelaysGetPath, zMoqRelaysGetResponse, zMoqRelaysListPath, zMoqRelaysListQuery, zMoqRelaysListResponse, zMoqRelaysTokensCreateBody, zMoqRelaysTokensCreatePath, zMoqRelaysTokensCreateResponse, zMoqRelaysTokensDeletePath, zMoqRelaysTokensDeleteResponse, zMoqRelaysTokensListPath, zMoqRelaysTokensListResponse, zMoqRelaysUpdateBody, zMoqRelaysUpdatePath, zMoqRelaysUpdateResponse } from '../zod.gen';
 
 export class MoQRelaysService {
     /**
@@ -17,18 +17,33 @@ export class MoQRelaysService {
      * Lists all MoQ relays for the account. Returns only metadata.
      * Config, status, and tokens are omitted.
      *
+     * Results are cursor-paginated (keyset on the `created` timestamp).
+     * Use `created_before` / `created_after` with the `created` value of the
+     * first/last item in a page to fetch the adjacent page. `result_info`
+     * reports the page `count` and the `total` matching the cursor filters.
+     *
      */
-    public static getAccountsByAccountIdMoqRelays<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdMoqRelaysResponses, GetAccountsByAccountIdMoqRelaysErrors, ThrowOnError>({
+        created_before?: string;
+        created_after?: string;
+        per_page?: number;
+        asc?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysListResponses, MoqRelaysListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'created_before' },
+                    { in: 'query', key: 'created_after' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'asc' }
+                ] }]);
+        return (options?.client ?? client).get<MoqRelaysListResponses, MoqRelaysListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdMoqRelaysPath,
-                query: z.never().optional()
+                path: zMoqRelaysListPath,
+                query: zMoqRelaysListQuery.optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdMoqRelaysResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysListResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/moq/relays',
             ...options,
@@ -41,22 +56,24 @@ export class MoQRelaysService {
      *
      * Provisions a new MoQ relay instance. Auto-creates a publish+subscribe
      * token and a subscribe-only token. Token values are included in the
-     * response (shown once). Config is set to defaults (lingering subscribe
-     * enabled, 30s ceiling, origin fallback off). Use PUT to modify.
+     * response (shown once). Config is always set to defaults (upstreams
+     * off) and cannot be supplied here — sending a non-empty `config` is
+     * rejected (21014); `null` or `{}` is accepted as absent. Use PUT to
+     * configure the relay after it exists.
      *
      */
-    public static postAccountsByAccountIdMoqRelays<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
         name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysCreateResponses, MoqRelaysCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'name' }] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdMoqRelaysResponses, PostAccountsByAccountIdMoqRelaysErrors, ThrowOnError>({
+        return (options?.client ?? client).post<MoqRelaysCreateResponses, MoqRelaysCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdMoqRelaysBody,
-                path: zPostAccountsByAccountIdMoqRelaysPath,
+                body: zMoqRelaysCreateBody,
+                path: zMoqRelaysCreatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdMoqRelaysResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysCreateResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/moq/relays',
             ...options,
@@ -72,20 +89,23 @@ export class MoQRelaysService {
     /**
      * Delete a relay
      *
-     * Soft-deletes a MoQ relay.
+     * Soft-deletes a MoQ relay. The relay ID goes in the URL path —
+     * `DELETE /accounts/{account_id}/moq/relays/{relay_id}` — not the
+     * request body; there is no collection-level delete endpoint.
+     *
      */
-    public static deleteAccountsByAccountIdMoqRelaysByRelayId<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysDelete<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
         relay_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysDeleteResponses, MoqRelaysDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'relay_id' }] }]);
-        return (options?.client ?? client).delete<DeleteAccountsByAccountIdMoqRelaysByRelayIdResponses, DeleteAccountsByAccountIdMoqRelaysByRelayIdErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<MoqRelaysDeleteResponses, MoqRelaysDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteAccountsByAccountIdMoqRelaysByRelayIdPath,
+                path: zMoqRelaysDeletePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteAccountsByAccountIdMoqRelaysByRelayIdResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysDeleteResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/moq/relays/{relay_id}',
             ...options,
@@ -100,18 +120,18 @@ export class MoQRelaysService {
      * Tokens are NOT included.
      *
      */
-    public static getAccountsByAccountIdMoqRelaysByRelayId<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
         relay_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysGetResponses, MoqRelaysGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'relay_id' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdMoqRelaysByRelayIdResponses, GetAccountsByAccountIdMoqRelaysByRelayIdErrors, ThrowOnError>({
+        return (options?.client ?? client).get<MoqRelaysGetResponses, MoqRelaysGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdMoqRelaysByRelayIdPath,
+                path: zMoqRelaysGetPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdMoqRelaysByRelayIdResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysGetResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/moq/relays/{relay_id}',
             ...options,
@@ -122,31 +142,33 @@ export class MoQRelaysService {
     /**
      * Update a relay
      *
-     * Updates a relay's name and/or configuration. Partial updates:
-     * omitted fields are preserved. Config sub-objects replace as
-     * whole objects when present. origin_fallback and lingering_subscribe
-     * are mutually exclusive.
+     * Updates a relay's name and/or configuration. The relay ID goes in
+     * the URL path — `PUT /accounts/{account_id}/moq/relays/{relay_id}` —
+     * not the request body; there is no collection-level update endpoint.
+     * This is also the only way to set a relay's config (config cannot be
+     * set at create time). Partial updates: omitted fields are preserved;
+     * config sub-objects replace as whole objects when present.
      *
      */
-    public static putAccountsByAccountIdMoqRelaysByRelayId<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysUpdate<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
         relay_id: string;
         config?: MoqRelayConfig;
         name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysUpdateResponses, MoqRelaysUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'relay_id' },
                     { in: 'body', key: 'config' },
                     { in: 'body', key: 'name' }
                 ] }]);
-        return (options?.client ?? client).put<PutAccountsByAccountIdMoqRelaysByRelayIdResponses, PutAccountsByAccountIdMoqRelaysByRelayIdErrors, ThrowOnError>({
+        return (options?.client ?? client).put<MoqRelaysUpdateResponses, MoqRelaysUpdateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPutAccountsByAccountIdMoqRelaysByRelayIdBody,
-                path: zPutAccountsByAccountIdMoqRelaysByRelayIdPath,
+                body: zMoqRelaysUpdateBody,
+                path: zMoqRelaysUpdatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPutAccountsByAccountIdMoqRelaysByRelayIdResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysUpdateResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/moq/relays/{relay_id}',
             ...options,
@@ -160,31 +182,63 @@ export class MoQRelaysService {
     }
     
     /**
-     * Rotate a token
+     * List tokens
      *
-     * Generates a new token for the specified type. The old token is
-     * immediately invalidated. Token value is shown once in the response.
+     * Returns metadata for every token in the relay's registry. Secrets are
+     * never returned. The dashboard derives an `expired` flag by comparing
+     * each token's `expires` to the current time.
      *
      */
-    public static postAccountsByAccountIdMoqRelaysByRelayIdTokensRotate<ThrowOnError extends boolean = true>(parameters: {
+    public static moqRelaysTokensList<ThrowOnError extends boolean = true>(parameters: {
         account_id: MoqAccountIdentifier;
         relay_id: string;
-        type: 'publish_subscribe' | 'subscribe';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysTokensListResponses, MoqRelaysTokensListErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'relay_id' }] }]);
+        return (options?.client ?? client).get<MoqRelaysTokensListResponses, MoqRelaysTokensListErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zMoqRelaysTokensListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysTokensListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/moq/relays/{relay_id}/tokens',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create a token
+     *
+     * Mints a new relay-scoped token and adds it to the relay's accepted-auth
+     * registry. The token value (secret) is shown once in the response. A relay
+     * may hold up to 10 tokens; creating an 11th is rejected.
+     *
+     */
+    public static moqRelaysTokensCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MoqAccountIdentifier;
+        relay_id: string;
+        expires?: string;
+        label?: string;
+        operations: Array<'publish' | 'subscribe'>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysTokensCreateResponses, MoqRelaysTokensCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'relay_id' },
-                    { in: 'body', key: 'type' }
+                    { in: 'body', key: 'expires' },
+                    { in: 'body', key: 'label' },
+                    { in: 'body', key: 'operations' }
                 ] }]);
-        return (options?.client ?? client).post<PostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateResponses, PostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateErrors, ThrowOnError>({
+        return (options?.client ?? client).post<MoqRelaysTokensCreateResponses, MoqRelaysTokensCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
-                body: zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateBody,
-                path: zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotatePath,
+                body: zMoqRelaysTokensCreateBody,
+                path: zMoqRelaysTokensCreatePath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zPostAccountsByAccountIdMoqRelaysByRelayIdTokensRotateResponse.parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysTokensCreateResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
-            url: '/accounts/{account_id}/moq/relays/{relay_id}/tokens/rotate',
+            url: '/accounts/{account_id}/moq/relays/{relay_id}/tokens',
             ...options,
             ...params,
             headers: {
@@ -192,6 +246,38 @@ export class MoQRelaysService {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * Revoke a token
+     *
+     * Revokes a token by removing it from the relay's registry. crique rejects
+     * the token within the cache TTL. Idempotent — revoking an unknown token
+     * succeeds.
+     *
+     */
+    public static moqRelaysTokensDelete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: MoqAccountIdentifier;
+        relay_id: string;
+        jti: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<MoqRelaysTokensDeleteResponses, MoqRelaysTokensDeleteErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'relay_id' },
+                    { in: 'path', key: 'jti' }
+                ] }]);
+        return (options?.client ?? client).delete<MoqRelaysTokensDeleteResponses, MoqRelaysTokensDeleteErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zMoqRelaysTokensDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zMoqRelaysTokensDeleteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/moq/relays/{relay_id}/tokens/{jti}',
+            ...options,
+            ...params
         });
     }
 }

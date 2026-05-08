@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountsLogsExplorerDatasetsAvailableListErrors, AccountsLogsExplorerDatasetsAvailableListResponses, AccountsLogsExplorerDatasetsCreateErrors, AccountsLogsExplorerDatasetsCreateResponses, AccountsLogsExplorerDatasetsGetErrors, AccountsLogsExplorerDatasetsGetResponses, AccountsLogsExplorerDatasetsListErrors, AccountsLogsExplorerDatasetsListResponses, AccountsLogsExplorerDatasetsUpdateErrors, AccountsLogsExplorerDatasetsUpdateResponses, LexCreateDatasetRequest, LexUpdateDatasetRequest, ZonesLogsExplorerDatasetsAvailableListErrors, ZonesLogsExplorerDatasetsAvailableListResponses, ZonesLogsExplorerDatasetsCreateErrors, ZonesLogsExplorerDatasetsCreateResponses, ZonesLogsExplorerDatasetsGetErrors, ZonesLogsExplorerDatasetsGetResponses, ZonesLogsExplorerDatasetsListErrors, ZonesLogsExplorerDatasetsListResponses, ZonesLogsExplorerDatasetsUpdateErrors, ZonesLogsExplorerDatasetsUpdateResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class LogExplorerDatasetsService {
     public static accountsLogsExplorerDatasetsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         include_zones?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsLogsExplorerDatasetsListResponses, AccountsLogsExplorerDatasetsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'include_zones' }] }]);
         return (options?.client ?? client).get<AccountsLogsExplorerDatasetsListResponses, AccountsLogsExplorerDatasetsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -45,17 +45,19 @@ export class LogExplorerDatasetsService {
      *
      * Create a new Log Explorer dataset for the account.
      *
-     * Use the `/accounts/{account_id}/logs/explorer/datasets/available` endpoint
-     * to list dataset types you can create along with their available fields.
+     * List available account datasets to see the dataset types and fields you
+     * can use.
      *
      * The `fields` property is optional. If not specified, all available fields
      * will be enabled.
+     *
+     * For dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
      *
      */
     public static accountsLogsExplorerDatasetsCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         lexCreateDatasetRequest: LexCreateDatasetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsLogsExplorerDatasetsCreateResponses, AccountsLogsExplorerDatasetsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'lexCreateDatasetRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountsLogsExplorerDatasetsCreateResponses, AccountsLogsExplorerDatasetsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,7 +92,7 @@ export class LogExplorerDatasetsService {
      */
     public static accountsLogsExplorerDatasetsAvailableList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsLogsExplorerDatasetsAvailableListResponses, AccountsLogsExplorerDatasetsAvailableListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountsLogsExplorerDatasetsAvailableListResponses, AccountsLogsExplorerDatasetsAvailableListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -114,7 +116,7 @@ export class LogExplorerDatasetsService {
     public static accountsLogsExplorerDatasetsGet<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsLogsExplorerDatasetsGetResponses, AccountsLogsExplorerDatasetsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<AccountsLogsExplorerDatasetsGetResponses, AccountsLogsExplorerDatasetsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,7 +141,7 @@ export class LogExplorerDatasetsService {
         account_id: string;
         dataset_id: string;
         lexUpdateDatasetRequest: LexUpdateDatasetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsLogsExplorerDatasetsUpdateResponses, AccountsLogsExplorerDatasetsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'dataset_id' },
@@ -175,7 +177,7 @@ export class LogExplorerDatasetsService {
      */
     public static zonesLogsExplorerDatasetsList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesLogsExplorerDatasetsListResponses, ZonesLogsExplorerDatasetsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZonesLogsExplorerDatasetsListResponses, ZonesLogsExplorerDatasetsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -196,17 +198,19 @@ export class LogExplorerDatasetsService {
      *
      * Create a new Log Explorer dataset for the zone.
      *
-     * Use the `/zones/{zone_id}/logs/explorer/datasets/available` endpoint
-     * to list dataset types you can create along with their available fields.
+     * List available zone datasets to see the dataset types and fields you
+     * can use.
      *
      * The `fields` property is optional. If not specified, all available fields
      * will be enabled.
+     *
+     * For dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
      *
      */
     public static zonesLogsExplorerDatasetsCreate<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         lexCreateDatasetRequest: LexCreateDatasetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesLogsExplorerDatasetsCreateResponses, ZonesLogsExplorerDatasetsCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'lexCreateDatasetRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ZonesLogsExplorerDatasetsCreateResponses, ZonesLogsExplorerDatasetsCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -241,7 +245,7 @@ export class LogExplorerDatasetsService {
      */
     public static zonesLogsExplorerDatasetsAvailableList<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesLogsExplorerDatasetsAvailableListResponses, ZonesLogsExplorerDatasetsAvailableListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZonesLogsExplorerDatasetsAvailableListResponses, ZonesLogsExplorerDatasetsAvailableListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -265,7 +269,7 @@ export class LogExplorerDatasetsService {
     public static zonesLogsExplorerDatasetsGet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;
         dataset_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesLogsExplorerDatasetsGetResponses, ZonesLogsExplorerDatasetsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'dataset_id' }] }]);
         return (options?.client ?? client).get<ZonesLogsExplorerDatasetsGetResponses, ZonesLogsExplorerDatasetsGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -290,7 +294,7 @@ export class LogExplorerDatasetsService {
         zone_id: string;
         dataset_id: string;
         lexUpdateDatasetRequest: LexUpdateDatasetRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZonesLogsExplorerDatasetsUpdateResponses, ZonesLogsExplorerDatasetsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'dataset_id' },

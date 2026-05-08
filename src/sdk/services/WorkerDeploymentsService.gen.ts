@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerDeploymentsCreateDeploymentErrors, WorkerDeploymentsCreateDeploymentResponses, WorkerDeploymentsDeleteDeploymentErrors, WorkerDeploymentsDeleteDeploymentResponses, WorkerDeploymentsGetDeploymentErrors, WorkerDeploymentsGetDeploymentResponses, WorkerDeploymentsListDeploymentsErrors, WorkerDeploymentsListDeploymentsResponses, WorkersDeploymentWritable, WorkersIdentifier, WorkersScriptName } from '../types.gen';
@@ -19,7 +19,7 @@ export class WorkerDeploymentsService {
     public static workerDeploymentsListDeployments<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerDeploymentsListDeploymentsResponses, WorkerDeploymentsListDeploymentsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
         return (options?.client ?? client).get<WorkerDeploymentsListDeploymentsResponses, WorkerDeploymentsListDeploymentsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -49,7 +49,7 @@ export class WorkerDeploymentsService {
         script_name: WorkersScriptName;
         force?: boolean;
         workersDeploymentWritable: WorkersDeploymentWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerDeploymentsCreateDeploymentResponses, WorkerDeploymentsCreateDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -88,7 +88,7 @@ export class WorkerDeploymentsService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         deployment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerDeploymentsDeleteDeploymentResponses, WorkerDeploymentsDeleteDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -121,7 +121,7 @@ export class WorkerDeploymentsService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         deployment_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerDeploymentsGetDeploymentResponses, WorkerDeploymentsGetDeploymentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },

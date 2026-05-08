@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { MagicIdentifier, MagicSitesAddSingleRequest, MagicSitesCreateSiteErrors, MagicSitesCreateSiteResponses, MagicSitesDeleteSiteErrors, MagicSitesDeleteSiteResponses, MagicSitesListSitesErrors, MagicSitesListSitesResponses, MagicSitesPatchSiteErrors, MagicSitesPatchSiteResponses, MagicSitesSiteDetailsErrors, MagicSitesSiteDetailsResponses, MagicSitesUpdateSiteErrors, MagicSitesUpdateSiteResponses, MagicSiteUpdateRequest } from '../types.gen';
@@ -19,7 +19,7 @@ export class MagicSitesService {
     public static magicSitesListSites<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         connectorid?: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesListSitesResponses, MagicSitesListSitesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'connectorid' }] }]);
         return (options?.client ?? client).get<MagicSitesListSitesResponses, MagicSitesListSitesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class MagicSitesService {
     public static magicSitesCreateSite<ThrowOnError extends boolean = true>(parameters: {
         account_id: MagicIdentifier;
         magicSitesAddSingleRequest: MagicSitesAddSingleRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesCreateSiteResponses, MagicSitesCreateSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'magicSitesAddSingleRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<MagicSitesCreateSiteResponses, MagicSitesCreateSiteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class MagicSitesService {
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesDeleteSiteResponses, MagicSitesDeleteSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -119,7 +119,7 @@ export class MagicSitesService {
         'x-magic-new-hc-target'?: boolean;
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesSiteDetailsResponses, MagicSitesSiteDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'x-magic-new-hc-target' },
                     { in: 'path', key: 'site_id' },
@@ -153,7 +153,7 @@ export class MagicSitesService {
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
         magicSiteUpdateRequest: MagicSiteUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesPatchSiteResponses, MagicSitesPatchSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },
@@ -191,7 +191,7 @@ export class MagicSitesService {
         site_id: MagicIdentifier;
         account_id: MagicIdentifier;
         magicSiteUpdateRequest: MagicSiteUpdateRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MagicSitesUpdateSiteResponses, MagicSitesUpdateSiteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'site_id' },
                     { in: 'path', key: 'account_id' },

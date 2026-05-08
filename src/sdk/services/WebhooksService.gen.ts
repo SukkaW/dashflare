@@ -4,13 +4,251 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AddWebhookErrors, AddWebhookResponses, DeleteWebhookErrors, DeleteWebhookResponses, EditWebhookErrors, EditWebhookResponses, GetAllWebhooksErrors, GetAllWebhooksResponses, GetWebhookErrors, GetWebhookResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitPatchWebhookRequest, RealtimekitWebhookRequest, ReplaceWebhookErrors, ReplaceWebhookResponses } from '../types.gen';
-import { zAddWebhookBody, zAddWebhookPath, zAddWebhookResponse, zDeleteWebhookPath, zDeleteWebhookResponse, zEditWebhookBody, zEditWebhookPath, zEditWebhookResponse, zGetAllWebhooksPath, zGetAllWebhooksResponse, zGetWebhookPath, zGetWebhookResponse, zReplaceWebhookBody, zReplaceWebhookPath, zReplaceWebhookResponse } from '../zod.gen';
+import type { AddWebhookErrors, AddWebhookResponses, CreateWebhookErrors, CreateWebhookJobsErrors, CreateWebhookJobsResponses, CreateWebhookResponses, DeleteWebhook2Errors, DeleteWebhook2Responses, DeleteWebhookErrors, DeleteWebhookResponses, EditWebhookErrors, EditWebhookResponses, EvaluateExistingWebhookErrors, EvaluateExistingWebhookResponses, EvaluateNewWebhookErrors, EvaluateNewWebhookResponses, GetAllWebhookEventsResponses, GetAllWebhooksErrors, GetAllWebhooksResponses, GetWebhookConfigByIdErrors, GetWebhookConfigByIdResponses, GetWebhookErrors, GetWebhookResponses, ListWebhooksErrors, ListWebhooksResponses, PostureApiCreateWebhookJobsRequest, PostureApiCreateWebhookRequest, PostureApiEvaluateNewWebhookRequest, PostureApiUpdateWebhookRequest, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitPatchWebhookRequest, RealtimekitWebhookRequest, ReplaceWebhookErrors, ReplaceWebhookResponses, UpdateWebhookErrors, UpdateWebhookResponses } from '../types.gen';
+import { zAddWebhookBody, zAddWebhookPath, zAddWebhookResponse, zCreateWebhookBody, zCreateWebhookJobsBody, zCreateWebhookJobsPath, zCreateWebhookJobsResponse, zCreateWebhookPath, zCreateWebhookResponse, zDeleteWebhook2Path, zDeleteWebhook2Response, zDeleteWebhookPath, zDeleteWebhookResponse, zEditWebhookBody, zEditWebhookPath, zEditWebhookResponse, zEvaluateExistingWebhookPath, zEvaluateExistingWebhookResponse, zEvaluateNewWebhookBody, zEvaluateNewWebhookPath, zEvaluateNewWebhookResponse, zGetAllWebhookEventsPath, zGetAllWebhookEventsResponse, zGetAllWebhooksPath, zGetAllWebhooksResponse, zGetWebhookConfigByIdPath, zGetWebhookConfigByIdResponse, zGetWebhookPath, zGetWebhookResponse, zListWebhooksPath, zListWebhooksResponse, zReplaceWebhookBody, zReplaceWebhookPath, zReplaceWebhookResponse, zUpdateWebhookBody, zUpdateWebhookPath, zUpdateWebhookResponse } from '../zod.gen';
 
 export class WebhooksService {
+    /**
+     * List webhook configurations
+     *
+     * Retrieves all webhook configurations for the authenticated account.
+     * Returns an array of webhook configurations that can be used to send finding notifications.
+     */
+    public static listWebhooks<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListWebhooksResponses, ListWebhooksErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<ListWebhooksResponses, ListWebhooksErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zListWebhooksPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zListWebhooksResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create a new webhook configuration
+     *
+     * Creates a new webhook configuration for sending finding notifications to external endpoints.
+     */
+    public static createWebhook<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        postureApiCreateWebhookRequest: PostureApiCreateWebhookRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateWebhookResponses, CreateWebhookErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'postureApiCreateWebhookRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CreateWebhookResponses, CreateWebhookErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateWebhookBody,
+                path: zCreateWebhookPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateWebhookResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Test a webhook configuration before creating it
+     *
+     * Sends a test webhook event to the specified destination URL to verify the webhook endpoint
+     * is reachable and properly configured. This allows customers to validate their webhook
+     * configuration before creating the actual webhook resource.
+     *
+     * The test payload includes:
+     * - event_type: "webhook.test"
+     * - timestamp: Current UTC timestamp
+     * - message: Test message indicating this is from Cloudflare CASB
+     * - data: Object with test: true
+     *
+     */
+    public static evaluateNewWebhook<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        postureApiEvaluateNewWebhookRequest: PostureApiEvaluateNewWebhookRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EvaluateNewWebhookResponses, EvaluateNewWebhookErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'postureApiEvaluateNewWebhookRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<EvaluateNewWebhookResponses, EvaluateNewWebhookErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEvaluateNewWebhookBody,
+                path: zEvaluateNewWebhookPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEvaluateNewWebhookResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/evaluate',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Create webhook jobs
+     *
+     * Creates webhook jobs to send a finding instance to one or more configured webhooks.
+     */
+    public static createWebhookJobs<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        postureApiCreateWebhookJobsRequest: PostureApiCreateWebhookJobsRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreateWebhookJobsResponses, CreateWebhookJobsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'postureApiCreateWebhookJobsRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CreateWebhookJobsResponses, CreateWebhookJobsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCreateWebhookJobsBody,
+                path: zCreateWebhookJobsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCreateWebhookJobsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/jobs',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete a webhook configuration
+     *
+     * Soft deletes a webhook configuration by its unique identifier.
+     * The webhook will be marked as deleted and will no longer be available for use.
+     */
+    public static deleteWebhook<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        webhook_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWebhookResponses, DeleteWebhookErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'webhook_id' }] }]);
+        return (options?.client ?? client).delete<DeleteWebhookResponses, DeleteWebhookErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteWebhookPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteWebhookResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get webhook configuration by ID
+     *
+     * Retrieves a specific webhook configuration by its unique identifier.
+     */
+    public static getWebhookConfigById<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        webhook_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWebhookConfigByIdResponses, GetWebhookConfigByIdErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'webhook_id' }] }]);
+        return (options?.client ?? client).get<GetWebhookConfigByIdResponses, GetWebhookConfigByIdErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetWebhookConfigByIdPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetWebhookConfigByIdResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update an existing webhook configuration
+     *
+     * Updates an existing webhook configuration with new settings.
+     */
+    public static updateWebhook<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        webhook_id: string;
+        postureApiUpdateWebhookRequest: PostureApiUpdateWebhookRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateWebhookResponses, UpdateWebhookErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'webhook_id' },
+                    { key: 'postureApiUpdateWebhookRequest', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<UpdateWebhookResponses, UpdateWebhookErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zUpdateWebhookBody,
+                path: zUpdateWebhookPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zUpdateWebhookResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Test an existing webhook configuration
+     *
+     * Sends a test webhook event using an existing webhook configuration.
+     * This allows customers to verify their webhook endpoint is still reachable and properly
+     * configured after creating the webhook resource.
+     *
+     * The test payload includes:
+     * - event_type: "webhook.test"
+     * - timestamp: Current UTC timestamp
+     * - message: Test message indicating this is from Cloudflare CASB
+     * - data: Object with test: true
+     *
+     */
+    public static evaluateExistingWebhook<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        webhook_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EvaluateExistingWebhookResponses, EvaluateExistingWebhookErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'webhook_id' }] }]);
+        return (options?.client ?? client).post<EvaluateExistingWebhookResponses, EvaluateExistingWebhookErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEvaluateExistingWebhookPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEvaluateExistingWebhookResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/data-security/posture/webhooks/{webhook_id}/evaluate',
+            ...options,
+            ...params
+        });
+    }
+}
+
+export class WebhooksService2 {
     /**
      * Fetch all webhooks details
      *
@@ -19,7 +257,7 @@ export class WebhooksService {
     public static getAllWebhooks<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllWebhooksResponses, GetAllWebhooksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'app_id' }] }]);
         return (options?.client ?? client).get<GetAllWebhooksResponses, GetAllWebhooksErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,7 +282,7 @@ export class WebhooksService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         realtimekitWebhookRequest: RealtimekitWebhookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AddWebhookResponses, AddWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -70,6 +308,30 @@ export class WebhooksService {
     }
     
     /**
+     * Fetch all supported webhook events
+     *
+     * Returns the list of webhook event names supported by RealtimeKit.
+     */
+    public static getAllWebhookEvents<ThrowOnError extends boolean = true>(parameters: {
+        account_id: RealtimekitAccountIdentifier;
+        app_id: RealtimekitAppId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllWebhookEventsResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'app_id' }] }]);
+        return (options?.client ?? client).get<GetAllWebhookEventsResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetAllWebhookEventsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetAllWebhookEventsResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/realtime/kit/{app_id}/webhooks/all',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Delete a webhook
      *
      * Removes a webhook for the given webhook ID.
@@ -78,19 +340,19 @@ export class WebhooksService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         webhook_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteWebhook2Responses, DeleteWebhook2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'webhook_id' }
                 ] }]);
-        return (options?.client ?? client).delete<DeleteWebhookResponses, DeleteWebhookErrors, ThrowOnError>({
+        return (options?.client ?? client).delete<DeleteWebhook2Responses, DeleteWebhook2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zDeleteWebhookPath,
+                path: zDeleteWebhook2Path,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zDeleteWebhookResponse.parseAsync(data),
+            responseValidator: async (data) => await zDeleteWebhook2Response.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}',
             ...options,
@@ -107,7 +369,7 @@ export class WebhooksService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         webhook_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetWebhookResponses, GetWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -137,7 +399,7 @@ export class WebhooksService {
         app_id: RealtimekitAppId;
         webhook_id: string;
         realtimekitPatchWebhookRequest: RealtimekitPatchWebhookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EditWebhookResponses, EditWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -173,7 +435,7 @@ export class WebhooksService {
         app_id: RealtimekitAppId;
         webhook_id: string;
         realtimekitWebhookRequest: RealtimekitWebhookRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ReplaceWebhookResponses, ReplaceWebhookErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

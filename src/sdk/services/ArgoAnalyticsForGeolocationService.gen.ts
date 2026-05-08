@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsErrors, ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsResponses, ArgoAnalyticsIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class ArgoAnalyticsForGeolocationService {
      */
     public static argoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPs<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ArgoAnalyticsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsResponses, ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsResponses, ArgoAnalyticsForGeolocationArgoAnalyticsForAZoneAtDifferentPoPsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

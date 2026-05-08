@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomIndicatorFeedsAddPermissionErrors, CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsCreateFeed, CustomIndicatorFeedsCreateIndicatorFeedsErrors, CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsFeedId, CustomIndicatorFeedsGetIndicatorFeedDataErrors, CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsIdentifier, CustomIndicatorFeedsPermissionsRequest, CustomIndicatorFeedsRemovePermissionErrors, CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsUpdateIndicatorFeedDataErrors, CustomIndicatorFeedsUpdateIndicatorFeedDataResponses, CustomIndicatorFeedsUpdateIndicatorFeedMetadataErrors, CustomIndicatorFeedsUpdateIndicatorFeedMetadataResponses, CustomIndicatorFeedsUpdatePublicFieldRequest, CustomIndicatorFeedsViewPermissionsErrors, CustomIndicatorFeedsViewPermissionsResponses } from '../types.gen';
-import { zCustomIndicatorFeedsAddPermissionBody, zCustomIndicatorFeedsAddPermissionPath, zCustomIndicatorFeedsAddPermissionResponse, zCustomIndicatorFeedsCreateIndicatorFeedsBody, zCustomIndicatorFeedsCreateIndicatorFeedsPath, zCustomIndicatorFeedsCreateIndicatorFeedsResponse, zCustomIndicatorFeedsDownloadIndicatorFeedDataPath, zCustomIndicatorFeedsDownloadIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedDataPath, zCustomIndicatorFeedsGetIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedMetadataPath, zCustomIndicatorFeedsGetIndicatorFeedMetadataResponse, zCustomIndicatorFeedsGetIndicatorFeedsPath, zCustomIndicatorFeedsGetIndicatorFeedsResponse, zCustomIndicatorFeedsRemovePermissionBody, zCustomIndicatorFeedsRemovePermissionPath, zCustomIndicatorFeedsRemovePermissionResponse, zCustomIndicatorFeedsUpdateIndicatorFeedDataBody, zCustomIndicatorFeedsUpdateIndicatorFeedDataPath, zCustomIndicatorFeedsUpdateIndicatorFeedDataResponse, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataBody, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataPath, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataResponse, zCustomIndicatorFeedsViewPermissionsPath, zCustomIndicatorFeedsViewPermissionsResponse } from '../zod.gen';
+import type { CustomIndicatorFeedsAddPermissionErrors, CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsCreateFeed, CustomIndicatorFeedsCreateIndicatorFeedsErrors, CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsCreateProviderErrors, CustomIndicatorFeedsCreateProviderRequest, CustomIndicatorFeedsCreateProviderResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsFeedId, CustomIndicatorFeedsGetIndicatorFeedDataErrors, CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsIdentifier, CustomIndicatorFeedsPermissionsRequest, CustomIndicatorFeedsRemovePermissionErrors, CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsUpdateIndicatorFeedDataErrors, CustomIndicatorFeedsUpdateIndicatorFeedDataResponses, CustomIndicatorFeedsUpdateIndicatorFeedMetadataErrors, CustomIndicatorFeedsUpdateIndicatorFeedMetadataResponses, CustomIndicatorFeedsUpdatePublicFieldRequest, CustomIndicatorFeedsViewPermissionsErrors, CustomIndicatorFeedsViewPermissionsResponses } from '../types.gen';
+import { zCustomIndicatorFeedsAddPermissionBody, zCustomIndicatorFeedsAddPermissionPath, zCustomIndicatorFeedsAddPermissionResponse, zCustomIndicatorFeedsCreateIndicatorFeedsBody, zCustomIndicatorFeedsCreateIndicatorFeedsPath, zCustomIndicatorFeedsCreateIndicatorFeedsResponse, zCustomIndicatorFeedsCreateProviderBody, zCustomIndicatorFeedsCreateProviderPath, zCustomIndicatorFeedsCreateProviderResponse2, zCustomIndicatorFeedsDownloadIndicatorFeedDataPath, zCustomIndicatorFeedsDownloadIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedDataPath, zCustomIndicatorFeedsGetIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedMetadataPath, zCustomIndicatorFeedsGetIndicatorFeedMetadataResponse, zCustomIndicatorFeedsGetIndicatorFeedsPath, zCustomIndicatorFeedsGetIndicatorFeedsResponse, zCustomIndicatorFeedsRemovePermissionBody, zCustomIndicatorFeedsRemovePermissionPath, zCustomIndicatorFeedsRemovePermissionResponse, zCustomIndicatorFeedsUpdateIndicatorFeedDataBody, zCustomIndicatorFeedsUpdateIndicatorFeedDataPath, zCustomIndicatorFeedsUpdateIndicatorFeedDataResponse, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataBody, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataPath, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataResponse, zCustomIndicatorFeedsViewPermissionsPath, zCustomIndicatorFeedsViewPermissionsResponse } from '../zod.gen';
 
 export class CustomIndicatorFeedsService {
     /**
@@ -18,7 +18,7 @@ export class CustomIndicatorFeedsService {
      */
     public static customIndicatorFeedsGetIndicatorFeeds<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsCreateIndicatorFeeds<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         customIndicatorFeedsCreateFeed: CustomIndicatorFeedsCreateFeed;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsCreateIndicatorFeedsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'customIndicatorFeedsCreateFeed', map: 'body' }] }]);
         return (options?.client ?? client).post<CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsCreateIndicatorFeedsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsAddPermission<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         customIndicatorFeedsPermissionsRequest: CustomIndicatorFeedsPermissionsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsAddPermissionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'customIndicatorFeedsPermissionsRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsAddPermissionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,6 +93,35 @@ export class CustomIndicatorFeedsService {
     }
     
     /**
+     * Create indicator feed provider
+     *
+     * Creates a new indicator feed provider for an account. Only available to Intel accounts.
+     */
+    public static customIndicatorFeedsCreateProvider<ThrowOnError extends boolean = true>(parameters: {
+        account_id: CustomIndicatorFeedsIdentifier;
+        customIndicatorFeedsCreateProviderRequest: CustomIndicatorFeedsCreateProviderRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsCreateProviderResponses, CustomIndicatorFeedsCreateProviderErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'customIndicatorFeedsCreateProviderRequest', map: 'body' }] }]);
+        return (options?.client ?? client).put<CustomIndicatorFeedsCreateProviderResponses, CustomIndicatorFeedsCreateProviderErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCustomIndicatorFeedsCreateProviderBody,
+                path: zCustomIndicatorFeedsCreateProviderPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCustomIndicatorFeedsCreateProviderResponse2.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/indicator-feeds/permissions/createProvider',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Revoke permission to indicator feed
      *
      * Revokes access permissions for a custom threat indicator feed.
@@ -100,7 +129,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsRemovePermission<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         customIndicatorFeedsPermissionsRequest: CustomIndicatorFeedsPermissionsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsRemovePermissionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'customIndicatorFeedsPermissionsRequest', map: 'body' }] }]);
         return (options?.client ?? client).put<CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsRemovePermissionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -128,7 +157,7 @@ export class CustomIndicatorFeedsService {
      */
     public static customIndicatorFeedsViewPermissions<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsViewPermissionsResponses, CustomIndicatorFeedsViewPermissionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CustomIndicatorFeedsViewPermissionsResponses, CustomIndicatorFeedsViewPermissionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,7 +181,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsGetIndicatorFeedMetadata<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         feed_id: CustomIndicatorFeedsFeedId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'feed_id' }] }]);
         return (options?.client ?? client).get<CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -177,7 +206,7 @@ export class CustomIndicatorFeedsService {
         account_id: CustomIndicatorFeedsIdentifier;
         feed_id: CustomIndicatorFeedsFeedId;
         customIndicatorFeedsUpdatePublicFieldRequest: CustomIndicatorFeedsUpdatePublicFieldRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsUpdateIndicatorFeedMetadataResponses, CustomIndicatorFeedsUpdateIndicatorFeedMetadataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'feed_id' },
@@ -210,7 +239,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsGetIndicatorFeedData<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         feed_id: CustomIndicatorFeedsFeedId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedDataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'feed_id' }] }]);
         return (options?.client ?? client).get<CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedDataErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -234,7 +263,7 @@ export class CustomIndicatorFeedsService {
     public static customIndicatorFeedsDownloadIndicatorFeedData<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         feed_id: CustomIndicatorFeedsFeedId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'feed_id' }] }]);
         return (options?.client ?? client).get<CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -254,12 +283,22 @@ export class CustomIndicatorFeedsService {
      * Update indicator feed data
      *
      * Revises the raw data entries in a custom threat indicator feed.
+     *
+     * Accepts both plain and gzipped STIX2/CRDF bodies. Gzip is
+     * detected by RFC 1952 magic bytes (`0x1f 0x8b`) and/or a `.gz`
+     * filename suffix (case-insensitive) — either signal alone is
+     * sufficient to trigger the gzip path; if the body is not valid
+     * gzip, the upload fails fast. Customers are encouraged to gzip
+     * larger uploads — the api-gateway 500 MB body cap applies to
+     * the on-the-wire (compressed) size, so gzip lets a single
+     * upload carry several GiB of decompressed STIX.
+     *
      */
     public static customIndicatorFeedsUpdateIndicatorFeedData<ThrowOnError extends boolean = true>(parameters: {
         account_id: CustomIndicatorFeedsIdentifier;
         feed_id: CustomIndicatorFeedsFeedId;
         source?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomIndicatorFeedsUpdateIndicatorFeedDataResponses, CustomIndicatorFeedsUpdateIndicatorFeedDataErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'feed_id' },

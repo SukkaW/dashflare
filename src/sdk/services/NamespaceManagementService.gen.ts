@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ListNamespacesErrors, ListNamespacesResponses, R2DataCatalogAccountId, R2DataCatalogBucketName } from '../types.gen';
@@ -27,7 +27,7 @@ export class NamespaceManagementService {
         parent?: string;
         return_uuids?: boolean;
         return_details?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListNamespacesResponses, ListNamespacesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },

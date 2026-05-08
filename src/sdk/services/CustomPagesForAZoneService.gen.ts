@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomPagesErrorPageType, CustomPagesForAZoneGetACustomPageErrors, CustomPagesForAZoneGetACustomPageResponses, CustomPagesForAZoneListCustomPagesErrors, CustomPagesForAZoneListCustomPagesResponses, CustomPagesForAZoneUpdateACustomPageErrors, CustomPagesForAZoneUpdateACustomPageResponses, CustomPagesIdentifier, CustomPagesState, CustomPagesUrl } from '../types.gen';
-import { zCustomPagesForAZoneGetACustomPagePath, zCustomPagesForAZoneGetACustomPageResponse, zCustomPagesForAZoneListCustomPagesPath, zCustomPagesForAZoneListCustomPagesResponse, zCustomPagesForAZoneUpdateACustomPageBody, zCustomPagesForAZoneUpdateACustomPagePath, zCustomPagesForAZoneUpdateACustomPageResponse } from '../zod.gen';
+import type { CustomPagesErrorPageType, CustomPagesForAZoneCreatePreviewTokenErrors, CustomPagesForAZoneCreatePreviewTokenResponses, CustomPagesForAZoneGetACustomPageErrors, CustomPagesForAZoneGetACustomPageResponses, CustomPagesForAZoneListCustomPagesErrors, CustomPagesForAZoneListCustomPagesResponses, CustomPagesForAZoneUpdateACustomPageErrors, CustomPagesForAZoneUpdateACustomPageResponses, CustomPagesIdentifier, CustomPagesPreviewRequest, CustomPagesState, CustomPagesUrl } from '../types.gen';
+import { zCustomPagesForAZoneCreatePreviewTokenBody, zCustomPagesForAZoneCreatePreviewTokenPath, zCustomPagesForAZoneCreatePreviewTokenResponse, zCustomPagesForAZoneGetACustomPagePath, zCustomPagesForAZoneGetACustomPageResponse, zCustomPagesForAZoneListCustomPagesPath, zCustomPagesForAZoneListCustomPagesResponse, zCustomPagesForAZoneUpdateACustomPageBody, zCustomPagesForAZoneUpdateACustomPagePath, zCustomPagesForAZoneUpdateACustomPageResponse } from '../zod.gen';
 
 export class CustomPagesForAZoneService {
     /**
@@ -18,7 +18,7 @@ export class CustomPagesForAZoneService {
      */
     public static customPagesForAZoneListCustomPages<ThrowOnError extends boolean = true>(parameters: {
         zone_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAZoneListCustomPagesResponses, CustomPagesForAZoneListCustomPagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_identifier' }] }]);
         return (options?.client ?? client).get<CustomPagesForAZoneListCustomPagesResponses, CustomPagesForAZoneListCustomPagesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -35,6 +35,35 @@ export class CustomPagesForAZoneService {
     }
     
     /**
+     * Create a preview token
+     *
+     * Creates a signed JWT token used to preview custom pages before they are published. The API gateway rewrites zone-scoped requests to the account-level service endpoint.
+     */
+    public static customPagesForAZoneCreatePreviewToken<ThrowOnError extends boolean = true>(parameters: {
+        zone_identifier: CustomPagesIdentifier;
+        customPagesPreviewRequest: CustomPagesPreviewRequest;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAZoneCreatePreviewTokenResponses, CustomPagesForAZoneCreatePreviewTokenErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_identifier' }, { key: 'customPagesPreviewRequest', map: 'body' }] }]);
+        return (options?.client ?? client).post<CustomPagesForAZoneCreatePreviewTokenResponses, CustomPagesForAZoneCreatePreviewTokenErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCustomPagesForAZoneCreatePreviewTokenBody,
+                path: zCustomPagesForAZoneCreatePreviewTokenPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCustomPagesForAZoneCreatePreviewTokenResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/zones/{zone_identifier}/custom_pages/preview_tokens',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Get a custom page
      *
      * Fetches the details of a custom page.
@@ -42,7 +71,7 @@ export class CustomPagesForAZoneService {
     public static customPagesForAZoneGetACustomPage<ThrowOnError extends boolean = true>(parameters: {
         identifier: CustomPagesErrorPageType;
         zone_identifier: CustomPagesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAZoneGetACustomPageResponses, CustomPagesForAZoneGetACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identifier' }, { in: 'path', key: 'zone_identifier' }] }]);
         return (options?.client ?? client).get<CustomPagesForAZoneGetACustomPageResponses, CustomPagesForAZoneGetACustomPageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -68,7 +97,7 @@ export class CustomPagesForAZoneService {
         zone_identifier: CustomPagesIdentifier;
         state: CustomPagesState;
         url: CustomPagesUrl;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CustomPagesForAZoneUpdateACustomPageResponses, CustomPagesForAZoneUpdateACustomPageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identifier' },
                     { in: 'path', key: 'zone_identifier' },

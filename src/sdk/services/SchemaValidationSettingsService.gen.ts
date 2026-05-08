@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldGlobalSettingsEdit, ApiShieldGlobalSettingsUpdate, ApiShieldPerOperationSettingsBulkEdit, ApiShieldPerOperationSettingUpdate, ApiShieldSchemasIdentifier, ApiShieldUuid, SchemaValidationBulkEditPerOperationSettingsErrors, SchemaValidationBulkEditPerOperationSettingsResponses, SchemaValidationDeletePerOperationSettingErrors, SchemaValidationDeletePerOperationSettingResponses, SchemaValidationEditSettingsErrors, SchemaValidationEditSettingsResponses, SchemaValidationGetPerOperationSettingErrors, SchemaValidationGetPerOperationSettingResponses, SchemaValidationGetSettingsErrors, SchemaValidationGetSettingsResponses, SchemaValidationListPerOperationSettingsErrors, SchemaValidationListPerOperationSettingsResponses, SchemaValidationUpdatePerOperationSettingErrors, SchemaValidationUpdatePerOperationSettingResponses, SchemaValidationUpdateSettingsErrors, SchemaValidationUpdateSettingsResponses } from '../types.gen';
+import type { ApiShieldGlobalSettingsEdit, ApiShieldGlobalSettingsUpdate, ApiShieldIdentifier2, ApiShieldPerOperationSettingsBulkEdit, ApiShieldPerOperationSettingUpdate, ApiShieldUuid, SchemaValidationBulkEditPerOperationSettingsErrors, SchemaValidationBulkEditPerOperationSettingsResponses, SchemaValidationDeletePerOperationSettingErrors, SchemaValidationDeletePerOperationSettingResponses, SchemaValidationEditSettingsErrors, SchemaValidationEditSettingsResponses, SchemaValidationGetPerOperationSettingErrors, SchemaValidationGetPerOperationSettingResponses, SchemaValidationGetSettingsErrors, SchemaValidationGetSettingsResponses, SchemaValidationListPerOperationSettingsErrors, SchemaValidationListPerOperationSettingsResponses, SchemaValidationUpdatePerOperationSettingErrors, SchemaValidationUpdatePerOperationSettingResponses, SchemaValidationUpdateSettingsErrors, SchemaValidationUpdateSettingsResponses } from '../types.gen';
 import { zSchemaValidationBulkEditPerOperationSettingsBody, zSchemaValidationBulkEditPerOperationSettingsPath, zSchemaValidationBulkEditPerOperationSettingsResponse, zSchemaValidationDeletePerOperationSettingPath, zSchemaValidationDeletePerOperationSettingResponse, zSchemaValidationEditSettingsBody, zSchemaValidationEditSettingsPath, zSchemaValidationEditSettingsResponse, zSchemaValidationGetPerOperationSettingPath, zSchemaValidationGetPerOperationSettingResponse, zSchemaValidationGetSettingsPath, zSchemaValidationGetSettingsResponse, zSchemaValidationListPerOperationSettingsPath, zSchemaValidationListPerOperationSettingsQuery, zSchemaValidationListPerOperationSettingsResponse, zSchemaValidationUpdatePerOperationSettingBody, zSchemaValidationUpdatePerOperationSettingPath, zSchemaValidationUpdatePerOperationSettingResponse, zSchemaValidationUpdateSettingsBody, zSchemaValidationUpdateSettingsPath, zSchemaValidationUpdateSettingsResponse } from '../zod.gen';
 
 export class SchemaValidationSettingsService {
@@ -17,8 +17,8 @@ export class SchemaValidationSettingsService {
      * Retrieves the current global schema validation settings for a zone.
      */
     public static schemaValidationGetSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationGetSettingsResponses, SchemaValidationGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<SchemaValidationGetSettingsResponses, SchemaValidationGetSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,9 +44,9 @@ export class SchemaValidationSettingsService {
      * Partially updates global schema validation settings for a zone using PATCH semantics.
      */
     public static schemaValidationEditSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldGlobalSettingsEdit: ApiShieldGlobalSettingsEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationEditSettingsResponses, SchemaValidationEditSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldGlobalSettingsEdit', map: 'body' }] }]);
         return (options?.client ?? client).patch<SchemaValidationEditSettingsResponses, SchemaValidationEditSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,9 +77,9 @@ export class SchemaValidationSettingsService {
      * Fully updates global schema validation settings for a zone, replacing existing configuration.
      */
     public static schemaValidationUpdateSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldGlobalSettingsUpdate: ApiShieldGlobalSettingsUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationUpdateSettingsResponses, SchemaValidationUpdateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldGlobalSettingsUpdate', map: 'body' }] }]);
         return (options?.client ?? client).put<SchemaValidationUpdateSettingsResponses, SchemaValidationUpdateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -110,10 +110,10 @@ export class SchemaValidationSettingsService {
      * Lists all per-operation schema validation settings configured for the zone.
      */
     public static schemaValidationListPerOperationSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationListPerOperationSettingsResponses, SchemaValidationListPerOperationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -143,9 +143,9 @@ export class SchemaValidationSettingsService {
      * Updates schema validation settings for multiple API operations in a single request. Efficient for applying consistent validation rules across endpoints.
      */
     public static schemaValidationBulkEditPerOperationSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldPerOperationSettingsBulkEdit: ApiShieldPerOperationSettingsBulkEdit;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationBulkEditPerOperationSettingsResponses, SchemaValidationBulkEditPerOperationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldPerOperationSettingsBulkEdit', map: 'body' }] }]);
         return (options?.client ?? client).patch<SchemaValidationBulkEditPerOperationSettingsResponses, SchemaValidationBulkEditPerOperationSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -176,9 +176,9 @@ export class SchemaValidationSettingsService {
      * Removes custom schema validation settings for a specific API operation, reverting to zone-level defaults.
      */
     public static schemaValidationDeletePerOperationSetting<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationDeletePerOperationSettingResponses, SchemaValidationDeletePerOperationSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'operation_id' }] }]);
         return (options?.client ?? client).delete<SchemaValidationDeletePerOperationSettingResponses, SchemaValidationDeletePerOperationSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -204,9 +204,9 @@ export class SchemaValidationSettingsService {
      * Retrieves the schema validation settings configured for a specific API operation.
      */
     public static schemaValidationGetPerOperationSetting<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationGetPerOperationSettingResponses, SchemaValidationGetPerOperationSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'operation_id' }] }]);
         return (options?.client ?? client).get<SchemaValidationGetPerOperationSettingResponses, SchemaValidationGetPerOperationSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -232,10 +232,10 @@ export class SchemaValidationSettingsService {
      * Fully updates schema validation settings for a specific API operation.
      */
     public static schemaValidationUpdatePerOperationSetting<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         apiShieldPerOperationSettingUpdate: ApiShieldPerOperationSettingUpdate;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SchemaValidationUpdatePerOperationSettingResponses, SchemaValidationUpdatePerOperationSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },

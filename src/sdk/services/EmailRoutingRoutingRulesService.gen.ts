@@ -4,13 +4,73 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailCreateRuleProperties, EmailIdentifier, EmailRoutingRoutingRulesCreateRoutingRuleErrors, EmailRoutingRoutingRulesCreateRoutingRuleResponses, EmailRoutingRoutingRulesDeleteRoutingRuleResponses, EmailRoutingRoutingRulesGetCatchAllRuleResponses, EmailRoutingRoutingRulesGetRoutingRuleResponses, EmailRoutingRoutingRulesListRoutingRulesResponses, EmailRoutingRoutingRulesUpdateCatchAllRuleErrors, EmailRoutingRoutingRulesUpdateCatchAllRuleResponses, EmailRoutingRoutingRulesUpdateRoutingRuleErrors, EmailRoutingRoutingRulesUpdateRoutingRuleResponses, EmailRuleIdentifier, EmailUpdateCatchAllRuleProperties, EmailUpdateRuleProperties } from '../types.gen';
-import { zEmailRoutingRoutingRulesCreateRoutingRuleBody, zEmailRoutingRoutingRulesCreateRoutingRulePath, zEmailRoutingRoutingRulesCreateRoutingRuleResponse, zEmailRoutingRoutingRulesDeleteRoutingRulePath, zEmailRoutingRoutingRulesDeleteRoutingRuleResponse, zEmailRoutingRoutingRulesGetCatchAllRulePath, zEmailRoutingRoutingRulesGetCatchAllRuleResponse, zEmailRoutingRoutingRulesGetRoutingRulePath, zEmailRoutingRoutingRulesGetRoutingRuleResponse, zEmailRoutingRoutingRulesListRoutingRulesPath, zEmailRoutingRoutingRulesListRoutingRulesQuery, zEmailRoutingRoutingRulesListRoutingRulesResponse, zEmailRoutingRoutingRulesUpdateCatchAllRuleBody, zEmailRoutingRoutingRulesUpdateCatchAllRulePath, zEmailRoutingRoutingRulesUpdateCatchAllRuleResponse, zEmailRoutingRoutingRulesUpdateRoutingRuleBody, zEmailRoutingRoutingRulesUpdateRoutingRulePath, zEmailRoutingRoutingRulesUpdateRoutingRuleResponse } from '../zod.gen';
+import type { EmailAccountRulesPlanRequestWritable, EmailCreateRulePropertiesWritable, EmailIdentifier, EmailRoutingRoutingRulesCreateRoutingRuleErrors, EmailRoutingRoutingRulesCreateRoutingRuleResponses, EmailRoutingRoutingRulesDeleteRoutingRuleResponses, EmailRoutingRoutingRulesGetCatchAllRuleResponses, EmailRoutingRoutingRulesGetRoutingRuleResponses, EmailRoutingRoutingRulesListAccountRoutingRulesResponses, EmailRoutingRoutingRulesListRoutingRulesResponses, EmailRoutingRoutingRulesPlanAccountRoutingRulesErrors, EmailRoutingRoutingRulesPlanAccountRoutingRulesResponses, EmailRoutingRoutingRulesUpdateCatchAllRuleErrors, EmailRoutingRoutingRulesUpdateCatchAllRuleResponses, EmailRoutingRoutingRulesUpdateRoutingRuleErrors, EmailRoutingRoutingRulesUpdateRoutingRuleResponses, EmailRuleIdentifier, EmailUpdateCatchAllRulePropertiesWritable, EmailUpdateRulePropertiesWritable } from '../types.gen';
+import { zEmailRoutingRoutingRulesCreateRoutingRuleBody, zEmailRoutingRoutingRulesCreateRoutingRulePath, zEmailRoutingRoutingRulesCreateRoutingRuleResponse, zEmailRoutingRoutingRulesDeleteRoutingRulePath, zEmailRoutingRoutingRulesDeleteRoutingRuleResponse, zEmailRoutingRoutingRulesGetCatchAllRulePath, zEmailRoutingRoutingRulesGetCatchAllRuleResponse, zEmailRoutingRoutingRulesGetRoutingRulePath, zEmailRoutingRoutingRulesGetRoutingRuleResponse, zEmailRoutingRoutingRulesListAccountRoutingRulesPath, zEmailRoutingRoutingRulesListAccountRoutingRulesQuery, zEmailRoutingRoutingRulesListAccountRoutingRulesResponse, zEmailRoutingRoutingRulesListRoutingRulesPath, zEmailRoutingRoutingRulesListRoutingRulesQuery, zEmailRoutingRoutingRulesListRoutingRulesResponse, zEmailRoutingRoutingRulesPlanAccountRoutingRulesBody, zEmailRoutingRoutingRulesPlanAccountRoutingRulesPath, zEmailRoutingRoutingRulesPlanAccountRoutingRulesResponse, zEmailRoutingRoutingRulesUpdateCatchAllRuleBody, zEmailRoutingRoutingRulesUpdateCatchAllRulePath, zEmailRoutingRoutingRulesUpdateCatchAllRuleResponse, zEmailRoutingRoutingRulesUpdateRoutingRuleBody, zEmailRoutingRoutingRulesUpdateRoutingRulePath, zEmailRoutingRoutingRulesUpdateRoutingRuleResponse } from '../zod.gen';
 
 export class EmailRoutingRoutingRulesService {
+    /**
+     * List account routing rules
+     *
+     * Lists existing routing rules across all zones in the account.
+     */
+    public static emailRoutingRoutingRulesListAccountRoutingRules<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailIdentifier;
+        page?: number;
+        per_page?: number;
+        enabled?: true | false;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesListAccountRoutingRulesResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'page' },
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'enabled' }
+                ] }]);
+        return (options?.client ?? client).get<EmailRoutingRoutingRulesListAccountRoutingRulesResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailRoutingRoutingRulesListAccountRoutingRulesPath,
+                query: zEmailRoutingRoutingRulesListAccountRoutingRulesQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingRoutingRulesListAccountRoutingRulesResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/email/routing/rules',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Plan account routing rule changes
+     *
+     * Computes the Email Routing rule changes that would be needed to reconcile a Wrangler-managed desired ruleset. This endpoint is read-only and does not create, update, or delete rules.
+     */
+    public static emailRoutingRoutingRulesPlanAccountRoutingRules<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailIdentifier;
+        emailAccountRulesPlanRequestWritable: EmailAccountRulesPlanRequestWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesPlanAccountRoutingRulesResponses, EmailRoutingRoutingRulesPlanAccountRoutingRulesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailAccountRulesPlanRequestWritable', map: 'body' }] }]);
+        return (options?.client ?? client).post<EmailRoutingRoutingRulesPlanAccountRoutingRulesResponses, EmailRoutingRoutingRulesPlanAccountRoutingRulesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailRoutingRoutingRulesPlanAccountRoutingRulesBody,
+                path: zEmailRoutingRoutingRulesPlanAccountRoutingRulesPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingRoutingRulesPlanAccountRoutingRulesResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/email/routing/rules/plan',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
     /**
      * List routing rules
      *
@@ -21,7 +81,7 @@ export class EmailRoutingRoutingRulesService {
         page?: number;
         per_page?: number;
         enabled?: true | false;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesListRoutingRulesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -45,13 +105,13 @@ export class EmailRoutingRoutingRulesService {
     /**
      * Create routing rule
      *
-     * Rules consist of a set of criteria for matching emails (such as an email being sent to a specific custom email address) plus a set of actions to take on the email (like forwarding it to a specific destination address). Forward actions require all destination addresses to be verified.
+     * Rules consist of a set of criteria for matching emails (such as an email being sent to a specific custom email address) plus a set of actions to take on the email (like forwarding it to a specific destination address). Forward actions require exactly one verified destination address.
      */
     public static emailRoutingRoutingRulesCreateRoutingRule<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
-        emailCreateRuleProperties: EmailCreateRuleProperties;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailCreateRuleProperties', map: 'body' }] }]);
+        emailCreateRulePropertiesWritable: EmailCreateRulePropertiesWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesCreateRoutingRuleResponses, EmailRoutingRoutingRulesCreateRoutingRuleErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailCreateRulePropertiesWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailRoutingRoutingRulesCreateRoutingRuleResponses, EmailRoutingRoutingRulesCreateRoutingRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zEmailRoutingRoutingRulesCreateRoutingRuleBody,
@@ -78,7 +138,7 @@ export class EmailRoutingRoutingRulesService {
      */
     public static emailRoutingRoutingRulesGetCatchAllRule<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesGetCatchAllRuleResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailRoutingRoutingRulesGetCatchAllRuleResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -97,13 +157,13 @@ export class EmailRoutingRoutingRulesService {
     /**
      * Update catch-all rule
      *
-     * Enable or disable catch-all routing rule, or change action to forward to specific destination address. Forward actions require all destination addresses to be verified.
+     * Enable or disable catch-all routing rule, or change action to forward to a specific destination address. Forward actions require exactly one verified destination address.
      */
     public static emailRoutingRoutingRulesUpdateCatchAllRule<ThrowOnError extends boolean = true>(parameters: {
         zone_id: EmailIdentifier;
-        emailUpdateCatchAllRuleProperties: EmailUpdateCatchAllRuleProperties;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailUpdateCatchAllRuleProperties', map: 'body' }] }]);
+        emailUpdateCatchAllRulePropertiesWritable: EmailUpdateCatchAllRulePropertiesWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesUpdateCatchAllRuleResponses, EmailRoutingRoutingRulesUpdateCatchAllRuleErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'emailUpdateCatchAllRulePropertiesWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<EmailRoutingRoutingRulesUpdateCatchAllRuleResponses, EmailRoutingRoutingRulesUpdateCatchAllRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zEmailRoutingRoutingRulesUpdateCatchAllRuleBody,
@@ -131,7 +191,7 @@ export class EmailRoutingRoutingRulesService {
     public static emailRoutingRoutingRulesDeleteRoutingRule<ThrowOnError extends boolean = true>(parameters: {
         rule_identifier: EmailRuleIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesDeleteRoutingRuleResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<EmailRoutingRoutingRulesDeleteRoutingRuleResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -155,7 +215,7 @@ export class EmailRoutingRoutingRulesService {
     public static emailRoutingRoutingRulesGetRoutingRule<ThrowOnError extends boolean = true>(parameters: {
         rule_identifier: EmailRuleIdentifier;
         zone_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesGetRoutingRuleResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_identifier' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<EmailRoutingRoutingRulesGetRoutingRuleResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -174,17 +234,17 @@ export class EmailRoutingRoutingRulesService {
     /**
      * Update routing rule
      *
-     * Update actions and matches, or enable/disable specific routing rules. Forward actions require all destination addresses to be verified.
+     * Update actions and matches, or enable/disable specific routing rules. Forward actions require exactly one verified destination address.
      */
     public static emailRoutingRoutingRulesUpdateRoutingRule<ThrowOnError extends boolean = true>(parameters: {
         rule_identifier: EmailRuleIdentifier;
         zone_id: EmailIdentifier;
-        emailUpdateRuleProperties: EmailUpdateRuleProperties;
-    }, options?: Options<never, ThrowOnError>) {
+        emailUpdateRulePropertiesWritable: EmailUpdateRulePropertiesWritable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingRoutingRulesUpdateRoutingRuleResponses, EmailRoutingRoutingRulesUpdateRoutingRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_identifier' },
                     { in: 'path', key: 'zone_id' },
-                    { key: 'emailUpdateRuleProperties', map: 'body' }
+                    { key: 'emailUpdateRulePropertiesWritable', map: 'body' }
                 ] }]);
         return (options?.client ?? client).put<EmailRoutingRoutingRulesUpdateRoutingRuleResponses, EmailRoutingRoutingRulesUpdateRoutingRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldCreateConfig, ApiShieldEditConfig, ApiShieldSchemasIdentifier, ApiShieldSchemasUuidWritable, ApiShieldUpdateConfigCredentials, TokenValidationConfigCreateErrors, TokenValidationConfigCreateResponses, TokenValidationConfigCredentialsUpdateErrors, TokenValidationConfigCredentialsUpdateResponses, TokenValidationConfigDeleteErrors, TokenValidationConfigDeleteResponses, TokenValidationConfigEditErrors, TokenValidationConfigEditResponses, TokenValidationConfigGetErrors, TokenValidationConfigGetResponses, TokenValidationConfigListErrors, TokenValidationConfigListResponses } from '../types.gen';
-import { zTokenValidationConfigCreateBody, zTokenValidationConfigCreatePath, zTokenValidationConfigCreateResponse, zTokenValidationConfigCredentialsUpdateBody, zTokenValidationConfigCredentialsUpdatePath, zTokenValidationConfigCredentialsUpdateResponse, zTokenValidationConfigDeletePath, zTokenValidationConfigDeleteResponse, zTokenValidationConfigEditBody, zTokenValidationConfigEditPath, zTokenValidationConfigEditResponse, zTokenValidationConfigGetPath, zTokenValidationConfigGetResponse, zTokenValidationConfigListPath, zTokenValidationConfigListQuery, zTokenValidationConfigListResponse } from '../zod.gen';
+import type { ApiShieldCreateConfig, ApiShieldEditConfig, ApiShieldEditConfigCredentials, ApiShieldIdentifier2, ApiShieldUpdateConfigCredentials, ApiShieldUuid2Writable, TokenValidationConfigCreateErrors, TokenValidationConfigCreateResponses, TokenValidationConfigCredentialsEditErrors, TokenValidationConfigCredentialsEditResponses, TokenValidationConfigCredentialsUpdateErrors, TokenValidationConfigCredentialsUpdateResponses, TokenValidationConfigDeleteErrors, TokenValidationConfigDeleteResponses, TokenValidationConfigEditErrors, TokenValidationConfigEditResponses, TokenValidationConfigGetErrors, TokenValidationConfigGetResponses, TokenValidationConfigListErrors, TokenValidationConfigListResponses } from '../types.gen';
+import { zTokenValidationConfigCreateBody, zTokenValidationConfigCreatePath, zTokenValidationConfigCreateResponse, zTokenValidationConfigCredentialsEditBody, zTokenValidationConfigCredentialsEditPath, zTokenValidationConfigCredentialsEditResponse, zTokenValidationConfigCredentialsUpdateBody, zTokenValidationConfigCredentialsUpdatePath, zTokenValidationConfigCredentialsUpdateResponse, zTokenValidationConfigDeletePath, zTokenValidationConfigDeleteResponse, zTokenValidationConfigEditBody, zTokenValidationConfigEditPath, zTokenValidationConfigEditResponse, zTokenValidationConfigGetPath, zTokenValidationConfigGetResponse, zTokenValidationConfigListPath, zTokenValidationConfigListQuery, zTokenValidationConfigListResponse } from '../zod.gen';
 
 export class TokenValidationTokenConfigurationService {
     /**
@@ -17,10 +17,10 @@ export class TokenValidationTokenConfigurationService {
      * Lists all token validation configurations for this zone
      */
     public static tokenValidationConfigList<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigListResponses, TokenValidationConfigListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -50,9 +50,9 @@ export class TokenValidationTokenConfigurationService {
      * Create a new Token Validation configuration
      */
     public static tokenValidationConfigCreate<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldCreateConfig: ApiShieldCreateConfig;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigCreateResponses, TokenValidationConfigCreateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldCreateConfig', map: 'body' }] }]);
         return (options?.client ?? client).post<TokenValidationConfigCreateResponses, TokenValidationConfigCreateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -83,9 +83,9 @@ export class TokenValidationTokenConfigurationService {
      * Delete Token Configuration
      */
     public static tokenValidationConfigDelete<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        config_id: ApiShieldSchemasUuidWritable;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+        config_id: ApiShieldUuid2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigDeleteResponses, TokenValidationConfigDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'config_id' }] }]);
         return (options?.client ?? client).delete<TokenValidationConfigDeleteResponses, TokenValidationConfigDeleteErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -111,9 +111,9 @@ export class TokenValidationTokenConfigurationService {
      * Get a single Token Configuration
      */
     public static tokenValidationConfigGet<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        config_id: ApiShieldSchemasUuidWritable;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ApiShieldIdentifier2;
+        config_id: ApiShieldUuid2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigGetResponses, TokenValidationConfigGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'config_id' }] }]);
         return (options?.client ?? client).get<TokenValidationConfigGetResponses, TokenValidationConfigGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,10 +139,10 @@ export class TokenValidationTokenConfigurationService {
      * Edit fields of an existing Token Configuration
      */
     public static tokenValidationConfigEdit<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        config_id: ApiShieldSchemasUuidWritable;
+        zone_id: ApiShieldIdentifier2;
+        config_id: ApiShieldUuid2Writable;
         apiShieldEditConfig: ApiShieldEditConfig;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigEditResponses, TokenValidationConfigEditErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'config_id' },
@@ -172,15 +172,53 @@ export class TokenValidationTokenConfigurationService {
     }
     
     /**
+     * Edit Token Configuration credentials
+     *
+     * Edit Token Configuration credentials. The provided `keys` array defines the full resulting key set (stored keys omitted from payload are removed). For each provided key identity (`{alg,kid}`), payload fields overwrite the stored key before validation and omitted fields inherit from the stored key. Key identities must be unique within the request. Existing symmetric keys (`kty: "oct"`) preserve stored key material when `k` is omitted; send `k` to rotate. `k: null` is invalid.
+     */
+    public static tokenValidationConfigCredentialsEdit<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: ApiShieldIdentifier2;
+        config_id: ApiShieldUuid2Writable;
+        apiShieldEditConfigCredentials: ApiShieldEditConfigCredentials;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigCredentialsEditResponses, TokenValidationConfigCredentialsEditErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'config_id' },
+                    { key: 'apiShieldEditConfigCredentials', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<TokenValidationConfigCredentialsEditResponses, TokenValidationConfigCredentialsEditErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zTokenValidationConfigCredentialsEditBody,
+                path: zTokenValidationConfigCredentialsEditPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zTokenValidationConfigCredentialsEditResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/zones/{zone_id}/token_validation/config/{config_id}/credentials',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Update Token Configuration credentials
      *
-     * Update Token Configuration credentials
+     * Update Token Configuration credentials with full replacement semantics. Key identities (`{alg,kid}`) must be unique within the request. Symmetric keys (`kty: "oct"`) require `k`; `k: null` is invalid.
      */
     public static tokenValidationConfigCredentialsUpdate<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
-        config_id: ApiShieldSchemasUuidWritable;
+        zone_id: ApiShieldIdentifier2;
+        config_id: ApiShieldUuid2Writable;
         apiShieldUpdateConfigCredentials: ApiShieldUpdateConfigCredentials;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TokenValidationConfigCredentialsUpdateResponses, TokenValidationConfigCredentialsUpdateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'config_id' },

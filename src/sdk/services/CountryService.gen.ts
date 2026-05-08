@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetCountryReadErrors, GetCountryReadResponses } from '../types.gen';
@@ -13,10 +13,12 @@ import { zGetCountryReadPath, zGetCountryReadResponse } from '../zod.gen';
 export class CountryService {
     /**
      * Retrieves countries information for all countries
+     *
+     * Retrieve country code information for all supported countries.
      */
     public static getCountryRead<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetCountryReadResponses, GetCountryReadErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetCountryReadResponses, GetCountryReadErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsAnalyticsDimensions, DnsAnalyticsFilters, DnsAnalyticsIdentifier, DnsAnalyticsLimit, DnsAnalyticsMetrics, DnsAnalyticsSince, DnsAnalyticsSort, DnsAnalyticsTimeDelta, DnsAnalyticsUntil, DnsFirewallAnalyticsByTimeErrors, DnsFirewallAnalyticsByTimeResponses, DnsFirewallAnalyticsTableErrors, DnsFirewallAnalyticsTableResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class DnsFirewallAnalyticsService {
         limit?: DnsAnalyticsLimit;
         sort?: DnsAnalyticsSort;
         filters?: DnsAnalyticsFilters;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallAnalyticsTableResponses, DnsFirewallAnalyticsTableErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_firewall_id' },
                     { in: 'path', key: 'account_id' },
@@ -76,7 +76,7 @@ export class DnsFirewallAnalyticsService {
         sort?: DnsAnalyticsSort;
         filters?: DnsAnalyticsFilters;
         time_delta?: DnsAnalyticsTimeDelta;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsFirewallAnalyticsByTimeResponses, DnsFirewallAnalyticsByTimeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_firewall_id' },
                     { in: 'path', key: 'account_id' },

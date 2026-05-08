@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsEnvironmentVariableKey, BuildsEnvironmentVariablesRequest, BuildsTriggerUuid, DeleteEnvironmentVariableErrors, DeleteEnvironmentVariableResponses, ListEnvironmentVariablesResponses, UpsertEnvironmentVariablesErrors, UpsertEnvironmentVariablesResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class EnvironmentVariablesService {
     public static listEnvironmentVariables<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListEnvironmentVariablesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'trigger_uuid' }] }]);
         return (options?.client ?? client).get<ListEnvironmentVariablesResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -48,7 +48,7 @@ export class EnvironmentVariablesService {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
         buildsEnvironmentVariablesRequest: BuildsEnvironmentVariablesRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpsertEnvironmentVariablesResponses, UpsertEnvironmentVariablesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'trigger_uuid' },
@@ -86,7 +86,7 @@ export class EnvironmentVariablesService {
         account_id: BuildsAccountId;
         trigger_uuid: BuildsTriggerUuid;
         environment_variable_key: BuildsEnvironmentVariableKey;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteEnvironmentVariableResponses, DeleteEnvironmentVariableErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'trigger_uuid' },

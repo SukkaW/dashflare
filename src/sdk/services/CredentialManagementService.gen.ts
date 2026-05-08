@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { R2DataCatalogAccountId, R2DataCatalogBucketName, R2DataCatalogCatalogCredentialRequest, StoreCredentialsErrors, StoreCredentialsResponses } from '../types.gen';
@@ -22,7 +22,7 @@ export class CredentialManagementService {
         account_id: R2DataCatalogAccountId;
         bucket_name: R2DataCatalogBucketName;
         r2DataCatalogCatalogCredentialRequest: R2DataCatalogCatalogCredentialRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StoreCredentialsResponses, StoreCredentialsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'bucket_name' },

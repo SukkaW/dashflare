@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsRecordsDirection, DnsRecordsDnsRecordPatchWritable, DnsRecordsDnsRecordPostWritable, DnsRecordsDnsRequestBatchObjectWritable, DnsRecordsDnsRequestReviewScanObjectWritable, DnsRecordsForAZoneApplyDnsScanResultsErrors, DnsRecordsForAZoneApplyDnsScanResultsResponses, DnsRecordsForAZoneBatchDnsRecordsErrors, DnsRecordsForAZoneBatchDnsRecordsResponses, DnsRecordsForAZoneCreateDnsRecordErrors, DnsRecordsForAZoneCreateDnsRecordResponses, DnsRecordsForAZoneDeleteDnsRecordErrors, DnsRecordsForAZoneDeleteDnsRecordResponses, DnsRecordsForAZoneDnsRecordDetailsErrors, DnsRecordsForAZoneDnsRecordDetailsResponses, DnsRecordsForAZoneExportDnsRecordsErrors, DnsRecordsForAZoneExportDnsRecordsResponses, DnsRecordsForAZoneGetUsageErrors, DnsRecordsForAZoneGetUsageResponses, DnsRecordsForAZoneImportDnsRecordsErrors, DnsRecordsForAZoneImportDnsRecordsResponses, DnsRecordsForAZoneListDnsRecordsErrors, DnsRecordsForAZoneListDnsRecordsResponses, DnsRecordsForAZonePatchDnsRecordErrors, DnsRecordsForAZonePatchDnsRecordResponses, DnsRecordsForAZoneReviewDnsScanErrors, DnsRecordsForAZoneReviewDnsScanResponses, DnsRecordsForAZoneScanDnsRecordsErrors, DnsRecordsForAZoneScanDnsRecordsResponses, DnsRecordsForAZoneTriggerDnsScanErrors, DnsRecordsForAZoneTriggerDnsScanResponses, DnsRecordsForAZoneUpdateDnsRecordErrors, DnsRecordsForAZoneUpdateDnsRecordResponses, DnsRecordsIdentifier, DnsRecordsMatch, DnsRecordsOrder, DnsRecordsPage, DnsRecordsPerPage, DnsRecordsProxied, DnsRecordsSearch, DnsRecordsTagMatch, DnsRecordsType } from '../types.gen';
-import { zDnsRecordsForAZoneApplyDnsScanResultsBody, zDnsRecordsForAZoneApplyDnsScanResultsPath, zDnsRecordsForAZoneApplyDnsScanResultsResponse, zDnsRecordsForAZoneBatchDnsRecordsBody, zDnsRecordsForAZoneBatchDnsRecordsPath, zDnsRecordsForAZoneBatchDnsRecordsResponse, zDnsRecordsForAZoneCreateDnsRecordBody, zDnsRecordsForAZoneCreateDnsRecordPath, zDnsRecordsForAZoneCreateDnsRecordResponse, zDnsRecordsForAZoneDeleteDnsRecordBody, zDnsRecordsForAZoneDeleteDnsRecordPath, zDnsRecordsForAZoneDeleteDnsRecordResponse, zDnsRecordsForAZoneDnsRecordDetailsPath, zDnsRecordsForAZoneDnsRecordDetailsResponse, zDnsRecordsForAZoneExportDnsRecordsPath, zDnsRecordsForAZoneExportDnsRecordsResponse, zDnsRecordsForAZoneGetUsagePath, zDnsRecordsForAZoneGetUsageResponse, zDnsRecordsForAZoneImportDnsRecordsBody, zDnsRecordsForAZoneImportDnsRecordsPath, zDnsRecordsForAZoneImportDnsRecordsResponse, zDnsRecordsForAZoneListDnsRecordsPath, zDnsRecordsForAZoneListDnsRecordsQuery, zDnsRecordsForAZoneListDnsRecordsResponse, zDnsRecordsForAZonePatchDnsRecordBody, zDnsRecordsForAZonePatchDnsRecordPath, zDnsRecordsForAZonePatchDnsRecordResponse, zDnsRecordsForAZoneReviewDnsScanPath, zDnsRecordsForAZoneReviewDnsScanResponse, zDnsRecordsForAZoneScanDnsRecordsBody, zDnsRecordsForAZoneScanDnsRecordsPath, zDnsRecordsForAZoneScanDnsRecordsResponse, zDnsRecordsForAZoneTriggerDnsScanBody, zDnsRecordsForAZoneTriggerDnsScanPath, zDnsRecordsForAZoneTriggerDnsScanResponse, zDnsRecordsForAZoneUpdateDnsRecordBody, zDnsRecordsForAZoneUpdateDnsRecordPath, zDnsRecordsForAZoneUpdateDnsRecordResponse } from '../zod.gen';
+import { zDnsRecordsForAZoneApplyDnsScanResultsBody, zDnsRecordsForAZoneApplyDnsScanResultsPath, zDnsRecordsForAZoneApplyDnsScanResultsResponse, zDnsRecordsForAZoneBatchDnsRecordsBody, zDnsRecordsForAZoneBatchDnsRecordsPath, zDnsRecordsForAZoneBatchDnsRecordsQuery, zDnsRecordsForAZoneBatchDnsRecordsResponse, zDnsRecordsForAZoneCreateDnsRecordBody, zDnsRecordsForAZoneCreateDnsRecordPath, zDnsRecordsForAZoneCreateDnsRecordQuery, zDnsRecordsForAZoneCreateDnsRecordResponse, zDnsRecordsForAZoneDeleteDnsRecordBody, zDnsRecordsForAZoneDeleteDnsRecordPath, zDnsRecordsForAZoneDeleteDnsRecordResponse, zDnsRecordsForAZoneDnsRecordDetailsPath, zDnsRecordsForAZoneDnsRecordDetailsQuery, zDnsRecordsForAZoneDnsRecordDetailsResponse, zDnsRecordsForAZoneExportDnsRecordsPath, zDnsRecordsForAZoneExportDnsRecordsResponse, zDnsRecordsForAZoneGetUsagePath, zDnsRecordsForAZoneGetUsageResponse, zDnsRecordsForAZoneImportDnsRecordsBody, zDnsRecordsForAZoneImportDnsRecordsPath, zDnsRecordsForAZoneImportDnsRecordsResponse, zDnsRecordsForAZoneListDnsRecordsPath, zDnsRecordsForAZoneListDnsRecordsQuery, zDnsRecordsForAZoneListDnsRecordsResponse, zDnsRecordsForAZonePatchDnsRecordBody, zDnsRecordsForAZonePatchDnsRecordPath, zDnsRecordsForAZonePatchDnsRecordQuery, zDnsRecordsForAZonePatchDnsRecordResponse, zDnsRecordsForAZoneReviewDnsScanPath, zDnsRecordsForAZoneReviewDnsScanResponse, zDnsRecordsForAZoneScanDnsRecordsBody, zDnsRecordsForAZoneScanDnsRecordsPath, zDnsRecordsForAZoneScanDnsRecordsResponse, zDnsRecordsForAZoneTriggerDnsScanBody, zDnsRecordsForAZoneTriggerDnsScanPath, zDnsRecordsForAZoneTriggerDnsScanResponse, zDnsRecordsForAZoneUpdateDnsRecordBody, zDnsRecordsForAZoneUpdateDnsRecordPath, zDnsRecordsForAZoneUpdateDnsRecordQuery, zDnsRecordsForAZoneUpdateDnsRecordResponse } from '../zod.gen';
 
 export class DnsRecordsForAZoneService {
     /**
@@ -51,7 +51,10 @@ export class DnsRecordsForAZoneService {
         per_page?: DnsRecordsPerPage;
         order?: DnsRecordsOrder;
         direction?: DnsRecordsDirection;
-    }, options?: Options<never, ThrowOnError>) {
+        include_shadow_metadata?: boolean;
+        shadowed_by_name?: string;
+        shadowing_name?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneListDnsRecordsResponses, DnsRecordsForAZoneListDnsRecordsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'name' },
@@ -86,7 +89,10 @@ export class DnsRecordsForAZoneService {
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
                     { in: 'query', key: 'order' },
-                    { in: 'query', key: 'direction' }
+                    { in: 'query', key: 'direction' },
+                    { in: 'query', key: 'include_shadow_metadata' },
+                    { in: 'query', key: 'shadowed_by_name' },
+                    { in: 'query', key: 'shadowing_name' }
                 ] }]);
         return (options?.client ?? client).get<DnsRecordsForAZoneListDnsRecordsResponses, DnsRecordsForAZoneListDnsRecordsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,14 +126,19 @@ export class DnsRecordsForAZoneService {
      */
     public static dnsRecordsForAZoneCreateDnsRecord<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
+        include_shadow_metadata?: boolean;
         dnsRecordsDnsRecordPostWritable: DnsRecordsDnsRecordPostWritable;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'dnsRecordsDnsRecordPostWritable', map: 'body' }] }]);
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneCreateDnsRecordResponses, DnsRecordsForAZoneCreateDnsRecordErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'query', key: 'include_shadow_metadata' },
+                    { key: 'dnsRecordsDnsRecordPostWritable', map: 'body' }
+                ] }]);
         return (options?.client ?? client).post<DnsRecordsForAZoneCreateDnsRecordResponses, DnsRecordsForAZoneCreateDnsRecordErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zDnsRecordsForAZoneCreateDnsRecordBody,
                 path: zDnsRecordsForAZoneCreateDnsRecordPath,
-                query: z.never().optional()
+                query: zDnsRecordsForAZoneCreateDnsRecordQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDnsRecordsForAZoneCreateDnsRecordResponse.parseAsync(data),
             security: [
@@ -163,14 +174,19 @@ export class DnsRecordsForAZoneService {
      */
     public static dnsRecordsForAZoneBatchDnsRecords<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
+        include_shadow_metadata?: boolean;
         dnsRecordsDnsRequestBatchObjectWritable: DnsRecordsDnsRequestBatchObjectWritable;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'dnsRecordsDnsRequestBatchObjectWritable', map: 'body' }] }]);
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneBatchDnsRecordsResponses, DnsRecordsForAZoneBatchDnsRecordsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'query', key: 'include_shadow_metadata' },
+                    { key: 'dnsRecordsDnsRequestBatchObjectWritable', map: 'body' }
+                ] }]);
         return (options?.client ?? client).post<DnsRecordsForAZoneBatchDnsRecordsResponses, DnsRecordsForAZoneBatchDnsRecordsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zDnsRecordsForAZoneBatchDnsRecordsBody,
                 path: zDnsRecordsForAZoneBatchDnsRecordsPath,
-                query: z.never().optional()
+                query: zDnsRecordsForAZoneBatchDnsRecordsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDnsRecordsForAZoneBatchDnsRecordsResponse.parseAsync(data),
             security: [
@@ -198,7 +214,7 @@ export class DnsRecordsForAZoneService {
      */
     public static dnsRecordsForAZoneExportDnsRecords<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneExportDnsRecordsResponses, DnsRecordsForAZoneExportDnsRecordsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DnsRecordsForAZoneExportDnsRecordsResponses, DnsRecordsForAZoneExportDnsRecordsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -229,7 +245,7 @@ export class DnsRecordsForAZoneService {
         zone_id: DnsRecordsIdentifier;
         file: string;
         proxied?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneImportDnsRecordsResponses, DnsRecordsForAZoneImportDnsRecordsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'file' },
@@ -269,7 +285,7 @@ export class DnsRecordsForAZoneService {
     public static dnsRecordsForAZoneScanDnsRecords<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneScanDnsRecordsResponses, DnsRecordsForAZoneScanDnsRecordsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<DnsRecordsForAZoneScanDnsRecordsResponses, DnsRecordsForAZoneScanDnsRecordsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -302,7 +318,7 @@ export class DnsRecordsForAZoneService {
      */
     public static dnsRecordsForAZoneReviewDnsScan<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneReviewDnsScanResponses, DnsRecordsForAZoneReviewDnsScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DnsRecordsForAZoneReviewDnsScanResponses, DnsRecordsForAZoneReviewDnsScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -331,7 +347,7 @@ export class DnsRecordsForAZoneService {
     public static dnsRecordsForAZoneApplyDnsScanResults<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
         dnsRecordsDnsRequestReviewScanObjectWritable: DnsRecordsDnsRequestReviewScanObjectWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneApplyDnsScanResultsResponses, DnsRecordsForAZoneApplyDnsScanResultsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'dnsRecordsDnsRequestReviewScanObjectWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<DnsRecordsForAZoneApplyDnsScanResultsResponses, DnsRecordsForAZoneApplyDnsScanResultsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -364,7 +380,7 @@ export class DnsRecordsForAZoneService {
     public static dnsRecordsForAZoneTriggerDnsScan<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
         body?: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneTriggerDnsScanResponses, DnsRecordsForAZoneTriggerDnsScanErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<DnsRecordsForAZoneTriggerDnsScanResponses, DnsRecordsForAZoneTriggerDnsScanErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -396,7 +412,7 @@ export class DnsRecordsForAZoneService {
      */
     public static dnsRecordsForAZoneGetUsage<ThrowOnError extends boolean = true>(parameters: {
         zone_id: DnsRecordsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneGetUsageResponses, DnsRecordsForAZoneGetUsageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DnsRecordsForAZoneGetUsageResponses, DnsRecordsForAZoneGetUsageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -418,12 +434,14 @@ export class DnsRecordsForAZoneService {
     
     /**
      * Delete DNS Record
+     *
+     * Permanently removes a DNS record from the zone.
      */
     public static dnsRecordsForAZoneDeleteDnsRecord<ThrowOnError extends boolean = true>(parameters: {
         dns_record_id: DnsRecordsIdentifier;
         zone_id: DnsRecordsIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneDeleteDnsRecordResponses, DnsRecordsForAZoneDeleteDnsRecordErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_record_id' },
                     { in: 'path', key: 'zone_id' },
@@ -454,17 +472,24 @@ export class DnsRecordsForAZoneService {
     
     /**
      * DNS Record Details
+     *
+     * Retrieves details for a specific DNS record in the zone.
      */
     public static dnsRecordsForAZoneDnsRecordDetails<ThrowOnError extends boolean = true>(parameters: {
         dns_record_id: DnsRecordsIdentifier;
         zone_id: DnsRecordsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'dns_record_id' }, { in: 'path', key: 'zone_id' }] }]);
+        include_shadow_metadata?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneDnsRecordDetailsResponses, DnsRecordsForAZoneDnsRecordDetailsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'dns_record_id' },
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'query', key: 'include_shadow_metadata' }
+                ] }]);
         return (options?.client ?? client).get<DnsRecordsForAZoneDnsRecordDetailsResponses, DnsRecordsForAZoneDnsRecordDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
                 path: zDnsRecordsForAZoneDnsRecordDetailsPath,
-                query: z.never().optional()
+                query: zDnsRecordsForAZoneDnsRecordDetailsQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDnsRecordsForAZoneDnsRecordDetailsResponse.parseAsync(data),
             security: [
@@ -493,18 +518,20 @@ export class DnsRecordsForAZoneService {
     public static dnsRecordsForAZonePatchDnsRecord<ThrowOnError extends boolean = true>(parameters: {
         dns_record_id: DnsRecordsIdentifier;
         zone_id: DnsRecordsIdentifier;
+        include_shadow_metadata?: boolean;
         dnsRecordsDnsRecordPatchWritable: DnsRecordsDnsRecordPatchWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZonePatchDnsRecordResponses, DnsRecordsForAZonePatchDnsRecordErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_record_id' },
                     { in: 'path', key: 'zone_id' },
+                    { in: 'query', key: 'include_shadow_metadata' },
                     { key: 'dnsRecordsDnsRecordPatchWritable', map: 'body' }
                 ] }]);
         return (options?.client ?? client).patch<DnsRecordsForAZonePatchDnsRecordResponses, DnsRecordsForAZonePatchDnsRecordErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zDnsRecordsForAZonePatchDnsRecordBody,
                 path: zDnsRecordsForAZonePatchDnsRecordPath,
-                query: z.never().optional()
+                query: zDnsRecordsForAZonePatchDnsRecordQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDnsRecordsForAZonePatchDnsRecordResponse.parseAsync(data),
             security: [
@@ -538,18 +565,20 @@ export class DnsRecordsForAZoneService {
     public static dnsRecordsForAZoneUpdateDnsRecord<ThrowOnError extends boolean = true>(parameters: {
         dns_record_id: DnsRecordsIdentifier;
         zone_id: DnsRecordsIdentifier;
+        include_shadow_metadata?: boolean;
         dnsRecordsDnsRecordPostWritable: DnsRecordsDnsRecordPostWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsRecordsForAZoneUpdateDnsRecordResponses, DnsRecordsForAZoneUpdateDnsRecordErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dns_record_id' },
                     { in: 'path', key: 'zone_id' },
+                    { in: 'query', key: 'include_shadow_metadata' },
                     { key: 'dnsRecordsDnsRecordPostWritable', map: 'body' }
                 ] }]);
         return (options?.client ?? client).put<DnsRecordsForAZoneUpdateDnsRecordResponses, DnsRecordsForAZoneUpdateDnsRecordErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zDnsRecordsForAZoneUpdateDnsRecordBody,
                 path: zDnsRecordsForAZoneUpdateDnsRecordPath,
-                query: z.never().optional()
+                query: zDnsRecordsForAZoneUpdateDnsRecordQuery.optional()
             }).parseAsync(data),
             responseValidator: async (data) => await zDnsRecordsForAZoneUpdateDnsRecordResponse.parseAsync(data),
             security: [

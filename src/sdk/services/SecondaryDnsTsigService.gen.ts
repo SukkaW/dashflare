@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { SecondaryDnsAccountIdentifier, SecondaryDnsSchemasIdentifier, SecondaryDnsTsigCreateTsigErrors, SecondaryDnsTsigCreateTsigResponses, SecondaryDnsTsigDeleteTsigErrors, SecondaryDnsTsigDeleteTsigResponses, SecondaryDnsTsigListTsiGsErrors, SecondaryDnsTsigListTsiGsResponses, SecondaryDnsTsigTsigDetailsErrors, SecondaryDnsTsigTsigDetailsResponses, SecondaryDnsTsigUpdateTsigErrors, SecondaryDnsTsigUpdateTsigResponses, SecondaryDnsTsigWritable } from '../types.gen';
+import type { SecondaryDnsAccountIdentifier, SecondaryDnsIdentifier2, SecondaryDnsTsigCreateTsigErrors, SecondaryDnsTsigCreateTsigResponses, SecondaryDnsTsigDeleteTsigErrors, SecondaryDnsTsigDeleteTsigResponses, SecondaryDnsTsigListTsiGsErrors, SecondaryDnsTsigListTsiGsResponses, SecondaryDnsTsigTsigDetailsErrors, SecondaryDnsTsigTsigDetailsResponses, SecondaryDnsTsigUpdateTsigErrors, SecondaryDnsTsigUpdateTsigResponses, SecondaryDnsTsigWritable } from '../types.gen';
 import { zSecondaryDnsTsigCreateTsigBody, zSecondaryDnsTsigCreateTsigPath, zSecondaryDnsTsigCreateTsigResponse, zSecondaryDnsTsigDeleteTsigBody, zSecondaryDnsTsigDeleteTsigPath, zSecondaryDnsTsigDeleteTsigResponse, zSecondaryDnsTsigListTsiGsPath, zSecondaryDnsTsigListTsiGsResponse, zSecondaryDnsTsigTsigDetailsPath, zSecondaryDnsTsigTsigDetailsResponse, zSecondaryDnsTsigUpdateTsigBody, zSecondaryDnsTsigUpdateTsigPath, zSecondaryDnsTsigUpdateTsigResponse } from '../zod.gen';
 
 export class SecondaryDnsTsigService {
@@ -18,7 +18,7 @@ export class SecondaryDnsTsigService {
      */
     public static secondaryDnsTsigListTsiGs<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsTsigListTsiGsResponses, SecondaryDnsTsigListTsiGsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsTsigListTsiGsResponses, SecondaryDnsTsigListTsiGsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class SecondaryDnsTsigService {
     public static secondaryDnsTsigCreateTsig<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecondaryDnsAccountIdentifier;
         secondaryDnsTsigWritable: SecondaryDnsTsigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsTsigCreateTsigResponses, SecondaryDnsTsigCreateTsigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'secondaryDnsTsigWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<SecondaryDnsTsigCreateTsigResponses, SecondaryDnsTsigCreateTsigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -77,10 +77,10 @@ export class SecondaryDnsTsigService {
      * Delete TSIG.
      */
     public static secondaryDnsTsigDeleteTsig<ThrowOnError extends boolean = true>(parameters: {
-        tsig_id: SecondaryDnsSchemasIdentifier;
+        tsig_id: SecondaryDnsIdentifier2;
         account_id: SecondaryDnsAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsTsigDeleteTsigResponses, SecondaryDnsTsigDeleteTsigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'tsig_id' },
                     { in: 'path', key: 'account_id' },
@@ -115,9 +115,9 @@ export class SecondaryDnsTsigService {
      * Get TSIG.
      */
     public static secondaryDnsTsigTsigDetails<ThrowOnError extends boolean = true>(parameters: {
-        tsig_id: SecondaryDnsSchemasIdentifier;
+        tsig_id: SecondaryDnsIdentifier2;
         account_id: SecondaryDnsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsTsigTsigDetailsResponses, SecondaryDnsTsigTsigDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'tsig_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<SecondaryDnsTsigTsigDetailsResponses, SecondaryDnsTsigTsigDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -143,10 +143,10 @@ export class SecondaryDnsTsigService {
      * Modify TSIG.
      */
     public static secondaryDnsTsigUpdateTsig<ThrowOnError extends boolean = true>(parameters: {
-        tsig_id: SecondaryDnsSchemasIdentifier;
+        tsig_id: SecondaryDnsIdentifier2;
         account_id: SecondaryDnsAccountIdentifier;
         secondaryDnsTsigWritable: SecondaryDnsTsigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SecondaryDnsTsigUpdateTsigResponses, SecondaryDnsTsigUpdateTsigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'tsig_id' },
                     { in: 'path', key: 'account_id' },

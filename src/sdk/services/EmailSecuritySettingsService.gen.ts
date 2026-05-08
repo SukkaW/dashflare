@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailSecurityAllowPolicyId, EmailSecurityAllowPolicyWritable, EmailSecurityBatchAllowPoliciesErrors, EmailSecurityBatchAllowPoliciesResponses, EmailSecurityBatchBlockedSendersErrors, EmailSecurityBatchBlockedSendersResponses, EmailSecurityBatchSendingDomainRestrictionsErrors, EmailSecurityBatchSendingDomainRestrictionsResponses, EmailSecurityBatchTrustedDomainsErrors, EmailSecurityBatchTrustedDomainsResponses, EmailSecurityBatchUrlIgnorePatternsErrors, EmailSecurityBatchUrlIgnorePatternsResponses, EmailSecurityBlockedSenderId, EmailSecurityBlockedSenderWritable, EmailSecurityCreateAllowPolicyErrors, EmailSecurityCreateAllowPolicyResponses, EmailSecurityCreateAllowPolicyWritable, EmailSecurityCreateBlockedSenderErrors, EmailSecurityCreateBlockedSenderResponses, EmailSecurityCreateBlockedSenderWritable, EmailSecurityCreateImpersonationRegistryErrors, EmailSecurityCreateImpersonationRegistryResponses, EmailSecurityCreateImpersonationRegistryWritable, EmailSecurityCreateSendingDomainRestrictionErrors, EmailSecurityCreateSendingDomainRestrictionResponses, EmailSecurityCreateSendingDomainRestrictionWritable, EmailSecurityCreateTrustedDomainErrors, EmailSecurityCreateTrustedDomainResponses, EmailSecurityCreateTrustedDomainWritable, EmailSecurityCreateUrlIgnorePattern, EmailSecurityCreateUrlIgnorePatternErrors, EmailSecurityCreateUrlIgnorePatternResponses, EmailSecurityDeleteAllowPolicyErrors, EmailSecurityDeleteAllowPolicyResponses, EmailSecurityDeleteBlockedSenderErrors, EmailSecurityDeleteBlockedSenderResponses, EmailSecurityDeleteDomainErrors, EmailSecurityDeleteDomainResponses, EmailSecurityDeleteImpersonationRegistryErrors, EmailSecurityDeleteImpersonationRegistryResponses, EmailSecurityDeleteSendingDomainRestrictionErrors, EmailSecurityDeleteSendingDomainRestrictionResponses, EmailSecurityDeleteTrustedDomainErrors, EmailSecurityDeleteTrustedDomainResponses, EmailSecurityDeleteUrlIgnorePatternErrors, EmailSecurityDeleteUrlIgnorePatternResponses, EmailSecurityDeliveryMode, EmailSecurityDomainId, EmailSecurityDomainStatus, EmailSecurityGetAllowPolicyErrors, EmailSecurityGetAllowPolicyResponses, EmailSecurityGetBlockedSenderErrors, EmailSecurityGetBlockedSenderResponses, EmailSecurityGetDomainErrors, EmailSecurityGetDomainResponses, EmailSecurityGetImpersonationRegistryErrors, EmailSecurityGetImpersonationRegistryResponses, EmailSecurityGetSendingDomainRestrictionErrors, EmailSecurityGetSendingDomainRestrictionResponses, EmailSecurityGetTrustedDomainErrors, EmailSecurityGetTrustedDomainResponses, EmailSecurityIdentifier, EmailSecurityImpersonationRegistryId, EmailSecurityListAllowPoliciesErrors, EmailSecurityListAllowPoliciesResponses, EmailSecurityListBlockedSendersErrors, EmailSecurityListBlockedSendersResponses, EmailSecurityListDomainsErrors, EmailSecurityListDomainsResponses, EmailSecurityListImpersonationRegistryErrors, EmailSecurityListImpersonationRegistryResponses, EmailSecurityListSendingDomainRestrictionsErrors, EmailSecurityListSendingDomainRestrictionsResponses, EmailSecurityListTrustedDomainsErrors, EmailSecurityListTrustedDomainsResponses, EmailSecurityListUrlIgnorePatternsErrors, EmailSecurityListUrlIgnorePatternsResponses, EmailSecurityPatternType, EmailSecurityProvenance, EmailSecuritySendingDomainRestrictionId, EmailSecurityTrustedDomainId, EmailSecurityTrustedDomainWritable, EmailSecurityUpdateAllowPolicyErrors, EmailSecurityUpdateAllowPolicyResponses, EmailSecurityUpdateAllowPolicyWritable, EmailSecurityUpdateBlockedSenderErrors, EmailSecurityUpdateBlockedSenderResponses, EmailSecurityUpdateBlockedSenderWritable, EmailSecurityUpdateDomain, EmailSecurityUpdateDomainErrors, EmailSecurityUpdateDomainResponses, EmailSecurityUpdateImpersonationRegistryErrors, EmailSecurityUpdateImpersonationRegistryResponses, EmailSecurityUpdateImpersonationRegistryWritable, EmailSecurityUpdateSendingDomainRestrictionErrors, EmailSecurityUpdateSendingDomainRestrictionResponses, EmailSecurityUpdateSendingDomainRestrictionWritable, EmailSecurityUpdateTrustedDomainErrors, EmailSecurityUpdateTrustedDomainResponses, EmailSecurityUpdateTrustedDomainWritable, EmailSecurityUpdateUrlIgnorePattern, EmailSecurityUpdateUrlIgnorePatternErrors, EmailSecurityUpdateUrlIgnorePatternResponses, EmailSecurityUrlIgnorePatternId } from '../types.gen';
-import { zEmailSecurityBatchAllowPoliciesBody, zEmailSecurityBatchAllowPoliciesPath, zEmailSecurityBatchAllowPoliciesResponse, zEmailSecurityBatchBlockedSendersBody, zEmailSecurityBatchBlockedSendersPath, zEmailSecurityBatchBlockedSendersResponse, zEmailSecurityBatchSendingDomainRestrictionsBody, zEmailSecurityBatchSendingDomainRestrictionsPath, zEmailSecurityBatchSendingDomainRestrictionsResponse, zEmailSecurityBatchTrustedDomainsBody, zEmailSecurityBatchTrustedDomainsPath, zEmailSecurityBatchTrustedDomainsResponse, zEmailSecurityBatchUrlIgnorePatternsBody, zEmailSecurityBatchUrlIgnorePatternsPath, zEmailSecurityBatchUrlIgnorePatternsResponse, zEmailSecurityCreateAllowPolicyBody, zEmailSecurityCreateAllowPolicyPath, zEmailSecurityCreateAllowPolicyResponse, zEmailSecurityCreateBlockedSenderBody, zEmailSecurityCreateBlockedSenderPath, zEmailSecurityCreateBlockedSenderResponse, zEmailSecurityCreateImpersonationRegistryBody, zEmailSecurityCreateImpersonationRegistryPath, zEmailSecurityCreateImpersonationRegistryResponse, zEmailSecurityCreateSendingDomainRestrictionBody, zEmailSecurityCreateSendingDomainRestrictionPath, zEmailSecurityCreateSendingDomainRestrictionResponse, zEmailSecurityCreateTrustedDomainBody, zEmailSecurityCreateTrustedDomainPath, zEmailSecurityCreateTrustedDomainResponse, zEmailSecurityCreateUrlIgnorePatternBody, zEmailSecurityCreateUrlIgnorePatternPath, zEmailSecurityCreateUrlIgnorePatternResponse, zEmailSecurityDeleteAllowPolicyPath, zEmailSecurityDeleteAllowPolicyResponse, zEmailSecurityDeleteBlockedSenderPath, zEmailSecurityDeleteBlockedSenderResponse, zEmailSecurityDeleteDomainPath, zEmailSecurityDeleteDomainResponse, zEmailSecurityDeleteImpersonationRegistryPath, zEmailSecurityDeleteImpersonationRegistryResponse, zEmailSecurityDeleteSendingDomainRestrictionPath, zEmailSecurityDeleteSendingDomainRestrictionResponse, zEmailSecurityDeleteTrustedDomainPath, zEmailSecurityDeleteTrustedDomainResponse, zEmailSecurityDeleteUrlIgnorePatternPath, zEmailSecurityDeleteUrlIgnorePatternResponse, zEmailSecurityGetAllowPolicyPath, zEmailSecurityGetAllowPolicyResponse, zEmailSecurityGetBlockedSenderPath, zEmailSecurityGetBlockedSenderResponse, zEmailSecurityGetDomainPath, zEmailSecurityGetDomainResponse, zEmailSecurityGetImpersonationRegistryPath, zEmailSecurityGetImpersonationRegistryResponse, zEmailSecurityGetSendingDomainRestrictionPath, zEmailSecurityGetSendingDomainRestrictionResponse, zEmailSecurityGetTrustedDomainPath, zEmailSecurityGetTrustedDomainResponse, zEmailSecurityListAllowPoliciesPath, zEmailSecurityListAllowPoliciesQuery, zEmailSecurityListAllowPoliciesResponse, zEmailSecurityListBlockedSendersPath, zEmailSecurityListBlockedSendersQuery, zEmailSecurityListBlockedSendersResponse, zEmailSecurityListDomainsPath, zEmailSecurityListDomainsQuery, zEmailSecurityListDomainsResponse, zEmailSecurityListImpersonationRegistryPath, zEmailSecurityListImpersonationRegistryQuery, zEmailSecurityListImpersonationRegistryResponse, zEmailSecurityListSendingDomainRestrictionsPath, zEmailSecurityListSendingDomainRestrictionsQuery, zEmailSecurityListSendingDomainRestrictionsResponse, zEmailSecurityListTrustedDomainsPath, zEmailSecurityListTrustedDomainsQuery, zEmailSecurityListTrustedDomainsResponse, zEmailSecurityListUrlIgnorePatternsPath, zEmailSecurityListUrlIgnorePatternsQuery, zEmailSecurityListUrlIgnorePatternsResponse, zEmailSecurityUpdateAllowPolicyBody, zEmailSecurityUpdateAllowPolicyPath, zEmailSecurityUpdateAllowPolicyResponse, zEmailSecurityUpdateBlockedSenderBody, zEmailSecurityUpdateBlockedSenderPath, zEmailSecurityUpdateBlockedSenderResponse, zEmailSecurityUpdateDomainBody, zEmailSecurityUpdateDomainPath, zEmailSecurityUpdateDomainResponse, zEmailSecurityUpdateImpersonationRegistryBody, zEmailSecurityUpdateImpersonationRegistryPath, zEmailSecurityUpdateImpersonationRegistryResponse, zEmailSecurityUpdateSendingDomainRestrictionBody, zEmailSecurityUpdateSendingDomainRestrictionPath, zEmailSecurityUpdateSendingDomainRestrictionResponse, zEmailSecurityUpdateTrustedDomainBody, zEmailSecurityUpdateTrustedDomainPath, zEmailSecurityUpdateTrustedDomainResponse, zEmailSecurityUpdateUrlIgnorePatternBody, zEmailSecurityUpdateUrlIgnorePatternPath, zEmailSecurityUpdateUrlIgnorePatternResponse } from '../zod.gen';
+import type { EmailSecurityAllowPolicyId, EmailSecurityAllowPolicyWritable, EmailSecurityBatchAllowPoliciesErrors, EmailSecurityBatchAllowPoliciesResponses, EmailSecurityBatchBlockedSendersErrors, EmailSecurityBatchBlockedSendersResponses, EmailSecurityBatchDomainsErrors, EmailSecurityBatchDomainsResponses, EmailSecurityBatchSendingDomainRestrictionsErrors, EmailSecurityBatchSendingDomainRestrictionsResponses, EmailSecurityBatchTrustedDomainsErrors, EmailSecurityBatchTrustedDomainsResponses, EmailSecurityBatchUrlIgnorePatternsErrors, EmailSecurityBatchUrlIgnorePatternsResponses, EmailSecurityBlockedSenderId, EmailSecurityBlockedSenderWritable, EmailSecurityCreateAllowPolicyErrors, EmailSecurityCreateAllowPolicyResponses, EmailSecurityCreateAllowPolicyWritable, EmailSecurityCreateBlockedSenderErrors, EmailSecurityCreateBlockedSenderResponses, EmailSecurityCreateBlockedSenderWritable, EmailSecurityCreateDomain, EmailSecurityCreateDomainsErrors, EmailSecurityCreateDomainsResponses, EmailSecurityCreateImpersonationRegistryErrors, EmailSecurityCreateImpersonationRegistryResponses, EmailSecurityCreateImpersonationRegistryWritable, EmailSecurityCreateSendingDomainRestrictionErrors, EmailSecurityCreateSendingDomainRestrictionResponses, EmailSecurityCreateSendingDomainRestrictionWritable, EmailSecurityCreateTrustedDomainErrors, EmailSecurityCreateTrustedDomainResponses, EmailSecurityCreateTrustedDomainWritable, EmailSecurityCreateUrlIgnorePattern, EmailSecurityCreateUrlIgnorePatternErrors, EmailSecurityCreateUrlIgnorePatternResponses, EmailSecurityDeleteAllowPolicyErrors, EmailSecurityDeleteAllowPolicyResponses, EmailSecurityDeleteBlockedSenderErrors, EmailSecurityDeleteBlockedSenderResponses, EmailSecurityDeleteDomainErrors, EmailSecurityDeleteDomainResponses, EmailSecurityDeleteDomainsErrors, EmailSecurityDeleteDomainsResponses, EmailSecurityDeleteImpersonationRegistryErrors, EmailSecurityDeleteImpersonationRegistryResponses, EmailSecurityDeleteSendingDomainRestrictionErrors, EmailSecurityDeleteSendingDomainRestrictionResponses, EmailSecurityDeleteTrustedDomainErrors, EmailSecurityDeleteTrustedDomainResponses, EmailSecurityDeleteUrlIgnorePatternErrors, EmailSecurityDeleteUrlIgnorePatternResponses, EmailSecurityDeliveryMode, EmailSecurityDomainId, EmailSecurityDomainStatus, EmailSecurityGetAllowPolicyErrors, EmailSecurityGetAllowPolicyResponses, EmailSecurityGetBlockedSenderErrors, EmailSecurityGetBlockedSenderResponses, EmailSecurityGetDomainErrors, EmailSecurityGetDomainResponses, EmailSecurityGetDomainVerificationErrors, EmailSecurityGetDomainVerificationResponses, EmailSecurityGetImpersonationRegistryErrors, EmailSecurityGetImpersonationRegistryResponses, EmailSecurityGetSendingDomainRestrictionErrors, EmailSecurityGetSendingDomainRestrictionResponses, EmailSecurityGetTrustedDomainErrors, EmailSecurityGetTrustedDomainResponses, EmailSecurityGetUrlIgnorePatternErrors, EmailSecurityGetUrlIgnorePatternResponses, EmailSecurityIdentifier, EmailSecurityImpersonationRegistryId, EmailSecurityListAllowPoliciesErrors, EmailSecurityListAllowPoliciesResponses, EmailSecurityListBlockedSendersErrors, EmailSecurityListBlockedSendersResponses, EmailSecurityListDomainsErrors, EmailSecurityListDomainsResponses, EmailSecurityListImpersonationRegistryErrors, EmailSecurityListImpersonationRegistryResponses, EmailSecurityListSendingDomainRestrictionsErrors, EmailSecurityListSendingDomainRestrictionsResponses, EmailSecurityListTrustedDomainsErrors, EmailSecurityListTrustedDomainsResponses, EmailSecurityListUrlIgnorePatternsErrors, EmailSecurityListUrlIgnorePatternsResponses, EmailSecurityPatternType, EmailSecurityProvenance, EmailSecurityReplaceDomain, EmailSecurityReplaceDomainErrors, EmailSecurityReplaceDomainResponses, EmailSecuritySendingDomainRestrictionId, EmailSecurityTrustedDomainId, EmailSecurityTrustedDomainWritable, EmailSecurityUpdateAllowPolicyErrors, EmailSecurityUpdateAllowPolicyResponses, EmailSecurityUpdateAllowPolicyWritable, EmailSecurityUpdateBlockedSenderErrors, EmailSecurityUpdateBlockedSenderResponses, EmailSecurityUpdateBlockedSenderWritable, EmailSecurityUpdateDomain, EmailSecurityUpdateDomainErrors, EmailSecurityUpdateDomainResponses, EmailSecurityUpdateImpersonationRegistryErrors, EmailSecurityUpdateImpersonationRegistryResponses, EmailSecurityUpdateImpersonationRegistryWritable, EmailSecurityUpdateSendingDomainRestrictionErrors, EmailSecurityUpdateSendingDomainRestrictionResponses, EmailSecurityUpdateSendingDomainRestrictionWritable, EmailSecurityUpdateTrustedDomainErrors, EmailSecurityUpdateTrustedDomainResponses, EmailSecurityUpdateTrustedDomainWritable, EmailSecurityUpdateUrlIgnorePattern, EmailSecurityUpdateUrlIgnorePatternErrors, EmailSecurityUpdateUrlIgnorePatternResponses, EmailSecurityUrlIgnorePatternId } from '../types.gen';
+import { zEmailSecurityBatchAllowPoliciesBody, zEmailSecurityBatchAllowPoliciesPath, zEmailSecurityBatchAllowPoliciesResponse, zEmailSecurityBatchBlockedSendersBody, zEmailSecurityBatchBlockedSendersPath, zEmailSecurityBatchBlockedSendersResponse, zEmailSecurityBatchDomainsBody, zEmailSecurityBatchDomainsPath, zEmailSecurityBatchDomainsResponse, zEmailSecurityBatchSendingDomainRestrictionsBody, zEmailSecurityBatchSendingDomainRestrictionsPath, zEmailSecurityBatchSendingDomainRestrictionsResponse, zEmailSecurityBatchTrustedDomainsBody, zEmailSecurityBatchTrustedDomainsPath, zEmailSecurityBatchTrustedDomainsResponse, zEmailSecurityBatchUrlIgnorePatternsBody, zEmailSecurityBatchUrlIgnorePatternsPath, zEmailSecurityBatchUrlIgnorePatternsResponse, zEmailSecurityCreateAllowPolicyBody, zEmailSecurityCreateAllowPolicyPath, zEmailSecurityCreateAllowPolicyResponse, zEmailSecurityCreateBlockedSenderBody, zEmailSecurityCreateBlockedSenderPath, zEmailSecurityCreateBlockedSenderResponse, zEmailSecurityCreateDomainsBody, zEmailSecurityCreateDomainsPath, zEmailSecurityCreateDomainsResponse, zEmailSecurityCreateImpersonationRegistryBody, zEmailSecurityCreateImpersonationRegistryPath, zEmailSecurityCreateImpersonationRegistryResponse, zEmailSecurityCreateSendingDomainRestrictionBody, zEmailSecurityCreateSendingDomainRestrictionPath, zEmailSecurityCreateSendingDomainRestrictionResponse, zEmailSecurityCreateTrustedDomainBody, zEmailSecurityCreateTrustedDomainPath, zEmailSecurityCreateTrustedDomainResponse, zEmailSecurityCreateUrlIgnorePatternBody, zEmailSecurityCreateUrlIgnorePatternPath, zEmailSecurityCreateUrlIgnorePatternResponse, zEmailSecurityDeleteAllowPolicyPath, zEmailSecurityDeleteAllowPolicyResponse, zEmailSecurityDeleteBlockedSenderPath, zEmailSecurityDeleteBlockedSenderResponse, zEmailSecurityDeleteDomainPath, zEmailSecurityDeleteDomainResponse, zEmailSecurityDeleteDomainsBody, zEmailSecurityDeleteDomainsPath, zEmailSecurityDeleteDomainsResponse, zEmailSecurityDeleteImpersonationRegistryPath, zEmailSecurityDeleteImpersonationRegistryResponse, zEmailSecurityDeleteSendingDomainRestrictionPath, zEmailSecurityDeleteSendingDomainRestrictionResponse, zEmailSecurityDeleteTrustedDomainPath, zEmailSecurityDeleteTrustedDomainResponse, zEmailSecurityDeleteUrlIgnorePatternPath, zEmailSecurityDeleteUrlIgnorePatternResponse, zEmailSecurityGetAllowPolicyPath, zEmailSecurityGetAllowPolicyResponse, zEmailSecurityGetBlockedSenderPath, zEmailSecurityGetBlockedSenderResponse, zEmailSecurityGetDomainPath, zEmailSecurityGetDomainResponse, zEmailSecurityGetDomainVerificationPath, zEmailSecurityGetDomainVerificationResponse, zEmailSecurityGetImpersonationRegistryPath, zEmailSecurityGetImpersonationRegistryResponse, zEmailSecurityGetSendingDomainRestrictionPath, zEmailSecurityGetSendingDomainRestrictionResponse, zEmailSecurityGetTrustedDomainPath, zEmailSecurityGetTrustedDomainResponse, zEmailSecurityGetUrlIgnorePatternPath, zEmailSecurityGetUrlIgnorePatternResponse, zEmailSecurityListAllowPoliciesPath, zEmailSecurityListAllowPoliciesQuery, zEmailSecurityListAllowPoliciesResponse, zEmailSecurityListBlockedSendersPath, zEmailSecurityListBlockedSendersQuery, zEmailSecurityListBlockedSendersResponse, zEmailSecurityListDomainsPath, zEmailSecurityListDomainsQuery, zEmailSecurityListDomainsResponse, zEmailSecurityListImpersonationRegistryPath, zEmailSecurityListImpersonationRegistryQuery, zEmailSecurityListImpersonationRegistryResponse, zEmailSecurityListSendingDomainRestrictionsPath, zEmailSecurityListSendingDomainRestrictionsQuery, zEmailSecurityListSendingDomainRestrictionsResponse, zEmailSecurityListTrustedDomainsPath, zEmailSecurityListTrustedDomainsQuery, zEmailSecurityListTrustedDomainsResponse, zEmailSecurityListUrlIgnorePatternsPath, zEmailSecurityListUrlIgnorePatternsQuery, zEmailSecurityListUrlIgnorePatternsResponse, zEmailSecurityReplaceDomainBody, zEmailSecurityReplaceDomainPath, zEmailSecurityReplaceDomainResponse, zEmailSecurityUpdateAllowPolicyBody, zEmailSecurityUpdateAllowPolicyPath, zEmailSecurityUpdateAllowPolicyResponse, zEmailSecurityUpdateBlockedSenderBody, zEmailSecurityUpdateBlockedSenderPath, zEmailSecurityUpdateBlockedSenderResponse, zEmailSecurityUpdateDomainBody, zEmailSecurityUpdateDomainPath, zEmailSecurityUpdateDomainResponse, zEmailSecurityUpdateImpersonationRegistryBody, zEmailSecurityUpdateImpersonationRegistryPath, zEmailSecurityUpdateImpersonationRegistryResponse, zEmailSecurityUpdateSendingDomainRestrictionBody, zEmailSecurityUpdateSendingDomainRestrictionPath, zEmailSecurityUpdateSendingDomainRestrictionResponse, zEmailSecurityUpdateTrustedDomainBody, zEmailSecurityUpdateTrustedDomainPath, zEmailSecurityUpdateTrustedDomainResponse, zEmailSecurityUpdateUrlIgnorePatternBody, zEmailSecurityUpdateUrlIgnorePatternPath, zEmailSecurityUpdateUrlIgnorePatternResponse } from '../zod.gen';
 
 export class EmailSecuritySettingsService {
     /**
@@ -29,7 +29,7 @@ export class EmailSecuritySettingsService {
         verify_sender?: boolean;
         pattern_type?: EmailSecurityPatternType;
         pattern?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListAllowPoliciesResponses, EmailSecurityListAllowPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -70,7 +70,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateAllowPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateAllowPolicyWritable: EmailSecurityCreateAllowPolicyWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateAllowPolicyResponses, EmailSecurityCreateAllowPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateAllowPolicyWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateAllowPolicyResponses, EmailSecurityCreateAllowPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -98,7 +98,7 @@ export class EmailSecuritySettingsService {
     /**
      * Batch allow policies operations
      *
-     * Execute multiple operations atomically. All four operation arrays
+     * Executes multiple operations atomically. All four operation arrays
      * (deletes, patches, puts, posts) are required and executed in order.
      * Send empty arrays for unused operations.
      *
@@ -115,7 +115,7 @@ export class EmailSecuritySettingsService {
         puts: Array<EmailSecurityAllowPolicyWritable & {
             id: EmailSecurityAllowPolicyId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchAllowPoliciesResponses, EmailSecurityBatchAllowPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'deletes' },
@@ -154,7 +154,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteAllowPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         policy_id: EmailSecurityAllowPolicyId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteAllowPolicyResponses, EmailSecurityDeleteAllowPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteAllowPolicyResponses, EmailSecurityDeleteAllowPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -182,7 +182,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetAllowPolicy<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         policy_id: EmailSecurityAllowPolicyId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetAllowPolicyResponses, EmailSecurityGetAllowPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'policy_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetAllowPolicyResponses, EmailSecurityGetAllowPolicyErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -211,7 +211,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         policy_id: EmailSecurityAllowPolicyId;
         emailSecurityUpdateAllowPolicyWritable: EmailSecurityUpdateAllowPolicyWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateAllowPolicyResponses, EmailSecurityUpdateAllowPolicyErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'policy_id' },
@@ -254,7 +254,7 @@ export class EmailSecuritySettingsService {
         direction?: 'asc' | 'desc';
         pattern_type?: EmailSecurityPatternType;
         pattern?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListBlockedSendersResponses, EmailSecurityListBlockedSendersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -291,7 +291,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateBlockedSender<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateBlockedSenderWritable: EmailSecurityCreateBlockedSenderWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateBlockedSenderResponses, EmailSecurityCreateBlockedSenderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateBlockedSenderWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateBlockedSenderResponses, EmailSecurityCreateBlockedSenderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -319,7 +319,7 @@ export class EmailSecuritySettingsService {
     /**
      * Batch blocked senders operations
      *
-     * Execute multiple operations atomically. All four operation arrays
+     * Executes multiple operations atomically. All four operation arrays
      * (deletes, patches, puts, posts) are required and executed in order.
      * Send empty arrays for unused operations.
      *
@@ -336,7 +336,7 @@ export class EmailSecuritySettingsService {
         puts: Array<EmailSecurityBlockedSenderWritable & {
             id: EmailSecurityBlockedSenderId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchBlockedSendersResponses, EmailSecurityBatchBlockedSendersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'deletes' },
@@ -375,7 +375,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteBlockedSender<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         pattern_id: EmailSecurityBlockedSenderId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteBlockedSenderResponses, EmailSecurityDeleteBlockedSenderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pattern_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteBlockedSenderResponses, EmailSecurityDeleteBlockedSenderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -403,7 +403,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetBlockedSender<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         pattern_id: EmailSecurityBlockedSenderId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetBlockedSenderResponses, EmailSecurityGetBlockedSenderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pattern_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetBlockedSenderResponses, EmailSecurityGetBlockedSenderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -432,7 +432,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         pattern_id: EmailSecurityBlockedSenderId;
         emailSecurityUpdateBlockedSenderWritable: EmailSecurityUpdateBlockedSenderWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateBlockedSenderResponses, EmailSecurityUpdateBlockedSenderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'pattern_id' },
@@ -462,6 +462,43 @@ export class EmailSecuritySettingsService {
     }
     
     /**
+     * Unprotect multiple email domains
+     *
+     * Removes protection from multiple email domains. Deprecated; use the batch endpoint instead.
+     *
+     * @deprecated
+     */
+    public static emailSecurityDeleteDomains<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        body: Array<{
+            id: EmailSecurityDomainId;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteDomainsResponses, EmailSecurityDeleteDomainsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
+        return (options?.client ?? client).delete<EmailSecurityDeleteDomainsResponses, EmailSecurityDeleteDomainsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSecurityDeleteDomainsBody,
+                path: zEmailSecurityDeleteDomainsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityDeleteDomainsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/domains',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * List protected email domains
      *
      * Returns a paginated list of email domains protected by Email Security. Includes domain configuration, delivery modes, and authorization status. Supports filtering by delivery mode and integration ID.
@@ -478,7 +515,7 @@ export class EmailSecuritySettingsService {
         active_delivery_mode?: EmailSecurityDeliveryMode;
         integration_id?: string;
         status?: EmailSecurityDomainStatus;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListDomainsResponses, EmailSecurityListDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -511,6 +548,90 @@ export class EmailSecuritySettingsService {
     }
     
     /**
+     * Add a new email domain
+     *
+     * Protects a new email domain by adding it to Email Security. Accepts a flat configuration object covering all delivery modes. Returns the newly created domain configuration.
+     */
+    public static emailSecurityCreateDomains<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        emailSecurityCreateDomain: EmailSecurityCreateDomain;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateDomainsResponses, EmailSecurityCreateDomainsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateDomain', map: 'body' }] }]);
+        return (options?.client ?? client).post<EmailSecurityCreateDomainsResponses, EmailSecurityCreateDomainsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSecurityCreateDomainsBody,
+                path: zEmailSecurityCreateDomainsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityCreateDomainsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/domains',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Batch domain operations
+     *
+     * Executes multiple domain operations in a single request. All four operation arrays
+     * (deletes, patches, puts, posts) are required and executed in order.
+     * Send empty arrays for unused operations.
+     *
+     */
+    public static emailSecurityBatchDomains<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        deletes: Array<{
+            id: EmailSecurityDomainId;
+        }>;
+        patches: Array<EmailSecurityUpdateDomain & {
+            id: EmailSecurityDomainId;
+        }>;
+        posts: Array<EmailSecurityCreateDomain>;
+        puts: Array<EmailSecurityReplaceDomain & {
+            id: EmailSecurityDomainId;
+        }>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchDomainsResponses, EmailSecurityBatchDomainsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'deletes' },
+                    { in: 'body', key: 'patches' },
+                    { in: 'body', key: 'posts' },
+                    { in: 'body', key: 'puts' }
+                ] }]);
+        return (options?.client ?? client).post<EmailSecurityBatchDomainsResponses, EmailSecurityBatchDomainsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSecurityBatchDomainsBody,
+                path: zEmailSecurityBatchDomainsPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityBatchDomainsResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/domains/batch',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Unprotect an email domain
      *
      * Removes email security protection from a domain. After deletion, emails for this domain will no longer be processed by Email Security. This action cannot be undone.
@@ -518,7 +639,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteDomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         domain_id: EmailSecurityDomainId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteDomainResponses, EmailSecurityDeleteDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteDomainResponses, EmailSecurityDeleteDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -546,7 +667,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetDomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         domain_id: EmailSecurityDomainId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetDomainResponses, EmailSecurityGetDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetDomainResponses, EmailSecurityGetDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -575,7 +696,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         domain_id: EmailSecurityDomainId;
         emailSecurityUpdateDomain: EmailSecurityUpdateDomain;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateDomainResponses, EmailSecurityUpdateDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'domain_id' },
@@ -605,6 +726,76 @@ export class EmailSecuritySettingsService {
     }
     
     /**
+     * Replace an email domain
+     *
+     * Replaces all mutable fields of a protected email domain in a single atomic operation. Unlike PATCH, all non-computed fields are required.
+     */
+    public static emailSecurityReplaceDomain<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        domain_id: EmailSecurityDomainId;
+        emailSecurityReplaceDomain: EmailSecurityReplaceDomain;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityReplaceDomainResponses, EmailSecurityReplaceDomainErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'domain_id' },
+                    { key: 'emailSecurityReplaceDomain', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<EmailSecurityReplaceDomainResponses, EmailSecurityReplaceDomainErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailSecurityReplaceDomainBody,
+                path: zEmailSecurityReplaceDomainPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityReplaceDomainResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/domains/{domain_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get domain verification details
+     *
+     * Returns DNS TXT verification details for a domain created through the Terraform API.
+     * Returns `200 OK` with the TXT record name and value when the domain uses `dns_txt`
+     * verification. Returns `204 No Content` for pre-existing domains or domains verified
+     * by other means (Cloudflare zone ownership, CASB integration).
+     *
+     */
+    public static emailSecurityGetDomainVerification<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        domain_id: EmailSecurityDomainId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetDomainVerificationResponses, EmailSecurityGetDomainVerificationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'domain_id' }] }]);
+        return (options?.client ?? client).get<EmailSecurityGetDomainVerificationResponses, EmailSecurityGetDomainVerificationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityGetDomainVerificationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityGetDomainVerificationResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/domains/{domain_id}/verification',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * List entries in impersonation registry
      *
      * Returns a paginated list of protected identities in the impersonation registry. These entries define identities and email addresses to protect from impersonation attacks. Can be manually added or automatically synced from directory integrations.
@@ -617,7 +808,7 @@ export class EmailSecuritySettingsService {
         order?: 'name' | 'email' | 'created_at';
         direction?: 'asc' | 'desc';
         provenance?: EmailSecurityProvenance;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListImpersonationRegistryResponses, EmailSecurityListImpersonationRegistryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -653,7 +844,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateImpersonationRegistry<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateImpersonationRegistryWritable: EmailSecurityCreateImpersonationRegistryWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateImpersonationRegistryResponses, EmailSecurityCreateImpersonationRegistryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateImpersonationRegistryWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateImpersonationRegistryResponses, EmailSecurityCreateImpersonationRegistryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -686,7 +877,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteImpersonationRegistry<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         impersonation_registry_id: EmailSecurityImpersonationRegistryId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteImpersonationRegistryResponses, EmailSecurityDeleteImpersonationRegistryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'impersonation_registry_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteImpersonationRegistryResponses, EmailSecurityDeleteImpersonationRegistryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -714,7 +905,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetImpersonationRegistry<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         impersonation_registry_id: EmailSecurityImpersonationRegistryId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetImpersonationRegistryResponses, EmailSecurityGetImpersonationRegistryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'impersonation_registry_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetImpersonationRegistryResponses, EmailSecurityGetImpersonationRegistryErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -743,7 +934,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         impersonation_registry_id: EmailSecurityImpersonationRegistryId;
         emailSecurityUpdateImpersonationRegistryWritable: EmailSecurityUpdateImpersonationRegistryWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateImpersonationRegistryResponses, EmailSecurityUpdateImpersonationRegistryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'impersonation_registry_id' },
@@ -784,7 +975,7 @@ export class EmailSecuritySettingsService {
         search?: string;
         order?: 'domain' | 'created_at';
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListSendingDomainRestrictionsResponses, EmailSecurityListSendingDomainRestrictionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -819,7 +1010,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateSendingDomainRestriction<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateSendingDomainRestrictionWritable: EmailSecurityCreateSendingDomainRestrictionWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateSendingDomainRestrictionResponses, EmailSecurityCreateSendingDomainRestrictionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateSendingDomainRestrictionWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateSendingDomainRestrictionResponses, EmailSecurityCreateSendingDomainRestrictionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -854,7 +1045,7 @@ export class EmailSecuritySettingsService {
         deletes: Array<{
             id: EmailSecuritySendingDomainRestrictionId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchSendingDomainRestrictionsResponses, EmailSecurityBatchSendingDomainRestrictionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'deletes' }] }]);
         return (options?.client ?? client).post<EmailSecurityBatchSendingDomainRestrictionsResponses, EmailSecurityBatchSendingDomainRestrictionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -887,7 +1078,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteSendingDomainRestriction<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         sending_domain_restriction_id: EmailSecuritySendingDomainRestrictionId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteSendingDomainRestrictionResponses, EmailSecurityDeleteSendingDomainRestrictionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sending_domain_restriction_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteSendingDomainRestrictionResponses, EmailSecurityDeleteSendingDomainRestrictionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -915,7 +1106,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetSendingDomainRestriction<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         sending_domain_restriction_id: EmailSecuritySendingDomainRestrictionId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetSendingDomainRestrictionResponses, EmailSecurityGetSendingDomainRestrictionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sending_domain_restriction_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetSendingDomainRestrictionResponses, EmailSecurityGetSendingDomainRestrictionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -944,7 +1135,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         sending_domain_restriction_id: EmailSecuritySendingDomainRestrictionId;
         emailSecurityUpdateSendingDomainRestrictionWritable: EmailSecurityUpdateSendingDomainRestrictionWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateSendingDomainRestrictionResponses, EmailSecurityUpdateSendingDomainRestrictionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sending_domain_restriction_id' },
@@ -988,7 +1179,7 @@ export class EmailSecuritySettingsService {
         is_recent?: boolean;
         is_similarity?: boolean;
         pattern?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListTrustedDomainsResponses, EmailSecurityListTrustedDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -1026,7 +1217,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateTrustedDomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateTrustedDomainWritable: EmailSecurityCreateTrustedDomainWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateTrustedDomainResponses, EmailSecurityCreateTrustedDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateTrustedDomainWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateTrustedDomainResponses, EmailSecurityCreateTrustedDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1054,7 +1245,7 @@ export class EmailSecuritySettingsService {
     /**
      * Batch trusted domains operations
      *
-     * Execute multiple operations atomically. All four operation arrays
+     * Executes multiple operations atomically. All four operation arrays
      * (deletes, patches, puts, posts) are required and executed in order.
      * Send empty arrays for unused operations.
      *
@@ -1071,7 +1262,7 @@ export class EmailSecuritySettingsService {
         puts: Array<EmailSecurityTrustedDomainWritable & {
             id: EmailSecurityTrustedDomainId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchTrustedDomainsResponses, EmailSecurityBatchTrustedDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'deletes' },
@@ -1110,7 +1301,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteTrustedDomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         trusted_domain_id: EmailSecurityTrustedDomainId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteTrustedDomainResponses, EmailSecurityDeleteTrustedDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'trusted_domain_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteTrustedDomainResponses, EmailSecurityDeleteTrustedDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1138,7 +1329,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityGetTrustedDomain<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         trusted_domain_id: EmailSecurityTrustedDomainId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetTrustedDomainResponses, EmailSecurityGetTrustedDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'trusted_domain_id' }] }]);
         return (options?.client ?? client).get<EmailSecurityGetTrustedDomainResponses, EmailSecurityGetTrustedDomainErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1167,7 +1358,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         trusted_domain_id: EmailSecurityTrustedDomainId;
         emailSecurityUpdateTrustedDomainWritable: EmailSecurityUpdateTrustedDomainWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateTrustedDomainResponses, EmailSecurityUpdateTrustedDomainErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'trusted_domain_id' },
@@ -1205,7 +1396,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityListUrlIgnorePatternsResponses, EmailSecurityListUrlIgnorePatternsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -1237,7 +1428,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityCreateUrlIgnorePattern<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         emailSecurityCreateUrlIgnorePattern: EmailSecurityCreateUrlIgnorePattern;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityCreateUrlIgnorePatternResponses, EmailSecurityCreateUrlIgnorePatternErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailSecurityCreateUrlIgnorePattern', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailSecurityCreateUrlIgnorePatternResponses, EmailSecurityCreateUrlIgnorePatternErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1265,7 +1456,7 @@ export class EmailSecuritySettingsService {
     /**
      * Batch URL ignore patterns
      *
-     * Send a Batch of URL Ignore Patterns API calls to be executed together.
+     * Sends a batch of URL ignore patterns API calls to execute together.
      */
     public static emailSecurityBatchUrlIgnorePatterns<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
@@ -1279,7 +1470,7 @@ export class EmailSecuritySettingsService {
         puts: Array<EmailSecurityCreateUrlIgnorePattern & {
             id: EmailSecurityUrlIgnorePatternId;
         }>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityBatchUrlIgnorePatternsResponses, EmailSecurityBatchUrlIgnorePatternsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'deletes' },
@@ -1318,7 +1509,7 @@ export class EmailSecuritySettingsService {
     public static emailSecurityDeleteUrlIgnorePattern<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailSecurityIdentifier;
         pattern_id: EmailSecurityUrlIgnorePatternId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityDeleteUrlIgnorePatternResponses, EmailSecurityDeleteUrlIgnorePatternErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pattern_id' }] }]);
         return (options?.client ?? client).delete<EmailSecurityDeleteUrlIgnorePatternResponses, EmailSecurityDeleteUrlIgnorePatternErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -1339,6 +1530,34 @@ export class EmailSecuritySettingsService {
     }
     
     /**
+     * Get a URL ignore pattern
+     *
+     * Returns a single URL rewrite ignore pattern by its identifier.
+     */
+    public static emailSecurityGetUrlIgnorePattern<ThrowOnError extends boolean = true>(parameters: {
+        account_id: EmailSecurityIdentifier;
+        pattern_id: EmailSecurityUrlIgnorePatternId;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityGetUrlIgnorePatternResponses, EmailSecurityGetUrlIgnorePatternErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pattern_id' }] }]);
+        return (options?.client ?? client).get<EmailSecurityGetUrlIgnorePatternResponses, EmailSecurityGetUrlIgnorePatternErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zEmailSecurityGetUrlIgnorePatternPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailSecurityGetUrlIgnorePatternResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/email-security/settings/url_ignore_patterns/{pattern_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Update a URL ignore pattern
      *
      * Updates an existing URL rewrite ignore pattern. Only provided fields will be modified.
@@ -1347,7 +1566,7 @@ export class EmailSecuritySettingsService {
         account_id: EmailSecurityIdentifier;
         pattern_id: EmailSecurityUrlIgnorePatternId;
         emailSecurityUpdateUrlIgnorePattern: EmailSecurityUpdateUrlIgnorePattern;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailSecurityUpdateUrlIgnorePatternResponses, EmailSecurityUpdateUrlIgnorePatternErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'pattern_id' },

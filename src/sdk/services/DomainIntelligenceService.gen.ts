@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DomainIntelligenceGetDomainDetailsErrors, DomainIntelligenceGetDomainDetailsResponses, DomainIntelligenceGetMultipleDomainDetailsErrors, DomainIntelligenceGetMultipleDomainDetailsResponses, IntelIdentifier } from '../types.gen';
@@ -20,11 +20,13 @@ export class DomainIntelligenceService {
         account_id: IntelIdentifier;
         domain?: string;
         skip_dns?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+        skip_ranking?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DomainIntelligenceGetDomainDetailsResponses, DomainIntelligenceGetDomainDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'domain' },
-                    { in: 'query', key: 'skip_dns' }
+                    { in: 'query', key: 'skip_dns' },
+                    { in: 'query', key: 'skip_ranking' }
                 ] }]);
         return (options?.client ?? client).get<DomainIntelligenceGetDomainDetailsResponses, DomainIntelligenceGetDomainDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,13 +49,29 @@ export class DomainIntelligenceService {
     /**
      * Get Multiple Domain Details
      *
-     * Same as summary.
+     * Returns security details and statistics about multiple domains in a
+     * single request.
+     *
+     * **Behavior change — domain ranking is becoming opt-in.** This endpoint
+     * previously included domain ranking data in every response and accepted
+     * a `skip_ranking=true` query parameter to opt out. That parameter is
+     * being deprecated and ranking will no longer be returned by default.
+     * Callers that want ranking data must pass `include_ranking=true`. The
+     * `skip_ranking` parameter will be silently ignored once the change ships.
+     *
      */
     public static domainIntelligenceGetMultipleDomainDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IntelIdentifier;
         domain?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'domain' }] }]);
+        include_ranking?: boolean;
+        skip_ranking?: boolean;
+    }, options?: Options<never, ThrowOnError>): RequestResult<DomainIntelligenceGetMultipleDomainDetailsResponses, DomainIntelligenceGetMultipleDomainDetailsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'domain' },
+                    { in: 'query', key: 'include_ranking' },
+                    { in: 'query', key: 'skip_ranking' }
+                ] }]);
         return (options?.client ?? client).get<DomainIntelligenceGetMultipleDomainDetailsResponses, DomainIntelligenceGetMultipleDomainDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),

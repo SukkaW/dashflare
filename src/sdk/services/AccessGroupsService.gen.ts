@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessExclude, AccessGroupsComponentsSchemasName, AccessGroupsCreateAnAccessGroupErrors, AccessGroupsCreateAnAccessGroupResponses, AccessGroupsDeleteAnAccessGroupErrors, AccessGroupsDeleteAnAccessGroupResponses, AccessGroupsGetAnAccessGroupErrors, AccessGroupsGetAnAccessGroupResponses, AccessGroupsListAccessGroupsErrors, AccessGroupsListAccessGroupsResponses, AccessGroupsUpdateAnAccessGroupErrors, AccessGroupsUpdateAnAccessGroupResponses, AccessIdentifier, AccessInclude, AccessIsDefault, AccessRequire, AccessUuid } from '../types.gen';
+import type { AccessExclude, AccessGroupsCreateAnAccessGroupErrors, AccessGroupsCreateAnAccessGroupResponses, AccessGroupsDeleteAnAccessGroupErrors, AccessGroupsDeleteAnAccessGroupResponses, AccessGroupsGetAnAccessGroupErrors, AccessGroupsGetAnAccessGroupResponses, AccessGroupsListAccessGroupsErrors, AccessGroupsListAccessGroupsResponses, AccessGroupsUpdateAnAccessGroupErrors, AccessGroupsUpdateAnAccessGroupResponses, AccessIdentifier, AccessInclude, AccessIsDefault, AccessName6, AccessRequire, AccessUuid } from '../types.gen';
 import { zAccessGroupsCreateAnAccessGroupBody, zAccessGroupsCreateAnAccessGroupPath, zAccessGroupsCreateAnAccessGroupResponse, zAccessGroupsDeleteAnAccessGroupPath, zAccessGroupsDeleteAnAccessGroupResponse, zAccessGroupsGetAnAccessGroupPath, zAccessGroupsGetAnAccessGroupResponse, zAccessGroupsListAccessGroupsPath, zAccessGroupsListAccessGroupsQuery, zAccessGroupsListAccessGroupsResponse, zAccessGroupsUpdateAnAccessGroupBody, zAccessGroupsUpdateAnAccessGroupPath, zAccessGroupsUpdateAnAccessGroupResponse } from '../zod.gen';
 
 export class AccessGroupsService {
@@ -22,7 +22,7 @@ export class AccessGroupsService {
         search?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGroupsListAccessGroupsResponses, AccessGroupsListAccessGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -58,9 +58,9 @@ export class AccessGroupsService {
         exclude?: AccessExclude;
         include: AccessInclude;
         is_default?: AccessIsDefault;
-        name: AccessGroupsComponentsSchemasName;
+        name: AccessName6;
         require?: AccessRequire;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGroupsCreateAnAccessGroupResponses, AccessGroupsCreateAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'exclude' },
@@ -100,7 +100,7 @@ export class AccessGroupsService {
     public static accessGroupsDeleteAnAccessGroup<ThrowOnError extends boolean = true>(parameters: {
         group_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGroupsDeleteAnAccessGroupResponses, AccessGroupsDeleteAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'group_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessGroupsDeleteAnAccessGroupResponses, AccessGroupsDeleteAnAccessGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -128,7 +128,7 @@ export class AccessGroupsService {
     public static accessGroupsGetAnAccessGroup<ThrowOnError extends boolean = true>(parameters: {
         group_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGroupsGetAnAccessGroupResponses, AccessGroupsGetAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'group_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessGroupsGetAnAccessGroupResponses, AccessGroupsGetAnAccessGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -159,9 +159,9 @@ export class AccessGroupsService {
         exclude?: AccessExclude;
         include: AccessInclude;
         is_default?: AccessIsDefault;
-        name: AccessGroupsComponentsSchemasName;
+        name: AccessName6;
         require?: AccessRequire;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessGroupsUpdateAnAccessGroupResponses, AccessGroupsUpdateAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'group_id' },
                     { in: 'path', key: 'account_id' },

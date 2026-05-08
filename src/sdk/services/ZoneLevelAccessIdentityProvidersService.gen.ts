@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessIdentifier, AccessSchemasIdentityProvidersWritable, AccessUuid, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersErrors, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersResponses, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderResponses } from '../types.gen';
+import type { AccessIdentifier, AccessIdentityProviders2Writable, AccessUuid, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersErrors, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersResponses, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderResponses } from '../types.gen';
 import { zZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderBody, zZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderPath, zZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderResponse, zZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderPath, zZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderResponse, zZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderPath, zZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderResponse, zZoneLevelAccessIdentityProvidersListAccessIdentityProvidersPath, zZoneLevelAccessIdentityProvidersListAccessIdentityProvidersResponse, zZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderBody, zZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderPath, zZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderResponse } from '../zod.gen';
 
 export class ZoneLevelAccessIdentityProvidersService {
@@ -18,7 +18,7 @@ export class ZoneLevelAccessIdentityProvidersService {
      */
     public static zoneLevelAccessIdentityProvidersListAccessIdentityProviders<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersResponses, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersResponses, ZoneLevelAccessIdentityProvidersListAccessIdentityProvidersErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -41,9 +41,9 @@ export class ZoneLevelAccessIdentityProvidersService {
      */
     public static zoneLevelAccessIdentityProvidersAddAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-        accessSchemasIdentityProvidersWritable: AccessSchemasIdentityProvidersWritable;
-    }, options?: Options<never, ThrowOnError>) {
-        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'accessSchemasIdentityProvidersWritable', map: 'body' }] }]);
+        accessIdentityProviders2Writable: AccessIdentityProviders2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'accessIdentityProviders2Writable', map: 'body' }] }]);
         return (options?.client ?? client).post<ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: zZoneLevelAccessIdentityProvidersAddAnAccessIdentityProviderBody,
@@ -71,7 +71,7 @@ export class ZoneLevelAccessIdentityProvidersService {
     public static zoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identity_provider_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersDeleteAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -95,7 +95,7 @@ export class ZoneLevelAccessIdentityProvidersService {
     public static zoneLevelAccessIdentityProvidersGetAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'identity_provider_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersGetAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,12 +119,12 @@ export class ZoneLevelAccessIdentityProvidersService {
     public static zoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProvider<ThrowOnError extends boolean = true>(parameters: {
         identity_provider_id: AccessUuid;
         zone_id: AccessIdentifier;
-        accessSchemasIdentityProvidersWritable: AccessSchemasIdentityProvidersWritable;
-    }, options?: Options<never, ThrowOnError>) {
+        accessIdentityProviders2Writable: AccessIdentityProviders2Writable;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'identity_provider_id' },
                     { in: 'path', key: 'zone_id' },
-                    { key: 'accessSchemasIdentityProvidersWritable', map: 'body' }
+                    { key: 'accessIdentityProviders2Writable', map: 'body' }
                 ] }]);
         return (options?.client ?? client).put<ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderResponses, ZoneLevelAccessIdentityProvidersUpdateAnAccessIdentityProviderErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ZoneAnalyticsApiIdentifier, ZoneAnalyticsApiUntil, ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsErrors, ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponses, ZoneAnalyticsDeprecatedGetDashboardErrors, ZoneAnalyticsDeprecatedGetDashboardResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class ZoneAnalyticsDeprecatedService {
         until?: ZoneAnalyticsApiUntil;
         since?: string | number;
         continuous?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsResponses, ZoneAnalyticsDeprecatedGetAnalyticsByCoLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_identifier' },
                     { in: 'query', key: 'until' },
@@ -60,7 +60,7 @@ export class ZoneAnalyticsDeprecatedService {
         until?: ZoneAnalyticsApiUntil;
         since?: string | number;
         continuous?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneAnalyticsDeprecatedGetDashboardResponses, ZoneAnalyticsDeprecatedGetDashboardErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_identifier' },
                     { in: 'query', key: 'until' },

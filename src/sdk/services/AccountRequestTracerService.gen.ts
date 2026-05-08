@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountRequestTracerRequestTraceErrors, AccountRequestTracerRequestTraceResponses, RequestTracerIdentifier } from '../types.gen';
@@ -13,6 +13,8 @@ import { zAccountRequestTracerRequestTraceBody, zAccountRequestTracerRequestTrac
 export class AccountRequestTracerService {
     /**
      * Request Trace
+     *
+     * Traces a simulated HTTP request through Cloudflare's edge to analyze how rules, settings, and configurations would process the request. Useful for debugging firewall rules, page rules, and other request transformations without sending actual traffic. Supports custom headers, cookies, body content, and geolocation context.
      */
     public static accountRequestTracerRequestTrace<ThrowOnError extends boolean = true>(parameters: {
         account_id: RequestTracerIdentifier;
@@ -71,7 +73,7 @@ export class AccountRequestTracerService {
         protocol?: string;
         skip_response?: boolean;
         url: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountRequestTracerRequestTraceResponses, AccountRequestTracerRequestTraceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'body' },

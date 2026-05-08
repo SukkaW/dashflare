@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DeleteDeviceResponses, DeleteRegistrationsResponses, GetDeviceResponses, ListDevicesResponses, RevokeDeviceResponses } from '../types.gen';
@@ -28,8 +28,9 @@ export class PhysicalDevicesService {
         search?: string;
         active_registrations?: 'include' | 'only' | 'exclude';
         id?: Array<string>;
+        'last_seen_registration.policy.id'?: string;
         include?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListDevicesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'cursor' },
@@ -42,6 +43,7 @@ export class PhysicalDevicesService {
                     { in: 'query', key: 'search' },
                     { in: 'query', key: 'active_registrations' },
                     { in: 'query', key: 'id' },
+                    { in: 'query', key: 'last_seen_registration.policy.id' },
                     { in: 'query', key: 'include' }
                 ] }]);
         return (options?.client ?? client).get<ListDevicesResponses, unknown, ThrowOnError>({
@@ -66,7 +68,7 @@ export class PhysicalDevicesService {
     public static deleteDevice<ThrowOnError extends boolean = true>(parameters: {
         device_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteDeviceResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'device_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<DeleteDeviceResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -91,7 +93,7 @@ export class PhysicalDevicesService {
         device_id: string;
         account_id: string;
         include?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetDeviceResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'device_id' },
                     { in: 'path', key: 'account_id' },
@@ -119,7 +121,7 @@ export class PhysicalDevicesService {
     public static revokeDevice<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         device_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RevokeDeviceResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'device_id' }] }]);
         return (options?.client ?? client).post<RevokeDeviceResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -143,7 +145,7 @@ export class PhysicalDevicesService {
     public static deleteRegistrations<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         id: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteRegistrationsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'id' }] }]);
         return (options?.client ?? client).delete<DeleteRegistrationsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({

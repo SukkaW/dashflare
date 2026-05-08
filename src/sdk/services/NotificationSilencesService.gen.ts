@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AaaAccountId, AaaSilenceCreateRequest, AaaSilenceId, AaaSilenceUpdateRequest, NotificationSilencesCreateSilencesErrors, NotificationSilencesCreateSilencesResponses, NotificationSilencesDeleteSilencesErrors, NotificationSilencesDeleteSilencesResponses, NotificationSilencesGetSilenceErrors, NotificationSilencesGetSilenceResponses, NotificationSilencesListSilencesErrors, NotificationSilencesListSilencesResponses, NotificationSilencesUpdateSilencesErrors, NotificationSilencesUpdateSilencesResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class NotificationSilencesService {
      */
     public static notificationSilencesListSilences<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationSilencesListSilencesResponses, NotificationSilencesListSilencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<NotificationSilencesListSilencesResponses, NotificationSilencesListSilencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class NotificationSilencesService {
     public static notificationSilencesCreateSilences<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         body: Array<AaaSilenceCreateRequest>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationSilencesCreateSilencesResponses, NotificationSilencesCreateSilencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<NotificationSilencesCreateSilencesResponses, NotificationSilencesCreateSilencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class NotificationSilencesService {
     public static notificationSilencesUpdateSilences<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         body: Array<AaaSilenceUpdateRequest>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationSilencesUpdateSilencesResponses, NotificationSilencesUpdateSilencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<NotificationSilencesUpdateSilencesResponses, NotificationSilencesUpdateSilencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,7 +112,7 @@ export class NotificationSilencesService {
     public static notificationSilencesDeleteSilences<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         silence_id: AaaSilenceId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationSilencesDeleteSilencesResponses, NotificationSilencesDeleteSilencesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'silence_id' }] }]);
         return (options?.client ?? client).delete<NotificationSilencesDeleteSilencesResponses, NotificationSilencesDeleteSilencesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -140,7 +140,7 @@ export class NotificationSilencesService {
     public static notificationSilencesGetSilence<ThrowOnError extends boolean = true>(parameters: {
         account_id: AaaAccountId;
         silence_id: AaaSilenceId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<NotificationSilencesGetSilenceResponses, NotificationSilencesGetSilenceErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'silence_id' }] }]);
         return (options?.client ?? client).get<NotificationSilencesGetSilenceResponses, NotificationSilencesGetSilenceErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

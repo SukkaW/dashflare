@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessAppIdWritable, AccessAppSettingsRequest, AccessAppsWritable, AccessIdentifier, ZoneLevelAccessApplicationsAddABookmarkApplicationErrors, ZoneLevelAccessApplicationsAddABookmarkApplicationResponses, ZoneLevelAccessApplicationsDeleteAnAccessApplicationErrors, ZoneLevelAccessApplicationsDeleteAnAccessApplicationResponses, ZoneLevelAccessApplicationsGetAnAccessApplicationErrors, ZoneLevelAccessApplicationsGetAnAccessApplicationResponses, ZoneLevelAccessApplicationsListAccessApplicationsErrors, ZoneLevelAccessApplicationsListAccessApplicationsResponses, ZoneLevelAccessApplicationsPatchUpdateAccessApplicationSettingsErrors, ZoneLevelAccessApplicationsPatchUpdateAccessApplicationSettingsResponses, ZoneLevelAccessApplicationsPutUpdateAccessApplicationSettingsErrors, ZoneLevelAccessApplicationsPutUpdateAccessApplicationSettingsResponses, ZoneLevelAccessApplicationsRevokeServiceTokensErrors, ZoneLevelAccessApplicationsRevokeServiceTokensResponses, ZoneLevelAccessApplicationsTestAccessPoliciesErrors, ZoneLevelAccessApplicationsTestAccessPoliciesResponses, ZoneLevelAccessApplicationsUpdateABookmarkApplicationErrors, ZoneLevelAccessApplicationsUpdateABookmarkApplicationResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZoneLevelAccessApplicationsService {
      */
     public static zoneLevelAccessApplicationsListAccessApplications<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsListAccessApplicationsResponses, ZoneLevelAccessApplicationsListAccessApplicationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessApplicationsListAccessApplicationsResponses, ZoneLevelAccessApplicationsListAccessApplicationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class ZoneLevelAccessApplicationsService {
     public static zoneLevelAccessApplicationsAddABookmarkApplication<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
         accessAppsWritable: AccessAppsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsAddABookmarkApplicationResponses, ZoneLevelAccessApplicationsAddABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'accessAppsWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<ZoneLevelAccessApplicationsAddABookmarkApplicationResponses, ZoneLevelAccessApplicationsAddABookmarkApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class ZoneLevelAccessApplicationsService {
     public static zoneLevelAccessApplicationsDeleteAnAccessApplication<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsDeleteAnAccessApplicationResponses, ZoneLevelAccessApplicationsDeleteAnAccessApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessApplicationsDeleteAnAccessApplicationResponses, ZoneLevelAccessApplicationsDeleteAnAccessApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -95,7 +95,7 @@ export class ZoneLevelAccessApplicationsService {
     public static zoneLevelAccessApplicationsGetAnAccessApplication<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsGetAnAccessApplicationResponses, ZoneLevelAccessApplicationsGetAnAccessApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessApplicationsGetAnAccessApplicationResponses, ZoneLevelAccessApplicationsGetAnAccessApplicationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,7 +120,7 @@ export class ZoneLevelAccessApplicationsService {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
         accessAppsWritable: AccessAppsWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsUpdateABookmarkApplicationResponses, ZoneLevelAccessApplicationsUpdateABookmarkApplicationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'zone_id' },
@@ -153,7 +153,7 @@ export class ZoneLevelAccessApplicationsService {
     public static zoneLevelAccessApplicationsRevokeServiceTokens<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsRevokeServiceTokensResponses, ZoneLevelAccessApplicationsRevokeServiceTokensErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).post<ZoneLevelAccessApplicationsRevokeServiceTokensResponses, ZoneLevelAccessApplicationsRevokeServiceTokensErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -178,7 +178,7 @@ export class ZoneLevelAccessApplicationsService {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
         accessAppSettingsRequest: AccessAppSettingsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsPatchUpdateAccessApplicationSettingsResponses, ZoneLevelAccessApplicationsPatchUpdateAccessApplicationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'zone_id' },
@@ -212,7 +212,7 @@ export class ZoneLevelAccessApplicationsService {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
         accessAppSettingsRequest: AccessAppSettingsRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsPutUpdateAccessApplicationSettingsResponses, ZoneLevelAccessApplicationsPutUpdateAccessApplicationSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'zone_id' },
@@ -245,7 +245,7 @@ export class ZoneLevelAccessApplicationsService {
     public static zoneLevelAccessApplicationsTestAccessPolicies<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessAppIdWritable;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessApplicationsTestAccessPoliciesResponses, ZoneLevelAccessApplicationsTestAccessPoliciesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessApplicationsTestAccessPoliciesResponses, ZoneLevelAccessApplicationsTestAccessPoliciesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

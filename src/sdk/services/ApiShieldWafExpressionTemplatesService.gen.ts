@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldExpressionTemplatesFallthroughErrors, ApiShieldExpressionTemplatesFallthroughResponses, ApiShieldRequestExpressionTemplatesFallthrough, ApiShieldSchemasIdentifier } from '../types.gen';
+import type { ApiShieldExpressionTemplatesFallthroughErrors, ApiShieldExpressionTemplatesFallthroughResponses, ApiShieldIdentifier2, ApiShieldRequestExpressionTemplatesFallthrough } from '../types.gen';
 import { zApiShieldExpressionTemplatesFallthroughBody, zApiShieldExpressionTemplatesFallthroughPath, zApiShieldExpressionTemplatesFallthroughResponse } from '../zod.gen';
 
 export class ApiShieldWafExpressionTemplatesService {
@@ -17,9 +17,9 @@ export class ApiShieldWafExpressionTemplatesService {
      * Creates an expression template fallthrough rule for API Shield. Used for configuring default behavior when no other expression templates match.
      */
     public static apiShieldExpressionTemplatesFallthrough<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldRequestExpressionTemplatesFallthrough: ApiShieldRequestExpressionTemplatesFallthrough;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldExpressionTemplatesFallthroughResponses, ApiShieldExpressionTemplatesFallthroughErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldRequestExpressionTemplatesFallthrough', map: 'body' }] }]);
         return (options?.client ?? client).post<ApiShieldExpressionTemplatesFallthroughResponses, ApiShieldExpressionTemplatesFallthroughErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

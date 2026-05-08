@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BuildsAccountId, BuildsBuildUuid, BuildsCursor, BuildsExternalScriptIds, BuildsVersionIds, CancelBuildByUuidErrors, CancelBuildByUuidResponses, GetBuildByUuidErrors, GetBuildByUuidResponses, GetBuildLogsErrors, GetBuildLogsResponses, GetBuildsByVersionIdsResponses, GetLatestBuildsByScriptsResponses } from '../types.gen';
@@ -19,7 +19,7 @@ export class BuildsService {
     public static getBuildsByVersionIds<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         version_ids: BuildsVersionIds;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetBuildsByVersionIdsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'version_ids' }] }]);
         return (options?.client ?? client).get<GetBuildsByVersionIdsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,7 +47,7 @@ export class BuildsService {
     public static getLatestBuildsByScripts<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         external_script_ids: BuildsExternalScriptIds;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLatestBuildsByScriptsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'external_script_ids' }] }]);
         return (options?.client ?? client).get<GetLatestBuildsByScriptsResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -75,7 +75,7 @@ export class BuildsService {
     public static getBuildByUuid<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         build_uuid: BuildsBuildUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetBuildByUuidResponses, GetBuildByUuidErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'build_uuid' }] }]);
         return (options?.client ?? client).get<GetBuildByUuidResponses, GetBuildByUuidErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -103,7 +103,7 @@ export class BuildsService {
     public static cancelBuildByUuid<ThrowOnError extends boolean = true>(parameters: {
         account_id: BuildsAccountId;
         build_uuid: BuildsBuildUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CancelBuildByUuidResponses, CancelBuildByUuidErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'build_uuid' }] }]);
         return (options?.client ?? client).put<CancelBuildByUuidResponses, CancelBuildByUuidErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -132,7 +132,7 @@ export class BuildsService {
         account_id: BuildsAccountId;
         build_uuid: BuildsBuildUuid;
         cursor?: BuildsCursor;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetBuildLogsResponses, GetBuildLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'build_uuid' },

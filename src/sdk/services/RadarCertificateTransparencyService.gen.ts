@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetCertificateAuthoritiesErrors, RadarGetCertificateAuthoritiesResponses, RadarGetCertificateAuthorityDetailsErrors, RadarGetCertificateAuthorityDetailsResponses, RadarGetCertificateLogDetailsErrors, RadarGetCertificateLogDetailsResponses, RadarGetCertificateLogsErrors, RadarGetCertificateLogsResponses, RadarGetCtSummaryErrors, RadarGetCtSummaryResponses, RadarGetCtTimeseriesErrors, RadarGetCtTimeseriesGroupErrors, RadarGetCtTimeseriesGroupResponses, RadarGetCtTimeseriesResponses } from '../types.gen';
@@ -20,7 +20,7 @@ export class RadarCertificateTransparencyService {
         limit?: number;
         offset?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCertificateAuthoritiesResponses, RadarGetCertificateAuthoritiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -52,7 +52,7 @@ export class RadarCertificateTransparencyService {
     public static radarGetCertificateAuthorityDetails<ThrowOnError extends boolean = true>(parameters: {
         ca_slug: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCertificateAuthorityDetailsResponses, RadarGetCertificateAuthorityDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'ca_slug' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetCertificateAuthorityDetailsResponses, RadarGetCertificateAuthorityDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class RadarCertificateTransparencyService {
         limit?: number;
         offset?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCertificateLogsResponses, RadarGetCertificateLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -113,7 +113,7 @@ export class RadarCertificateTransparencyService {
     public static radarGetCertificateLogDetails<ThrowOnError extends boolean = true>(parameters: {
         log_slug: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCertificateLogDetailsResponses, RadarGetCertificateLogDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'log_slug' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetCertificateLogDetailsResponses, RadarGetCertificateLogDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -162,7 +162,7 @@ export class RadarCertificateTransparencyService {
         uniqueEntries?: Array<'true' | 'false'>;
         normalization?: 'RAW_VALUES' | 'PERCENTAGE';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCtSummaryResponses, RadarGetCtSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -233,7 +233,7 @@ export class RadarCertificateTransparencyService {
         validationLevel?: Array<'DOMAIN' | 'ORGANIZATION' | 'EXTENDED'>;
         uniqueEntries?: Array<'true' | 'false'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCtTimeseriesResponses, RadarGetCtTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -305,7 +305,7 @@ export class RadarCertificateTransparencyService {
         normalization?: 'RAW_VALUES' | 'PERCENTAGE';
         uniqueEntries?: Array<'true' | 'false'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetCtTimeseriesGroupResponses, RadarGetCtTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },

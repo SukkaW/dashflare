@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CallsAccountIdentifier, CallsAppEditableFields, CallsAppsCreateANewAppResponses, CallsAppsDeleteAppErrors, CallsAppsDeleteAppResponses, CallsAppsListErrors, CallsAppsListResponses, CallsAppsRetrieveAppDetailsErrors, CallsAppsRetrieveAppDetailsResponses, CallsAppsUpdateAppDetailsErrors, CallsAppsUpdateAppDetailsResponses, CallsIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class CallsAppsService {
      */
     public static callsAppsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsAppsListResponses, CallsAppsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CallsAppsListResponses, CallsAppsListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class CallsAppsService {
     public static callsAppsCreateANewApp<ThrowOnError extends boolean = true>(parameters: {
         account_id: CallsAccountIdentifier;
         callsAppEditableFields: CallsAppEditableFields;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsAppsCreateANewAppResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'callsAppEditableFields', map: 'body' }] }]);
         return (options?.client ?? client).post<CallsAppsCreateANewAppResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -71,7 +71,7 @@ export class CallsAppsService {
     public static callsAppsDeleteApp<ThrowOnError extends boolean = true>(parameters: {
         app_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsAppsDeleteAppResponses, CallsAppsDeleteAppErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<CallsAppsDeleteAppResponses, CallsAppsDeleteAppErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -95,7 +95,7 @@ export class CallsAppsService {
     public static callsAppsRetrieveAppDetails<ThrowOnError extends boolean = true>(parameters: {
         app_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsAppsRetrieveAppDetailsResponses, CallsAppsRetrieveAppDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CallsAppsRetrieveAppDetailsResponses, CallsAppsRetrieveAppDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,7 +120,7 @@ export class CallsAppsService {
         app_id: CallsIdentifier;
         account_id: CallsAccountIdentifier;
         callsAppEditableFields: CallsAppEditableFields;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CallsAppsUpdateAppDetailsResponses, CallsAppsUpdateAppDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'app_id' },
                     { in: 'path', key: 'account_id' },

@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CloudflareImagesBaseImageErrors, CloudflareImagesBaseImageResponses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Errors, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Responses, CloudflareImagesDeleteImageErrors, CloudflareImagesDeleteImageResponses, CloudflareImagesImageDetailsErrors, CloudflareImagesImageDetailsResponses, CloudflareImagesImagesUsageStatisticsErrors, CloudflareImagesImagesUsageStatisticsResponses, CloudflareImagesListImagesErrors, CloudflareImagesListImagesResponses, CloudflareImagesListImagesV2Errors, CloudflareImagesListImagesV2Responses, CloudflareImagesUpdateImageErrors, CloudflareImagesUpdateImageResponses, CloudflareImagesUploadAnImageViaUrlErrors, CloudflareImagesUploadAnImageViaUrlResponses, ImagesAccountIdentifier, ImagesImageBasicUpload, ImagesImageDirectUploadRequestV2, ImagesImageIdentifier, ImagesImagePatchRequest, ImagesImagesListContinuationToken } from '../types.gen';
-import { zCloudflareImagesBaseImagePath, zCloudflareImagesBaseImageResponse, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Body, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Path, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Response, zCloudflareImagesDeleteImageBody, zCloudflareImagesDeleteImagePath, zCloudflareImagesDeleteImageResponse, zCloudflareImagesImageDetailsPath, zCloudflareImagesImageDetailsResponse, zCloudflareImagesImagesUsageStatisticsPath, zCloudflareImagesImagesUsageStatisticsResponse, zCloudflareImagesListImagesPath, zCloudflareImagesListImagesQuery, zCloudflareImagesListImagesResponse, zCloudflareImagesListImagesV2Path, zCloudflareImagesListImagesV2Query, zCloudflareImagesListImagesV2Response, zCloudflareImagesUpdateImageBody, zCloudflareImagesUpdateImagePath, zCloudflareImagesUpdateImageResponse, zCloudflareImagesUploadAnImageViaUrlBody, zCloudflareImagesUploadAnImageViaUrlPath, zCloudflareImagesUploadAnImageViaUrlResponse } from '../zod.gen';
+import type { CloudflareImagesBaseImageErrors, CloudflareImagesBaseImageResponses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Errors, CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Responses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Errors, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Responses, CloudflareImagesDeleteImageErrors, CloudflareImagesDeleteImageResponses, CloudflareImagesImageDetailsErrors, CloudflareImagesImageDetailsResponses, CloudflareImagesImagesUsageStatisticsErrors, CloudflareImagesImagesUsageStatisticsResponses, CloudflareImagesListImagesErrors, CloudflareImagesListImagesResponses, CloudflareImagesListImagesV2Errors, CloudflareImagesListImagesV2Responses, CloudflareImagesUpdateImageErrors, CloudflareImagesUpdateImageResponses, CloudflareImagesUploadAnImageViaUrlErrors, CloudflareImagesUploadAnImageViaUrlResponses, ImagesAccountIdentifier, ImagesImageBasicUpload, ImagesImageDirectUploadRequestV1, ImagesImageDirectUploadRequestV2, ImagesImageIdentifier, ImagesImagePatchRequest, ImagesImagesListContinuationToken } from '../types.gen';
+import { zCloudflareImagesBaseImagePath, zCloudflareImagesBaseImageResponse, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Body, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Path, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Response, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Body, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Path, zCloudflareImagesCreateAuthenticatedDirectUploadUrlV2Response, zCloudflareImagesDeleteImageBody, zCloudflareImagesDeleteImagePath, zCloudflareImagesDeleteImageResponse, zCloudflareImagesImageDetailsPath, zCloudflareImagesImageDetailsResponse, zCloudflareImagesImagesUsageStatisticsPath, zCloudflareImagesImagesUsageStatisticsResponse, zCloudflareImagesListImagesPath, zCloudflareImagesListImagesQuery, zCloudflareImagesListImagesResponse, zCloudflareImagesListImagesV2Path, zCloudflareImagesListImagesV2Query, zCloudflareImagesListImagesV2Response, zCloudflareImagesUpdateImageBody, zCloudflareImagesUpdateImagePath, zCloudflareImagesUpdateImageResponse, zCloudflareImagesUploadAnImageViaUrlBody, zCloudflareImagesUploadAnImageViaUrlPath, zCloudflareImagesUploadAnImageViaUrlResponse } from '../zod.gen';
 
 export class CloudflareImagesService {
     /**
@@ -23,7 +23,7 @@ export class CloudflareImagesService {
         page?: number;
         per_page?: number;
         creator?: string | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesListImagesResponses, CloudflareImagesListImagesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -51,14 +51,15 @@ export class CloudflareImagesService {
     /**
      * Upload an image
      *
-     * Upload an image with up to 10 Megabytes using a single HTTP POST (multipart/form-data) request.
-     * An image can be uploaded by sending an image file or passing an accessible to an API url.
+     * Upload an image to CF Images. Images up to 10 Megabytes can be uploaded using a
+     * single HTTP POST (multipart/form-data) request by sending an image file or
+     * passing a URL accessible to the API.
      *
      */
     public static cloudflareImagesUploadAnImageViaUrl<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
         imagesImageBasicUpload: ImagesImageBasicUpload;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesUploadAnImageViaUrlResponses, CloudflareImagesUploadAnImageViaUrlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'imagesImageBasicUpload', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudflareImagesUploadAnImageViaUrlResponses, CloudflareImagesUploadAnImageViaUrlErrors, ThrowOnError>({
             ...formDataBodySerializer,
@@ -85,13 +86,53 @@ export class CloudflareImagesService {
     }
     
     /**
+     * Create authenticated direct upload URL V1
+     *
+     * Direct uploads allow users to upload images without API keys. A common use
+     * case are web apps, client-side applications, or mobile devices where users
+     * upload content directly to Cloudflare Images. This method creates a one-time
+     * upload URL. Use the V2 endpoint for additional features such as custom IDs and
+     * metadata.
+     *
+     *
+     * @deprecated
+     */
+    public static cloudflareImagesCreateAuthenticatedDirectUploadUrlV1<ThrowOnError extends boolean = true>(parameters: {
+        account_id: ImagesAccountIdentifier;
+        imagesImageDirectUploadRequestV1?: ImagesImageDirectUploadRequestV1;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Responses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Errors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'imagesImageDirectUploadRequestV1', map: 'body' }] }]);
+        return (options?.client ?? client).post<CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Responses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV1Errors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Body.optional(),
+                path: zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Path,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudflareImagesCreateAuthenticatedDirectUploadUrlV1Response.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/images/v1/direct_upload',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Images usage statistics
      *
      * Fetch image statistics details for Cloudflare Images. The returned statistics detail storage usage, including the current image count vs this account's allowance.
      */
     public static cloudflareImagesImagesUsageStatistics<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesImagesUsageStatisticsResponses, CloudflareImagesImagesUsageStatisticsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesImagesUsageStatisticsResponses, CloudflareImagesImagesUsageStatisticsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -120,7 +161,7 @@ export class CloudflareImagesService {
         image_id: ImagesImageIdentifier;
         account_id: ImagesAccountIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesDeleteImageResponses, CloudflareImagesDeleteImageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'image_id' },
                     { in: 'path', key: 'account_id' },
@@ -152,12 +193,12 @@ export class CloudflareImagesService {
     /**
      * Image details
      *
-     * Fetch details for a single image.
+     * Fetch details for a CF Images image.
      */
     public static cloudflareImagesImageDetails<ThrowOnError extends boolean = true>(parameters: {
         image_id: ImagesImageIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesImageDetailsResponses, CloudflareImagesImageDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'image_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesImageDetailsResponses, CloudflareImagesImageDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -180,13 +221,13 @@ export class CloudflareImagesService {
     /**
      * Update image
      *
-     * Update image access control. On access control change, all copies of the image are purged from cache.
+     * Update a CF Images image's metadata, creator, or access control. On access control change, all copies of the image are purged from cache.
      */
     public static cloudflareImagesUpdateImage<ThrowOnError extends boolean = true>(parameters: {
         image_id: ImagesImageIdentifier;
         account_id: ImagesAccountIdentifier;
         imagesImagePatchRequest: ImagesImagePatchRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesUpdateImageResponses, CloudflareImagesUpdateImageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'image_id' },
                     { in: 'path', key: 'account_id' },
@@ -216,14 +257,14 @@ export class CloudflareImagesService {
     }
     
     /**
-     * Base image
+     * Download image
      *
-     * Fetch base image. For most images this will be the originally uploaded file. For larger images it can be a near-lossless version of the original.
+     * Download an image from CF Images. For most images this will be the originally uploaded file. For larger images it can be a near-lossless version of the original.
      */
     public static cloudflareImagesBaseImage<ThrowOnError extends boolean = true>(parameters: {
         image_id: ImagesImageIdentifier;
         account_id: ImagesAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesBaseImageResponses, CloudflareImagesBaseImageErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'image_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<CloudflareImagesBaseImageResponses, CloudflareImagesBaseImageErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -246,7 +287,7 @@ export class CloudflareImagesService {
     /**
      * List images V2
      *
-     * List up to 10000 images with up to 1000 results per page. Use the optional parameters below to get a specific range of images.
+     * List up to 10000 images from CF Images, with up to 1000 results per page. Use the optional parameters below to get a specific range of images.
      * Pagination is supported via continuation_token.
      *
      * **Metadata Filtering (Optional):**
@@ -255,6 +296,10 @@ export class CloudflareImagesService {
      *
      * **Supported Operators:**
      * - `eq` / `eq:string` / `eq:number` / `eq:boolean` - Exact match
+     * - `gt` / `gt:number` - Greater than (number only)
+     * - `gte` / `gte:number` - Greater than or equal (number only)
+     * - `lt` / `lt:number` - Less than (number only)
+     * - `lte` / `lte:number` - Less than or equal (number only)
      * - `in` / `in:string` / `in:number` - Match any value in list (pipe-separated)
      *
      * **Metadata Filter Constraints:**
@@ -262,6 +307,10 @@ export class CloudflareImagesService {
      * - Maximum 5 levels of nesting (e.g., `meta.first.second.third.fourth.fifth`)
      * - Maximum 10 elements for list operators (`in`)
      * - Supports string, number, and boolean value types
+     * - Range operators (`gt`, `gte`, `lt`, `lte`) only accept numeric values
+     *
+     * **Filter Consistency:**
+     * Filters are combined with AND logic. The system does not validate whether filter combinations are logically consistent. For example, `meta.priority[eq:number]=5&meta.priority[lte:number]=3` will return zero results because no value can satisfy both conditions simultaneously. It is the caller's responsibility to ensure filter combinations make sense.
      *
      * **Examples:**
      * ```
@@ -276,6 +325,12 @@ export class CloudflareImagesService {
      *
      * # Filter by metadata [in:number]
      * /images/v2?meta.ratings[in:number]=4|5
+     *
+     * # Filter by metadata range [gte:number]
+     * /images/v2?meta.priority[gte:number]=1
+     *
+     * # Filter by bounded range
+     * /images/v2?meta.priority[gte:number]=1&meta.priority[lte:number]=5
      *
      * # Filter by nested metadata
      * /images/v2?meta.region.name[eq]=eu-west
@@ -295,7 +350,7 @@ export class CloudflareImagesService {
         sort_order?: 'asc' | 'desc';
         creator?: string | null;
         'meta.<field>[<operator>]'?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesListImagesV2Responses, CloudflareImagesListImagesV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'continuation_token' },
@@ -330,7 +385,7 @@ export class CloudflareImagesService {
     public static cloudflareImagesCreateAuthenticatedDirectUploadUrlV2<ThrowOnError extends boolean = true>(parameters: {
         account_id: ImagesAccountIdentifier;
         imagesImageDirectUploadRequestV2: ImagesImageDirectUploadRequestV2;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Responses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'imagesImageDirectUploadRequestV2', map: 'body' }] }]);
         return (options?.client ?? client).post<CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Responses, CloudflareImagesCreateAuthenticatedDirectUploadUrlV2Errors, ThrowOnError>({
             ...formDataBodySerializer,

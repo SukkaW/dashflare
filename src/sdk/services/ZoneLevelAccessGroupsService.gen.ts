@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessExclude, AccessGroupsComponentsSchemasName2, AccessIdentifier, AccessInclude, AccessRequire, AccessUuid, ZoneLevelAccessGroupsCreateAnAccessGroupErrors, ZoneLevelAccessGroupsCreateAnAccessGroupResponses, ZoneLevelAccessGroupsDeleteAnAccessGroupErrors, ZoneLevelAccessGroupsDeleteAnAccessGroupResponses, ZoneLevelAccessGroupsGetAnAccessGroupErrors, ZoneLevelAccessGroupsGetAnAccessGroupResponses, ZoneLevelAccessGroupsListAccessGroupsErrors, ZoneLevelAccessGroupsListAccessGroupsResponses, ZoneLevelAccessGroupsUpdateAnAccessGroupErrors, ZoneLevelAccessGroupsUpdateAnAccessGroupResponses } from '../types.gen';
+import type { AccessExclude, AccessIdentifier, AccessInclude, AccessName16, AccessRequire, AccessUuid, ZoneLevelAccessGroupsCreateAnAccessGroupErrors, ZoneLevelAccessGroupsCreateAnAccessGroupResponses, ZoneLevelAccessGroupsDeleteAnAccessGroupErrors, ZoneLevelAccessGroupsDeleteAnAccessGroupResponses, ZoneLevelAccessGroupsGetAnAccessGroupErrors, ZoneLevelAccessGroupsGetAnAccessGroupResponses, ZoneLevelAccessGroupsListAccessGroupsErrors, ZoneLevelAccessGroupsListAccessGroupsResponses, ZoneLevelAccessGroupsUpdateAnAccessGroupErrors, ZoneLevelAccessGroupsUpdateAnAccessGroupResponses } from '../types.gen';
 import { zZoneLevelAccessGroupsCreateAnAccessGroupBody, zZoneLevelAccessGroupsCreateAnAccessGroupPath, zZoneLevelAccessGroupsCreateAnAccessGroupResponse, zZoneLevelAccessGroupsDeleteAnAccessGroupPath, zZoneLevelAccessGroupsDeleteAnAccessGroupResponse, zZoneLevelAccessGroupsGetAnAccessGroupPath, zZoneLevelAccessGroupsGetAnAccessGroupResponse, zZoneLevelAccessGroupsListAccessGroupsPath, zZoneLevelAccessGroupsListAccessGroupsResponse, zZoneLevelAccessGroupsUpdateAnAccessGroupBody, zZoneLevelAccessGroupsUpdateAnAccessGroupPath, zZoneLevelAccessGroupsUpdateAnAccessGroupResponse } from '../zod.gen';
 
 export class ZoneLevelAccessGroupsService {
@@ -18,7 +18,7 @@ export class ZoneLevelAccessGroupsService {
      */
     public static zoneLevelAccessGroupsListAccessGroups<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessGroupsListAccessGroupsResponses, ZoneLevelAccessGroupsListAccessGroupsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessGroupsListAccessGroupsResponses, ZoneLevelAccessGroupsListAccessGroupsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -43,9 +43,9 @@ export class ZoneLevelAccessGroupsService {
         zone_id: AccessIdentifier;
         exclude?: AccessExclude;
         include: AccessInclude;
-        name: AccessGroupsComponentsSchemasName2;
+        name: AccessName16;
         require?: AccessRequire;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessGroupsCreateAnAccessGroupResponses, ZoneLevelAccessGroupsCreateAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'exclude' },
@@ -80,7 +80,7 @@ export class ZoneLevelAccessGroupsService {
     public static zoneLevelAccessGroupsDeleteAnAccessGroup<ThrowOnError extends boolean = true>(parameters: {
         group_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessGroupsDeleteAnAccessGroupResponses, ZoneLevelAccessGroupsDeleteAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'group_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessGroupsDeleteAnAccessGroupResponses, ZoneLevelAccessGroupsDeleteAnAccessGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -104,7 +104,7 @@ export class ZoneLevelAccessGroupsService {
     public static zoneLevelAccessGroupsGetAnAccessGroup<ThrowOnError extends boolean = true>(parameters: {
         group_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessGroupsGetAnAccessGroupResponses, ZoneLevelAccessGroupsGetAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'group_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessGroupsGetAnAccessGroupResponses, ZoneLevelAccessGroupsGetAnAccessGroupErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -130,9 +130,9 @@ export class ZoneLevelAccessGroupsService {
         zone_id: AccessIdentifier;
         exclude?: AccessExclude;
         include: AccessInclude;
-        name: AccessGroupsComponentsSchemasName2;
+        name: AccessName16;
         require?: AccessRequire;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessGroupsUpdateAnAccessGroupResponses, ZoneLevelAccessGroupsUpdateAnAccessGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'group_id' },
                     { in: 'path', key: 'zone_id' },

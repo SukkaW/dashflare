@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { IntelIdentifier, IpListGetIpListsErrors, IpListGetIpListsResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class IpListService {
      */
     public static ipListGetIpLists<ThrowOnError extends boolean = true>(parameters: {
         account_id: IntelIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpListGetIpListsResponses, IpListGetIpListsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpListGetIpListsResponses, IpListGetIpListsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

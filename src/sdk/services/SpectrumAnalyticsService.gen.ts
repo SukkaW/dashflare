@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { SpectrumAggregateAnalyticsGetCurrentAggregatedAnalyticsErrors, SpectrumAggregateAnalyticsGetCurrentAggregatedAnalyticsResponses, SpectrumAnalyticsAppIdParam, SpectrumAnalyticsByTimeGetAnalyticsByTimeErrors, SpectrumAnalyticsByTimeGetAnalyticsByTimeResponses, SpectrumAnalyticsDimensions, SpectrumAnalyticsFilters, SpectrumAnalyticsIdentifier, SpectrumAnalyticsMetrics, SpectrumAnalyticsSinceWritable, SpectrumAnalyticsSort, SpectrumAnalyticsSummaryGetAnalyticsSummaryErrors, SpectrumAnalyticsSummaryGetAnalyticsSummaryResponses, SpectrumAnalyticsUntilWritable } from '../types.gen';
@@ -20,7 +20,7 @@ export class SpectrumAnalyticsService {
         zone_id: SpectrumAnalyticsIdentifier;
         appID?: SpectrumAnalyticsAppIdParam;
         colo_name?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumAggregateAnalyticsGetCurrentAggregatedAnalyticsResponses, SpectrumAggregateAnalyticsGetCurrentAggregatedAnalyticsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'appID' },
@@ -58,7 +58,7 @@ export class SpectrumAnalyticsService {
         filters?: SpectrumAnalyticsFilters;
         since?: SpectrumAnalyticsSinceWritable;
         time_delta: 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'dekaminute' | 'minute';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumAnalyticsByTimeGetAnalyticsByTimeResponses, SpectrumAnalyticsByTimeGetAnalyticsByTimeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dimensions' },
@@ -100,7 +100,7 @@ export class SpectrumAnalyticsService {
         metrics?: SpectrumAnalyticsMetrics;
         filters?: SpectrumAnalyticsFilters;
         since?: SpectrumAnalyticsSinceWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SpectrumAnalyticsSummaryGetAnalyticsSummaryResponses, SpectrumAnalyticsSummaryGetAnalyticsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'dimensions' },

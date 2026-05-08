@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BotnetThreatFeedDeleteAsnErrors, BotnetThreatFeedDeleteAsnResponses, BotnetThreatFeedGetDayReportErrors, BotnetThreatFeedGetDayReportResponses, BotnetThreatFeedGetFullReportErrors, BotnetThreatFeedGetFullReportResponses, BotnetThreatFeedListAsnErrors, BotnetThreatFeedListAsnResponses, DosAsn, DosIdentifier, DosTimestamp } from '../types.gen';
@@ -20,7 +20,7 @@ export class BotnetThreatFeedService {
         account_id: DosIdentifier;
         asn_id: DosAsn;
         date?: DosTimestamp;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotnetThreatFeedGetDayReportResponses, BotnetThreatFeedGetDayReportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'asn_id' },
@@ -52,7 +52,7 @@ export class BotnetThreatFeedService {
     public static botnetThreatFeedGetFullReport<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         asn_id: DosAsn;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotnetThreatFeedGetFullReportResponses, BotnetThreatFeedGetFullReportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'asn_id' }] }]);
         return (options?.client ?? client).get<BotnetThreatFeedGetFullReportResponses, BotnetThreatFeedGetFullReportErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -79,7 +79,7 @@ export class BotnetThreatFeedService {
      */
     public static botnetThreatFeedListAsn<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotnetThreatFeedListAsnResponses, BotnetThreatFeedListAsnErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<BotnetThreatFeedListAsnResponses, BotnetThreatFeedListAsnErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -107,7 +107,7 @@ export class BotnetThreatFeedService {
     public static botnetThreatFeedDeleteAsn<ThrowOnError extends boolean = true>(parameters: {
         account_id: DosIdentifier;
         asn_id: DosAsn;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotnetThreatFeedDeleteAsnResponses, BotnetThreatFeedDeleteAsnErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'asn_id' }] }]);
         return (options?.client ?? client).delete<BotnetThreatFeedDeleteAsnResponses, BotnetThreatFeedDeleteAsnErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

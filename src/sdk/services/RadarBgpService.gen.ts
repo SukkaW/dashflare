@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { RadarGetBgpHijacksEventsErrors, RadarGetBgpHijacksEventsResponses, RadarGetBgpIpsTimeseriesErrors, RadarGetBgpIpsTimeseriesResponses, RadarGetBgpIpsTopAsesErrors, RadarGetBgpIpsTopAsesResponses, RadarGetBgpPfx2AsErrors, RadarGetBgpPfx2AsMoasErrors, RadarGetBgpPfx2AsMoasResponses, RadarGetBgpPfx2AsResponses, RadarGetBgpRouteLeakEventsErrors, RadarGetBgpRouteLeakEventsResponses, RadarGetBgpRoutesAsnsErrors, RadarGetBgpRoutesAsnsResponses, RadarGetBgpRoutesRealtimeErrors, RadarGetBgpRoutesRealtimeResponses, RadarGetBgpRoutesStatsErrors, RadarGetBgpRoutesStatsResponses, RadarGetBgpRpkiAspaChangesErrors, RadarGetBgpRpkiAspaChangesResponses, RadarGetBgpRpkiAspaSnapshotErrors, RadarGetBgpRpkiAspaSnapshotResponses, RadarGetBgpRpkiAspaTimeseriesErrors, RadarGetBgpRpkiAspaTimeseriesResponses, RadarGetBgpRpkiRoasTimeseriesErrors, RadarGetBgpRpkiRoasTimeseriesResponses, RadarGetBgpTimeseriesErrors, RadarGetBgpTimeseriesResponses, RadarGetBgpTopAsesErrors, RadarGetBgpTopAsesResponses, RadarGetBgpTopAsnsByPrefixesErrors, RadarGetBgpTopAsnsByPrefixesResponses, RadarGetBgpTopPrefixesErrors, RadarGetBgpTopPrefixesResponses } from '../types.gen';
-import { zRadarGetBgpHijacksEventsQuery, zRadarGetBgpHijacksEventsResponse, zRadarGetBgpIpsTimeseriesQuery, zRadarGetBgpIpsTimeseriesResponse, zRadarGetBgpIpsTopAsesQuery, zRadarGetBgpIpsTopAsesResponse, zRadarGetBgpPfx2AsMoasQuery, zRadarGetBgpPfx2AsMoasResponse, zRadarGetBgpPfx2AsQuery, zRadarGetBgpPfx2AsResponse, zRadarGetBgpRouteLeakEventsQuery, zRadarGetBgpRouteLeakEventsResponse, zRadarGetBgpRoutesAsnsQuery, zRadarGetBgpRoutesAsnsResponse, zRadarGetBgpRoutesRealtimeQuery, zRadarGetBgpRoutesRealtimeResponse, zRadarGetBgpRoutesStatsQuery, zRadarGetBgpRoutesStatsResponse, zRadarGetBgpRpkiAspaChangesQuery, zRadarGetBgpRpkiAspaChangesResponse, zRadarGetBgpRpkiAspaSnapshotQuery, zRadarGetBgpRpkiAspaSnapshotResponse, zRadarGetBgpRpkiAspaTimeseriesQuery, zRadarGetBgpRpkiAspaTimeseriesResponse, zRadarGetBgpRpkiRoasTimeseriesQuery, zRadarGetBgpRpkiRoasTimeseriesResponse, zRadarGetBgpTimeseriesQuery, zRadarGetBgpTimeseriesResponse, zRadarGetBgpTopAsesQuery, zRadarGetBgpTopAsesResponse, zRadarGetBgpTopAsnsByPrefixesQuery, zRadarGetBgpTopAsnsByPrefixesResponse, zRadarGetBgpTopPrefixesQuery, zRadarGetBgpTopPrefixesResponse } from '../zod.gen';
+import type { RadarGetBgpHijacksEventsErrors, RadarGetBgpHijacksEventsResponses, RadarGetBgpIpsTimeseriesErrors, RadarGetBgpIpsTimeseriesResponses, RadarGetBgpIpsTopAsesErrors, RadarGetBgpIpsTopAsesResponses, RadarGetBgpPfx2AsErrors, RadarGetBgpPfx2AsMoasErrors, RadarGetBgpPfx2AsMoasResponses, RadarGetBgpPfx2AsResponses, RadarGetBgpRouteLeakEventsErrors, RadarGetBgpRouteLeakEventsResponses, RadarGetBgpRoutesAsnsErrors, RadarGetBgpRoutesAsnsResponses, RadarGetBgpRoutesPathsErrors, RadarGetBgpRoutesPathsResponses, RadarGetBgpRoutesRealtimeErrors, RadarGetBgpRoutesRealtimeResponses, RadarGetBgpRoutesStatsErrors, RadarGetBgpRoutesStatsResponses, RadarGetBgpRoutesUpstreamsTimeseriesErrors, RadarGetBgpRoutesUpstreamsTimeseriesResponses, RadarGetBgpRpkiAspaChangesErrors, RadarGetBgpRpkiAspaChangesResponses, RadarGetBgpRpkiAspaSnapshotErrors, RadarGetBgpRpkiAspaSnapshotResponses, RadarGetBgpRpkiAspaTimeseriesErrors, RadarGetBgpRpkiAspaTimeseriesResponses, RadarGetBgpRpkiRoasTimeseriesErrors, RadarGetBgpRpkiRoasTimeseriesResponses, RadarGetBgpTimeseriesErrors, RadarGetBgpTimeseriesResponses, RadarGetBgpTopAsesErrors, RadarGetBgpTopAsesResponses, RadarGetBgpTopAsnsByPrefixesErrors, RadarGetBgpTopAsnsByPrefixesResponses, RadarGetBgpTopPrefixesErrors, RadarGetBgpTopPrefixesResponses } from '../types.gen';
+import { zRadarGetBgpHijacksEventsQuery, zRadarGetBgpHijacksEventsResponse, zRadarGetBgpIpsTimeseriesQuery, zRadarGetBgpIpsTimeseriesResponse, zRadarGetBgpIpsTopAsesQuery, zRadarGetBgpIpsTopAsesResponse, zRadarGetBgpPfx2AsMoasQuery, zRadarGetBgpPfx2AsMoasResponse, zRadarGetBgpPfx2AsQuery, zRadarGetBgpPfx2AsResponse, zRadarGetBgpRouteLeakEventsQuery, zRadarGetBgpRouteLeakEventsResponse, zRadarGetBgpRoutesAsnsQuery, zRadarGetBgpRoutesAsnsResponse, zRadarGetBgpRoutesPathsPath, zRadarGetBgpRoutesPathsQuery, zRadarGetBgpRoutesPathsResponse, zRadarGetBgpRoutesRealtimeQuery, zRadarGetBgpRoutesRealtimeResponse, zRadarGetBgpRoutesStatsQuery, zRadarGetBgpRoutesStatsResponse, zRadarGetBgpRoutesUpstreamsTimeseriesPath, zRadarGetBgpRoutesUpstreamsTimeseriesQuery, zRadarGetBgpRoutesUpstreamsTimeseriesResponse, zRadarGetBgpRpkiAspaChangesQuery, zRadarGetBgpRpkiAspaChangesResponse, zRadarGetBgpRpkiAspaSnapshotQuery, zRadarGetBgpRpkiAspaSnapshotResponse, zRadarGetBgpRpkiAspaTimeseriesQuery, zRadarGetBgpRpkiAspaTimeseriesResponse, zRadarGetBgpRpkiRoasTimeseriesQuery, zRadarGetBgpRpkiRoasTimeseriesResponse, zRadarGetBgpTimeseriesQuery, zRadarGetBgpTimeseriesResponse, zRadarGetBgpTopAsesQuery, zRadarGetBgpTopAsesResponse, zRadarGetBgpTopAsnsByPrefixesQuery, zRadarGetBgpTopAsnsByPrefixesResponse, zRadarGetBgpTopPrefixesQuery, zRadarGetBgpTopPrefixesResponse } from '../zod.gen';
 
 export class RadarBgpService {
     /**
@@ -33,7 +33,7 @@ export class RadarBgpService {
         sortBy?: 'ID' | 'TIME' | 'CONFIDENCE';
         sortOrder?: 'ASC' | 'DESC';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpHijacksEventsResponses, RadarGetBgpHijacksEventsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
@@ -85,7 +85,7 @@ export class RadarBgpService {
         ipVersion?: Array<'IPv4' | 'IPv6'>;
         includeDelay?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpIpsTimeseriesResponses, RadarGetBgpIpsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -126,7 +126,7 @@ export class RadarBgpService {
         metric?: 'v4_24s' | 'v6_48s';
         country?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpIpsTopAsesResponses, RadarGetBgpIpsTopAsesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'date' },
                     { in: 'query', key: 'limit' },
@@ -170,7 +170,7 @@ export class RadarBgpService {
         sortBy?: 'ID' | 'LEAKS' | 'PEERS' | 'PREFIXES' | 'ORIGINS' | 'TIME';
         sortOrder?: 'ASC' | 'DESC';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRouteLeakEventsResponses, RadarGetBgpRouteLeakEventsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
@@ -214,7 +214,7 @@ export class RadarBgpService {
         sortBy?: 'cone' | 'pfxs' | 'ipv4' | 'ipv6' | 'rpki_valid' | 'rpki_invalid' | 'rpki_unknown';
         sortOrder?: 'ASC' | 'DESC';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRoutesAsnsResponses, RadarGetBgpRoutesAsnsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'location' },
                     { in: 'query', key: 'limit' },
@@ -250,7 +250,7 @@ export class RadarBgpService {
         prefix?: string;
         invalid_only?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpPfx2AsMoasResponses, RadarGetBgpPfx2AsMoasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'origin' },
                     { in: 'query', key: 'prefix' },
@@ -276,6 +276,41 @@ export class RadarBgpService {
     }
     
     /**
+     * Get tier-1 path segments for an AS
+     *
+     * Retrieves the paths an AS uses to reach the tier-1 clique, derived from RouteViews RIB snapshots. Each entry is an ordered AS-path segment (from the queried AS toward a tier-1) with the number of observed paths and peers, and the collectors that observed it. By default segments are merged across all active collectors; pass "collector" to scope to one. The response also includes an "asnInfo" map (keyed by ASN) with the name and country for every ASN in the returned segments plus the queried ASN (best-effort; null when unavailable).
+     */
+    public static radarGetBgpRoutesPaths<ThrowOnError extends boolean = true>(parameters: {
+        asn: number;
+        ipVersion?: 'IPv4' | 'IPv6';
+        collector?: string;
+        format?: 'JSON' | 'CSV';
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRoutesPathsResponses, RadarGetBgpRoutesPathsErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'asn' },
+                    { in: 'query', key: 'ipVersion' },
+                    { in: 'query', key: 'collector' },
+                    { in: 'query', key: 'format' }
+                ] }]);
+        return (options?.client ?? client).get<RadarGetBgpRoutesPathsResponses, RadarGetBgpRoutesPathsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zRadarGetBgpRoutesPathsPath,
+                query: zRadarGetBgpRoutesPathsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zRadarGetBgpRoutesPathsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/radar/bgp/routes/paths/{asn}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get prefix-to-ASN mapping
      *
      * Retrieves the prefix-to-ASN mapping from global routing tables.
@@ -286,7 +321,7 @@ export class RadarBgpService {
         rpkiStatus?: 'VALID' | 'INVALID' | 'UNKNOWN';
         longestPrefixMatch?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpPfx2AsResponses, RadarGetBgpPfx2AsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'prefix' },
                     { in: 'query', key: 'origin' },
@@ -320,7 +355,7 @@ export class RadarBgpService {
     public static radarGetBgpRoutesRealtime<ThrowOnError extends boolean = true>(parameters?: {
         prefix?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRoutesRealtimeResponses, RadarGetBgpRoutesRealtimeErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'query', key: 'prefix' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetBgpRoutesRealtimeResponses, RadarGetBgpRoutesRealtimeErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -349,7 +384,7 @@ export class RadarBgpService {
         asn?: number;
         location?: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRoutesStatsResponses, RadarGetBgpRoutesStatsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'asn' },
                     { in: 'query', key: 'location' },
@@ -374,6 +409,45 @@ export class RadarBgpService {
     }
     
     /**
+     * Get upstream composition time series for an AS
+     *
+     * Retrieves the share of an AS’s observed paths carried by each direct upstream over time, derived from RouteViews RIB snapshots across all collectors (the combined product). Each upstream ASN is returned as its own series of shares (0–1); the least-significant upstreams beyond the requested limit are grouped into an "OTHER" series. Series share a common set of timestamps.
+     */
+    public static radarGetBgpRoutesUpstreamsTimeseries<ThrowOnError extends boolean = true>(parameters: {
+        asn: number;
+        ipVersion?: 'IPv4' | 'IPv6';
+        dateStart?: string;
+        dateEnd?: string;
+        limit?: number;
+        format?: 'JSON' | 'CSV';
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRoutesUpstreamsTimeseriesResponses, RadarGetBgpRoutesUpstreamsTimeseriesErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'asn' },
+                    { in: 'query', key: 'ipVersion' },
+                    { in: 'query', key: 'dateStart' },
+                    { in: 'query', key: 'dateEnd' },
+                    { in: 'query', key: 'limit' },
+                    { in: 'query', key: 'format' }
+                ] }]);
+        return (options?.client ?? client).get<RadarGetBgpRoutesUpstreamsTimeseriesResponses, RadarGetBgpRoutesUpstreamsTimeseriesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zRadarGetBgpRoutesUpstreamsTimeseriesPath,
+                query: zRadarGetBgpRoutesUpstreamsTimeseriesQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zRadarGetBgpRoutesUpstreamsTimeseriesResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/radar/bgp/routes/upstreams/{asn}/timeseries',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Get ASPA changes over time
      *
      * Retrieves ASPA (Autonomous System Provider Authorization) changes over time. Returns daily aggregated changes including additions, removals, and modifications of ASPA objects.
@@ -384,7 +458,7 @@ export class RadarBgpService {
         asn?: number;
         includeAsnInfo?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRpkiAspaChangesResponses, RadarGetBgpRpkiAspaChangesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'dateStart' },
                     { in: 'query', key: 'dateEnd' },
@@ -421,7 +495,7 @@ export class RadarBgpService {
         date?: string;
         includeAsnInfo?: boolean;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRpkiAspaSnapshotResponses, RadarGetBgpRpkiAspaSnapshotErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'customerAsn' },
                     { in: 'query', key: 'providerAsn' },
@@ -459,7 +533,7 @@ export class RadarBgpService {
         rir?: Array<'RIPE_NCC' | 'ARIN' | 'APNIC' | 'LACNIC' | 'AFRINIC'>;
         location?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRpkiAspaTimeseriesResponses, RadarGetBgpRpkiAspaTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'dateStart' },
                     { in: 'query', key: 'dateEnd' },
@@ -499,7 +573,7 @@ export class RadarBgpService {
         location?: Array<string>;
         name?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpRpkiRoasTimeseriesResponses, RadarGetBgpRpkiRoasTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'dateStart' },
                     { in: 'query', key: 'dateEnd' },
@@ -542,7 +616,7 @@ export class RadarBgpService {
         updateType?: Array<'ANNOUNCEMENT' | 'WITHDRAWAL'>;
         asn?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpTimeseriesResponses, RadarGetBgpTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -587,7 +661,7 @@ export class RadarBgpService {
         prefix?: Array<string>;
         updateType?: Array<'ANNOUNCEMENT' | 'WITHDRAWAL'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpTopAsesResponses, RadarGetBgpTopAsesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -626,7 +700,7 @@ export class RadarBgpService {
         country?: string;
         limit?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpTopAsnsByPrefixesResponses, RadarGetBgpTopAsnsByPrefixesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'country' },
                     { in: 'query', key: 'limit' },
@@ -664,7 +738,7 @@ export class RadarBgpService {
         asn?: Array<string>;
         updateType?: Array<'ANNOUNCEMENT' | 'WITHDRAWAL'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetBgpTopPrefixesResponses, RadarGetBgpTopPrefixesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetIndicatorTypesListErrors, GetIndicatorTypesListResponses, GetLegacyIndicatorTypesListErrors, GetLegacyIndicatorTypesListResponses } from '../types.gen';
@@ -13,11 +13,13 @@ import { zGetIndicatorTypesListPath, zGetIndicatorTypesListQuery, zGetIndicatorT
 export class IndicatorTypesService {
     /**
      * Lists indicator types across multiple datasets
+     *
+     * List indicator types across one or more datasets for the account.
      */
     public static getIndicatorTypesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         datasetIds?: Array<string>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetIndicatorTypesListResponses, GetIndicatorTypesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'datasetIds' }] }]);
         return (options?.client ?? client).get<GetIndicatorTypesListResponses, GetIndicatorTypesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +44,7 @@ export class IndicatorTypesService {
      */
     public static getLegacyIndicatorTypesList<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetLegacyIndicatorTypesListResponses, GetLegacyIndicatorTypesListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetLegacyIndicatorTypesListResponses, GetLegacyIndicatorTypesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

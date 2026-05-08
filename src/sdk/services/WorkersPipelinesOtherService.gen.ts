@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CloudflarePipelinesConnectionSchema, CloudflarePipelinesFormat, CloudflarePipelinesR2DataCatalogTable, CloudflarePipelinesR2Table, CloudflarePipelinesWorkersPipelinesAccountId, CloudflarePipelinesWorkersPipelinesBindingSource, CloudflarePipelinesWorkersPipelinesHttpSource, CloudflarePipelinesWorkersPipelinesPipelineId, CloudflarePipelinesWorkersPipelinesSinkId, CloudflarePipelinesWorkersPipelinesStreamId, DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, DeleteV4AccountsByAccountIdPipelinesV1SinksBySinkIdErrors, DeleteV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses, DeleteV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, DeleteV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, GetV4AccountsByAccountIdPipelinesDeprecatedErrors, GetV4AccountsByAccountIdPipelinesDeprecatedResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesErrors, GetV4AccountsByAccountIdPipelinesV1PipelinesResponses, GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdErrors, GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses, GetV4AccountsByAccountIdPipelinesV1SinksErrors, GetV4AccountsByAccountIdPipelinesV1SinksResponses, GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, GetV4AccountsByAccountIdPipelinesV1StreamsErrors, GetV4AccountsByAccountIdPipelinesV1StreamsResponses, PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, PostV4AccountsByAccountIdPipelinesDeprecatedErrors, PostV4AccountsByAccountIdPipelinesDeprecatedResponses, PostV4AccountsByAccountIdPipelinesV1PipelinesErrors, PostV4AccountsByAccountIdPipelinesV1PipelinesResponses, PostV4AccountsByAccountIdPipelinesV1SinksErrors, PostV4AccountsByAccountIdPipelinesV1SinksResponses, PostV4AccountsByAccountIdPipelinesV1StreamsErrors, PostV4AccountsByAccountIdPipelinesV1StreamsResponses, PostV4AccountsByAccountIdPipelinesV1ValidateSqlErrors, PostV4AccountsByAccountIdPipelinesV1ValidateSqlResponses, PutV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, PutV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses } from '../types.gen';
@@ -23,7 +23,7 @@ export class WorkersPipelinesOtherService {
         search?: string;
         page?: string;
         per_page?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesDeprecatedResponses, GetV4AccountsByAccountIdPipelinesDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'search' },
@@ -120,12 +120,8 @@ export class WorkersPipelinesOtherService {
             type: 'r2';
         };
         name: string;
-        source: Array<({
-            type: 'http';
-        } & CloudflarePipelinesWorkersPipelinesHttpSource) | ({
-            type: 'binding';
-        } & CloudflarePipelinesWorkersPipelinesBindingSource)>;
-    }, options?: Options<never, ThrowOnError>) {
+        source: Array<CloudflarePipelinesWorkersPipelinesHttpSource | CloudflarePipelinesWorkersPipelinesBindingSource>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostV4AccountsByAccountIdPipelinesDeprecatedResponses, PostV4AccountsByAccountIdPipelinesDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'destination' },
@@ -164,11 +160,13 @@ export class WorkersPipelinesOtherService {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+        name?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1PipelinesResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
-                    { in: 'query', key: 'per_page' }
+                    { in: 'query', key: 'per_page' },
+                    { in: 'query', key: 'name' }
                 ] }]);
         return (options?.client ?? client).get<GetV4AccountsByAccountIdPipelinesV1PipelinesResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -197,7 +195,7 @@ export class WorkersPipelinesOtherService {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         name: string;
         sql: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostV4AccountsByAccountIdPipelinesV1PipelinesResponses, PostV4AccountsByAccountIdPipelinesV1PipelinesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'name' },
@@ -234,7 +232,7 @@ export class WorkersPipelinesOtherService {
     public static deleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_id: CloudflarePipelinesWorkersPipelinesPipelineId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pipeline_id' }] }]);
         return (options?.client ?? client).delete<DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, DeleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -262,7 +260,7 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_id: CloudflarePipelinesWorkersPipelinesPipelineId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pipeline_id' }] }]);
         return (options?.client ?? client).get<GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses, GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -290,12 +288,14 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesV1Sinks<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_id?: string;
+        name?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1SinksResponses, GetV4AccountsByAccountIdPipelinesV1SinksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'pipeline_id' },
+                    { in: 'query', key: 'name' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' }
                 ] }]);
@@ -329,7 +329,7 @@ export class WorkersPipelinesOtherService {
         name: string;
         schema?: CloudflarePipelinesConnectionSchema;
         type: 'r2' | 'r2_data_catalog';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostV4AccountsByAccountIdPipelinesV1SinksResponses, PostV4AccountsByAccountIdPipelinesV1SinksErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'config' },
@@ -370,7 +370,7 @@ export class WorkersPipelinesOtherService {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         sink_id: CloudflarePipelinesWorkersPipelinesSinkId;
         force?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses, DeleteV4AccountsByAccountIdPipelinesV1SinksBySinkIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sink_id' },
@@ -402,7 +402,7 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesV1SinksBySinkId<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         sink_id: CloudflarePipelinesWorkersPipelinesSinkId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses, GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sink_id' }] }]);
         return (options?.client ?? client).get<GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses, GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -430,12 +430,14 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesV1Streams<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_id?: CloudflarePipelinesWorkersPipelinesPipelineId;
+        name?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1StreamsResponses, GetV4AccountsByAccountIdPipelinesV1StreamsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'pipeline_id' },
+                    { in: 'query', key: 'name' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' }
                 ] }]);
@@ -489,7 +491,7 @@ export class WorkersPipelinesOtherService {
              */
             enabled: boolean;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostV4AccountsByAccountIdPipelinesV1StreamsResponses, PostV4AccountsByAccountIdPipelinesV1StreamsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'format' },
@@ -530,7 +532,7 @@ export class WorkersPipelinesOtherService {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         stream_id: CloudflarePipelinesWorkersPipelinesStreamId;
         force?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, DeleteV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'stream_id' },
@@ -562,7 +564,7 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesV1StreamsByStreamId<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         stream_id: CloudflarePipelinesWorkersPipelinesStreamId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'stream_id' }] }]);
         return (options?.client ?? client).get<GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, GetV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -612,7 +614,7 @@ export class WorkersPipelinesOtherService {
              */
             enabled: boolean;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponses, PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'stream_id' },
@@ -650,7 +652,7 @@ export class WorkersPipelinesOtherService {
     public static postV4AccountsByAccountIdPipelinesV1ValidateSql<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         sql: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PostV4AccountsByAccountIdPipelinesV1ValidateSqlResponses, PostV4AccountsByAccountIdPipelinesV1ValidateSqlErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'sql' }] }]);
         return (options?.client ?? client).post<PostV4AccountsByAccountIdPipelinesV1ValidateSqlResponses, PostV4AccountsByAccountIdPipelinesV1ValidateSqlErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -685,7 +687,7 @@ export class WorkersPipelinesOtherService {
     public static deleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecated<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pipeline_name' }] }]);
         return (options?.client ?? client).delete<DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, DeleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -714,7 +716,7 @@ export class WorkersPipelinesOtherService {
     public static getV4AccountsByAccountIdPipelinesByPipelineNameDeprecated<ThrowOnError extends boolean = true>(parameters: {
         account_id: CloudflarePipelinesWorkersPipelinesAccountId;
         pipeline_name: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'pipeline_name' }] }]);
         return (options?.client ?? client).get<GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, GetV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -807,12 +809,8 @@ export class WorkersPipelinesOtherService {
             type: 'r2';
         };
         name: string;
-        source: Array<({
-            type: 'http';
-        } & CloudflarePipelinesWorkersPipelinesHttpSource) | ({
-            type: 'binding';
-        } & CloudflarePipelinesWorkersPipelinesBindingSource)>;
-    }, options?: Options<never, ThrowOnError>) {
+        source: Array<CloudflarePipelinesWorkersPipelinesHttpSource | CloudflarePipelinesWorkersPipelinesBindingSource>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<PutV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedResponses, PutV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'pipeline_name' },

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { ArgoConfigIdentifier, ArgoConfigPatch, ArgoSmartRoutingGetArgoSmartRoutingSettingErrors, ArgoSmartRoutingGetArgoSmartRoutingSettingResponses, ArgoSmartRoutingPatchArgoSmartRoutingSettingErrors, ArgoSmartRoutingPatchArgoSmartRoutingSettingResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ArgoSmartRoutingService {
      */
     public static argoSmartRoutingGetArgoSmartRoutingSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ArgoConfigIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArgoSmartRoutingGetArgoSmartRoutingSettingResponses, ArgoSmartRoutingGetArgoSmartRoutingSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ArgoSmartRoutingGetArgoSmartRoutingSettingResponses, ArgoSmartRoutingGetArgoSmartRoutingSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class ArgoSmartRoutingService {
     public static argoSmartRoutingPatchArgoSmartRoutingSetting<ThrowOnError extends boolean = true>(parameters: {
         zone_id: ArgoConfigIdentifier;
         argoConfigPatch: ArgoConfigPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ArgoSmartRoutingPatchArgoSmartRoutingSettingResponses, ArgoSmartRoutingPatchArgoSmartRoutingSettingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'argoConfigPatch', map: 'body' }] }]);
         return (options?.client ?? client).patch<ArgoSmartRoutingPatchArgoSmartRoutingSettingResponses, ArgoSmartRoutingPatchArgoSmartRoutingSettingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

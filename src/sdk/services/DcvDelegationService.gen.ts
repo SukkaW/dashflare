@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DcvDelegationUuidGetErrors, DcvDelegationUuidGetResponses, TlsCertificatesAndHostnamesIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class DcvDelegationService {
      */
     public static dcvDelegationUuidGet<ThrowOnError extends boolean = true>(parameters: {
         zone_id: TlsCertificatesAndHostnamesIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DcvDelegationUuidGetResponses, DcvDelegationUuidGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<DcvDelegationUuidGetResponses, DcvDelegationUuidGetErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -28,9 +28,9 @@ export class DcvDelegationService {
             }).parseAsync(data),
             responseValidator: async (data) => await zDcvDelegationUuidGetResponse.parseAsync(data),
             security: [
+                { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
-                { name: 'X-Auth-Key', type: 'apiKey' },
-                { scheme: 'bearer', type: 'http' }
+                { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/zones/{zone_id}/dcv_delegation/uuid',
             ...options,

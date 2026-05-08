@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { GetAccountsByAccountIdWorkersScriptsByScriptNameTailsErrors, GetAccountsByAccountIdWorkersScriptsByScriptNameTailsResponses, WorkersIdentifier, WorkersScriptName, WorkerTailLogsDeleteTailErrors, WorkerTailLogsDeleteTailResponses, WorkerTailLogsStartTailErrors, WorkerTailLogsStartTailResponses } from '../types.gen';
-import { zGetAccountsByAccountIdWorkersScriptsByScriptNameTailsPath, zGetAccountsByAccountIdWorkersScriptsByScriptNameTailsResponse, zWorkerTailLogsDeleteTailBody, zWorkerTailLogsDeleteTailPath, zWorkerTailLogsDeleteTailResponse, zWorkerTailLogsStartTailBody, zWorkerTailLogsStartTailPath, zWorkerTailLogsStartTailResponse } from '../zod.gen';
+import type { WorkersIdentifier, WorkersScriptName, WorkerTailLogsDeleteTailErrors, WorkerTailLogsDeleteTailResponses, WorkerTailLogsListTailsErrors, WorkerTailLogsListTailsResponses, WorkerTailLogsStartTailErrors, WorkerTailLogsStartTailResponses } from '../types.gen';
+import { zWorkerTailLogsDeleteTailBody, zWorkerTailLogsDeleteTailPath, zWorkerTailLogsDeleteTailResponse, zWorkerTailLogsListTailsPath, zWorkerTailLogsListTailsResponse, zWorkerTailLogsStartTailBody, zWorkerTailLogsStartTailPath, zWorkerTailLogsStartTailResponse } from '../zod.gen';
 
 export class WorkerTailLogsService {
     /**
@@ -16,18 +16,18 @@ export class WorkerTailLogsService {
      *
      * Get list of tails currently deployed on a Worker.
      */
-    public static getAccountsByAccountIdWorkersScriptsByScriptNameTails<ThrowOnError extends boolean = true>(parameters: {
+    public static workerTailLogsListTails<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerTailLogsListTailsResponses, WorkerTailLogsListTailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'script_name' }] }]);
-        return (options?.client ?? client).get<GetAccountsByAccountIdWorkersScriptsByScriptNameTailsResponses, GetAccountsByAccountIdWorkersScriptsByScriptNameTailsErrors, ThrowOnError>({
+        return (options?.client ?? client).get<WorkerTailLogsListTailsResponses, WorkerTailLogsListTailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
                 body: z.never().optional(),
-                path: zGetAccountsByAccountIdWorkersScriptsByScriptNameTailsPath,
+                path: zWorkerTailLogsListTailsPath,
                 query: z.never().optional()
             }).parseAsync(data),
-            responseValidator: async (data) => await zGetAccountsByAccountIdWorkersScriptsByScriptNameTailsResponse.parseAsync(data),
+            responseValidator: async (data) => await zWorkerTailLogsListTailsResponse.parseAsync(data),
             security: [
                 { scheme: 'bearer', type: 'http' },
                 { name: 'X-Auth-Email', type: 'apiKey' },
@@ -48,7 +48,7 @@ export class WorkerTailLogsService {
         account_id: WorkersIdentifier;
         script_name: WorkersScriptName;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerTailLogsStartTailResponses, WorkerTailLogsStartTailErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },
@@ -87,7 +87,7 @@ export class WorkerTailLogsService {
         script_name: WorkersScriptName;
         id: WorkersIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerTailLogsDeleteTailResponses, WorkerTailLogsDeleteTailErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'script_name' },

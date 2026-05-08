@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetEntitiesLocationByAlpha2Errors, RadarGetEntitiesLocationByAlpha2Responses, RadarGetEntitiesLocationsErrors, RadarGetEntitiesLocationsResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class RadarLocationsService {
         subregion?: string;
         continent?: 'AF' | 'AS' | 'EU' | 'NA' | 'OC' | 'SA';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesLocationsResponses, RadarGetEntitiesLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
@@ -60,7 +60,7 @@ export class RadarLocationsService {
     public static radarGetEntitiesLocationByAlpha2<ThrowOnError extends boolean = true>(parameters: {
         location: string;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetEntitiesLocationByAlpha2Responses, RadarGetEntitiesLocationByAlpha2Errors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'location' }, { in: 'query', key: 'format' }] }]);
         return (options?.client ?? client).get<RadarGetEntitiesLocationByAlpha2Responses, RadarGetEntitiesLocationByAlpha2Errors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

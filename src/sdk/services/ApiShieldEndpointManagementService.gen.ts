@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ApiShieldBasicOperation, ApiShieldEndpointManagementAddOperationsToAZoneErrors, ApiShieldEndpointManagementAddOperationsToAZoneResponses, ApiShieldEndpointManagementAddOperationToAZoneErrors, ApiShieldEndpointManagementAddOperationToAZoneResponses, ApiShieldEndpointManagementDeleteAnOperationErrors, ApiShieldEndpointManagementDeleteAnOperationResponses, ApiShieldEndpointManagementDeleteMultipleOperationsErrors, ApiShieldEndpointManagementDeleteMultipleOperationsResponses, ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneErrors, ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneResponses, ApiShieldEndpointManagementRetrieveInformationAboutAnOperationErrors, ApiShieldEndpointManagementRetrieveInformationAboutAnOperationResponses, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasErrors, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasResponses, ApiShieldObjectWithOperationId, ApiShieldSchemasIdentifier, ApiShieldUuid } from '../types.gen';
+import type { ApiShieldBasicOperation, ApiShieldEndpointManagementAddOperationsToAZoneErrors, ApiShieldEndpointManagementAddOperationsToAZoneResponses, ApiShieldEndpointManagementAddOperationToAZoneErrors, ApiShieldEndpointManagementAddOperationToAZoneResponses, ApiShieldEndpointManagementDeleteAnOperationErrors, ApiShieldEndpointManagementDeleteAnOperationResponses, ApiShieldEndpointManagementDeleteMultipleOperationsErrors, ApiShieldEndpointManagementDeleteMultipleOperationsResponses, ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneErrors, ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneResponses, ApiShieldEndpointManagementRetrieveInformationAboutAnOperationErrors, ApiShieldEndpointManagementRetrieveInformationAboutAnOperationResponses, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasErrors, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasResponses, ApiShieldIdentifier2, ApiShieldObjectWithOperationId, ApiShieldUuid } from '../types.gen';
 import { zApiShieldEndpointManagementAddOperationsToAZoneBody, zApiShieldEndpointManagementAddOperationsToAZonePath, zApiShieldEndpointManagementAddOperationsToAZoneResponse, zApiShieldEndpointManagementAddOperationToAZoneBody, zApiShieldEndpointManagementAddOperationToAZonePath, zApiShieldEndpointManagementAddOperationToAZoneResponse, zApiShieldEndpointManagementDeleteAnOperationPath, zApiShieldEndpointManagementDeleteAnOperationResponse, zApiShieldEndpointManagementDeleteMultipleOperationsBody, zApiShieldEndpointManagementDeleteMultipleOperationsPath, zApiShieldEndpointManagementDeleteMultipleOperationsResponse, zApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZonePath, zApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneQuery, zApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneResponse, zApiShieldEndpointManagementRetrieveInformationAboutAnOperationPath, zApiShieldEndpointManagementRetrieveInformationAboutAnOperationQuery, zApiShieldEndpointManagementRetrieveInformationAboutAnOperationResponse, zApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasPath, zApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasQuery, zApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasResponse } from '../zod.gen';
 
 export class ApiShieldEndpointManagementService {
@@ -17,9 +17,9 @@ export class ApiShieldEndpointManagementService {
      * Bulk removes multiple API operations from API Shield endpoint management in a single request. Efficient for cleaning up unused endpoints.
      */
     public static apiShieldEndpointManagementDeleteMultipleOperations<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         body: Array<ApiShieldObjectWithOperationId>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementDeleteMultipleOperationsResponses, ApiShieldEndpointManagementDeleteMultipleOperationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<ApiShieldEndpointManagementDeleteMultipleOperationsResponses, ApiShieldEndpointManagementDeleteMultipleOperationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -50,7 +50,7 @@ export class ApiShieldEndpointManagementService {
      * Lists all API operations tracked by API Shield for a zone with pagination. Returns operation details including method, path, and feature configurations.
      */
     public static apiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZone<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         page?: number;
         per_page?: number;
         order?: 'method' | 'host' | 'endpoint' | 'thresholds.$key';
@@ -59,7 +59,7 @@ export class ApiShieldEndpointManagementService {
         method?: Array<string>;
         endpoint?: string;
         feature?: Array<'thresholds' | 'parameter_schemas' | 'schema_info'>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneResponses, ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'page' },
@@ -95,9 +95,9 @@ export class ApiShieldEndpointManagementService {
      * Add one or more operations to a zone. Endpoints can contain path variables. Host, method, endpoint will be normalized to a canoncial form when creating an operation and must be unique on the zone. Inserting an operation that matches an existing one will return the record of the already existing operation and update its last_updated date.
      */
     public static apiShieldEndpointManagementAddOperationsToAZone<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         body: Array<ApiShieldBasicOperation>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementAddOperationsToAZoneResponses, ApiShieldEndpointManagementAddOperationsToAZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).post<ApiShieldEndpointManagementAddOperationsToAZoneResponses, ApiShieldEndpointManagementAddOperationsToAZoneErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -128,9 +128,9 @@ export class ApiShieldEndpointManagementService {
      * Add one operation to a zone. Endpoints can contain path variables. Host, method, endpoint will be normalized to a canoncial form when creating an operation and must be unique on the zone. Inserting an operation that matches an existing one will return the record of the already existing operation and update its last_updated date.
      */
     public static apiShieldEndpointManagementAddOperationToAZone<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         apiShieldBasicOperation: ApiShieldBasicOperation;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementAddOperationToAZoneResponses, ApiShieldEndpointManagementAddOperationToAZoneErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'apiShieldBasicOperation', map: 'body' }] }]);
         return (options?.client ?? client).post<ApiShieldEndpointManagementAddOperationToAZoneResponses, ApiShieldEndpointManagementAddOperationToAZoneErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -161,9 +161,9 @@ export class ApiShieldEndpointManagementService {
      * Removes a single API operation from API Shield endpoint management. The operation will no longer be tracked or protected by API Shield rules.
      */
     public static apiShieldEndpointManagementDeleteAnOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementDeleteAnOperationResponses, ApiShieldEndpointManagementDeleteAnOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'operation_id' }] }]);
         return (options?.client ?? client).delete<ApiShieldEndpointManagementDeleteAnOperationResponses, ApiShieldEndpointManagementDeleteAnOperationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -189,11 +189,11 @@ export class ApiShieldEndpointManagementService {
      * Gets detailed information about a specific API operation in API Shield, including its schema validation settings and traffic statistics.
      */
     public static apiShieldEndpointManagementRetrieveInformationAboutAnOperation<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         operation_id: ApiShieldUuid;
         feature?: Array<'thresholds' | 'parameter_schemas' | 'schema_info'>;
         with_schemas?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementRetrieveInformationAboutAnOperationResponses, ApiShieldEndpointManagementRetrieveInformationAboutAnOperationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'operation_id' },
@@ -220,16 +220,20 @@ export class ApiShieldEndpointManagementService {
     
     /**
      * Retrieve operations and features as OpenAPI schemas
+     *
+     * Retrieves API operations and their features exported as OpenAPI schemas.
      */
     public static apiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemas<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ApiShieldSchemasIdentifier;
+        zone_id: ApiShieldIdentifier2;
         host?: Array<string>;
         feature?: Array<'thresholds' | 'parameter_schemas' | 'schema_info'>;
-    }, options?: Options<never, ThrowOnError>) {
+        include_schema_kind?: Array<'learned'>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasResponses, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'host' },
-                    { in: 'query', key: 'feature' }
+                    { in: 'query', key: 'feature' },
+                    { in: 'query', key: 'include_schema_kind' }
                 ] }]);
         return (options?.client ?? client).get<ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasResponses, ApiShieldEndpointManagementRetrieveOperationsAndFeaturesAsOpenApiSchemasErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

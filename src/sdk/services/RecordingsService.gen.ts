@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { GetActiveRecordingErrors, GetActiveRecordingResponses, GetAllRecordingsResponses, GetOneRecordingResponses, PauseResumeStopRecordingResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitStartRecording, RealtimekitStartTrackRecordingBody, StartRecordingResponses, StartTrackRecordingForAMeetingResponses } from '../types.gen';
-import { zGetActiveRecordingPath, zGetActiveRecordingResponse, zGetAllRecordingsPath, zGetAllRecordingsQuery, zGetAllRecordingsResponse, zGetOneRecordingPath, zGetOneRecordingResponse, zPauseResumeStopRecordingBody, zPauseResumeStopRecordingPath, zPauseResumeStopRecordingResponse, zStartRecordingBody, zStartRecordingPath, zStartRecordingResponse, zStartTrackRecordingForAMeetingBody, zStartTrackRecordingForAMeetingPath } from '../zod.gen';
+import { zGetActiveRecordingPath, zGetActiveRecordingResponse, zGetAllRecordingsPath, zGetAllRecordingsQuery, zGetAllRecordingsResponse, zGetOneRecordingPath, zGetOneRecordingResponse, zPauseResumeStopRecordingBody, zPauseResumeStopRecordingPath, zPauseResumeStopRecordingResponse, zStartRecordingBody, zStartRecordingPath, zStartRecordingResponse, zStartTrackRecordingForAMeetingBody, zStartTrackRecordingForAMeetingPath, zStartTrackRecordingForAMeetingResponse } from '../zod.gen';
 
 export class RecordingsService {
     /**
@@ -28,8 +28,8 @@ export class RecordingsService {
         sort_order?: 'ASC' | 'DESC';
         start_time?: string;
         end_time?: string;
-        status?: Array<'INVOKED' | 'RECORDING' | 'UPLOADING' | 'UPLOADED'>;
-    }, options?: Options<never, ThrowOnError>) {
+        status?: Array<'INVOKED' | 'RECORDING' | 'UPLOADING' | 'UPLOADED' | 'ERRORED' | 'PAUSED'>;
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllRecordingsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -68,7 +68,7 @@ export class RecordingsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         realtimekitStartRecording: RealtimekitStartRecording;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StartRecordingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -102,7 +102,7 @@ export class RecordingsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         meeting_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetActiveRecordingResponses, GetActiveRecordingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -123,15 +123,15 @@ export class RecordingsService {
     }
     
     /**
-     * Start recording audio and video tracks
+     * Start recording participant audio tracks
      *
-     * Starts a track recording in a meeting. Track recordings consist of "layers". Layers are used to map audio/video tracks in a meeting to output destinations. More information about track recordings is available in the [Track Recordings Guide Page](https://docs.realtime.cloudflare.com/guides/capabilities/recording/recording-overview).
+     * Starts track recording for a meeting. Track recording currently records separate participant audio tracks as WebM files in the RealtimeKit bucket. Video track recording is in development. For more information, refer to [Track recording](/realtime/realtimekit/recording-guide/track-recording/).
      */
     public static startTrackRecordingForAMeeting<ThrowOnError extends boolean = true>(parameters: {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         realtimekitStartTrackRecordingBody: RealtimekitStartTrackRecordingBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<StartTrackRecordingForAMeetingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -143,6 +143,7 @@ export class RecordingsService {
                 path: zStartTrackRecordingForAMeetingPath,
                 query: z.never().optional()
             }).parseAsync(data),
+            responseValidator: async (data) => await zStartTrackRecordingForAMeetingResponse.parseAsync(data),
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/accounts/{account_id}/realtime/kit/{app_id}/recordings/track',
             ...options,
@@ -164,7 +165,7 @@ export class RecordingsService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         recording_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetOneRecordingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -194,7 +195,7 @@ export class RecordingsService {
         app_id: string;
         recording_id: string;
         action: 'stop' | 'pause' | 'resume';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<PauseResumeStopRecordingResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

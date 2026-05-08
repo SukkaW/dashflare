@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { FirewallConfiguration, FirewallNotes, FirewallRuleIdentifier, FirewallSchemasMode, IpAccessRulesForAuserCreateAnIpAccessRuleErrors, IpAccessRulesForAuserCreateAnIpAccessRuleResponses, IpAccessRulesForAuserDeleteAnIpAccessRuleErrors, IpAccessRulesForAuserDeleteAnIpAccessRuleResponses, IpAccessRulesForAuserListIpAccessRulesErrors, IpAccessRulesForAuserListIpAccessRulesResponses, IpAccessRulesForAuserUpdateAnIpAccessRuleErrors, IpAccessRulesForAuserUpdateAnIpAccessRuleResponses } from '../types.gen';
-import { zIpAccessRulesForAuserCreateAnIpAccessRuleBody, zIpAccessRulesForAuserCreateAnIpAccessRuleResponse, zIpAccessRulesForAuserDeleteAnIpAccessRuleBody, zIpAccessRulesForAuserDeleteAnIpAccessRulePath, zIpAccessRulesForAuserDeleteAnIpAccessRuleResponse, zIpAccessRulesForAuserListIpAccessRulesQuery, zIpAccessRulesForAuserListIpAccessRulesResponse, zIpAccessRulesForAuserUpdateAnIpAccessRuleBody, zIpAccessRulesForAuserUpdateAnIpAccessRulePath, zIpAccessRulesForAuserUpdateAnIpAccessRuleResponse } from '../zod.gen';
+import type { FirewallConfiguration, FirewallNotes, FirewallRuleIdentifier, FirewallSchemasMode, IpAccessRulesForAuserCreateAnIpAccessRuleErrors, IpAccessRulesForAuserCreateAnIpAccessRuleResponses, IpAccessRulesForAuserDeleteAnIpAccessRuleErrors, IpAccessRulesForAuserDeleteAnIpAccessRuleResponses, IpAccessRulesForAuserGetAnIpAccessRuleErrors, IpAccessRulesForAuserGetAnIpAccessRuleResponses, IpAccessRulesForAuserListIpAccessRulesErrors, IpAccessRulesForAuserListIpAccessRulesResponses, IpAccessRulesForAuserUpdateAnIpAccessRuleErrors, IpAccessRulesForAuserUpdateAnIpAccessRuleResponses } from '../types.gen';
+import { zIpAccessRulesForAuserCreateAnIpAccessRuleBody, zIpAccessRulesForAuserCreateAnIpAccessRuleResponse, zIpAccessRulesForAuserDeleteAnIpAccessRuleBody, zIpAccessRulesForAuserDeleteAnIpAccessRulePath, zIpAccessRulesForAuserDeleteAnIpAccessRuleResponse, zIpAccessRulesForAuserGetAnIpAccessRulePath, zIpAccessRulesForAuserGetAnIpAccessRuleResponse, zIpAccessRulesForAuserListIpAccessRulesQuery, zIpAccessRulesForAuserListIpAccessRulesResponse, zIpAccessRulesForAuserUpdateAnIpAccessRuleBody, zIpAccessRulesForAuserUpdateAnIpAccessRulePath, zIpAccessRulesForAuserUpdateAnIpAccessRuleResponse } from '../zod.gen';
 
 export class IpAccessRulesForAUserService {
     /**
@@ -26,7 +26,7 @@ export class IpAccessRulesForAUserService {
         per_page?: number;
         order?: 'configuration.target' | 'configuration.value' | 'mode';
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAuserListIpAccessRulesResponses, IpAccessRulesForAuserListIpAccessRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'mode' },
                     { in: 'query', key: 'configuration.target' },
@@ -67,7 +67,7 @@ export class IpAccessRulesForAUserService {
         configuration: FirewallConfiguration;
         mode: FirewallSchemasMode;
         notes?: FirewallNotes & unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAuserCreateAnIpAccessRuleResponses, IpAccessRulesForAuserCreateAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'body', key: 'configuration' },
                     { in: 'body', key: 'mode' },
@@ -106,7 +106,7 @@ export class IpAccessRulesForAUserService {
     public static ipAccessRulesForAUserDeleteAnIpAccessRule<ThrowOnError extends boolean = true>(parameters: {
         rule_id: FirewallRuleIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAuserDeleteAnIpAccessRuleResponses, IpAccessRulesForAuserDeleteAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).delete<IpAccessRulesForAuserDeleteAnIpAccessRuleResponses, IpAccessRulesForAuserDeleteAnIpAccessRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -132,6 +132,33 @@ export class IpAccessRulesForAUserService {
     }
     
     /**
+     * Get an IP Access rule
+     *
+     * Fetches the details of an IP Access rule defined at the user level.
+     */
+    public static ipAccessRulesForAUserGetAnIpAccessRule<ThrowOnError extends boolean = true>(parameters: {
+        rule_id: FirewallRuleIdentifier;
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAuserGetAnIpAccessRuleResponses, IpAccessRulesForAuserGetAnIpAccessRuleErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'rule_id' }] }]);
+        return (options?.client ?? client).get<IpAccessRulesForAuserGetAnIpAccessRuleResponses, IpAccessRulesForAuserGetAnIpAccessRuleErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zIpAccessRulesForAuserGetAnIpAccessRulePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zIpAccessRulesForAuserGetAnIpAccessRuleResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/user/firewall/access_rules/rules/{rule_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * Update an IP Access rule
      *
      * Updates an IP Access rule defined at the user level. You can only update the rule action (`mode` parameter) and notes.
@@ -140,7 +167,7 @@ export class IpAccessRulesForAUserService {
         rule_id: FirewallRuleIdentifier;
         mode?: FirewallSchemasMode;
         notes?: FirewallNotes;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAccessRulesForAuserUpdateAnIpAccessRuleResponses, IpAccessRulesForAuserUpdateAnIpAccessRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'body', key: 'mode' },

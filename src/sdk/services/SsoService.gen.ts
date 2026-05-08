@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BeginSsoConnectorVerificationErrors, BeginSsoConnectorVerificationResponses, DeleteSsoConnectorErrors, DeleteSsoConnectorResponses, GetAllSsoConnectorsErrors, GetAllSsoConnectorsResponses, GetSsoConnectorErrors, GetSsoConnectorResponses, IamAccountIdentifierWritable, IamSsoConnectorIdentifierWritable, IamUseFedrampLanguage, InitNewSsoConnectorErrors, InitNewSsoConnectorResponses, UpdateSsoConnectorStateErrors, UpdateSsoConnectorStateResponses } from '../types.gen';
@@ -13,10 +13,12 @@ import { zBeginSsoConnectorVerificationPath, zBeginSsoConnectorVerificationRespo
 export class SsoService {
     /**
      * Get all SSO connectors
+     *
+     * Lists all SSO connectors configured for the account.
      */
     public static getAllSsoConnectors<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAllSsoConnectorsResponses, GetAllSsoConnectorsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<GetAllSsoConnectorsResponses, GetAllSsoConnectorsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -34,13 +36,15 @@ export class SsoService {
     
     /**
      * Initialize new SSO connector
+     *
+     * Creates a new SSO connector for logging into Cloudflare through an identity provider.
      */
     public static initNewSsoConnector<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         begin_verification?: boolean;
         email_domain: string;
         use_fedramp_language?: IamUseFedrampLanguage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<InitNewSsoConnectorResponses, InitNewSsoConnectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'begin_verification' },
@@ -68,11 +72,13 @@ export class SsoService {
     
     /**
      * Delete SSO connector
+     *
+     * Deletes an SSO connector from the account.
      */
     public static deleteSsoConnector<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         sso_connector_id: IamSsoConnectorIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DeleteSsoConnectorResponses, DeleteSsoConnectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sso_connector_id' }] }]);
         return (options?.client ?? client).delete<DeleteSsoConnectorResponses, DeleteSsoConnectorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,11 +96,13 @@ export class SsoService {
     
     /**
      * Get single SSO connector
+     *
+     * Retrieves details for a specific SSO connector.
      */
     public static getSsoConnector<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         sso_connector_id: IamSsoConnectorIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetSsoConnectorResponses, GetSsoConnectorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sso_connector_id' }] }]);
         return (options?.client ?? client).get<GetSsoConnectorResponses, GetSsoConnectorErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -112,13 +120,15 @@ export class SsoService {
     
     /**
      * Update SSO connector state
+     *
+     * Updates the state or configuration of an SSO connector.
      */
     public static updateSsoConnectorState<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         sso_connector_id: IamSsoConnectorIdentifierWritable;
         enabled?: boolean;
         use_fedramp_language?: IamUseFedrampLanguage;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<UpdateSsoConnectorStateResponses, UpdateSsoConnectorStateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'sso_connector_id' },
@@ -146,11 +156,13 @@ export class SsoService {
     
     /**
      * Begin SSO connector verification
+     *
+     * Validates the user has added the DNS TXT record required for validating ownership of the domain they are trying to set up a connector for.
      */
     public static beginSsoConnectorVerification<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         sso_connector_id: IamSsoConnectorIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BeginSsoConnectorVerificationResponses, BeginSsoConnectorVerificationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'sso_connector_id' }] }]);
         return (options?.client ?? client).post<BeginSsoConnectorVerificationResponses, BeginSsoConnectorVerificationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

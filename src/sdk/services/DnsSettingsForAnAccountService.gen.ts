@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DnsSettingsAccountSettingsPatch, DnsSettingsForAnAccountListDnsSettingsErrors, DnsSettingsForAnAccountListDnsSettingsResponses, DnsSettingsForAnAccountUpdateDnsSettingsErrors, DnsSettingsForAnAccountUpdateDnsSettingsResponses, DnsSettingsIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class DnsSettingsForAnAccountService {
      */
     public static dnsSettingsForAnAccountListDnsSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsSettingsIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsSettingsForAnAccountListDnsSettingsResponses, DnsSettingsForAnAccountListDnsSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DnsSettingsForAnAccountListDnsSettingsResponses, DnsSettingsForAnAccountListDnsSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class DnsSettingsForAnAccountService {
     public static dnsSettingsForAnAccountUpdateDnsSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: DnsSettingsIdentifier;
         dnsSettingsAccountSettingsPatch: DnsSettingsAccountSettingsPatch;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DnsSettingsForAnAccountUpdateDnsSettingsResponses, DnsSettingsForAnAccountUpdateDnsSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dnsSettingsAccountSettingsPatch', map: 'body' }] }]);
         return (options?.client ?? client).patch<DnsSettingsForAnAccountUpdateDnsSettingsResponses, DnsSettingsForAnAccountUpdateDnsSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

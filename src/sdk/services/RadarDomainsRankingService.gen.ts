@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetRankingDomainDetailsErrors, RadarGetRankingDomainDetailsResponses, RadarGetRankingDomainTimeseriesErrors, RadarGetRankingDomainTimeseriesResponses, RadarGetRankingTopDomainsErrors, RadarGetRankingTopDomainsResponses } from '../types.gen';
@@ -24,7 +24,7 @@ export class RadarDomainsRankingService {
         includeTopLocations?: boolean;
         date?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetRankingDomainDetailsResponses, RadarGetRankingDomainDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'domain' },
                     { in: 'query', key: 'limit' },
@@ -68,7 +68,7 @@ export class RadarDomainsRankingService {
         dateStart?: Array<string>;
         dateEnd?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetRankingDomainTimeseriesResponses, RadarGetRankingDomainTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'rankingType' },
@@ -112,7 +112,7 @@ export class RadarDomainsRankingService {
         date?: Array<string>;
         rankingType?: 'POPULAR' | 'TRENDING_RISE' | 'TRENDING_STEADY';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetRankingTopDomainsResponses, RadarGetRankingTopDomainsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },

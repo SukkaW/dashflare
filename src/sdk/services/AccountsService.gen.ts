@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccountCreationErrors, AccountCreationResponses, AccountDeletionErrors, AccountDeletionResponses, AccountsAccountDetailsErrors, AccountsAccountDetailsResponses, AccountsBatchMoveAccountsErrors, AccountsBatchMoveAccountsResponses, AccountsGetAccountProfileErrors, AccountsGetAccountProfileResponses, AccountsListAccountOrganizationsErrors, AccountsListAccountOrganizationsResponses, AccountsListAccountsErrors, AccountsListAccountsResponses, AccountsModifyAccountProfileErrors, AccountsModifyAccountProfileResponses, AccountsMoveAccountsErrors, AccountsMoveAccountsResponses, AccountsUpdateAccountErrors, AccountsUpdateAccountResponses, IamAccountIdentifierWritable, IamComponentsSchemasAccountWritable, IamCreateAccount, OrganizationsApiProfile } from '../types.gen';
@@ -21,7 +21,7 @@ export class AccountsService {
         page?: number;
         per_page?: number;
         direction?: 'asc' | 'desc';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsListAccountsResponses, AccountsListAccountsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'page' },
@@ -49,7 +49,7 @@ export class AccountsService {
      */
     public static accountCreation<ThrowOnError extends boolean = true>(parameters: {
         iamCreateAccount: IamCreateAccount;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountCreationResponses, AccountCreationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ key: 'iamCreateAccount', map: 'body' }] }]);
         return (options?.client ?? client).post<AccountCreationResponses, AccountCreationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class AccountsService {
     public static accountsBatchMoveAccounts<ThrowOnError extends boolean = true>(parameters: {
         account_ids: Array<string>;
         destination_organization_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsBatchMoveAccountsResponses, AccountsBatchMoveAccountsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'body', key: 'account_ids' }, { in: 'body', key: 'destination_organization_id' }] }]);
         return (options?.client ?? client).post<AccountsBatchMoveAccountsResponses, AccountsBatchMoveAccountsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class AccountsService {
      */
     public static accountDeletion<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountDeletionResponses, AccountDeletionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccountDeletionResponses, AccountDeletionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -129,7 +129,7 @@ export class AccountsService {
      */
     public static accountsAccountDetails<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsAccountDetailsResponses, AccountsAccountDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountsAccountDetailsResponses, AccountsAccountDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -153,7 +153,7 @@ export class AccountsService {
     public static accountsUpdateAccount<ThrowOnError extends boolean = true>(parameters: {
         account_id: IamAccountIdentifierWritable;
         iamComponentsSchemasAccountWritable: IamComponentsSchemasAccountWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsUpdateAccountResponses, AccountsUpdateAccountErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'iamComponentsSchemasAccountWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<AccountsUpdateAccountResponses, AccountsUpdateAccountErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -177,12 +177,12 @@ export class AccountsService {
     /**
      * Move account
      *
-     * Move an account within an organization hierarchy or an account outside an organization. (Currently in Closed Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
+     * Move an account within an organization hierarchy or an account outside an organization. (Currently in Public Beta - see https://developers.cloudflare.com/fundamentals/organizations/)
      */
     public static accountsMoveAccounts<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         destination_organization_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsMoveAccountsResponses, AccountsMoveAccountsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'destination_organization_id' }] }]);
         return (options?.client ?? client).post<AccountsMoveAccountsResponses, AccountsMoveAccountsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -215,7 +215,7 @@ export class AccountsService {
      */
     public static accountsListAccountOrganizations<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsListAccountOrganizationsResponses, AccountsListAccountOrganizationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountsListAccountOrganizationsResponses, AccountsListAccountOrganizationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -238,7 +238,7 @@ export class AccountsService {
      */
     public static accountsGetAccountProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsGetAccountProfileResponses, AccountsGetAccountProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccountsGetAccountProfileResponses, AccountsGetAccountProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -262,7 +262,7 @@ export class AccountsService {
     public static accountsModifyAccountProfile<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         organizationsApiProfile: OrganizationsApiProfile;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccountsModifyAccountProfileResponses, AccountsModifyAccountProfileErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'organizationsApiProfile', map: 'body' }] }]);
         return (options?.client ?? client).put<AccountsModifyAccountProfileResponses, AccountsModifyAccountProfileErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

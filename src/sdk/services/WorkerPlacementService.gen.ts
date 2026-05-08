@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerPlacementListRegionsErrors, WorkerPlacementListRegionsResponses, WorkersIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class WorkerPlacementService {
      */
     public static workerPlacementListRegions<ThrowOnError extends boolean = true>(parameters: {
         account_id: WorkersIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerPlacementListRegionsResponses, WorkerPlacementListRegionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<WorkerPlacementListRegionsResponses, WorkerPlacementListRegionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

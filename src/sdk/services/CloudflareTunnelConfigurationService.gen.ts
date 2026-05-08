@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CloudflareTunnelConfigurationGetConfigurationErrors, CloudflareTunnelConfigurationGetConfigurationResponses, CloudflareTunnelConfigurationPutConfigurationErrors, CloudflareTunnelConfigurationPutConfigurationResponses, TunnelConfigWritable, TunnelIdentifier, TunnelSchemasTunnelId } from '../types.gen';
-import { zCloudflareTunnelConfigurationGetConfigurationPath, zCloudflareTunnelConfigurationGetConfigurationResponse, zCloudflareTunnelConfigurationPutConfigurationBody, zCloudflareTunnelConfigurationPutConfigurationPath, zCloudflareTunnelConfigurationPutConfigurationResponse } from '../zod.gen';
+import type { CloudflareTunnelConfigurationGetConfigurationErrors, CloudflareTunnelConfigurationGetConfigurationResponses, CloudflareTunnelConfigurationGetWarpConnectorConfigurationErrors, CloudflareTunnelConfigurationGetWarpConnectorConfigurationResponses, CloudflareTunnelConfigurationPutConfigurationErrors, CloudflareTunnelConfigurationPutConfigurationResponses, CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationErrors, CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationResponses, TunnelConfigWritable, TunnelIdentifier, TunnelMeshConfigurationRequestBody, TunnelTunnelId2 } from '../types.gen';
+import { zCloudflareTunnelConfigurationGetConfigurationPath, zCloudflareTunnelConfigurationGetConfigurationResponse, zCloudflareTunnelConfigurationGetWarpConnectorConfigurationPath, zCloudflareTunnelConfigurationGetWarpConnectorConfigurationResponse, zCloudflareTunnelConfigurationPutConfigurationBody, zCloudflareTunnelConfigurationPutConfigurationPath, zCloudflareTunnelConfigurationPutConfigurationResponse, zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationBody, zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationPath, zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationResponse } from '../zod.gen';
 
 export class CloudflareTunnelConfigurationService {
     /**
@@ -18,8 +18,8 @@ export class CloudflareTunnelConfigurationService {
      */
     public static cloudflareTunnelConfigurationGetConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelIdentifier;
-        tunnel_id: TunnelSchemasTunnelId;
-    }, options?: Options<never, ThrowOnError>) {
+        tunnel_id: TunnelTunnelId2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelConfigurationGetConfigurationResponses, CloudflareTunnelConfigurationGetConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
         return (options?.client ?? client).get<CloudflareTunnelConfigurationGetConfigurationResponses, CloudflareTunnelConfigurationGetConfigurationErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -47,9 +47,9 @@ export class CloudflareTunnelConfigurationService {
      */
     public static cloudflareTunnelConfigurationPutConfiguration<ThrowOnError extends boolean = true>(parameters: {
         account_id: TunnelIdentifier;
-        tunnel_id: TunnelSchemasTunnelId;
+        tunnel_id: TunnelTunnelId2;
         config?: TunnelConfigWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelConfigurationPutConfigurationResponses, CloudflareTunnelConfigurationPutConfigurationErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tunnel_id' },
@@ -69,6 +69,74 @@ export class CloudflareTunnelConfigurationService {
                 { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Get WARP Connector HA configuration
+     *
+     * Gets the high-availability configuration for a WARP Connector tunnel.
+     */
+    public static cloudflareTunnelConfigurationGetWarpConnectorConfiguration<ThrowOnError extends boolean = true>(parameters: {
+        account_id: TunnelIdentifier;
+        tunnel_id: TunnelTunnelId2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelConfigurationGetWarpConnectorConfigurationResponses, CloudflareTunnelConfigurationGetWarpConnectorConfigurationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'tunnel_id' }] }]);
+        return (options?.client ?? client).get<CloudflareTunnelConfigurationGetWarpConnectorConfigurationResponses, CloudflareTunnelConfigurationGetWarpConnectorConfigurationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCloudflareTunnelConfigurationGetWarpConnectorConfigurationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudflareTunnelConfigurationGetWarpConnectorConfigurationResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/warp_connector/{tunnel_id}/configurations',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update WARP Connector HA configuration
+     *
+     * Adds or updates the high-availability configuration for a WARP Connector tunnel.
+     */
+    public static cloudflareTunnelConfigurationUpdateWarpConnectorConfiguration<ThrowOnError extends boolean = true>(parameters: {
+        account_id: TunnelIdentifier;
+        tunnel_id: TunnelTunnelId2;
+        tunnelMeshConfigurationRequestBody: TunnelMeshConfigurationRequestBody;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationResponses, CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'tunnel_id' },
+                    { key: 'tunnelMeshConfigurationRequestBody', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).put<CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationResponses, CloudflareTunnelConfigurationUpdateWarpConnectorConfigurationErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationBody,
+                path: zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudflareTunnelConfigurationUpdateWarpConnectorConfigurationResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-User-Service-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/warp_connector/{tunnel_id}/configurations',
             ...options,
             ...params,
             headers: {

@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { BotManagementConfigSingleWritable, BotManagementForAZoneGetConfigErrors, BotManagementForAZoneGetConfigResponses, BotManagementForAZoneUpdateConfigErrors, BotManagementForAZoneUpdateConfigResponses, BotManagementIdentifier } from '../types.gen';
@@ -18,7 +18,7 @@ export class BotSettingsService {
      */
     public static botManagementForAZoneGetConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BotManagementIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotManagementForAZoneGetConfigResponses, BotManagementForAZoneGetConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<BotManagementForAZoneGetConfigResponses, BotManagementForAZoneGetConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -93,7 +93,7 @@ export class BotSettingsService {
     public static botManagementForAZoneUpdateConfig<ThrowOnError extends boolean = true>(parameters: {
         zone_id: BotManagementIdentifier;
         botManagementConfigSingleWritable: BotManagementConfigSingleWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<BotManagementForAZoneUpdateConfigResponses, BotManagementForAZoneUpdateConfigErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'botManagementConfigSingleWritable', map: 'body' }] }]);
         return (options?.client ?? client).put<BotManagementForAZoneUpdateConfigResponses, BotManagementForAZoneUpdateConfigErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

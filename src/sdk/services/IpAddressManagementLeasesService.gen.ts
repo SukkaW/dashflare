@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AddressingSchemasAccountIdentifier, IpAddressManagementListLeasesErrors, IpAddressManagementListLeasesResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class IpAddressManagementLeasesService {
      */
     public static ipAddressManagementListLeases<ThrowOnError extends boolean = true>(parameters: {
         account_id: AddressingSchemasAccountIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<IpAddressManagementListLeasesResponses, IpAddressManagementListLeasesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<IpAddressManagementListLeasesResponses, IpAddressManagementListLeasesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

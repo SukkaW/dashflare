@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { FirewallAction, FirewallComponentsSchemasIdentifier, FirewallDeleteFilterIfUnused, FirewallFilterWritable, FirewallFirewallRulesComponentsSchemasId, FirewallIdentifier, FirewallRulesCreateFirewallRulesErrors, FirewallRulesCreateFirewallRulesResponses, FirewallRulesDeleteAFirewallRuleErrors, FirewallRulesDeleteAFirewallRuleResponses, FirewallRulesDeleteFirewallRulesErrors, FirewallRulesDeleteFirewallRulesResponses, FirewallRulesGetAFirewallRuleErrors, FirewallRulesGetAFirewallRuleResponses, FirewallRulesListFirewallRulesErrors, FirewallRulesListFirewallRulesResponses, FirewallRulesUpdateAFirewallRuleErrors, FirewallRulesUpdateAFirewallRuleResponses, FirewallRulesUpdateFirewallRulesErrors, FirewallRulesUpdateFirewallRulesResponses, FirewallRulesUpdatePriorityOfAFirewallRuleErrors, FirewallRulesUpdatePriorityOfAFirewallRuleResponses, FirewallRulesUpdatePriorityOfFirewallRulesErrors, FirewallRulesUpdatePriorityOfFirewallRulesResponses } from '../types.gen';
@@ -21,7 +21,7 @@ export class FirewallRulesService {
     public static firewallRulesDeleteFirewallRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         id: FirewallFirewallRulesComponentsSchemasId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesDeleteFirewallRulesResponses, FirewallRulesDeleteFirewallRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'body', key: 'id' }] }]);
         return (options?.client ?? client).delete<FirewallRulesDeleteFirewallRulesResponses, FirewallRulesDeleteFirewallRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -61,7 +61,7 @@ export class FirewallRulesService {
         per_page?: number;
         id?: string;
         paused?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesListFirewallRulesResponses, FirewallRulesListFirewallRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'description' },
@@ -99,7 +99,7 @@ export class FirewallRulesService {
     public static firewallRulesUpdatePriorityOfFirewallRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesUpdatePriorityOfFirewallRulesResponses, FirewallRulesUpdatePriorityOfFirewallRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).patch<FirewallRulesUpdatePriorityOfFirewallRulesResponses, FirewallRulesUpdatePriorityOfFirewallRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -135,7 +135,7 @@ export class FirewallRulesService {
         zone_id: FirewallIdentifier;
         action: FirewallAction;
         filter: FirewallFilterWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesCreateFirewallRulesResponses, FirewallRulesCreateFirewallRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'body', key: 'action' },
@@ -174,7 +174,7 @@ export class FirewallRulesService {
     public static firewallRulesUpdateFirewallRules<ThrowOnError extends boolean = true>(parameters: {
         zone_id: FirewallIdentifier;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesUpdateFirewallRulesResponses, FirewallRulesUpdateFirewallRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'body', map: 'body' }] }]);
         return (options?.client ?? client).put<FirewallRulesUpdateFirewallRulesResponses, FirewallRulesUpdateFirewallRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -210,7 +210,7 @@ export class FirewallRulesService {
         rule_id: FirewallFirewallRulesComponentsSchemasId;
         zone_id: FirewallIdentifier;
         delete_filter_if_unused?: FirewallDeleteFilterIfUnused;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesDeleteAFirewallRuleResponses, FirewallRulesDeleteAFirewallRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'zone_id' },
@@ -250,7 +250,7 @@ export class FirewallRulesService {
         rule_id: FirewallFirewallRulesComponentsSchemasId;
         zone_id: FirewallIdentifier;
         id?: FirewallFirewallRulesComponentsSchemasId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesGetAFirewallRuleResponses, FirewallRulesGetAFirewallRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'zone_id' },
@@ -285,7 +285,7 @@ export class FirewallRulesService {
         rule_id: FirewallFirewallRulesComponentsSchemasId;
         zone_id: FirewallIdentifier;
         id: FirewallComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesUpdatePriorityOfAFirewallRuleResponses, FirewallRulesUpdatePriorityOfAFirewallRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'zone_id' },
@@ -327,7 +327,7 @@ export class FirewallRulesService {
         action: FirewallAction;
         filter: FirewallFilterWritable;
         id: FirewallComponentsSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<FirewallRulesUpdateAFirewallRuleResponses, FirewallRulesUpdateAFirewallRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'rule_id' },
                     { in: 'path', key: 'zone_id' },

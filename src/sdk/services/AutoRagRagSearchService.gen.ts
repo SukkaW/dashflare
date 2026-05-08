@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AutoragConfigAiSearchErrors, AutoragConfigAiSearchResponses, AutoragConfigSearchErrors, AutoragConfigSearchResponses } from '../types.gen';
@@ -13,6 +13,8 @@ import { zAutoragConfigAiSearchBody, zAutoragConfigAiSearchPath, zAutoragConfigA
 export class AutoRagRagSearchService {
     /**
      * AI Search
+     *
+     * Runs an AI Search query against an AutoRAG.
      */
     public static autoragConfigAiSearch<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -43,7 +45,7 @@ export class AutoRagRagSearchService {
         rewrite_query?: boolean;
         stream?: boolean;
         system_prompt?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigAiSearchResponses, AutoragConfigAiSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -82,6 +84,8 @@ export class AutoRagRagSearchService {
     
     /**
      * Search
+     *
+     * Searches an AutoRAG.
      */
     public static autoragConfigSearch<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -109,7 +113,7 @@ export class AutoRagRagSearchService {
             model?: '@cf/baai/bge-reranker-base' | '';
         };
         rewrite_query?: boolean;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigSearchResponses, AutoragConfigSearchErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },

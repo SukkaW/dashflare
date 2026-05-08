@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AbuseReportsMitigatedEntityType, AbuseReportsMitigationAppealRequest, AbuseReportsMitigationStatus, AbuseReportsMitigationType, AbuseReportsReportStatus, AbuseReportsReportType, AbuseReportsSubmissionReportType, AbuseReportsSubmitReportRequest, GetAbuseReportErrors, GetAbuseReportResponses, ListAbuseReportsErrors, ListAbuseReportsResponses, ListEmailsErrors, ListEmailsResponses, ListMitigationsErrors, ListMitigationsResponses, RequestReviewErrors, RequestReviewResponses, SubmitAbuseReportErrors, SubmitAbuseReportResponses } from '../types.gen';
-import { zGetAbuseReportPath, zGetAbuseReportResponse, zListAbuseReportsPath, zListAbuseReportsQuery, zListAbuseReportsResponse, zListEmailsPath, zListEmailsQuery, zListEmailsResponse, zListMitigationsPath, zListMitigationsQuery, zListMitigationsResponse, zRequestReviewBody, zRequestReviewPath, zRequestReviewResponse, zSubmitAbuseReportBody, zSubmitAbuseReportPath, zSubmitAbuseReportResponse } from '../zod.gen';
+import type { AbuseReportsMitigatedEntityType, AbuseReportsMitigationAppealRequest, AbuseReportsMitigationStatus, AbuseReportsMitigationType, AbuseReportsReportStatus, AbuseReportsReportType, AbuseReportsSubmissionReportType, AbuseReportsSubmitReportRequest, CheckAppealEligibilityErrors, CheckAppealEligibilityResponses, GetAbuseReportErrors, GetAbuseReportResponses, ListAbuseReportsErrors, ListAbuseReportsResponses, ListEmailsErrors, ListEmailsResponses, ListMitigationsErrors, ListMitigationsResponses, RequestReviewErrors, RequestReviewResponses, SubmitAbuseReportErrors, SubmitAbuseReportResponses } from '../types.gen';
+import { zCheckAppealEligibilityPath, zCheckAppealEligibilityResponse, zGetAbuseReportPath, zGetAbuseReportResponse, zListAbuseReportsPath, zListAbuseReportsQuery, zListAbuseReportsResponse, zListEmailsPath, zListEmailsQuery, zListEmailsResponse, zListMitigationsPath, zListMitigationsQuery, zListMitigationsResponse, zRequestReviewBody, zRequestReviewPath, zRequestReviewResponse, zSubmitAbuseReportBody, zSubmitAbuseReportPath, zSubmitAbuseReportResponse } from '../zod.gen';
 
 export class TsengAbuseComplaintProcessorOtherService {
     /**
@@ -27,7 +27,7 @@ export class TsengAbuseComplaintProcessorOtherService {
         status?: AbuseReportsReportStatus;
         type?: AbuseReportsReportType;
         mitigation_status?: AbuseReportsMitigationStatus;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListAbuseReportsResponses, ListAbuseReportsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -55,6 +55,30 @@ export class TsengAbuseComplaintProcessorOtherService {
     }
     
     /**
+     * Check whether a report can be appealed
+     *
+     * Returns whether the report is currently appealable, along with the signals behind that decision: whether it already has an open appeal, how many appeals have been submitted against it, and whether it has at least one mitigation that an appeal could reverse.
+     */
+    public static checkAppealEligibility<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        report_id: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<CheckAppealEligibilityResponses, CheckAppealEligibilityErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'report_id' }] }]);
+        return (options?.client ?? client).get<CheckAppealEligibilityResponses, CheckAppealEligibilityErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCheckAppealEligibilityPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCheckAppealEligibilityResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/abuse-reports/{report_id}/appeals/eligibility',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * List abuse report emails
      *
      * List emails sent to the customer for an abuse report. Returns all successful customer emails sent for the specified abuse report. Does not include emails sent to hosts or submitters.
@@ -64,7 +88,7 @@ export class TsengAbuseComplaintProcessorOtherService {
         report_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListEmailsResponses, ListEmailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'report_id' },
@@ -101,7 +125,7 @@ export class TsengAbuseComplaintProcessorOtherService {
         effective_after?: string;
         status?: AbuseReportsMitigationStatus;
         entity_type?: AbuseReportsMitigatedEntityType;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ListMitigationsResponses, ListMitigationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'report_id' },
@@ -137,7 +161,7 @@ export class TsengAbuseComplaintProcessorOtherService {
         account_id: string;
         report_id: string;
         abuseReportsMitigationAppealRequest: AbuseReportsMitigationAppealRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RequestReviewResponses, RequestReviewErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'report_id' },
@@ -170,7 +194,7 @@ export class TsengAbuseComplaintProcessorOtherService {
     public static getAbuseReport<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         report_param: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetAbuseReportResponses, GetAbuseReportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'report_param' }] }]);
         return (options?.client ?? client).get<GetAbuseReportResponses, GetAbuseReportErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -189,13 +213,19 @@ export class TsengAbuseComplaintProcessorOtherService {
     /**
      * Submit an abuse report
      *
-     * Submit the Abuse Report of a particular type
+     * Submit an abuse report of a particular type.
+     *
+     * Requires the abuse-reports entitlement on the account (Enterprise
+     * accounts have it by default; other accounts must request access) and an
+     * API token with the `Account > Abuse Reports > Edit` permission. If the
+     * account is not entitled, the request is rejected with an HTTP `401`
+     * response (see below).
      */
     public static submitAbuseReport<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         report_param: AbuseReportsSubmissionReportType;
         abuseReportsSubmitReportRequest: AbuseReportsSubmitReportRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<SubmitAbuseReportResponses, SubmitAbuseReportErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'report_param' },

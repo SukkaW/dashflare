@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WafProductApiBundleCustomDetectionWritable, WafProductApiBundleDetectionId, WafProductApiBundleIdentifier, WafProductApiBundleStatus, WafProductApiLeakedCredentialsCreateDetectionErrors, WafProductApiLeakedCredentialsCreateDetectionResponses, WafProductApiLeakedCredentialsDeleteDetectionErrors, WafProductApiLeakedCredentialsDeleteDetectionResponses, WafProductApiLeakedCredentialsGetDetectionErrors, WafProductApiLeakedCredentialsGetDetectionResponses, WafProductApiLeakedCredentialsGetStatusErrors, WafProductApiLeakedCredentialsGetStatusResponses, WafProductApiLeakedCredentialsListDetectionsErrors, WafProductApiLeakedCredentialsListDetectionsResponses, WafProductApiLeakedCredentialsSetStatusErrors, WafProductApiLeakedCredentialsSetStatusResponses, WafProductApiLeakedCredentialsUpdateDetectionErrors, WafProductApiLeakedCredentialsUpdateDetectionResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class LeakedCredentialChecksService {
      */
     public static wafProductApiLeakedCredentialsGetStatus<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsGetStatusResponses, WafProductApiLeakedCredentialsGetStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafProductApiLeakedCredentialsGetStatusResponses, WafProductApiLeakedCredentialsGetStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class LeakedCredentialChecksService {
     public static wafProductApiLeakedCredentialsSetStatus<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         wafProductApiBundleStatus: WafProductApiBundleStatus;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsSetStatusResponses, WafProductApiLeakedCredentialsSetStatusErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'wafProductApiBundleStatus', map: 'body' }] }]);
         return (options?.client ?? client).post<WafProductApiLeakedCredentialsSetStatusResponses, WafProductApiLeakedCredentialsSetStatusErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class LeakedCredentialChecksService {
      */
     public static wafProductApiLeakedCredentialsListDetections<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsListDetectionsResponses, WafProductApiLeakedCredentialsListDetectionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<WafProductApiLeakedCredentialsListDetectionsResponses, WafProductApiLeakedCredentialsListDetectionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class LeakedCredentialChecksService {
     public static wafProductApiLeakedCredentialsCreateDetection<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         wafProductApiBundleCustomDetectionWritable: WafProductApiBundleCustomDetectionWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsCreateDetectionResponses, WafProductApiLeakedCredentialsCreateDetectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { key: 'wafProductApiBundleCustomDetectionWritable', map: 'body' }] }]);
         return (options?.client ?? client).post<WafProductApiLeakedCredentialsCreateDetectionResponses, WafProductApiLeakedCredentialsCreateDetectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,7 +139,7 @@ export class LeakedCredentialChecksService {
     public static wafProductApiLeakedCredentialsDeleteDetection<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         detection_id: WafProductApiBundleDetectionId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsDeleteDetectionResponses, WafProductApiLeakedCredentialsDeleteDetectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'detection_id' }] }]);
         return (options?.client ?? client).delete<WafProductApiLeakedCredentialsDeleteDetectionResponses, WafProductApiLeakedCredentialsDeleteDetectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -167,7 +167,7 @@ export class LeakedCredentialChecksService {
     public static wafProductApiLeakedCredentialsGetDetection<ThrowOnError extends boolean = true>(parameters: {
         zone_id: WafProductApiBundleIdentifier;
         detection_id: WafProductApiBundleDetectionId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsGetDetectionResponses, WafProductApiLeakedCredentialsGetDetectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'path', key: 'detection_id' }] }]);
         return (options?.client ?? client).get<WafProductApiLeakedCredentialsGetDetectionResponses, WafProductApiLeakedCredentialsGetDetectionErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -196,7 +196,7 @@ export class LeakedCredentialChecksService {
         zone_id: WafProductApiBundleIdentifier;
         detection_id: WafProductApiBundleDetectionId;
         wafProductApiBundleCustomDetectionWritable: WafProductApiBundleCustomDetectionWritable;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WafProductApiLeakedCredentialsUpdateDetectionResponses, WafProductApiLeakedCredentialsUpdateDetectionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'path', key: 'detection_id' },

@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ZeroTrustCertificatesActivateZeroTrustCertificateErrors, ZeroTrustCertificatesActivateZeroTrustCertificateResponses, ZeroTrustCertificatesCreateZeroTrustCertificateErrors, ZeroTrustCertificatesCreateZeroTrustCertificateResponses, ZeroTrustCertificatesDeactivateZeroTrustCertificateErrors, ZeroTrustCertificatesDeactivateZeroTrustCertificateResponses, ZeroTrustCertificatesDeleteZeroTrustCertificateErrors, ZeroTrustCertificatesDeleteZeroTrustCertificateResponses, ZeroTrustCertificatesListZeroTrustCertificatesErrors, ZeroTrustCertificatesListZeroTrustCertificatesResponses, ZeroTrustCertificatesZeroTrustCertificateDetailsErrors, ZeroTrustCertificatesZeroTrustCertificateDetailsResponses, ZeroTrustGatewayGenerateCertRequest, ZeroTrustGatewaySchemasIdentifier, ZeroTrustGatewayUuid } from '../types.gen';
+import type { ZeroTrustCertificatesActivateZeroTrustCertificateErrors, ZeroTrustCertificatesActivateZeroTrustCertificateResponses, ZeroTrustCertificatesCreateZeroTrustCertificateErrors, ZeroTrustCertificatesCreateZeroTrustCertificateResponses, ZeroTrustCertificatesDeactivateZeroTrustCertificateErrors, ZeroTrustCertificatesDeactivateZeroTrustCertificateResponses, ZeroTrustCertificatesDeleteZeroTrustCertificateErrors, ZeroTrustCertificatesDeleteZeroTrustCertificateResponses, ZeroTrustCertificatesListZeroTrustCertificatesErrors, ZeroTrustCertificatesListZeroTrustCertificatesResponses, ZeroTrustCertificatesZeroTrustCertificateDetailsErrors, ZeroTrustCertificatesZeroTrustCertificateDetailsResponses, ZeroTrustGatewayGenerateCertRequest, ZeroTrustGatewayIdentifier2, ZeroTrustGatewayUuid } from '../types.gen';
 import { zZeroTrustCertificatesActivateZeroTrustCertificateBody, zZeroTrustCertificatesActivateZeroTrustCertificatePath, zZeroTrustCertificatesActivateZeroTrustCertificateResponse, zZeroTrustCertificatesCreateZeroTrustCertificateBody, zZeroTrustCertificatesCreateZeroTrustCertificatePath, zZeroTrustCertificatesCreateZeroTrustCertificateResponse, zZeroTrustCertificatesDeactivateZeroTrustCertificateBody, zZeroTrustCertificatesDeactivateZeroTrustCertificatePath, zZeroTrustCertificatesDeactivateZeroTrustCertificateResponse, zZeroTrustCertificatesDeleteZeroTrustCertificateBody, zZeroTrustCertificatesDeleteZeroTrustCertificatePath, zZeroTrustCertificatesDeleteZeroTrustCertificateResponse, zZeroTrustCertificatesListZeroTrustCertificatesPath, zZeroTrustCertificatesListZeroTrustCertificatesResponse, zZeroTrustCertificatesZeroTrustCertificateDetailsPath, zZeroTrustCertificatesZeroTrustCertificateDetailsResponse } from '../zod.gen';
 
 export class ZeroTrustCertificatesService {
@@ -17,8 +17,8 @@ export class ZeroTrustCertificatesService {
      * List all Zero Trust certificates for an account.
      */
     public static zeroTrustCertificatesListZeroTrustCertificates<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesListZeroTrustCertificatesResponses, ZeroTrustCertificatesListZeroTrustCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustCertificatesListZeroTrustCertificatesResponses, ZeroTrustCertificatesListZeroTrustCertificatesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -44,9 +44,9 @@ export class ZeroTrustCertificatesService {
      * Create a new Zero Trust certificate.
      */
     public static zeroTrustCertificatesCreateZeroTrustCertificate<ThrowOnError extends boolean = true>(parameters: {
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         zeroTrustGatewayGenerateCertRequest?: ZeroTrustGatewayGenerateCertRequest;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesCreateZeroTrustCertificateResponses, ZeroTrustCertificatesCreateZeroTrustCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'zeroTrustGatewayGenerateCertRequest', map: 'body' }] }]);
         return (options?.client ?? client).post<ZeroTrustCertificatesCreateZeroTrustCertificateResponses, ZeroTrustCertificatesCreateZeroTrustCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,9 +78,9 @@ export class ZeroTrustCertificatesService {
      */
     public static zeroTrustCertificatesDeleteZeroTrustCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: ZeroTrustGatewayUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesDeleteZeroTrustCertificateResponses, ZeroTrustCertificatesDeleteZeroTrustCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'account_id' },
@@ -116,8 +116,8 @@ export class ZeroTrustCertificatesService {
      */
     public static zeroTrustCertificatesZeroTrustCertificateDetails<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: ZeroTrustGatewayUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        account_id: ZeroTrustGatewayIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesZeroTrustCertificateDetailsResponses, ZeroTrustCertificatesZeroTrustCertificateDetailsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustCertificatesZeroTrustCertificateDetailsResponses, ZeroTrustCertificatesZeroTrustCertificateDetailsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,9 +144,9 @@ export class ZeroTrustCertificatesService {
      */
     public static zeroTrustCertificatesActivateZeroTrustCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: ZeroTrustGatewayUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesActivateZeroTrustCertificateResponses, ZeroTrustCertificatesActivateZeroTrustCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'account_id' },
@@ -182,9 +182,9 @@ export class ZeroTrustCertificatesService {
      */
     public static zeroTrustCertificatesDeactivateZeroTrustCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: ZeroTrustGatewayUuid;
-        account_id: ZeroTrustGatewaySchemasIdentifier;
+        account_id: ZeroTrustGatewayIdentifier2;
         body: unknown;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustCertificatesDeactivateZeroTrustCertificateResponses, ZeroTrustCertificatesDeactivateZeroTrustCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'account_id' },

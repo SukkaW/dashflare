@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { DlpCreateEmailRule, DlpEmailScannerCreateAccountMappingErrors, DlpEmailScannerCreateAccountMappingResponses, DlpEmailScannerCreateRuleErrors, DlpEmailScannerCreateRuleResponses, DlpEmailScannerDeleteRuleErrors, DlpEmailScannerDeleteRuleResponses, DlpEmailScannerGetAccountMappingErrors, DlpEmailScannerGetAccountMappingResponses, DlpEmailScannerGetRuleErrors, DlpEmailScannerGetRuleResponses, DlpEmailScannerListAllRulesErrors, DlpEmailScannerListAllRulesResponses, DlpEmailScannerUpdateRuleErrors, DlpEmailScannerUpdateRulePrioritiesErrors, DlpEmailScannerUpdateRulePrioritiesResponses, DlpEmailScannerUpdateRuleResponses, DlpUpdateAddinAccountMapping, DlpUpdateEmailRulePriorities } from '../types.gen';
@@ -18,7 +18,7 @@ export class DlpEmailService {
      */
     public static dlpEmailScannerGetAccountMapping<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerGetAccountMappingResponses, DlpEmailScannerGetAccountMappingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpEmailScannerGetAccountMappingResponses, DlpEmailScannerGetAccountMappingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -46,7 +46,7 @@ export class DlpEmailService {
     public static dlpEmailScannerCreateAccountMapping<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpUpdateAddinAccountMapping: DlpUpdateAddinAccountMapping;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerCreateAccountMappingResponses, DlpEmailScannerCreateAccountMappingErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpUpdateAddinAccountMapping', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpEmailScannerCreateAccountMappingResponses, DlpEmailScannerCreateAccountMappingErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -78,7 +78,7 @@ export class DlpEmailService {
      */
     public static dlpEmailScannerListAllRules<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerListAllRulesResponses, DlpEmailScannerListAllRulesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<DlpEmailScannerListAllRulesResponses, DlpEmailScannerListAllRulesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -106,7 +106,7 @@ export class DlpEmailService {
     public static dlpEmailScannerUpdateRulePriorities<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpUpdateEmailRulePriorities: DlpUpdateEmailRulePriorities;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerUpdateRulePrioritiesResponses, DlpEmailScannerUpdateRulePrioritiesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpUpdateEmailRulePriorities', map: 'body' }] }]);
         return (options?.client ?? client).patch<DlpEmailScannerUpdateRulePrioritiesResponses, DlpEmailScannerUpdateRulePrioritiesErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -139,7 +139,7 @@ export class DlpEmailService {
     public static dlpEmailScannerCreateRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         dlpCreateEmailRule: DlpCreateEmailRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerCreateRuleResponses, DlpEmailScannerCreateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'dlpCreateEmailRule', map: 'body' }] }]);
         return (options?.client ?? client).post<DlpEmailScannerCreateRuleResponses, DlpEmailScannerCreateRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -172,7 +172,7 @@ export class DlpEmailService {
     public static dlpEmailScannerDeleteRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         rule_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerDeleteRuleResponses, DlpEmailScannerDeleteRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).delete<DlpEmailScannerDeleteRuleResponses, DlpEmailScannerDeleteRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -200,7 +200,7 @@ export class DlpEmailService {
     public static dlpEmailScannerGetRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         rule_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerGetRuleResponses, DlpEmailScannerGetRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'rule_id' }] }]);
         return (options?.client ?? client).get<DlpEmailScannerGetRuleResponses, DlpEmailScannerGetRuleErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -222,12 +222,14 @@ export class DlpEmailService {
     
     /**
      * Update email scanner rule
+     *
+     * Updates a DLP email scanning rule.
      */
     public static dlpEmailScannerUpdateRule<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
         rule_id: string;
         dlpCreateEmailRule: DlpCreateEmailRule;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<DlpEmailScannerUpdateRuleResponses, DlpEmailScannerUpdateRuleErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'rule_id' },

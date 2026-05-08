@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { CreatePollErrors, CreatePollResponses, GetActiveSessionErrors, GetActiveSessionResponses, KickAllParticipantsResponses, KickPartcipantsErrors, KickPartcipantsResponses, MuteAllParticipantsResponses, MuteParticipantsResponses, RealtimekitAccountIdentifier, RealtimekitAppId, RealtimekitCreatePollBody, RealtimekitKickParticipantsBody, RealtimekitMuteAllParticipantsBody } from '../types.gen';
@@ -20,7 +20,7 @@ export class ActiveSessionService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         meeting_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<GetActiveSessionResponses, GetActiveSessionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -50,7 +50,7 @@ export class ActiveSessionService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitKickParticipantsBody: RealtimekitKickParticipantsBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KickPartcipantsResponses, KickPartcipantsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -85,7 +85,7 @@ export class ActiveSessionService {
         account_id: RealtimekitAccountIdentifier;
         app_id: RealtimekitAppId;
         meeting_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<KickAllParticipantsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -115,7 +115,7 @@ export class ActiveSessionService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitKickParticipantsBody: RealtimekitKickParticipantsBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MuteParticipantsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -151,7 +151,7 @@ export class ActiveSessionService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitMuteAllParticipantsBody: RealtimekitMuteAllParticipantsBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<MuteAllParticipantsResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },
@@ -187,7 +187,7 @@ export class ActiveSessionService {
         app_id: RealtimekitAppId;
         meeting_id: string;
         realtimekitCreatePollBody: RealtimekitCreatePollBody;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<CreatePollResponses, CreatePollErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'app_id' },

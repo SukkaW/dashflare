@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AvailablePageRulesSettingsListAvailablePageRulesSettingsErrors, AvailablePageRulesSettingsListAvailablePageRulesSettingsResponses, ZonesSchemasIdentifier } from '../types.gen';
+import type { AvailablePageRulesSettingsListAvailablePageRulesSettingsErrors, AvailablePageRulesSettingsListAvailablePageRulesSettingsResponses, ZonesIdentifier2 } from '../types.gen';
 import { zAvailablePageRulesSettingsListAvailablePageRulesSettingsPath, zAvailablePageRulesSettingsListAvailablePageRulesSettingsResponse } from '../zod.gen';
 
 export class AvailablePageRulesSettingsService {
@@ -19,8 +19,8 @@ export class AvailablePageRulesSettingsService {
      * @deprecated
      */
     public static availablePageRulesSettingsListAvailablePageRulesSettings<ThrowOnError extends boolean = true>(parameters: {
-        zone_id: ZonesSchemasIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+        zone_id: ZonesIdentifier2;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AvailablePageRulesSettingsListAvailablePageRulesSettingsResponses, AvailablePageRulesSettingsListAvailablePageRulesSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<AvailablePageRulesSettingsListAvailablePageRulesSettingsResponses, AvailablePageRulesSettingsListAvailablePageRulesSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

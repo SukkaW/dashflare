@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AccessIdentifier, AccessUuid, ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasErrors, ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasResponses } from '../types.gen';
@@ -18,7 +18,7 @@ export class ZoneLevelAccessShortLivedCertificateCasService {
      */
     public static zoneLevelAccessShortLivedCertificateCAsListShortLivedCertificateCAs<ThrowOnError extends boolean = true>(parameters: {
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasResponses, ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasResponses, ZoneLevelAccessShortLivedCertificateCasListShortLivedCertificateCasErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -42,7 +42,7 @@ export class ZoneLevelAccessShortLivedCertificateCasService {
     public static zoneLevelAccessShortLivedCertificateCAsDeleteAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).delete<ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasDeleteAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -66,7 +66,7 @@ export class ZoneLevelAccessShortLivedCertificateCasService {
     public static zoneLevelAccessShortLivedCertificateCAsGetAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).get<ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasGetAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -90,7 +90,7 @@ export class ZoneLevelAccessShortLivedCertificateCasService {
     public static zoneLevelAccessShortLivedCertificateCAsCreateAShortLivedCertificateCa<ThrowOnError extends boolean = true>(parameters: {
         app_id: AccessUuid;
         zone_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'app_id' }, { in: 'path', key: 'zone_id' }] }]);
         return (options?.client ?? client).post<ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaResponses, ZoneLevelAccessShortLivedCertificateCasCreateAShortLivedCertificateCaErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

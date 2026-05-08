@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AutoragConfigGetJobErrors, AutoragConfigGetJobResponses, AutoragConfigListJobLogsErrors, AutoragConfigListJobLogsResponses, AutoragConfigListJobsErrors, AutoragConfigListJobsResponses } from '../types.gen';
@@ -13,13 +13,15 @@ import { zAutoragConfigGetJobPath, zAutoragConfigGetJobResponse, zAutoragConfigL
 export class AutoRagJobsService {
     /**
      * List Jobs
+     *
+     * Lists jobs for an AutoRAG.
      */
     public static autoragConfigListJobs<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         account_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigListJobsResponses, AutoragConfigListJobsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'account_id' },
@@ -46,12 +48,14 @@ export class AutoRagJobsService {
     
     /**
      * Get a Job Details
+     *
+     * Returns details for an AutoRAG job.
      */
     public static autoragConfigGetJob<ThrowOnError extends boolean = true>(parameters: {
         id: string;
         job_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigGetJobResponses, AutoragConfigGetJobErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },
@@ -77,6 +81,8 @@ export class AutoRagJobsService {
     
     /**
      * List Job Logs
+     *
+     * Lists logs for an AutoRAG job.
      */
     public static autoragConfigListJobLogs<ThrowOnError extends boolean = true>(parameters: {
         id: string;
@@ -84,7 +90,7 @@ export class AutoRagJobsService {
         account_id: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AutoragConfigListJobLogsResponses, AutoragConfigListJobLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'job_id' },

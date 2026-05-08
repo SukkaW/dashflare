@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessAssociatedHostnames, AccessCertificatesComponentsSchemasName, AccessIdentifier, AccessMtlsAuthenticationAddAnMtlsCertificateErrors, AccessMtlsAuthenticationAddAnMtlsCertificateResponses, AccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, AccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, AccessMtlsAuthenticationGetAnMtlsCertificateErrors, AccessMtlsAuthenticationGetAnMtlsCertificateResponses, AccessMtlsAuthenticationListMtlsCertificatesErrors, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, AccessMtlsAuthenticationListMtlsCertificatesResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, AccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, AccessSettings, AccessUuid } from '../types.gen';
+import type { AccessAssociatedHostnames, AccessIdentifier, AccessMtlsAuthenticationAddAnMtlsCertificateErrors, AccessMtlsAuthenticationAddAnMtlsCertificateResponses, AccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, AccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, AccessMtlsAuthenticationGetAnMtlsCertificateErrors, AccessMtlsAuthenticationGetAnMtlsCertificateResponses, AccessMtlsAuthenticationListMtlsCertificatesErrors, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, AccessMtlsAuthenticationListMtlsCertificatesResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, AccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, AccessName7, AccessSettings, AccessUuid } from '../types.gen';
 import { zAccessMtlsAuthenticationAddAnMtlsCertificateBody, zAccessMtlsAuthenticationAddAnMtlsCertificatePath, zAccessMtlsAuthenticationAddAnMtlsCertificateResponse, zAccessMtlsAuthenticationDeleteAnMtlsCertificatePath, zAccessMtlsAuthenticationDeleteAnMtlsCertificateResponse, zAccessMtlsAuthenticationGetAnMtlsCertificatePath, zAccessMtlsAuthenticationGetAnMtlsCertificateResponse, zAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsPath, zAccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponse, zAccessMtlsAuthenticationListMtlsCertificatesPath, zAccessMtlsAuthenticationListMtlsCertificatesQuery, zAccessMtlsAuthenticationListMtlsCertificatesResponse, zAccessMtlsAuthenticationUpdateAnMtlsCertificateBody, zAccessMtlsAuthenticationUpdateAnMtlsCertificatePath, zAccessMtlsAuthenticationUpdateAnMtlsCertificateResponse, zAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsBody, zAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsPath, zAccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponse } from '../zod.gen';
 
 export class AccessMTlsAuthenticationService {
@@ -20,7 +20,7 @@ export class AccessMTlsAuthenticationService {
         account_id: AccessIdentifier;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationListMtlsCertificatesResponses, AccessMtlsAuthenticationListMtlsCertificatesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -53,8 +53,8 @@ export class AccessMTlsAuthenticationService {
         account_id: AccessIdentifier;
         associated_hostnames?: AccessAssociatedHostnames;
         certificate: string;
-        name: AccessCertificatesComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name: AccessName7;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationAddAnMtlsCertificateResponses, AccessMtlsAuthenticationAddAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'associated_hostnames' },
@@ -91,7 +91,7 @@ export class AccessMTlsAuthenticationService {
      */
     public static accessMtlsAuthenticationListMtlsCertificatesHostnameSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsResponses, AccessMtlsAuthenticationListMtlsCertificatesHostnameSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -119,7 +119,7 @@ export class AccessMTlsAuthenticationService {
     public static accessMtlsAuthenticationUpdateAnMtlsCertificateSettings<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
         settings: Array<AccessSettings>;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'body', key: 'settings' }] }]);
         return (options?.client ?? client).put<AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateSettingsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,7 +152,7 @@ export class AccessMTlsAuthenticationService {
     public static accessMtlsAuthenticationDeleteAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, AccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<AccessMtlsAuthenticationDeleteAnMtlsCertificateResponses, AccessMtlsAuthenticationDeleteAnMtlsCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -180,7 +180,7 @@ export class AccessMTlsAuthenticationService {
     public static accessMtlsAuthenticationGetAnMtlsCertificate<ThrowOnError extends boolean = true>(parameters: {
         certificate_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationGetAnMtlsCertificateResponses, AccessMtlsAuthenticationGetAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'certificate_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<AccessMtlsAuthenticationGetAnMtlsCertificateResponses, AccessMtlsAuthenticationGetAnMtlsCertificateErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -209,8 +209,8 @@ export class AccessMTlsAuthenticationService {
         certificate_id: AccessUuid;
         account_id: AccessIdentifier;
         associated_hostnames: AccessAssociatedHostnames;
-        name?: AccessCertificatesComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        name?: AccessName7;
+    }, options?: Options<never, ThrowOnError>): RequestResult<AccessMtlsAuthenticationUpdateAnMtlsCertificateResponses, AccessMtlsAuthenticationUpdateAnMtlsCertificateErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'certificate_id' },
                     { in: 'path', key: 'account_id' },

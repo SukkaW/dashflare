@@ -4,10 +4,10 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccessAuthenticatorId, AccessIdentifier, AccessNonce, AccessSchemasEmail, AccessUsersComponentsSchemasName, AccessUuid, ZeroTrustUsersCreateUserErrors, ZeroTrustUsersCreateUserResponses, ZeroTrustUsersDeleteMfaAuthenticatorErrors, ZeroTrustUsersDeleteMfaAuthenticatorResponses, ZeroTrustUsersDeleteUserErrors, ZeroTrustUsersDeleteUserResponses, ZeroTrustUsersGetActiveSessionErrors, ZeroTrustUsersGetActiveSessionResponses, ZeroTrustUsersGetActiveSessionsErrors, ZeroTrustUsersGetActiveSessionsResponses, ZeroTrustUsersGetFailedLoginsErrors, ZeroTrustUsersGetFailedLoginsResponses, ZeroTrustUsersGetLastSeenIdentityErrors, ZeroTrustUsersGetLastSeenIdentityResponses, ZeroTrustUsersGetUserErrors, ZeroTrustUsersGetUserResponses, ZeroTrustUsersGetUsersErrors, ZeroTrustUsersGetUsersResponses, ZeroTrustUsersUpdateUserErrors, ZeroTrustUsersUpdateUserResponses } from '../types.gen';
+import type { AccessAuthenticatorId, AccessEmail2, AccessIdentifier, AccessName10, AccessNonce, AccessUuid, ZeroTrustUsersCreateUserErrors, ZeroTrustUsersCreateUserResponses, ZeroTrustUsersDeleteMfaAuthenticatorErrors, ZeroTrustUsersDeleteMfaAuthenticatorResponses, ZeroTrustUsersDeleteUserErrors, ZeroTrustUsersDeleteUserResponses, ZeroTrustUsersGetActiveSessionErrors, ZeroTrustUsersGetActiveSessionResponses, ZeroTrustUsersGetActiveSessionsErrors, ZeroTrustUsersGetActiveSessionsResponses, ZeroTrustUsersGetFailedLoginsErrors, ZeroTrustUsersGetFailedLoginsResponses, ZeroTrustUsersGetLastSeenIdentityErrors, ZeroTrustUsersGetLastSeenIdentityResponses, ZeroTrustUsersGetUserErrors, ZeroTrustUsersGetUserResponses, ZeroTrustUsersGetUsersErrors, ZeroTrustUsersGetUsersResponses, ZeroTrustUsersUpdateUserErrors, ZeroTrustUsersUpdateUserResponses } from '../types.gen';
 import { zZeroTrustUsersCreateUserBody, zZeroTrustUsersCreateUserPath, zZeroTrustUsersCreateUserResponse, zZeroTrustUsersDeleteMfaAuthenticatorPath, zZeroTrustUsersDeleteMfaAuthenticatorResponse, zZeroTrustUsersDeleteUserPath, zZeroTrustUsersDeleteUserResponse, zZeroTrustUsersGetActiveSessionPath, zZeroTrustUsersGetActiveSessionResponse, zZeroTrustUsersGetActiveSessionsPath, zZeroTrustUsersGetActiveSessionsResponse, zZeroTrustUsersGetFailedLoginsPath, zZeroTrustUsersGetFailedLoginsResponse, zZeroTrustUsersGetLastSeenIdentityPath, zZeroTrustUsersGetLastSeenIdentityResponse, zZeroTrustUsersGetUserPath, zZeroTrustUsersGetUserResponse, zZeroTrustUsersGetUsersPath, zZeroTrustUsersGetUsersQuery, zZeroTrustUsersGetUsersResponse, zZeroTrustUsersUpdateUserBody, zZeroTrustUsersUpdateUserPath, zZeroTrustUsersUpdateUserResponse } from '../zod.gen';
 
 export class ZeroTrustUsersService {
@@ -23,7 +23,7 @@ export class ZeroTrustUsersService {
         search?: string;
         page?: number;
         per_page?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetUsersResponses, ZeroTrustUsersGetUsersErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'name' },
@@ -57,9 +57,9 @@ export class ZeroTrustUsersService {
      */
     public static zeroTrustUsersCreateUser<ThrowOnError extends boolean = true>(parameters: {
         account_id: AccessIdentifier;
-        email: AccessSchemasEmail;
-        name?: AccessUsersComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        email: AccessEmail2;
+        name?: AccessName10;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersCreateUserResponses, ZeroTrustUsersCreateUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'body', key: 'email' },
@@ -96,7 +96,7 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersDeleteUser<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersDeleteUserResponses, ZeroTrustUsersDeleteUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'user_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<ZeroTrustUsersDeleteUserResponses, ZeroTrustUsersDeleteUserErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -124,7 +124,7 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersGetUser<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetUserResponses, ZeroTrustUsersGetUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'user_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustUsersGetUserResponses, ZeroTrustUsersGetUserErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -152,9 +152,9 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersUpdateUser<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-        email: AccessSchemasEmail;
-        name: AccessUsersComponentsSchemasName;
-    }, options?: Options<never, ThrowOnError>) {
+        email: AccessEmail2;
+        name: AccessName10;
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersUpdateUserResponses, ZeroTrustUsersUpdateUserErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'user_id' },
                     { in: 'path', key: 'account_id' },
@@ -192,7 +192,7 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersGetActiveSessions<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetActiveSessionsResponses, ZeroTrustUsersGetActiveSessionsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'user_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustUsersGetActiveSessionsResponses, ZeroTrustUsersGetActiveSessionsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -221,7 +221,7 @@ export class ZeroTrustUsersService {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
         nonce: AccessNonce;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetActiveSessionResponses, ZeroTrustUsersGetActiveSessionErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'user_id' },
                     { in: 'path', key: 'account_id' },
@@ -253,7 +253,7 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersGetFailedLogins<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetFailedLoginsResponses, ZeroTrustUsersGetFailedLoginsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'user_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustUsersGetFailedLoginsResponses, ZeroTrustUsersGetFailedLoginsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -281,7 +281,7 @@ export class ZeroTrustUsersService {
     public static zeroTrustUsersGetLastSeenIdentity<ThrowOnError extends boolean = true>(parameters: {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersGetLastSeenIdentityResponses, ZeroTrustUsersGetLastSeenIdentityErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'user_id' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<ZeroTrustUsersGetLastSeenIdentityResponses, ZeroTrustUsersGetLastSeenIdentityErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -310,7 +310,7 @@ export class ZeroTrustUsersService {
         user_id: AccessUuid;
         account_id: AccessIdentifier;
         authenticator_id: AccessAuthenticatorId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<ZeroTrustUsersDeleteMfaAuthenticatorResponses, ZeroTrustUsersDeleteMfaAuthenticatorErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'user_id' },
                     { in: 'path', key: 'account_id' },

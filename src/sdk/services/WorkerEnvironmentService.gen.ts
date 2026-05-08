@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams, formDataBodySerializer } from '../client';
+import { buildClientParams, formDataBodySerializer, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { WorkerEnvironmentGetScriptContentErrors, WorkerEnvironmentGetScriptContentResponses, WorkerEnvironmentPutScriptContentErrors, WorkerEnvironmentPutScriptContentResponses, WorkerScriptEnvironmentGetSettingsErrors, WorkerScriptEnvironmentGetSettingsResponses, WorkerScriptEnvironmentPatchSettingsErrors, WorkerScriptEnvironmentPatchSettingsResponses, WorkersEnvironment, WorkersIdentifier, WorkersScriptSettingsResponse, WorkersService } from '../types.gen';
@@ -20,7 +20,7 @@ export class WorkerEnvironmentService {
         account_id: WorkersIdentifier;
         service_name: WorkersService;
         environment_name: WorkersEnvironment;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerEnvironmentGetScriptContentResponses, WorkerEnvironmentGetScriptContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'service_name' },
@@ -66,7 +66,7 @@ export class WorkerEnvironmentService {
              */
             main_module?: string;
         };
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerEnvironmentPutScriptContentResponses, WorkerEnvironmentPutScriptContentErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'CF-WORKER-BODY-PART' },
                     { in: 'headers', key: 'CF-WORKER-MAIN-MODULE-PART' },
@@ -110,7 +110,7 @@ export class WorkerEnvironmentService {
         account_id: WorkersIdentifier;
         service_name: WorkersService;
         environment_name: WorkersEnvironment;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptEnvironmentGetSettingsResponses, WorkerScriptEnvironmentGetSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'service_name' },
@@ -144,7 +144,7 @@ export class WorkerEnvironmentService {
         service_name: WorkersService;
         environment_name: WorkersEnvironment;
         workersScriptSettingsResponse: WorkersScriptSettingsResponse;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<WorkerScriptEnvironmentPatchSettingsResponses, WorkerScriptEnvironmentPatchSettingsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'service_name' },

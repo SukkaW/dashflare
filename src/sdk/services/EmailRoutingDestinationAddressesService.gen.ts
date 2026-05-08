@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { EmailCreateDestinationAddressProperties, EmailDestinationAddressIdentifier, EmailIdentifier, EmailRoutingDestinationAddressesCreateADestinationAddressResponses, EmailRoutingDestinationAddressesDeleteDestinationAddressResponses, EmailRoutingDestinationAddressesGetADestinationAddressResponses, EmailRoutingDestinationAddressesListDestinationAddressesResponses } from '../types.gen';
-import { zEmailRoutingDestinationAddressesCreateADestinationAddressBody, zEmailRoutingDestinationAddressesCreateADestinationAddressPath, zEmailRoutingDestinationAddressesCreateADestinationAddressResponse, zEmailRoutingDestinationAddressesDeleteDestinationAddressPath, zEmailRoutingDestinationAddressesDeleteDestinationAddressResponse, zEmailRoutingDestinationAddressesGetADestinationAddressPath, zEmailRoutingDestinationAddressesGetADestinationAddressResponse, zEmailRoutingDestinationAddressesListDestinationAddressesPath, zEmailRoutingDestinationAddressesListDestinationAddressesQuery, zEmailRoutingDestinationAddressesListDestinationAddressesResponse } from '../zod.gen';
+import type { EmailCreateDestinationAddressProperties, EmailDestinationAddressIdentifier, EmailIdentifier, EmailRoutingDestinationAddressesCreateADestinationAddressResponses, EmailRoutingDestinationAddressesDeleteDestinationAddressResponses, EmailRoutingDestinationAddressesGetADestinationAddressResponses, EmailRoutingDestinationAddressesListDestinationAddressesResponses, EmailRoutingDestinationAddressesUpdateDestinationAddressResponses, EmailUpdateDestinationAddressProperties } from '../types.gen';
+import { zEmailRoutingDestinationAddressesCreateADestinationAddressBody, zEmailRoutingDestinationAddressesCreateADestinationAddressPath, zEmailRoutingDestinationAddressesCreateADestinationAddressResponse, zEmailRoutingDestinationAddressesDeleteDestinationAddressPath, zEmailRoutingDestinationAddressesDeleteDestinationAddressResponse, zEmailRoutingDestinationAddressesGetADestinationAddressPath, zEmailRoutingDestinationAddressesGetADestinationAddressResponse, zEmailRoutingDestinationAddressesListDestinationAddressesPath, zEmailRoutingDestinationAddressesListDestinationAddressesQuery, zEmailRoutingDestinationAddressesListDestinationAddressesResponse, zEmailRoutingDestinationAddressesUpdateDestinationAddressBody, zEmailRoutingDestinationAddressesUpdateDestinationAddressPath, zEmailRoutingDestinationAddressesUpdateDestinationAddressResponse } from '../zod.gen';
 
 export class EmailRoutingDestinationAddressesService {
     /**
@@ -22,7 +22,7 @@ export class EmailRoutingDestinationAddressesService {
         per_page?: number;
         direction?: 'asc' | 'desc';
         verified?: true | false;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingDestinationAddressesListDestinationAddressesResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'page' },
@@ -52,7 +52,7 @@ export class EmailRoutingDestinationAddressesService {
     public static emailRoutingDestinationAddressesCreateADestinationAddress<ThrowOnError extends boolean = true>(parameters: {
         account_id: EmailIdentifier;
         emailCreateDestinationAddressProperties: EmailCreateDestinationAddressProperties;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingDestinationAddressesCreateADestinationAddressResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'emailCreateDestinationAddressProperties', map: 'body' }] }]);
         return (options?.client ?? client).post<EmailRoutingDestinationAddressesCreateADestinationAddressResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -81,7 +81,7 @@ export class EmailRoutingDestinationAddressesService {
     public static emailRoutingDestinationAddressesDeleteDestinationAddress<ThrowOnError extends boolean = true>(parameters: {
         destination_address_identifier: EmailDestinationAddressIdentifier;
         account_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingDestinationAddressesDeleteDestinationAddressResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'destination_address_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).delete<EmailRoutingDestinationAddressesDeleteDestinationAddressResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -105,7 +105,7 @@ export class EmailRoutingDestinationAddressesService {
     public static emailRoutingDestinationAddressesGetADestinationAddress<ThrowOnError extends boolean = true>(parameters: {
         destination_address_identifier: EmailDestinationAddressIdentifier;
         account_id: EmailIdentifier;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingDestinationAddressesGetADestinationAddressResponses, unknown, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'destination_address_identifier' }, { in: 'path', key: 'account_id' }] }]);
         return (options?.client ?? client).get<EmailRoutingDestinationAddressesGetADestinationAddressResponses, unknown, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -118,6 +118,40 @@ export class EmailRoutingDestinationAddressesService {
             url: '/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}',
             ...options,
             ...params
+        });
+    }
+    
+    /**
+     * Update destination address
+     *
+     * Updates the status of a specific destination address.
+     */
+    public static emailRoutingDestinationAddressesUpdateDestinationAddress<ThrowOnError extends boolean = true>(parameters: {
+        destination_address_identifier: EmailDestinationAddressIdentifier;
+        account_id: EmailIdentifier;
+        emailUpdateDestinationAddressProperties: EmailUpdateDestinationAddressProperties;
+    }, options?: Options<never, ThrowOnError>): RequestResult<EmailRoutingDestinationAddressesUpdateDestinationAddressResponses, unknown, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'destination_address_identifier' },
+                    { in: 'path', key: 'account_id' },
+                    { key: 'emailUpdateDestinationAddressProperties', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<EmailRoutingDestinationAddressesUpdateDestinationAddressResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zEmailRoutingDestinationAddressesUpdateDestinationAddressBody,
+                path: zEmailRoutingDestinationAddressesUpdateDestinationAddressPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zEmailRoutingDestinationAddressesUpdateDestinationAddressResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
         });
     }
 }

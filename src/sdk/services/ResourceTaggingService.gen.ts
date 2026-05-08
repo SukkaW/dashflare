@@ -4,11 +4,11 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { ResourceTaggingAccessApplicationId, ResourceTaggingAccountIdWritable, ResourceTaggingAccountResourceType, ResourceTaggingDeleteTagsRequestAccountLevel, ResourceTaggingDeleteTagsRequestZoneLevel, ResourceTaggingResourceId, ResourceTaggingResourceType, ResourceTaggingSetTagsRequestAccountLevel, ResourceTaggingSetTagsRequestZoneLevel, ResourceTaggingWorkerId, ResourceTaggingZoneIdWritable, ResourceTaggingZoneResourceType, TagsDeleteErrors, TagsDeleteResponses, TagsGetErrors, TagsGetResponses, TagsListErrors, TagsListKeysErrors, TagsListKeysResponses, TagsListResponses, TagsListValuesErrors, TagsListValuesResponses, TagsSetErrors, TagsSetResponses, TagsZoneDeleteErrors, TagsZoneDeleteResponses, TagsZoneGetErrors, TagsZoneGetResponses, TagsZoneSetErrors, TagsZoneSetResponses } from '../types.gen';
-import { zTagsDeleteBody, zTagsDeleteHeaders, zTagsDeletePath, zTagsDeleteResponse, zTagsGetPath, zTagsGetQuery, zTagsGetResponse, zTagsListKeysPath, zTagsListKeysQuery, zTagsListKeysResponse, zTagsListPath, zTagsListQuery, zTagsListResponse, zTagsListValuesPath, zTagsListValuesQuery, zTagsListValuesResponse, zTagsSetBody, zTagsSetHeaders, zTagsSetPath, zTagsSetResponse, zTagsZoneDeleteBody, zTagsZoneDeleteHeaders, zTagsZoneDeletePath, zTagsZoneDeleteResponse, zTagsZoneGetPath, zTagsZoneGetQuery, zTagsZoneGetResponse, zTagsZoneSetBody, zTagsZoneSetHeaders, zTagsZoneSetPath, zTagsZoneSetResponse } from '../zod.gen';
+import type { ResourceTaggingAccessApplicationId, ResourceTaggingAccountIdWritable, ResourceTaggingAccountResourceType, ResourceTaggingDeleteTagsRequestAccountLevel, ResourceTaggingDeleteTagsRequestZoneLevel, ResourceTaggingResourceId, ResourceTaggingResourceType, ResourceTaggingSetTagsRequestAccountLevel, ResourceTaggingSetTagsRequestZoneLevel, ResourceTaggingWorkerId, ResourceTaggingZoneIdWritable, ResourceTaggingZoneResourceType, TagsDeleteErrors, TagsDeleteResponses, TagsGetErrors, TagsGetResponses, TagsListErrors, TagsListKeysErrors, TagsListKeysResponses, TagsListKeySummaryErrors, TagsListKeySummaryResponses, TagsListResponses, TagsListValuesErrors, TagsListValuesResponses, TagsSetErrors, TagsSetResponses, TagsZoneDeleteErrors, TagsZoneDeleteResponses, TagsZoneGetErrors, TagsZoneGetResponses, TagsZoneSetErrors, TagsZoneSetResponses } from '../types.gen';
+import { zTagsDeleteBody, zTagsDeleteHeaders, zTagsDeletePath, zTagsDeleteResponse, zTagsGetPath, zTagsGetQuery, zTagsGetResponse, zTagsListKeysPath, zTagsListKeysQuery, zTagsListKeysResponse, zTagsListKeySummaryPath, zTagsListKeySummaryQuery, zTagsListKeySummaryResponse, zTagsListPath, zTagsListQuery, zTagsListResponse, zTagsListValuesPath, zTagsListValuesQuery, zTagsListValuesResponse, zTagsSetBody, zTagsSetHeaders, zTagsSetPath, zTagsSetResponse, zTagsZoneDeleteBody, zTagsZoneDeleteHeaders, zTagsZoneDeletePath, zTagsZoneDeleteResponse, zTagsZoneGetPath, zTagsZoneGetQuery, zTagsZoneGetResponse, zTagsZoneSetBody, zTagsZoneSetHeaders, zTagsZoneSetPath, zTagsZoneSetResponse } from '../zod.gen';
 
 export class ResourceTaggingService {
     /**
@@ -20,7 +20,7 @@ export class ResourceTaggingService {
         'If-Match'?: string;
         account_id: ResourceTaggingAccountIdWritable;
         resourceTaggingDeleteTagsRequestAccountLevel: ResourceTaggingDeleteTagsRequestAccountLevel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsDeleteResponses, TagsDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'If-Match' },
                     { in: 'path', key: 'account_id' },
@@ -56,7 +56,7 @@ export class ResourceTaggingService {
         resource_id: ResourceTaggingResourceId;
         resource_type: ResourceTaggingAccountResourceType;
         worker_id?: ResourceTaggingWorkerId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsGetResponses, TagsGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'resource_id' },
@@ -86,7 +86,7 @@ export class ResourceTaggingService {
         'If-Match'?: string;
         account_id: ResourceTaggingAccountIdWritable;
         resourceTaggingSetTagsRequestAccountLevel: ResourceTaggingSetTagsRequestAccountLevel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsSetResponses, TagsSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'If-Match' },
                     { in: 'path', key: 'account_id' },
@@ -120,7 +120,7 @@ export class ResourceTaggingService {
     public static tagsListKeys<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceTaggingAccountIdWritable;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsListKeysResponses, TagsListKeysErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'cursor' }] }]);
         return (options?.client ?? client).get<TagsListKeysResponses, TagsListKeysErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({
@@ -144,12 +144,16 @@ export class ResourceTaggingService {
     public static tagsList<ThrowOnError extends boolean = true>(parameters: {
         account_id: ResourceTaggingAccountIdWritable;
         type?: Array<ResourceTaggingResourceType>;
+        name?: string;
+        id?: Array<ResourceTaggingResourceId>;
         tag?: Array<string>;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsListResponses, TagsListErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'type' },
+                    { in: 'query', key: 'name' },
+                    { in: 'query', key: 'id' },
                     { in: 'query', key: 'tag' },
                     { in: 'query', key: 'cursor' }
                 ] }]);
@@ -168,6 +172,30 @@ export class ResourceTaggingService {
     }
     
     /**
+     * List tag key summary
+     *
+     * Lists all distinct tag keys and their distinct values across resources in an account.
+     */
+    public static tagsListKeySummary<ThrowOnError extends boolean = true>(parameters: {
+        account_id: ResourceTaggingAccountIdWritable;
+        cursor?: string;
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsListKeySummaryResponses, TagsListKeySummaryErrors, ThrowOnError> {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'cursor' }] }]);
+        return (options?.client ?? client).get<TagsListKeySummaryResponses, TagsListKeySummaryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zTagsListKeySummaryPath,
+                query: zTagsListKeySummaryQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zTagsListKeySummaryResponse.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/tags/summary',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
      * List tag values
      *
      * Lists all distinct values for a given tag key, optionally filtered by resource type.
@@ -177,7 +205,7 @@ export class ResourceTaggingService {
         tag_key: string;
         type?: ResourceTaggingResourceType;
         cursor?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsListValuesResponses, TagsListValuesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'tag_key' },
@@ -207,7 +235,7 @@ export class ResourceTaggingService {
         'If-Match'?: string;
         zone_id: ResourceTaggingZoneIdWritable;
         resourceTaggingDeleteTagsRequestZoneLevel: ResourceTaggingDeleteTagsRequestZoneLevel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsZoneDeleteResponses, TagsZoneDeleteErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'If-Match' },
                     { in: 'path', key: 'zone_id' },
@@ -243,7 +271,7 @@ export class ResourceTaggingService {
         resource_id: ResourceTaggingResourceId;
         resource_type: ResourceTaggingZoneResourceType;
         access_application_id?: ResourceTaggingAccessApplicationId;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsZoneGetResponses, TagsZoneGetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'zone_id' },
                     { in: 'query', key: 'resource_id' },
@@ -273,7 +301,7 @@ export class ResourceTaggingService {
         'If-Match'?: string;
         zone_id: ResourceTaggingZoneIdWritable;
         resourceTaggingSetTagsRequestZoneLevel: ResourceTaggingSetTagsRequestZoneLevel;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<TagsZoneSetResponses, TagsZoneSetErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'headers', key: 'If-Match' },
                     { in: 'path', key: 'zone_id' },

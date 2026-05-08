@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { AigConfigDeleteGatewayLogsErrors, AigConfigDeleteGatewayLogsResponses, AigConfigGetGatewayLogDetailErrors, AigConfigGetGatewayLogDetailResponses, AigConfigGetGatewayLogRequestErrors, AigConfigGetGatewayLogRequestResponses, AigConfigGetGatewayLogResponseErrors, AigConfigGetGatewayLogResponseResponses, AigConfigListGatewayLogsErrors, AigConfigListGatewayLogsResponses, AigConfigPatchGatewayLogErrors, AigConfigPatchGatewayLogResponses } from '../types.gen';
@@ -13,6 +13,8 @@ import { zAigConfigDeleteGatewayLogsPath, zAigConfigDeleteGatewayLogsQuery, zAig
 export class AiGatewayLogsService {
     /**
      * Delete Gateway Logs
+     *
+     * Deletes gateway log entries matching the specified criteria.
      */
     public static aigConfigDeleteGatewayLogs<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -20,12 +22,12 @@ export class AiGatewayLogsService {
         order_by?: 'created_at' | 'provider' | 'model' | 'model_type' | 'success' | 'cached' | 'cost' | 'tokens_in' | 'tokens_out' | 'duration' | 'feedback';
         order_by_direction?: 'asc' | 'desc';
         filters?: Array<{
-            key: 'id' | 'created_at' | 'request_content_type' | 'response_content_type' | 'request_type' | 'success' | 'cached' | 'provider' | 'model' | 'model_type' | 'cost' | 'tokens' | 'tokens_in' | 'tokens_out' | 'duration' | 'feedback' | 'event_id' | 'metadata.key' | 'metadata.value' | 'authentication' | 'wholesale' | 'compatibilityMode' | 'dlp_action';
+            key: 'id' | 'created_at' | 'request_content_type' | 'response_content_type' | 'request_type' | 'success' | 'cached' | 'provider' | 'model' | 'model_type' | 'cost' | 'tokens' | 'tokens_in' | 'tokens_out' | 'duration' | 'feedback' | 'event_id' | 'metadata.key' | 'metadata.value' | 'authentication' | 'wholesale' | 'compatibilityMode' | 'dlp_action' | 'user_agent';
             operator: 'eq' | 'neq' | 'contains' | 'lt' | 'gt';
             value: Array<string | null | number | boolean>;
         }>;
         limit?: number;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigDeleteGatewayLogsResponses, AigConfigDeleteGatewayLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -54,6 +56,8 @@ export class AiGatewayLogsService {
     
     /**
      * List Gateway Logs
+     *
+     * Lists request/response log entries for the AI gateway with filtering and pagination.
      */
     public static aigConfigListGatewayLogs<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -64,7 +68,7 @@ export class AiGatewayLogsService {
         order_by?: 'created_at' | 'provider' | 'model' | 'model_type' | 'success' | 'cached';
         order_by_direction?: 'asc' | 'desc';
         filters?: Array<{
-            key: 'id' | 'created_at' | 'request_content_type' | 'response_content_type' | 'request_type' | 'success' | 'cached' | 'provider' | 'model' | 'model_type' | 'cost' | 'tokens' | 'tokens_in' | 'tokens_out' | 'duration' | 'feedback' | 'event_id' | 'metadata.key' | 'metadata.value' | 'authentication' | 'wholesale' | 'compatibilityMode' | 'dlp_action';
+            key: 'id' | 'created_at' | 'request_content_type' | 'response_content_type' | 'request_type' | 'success' | 'cached' | 'provider' | 'model' | 'model_type' | 'cost' | 'tokens' | 'tokens_in' | 'tokens_out' | 'duration' | 'feedback' | 'event_id' | 'metadata.key' | 'metadata.value' | 'authentication' | 'wholesale' | 'compatibilityMode' | 'dlp_action' | 'user_agent';
             operator: 'eq' | 'neq' | 'contains' | 'lt' | 'gt';
             value: Array<string | null | number | boolean>;
         }>;
@@ -90,7 +94,7 @@ export class AiGatewayLogsService {
         provider?: string;
         request_content_type?: string;
         response_content_type?: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigListGatewayLogsResponses, AigConfigListGatewayLogsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'path', key: 'gateway_id' },
@@ -150,7 +154,7 @@ export class AiGatewayLogsService {
         id: string;
         gateway_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayLogDetailResponses, AigConfigGetGatewayLogDetailErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'gateway_id' },
@@ -188,7 +192,7 @@ export class AiGatewayLogsService {
             [key: string]: string | number | boolean;
         } | null;
         score?: number | null;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigPatchGatewayLogResponses, AigConfigPatchGatewayLogErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'gateway_id' },
@@ -229,7 +233,7 @@ export class AiGatewayLogsService {
         id: string;
         gateway_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayLogRequestResponses, AigConfigGetGatewayLogRequestErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'gateway_id' },
@@ -262,7 +266,7 @@ export class AiGatewayLogsService {
         id: string;
         gateway_id: string;
         account_id: string;
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<AigConfigGetGatewayLogResponseResponses, AigConfigGetGatewayLogResponseErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'id' },
                     { in: 'path', key: 'gateway_id' },

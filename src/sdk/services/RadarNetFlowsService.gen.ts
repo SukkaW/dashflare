@@ -4,7 +4,7 @@
 
 import * as z from 'zod';
 
-import { buildClientParams } from '../client';
+import { buildClientParams, type RequestResult } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
 import type { RadarGetNetflowsSummaryDeprecatedErrors, RadarGetNetflowsSummaryDeprecatedResponses, RadarGetNetflowsSummaryErrors, RadarGetNetflowsSummaryResponses, RadarGetNetflowsTimeseriesErrors, RadarGetNetflowsTimeseriesGroupErrors, RadarGetNetflowsTimeseriesGroupResponses, RadarGetNetflowsTimeseriesResponses, RadarGetNetflowsTopAsesErrors, RadarGetNetflowsTopAsesResponses, RadarGetNetflowsTopLocationsErrors, RadarGetNetflowsTopLocationsResponses } from '../types.gen';
@@ -28,7 +28,7 @@ export class RadarNetFlowsService {
         continent?: Array<string>;
         geoId?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsSummaryDeprecatedResponses, RadarGetNetflowsSummaryDeprecatedErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'name' },
                     { in: 'query', key: 'dateRange' },
@@ -76,7 +76,7 @@ export class RadarNetFlowsService {
         product?: Array<'HTTP' | 'ALL'>;
         limitPerGroup?: number;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsSummaryResponses, RadarGetNetflowsSummaryErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'name' },
@@ -127,7 +127,7 @@ export class RadarNetFlowsService {
         geoId?: Array<string>;
         normalization?: 'PERCENTAGE_CHANGE' | 'MIN0_MAX';
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsTimeseriesResponses, RadarGetNetflowsTimeseriesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'aggInterval' },
                     { in: 'query', key: 'name' },
@@ -177,10 +177,10 @@ export class RadarNetFlowsService {
         continent?: Array<string>;
         geoId?: Array<string>;
         limitPerGroup?: number;
-        normalization?: 'PERCENTAGE' | 'MIN0_MAX';
+        normalization?: 'PERCENTAGE' | 'MIN0_MAX' | 'PERCENTAGE_CHANGE';
         product?: Array<'HTTP' | 'ALL'>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsTimeseriesGroupResponses, RadarGetNetflowsTimeseriesGroupErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'dimension' },
                     { in: 'query', key: 'aggInterval' },
@@ -231,7 +231,7 @@ export class RadarNetFlowsService {
         continent?: Array<string>;
         geoId?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsTopAsesResponses, RadarGetNetflowsTopAsesErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
@@ -278,7 +278,7 @@ export class RadarNetFlowsService {
         continent?: Array<string>;
         geoId?: Array<string>;
         format?: 'JSON' | 'CSV';
-    }, options?: Options<never, ThrowOnError>) {
+    }, options?: Options<never, ThrowOnError>): RequestResult<RadarGetNetflowsTopLocationsResponses, RadarGetNetflowsTopLocationsErrors, ThrowOnError> {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'name' },
