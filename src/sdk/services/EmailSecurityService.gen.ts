@@ -482,6 +482,7 @@ export class EmailSecurityService {
         outcome_disposition?: EmailSecuritySubmissionDisposition;
         status?: string;
         query?: string | null;
+        escalated_from_user?: boolean;
         page?: number;
         per_page?: number;
     }, options?: Options<never, ThrowOnError>) {
@@ -496,6 +497,7 @@ export class EmailSecurityService {
                     { in: 'query', key: 'outcome_disposition' },
                     { in: 'query', key: 'status' },
                     { in: 'query', key: 'query' },
+                    { in: 'query', key: 'escalated_from_user' },
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' }
                 ] }]);

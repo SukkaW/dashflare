@@ -229,6 +229,40 @@ export class AiGatewayGatewaysService {
                 profiles: Array<string>;
             }>;
         };
+        guardrails?: {
+            prompt: {
+                P1?: 'FLAG' | 'BLOCK';
+                S1?: 'FLAG' | 'BLOCK';
+                S10?: 'FLAG' | 'BLOCK';
+                S11?: 'FLAG' | 'BLOCK';
+                S12?: 'FLAG' | 'BLOCK';
+                S13?: 'FLAG' | 'BLOCK';
+                S2?: 'FLAG' | 'BLOCK';
+                S3?: 'FLAG' | 'BLOCK';
+                S4?: 'FLAG' | 'BLOCK';
+                S5?: 'FLAG' | 'BLOCK';
+                S6?: 'FLAG' | 'BLOCK';
+                S7?: 'FLAG' | 'BLOCK';
+                S8?: 'FLAG' | 'BLOCK';
+                S9?: 'FLAG' | 'BLOCK';
+            };
+            response: {
+                P1?: 'FLAG' | 'BLOCK';
+                S1?: 'FLAG' | 'BLOCK';
+                S10?: 'FLAG' | 'BLOCK';
+                S11?: 'FLAG' | 'BLOCK';
+                S12?: 'FLAG' | 'BLOCK';
+                S13?: 'FLAG' | 'BLOCK';
+                S2?: 'FLAG' | 'BLOCK';
+                S3?: 'FLAG' | 'BLOCK';
+                S4?: 'FLAG' | 'BLOCK';
+                S5?: 'FLAG' | 'BLOCK';
+                S6?: 'FLAG' | 'BLOCK';
+                S7?: 'FLAG' | 'BLOCK';
+                S8?: 'FLAG' | 'BLOCK';
+                S9?: 'FLAG' | 'BLOCK';
+            };
+        } | null;
         log_management?: number | null;
         log_management_strategy?: 'STOP_INSERTING' | 'DELETE_OLDEST';
         logpush?: boolean;
@@ -265,6 +299,7 @@ export class AiGatewayGatewaysService {
                     { in: 'body', key: 'cache_ttl' },
                     { in: 'body', key: 'collect_logs' },
                     { in: 'body', key: 'dlp' },
+                    { in: 'body', key: 'guardrails' },
                     { in: 'body', key: 'log_management' },
                     { in: 'body', key: 'log_management_strategy' },
                     { in: 'body', key: 'logpush' },

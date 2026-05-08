@@ -28,6 +28,7 @@ export class ResourceSharingService {
         per_page?: number;
         include_resources?: boolean;
         include_recipient_counts?: boolean;
+        tag?: Array<string>;
     }, options?: Options<never, ThrowOnError>) {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
@@ -40,7 +41,8 @@ export class ResourceSharingService {
                     { in: 'query', key: 'page' },
                     { in: 'query', key: 'per_page' },
                     { in: 'query', key: 'include_resources' },
-                    { in: 'query', key: 'include_recipient_counts' }
+                    { in: 'query', key: 'include_recipient_counts' },
+                    { in: 'query', key: 'tag' }
                 ] }]);
         return (options?.client ?? client).get<SharesListResponses, SharesListErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

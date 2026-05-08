@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CloudforceOneCreateRule, CloudforceOneCreateRuleErrors, CloudforceOneCreateRuleResponses, CloudforceOneDeleteAllRulesErrors, CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteRuleErrors, CloudforceOneDeleteRuleResponses, CloudforceOneGetManagedRulesErrors, CloudforceOneGetManagedRulesResponses, CloudforceOneGetRuleErrors, CloudforceOneGetRuleResponses, CloudforceOneGetRuleStatsErrors, CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleTreeErrors, CloudforceOneGetRuleTreeResponses, CloudforceOneListRulesErrors, CloudforceOneListRulesResponses, CloudforceOneUpdateRule, CloudforceOneUpdateRuleErrors, CloudforceOneUpdateRuleResponses, CloudforceOneValidateRuleErrors, CloudforceOneValidateRuleResponses } from '../types.gen';
-import { zCloudforceOneCreateRuleBody, zCloudforceOneCreateRulePath, zCloudforceOneCreateRuleResponse, zCloudforceOneDeleteAllRulesPath, zCloudforceOneDeleteAllRulesResponse, zCloudforceOneDeleteRulePath, zCloudforceOneDeleteRuleResponse, zCloudforceOneGetManagedRulesPath, zCloudforceOneGetManagedRulesResponse, zCloudforceOneGetRulePath, zCloudforceOneGetRuleResponse, zCloudforceOneGetRuleStatsPath, zCloudforceOneGetRuleStatsResponse, zCloudforceOneGetRuleTreePath, zCloudforceOneGetRuleTreeResponse, zCloudforceOneListRulesPath, zCloudforceOneListRulesQuery, zCloudforceOneListRulesResponse, zCloudforceOneUpdateRuleBody, zCloudforceOneUpdateRulePath, zCloudforceOneUpdateRuleResponse, zCloudforceOneValidateRuleBody, zCloudforceOneValidateRulePath, zCloudforceOneValidateRuleResponse } from '../zod.gen';
+import type { CloudforceOneCreateRule, CloudforceOneCreateRuleErrors, CloudforceOneCreateRuleResponses, CloudforceOneDeleteAllRulesErrors, CloudforceOneDeleteAllRulesResponses, CloudforceOneDeleteRuleErrors, CloudforceOneDeleteRuleResponses, CloudforceOneGetManagedRulesErrors, CloudforceOneGetManagedRulesResponses, CloudforceOneGetRuleErrors, CloudforceOneGetRuleResponses, CloudforceOneGetRuleStatsErrors, CloudforceOneGetRuleStatsResponses, CloudforceOneGetRuleTreeErrors, CloudforceOneGetRuleTreeResponses, CloudforceOneListRulesErrors, CloudforceOneListRulesResponses, CloudforceOneSearchRulesErrors, CloudforceOneSearchRulesResponses, CloudforceOneUpdateRule, CloudforceOneUpdateRuleErrors, CloudforceOneUpdateRuleResponses, CloudforceOneValidateRuleErrors, CloudforceOneValidateRuleResponses } from '../types.gen';
+import { zCloudforceOneCreateRuleBody, zCloudforceOneCreateRulePath, zCloudforceOneCreateRuleResponse, zCloudforceOneDeleteAllRulesPath, zCloudforceOneDeleteAllRulesResponse, zCloudforceOneDeleteRulePath, zCloudforceOneDeleteRuleResponse, zCloudforceOneGetManagedRulesPath, zCloudforceOneGetManagedRulesResponse, zCloudforceOneGetRulePath, zCloudforceOneGetRuleResponse, zCloudforceOneGetRuleStatsPath, zCloudforceOneGetRuleStatsResponse, zCloudforceOneGetRuleTreePath, zCloudforceOneGetRuleTreeResponse, zCloudforceOneListRulesPath, zCloudforceOneListRulesQuery, zCloudforceOneListRulesResponse, zCloudforceOneSearchRulesPath, zCloudforceOneSearchRulesQuery, zCloudforceOneSearchRulesResponse, zCloudforceOneUpdateRuleBody, zCloudforceOneUpdateRulePath, zCloudforceOneUpdateRuleResponse, zCloudforceOneValidateRuleBody, zCloudforceOneValidateRulePath, zCloudforceOneValidateRuleResponse } from '../zod.gen';
 
 export class RulesService {
     /**
@@ -134,6 +134,53 @@ export class RulesService {
                 { name: 'X-Auth-Key', type: 'apiKey' }
             ],
             url: '/accounts/{account_id}/cloudforce-one/rules/managed',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Search rules
+     *
+     * Search rules using hybrid, vector, keyword, or exact retrieval, backed by AI Search with a SQL fallback.
+     */
+    public static cloudforceOneSearchRules<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        namespace?: string | Array<string>;
+        recursive?: 'true' | 'false';
+        search?: string;
+        is_public?: 'true' | 'false';
+        limit?: number;
+        offset?: number | null;
+        query: string;
+        mode?: 'exact' | 'hybrid' | 'vector' | 'keyword';
+        language?: 'yara' | 'js';
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'query', key: 'namespace' },
+                    { in: 'query', key: 'recursive' },
+                    { in: 'query', key: 'search' },
+                    { in: 'query', key: 'is_public' },
+                    { in: 'query', key: 'limit' },
+                    { in: 'query', key: 'offset' },
+                    { in: 'query', key: 'query' },
+                    { in: 'query', key: 'mode' },
+                    { in: 'query', key: 'language' }
+                ] }]);
+        return (options?.client ?? client).get<CloudforceOneSearchRulesResponses, CloudforceOneSearchRulesErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zCloudforceOneSearchRulesPath,
+                query: zCloudforceOneSearchRulesQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCloudforceOneSearchRulesResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/cloudforce-one/rules/search',
             ...options,
             ...params
         });

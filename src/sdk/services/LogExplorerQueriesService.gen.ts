@@ -7,14 +7,54 @@ import * as z from 'zod';
 import { buildClientParams } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { AccountsLogsExplorerQueryPostErrors, AccountsLogsExplorerQueryPostResponses, ZonesLogsExplorerQueryPostErrors, ZonesLogsExplorerQueryPostResponses } from '../types.gen';
-import { zAccountsLogsExplorerQueryPostBody, zAccountsLogsExplorerQueryPostPath, zAccountsLogsExplorerQueryPostResponse, zZonesLogsExplorerQueryPostBody, zZonesLogsExplorerQueryPostPath, zZonesLogsExplorerQueryPostResponse } from '../zod.gen';
+import type { AccountsLogsExplorerQueryGetErrors, AccountsLogsExplorerQueryGetResponses, AccountsLogsExplorerQueryPostErrors, AccountsLogsExplorerQueryPostResponses, ZonesLogsExplorerQueryGetErrors, ZonesLogsExplorerQueryGetResponses, ZonesLogsExplorerQueryPostErrors, ZonesLogsExplorerQueryPostResponses } from '../types.gen';
+import { zAccountsLogsExplorerQueryGetPath, zAccountsLogsExplorerQueryGetQuery, zAccountsLogsExplorerQueryGetResponse, zAccountsLogsExplorerQueryPostBody, zAccountsLogsExplorerQueryPostPath, zAccountsLogsExplorerQueryPostResponse, zZonesLogsExplorerQueryGetPath, zZonesLogsExplorerQueryGetQuery, zZonesLogsExplorerQueryGetResponse, zZonesLogsExplorerQueryPostBody, zZonesLogsExplorerQueryPostPath, zZonesLogsExplorerQueryPostResponse } from '../zod.gen';
 
 export class LogExplorerQueriesService {
     /**
      * Run a log query
      *
+     * Run a SQL query against account-level datasets. The SQL query is passed as the `query` query parameter. Because the query appears in the URL, it is subject to gateway and proxy URL-length limits and may be recorded in access logs. This endpoint is deprecated in favour of the POST variant which sends the query in the request body.
+     *
+     * @deprecated
+     */
+    public static accountsLogsExplorerQueryGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        query: string;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'query', key: 'query' }] }]);
+        return (options?.client ?? client).get<AccountsLogsExplorerQueryGetResponses, AccountsLogsExplorerQueryGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zAccountsLogsExplorerQueryGetPath,
+                query: zAccountsLogsExplorerQueryGetQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zAccountsLogsExplorerQueryGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/logs/explorer/query/sql',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Run a log query
+     *
      * Run a SQL query against account-level datasets.
+     *
+     * Timestamp fields are RFC3339 strings. Filter with:
+     * WHERE {timestamp_field} >= now() - INTERVAL '30' DAY
+     * WHERE {timestamp_field} >= '2026-04-01T00:00:00Z'
+     * WHERE {timestamp_field} BETWEEN '2026-04-01T00:00:00Z' AND '2026-04-30T23:59:59Z'
+     *
+     * Check /accounts/{account_id}/logs/explorer/datasets to see enabled account level datasets.
+     * Zone-level datasets will not appear here.
+     * Check /accounts/{account_id}/logs/explorer/datasets/available for the schemas, and the name of the timestamp fields.
+     *
+     * For zone-level datasets use the zone-scoped endpoint: POST /zones/{zone_id}/logs/explorer/query/sql
+     *
+     * For more information about the datasets, and the meaning of each field, check out https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
+     *
      */
     public static accountsLogsExplorerQueryPost<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -44,7 +84,46 @@ export class LogExplorerQueriesService {
     /**
      * Run a log query
      *
+     * Run a SQL query against zone-level datasets. The SQL query is passed as the `query` query parameter. Because the query appears in the URL, it is subject to gateway and proxy URL-length limits and may be recorded in access logs. This endpoint is deprecated in favour of the POST variant which sends the query in the request body.
+     *
+     * @deprecated
+     */
+    public static zonesLogsExplorerQueryGet<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: string;
+        query: string;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'zone_id' }, { in: 'query', key: 'query' }] }]);
+        return (options?.client ?? client).get<ZonesLogsExplorerQueryGetResponses, ZonesLogsExplorerQueryGetErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zZonesLogsExplorerQueryGetPath,
+                query: zZonesLogsExplorerQueryGetQuery
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZonesLogsExplorerQueryGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/zones/{zone_id}/logs/explorer/query/sql',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Run a log query
+     *
      * Run a SQL query against zone-level datasets.
+     *
+     * Timestamp fields are RFC3339 strings. Filter with:
+     * WHERE {timestamp_field} >= now() - INTERVAL '30' DAY
+     * WHERE {timestamp_field} >= '2026-04-01T00:00:00Z'
+     * WHERE {timestamp_field} BETWEEN '2026-04-01T00:00:00Z' AND '2026-04-30T23:59:59Z'
+     *
+     * Check /zones/{zone_id}/logs/explorer/datasets to see enabled zone level datasets.
+     * Check /zones/{zone_id}/logs/explorer/datasets/available for the schemas and the name of the timestamp fields.
+     *
+     * For account-level datasets use the account-scoped endpoint: POST /accounts/{account_id}/logs/explorer/query/sql
+     *
+     * For more information about the datasets, and the meaning of each field, check out https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
+     *
      */
     public static zonesLogsExplorerQueryPost<ThrowOnError extends boolean = true>(parameters: {
         zone_id: string;

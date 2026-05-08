@@ -51,6 +51,10 @@ export class LogExplorerDatasetsService {
      * The `fields` property is optional. If not specified, all available fields
      * will be enabled.
      *
+     * For zone-level datasets use the zone-scoped endpoint: POST /zones/{zone_id}/logs/explorer/datasets
+     *
+     * For dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
+     *
      */
     public static accountsLogsExplorerDatasetsCreate<ThrowOnError extends boolean = true>(parameters: {
         account_id: string;
@@ -201,6 +205,10 @@ export class LogExplorerDatasetsService {
      *
      * The `fields` property is optional. If not specified, all available fields
      * will be enabled.
+     *
+     * For account-level datasets use the account-scoped endpoint: POST /accounts/{account_id}/logs/explorer/datasets
+     *
+     * For dataset field definitions, see: https://developers.cloudflare.com/logs/logpush/logpush-job/datasets/
      *
      */
     public static zonesLogsExplorerDatasetsCreate<ThrowOnError extends boolean = true>(parameters: {

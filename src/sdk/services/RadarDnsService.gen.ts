@@ -1273,7 +1273,7 @@ export class RadarDnsService {
      * Retrieves the distribution of DNS queries grouped by dimension over time.
      */
     public static radarGetDnsTimeseriesGroup<ThrowOnError extends boolean = true>(parameters: {
-        dimension: 'AS' | 'CACHE_HIT' | 'DNSSEC' | 'DNSSEC_AWARE' | 'DNSSEC_E2E' | 'IP_VERSION' | 'LOCATION' | 'MATCHING_ANSWER' | 'PROTOCOL' | 'QUERY_TYPE' | 'RESPONSE_CODE' | 'RESPONSE_TTL' | 'TLD';
+        dimension: 'AS' | 'CACHE_HIT' | 'DNSSEC' | 'DNSSEC_AWARE' | 'DNSSEC_E2E' | 'IP_VERSION' | 'LOCATION' | 'MATCHING_ANSWER' | 'PROTOCOL' | 'QUERY_TYPE' | 'RESPONSE_CODE' | 'RESPONSE_TTL' | 'TLD' | 'TLD_DNS_MAGNITUDE';
         aggInterval?: '15m' | '1h' | '1d' | '1w';
         name?: Array<string>;
         dateRange?: Array<string>;
@@ -1295,7 +1295,7 @@ export class RadarDnsService {
         limitPerGroup?: number;
         matchingAnswer?: Array<boolean>;
         tld?: Array<string>;
-        normalization?: 'PERCENTAGE' | 'MIN0_MAX';
+        normalization?: 'PERCENTAGE' | 'MIN0_MAX' | 'RANK';
         format?: 'JSON' | 'CSV';
     }, options?: Options<never, ThrowOnError>) {
         const params = buildClientParams([parameters], [{ args: [

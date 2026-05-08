@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams, formDataBodySerializer } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { WorkerAssetsUploadErrors, WorkerAssetsUploadResponses, WorkerDeleteScriptSecretErrors, WorkerDeleteScriptSecretResponses, WorkerGetScriptSecretErrors, WorkerGetScriptSecretResponses, WorkerListScriptSecretsErrors, WorkerListScriptSecretsResponses, WorkerPutScriptSecretErrors, WorkerPutScriptSecretResponses, WorkersCreateAssetsUploadSessionObject, WorkerScriptDeleteSubdomainErrors, WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteWorkerErrors, WorkerScriptDeleteWorkerResponses, WorkerScriptDownloadWorkerErrors, WorkerScriptDownloadWorkerResponses, WorkerScriptFetchUsageModelErrors, WorkerScriptFetchUsageModelResponses, WorkerScriptGetContentErrors, WorkerScriptGetContentResponses, WorkerScriptGetSettingsErrors, WorkerScriptGetSettingsResponses, WorkerScriptGetSubdomainErrors, WorkerScriptGetSubdomainResponses, WorkerScriptListWorkersErrors, WorkerScriptListWorkersResponses, WorkerScriptPatchSettingsErrors, WorkerScriptPatchSettingsResponses, WorkerScriptPostSubdomainErrors, WorkerScriptPostSubdomainResponses, WorkerScriptPutContentErrors, WorkerScriptPutContentResponses, WorkerScriptSearchWorkersErrors, WorkerScriptSearchWorkersResponses, WorkerScriptSettingsGetSettingsErrors, WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsPatchSettingsErrors, WorkerScriptSettingsPatchSettingsResponses, WorkerScriptUpdateCreateAssetsUploadSessionErrors, WorkerScriptUpdateCreateAssetsUploadSessionResponses, WorkerScriptUpdateUsageModelErrors, WorkerScriptUpdateUsageModelResponses, WorkerScriptUploadWorkerModuleErrors, WorkerScriptUploadWorkerModuleResponses, WorkersIdentifier, WorkersScriptAndVersionSettingsItemWritable, WorkersScriptName, WorkersScriptSettingsItem, WorkersScriptUpload, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretWritable, WorkersUsageModel, WorkersUserLimits } from '../types.gen';
-import { zWorkerAssetsUploadBody, zWorkerAssetsUploadPath, zWorkerAssetsUploadQuery, zWorkerAssetsUploadResponse, zWorkerDeleteScriptSecretPath, zWorkerDeleteScriptSecretQuery, zWorkerDeleteScriptSecretResponse, zWorkerGetScriptSecretPath, zWorkerGetScriptSecretQuery, zWorkerGetScriptSecretResponse, zWorkerListScriptSecretsPath, zWorkerListScriptSecretsResponse, zWorkerPutScriptSecretBody, zWorkerPutScriptSecretPath, zWorkerPutScriptSecretResponse, zWorkerScriptDeleteSubdomainPath, zWorkerScriptDeleteSubdomainResponse, zWorkerScriptDeleteWorkerBody, zWorkerScriptDeleteWorkerPath, zWorkerScriptDeleteWorkerQuery, zWorkerScriptDeleteWorkerResponse, zWorkerScriptDownloadWorkerPath, zWorkerScriptDownloadWorkerResponse, zWorkerScriptFetchUsageModelPath, zWorkerScriptFetchUsageModelResponse, zWorkerScriptGetContentPath, zWorkerScriptGetContentResponse, zWorkerScriptGetSettingsPath, zWorkerScriptGetSettingsResponse, zWorkerScriptGetSubdomainPath, zWorkerScriptGetSubdomainResponse, zWorkerScriptListWorkersPath, zWorkerScriptListWorkersQuery, zWorkerScriptListWorkersResponse, zWorkerScriptPatchSettingsBody, zWorkerScriptPatchSettingsPath, zWorkerScriptPatchSettingsResponse, zWorkerScriptPostSubdomainBody, zWorkerScriptPostSubdomainPath, zWorkerScriptPostSubdomainResponse, zWorkerScriptPutContentBody, zWorkerScriptPutContentHeaders, zWorkerScriptPutContentPath, zWorkerScriptPutContentResponse, zWorkerScriptSearchWorkersPath, zWorkerScriptSearchWorkersQuery, zWorkerScriptSearchWorkersResponse, zWorkerScriptSettingsGetSettingsPath, zWorkerScriptSettingsGetSettingsResponse, zWorkerScriptSettingsPatchSettingsBody, zWorkerScriptSettingsPatchSettingsPath, zWorkerScriptSettingsPatchSettingsResponse, zWorkerScriptUpdateCreateAssetsUploadSessionBody, zWorkerScriptUpdateCreateAssetsUploadSessionPath, zWorkerScriptUpdateCreateAssetsUploadSessionResponse, zWorkerScriptUpdateUsageModelBody, zWorkerScriptUpdateUsageModelPath, zWorkerScriptUpdateUsageModelResponse, zWorkerScriptUploadWorkerModuleBody, zWorkerScriptUploadWorkerModulePath, zWorkerScriptUploadWorkerModuleQuery, zWorkerScriptUploadWorkerModuleResponse } from '../zod.gen';
+import type { WorkerAssetsUploadErrors, WorkerAssetsUploadResponses, WorkerDeleteScriptSecretErrors, WorkerDeleteScriptSecretResponses, WorkerGetScriptSecretErrors, WorkerGetScriptSecretResponses, WorkerListScriptSecretsErrors, WorkerListScriptSecretsResponses, WorkerPatchScriptSecretsBulkErrors, WorkerPatchScriptSecretsBulkResponses, WorkerPutScriptSecretErrors, WorkerPutScriptSecretResponses, WorkersCreateAssetsUploadSessionObject, WorkerScriptDeleteSubdomainErrors, WorkerScriptDeleteSubdomainResponses, WorkerScriptDeleteWorkerErrors, WorkerScriptDeleteWorkerResponses, WorkerScriptDownloadWorkerErrors, WorkerScriptDownloadWorkerResponses, WorkerScriptFetchUsageModelErrors, WorkerScriptFetchUsageModelResponses, WorkerScriptGetContentErrors, WorkerScriptGetContentResponses, WorkerScriptGetSettingsErrors, WorkerScriptGetSettingsResponses, WorkerScriptGetSubdomainErrors, WorkerScriptGetSubdomainResponses, WorkerScriptListWorkersErrors, WorkerScriptListWorkersResponses, WorkerScriptPatchSettingsErrors, WorkerScriptPatchSettingsResponses, WorkerScriptPostSubdomainErrors, WorkerScriptPostSubdomainResponses, WorkerScriptPutContentErrors, WorkerScriptPutContentResponses, WorkerScriptSearchWorkersErrors, WorkerScriptSearchWorkersResponses, WorkerScriptSettingsGetSettingsErrors, WorkerScriptSettingsGetSettingsResponses, WorkerScriptSettingsPatchSettingsErrors, WorkerScriptSettingsPatchSettingsResponses, WorkerScriptUpdateCreateAssetsUploadSessionErrors, WorkerScriptUpdateCreateAssetsUploadSessionResponses, WorkerScriptUpdateUsageModelErrors, WorkerScriptUpdateUsageModelResponses, WorkerScriptUploadWorkerModuleErrors, WorkerScriptUploadWorkerModuleResponses, WorkersIdentifier, WorkersScriptAndVersionSettingsItemWritable, WorkersScriptName, WorkersScriptSettingsItem, WorkersScriptUpload, WorkersSecretName, WorkersSecretNameUrlEncoded, WorkersSecretPatchRequestWritable, WorkersSecretWritable, WorkersUsageModel, WorkersUserLimits } from '../types.gen';
+import { zWorkerAssetsUploadBody, zWorkerAssetsUploadPath, zWorkerAssetsUploadQuery, zWorkerAssetsUploadResponse, zWorkerDeleteScriptSecretPath, zWorkerDeleteScriptSecretQuery, zWorkerDeleteScriptSecretResponse, zWorkerGetScriptSecretPath, zWorkerGetScriptSecretQuery, zWorkerGetScriptSecretResponse, zWorkerListScriptSecretsPath, zWorkerListScriptSecretsResponse, zWorkerPatchScriptSecretsBulkBody, zWorkerPatchScriptSecretsBulkPath, zWorkerPatchScriptSecretsBulkResponse, zWorkerPutScriptSecretBody, zWorkerPutScriptSecretPath, zWorkerPutScriptSecretResponse, zWorkerScriptDeleteSubdomainPath, zWorkerScriptDeleteSubdomainResponse, zWorkerScriptDeleteWorkerBody, zWorkerScriptDeleteWorkerPath, zWorkerScriptDeleteWorkerQuery, zWorkerScriptDeleteWorkerResponse, zWorkerScriptDownloadWorkerPath, zWorkerScriptDownloadWorkerResponse, zWorkerScriptFetchUsageModelPath, zWorkerScriptFetchUsageModelResponse, zWorkerScriptGetContentPath, zWorkerScriptGetContentResponse, zWorkerScriptGetSettingsPath, zWorkerScriptGetSettingsResponse, zWorkerScriptGetSubdomainPath, zWorkerScriptGetSubdomainResponse, zWorkerScriptListWorkersPath, zWorkerScriptListWorkersQuery, zWorkerScriptListWorkersResponse, zWorkerScriptPatchSettingsBody, zWorkerScriptPatchSettingsPath, zWorkerScriptPatchSettingsResponse, zWorkerScriptPostSubdomainBody, zWorkerScriptPostSubdomainPath, zWorkerScriptPostSubdomainResponse, zWorkerScriptPutContentBody, zWorkerScriptPutContentHeaders, zWorkerScriptPutContentPath, zWorkerScriptPutContentResponse, zWorkerScriptSearchWorkersPath, zWorkerScriptSearchWorkersQuery, zWorkerScriptSearchWorkersResponse, zWorkerScriptSettingsGetSettingsPath, zWorkerScriptSettingsGetSettingsResponse, zWorkerScriptSettingsPatchSettingsBody, zWorkerScriptSettingsPatchSettingsPath, zWorkerScriptSettingsPatchSettingsResponse, zWorkerScriptUpdateCreateAssetsUploadSessionBody, zWorkerScriptUpdateCreateAssetsUploadSessionPath, zWorkerScriptUpdateCreateAssetsUploadSessionResponse, zWorkerScriptUpdateUsageModelBody, zWorkerScriptUpdateUsageModelPath, zWorkerScriptUpdateUsageModelResponse, zWorkerScriptUploadWorkerModuleBody, zWorkerScriptUploadWorkerModulePath, zWorkerScriptUploadWorkerModuleQuery, zWorkerScriptUploadWorkerModuleResponse } from '../zod.gen';
 
 export class WorkerScriptService {
     /**
@@ -469,6 +469,51 @@ export class WorkerScriptService {
             ...params,
             headers: {
                 'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Patch multiple script secrets
+     *
+     * Create, update, or delete multiple secrets on a script in a single operation using JSON Merge Patch (RFC 7396).
+     *
+     * Usage:
+     *
+     * - To create or update a secret, set its value to a secret object.
+     * - To delete a secret, set its value to `null`.
+     * - Secrets not included in the request are left unchanged.
+     *
+     */
+    public static workerPatchScriptSecretsBulk<ThrowOnError extends boolean = true>(parameters: {
+        account_id: WorkersIdentifier;
+        script_name: WorkersScriptName;
+        workersSecretPatchRequestWritable: WorkersSecretPatchRequestWritable;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'script_name' },
+                    { key: 'workersSecretPatchRequestWritable', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).patch<WorkerPatchScriptSecretsBulkResponses, WorkerPatchScriptSecretsBulkErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zWorkerPatchScriptSecretsBulkBody,
+                path: zWorkerPatchScriptSecretsBulkPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zWorkerPatchScriptSecretsBulkResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/accounts/{account_id}/workers/scripts/{script_name}/secrets-bulk',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/merge-patch+json',
                 ...options?.headers,
                 ...params.headers
             }

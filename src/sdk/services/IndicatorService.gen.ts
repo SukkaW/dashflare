@@ -312,7 +312,7 @@ export class IndicatorService {
         relatedEventsLimit?: number;
         includeTags?: boolean;
         includeTotalCount?: boolean;
-        format?: 'json' | 'stix2';
+        format?: 'json' | 'stix2' | 'taxii';
     }, options?: Options<never, ThrowOnError>) {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },

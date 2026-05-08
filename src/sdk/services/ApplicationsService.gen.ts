@@ -22,13 +22,15 @@ export class ApplicationsService {
         limit?: number;
         offset?: number;
         order_by?: string;
+        search?: string;
     }, options?: Options<never, ThrowOnError>) {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },
                     { in: 'query', key: 'filter' },
                     { in: 'query', key: 'limit' },
                     { in: 'query', key: 'offset' },
-                    { in: 'query', key: 'order_by' }
+                    { in: 'query', key: 'order_by' },
+                    { in: 'query', key: 'search' }
                 ] }]);
         return (options?.client ?? client).get<GetApplicationsResponses, GetApplicationsErrors, ThrowOnError>({
             requestValidator: async (data) => await z.object({

@@ -14,7 +14,7 @@ export class SecurityCenterScansService {
     /**
      * Get Recent Account Scans
      *
-     * Returns the most recent on-demand scans for the account, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account-wide and zone-scoped scans.
+     * Returns the most recent on-demand scans for the account, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account-wide and zone-scoped scans. Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.
      */
     public static getSecurityCenterAccountScans<ThrowOnError extends boolean = true>(parameters: {
         account_id: SecurityCenterIdentifier;
@@ -74,7 +74,7 @@ export class SecurityCenterScansService {
     /**
      * Get Recent Zone Scans
      *
-     * Returns the most recent on-demand scans for a specific zone, up to a maximum of 5. Each scan includes its ID, start time, and current status.
+     * Returns the most recent on-demand scans for a specific zone, up to a maximum of 5. Each scan includes its ID, start time, and current status. Results include both zone-specific scans and account-wide scans (which cover all zones). Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.
      */
     public static getSecurityCenterZoneScans<ThrowOnError extends boolean = true>(parameters: {
         zone_id: SecurityCenterIdentifier;

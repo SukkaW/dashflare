@@ -39,7 +39,7 @@ export class EventService {
         order?: 'asc' | 'desc';
         datasetId?: Array<string>;
         forceRefresh?: boolean;
-        format?: 'json' | 'stix2';
+        format?: 'json' | 'stix2' | 'taxii';
     }, options?: Options<never, ThrowOnError>) {
         const params = buildClientParams([parameters], [{ args: [
                     { in: 'path', key: 'account_id' },

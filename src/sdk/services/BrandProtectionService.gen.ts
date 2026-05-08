@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { DeleteAccountsByAccountIdBrandProtectionBrandsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsByAccountIdBrandProtectionBrandsResponses, DeleteDeleteLogoQueryResponses, DeleteLetterTemplateDeleteResponses, GetAccountsByAccountIdBrandProtectionAlertsErrors, GetAccountsByAccountIdBrandProtectionAlertsResponses, GetAccountsByAccountIdBrandProtectionBrandsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsByAccountIdBrandProtectionBrandsResponses, GetAccountsByAccountIdBrandProtectionDomainInfoErrors, GetAccountsByAccountIdBrandProtectionDomainInfoResponses, GetAccountsByAccountIdBrandProtectionRecentSubmissionsErrors, GetAccountsByAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsByAccountIdBrandProtectionSubmissionInfoErrors, GetAccountsByAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsByAccountIdBrandProtectionTrackedDomainsErrors, GetAccountsByAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsByAccountIdBrandProtectionUrlInfoErrors, GetAccountsByAccountIdBrandProtectionUrlInfoResponses, GetDomainMatchListResponses, GetGetDomainQueriesResponses, GetGetLogoQueriesResponses, GetLetterTemplateGetResponses, GetLetterTemplateListResponses, GetLiveErrors, GetLiveResponses, GetLogoMatchListResponses, GetReadyErrors, GetReadyResponses, GetTotalQueriesResponses, PatchAccountsByAccountIdBrandProtectionAlertsClearErrors, PatchAccountsByAccountIdBrandProtectionAlertsClearResponses, PatchAccountsByAccountIdBrandProtectionAlertsErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsByAccountIdBrandProtectionAlertsResponses, PatchAccountsByAccountIdBrandProtectionAlertsVerifyErrors, PatchAccountsByAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsByAccountIdBrandProtectionClearErrors, PatchAccountsByAccountIdBrandProtectionClearResponses, PatchAccountsByAccountIdBrandProtectionRefuteErrors, PatchAccountsByAccountIdBrandProtectionRefuteResponses, PatchAccountsByAccountIdBrandProtectionVerifyErrors, PatchAccountsByAccountIdBrandProtectionVerifyResponses, PostAccountsByAccountIdBrandProtectionBrandsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsByAccountIdBrandProtectionBrandsResponses, PostAccountsByAccountIdBrandProtectionSubmitErrors, PostAccountsByAccountIdBrandProtectionSubmitResponses, PostInsertLogoQueryResponses, PostInternalSubmitErrors, PostInternalSubmitResponses, PostLetterGenerateResponses, PostLetterTemplateCreateResponses, PostSearchLogoSimilarityResponses, PutLetterTemplateUpdateResponses } from '../types.gen';
-import { zDeleteAccountsByAccountIdBrandProtectionBrandsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zDeleteAccountsByAccountIdBrandProtectionBrandsResponse, zDeleteDeleteLogoQueryPath, zDeleteDeleteLogoQueryResponse, zDeleteLetterTemplateDeletePath, zDeleteLetterTemplateDeleteResponse, zGetAccountsByAccountIdBrandProtectionAlertsPath, zGetAccountsByAccountIdBrandProtectionAlertsResponse, zGetAccountsByAccountIdBrandProtectionBrandsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zGetAccountsByAccountIdBrandProtectionBrandsResponse, zGetAccountsByAccountIdBrandProtectionDomainInfoPath, zGetAccountsByAccountIdBrandProtectionDomainInfoResponse, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsPath, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsResponse, zGetAccountsByAccountIdBrandProtectionSubmissionInfoPath, zGetAccountsByAccountIdBrandProtectionSubmissionInfoResponse, zGetAccountsByAccountIdBrandProtectionTrackedDomainsPath, zGetAccountsByAccountIdBrandProtectionTrackedDomainsResponse, zGetAccountsByAccountIdBrandProtectionUrlInfoPath, zGetAccountsByAccountIdBrandProtectionUrlInfoResponse, zGetDomainMatchListPath, zGetDomainMatchListQuery, zGetDomainMatchListResponse, zGetGetDomainQueriesPath, zGetGetDomainQueriesQuery, zGetGetDomainQueriesResponse, zGetGetLogoQueriesPath, zGetGetLogoQueriesQuery, zGetGetLogoQueriesResponse, zGetLetterTemplateGetPath, zGetLetterTemplateGetResponse, zGetLetterTemplateListPath, zGetLetterTemplateListResponse, zGetLiveResponse, zGetLogoMatchListPath, zGetLogoMatchListQuery, zGetLogoMatchListResponse, zGetReadyResponse, zGetTotalQueriesPath, zGetTotalQueriesResponse, zPatchAccountsByAccountIdBrandProtectionAlertsClearPath, zPatchAccountsByAccountIdBrandProtectionAlertsClearResponse, zPatchAccountsByAccountIdBrandProtectionAlertsPath, zPatchAccountsByAccountIdBrandProtectionAlertsRefutePath, zPatchAccountsByAccountIdBrandProtectionAlertsRefuteResponse, zPatchAccountsByAccountIdBrandProtectionAlertsResponse, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyPath, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyResponse, zPatchAccountsByAccountIdBrandProtectionClearPath, zPatchAccountsByAccountIdBrandProtectionClearResponse, zPatchAccountsByAccountIdBrandProtectionRefutePath, zPatchAccountsByAccountIdBrandProtectionRefuteResponse, zPatchAccountsByAccountIdBrandProtectionVerifyPath, zPatchAccountsByAccountIdBrandProtectionVerifyResponse, zPostAccountsByAccountIdBrandProtectionBrandsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zPostAccountsByAccountIdBrandProtectionBrandsResponse, zPostAccountsByAccountIdBrandProtectionSubmitPath, zPostAccountsByAccountIdBrandProtectionSubmitResponse, zPostInsertLogoQueryBody, zPostInsertLogoQueryPath, zPostInsertLogoQueryResponse, zPostInternalSubmitResponse, zPostLetterGenerateBody, zPostLetterGeneratePath, zPostLetterGenerateResponse, zPostLetterTemplateCreateBody, zPostLetterTemplateCreatePath, zPostLetterTemplateCreateResponse, zPostSearchLogoSimilarityBody, zPostSearchLogoSimilarityPath, zPostSearchLogoSimilarityQuery, zPostSearchLogoSimilarityResponse, zPutLetterTemplateUpdateBody, zPutLetterTemplateUpdatePath, zPutLetterTemplateUpdateResponse } from '../zod.gen';
+import type { DeleteAccountsByAccountIdBrandProtectionBrandsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsErrors, DeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponses, DeleteAccountsByAccountIdBrandProtectionBrandsResponses, DeleteDeleteLogoQueryResponses, DeleteLetterTemplateDeleteResponses, DeleteTakedownLetterDeleteResponses, DeleteTakedownNoticeDeleteResponses, GetAccountsByAccountIdBrandProtectionAlertsErrors, GetAccountsByAccountIdBrandProtectionAlertsResponses, GetAccountsByAccountIdBrandProtectionBrandsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsErrors, GetAccountsByAccountIdBrandProtectionBrandsPatternsResponses, GetAccountsByAccountIdBrandProtectionBrandsResponses, GetAccountsByAccountIdBrandProtectionDomainInfoErrors, GetAccountsByAccountIdBrandProtectionDomainInfoResponses, GetAccountsByAccountIdBrandProtectionRecentSubmissionsErrors, GetAccountsByAccountIdBrandProtectionRecentSubmissionsResponses, GetAccountsByAccountIdBrandProtectionSubmissionInfoErrors, GetAccountsByAccountIdBrandProtectionSubmissionInfoResponses, GetAccountsByAccountIdBrandProtectionTrackedDomainsErrors, GetAccountsByAccountIdBrandProtectionTrackedDomainsResponses, GetAccountsByAccountIdBrandProtectionUrlInfoErrors, GetAccountsByAccountIdBrandProtectionUrlInfoResponses, GetDomainMatchListResponses, GetGetDomainQueriesResponses, GetGetLogoQueriesResponses, GetLetterTemplateGetResponses, GetLetterTemplateListResponses, GetLiveErrors, GetLiveResponses, GetLogoMatchListResponses, GetReadyErrors, GetReadyResponses, GetTakedownLetterGetResponses, GetTakedownLetterListResponses, GetTakedownNoticeGetResponses, GetTakedownNoticeListResponses, GetTotalQueriesResponses, PatchAccountsByAccountIdBrandProtectionAlertsClearErrors, PatchAccountsByAccountIdBrandProtectionAlertsClearResponses, PatchAccountsByAccountIdBrandProtectionAlertsErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteErrors, PatchAccountsByAccountIdBrandProtectionAlertsRefuteResponses, PatchAccountsByAccountIdBrandProtectionAlertsResponses, PatchAccountsByAccountIdBrandProtectionAlertsVerifyErrors, PatchAccountsByAccountIdBrandProtectionAlertsVerifyResponses, PatchAccountsByAccountIdBrandProtectionClearErrors, PatchAccountsByAccountIdBrandProtectionClearResponses, PatchAccountsByAccountIdBrandProtectionRefuteErrors, PatchAccountsByAccountIdBrandProtectionRefuteResponses, PatchAccountsByAccountIdBrandProtectionVerifyErrors, PatchAccountsByAccountIdBrandProtectionVerifyResponses, PostAccountsByAccountIdBrandProtectionBrandsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsErrors, PostAccountsByAccountIdBrandProtectionBrandsPatternsResponses, PostAccountsByAccountIdBrandProtectionBrandsResponses, PostAccountsByAccountIdBrandProtectionSubmitErrors, PostAccountsByAccountIdBrandProtectionSubmitResponses, PostInsertLogoQueryResponses, PostInternalSubmitErrors, PostInternalSubmitResponses, PostLetterGenerateResponses, PostLetterTemplateCreateResponses, PostSearchLogoSimilarityResponses, PostTakedownLetterCreateResponses, PostTakedownNoticeCreateResponses, PutLetterTemplateUpdateResponses, PutTakedownNoticeUpdateResponses } from '../types.gen';
+import { zDeleteAccountsByAccountIdBrandProtectionBrandsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsPath, zDeleteAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zDeleteAccountsByAccountIdBrandProtectionBrandsResponse, zDeleteDeleteLogoQueryPath, zDeleteDeleteLogoQueryResponse, zDeleteLetterTemplateDeletePath, zDeleteLetterTemplateDeleteResponse, zDeleteTakedownLetterDeletePath, zDeleteTakedownLetterDeleteResponse, zDeleteTakedownNoticeDeletePath, zDeleteTakedownNoticeDeleteResponse, zGetAccountsByAccountIdBrandProtectionAlertsPath, zGetAccountsByAccountIdBrandProtectionAlertsResponse, zGetAccountsByAccountIdBrandProtectionBrandsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsPath, zGetAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zGetAccountsByAccountIdBrandProtectionBrandsResponse, zGetAccountsByAccountIdBrandProtectionDomainInfoPath, zGetAccountsByAccountIdBrandProtectionDomainInfoResponse, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsPath, zGetAccountsByAccountIdBrandProtectionRecentSubmissionsResponse, zGetAccountsByAccountIdBrandProtectionSubmissionInfoPath, zGetAccountsByAccountIdBrandProtectionSubmissionInfoResponse, zGetAccountsByAccountIdBrandProtectionTrackedDomainsPath, zGetAccountsByAccountIdBrandProtectionTrackedDomainsResponse, zGetAccountsByAccountIdBrandProtectionUrlInfoPath, zGetAccountsByAccountIdBrandProtectionUrlInfoResponse, zGetDomainMatchListPath, zGetDomainMatchListQuery, zGetDomainMatchListResponse, zGetGetDomainQueriesPath, zGetGetDomainQueriesQuery, zGetGetDomainQueriesResponse, zGetGetLogoQueriesPath, zGetGetLogoQueriesQuery, zGetGetLogoQueriesResponse, zGetLetterTemplateGetPath, zGetLetterTemplateGetResponse, zGetLetterTemplateListPath, zGetLetterTemplateListResponse, zGetLiveResponse, zGetLogoMatchListPath, zGetLogoMatchListQuery, zGetLogoMatchListResponse, zGetReadyResponse, zGetTakedownLetterGetPath, zGetTakedownLetterGetResponse, zGetTakedownLetterListPath, zGetTakedownLetterListResponse, zGetTakedownNoticeGetPath, zGetTakedownNoticeGetResponse, zGetTakedownNoticeListPath, zGetTakedownNoticeListResponse, zGetTotalQueriesPath, zGetTotalQueriesResponse, zPatchAccountsByAccountIdBrandProtectionAlertsClearPath, zPatchAccountsByAccountIdBrandProtectionAlertsClearResponse, zPatchAccountsByAccountIdBrandProtectionAlertsPath, zPatchAccountsByAccountIdBrandProtectionAlertsRefutePath, zPatchAccountsByAccountIdBrandProtectionAlertsRefuteResponse, zPatchAccountsByAccountIdBrandProtectionAlertsResponse, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyPath, zPatchAccountsByAccountIdBrandProtectionAlertsVerifyResponse, zPatchAccountsByAccountIdBrandProtectionClearPath, zPatchAccountsByAccountIdBrandProtectionClearResponse, zPatchAccountsByAccountIdBrandProtectionRefutePath, zPatchAccountsByAccountIdBrandProtectionRefuteResponse, zPatchAccountsByAccountIdBrandProtectionVerifyPath, zPatchAccountsByAccountIdBrandProtectionVerifyResponse, zPostAccountsByAccountIdBrandProtectionBrandsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsPath, zPostAccountsByAccountIdBrandProtectionBrandsPatternsResponse, zPostAccountsByAccountIdBrandProtectionBrandsResponse, zPostAccountsByAccountIdBrandProtectionSubmitPath, zPostAccountsByAccountIdBrandProtectionSubmitResponse, zPostInsertLogoQueryBody, zPostInsertLogoQueryPath, zPostInsertLogoQueryResponse, zPostInternalSubmitResponse, zPostLetterGenerateBody, zPostLetterGeneratePath, zPostLetterGenerateResponse, zPostLetterTemplateCreateBody, zPostLetterTemplateCreatePath, zPostLetterTemplateCreateResponse, zPostSearchLogoSimilarityBody, zPostSearchLogoSimilarityPath, zPostSearchLogoSimilarityQuery, zPostSearchLogoSimilarityResponse, zPostTakedownLetterCreateBody, zPostTakedownLetterCreatePath, zPostTakedownLetterCreateResponse, zPostTakedownNoticeCreateBody, zPostTakedownNoticeCreatePath, zPostTakedownNoticeCreateResponse, zPutLetterTemplateUpdateBody, zPutLetterTemplateUpdatePath, zPutLetterTemplateUpdateResponse, zPutTakedownNoticeUpdateBody, zPutTakedownNoticeUpdatePath, zPutTakedownNoticeUpdateResponse } from '../zod.gen';
 
 export class BrandProtectionService {
     /**
@@ -956,6 +956,286 @@ export class BrandProtectionService2 {
                 ...options?.headers,
                 ...params.headers
             }
+        });
+    }
+    
+    /**
+     * List takedown notices
+     *
+     * List all takedown notices for the account.
+     */
+    public static getTakedownNoticeList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownNoticeListResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownNoticeListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownNoticeListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create takedown notice
+     *
+     * Create a new takedown notice for a domain suspected of trademark infringement.
+     */
+    public static postTakedownNoticeCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        domain: string;
+        matchId?: number;
+        matchType?: 'logo' | 'domain';
+        status?: 'draft' | 'sent' | 'resolved' | 'expired';
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'body', key: 'domain' },
+                    { in: 'body', key: 'matchId' },
+                    { in: 'body', key: 'matchType' },
+                    { in: 'body', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).post<PostTakedownNoticeCreateResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostTakedownNoticeCreateBody.optional(),
+                path: zPostTakedownNoticeCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostTakedownNoticeCreateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete takedown notice
+     *
+     * Delete a takedown notice and all associated letters. PDFs are also removed from storage.
+     */
+    public static deleteTakedownNoticeDelete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).delete<DeleteTakedownNoticeDeleteResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteTakedownNoticeDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteTakedownNoticeDeleteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get takedown notice
+     *
+     * Get a specific takedown notice by ID.
+     */
+    public static getTakedownNoticeGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownNoticeGetResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownNoticeGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownNoticeGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Update takedown notice
+     *
+     * Update a takedown notice (e.g. change status to sent, resolved, etc.).
+     */
+    public static putTakedownNoticeUpdate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        domain?: string;
+        matchId?: number | null;
+        matchType?: 'logo' | 'domain';
+        status?: 'draft' | 'sent' | 'resolved' | 'expired';
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'body', key: 'domain' },
+                    { in: 'body', key: 'matchId' },
+                    { in: 'body', key: 'matchType' },
+                    { in: 'body', key: 'status' }
+                ] }]);
+        return (options?.client ?? client).put<PutTakedownNoticeUpdateResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPutTakedownNoticeUpdateBody.optional(),
+                path: zPutTakedownNoticeUpdatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPutTakedownNoticeUpdateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * List takedown letters
+     *
+     * List all letters for a specific takedown notice.
+     */
+    public static getTakedownLetterList<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { in: 'path', key: 'notice_id' }] }]);
+        return (options?.client ?? client).get<GetTakedownLetterListResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownLetterListPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownLetterListResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Create takedown letter
+     *
+     * Generate a takedown letter for a notice. Renders both text and PDF, stores the PDF in R2.
+     */
+    public static postTakedownLetterCreate<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        fields: {
+            discoveryDate?: string;
+            domain?: string;
+            generationDate?: string;
+            registrantEmail?: string;
+            registrar?: string;
+            resolutionByDate?: string;
+            senderCompany?: string;
+            senderEmail?: string;
+            senderName?: string;
+            senderTitle?: string;
+            trademarkName?: string;
+            trademarkOwner?: string;
+        };
+        templateId: string;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'body', key: 'fields' },
+                    { in: 'body', key: 'templateId' }
+                ] }]);
+        return (options?.client ?? client).post<PostTakedownLetterCreateResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zPostTakedownLetterCreateBody.optional(),
+                path: zPostTakedownLetterCreatePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zPostTakedownLetterCreateResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Delete takedown letter
+     *
+     * Delete a specific takedown letter and its associated PDF from storage.
+     */
+    public static deleteTakedownLetterDelete<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        letter_id: number;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'path', key: 'letter_id' }
+                ] }]);
+        return (options?.client ?? client).delete<DeleteTakedownLetterDeleteResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zDeleteTakedownLetterDeletePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zDeleteTakedownLetterDeleteResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters/{letter_id}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get takedown letter
+     *
+     * Get a specific takedown letter by ID, including the rendered text.
+     */
+    public static getTakedownLetterGet<ThrowOnError extends boolean = true>(parameters: {
+        account_id: string;
+        notice_id: number;
+        letter_id: number;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'account_id' },
+                    { in: 'path', key: 'notice_id' },
+                    { in: 'path', key: 'letter_id' }
+                ] }]);
+        return (options?.client ?? client).get<GetTakedownLetterGetResponses, unknown, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zGetTakedownLetterGetPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zGetTakedownLetterGetResponse.parseAsync(data),
+            security: [{ scheme: 'bearer', type: 'http' }],
+            url: '/accounts/{account_id}/cloudforce-one/v2/brand-protection/takedown-notices/{notice_id}/letters/{letter_id}',
+            ...options,
+            ...params
         });
     }
     

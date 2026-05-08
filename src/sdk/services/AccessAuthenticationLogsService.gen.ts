@@ -32,7 +32,7 @@ export class AccessAuthenticationLogsService {
         app_typeOp?: 'eq' | 'neq';
         app_uidOp?: 'eq' | 'neq';
         ray_idOp?: 'eq' | 'neq';
-        emailOp?: 'eq' | 'neq';
+        emailOp?: 'eq' | 'neq' | 'contains';
         idpOp?: 'eq' | 'neq';
         non_identityOp?: 'eq' | 'neq';
         user_idOp?: 'eq' | 'neq';

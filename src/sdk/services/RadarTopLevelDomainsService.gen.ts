@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { RadarGetTldDetailsErrors, RadarGetTldDetailsResponses, RadarGetTldsErrors, RadarGetTldsResponses } from '../types.gen';
-import { zRadarGetTldDetailsPath, zRadarGetTldDetailsQuery, zRadarGetTldDetailsResponse, zRadarGetTldsQuery, zRadarGetTldsResponse } from '../zod.gen';
+import type { RadarGetTldDetailsErrors, RadarGetTldDetailsResponses, RadarGetTldsErrors, RadarGetTldsPerformanceSummaryErrors, RadarGetTldsPerformanceSummaryResponses, RadarGetTldsPerformanceTimeseriesGroupsErrors, RadarGetTldsPerformanceTimeseriesGroupsResponses, RadarGetTldsResponses } from '../types.gen';
+import { zRadarGetTldDetailsPath, zRadarGetTldDetailsQuery, zRadarGetTldDetailsResponse, zRadarGetTldsPerformanceSummaryPath, zRadarGetTldsPerformanceSummaryQuery, zRadarGetTldsPerformanceSummaryResponse, zRadarGetTldsPerformanceTimeseriesGroupsPath, zRadarGetTldsPerformanceTimeseriesGroupsQuery, zRadarGetTldsPerformanceTimeseriesGroupsResponse, zRadarGetTldsQuery, zRadarGetTldsResponse } from '../zod.gen';
 
 export class RadarTopLevelDomainsService {
     /**
@@ -45,6 +45,106 @@ export class RadarTopLevelDomainsService {
                 { scheme: 'bearer', type: 'http' }
             ],
             url: '/radar/tlds',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get TLD Performance Summary
+     *
+     * Returns a summary of TLD authoritative nameserver performance grouped by the specified dimension.
+     */
+    public static radarGetTldsPerformanceSummary<ThrowOnError extends boolean = true>(parameters: {
+        dimension: 'LATENCY' | 'NAMESERVER_LATENCY' | 'LOCATION_LATENCY';
+        name?: Array<string>;
+        dateRange?: Array<string>;
+        dateStart?: Array<string>;
+        dateEnd?: Array<string>;
+        location?: Array<string>;
+        continent?: Array<string>;
+        tld?: Array<string>;
+        nameserver?: string;
+        limitPerGroup?: number;
+        format?: 'JSON' | 'CSV';
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'dimension' },
+                    { in: 'query', key: 'name' },
+                    { in: 'query', key: 'dateRange' },
+                    { in: 'query', key: 'dateStart' },
+                    { in: 'query', key: 'dateEnd' },
+                    { in: 'query', key: 'location' },
+                    { in: 'query', key: 'continent' },
+                    { in: 'query', key: 'tld' },
+                    { in: 'query', key: 'nameserver' },
+                    { in: 'query', key: 'limitPerGroup' },
+                    { in: 'query', key: 'format' }
+                ] }]);
+        return (options?.client ?? client).get<RadarGetTldsPerformanceSummaryResponses, RadarGetTldsPerformanceSummaryErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zRadarGetTldsPerformanceSummaryPath,
+                query: zRadarGetTldsPerformanceSummaryQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zRadarGetTldsPerformanceSummaryResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/radar/tlds/performance/summary/{dimension}',
+            ...options,
+            ...params
+        });
+    }
+    
+    /**
+     * Get TLD Performance Over Time
+     *
+     * Returns a timeseries of TLD authoritative nameserver performance grouped by the specified dimension.
+     */
+    public static radarGetTldsPerformanceTimeseriesGroups<ThrowOnError extends boolean = true>(parameters: {
+        dimension: 'LATENCY' | 'NAMESERVER_LATENCY' | 'LOCATION_LATENCY';
+        aggInterval?: '15m' | '1h' | '1d' | '1w';
+        name?: Array<string>;
+        dateRange?: Array<string>;
+        dateStart?: Array<string>;
+        dateEnd?: Array<string>;
+        location?: Array<string>;
+        continent?: Array<string>;
+        tld?: Array<string>;
+        nameserver?: string;
+        limitPerGroup?: number;
+        format?: 'JSON' | 'CSV';
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'dimension' },
+                    { in: 'query', key: 'aggInterval' },
+                    { in: 'query', key: 'name' },
+                    { in: 'query', key: 'dateRange' },
+                    { in: 'query', key: 'dateStart' },
+                    { in: 'query', key: 'dateEnd' },
+                    { in: 'query', key: 'location' },
+                    { in: 'query', key: 'continent' },
+                    { in: 'query', key: 'tld' },
+                    { in: 'query', key: 'nameserver' },
+                    { in: 'query', key: 'limitPerGroup' },
+                    { in: 'query', key: 'format' }
+                ] }]);
+        return (options?.client ?? client).get<RadarGetTldsPerformanceTimeseriesGroupsResponses, RadarGetTldsPerformanceTimeseriesGroupsErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: z.never().optional(),
+                path: zRadarGetTldsPerformanceTimeseriesGroupsPath,
+                query: zRadarGetTldsPerformanceTimeseriesGroupsQuery.optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zRadarGetTldsPerformanceTimeseriesGroupsResponse.parseAsync(data),
+            security: [
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' },
+                { scheme: 'bearer', type: 'http' }
+            ],
+            url: '/radar/tlds/performance/timeseries_groups/{dimension}',
             ...options,
             ...params
         });

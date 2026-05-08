@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams, formDataBodySerializer } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CustomIndicatorFeedsAddPermissionErrors, CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsCreateFeed, CustomIndicatorFeedsCreateIndicatorFeedsErrors, CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsFeedId, CustomIndicatorFeedsGetIndicatorFeedDataErrors, CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsIdentifier, CustomIndicatorFeedsPermissionsRequest, CustomIndicatorFeedsRemovePermissionErrors, CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsUpdateIndicatorFeedDataErrors, CustomIndicatorFeedsUpdateIndicatorFeedDataResponses, CustomIndicatorFeedsUpdateIndicatorFeedMetadataErrors, CustomIndicatorFeedsUpdateIndicatorFeedMetadataResponses, CustomIndicatorFeedsUpdatePublicFieldRequest, CustomIndicatorFeedsViewPermissionsErrors, CustomIndicatorFeedsViewPermissionsResponses } from '../types.gen';
-import { zCustomIndicatorFeedsAddPermissionBody, zCustomIndicatorFeedsAddPermissionPath, zCustomIndicatorFeedsAddPermissionResponse, zCustomIndicatorFeedsCreateIndicatorFeedsBody, zCustomIndicatorFeedsCreateIndicatorFeedsPath, zCustomIndicatorFeedsCreateIndicatorFeedsResponse, zCustomIndicatorFeedsDownloadIndicatorFeedDataPath, zCustomIndicatorFeedsDownloadIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedDataPath, zCustomIndicatorFeedsGetIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedMetadataPath, zCustomIndicatorFeedsGetIndicatorFeedMetadataResponse, zCustomIndicatorFeedsGetIndicatorFeedsPath, zCustomIndicatorFeedsGetIndicatorFeedsResponse, zCustomIndicatorFeedsRemovePermissionBody, zCustomIndicatorFeedsRemovePermissionPath, zCustomIndicatorFeedsRemovePermissionResponse, zCustomIndicatorFeedsUpdateIndicatorFeedDataBody, zCustomIndicatorFeedsUpdateIndicatorFeedDataPath, zCustomIndicatorFeedsUpdateIndicatorFeedDataResponse, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataBody, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataPath, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataResponse, zCustomIndicatorFeedsViewPermissionsPath, zCustomIndicatorFeedsViewPermissionsResponse } from '../zod.gen';
+import type { CustomIndicatorFeedsAddPermissionErrors, CustomIndicatorFeedsAddPermissionResponses, CustomIndicatorFeedsCreateFeed, CustomIndicatorFeedsCreateIndicatorFeedsErrors, CustomIndicatorFeedsCreateIndicatorFeedsResponses, CustomIndicatorFeedsCreateProviderErrors, CustomIndicatorFeedsCreateProviderRequest, CustomIndicatorFeedsCreateProviderResponses, CustomIndicatorFeedsDownloadIndicatorFeedDataErrors, CustomIndicatorFeedsDownloadIndicatorFeedDataResponses, CustomIndicatorFeedsFeedId, CustomIndicatorFeedsGetIndicatorFeedDataErrors, CustomIndicatorFeedsGetIndicatorFeedDataResponses, CustomIndicatorFeedsGetIndicatorFeedMetadataErrors, CustomIndicatorFeedsGetIndicatorFeedMetadataResponses, CustomIndicatorFeedsGetIndicatorFeedsErrors, CustomIndicatorFeedsGetIndicatorFeedsResponses, CustomIndicatorFeedsIdentifier, CustomIndicatorFeedsPermissionsRequest, CustomIndicatorFeedsRemovePermissionErrors, CustomIndicatorFeedsRemovePermissionResponses, CustomIndicatorFeedsUpdateIndicatorFeedDataErrors, CustomIndicatorFeedsUpdateIndicatorFeedDataResponses, CustomIndicatorFeedsUpdateIndicatorFeedMetadataErrors, CustomIndicatorFeedsUpdateIndicatorFeedMetadataResponses, CustomIndicatorFeedsUpdatePublicFieldRequest, CustomIndicatorFeedsViewPermissionsErrors, CustomIndicatorFeedsViewPermissionsResponses } from '../types.gen';
+import { zCustomIndicatorFeedsAddPermissionBody, zCustomIndicatorFeedsAddPermissionPath, zCustomIndicatorFeedsAddPermissionResponse, zCustomIndicatorFeedsCreateIndicatorFeedsBody, zCustomIndicatorFeedsCreateIndicatorFeedsPath, zCustomIndicatorFeedsCreateIndicatorFeedsResponse, zCustomIndicatorFeedsCreateProviderBody, zCustomIndicatorFeedsCreateProviderPath, zCustomIndicatorFeedsCreateProviderResponse2, zCustomIndicatorFeedsDownloadIndicatorFeedDataPath, zCustomIndicatorFeedsDownloadIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedDataPath, zCustomIndicatorFeedsGetIndicatorFeedDataResponse, zCustomIndicatorFeedsGetIndicatorFeedMetadataPath, zCustomIndicatorFeedsGetIndicatorFeedMetadataResponse, zCustomIndicatorFeedsGetIndicatorFeedsPath, zCustomIndicatorFeedsGetIndicatorFeedsResponse, zCustomIndicatorFeedsRemovePermissionBody, zCustomIndicatorFeedsRemovePermissionPath, zCustomIndicatorFeedsRemovePermissionResponse, zCustomIndicatorFeedsUpdateIndicatorFeedDataBody, zCustomIndicatorFeedsUpdateIndicatorFeedDataPath, zCustomIndicatorFeedsUpdateIndicatorFeedDataResponse, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataBody, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataPath, zCustomIndicatorFeedsUpdateIndicatorFeedMetadataResponse, zCustomIndicatorFeedsViewPermissionsPath, zCustomIndicatorFeedsViewPermissionsResponse } from '../zod.gen';
 
 export class CustomIndicatorFeedsService {
     /**
@@ -82,6 +82,35 @@ export class CustomIndicatorFeedsService {
             responseValidator: async (data) => await zCustomIndicatorFeedsAddPermissionResponse.parseAsync(data),
             security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
             url: '/accounts/{account_id}/intel/indicator-feeds/permissions/add',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
+     * Create indicator feed provider
+     *
+     * Creates a new indicator feed provider for an account. Only available to Intel accounts.
+     */
+    public static customIndicatorFeedsCreateProvider<ThrowOnError extends boolean = true>(parameters: {
+        account_id: CustomIndicatorFeedsIdentifier;
+        customIndicatorFeedsCreateProviderRequest: CustomIndicatorFeedsCreateProviderRequest;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [{ in: 'path', key: 'account_id' }, { key: 'customIndicatorFeedsCreateProviderRequest', map: 'body' }] }]);
+        return (options?.client ?? client).put<CustomIndicatorFeedsCreateProviderResponses, CustomIndicatorFeedsCreateProviderErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zCustomIndicatorFeedsCreateProviderBody,
+                path: zCustomIndicatorFeedsCreateProviderPath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zCustomIndicatorFeedsCreateProviderResponse2.parseAsync(data),
+            security: [{ name: 'X-Auth-Email', type: 'apiKey' }, { name: 'X-Auth-Key', type: 'apiKey' }],
+            url: '/accounts/{account_id}/intel/indicator-feeds/permissions/createProvider',
             ...options,
             ...params,
             headers: {

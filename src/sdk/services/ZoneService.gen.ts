@@ -7,8 +7,8 @@ import * as z from 'zod';
 import { buildClientParams } from '../client';
 import { client } from '../client.gen';
 import type { Options } from '../sdk.gen';
-import type { CachePurgeEverything, CachePurgeFlexPurgeByHostnames, CachePurgeFlexPurgeByPrefixes, CachePurgeFlexPurgeByTags, CachePurgeIdentifier, CachePurgeSingleFile, CachePurgeSingleFileWithUrlAndHeaders, PutZonesZoneIdActivationCheckErrors, PutZonesZoneIdActivationCheckResponses, ZoneActivationIdentifier, ZonePurgeErrors, ZonePurgeResponses, Zones0DeleteErrors, Zones0DeleteResponses, Zones0GetErrors, Zones0GetResponses, Zones0PatchErrors, Zones0PatchResponses, ZonesGetErrors, ZonesGetResponses, ZonesIdentifier, ZonesName, ZonesPaused, ZonesPostErrors, ZonesPostResponses, ZonesType, ZonesVanityNameServers } from '../types.gen';
-import { zPutZonesZoneIdActivationCheckPath, zPutZonesZoneIdActivationCheckResponse, zZonePurgeBody, zZonePurgePath, zZonePurgeResponse, zZones0DeleteBody, zZones0DeletePath, zZones0DeleteResponse, zZones0GetPath, zZones0GetResponse, zZones0PatchBody, zZones0PatchPath, zZones0PatchResponse, zZonesGetQuery, zZonesGetResponse, zZonesPostBody, zZonesPostResponse } from '../zod.gen';
+import type { CachePurgeEverything, CachePurgeFlexPurgeByHostnames, CachePurgeFlexPurgeByPrefixes, CachePurgeFlexPurgeByTags, CachePurgeIdentifier, CachePurgeSingleFile, CachePurgeSingleFileWithUrlAndHeaders, PutZonesZoneIdActivationCheckErrors, PutZonesZoneIdActivationCheckResponses, ZoneActivationIdentifier, ZoneEnvironmentPurgeErrors, ZoneEnvironmentPurgeResponses, ZonePurgeErrors, ZonePurgeResponses, Zones0DeleteErrors, Zones0DeleteResponses, Zones0GetErrors, Zones0GetResponses, Zones0PatchErrors, Zones0PatchResponses, ZonesGetErrors, ZonesGetResponses, ZonesIdentifier, ZonesName, ZonesPaused, ZonesPostErrors, ZonesPostResponses, ZonesType, ZonesVanityNameServers } from '../types.gen';
+import { zPutZonesZoneIdActivationCheckPath, zPutZonesZoneIdActivationCheckResponse, zZoneEnvironmentPurgeBody, zZoneEnvironmentPurgePath, zZoneEnvironmentPurgeResponse, zZonePurgeBody, zZonePurgePath, zZonePurgeResponse, zZones0DeleteBody, zZones0DeletePath, zZones0DeleteResponse, zZones0GetPath, zZones0GetResponse, zZones0PatchBody, zZones0PatchPath, zZones0PatchResponse, zZonesGetQuery, zZonesGetResponse, zZonesPostBody, zZonesPostResponse } from '../zod.gen';
 
 export class ZoneService {
     /**
@@ -231,6 +231,48 @@ export class ZoneService {
     }
     
     /**
+     * Purge Cached Content by Environment
+     *
+     * Purge cached content scoped to a specific environment. Supports the same purge types as the zone-level endpoint (purge everything, by URL, by tag, host, or prefix).
+     *
+     * ### Availability and limits
+     * Please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
+     *
+     */
+    public static zoneEnvironmentPurge<ThrowOnError extends boolean = true>(parameters: {
+        zone_id: CachePurgeIdentifier;
+        environment_id: CachePurgeIdentifier;
+        body: CachePurgeFlexPurgeByTags | CachePurgeFlexPurgeByHostnames | CachePurgeFlexPurgeByPrefixes | CachePurgeEverything | CachePurgeSingleFile | CachePurgeSingleFileWithUrlAndHeaders;
+    }, options?: Options<never, ThrowOnError>) {
+        const params = buildClientParams([parameters], [{ args: [
+                    { in: 'path', key: 'zone_id' },
+                    { in: 'path', key: 'environment_id' },
+                    { key: 'body', map: 'body' }
+                ] }]);
+        return (options?.client ?? client).post<ZoneEnvironmentPurgeResponses, ZoneEnvironmentPurgeErrors, ThrowOnError>({
+            requestValidator: async (data) => await z.object({
+                body: zZoneEnvironmentPurgeBody,
+                path: zZoneEnvironmentPurgePath,
+                query: z.never().optional()
+            }).parseAsync(data),
+            responseValidator: async (data) => await zZoneEnvironmentPurgeResponse.parseAsync(data),
+            security: [
+                { scheme: 'bearer', type: 'http' },
+                { name: 'X-Auth-Email', type: 'apiKey' },
+                { name: 'X-Auth-Key', type: 'apiKey' }
+            ],
+            url: '/zones/{zone_id}/environments/{environment_id}/purge_cache',
+            ...options,
+            ...params,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers,
+                ...params.headers
+            }
+        });
+    }
+    
+    /**
      * Purge Cached Content
      *
      * ### Purge All Cached Content
@@ -252,7 +294,7 @@ export class ZoneService {
      * ```
      * Single file purge example with url and header pairs:
      * ```
-     * {"files": [{url: "http://www.example.com/cat_picture.jpg", headers: { "CF-IPCountry": "US", "CF-Device-Type": "desktop", "Accept-Language": "zh-CN" }}, {url: "http://www.example.com/dog_picture.jpg", headers: { "CF-IPCountry": "EU", "CF-Device-Type": "mobile", "Accept-Language": "en-US" }}]}
+     * {"files": [{"url": "http://www.example.com/cat_picture.jpg", "headers": {"CF-IPCountry": "US", "CF-Device-Type": "desktop", "Accept-Language": "zh-CN"}}, {"url": "http://www.example.com/dog_picture.jpg", "headers": {"CF-IPCountry": "EU", "CF-Device-Type": "mobile", "Accept-Language": "en-US"}}]}
      * ```
      *
      * ### Purge Cached Content by Tag, Host or Prefix
@@ -272,7 +314,7 @@ export class ZoneService {
      * ```
      *
      * ### Availability and limits
-     * please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
+     * Please refer to [purge cache availability and limits documentation page](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).
      *
      */
     public static zonePurge<ThrowOnError extends boolean = true>(parameters: {
