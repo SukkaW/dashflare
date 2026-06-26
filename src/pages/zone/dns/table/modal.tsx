@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- i don't care */
 import { modals } from '@mantine/modals';
 import { Box, Button, Group, Input, NativeSelect, NumberInput, Stack, Switch, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';

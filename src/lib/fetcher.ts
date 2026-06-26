@@ -1,6 +1,7 @@
 import { notifications } from '@mantine/notifications';
 import { isCloudflareAPIResponseError } from './cloudflare/types';
 import { useSyncExternalStore } from 'react';
+import { extractErrorMessage as extractErrorMessageFoxts, isErrorLikeObject } from 'foxts/extract-error-message';
 
 let cloudflareApiRequestTimestamps: number[] = [];
 const cloudflareApiRateLimitListener = new Set<() => void>();
@@ -34,6 +35,7 @@ export class HTTPError extends Error {
   data: unknown;
   status: number;
   name = 'HTTPError';
+  // eslint-disable-next-line sukka/unicorn/custom-error-definition -- intentional
   constructor(message: string, data: unknown, status: number) {
     super(message);
     this.data = data;
@@ -133,11 +135,11 @@ export function handleFetchError(error: unknown, title?: string) {
     console.error('[HTTP Error]', error.status, error.data);
     return;
   }
-  if (error instanceof Error) {
+  if (isErrorLikeObject(error)) {
     notifications.show({
       color: 'red',
       title,
-      message: `${error.name}: ${error.message}`
+      message: extractErrorMessageFoxts(error, true, false)
     });
     console.error(error);
     return;
@@ -154,15 +156,10 @@ export function handleFetchError(error: unknown, title?: string) {
 export function extractErrorMessage(error: unknown) {
   if (error instanceof HTTPError) {
     if (isCloudflareAPIResponseError(error.data)) {
-      return error.data.errors.map((error) => error.message).join('\n');
+      return error.data.errors.map((e) => e.message).join('\n');
     }
 
     return `HTTP Error ${error.status}, response: ${typeof error.data === 'string' ? error.data : JSON.stringify(error.data, null, 2)}`;
   }
-  if (error instanceof Error) {
-    return `${error.name}: ${error.message}${error.stack ? `\n${error.stack}` : ''}`;
-  }
-
-  console.error(error);
-  return 'Unknown Error, please check the console for more information';
+  return extractErrorMessageFoxts(error) || 'Unknown Error, please check the console for more information';
 }

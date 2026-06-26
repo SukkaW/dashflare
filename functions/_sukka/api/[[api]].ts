@@ -1,3 +1,5 @@
+import { extractErrorMessage } from 'foxts/extract-error-message';
+
 export const onRequest: PagesFunction = ({ request }) => {
   // const newReq = request.clone();
   const targetUrl = new URL(request.url);
@@ -35,7 +37,7 @@ export const onRequest: PagesFunction = ({ request }) => {
         })
         .catch(e => Response.json({
           name: e.name,
-          message: e.message,
+          message: extractErrorMessage(e, false, false),
           stack: e.stack
         }));
     }

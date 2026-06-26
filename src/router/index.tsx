@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components -- This is core router, we don't care */
-import { lazy, memo, useEffect } from 'react';
+import { lazy, memo, useEffect, useRef } from 'react';
 import { Navigate, Outlet, createBrowserRouter, isRouteErrorResponse, useLocation, useRouteError } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import Layout from '@/components/layout/';
@@ -168,7 +168,6 @@ export const router = createBrowserRouter([
 function Protected() {
   return (
     <NotAuthenticatedContainer fallback={<LoginRedirect />}>
-      <Outlet />
       <TokenGuard />
     </NotAuthenticatedContainer>
   );
@@ -176,7 +175,12 @@ function Protected() {
 
 function LoginRedirect() {
   const logout = useLogout();
+  const calledRef = useRef(false);
   useEffect(() => {
+    if (calledRef.current) {
+      return;
+    }
+    calledRef.current = true;
     logout(false);
   }, [logout]);
 
@@ -185,20 +189,13 @@ function LoginRedirect() {
 
 function TokenGuard() {
   const token = useToken();
-  const { state, pathname } = useLocation();
-
-  // FIXME: this is a hack to solve a race condition
-  // https://github.com/remix-run/react-router/issues/10232
-  // It is possible that the React Router flushes before the token state
-  // (which is a React state) is set
-  const tokenFromState = state?.token;
 
   if (process.env.NODE_ENV === 'development') {
-    console.log({ _info: '<ProtectRoute />', token, pathname, state, hasNoToken: !token && !tokenFromState });
+    console.log({ _info: '<TokenGuard />', token, hasNoToken: !token });
   }
 
-  if (tokenFromState || token) {
-    return null;
+  if (token) {
+    return <Outlet />;
   }
 
   return needLogin('Missing API token');
@@ -208,12 +205,8 @@ function RedirectAlreadyLoggedIn() {
   const { state } = useLocation();
   const token = useToken();
 
-  if (state?.logout) {
-    // FIXME: this is a hack to solve a race condition
-    // https://github.com/remix-run/react-router/issues/10232
-    // It is possible that the React Router flushes before the token state
-    // (which is a React state) has been set to null
-    return <Outlet />;
+  if (process.env.NODE_ENV === 'development') {
+    console.log({ _info: '<RedirectAlreadyLoggedIn />', token, state, hasNoToken: !token });
   }
 
   if (token) {

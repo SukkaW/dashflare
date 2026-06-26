@@ -6,7 +6,7 @@ import { updateCloudflareSSLVerification, useCloudflareSSLVerificationLists } fr
 import { notifications } from '@mantine/notifications';
 import { useToken } from '@/context/token';
 import { useZoneId } from '@/hooks/use-params';
-import { wait } from '@/lib/wait';
+import { wait } from 'foxts/wait';
 
 export function ChangeAllToHttp() {
   const { data, isLoading, mutate } = useCloudflareSSLVerificationLists();

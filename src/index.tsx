@@ -5,7 +5,6 @@ import { Notifications } from '@mantine/notifications';
 
 import { router } from './router';
 import { MantineProviderWithDarkMode } from './context/darkmode';
-import { TokenProvider } from './context/token';
 
 declare global {
   const process: {
@@ -19,9 +18,7 @@ declare global {
 const app = (
   <StrictMode>
     <MantineProviderWithDarkMode>
-      <TokenProvider>
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
-      </TokenProvider>
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
       <Notifications />
     </MantineProviderWithDarkMode>
   </StrictMode>

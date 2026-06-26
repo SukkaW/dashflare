@@ -28,6 +28,7 @@
     "core-js": "^3.49.0",
     "date-fns": "^4.4.0",
     "foxact": "^0.3.8",
+    "foxts": "^5.5.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "6",

@@ -7,7 +7,6 @@ import { memo, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import { useSetToken } from '@/context/token';
 import Disclaimer from '@/components/disclaimer';
-import { useNavigate } from 'react-router-dom';
 import { preloadCloudflareZoneList } from '@/lib/cloudflare/zone-list';
 
 const LoginForm = memo(() => {
@@ -23,7 +22,6 @@ const LoginForm = memo(() => {
 
   const setToken = useSetToken();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <form
@@ -43,12 +41,6 @@ const LoginForm = memo(() => {
           });
 
           setToken(token);
-
-          navigate('/', {
-            // TODO: this is a hack to solve a race condition
-            // see is-logged-in.tsx for more information
-            state: { token }
-          });
         } catch (e) {
           handleFetchError(e, 'Failed to Login');
         } finally {

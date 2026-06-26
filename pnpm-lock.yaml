@@ -73,6 +73,9 @@ importers:
       foxact:
         specifier: ^0.3.8
         version: 0.3.8(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      foxts:
+        specifier: ^5.5.1
+        version: 5.5.1
       react:
         specifier: ^19.2.7
         version: 19.2.7
@@ -1768,6 +1771,10 @@ packages:
   error-stack-parser@2.1.4:
     resolution: {integrity: sha512-Sk5V6wVazPhq5MhpO+AUxJn5x7XSXGl1R93Vn7i+zS15KDVxQijejNCrz8340/2bgLBjR9GtEG8ZVKONDjcqGQ==}
 
+  es-errors@1.3.0:
+    resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
+    engines: {node: '>= 0.4'}
+
   es-module-lexer@2.1.0:
     resolution: {integrity: sha512-n27zTYMjYu1aj4MjCWzSP7G9r75utsaoc8m61weK+W8JMBGGQybd43GstCXZ3WNmSFtGT9wi59qQTW6mhTR5LQ==}
 
@@ -1890,8 +1897,8 @@ packages:
     peerDependencies:
       eslint: '>=0.8.0'
 
-  eslint-plugin-sukka@9.9.0:
-    resolution: {integrity: sha512-atwfuL3DTIb8Vjmgw4xWvhmHq0SZ+1op8TT2i28pXexNP8yHxwqwKg6kp9RqZXJpwa3rb0RWbC+SfreyBblLjg==}
+  eslint-plugin-sukka@9.9.1:
+    resolution: {integrity: sha512-fACR9UKL9BgXZ+OqKDHbbyMRM5TAZkoHlcUWp6yVkmDQiE5kk8dfcqJWqzQ29xeCoHy/KYeuCA0ociFMUKj+RA==}
     peerDependencies:
       eslint: '>=9.29.0'
       typescript: '*'
@@ -3115,6 +3122,11 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
+  resolve@1.22.12:
+    resolution: {integrity: sha512-TyeJ1zif53BPfHootBGwPRYT1RUt6oGWsaQr8UyZW/eAm9bKoijtvruSDEmZHm92CwS9nj7/fWttqPCgzep8CA==}
+    engines: {node: '>= 0.4'}
+    hasBin: true
+
   resolve@1.22.8:
     resolution: {integrity: sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==}
     hasBin: true
@@ -3991,7 +4003,7 @@ snapshots:
   '@eslint-sukka/eslint-plugin-sukka-full@8.13.0(eslint@10.5.0)(typescript@6.0.3)':
     dependencies:
       eslint: 10.5.0
-      eslint-plugin-sukka: 9.9.0(eslint@10.5.0)(typescript@6.0.3)
+      eslint-plugin-sukka: 9.9.1(eslint@10.5.0)(typescript@6.0.3)
     optionalDependencies:
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -5474,6 +5486,9 @@ snapshots:
     dependencies:
       stackframe: 1.3.4
 
+  es-errors@1.3.0:
+    optional: true
+
   es-module-lexer@2.1.0: {}
 
   escalade@3.2.0: {}
@@ -5539,7 +5554,7 @@ snapshots:
     dependencies:
       debug: 3.2.7
       is-core-module: '@nolyfill/is-core-module@1.0.39'
-      resolve: 1.22.8
+      resolve: 1.22.12
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -5652,7 +5667,7 @@ snapshots:
       eslint: 10.5.0
       globals: 13.24.0
 
-  eslint-plugin-sukka@9.9.0(eslint@10.5.0)(typescript@6.0.3):
+  eslint-plugin-sukka@9.9.1(eslint@10.5.0)(typescript@6.0.3):
     dependencies:
       '@typescript-eslint/types': 8.62.0
       '@typescript-eslint/utils': 8.62.0(eslint@10.5.0)(typescript@6.0.3)
@@ -6799,6 +6814,14 @@ snapshots:
   resolve-from@5.0.0: {}
 
   resolve-pkg-maps@1.0.0: {}
+
+  resolve@1.22.12:
+    dependencies:
+      es-errors: 1.3.0
+      is-core-module: '@nolyfill/is-core-module@1.0.39'
+      path-parse: 1.0.7
+      supports-preserve-symlinks-flag: 1.0.0
+    optional: true
 
   resolve@1.22.8:
     dependencies:

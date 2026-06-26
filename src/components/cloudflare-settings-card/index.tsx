@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- i don't care */
 import type { SelectItem } from '@mantine/core';
 import { Card, Center, Grid, Switch, Title, createStyles, rem, Text, LoadingOverlay, TextInput, NativeSelect, Loader, Group, Button, Stack, Checkbox } from '@mantine/core';
 import { memo, useCallback, useMemo, useRef } from 'react';

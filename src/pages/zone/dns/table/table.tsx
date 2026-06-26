@@ -240,14 +240,16 @@ const DNSDataTable = memo(({
                       isRightColumnFixed && header.column.columnDef.meta?.isFixed && !isReachRightEndOfScrollArea && classes.fixedRightColumnActive
                     )}
                   >
-                    {header.isPlaceholder ? null : (
-                      <Box sx={{ whiteSpace: 'nowrap' }}>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </Box>
-                    )}
+                    {header.isPlaceholder
+                      ? null
+                      : (
+                        <Box sx={{ whiteSpace: 'nowrap' }}>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </Box>
+                      )}
                   </th>
                 );
               })}
