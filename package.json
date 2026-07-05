@@ -40,7 +40,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260702.1",
+    "@cloudflare/workers-types": "^5.20260705.1",
     "@eslint-sukka/node": "^8.13.4",
     "@eslint-sukka/react": "^8.13.4",
     "@hey-api/openapi-ts": "^0.97.1",
@@ -54,11 +54,11 @@
     "eslint-formatter-sukka": "^8.13.4",
     "react-refresh": "^0.18.0",
     "tailpack": "0.1.0-beta.3",
-    "tayori": "^0.3.2",
+    "tayori": "^0.3.8",
     "typescript": "^6.0.3",
     "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1",
     "webpack-dev-server": "^6.0.0"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.34.4"
 }

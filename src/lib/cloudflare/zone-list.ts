@@ -7,7 +7,7 @@ export function useCloudflareZoneList(pageIndex: number, perPage = 20, search = 
     {
       page: pageIndex,
       per_page: perPage,
-      ...(search ? { name: `contains:${search}` } : {})
+      ...(search && { name: `contains:${search}` })
     },
     { keepPreviousData: true }
   );
